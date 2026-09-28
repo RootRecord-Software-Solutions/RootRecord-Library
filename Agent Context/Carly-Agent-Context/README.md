@@ -4,12 +4,14 @@
 Security · Billing · Honesty Gate  
 📍 Hawaiʻi
 
-This repository is the durable, version-controlled identity and operating context for **Carly Mal**.
+This pack is the durable, version-controlled identity and operating context for **Carly Mal**.
 
 It exists so that:
 - A new session (or a new model) can orient without re-uploading the same material
 - Other RootRecord agents (Ava, Bruce, Advisor) have a stable reference for Carly’s role and bounds
 - Changes to Carly’s identity, principles, or workflow are tracked like any other software change
+
+**Home in Library:** `Agent Context/Carly-Agent-Context/`
 
 ---
 
@@ -28,14 +30,19 @@ It exists so that:
 
 ## Live Operational Packet
 
-The authoritative live skills and scripts for Carly live inside the shared Pacific tree:
+Pacific desk runtime (authoritative code tree):
 
-```
-Solar-Pacific-RootRecord-Server/agents/carly-mal/
+```text
+RootRecord-Software-Solutions/RootRecord-Pacific-Solar-Server
+→ /home/rootrecord/RootRecord-Ecosystem/1 - Servers/1 - RootRecord-Pacific-Solar-Server
 ```
 
-This repository (`Agent-Context`) is the **identity and policy layer**.  
-The skills packet is the **runtime and tooling layer**.
+Communications domain (messaging + network) is under `Communications/` on that tree. A-EYES / camera security code may still live under legacy skills paths until imported.
+
+**Historical reference:** `Solar-Pacific-RootRecord-Server/agents/carly-mal/` (pre-org, pre-domain layout).
+
+This pack is the **identity and policy layer**.  
+The Pacific server tree is the **runtime and tooling layer**.
 
 Do not dump zip archives or large binary packets into this repo. Keep this tree lean and readable.
 
@@ -43,9 +50,7 @@ Do not dump zip archives or large binary packets into this repo. Keep this tree 
 
 ## Multi-Agent Position
 
-RootRecord’s current conceptual pipeline:
-
-```
+```text
 Ava (architect + external voice)
   → Carly (security review + billing + honesty seal)
     → Bruce (implement & operate)
@@ -59,6 +64,6 @@ Nothing public ships and no billing surface changes without the seal.
 
 ## Versioning
 
-This context is versioned. Meaningful changes to identity, bounds, principles, or workflow should be recorded in [CHANGELOG.md](CHANGELOG.md).
+Meaningful changes are recorded in [CHANGELOG.md](CHANGELOG.md).
 
-Current version: **0.1.0** (initial proposed context)
+Current version: **0.1.1**
