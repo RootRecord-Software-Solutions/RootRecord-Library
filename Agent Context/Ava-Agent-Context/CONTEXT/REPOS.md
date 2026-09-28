@@ -3,10 +3,16 @@
 ## Organizational / Canonical
 | Repository | Purpose |
 |------------|--------|
-| `rootrecordsoftwaresolutions/Solar-Pacific-RootRecord-Server` | Primary skills, automations, agents, energy, desk |
+| `RootRecord-Software-Solutions/RootRecord-Pacific-Solar-Server` | Primary Pacific desk runtime — Automations, Communications, Weather, Energy domains |
 | `rootrecordsoftwaresolutions/US-Mainland-Server` | Secondary / recovery infrastructure node |
 | `rootrecordsoftwaresolutions/RootRecord-Website` | Public Next.js foundation |
 | `rootrecordsoftwaresolutions/RootRecord-Weather-Database` | Hawaiʻi weather data & media |
+| `RootRecord-Software-Solutions/RootRecord-Library` | Durable knowledge, agent context, work orders, architecture sessions |
+
+## Legacy (superseded for Pacific runtime)
+| Repository | Notes |
+|------------|--------|
+| `rootrecordsoftwaresolutions/Solar-Pacific-RootRecord-Server` | Prior skills-tree remote; Pacific runtime now lives under the org repo above |
 
 ## Product Surface (RootRecord account)
 | Repository | Purpose |
@@ -18,5 +24,5 @@
 ## Ava Identity
 | Repository | Purpose |
 |------------|--------|
-| `AvaIvy/Agent-Context` | This repository — durable identity & policy |
+| `AvaIvy/Agent-Context` | Historical identity & policy (mirrored into Library agent packs) |
 | Ava Ivy Cloud (avaivy.cloud) | Public chat / identity surface |
