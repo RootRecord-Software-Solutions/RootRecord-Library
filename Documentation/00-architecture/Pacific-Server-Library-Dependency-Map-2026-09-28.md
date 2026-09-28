@@ -3,110 +3,48 @@
 | Field | Value |
 | --- | --- |
 | **Date** | 2026-09-28 (HST) |
-| **Purpose** | Inventory every Library file that references Pacific server paths/layout; record updates |
+| **Status** | **Documentation complete** for migration planning |
 | **Runtime repo** | `RootRecord-Software-Solutions/RootRecord-Pacific-Solar-Server` |
 | **Live path** | `/home/rootrecord/RootRecord-Ecosystem/1 - Servers/1 - RootRecord-Pacific-Solar-Server` |
-| **Rule** | Update only confirmed current-state references; preserve historical session logs as written |
-| **Companion** | [Pacific-Jobs-Path-Inventory-2026-09-28.md](./Pacific-Jobs-Path-Inventory-2026-09-28.md) |
+| **Index** | [MIGRATION-DOCS-INDEX-2026-09-28.md](./MIGRATION-DOCS-INDEX-2026-09-28.md) |
 
 ---
 
-## 1. Canonical path dictionary
+## Canonical paths
 
-| Concept | Current | Historical (preserve in notes) |
+| Concept | Current | Historical |
 | --- | --- | --- |
-| GitHub runtime | `RootRecord-Software-Solutions/RootRecord-Pacific-Solar-Server` | `rootrecordsoftwaresolutions/Solar-Pacific-RootRecord-Server` |
-| Local runtime root | `…/1 - Servers/1 - RootRecord-Pacific-Solar-Server` | `~/.ollama/skills` |
+| GitHub runtime | org `RootRecord-Pacific-Solar-Server` | `Solar-Pacific-RootRecord-Server` |
+| Local runtime | Ecosystem `1 - Servers/…` | `~/.ollama/skills` |
 | Job catalog | `Automations/scripts/jobs.py` | `automations/scripts/jobs.py` |
-| Poller engine | `Automations/scripts/rootserver_poller.py` | `automations/scripts/rootserver_poller.py` |
-| cloudflared | `Communications/network/cloudflare/bin/cloudflared` | `automations/bin/cloudflared` |
-| Energy scripts | *(target)* `Energy/scripts/…` | `~/.ollama/skills/energy/` |
-| Library desk path | `…/5 - RootRecord-Library` | (unchanged) |
+| G1 archive | `Solar-Pacific-RootRecord-Server-Old` | — |
 
 ---
 
-## 2. Library inventory — files that reference server paths/layout
+## Domain status (G3)
 
-### 2.1 Updated 2026-09-28
+| Domain | Code | Docs |
+| --- | --- | --- |
+| Automations | Live | Complete |
+| Communications/network | Live CF | Complete |
+| Weather | Partial | Complete |
+| Energy / Security / System / Github | Shell | Complete + G1 notes |
+| Geology / Logs / telegram | Shell | Complete |
 
-| File | Action |
-| --- | --- |
-| Agent CONTEXT REPOS + INFRASTRUCTURE + README + CHANGELOG (×3 agents) | Current-state paths |
-| WO-SRV / WO-ECO / WO-CF / WO-MAP / WO-GH / WO-AEYES | Path + status updates |
-| Work Orders README | Status table |
-| Library README | Runtime links |
-| Grok session doc + ops worklog Session 01 | Session record |
-| **Pacific-Jobs-Path-Inventory-2026-09-28.md** | Full jobs.py residual table |
-| **This dependency map** | Pass A–C |
-
-### 2.2 Historical — not rewritten
-
-2026-09-26/27 worklogs, multi-model Session 1 architecture transcripts, PRODUCTS/WORKFLOW/IDENTITY packs without path claims.
+Residual **job** paths: see path inventory. Code import blocked on operator G2 source.
 
 ---
 
-## 3. Commit log trail
+## Doc set (complete)
 
-### Pass A — post poller confirmation
-Agent maps, WO-SRV/ECO/CF, README, changelogs, session doc, ops worklog.
-
-### Pass B — dependency mapping
-WO-MAP, WO-GH, WO-AEYES, agent READMEs, this map (initial).
-
-### Pass C — residual path documentation (docs only)
-
-| Item | Repo |
-| --- | --- |
-| Jobs path inventory | Library |
-| WO-SRV inventory checkbox closed | Library |
-| Energy / Security / System / Github / Weather / Automations / Communications / Logs / Geology / telegram READMEs | **Pacific-Solar-Server** |
-| Dependency map Pass C | Library |
+Lineage, playbook, jobs inventory, dependency map, unmigrated notes, G1 inventory, G1 95-top catalog, migration index, WO-OLD, session worklogs 01–02, agent CONTEXT updates, G3 domain READMEs.
 
 ---
 
-## 4. Pacific server domains — migration status
+## Hard stops
 
-| Domain | In Pacific repo | Path-wired | Legacy jobs |
-| --- | --- | --- | --- |
-| **Automations** | Yes | Yes (helpers relative; some abs strings remain) | Partial abs strings |
-| **Communications/network** | Yes | Mostly | cwd globe legacy; CF abs string |
-| **Weather** | Partial | Ensure present | abs string skills-prefixed |
-| **Energy** | Shell + README | No | **Yes** |
-| **Security / A-EYES** | Shell + README | No | **Yes** |
-| **Github** | Shell + README | No | **Yes** |
-| **System** (system-stats) | Shell + README | No | **Yes** |
-| **Plumbing** | No domain folder | No | **Yes** (ollama/flm) |
-| **Telegram** | Shell + README | No | **Yes** |
-| **Reports** | No domain folder | No | **Yes** (worklog) |
-| **Geology** | Shell | N/A | No jobs |
-| **Logs** | Shell + README | N/A | Log path residual |
+G2 source trees · repos.conf · systemd · Master-Prompt desk files · secrets
 
 ---
 
-## 5. Remaining unmigrated domains (import order)
-
-1. **Energy** — blocked on operator source  
-2. **Github** (catalog + sync)  
-3. **System-stats**  
-4. **Weather** full daemon  
-5. **Security / A-EYES**  
-6. **Plumbing** (may need new domain or System subfolder decision)  
-7. **Telegram**  
-8. **Reports / worklog** (may need System or Automations subfolder decision)  
-9. **Agents** packets  
-
----
-
-## 6. Documentation stop condition (met)
-
-- Current-state Library references updated or annotated  
-- Exhaustive `jobs.py` residual path table published  
-- Every Pacific domain shell has residual/import notes  
-- No code import without source  
-- Historical logs preserved  
-
-**Next operator action:** provide Energy source tree when ready for code import; until then desk continues on residual paths safely.
-
----
-
-*Map updated Pass C 2026-09-28 HST.*
+*Closed for documentation 2026-09-28 HST.*
