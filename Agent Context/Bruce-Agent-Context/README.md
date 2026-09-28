@@ -4,12 +4,14 @@
 Engineer · Builder · Systems Thinker  
 📍 Hawaiʻi
 
-This repository is the durable, version-controlled identity and operating context for **Bruce Monitor**.
+This pack is the durable, version-controlled identity and operating context for **Bruce Monitor**.
 
 It exists so that:
 - A new session (or a new model) can orient without re-uploading the same material
 - Other RootRecord agents (Ava, Carly, Advisor) have a stable reference for Bruce’s role and bounds
 - Changes to Bruce’s identity, principles, or workflow are tracked like any other software change
+
+**Home in Library:** `Agent Context/Bruce-Agent-Context/`
 
 ---
 
@@ -28,14 +30,19 @@ It exists so that:
 
 ## Live Operational Packet
 
-The authoritative live skills and scripts for Bruce live inside the shared Pacific tree:
+Pacific desk runtime (authoritative code tree):
 
-```
-Solar-Pacific-RootRecord-Server/agents/bruce-monitor/
+```text
+RootRecord-Software-Solutions/RootRecord-Pacific-Solar-Server
+→ /home/rootrecord/RootRecord-Ecosystem/1 - Servers/1 - RootRecord-Pacific-Solar-Server
 ```
 
-This repository (`Agent-Context`) is the **identity and policy layer**.  
-The skills packet is the **runtime and tooling layer**.
+Key stack Bruce monitors: `rr-rootserver-poller.service`, `Automations/scripts/` (poller + stack), `Communications/network/cloudflare/`.
+
+**Historical reference:** `Solar-Pacific-RootRecord-Server/agents/bruce-monitor/` (pre-org, pre-domain layout).
+
+This pack is the **identity and policy layer**.  
+The Pacific server tree is the **runtime and tooling layer**.
 
 Do not dump zip archives or large binary packets into this repo. Keep this tree lean and readable.
 
@@ -43,9 +50,7 @@ Do not dump zip archives or large binary packets into this repo. Keep this tree 
 
 ## Multi-Agent Position
 
-RootRecord’s current conceptual pipeline:
-
-```
+```text
 Ava (architect) → Carly (security / review) → Bruce (implement & operate) → RootRecord canonical
 ```
 
@@ -55,6 +60,6 @@ Bruce is the systems / infrastructure / operations identity.
 
 ## Versioning
 
-This context is versioned. Meaningful changes to identity, bounds, principles, or workflow should be recorded in [CHANGELOG.md](CHANGELOG.md).
+Meaningful changes are recorded in [CHANGELOG.md](CHANGELOG.md).
 
-Current version: **0.1.0** (initial proposed context)
+Current version: **0.1.1**
