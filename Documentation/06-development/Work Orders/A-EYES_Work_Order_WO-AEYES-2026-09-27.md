@@ -6,8 +6,11 @@
 | **Date**         | 2026-09-27                     |
 | **Status**       | OPEN — Ready for additions     |
 | **Owner**        | RootRecord                     |
+| **Updated**      | 2026-09-28 (HST) — path notes only |
 
 **Scope:** Reduce A-EYES archive load while producing a clean, human-viewable 1-minute daily timelapse. This document captures the current system, the math, the recommended changes, and leaves room for additional requirements.
+
+**Migration note (2026-09-28):** Job catalog path is now `Automations/scripts/jobs.py` on the Pacific server. A-EYES skill code is **not yet imported** into the Pacific domain tree; runtime commands may still resolve under legacy `~/.ollama/skills/a-eyes/` until the Security/A-EYES domain is brought in.
 
 ---
 
@@ -15,9 +18,10 @@
 
 ### 1.1 Capture Path
 
-- Scheduler: `automations/scripts/jobs.py` → `EVERY_SECONDS` → `a_eyes_frame_grab`
+- Scheduler: `Automations/scripts/jobs.py` → `EVERY_SECONDS` → `a_eyes_frame_grab`
+  - **Historical:** `automations/scripts/jobs.py` (pre-domain layout)
 - `interval_sec = 1` (1 frame per second per camera)
-- Command: `bash …/a-eyes/scripts/grab_all.sh`
+- Command: `bash …/a-eyes/scripts/grab_all.sh` (legacy skills path until import)
 - `grab_all.sh` loops channels 1–4 and calls `grab_frame.py` for each
 - `grab_frame.py`: RTSP → single JPEG → `/home/rootrecord/Database/A-EYES/frames/`
 - Crop applied at grab time (right edge % + 20 px). Left side (timestamp OSD) preserved.
@@ -25,7 +29,7 @@
 
 ### 1.2 Timelapse Path
 
-- Engine: `a-eyes/scripts/timelapse_engine.py`
+- Engine: `a-eyes/scripts/timelapse_engine.py` (legacy location until import)
 - Window: **05:00–19:00 HST** (14 hours)
 - `TARGET_TOTAL_SECONDS = 180` (3-minute master)
 - `MASTER_FPS = 68`
@@ -58,7 +62,7 @@
 
 ### 3.1 Capture Interval (primary lever)
 
-**File:** `automations/scripts/jobs.py`  
+**File:** `Automations/scripts/jobs.py`  
 **Job:** `a_eyes_frame_grab` (EVERY_SECONDS section)
 
 ```python
@@ -68,7 +72,7 @@
 
 ### 3.2 Timelapse Output Length & FPS
 
-**File:** `a-eyes/scripts/timelapse_engine.py` (or env overrides)
+**File:** `a-eyes/scripts/timelapse_engine.py` (or env overrides; path may still be legacy until domain import)
 
 ```bash
 A_EYES_TIMELAPSE_TOTAL_SEC = 60     # was 180
@@ -84,21 +88,15 @@ A_EYES_TIMELAPSE_FPS       = 20     # was 68  (15–24 acceptable)
 | Master FPS                 | 20                | Matches real capture density|
 | Frame use                  | Near 1:1          | No heavy duplication        |
 
-**Alternative pairings** (same visual speed as current 3-min version):
-
-- 1 min + interval **3 s** → same visual speed, ~67k JPEGs/day
-- 1 min + interval **5 s** → **recommended** (good motion + storage)
-- 1 min + interval **10 s** → aggressive storage cut, still usable
-
 ---
 
 ## 4. Implementation Tasks
 
-1. Change `interval_sec` from `1` → `5` in `automations/scripts/jobs.py` (`a_eyes_frame_grab`).
-2. Set `TARGET_TOTAL_SECONDS = 60` and `MASTER_FPS = 20` (env vars preferred so code stays default-safe).
-3. Push to GitHub → auto-reload will apply (`schedule-stack-reload`). No manual restart required for ordinary pushes.
-4. Verify after next daily window: ~40k frames archived, master is ~60 s at ~20 FPS, no excessive stretching.
-5. Optional: confirm live `/aeyes` page still refreshes correctly (it is independent of archive interval).
+1. Change `interval_sec` from `1` → `5` in `Automations/scripts/jobs.py` (`a_eyes_frame_grab`).
+2. Set `TARGET_TOTAL_SECONDS = 60` and `MASTER_FPS = 20` (env vars preferred).
+3. Push → auto-reload (`schedule-stack-reload`).
+4. Verify after next daily window.
+5. Optional: import A-EYES into Pacific `Security/` (or dedicated domain) and rewire job commands.
 
 ---
 
@@ -106,25 +104,20 @@ A_EYES_TIMELAPSE_FPS       = 20     # was 68  (15–24 acceptable)
 
 | Path                                      | Role                                              |
 |-------------------------------------------|---------------------------------------------------|
-| `automations/scripts/jobs.py`             | Canonical scheduler — capture interval lives here |
-| `a-eyes/scripts/grab_all.sh`              | Loops ch1–4, calls `grab_frame.py`                |
-| `a-eyes/scripts/grab_frame.py`            | Single RTSP grab + crop + write to `frames/`      |
-| `a-eyes/scripts/timelapse_engine.py`      | Hourly compile + daily stitch (`TARGET_TOTAL_SECONDS`, `MASTER_FPS`) |
+| `Automations/scripts/jobs.py`             | Canonical scheduler — capture interval            |
+| `a-eyes/scripts/grab_all.sh`              | Loops ch1–4 (legacy path until import)            |
+| `a-eyes/scripts/grab_frame.py`            | Single RTSP grab + crop                           |
+| `a-eyes/scripts/timelapse_engine.py`      | Hourly compile + daily stitch                     |
 | `a-eyes/scripts/cam_server.py`            | Live stills server (`127.0.0.1:8791`)             |
 | `a-eyes/store/CONNECTION.json`            | RTSP + crop config (secrets stay local)           |
-| `a-eyes/SKILL.md`                         | Skill contract / rules of engagement              |
-| `automations/SKILL.md`                    | How to add jobs + deploy rules                    |
+| **Historical:** `automations/scripts/jobs.py` | Pre-domain-layout scheduler path                |
 
 ---
 
 ## 6. Open Items / Room for Additions
 
-This section is intentionally left open. Add further requirements below (multi-channel master, different windows, retention policy, GIF export, storage quotas, etc.).
-
 **Additional requirements:**
 
-- 
-- 
 - 
 - 
 - 
@@ -135,11 +128,10 @@ This section is intentionally left open. Add further requirements below (multi-c
 
 - Changing only `TARGET_TOTAL_SECONDS` does **not** reduce capture rate or archive load.
 - The capture-rate lever is exclusively `interval_sec` in `jobs.py`.
-- Timelapse currently uses **channel 1 only**. Expanding to multi-channel master is a separate task.
-- Deploy path is GitHub push → `github_sync_all` → `schedule-stack-reload` (standing rule).
+- Deploy path is GitHub push → `github_sync_all` → `schedule-stack-reload`.
 - Never invent frames. No stream = error, not a placeholder image.
 - Secrets (RTSP password, public password) never go in git.
 
 ---
 
-*Document prepared from live repo inspection of `a-eyes/` and `automations/` on 2026-09-27.*
+*Document prepared from live repo inspection of `a-eyes/` and `automations/` on 2026-09-27. Path annotations added 2026-09-28.*
