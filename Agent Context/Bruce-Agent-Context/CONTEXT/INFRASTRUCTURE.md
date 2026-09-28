@@ -1,17 +1,36 @@
 # Infrastructure Context
 
-## Solar Pacific RootRecord Server
-Primary operational environment.  
-Contains live skills, agent packets, automations, energy monitoring, communications, and desk state.
+## RootRecord Pacific Solar Server
+Primary operational environment (Hawaiʻi desk).
 
-Key paths (on desk):
-- Skills root: `~/.ollama/skills` (synced from the Pacific repo)
-- Desk live file: `/home/rootrecord/Database/intake/desk-live.txt`
+**GitHub:** `RootRecord-Software-Solutions/RootRecord-Pacific-Solar-Server`  
+**Live local path:**
+
+```text
+/home/rootrecord/RootRecord-Ecosystem/1 - Servers/1 - RootRecord-Pacific-Solar-Server
+```
+
+### Stack Bruce must monitor
+| Unit / process | Role |
+|----------------|------|
+| `rr-rootserver-poller.service` | User systemd unit for the poller engine |
+| `rootserver_poller.py` | HTTP :8799, job scheduler, tunnel ownership |
+| `poller-watch.py` | Status window; Ctrl-C stops entire stack |
+| `cloudflared` | Tunnel binary under `Communications/network/cloudflare/bin/` |
+| `network-globe-hawaii.service` | Hawaii Network Globe SSH collector (stopped with stack) |
+
+### Key paths
+- Jobs catalog: `Automations/scripts/jobs.py`
+- Stack stop/reload: `Automations/scripts/stack/`
+- cloudflared: `Communications/network/cloudflare/bin/cloudflared`
+- Token (local only): `/home/rootrecord/.cloudflared/rootserver.token`
+- Poller log: `~/.ollama/skills/logs/store/rootserver-poller.log`
+- Desk live: `/home/rootrecord/Database/intake/desk-live.txt`
 - Backups: `/home/rootrecord/Database/GITHUB/`
 - Master env: `/home/rootrecord/master/master-key.env` (never commit)
 
 ## US Mainland Server
-Secondary node providing continuity, synchronization, and recovery when the Solar Pacific root is unavailable.
+Secondary node providing continuity, synchronization, and recovery when the Pacific root is unavailable.
 
 Treat mirrored files as recovery sources; verify before assuming they are the live deployed state.
 
