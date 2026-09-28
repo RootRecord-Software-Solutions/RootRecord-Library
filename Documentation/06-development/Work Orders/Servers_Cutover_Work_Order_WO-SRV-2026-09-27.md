@@ -4,87 +4,108 @@
 | --- | --- |
 | **Work Order ID** | WO-SRV-2026-09-27 |
 | **Date** | 2026-09-27 (HST) |
-| **Status** | OPEN — Design before move |
+| **Status** | IN PROGRESS — Runtime live under Ecosystem Servers; residual legacy paths remain |
 | **Owner** | RootRecord |
-| **Related** | WO-ECO; WO-MAP; `repos.conf` skills row |
+| **Related** | WO-ECO; WO-MAP; domain wiring session 2026-09-28 |
+| **Updated** | 2026-09-28 (HST) |
 
-**Scope:** Plan and execute a safe cutover from live `~/.ollama/skills` (Solar-Pacific desk tree) toward `RootRecord-Ecosystem/1 - Servers/1 - RootRecord-Pacific-Solar-Server` without breaking poller, jobs, or github_sync. Mainland under `1 - Servers/2 - …` is in scope only when its path is intentional.
+**Scope:** Plan and execute a safe cutover from live `~/.ollama/skills` toward `RootRecord-Ecosystem/1 - Servers/1 - RootRecord-Pacific-Solar-Server` without breaking poller, jobs, or github_sync.
 
 ---
 
 ## 1. Intent
 
-The Ecosystem tree defines Servers as the long-term home for deployed runtime. Today the authoritative running code and `repos.conf` **skills** path still point at `~/.ollama/skills`. Moving directories without updating jobs, systemd units, and sync config will take the desk offline.
+The Ecosystem tree defines Servers as the long-term home for deployed runtime. Cutover moves authoritative running code into that tree under a domain-based layout (Automations, Communications, Weather, …).
 
 ---
 
-## 2. Current reality
+## 2. Current reality (2026-09-28)
 
 ### 2.1 What exists
 
 | Item | Location / status |
 | --- | --- |
-| Live skills tree | `/home/rootrecord/.ollama/skills` |
-| GitHub | `rootrecordsoftwaresolutions/Solar-Pacific-RootRecord-Server` |
-| Target local shape | `1 - Servers/1 - RootRecord-Pacific-Solar-Server` |
-| Mainland target | `1 - Servers/2 - RootRecord-US-Mainland-Server` |
-| Legacy zip | `Solar-Pacific-RootRecord-Server-Old-main.zip` (forensic; do not run) |
-| Poller / jobs | Hard-coded paths under `~/.ollama/skills/...` in many scripts |
+| **Live runtime (confirmed)** | `/home/rootrecord/RootRecord-Ecosystem/1 - Servers/1 - RootRecord-Pacific-Solar-Server` |
+| **GitHub** | `RootRecord-Software-Solutions/RootRecord-Pacific-Solar-Server` |
+| Poller unit | `rr-rootserver-poller.service` — **active** |
+| Public | `https://rootserver.rootrecord.cloud/` |
+| Jobs catalog | `…/Automations/scripts/jobs.py` |
+| cloudflared | `…/Communications/network/cloudflare/bin/cloudflared` |
+| Legacy skills tree | `~/.ollama/skills` — still referenced by some external-domain jobs |
 
 ### 2.2 Completed so far
 
 - [x] Target tree shape documented in WO-ECO
-- [x] GitHub sync healthy for skills (inplace)
-- [ ] Inventory all absolute path references
-- [ ] Decide symlink vs physical move vs dual-run period
-- [ ] Cutover with rollback plan
+- [x] GitHub org repo for Pacific Solar Server online
+- [x] Domain folders created (Automations, Communications, Weather, Energy, …)
+- [x] Automations core reorganized: `scripts/poller/`, `scripts/stack/`, `jobs.py` at scripts root
+- [x] Path wiring for Automations + Communications network + Weather ensure scripts
+- [x] Poller running from Ecosystem path (operator confirmed 2026-09-28)
+- [x] EcoFlow BLE reads, system samples, worklog scan observed healthy in poller window
+- [ ] Inventory remaining absolute path references to `~/.ollama/skills`
+- [ ] Import remaining domains (energy, a-eyes, github, plumbing, telegram) into Pacific repo
+- [ ] Update `repos.conf` skills/pacific row to Ecosystem path when catalog is ready
+- [ ] Full systemd unit path audit + reboot-test
 
-### 2.3 Known friction
+### 2.3 Observed live signals (2026-09-28 ~01:42–01:43 HST)
 
-- Hundreds of scripts assume `~/.ollama/skills`
-- User systemd units and drop-ins point at skills paths
-- Historical coupling noted in Session 02 (not permanent architecture, but real)
-
----
-
-## 3. Tasks
-
-1. Inventory path references (`jobs.py`, systemd, shell scripts, Python).
-2. Choose strategy: long-lived symlink from old path → new tree, or staged move with path variable.
-3. Update `repos.conf` local_path for skills (or new id) only when paths match.
-4. Update systemd units / drop-ins; reboot-test once.
-5. Verify poller, EcoFlow, A-EYES, weather, github_sync after cutover.
-6. Document final paths in Master-Prompt map (WO-MAP).
+- systemd: **active**
+- ENERGY snapshot: B2=100%, B1≈4.8%, src=sqlite
+- EcoFlow SUMMARY lines: river2pro + delta2 (ble/api)
+- SYSTEM samples writing under Database/SYSTEM
+- worklog_scan OK
+- One transient `ecoflow_read_cycle FAIL code=-15` (signal/timeout — not structural)
 
 ---
 
-## 4. Non-goals
+## 3. Domain layout (standing)
+
+```text
+1 - RootRecord-Pacific-Solar-Server/
+├─ Automations/scripts/
+│   ├─ rootserver_poller.py
+│   ├─ jobs.py
+│   ├─ poller/          # run, open-window, watch, internet_gate
+│   └─ stack/           # stop, do-reload, schedule-reload
+├─ Communications/
+│   ├─ network/cloudflare/{bin,config}
+│   ├─ network/scripts/
+│   └─ discord|email|slack|telegram|github/
+├─ Weather/scripts/
+├─ Energy/  Security/  System/  Logs/  Github/  Geology/
+└─ Pull.sh  Push.sh
+```
+
+---
+
+## 4. Remaining tasks
+
+1. Inventory remaining `~/.ollama/skills` absolute paths in `jobs.py` and shell helpers.
+2. Import domains one at a time (energy first recommended); rewire jobs as each lands.
+3. Align `repos.conf` local_path with Ecosystem Servers path.
+4. Audit user systemd units / drop-ins for old skills paths.
+5. Document final paths in Master-Prompt map (WO-MAP).
+
+---
+
+## 5. Non-goals
 
 - Teardown of Old-main zip / forensic tree in the same change
 - Library or Website moves
-- Changing agent persona content
+- Changing agent persona identity docs beyond CONTEXT maps (done separately)
 
 ---
 
-## 5. Key file / path reference
+## 6. Key file / path reference
 
 | Path | Role |
 | --- | --- |
-| `~/.ollama/skills` | Current live runtime |
-| `1 - Servers/1 - RootRecord-Pacific-Solar-Server` | Target |
-| `github/scripts/repos.conf` | skills row |
-| `automations/scripts/jobs.py` | Absolute paths |
+| `…/1 - Servers/1 - RootRecord-Pacific-Solar-Server` | **Live runtime root** |
+| `Automations/scripts/jobs.py` | Job catalog |
+| `Automations/scripts/stack/` | Full stack stop/reload |
+| `Communications/network/cloudflare/` | Tunnel binary + config |
+| `~/.ollama/skills` | Legacy references still in external domain jobs |
 | user systemd units | Boot persistence |
-
----
-
-## 6. Open items
-
-**Additional requirements:**
-
-- Final directory names under `1 - Servers/`
-- Whether GitHub repo is renamed when local name changes
-- 
 
 ---
 
@@ -93,8 +114,8 @@ The Ecosystem tree defines Servers as the long-term home for deployed runtime. T
 - No force-push.
 - Secrets stay out of git.
 - Prefer small reversible steps.
-- Operational restoration beats path purity; cut over only with a rollback path.
+- Operational restoration beats path purity; residual legacy job paths are acceptable until domains are imported.
 
 ---
 
-*Work order prepared 2026-09-27 HST. Update status when closed.*
+*Work order prepared 2026-09-27 HST. Updated 2026-09-28 HST after Automations domain wiring + live poller confirmation.*
