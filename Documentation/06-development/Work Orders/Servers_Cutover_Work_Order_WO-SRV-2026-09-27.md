@@ -4,10 +4,10 @@
 | --- | --- |
 | **Work Order ID** | WO-SRV-2026-09-27 |
 | **Date** | 2026-09-27 (HST) |
-| **Status** | IN PROGRESS — Runtime live under Ecosystem Servers; residual legacy paths remain |
+| **Status** | IN PROGRESS — Runtime live; inventory done; domain imports pending |
 | **Owner** | RootRecord |
-| **Related** | WO-ECO; WO-MAP; domain wiring session 2026-09-28 |
-| **Updated** | 2026-09-28 (HST) |
+| **Related** | WO-ECO; WO-MAP; path inventory 2026-09-28 |
+| **Updated** | 2026-09-28 (HST) — inventory closed |
 
 **Scope:** Plan and execute a safe cutover from live `~/.ollama/skills` toward `RootRecord-Ecosystem/1 - Servers/1 - RootRecord-Pacific-Solar-Server` without breaking poller, jobs, or github_sync.
 
@@ -31,7 +31,8 @@ The Ecosystem tree defines Servers as the long-term home for deployed runtime. C
 | Public | `https://rootserver.rootrecord.cloud/` |
 | Jobs catalog | `…/Automations/scripts/jobs.py` |
 | cloudflared | `…/Communications/network/cloudflare/bin/cloudflared` |
-| Legacy skills tree | `~/.ollama/skills` — still referenced by some external-domain jobs |
+| Legacy skills tree | `~/.ollama/skills` — still referenced by external-domain jobs |
+| **Path inventory** | Library `Documentation/00-architecture/Pacific-Jobs-Path-Inventory-2026-09-28.md` |
 
 ### 2.2 Completed so far
 
@@ -42,8 +43,9 @@ The Ecosystem tree defines Servers as the long-term home for deployed runtime. C
 - [x] Path wiring for Automations + Communications network + Weather ensure scripts
 - [x] Poller running from Ecosystem path (operator confirmed 2026-09-28)
 - [x] EcoFlow BLE reads, system samples, worklog scan observed healthy in poller window
-- [ ] Inventory remaining absolute path references to `~/.ollama/skills`
-- [ ] Import remaining domains (energy, a-eyes, github, plumbing, telegram) into Pacific repo
+- [x] **Inventory remaining absolute path references in `jobs.py`** (full table in path inventory doc)
+- [x] Domain README residual-path notes on Pacific repo (Energy, Security, System, Github, …)
+- [ ] Import remaining domains (energy first) into Pacific repo — **source required**
 - [ ] Update `repos.conf` skills/pacific row to Ecosystem path when catalog is ready
 - [ ] Full systemd unit path audit + reboot-test
 
@@ -80,8 +82,8 @@ The Ecosystem tree defines Servers as the long-term home for deployed runtime. C
 
 ## 4. Remaining tasks
 
-1. Inventory remaining `~/.ollama/skills` absolute paths in `jobs.py` and shell helpers.
-2. Import domains one at a time (energy first recommended); rewire jobs as each lands.
+1. ~~Inventory remaining `~/.ollama/skills` absolute paths in `jobs.py`~~ **Done** — see path inventory.
+2. Import domains one at a time (energy first); rewire jobs as each lands — **blocked on operator source**.
 3. Align `repos.conf` local_path with Ecosystem Servers path.
 4. Audit user systemd units / drop-ins for old skills paths.
 5. Document final paths in Master-Prompt map (WO-MAP).
@@ -92,7 +94,7 @@ The Ecosystem tree defines Servers as the long-term home for deployed runtime. C
 
 - Teardown of Old-main zip / forensic tree in the same change
 - Library or Website moves
-- Changing agent persona identity docs beyond CONTEXT maps (done separately)
+- Importing Energy (or other) code without operator-provided source
 
 ---
 
@@ -102,10 +104,8 @@ The Ecosystem tree defines Servers as the long-term home for deployed runtime. C
 | --- | --- |
 | `…/1 - Servers/1 - RootRecord-Pacific-Solar-Server` | **Live runtime root** |
 | `Automations/scripts/jobs.py` | Job catalog |
-| `Automations/scripts/stack/` | Full stack stop/reload |
-| `Communications/network/cloudflare/` | Tunnel binary + config |
+| Library path inventory | Exhaustive residual path table |
 | `~/.ollama/skills` | Legacy references still in external domain jobs |
-| user systemd units | Boot persistence |
 
 ---
 
@@ -114,8 +114,8 @@ The Ecosystem tree defines Servers as the long-term home for deployed runtime. C
 - No force-push.
 - Secrets stay out of git.
 - Prefer small reversible steps.
-- Operational restoration beats path purity; residual legacy job paths are acceptable until domains are imported.
+- Residual legacy job paths are acceptable until domains are imported.
 
 ---
 
-*Work order prepared 2026-09-27 HST. Updated 2026-09-28 HST after Automations domain wiring + live poller confirmation.*
+*Work order prepared 2026-09-27 HST. Inventory closed 2026-09-28 HST (docs only).*
