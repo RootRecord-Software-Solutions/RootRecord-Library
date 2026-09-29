@@ -108,6 +108,23 @@ bash "System/scripts/plumbing/single-flight.sh" --help 2>&1 | head -40 || true
 
 For the actual inference gate, use the operator's normal single inference test with the Pacific `run-infer.sh` path. If the local script contract requires arguments not shown above, use its documented invocation rather than inventing arguments.
 
+### NPU / FastFlowLM gate
+
+The documented NPU path is **FastFlowLM (FLM)** on `127.0.0.1:52625`. Do not mark NPU inference verified merely because `/dev/accel/accel0` exists. A live FLM runtime must be installed and reachable.
+
+Use these read-only checks before any inference claim:
+
+```bash
+find "$HOME" -type f -name flm -perm -111 2>/dev/null | head -20
+ls -la "$HOME/.local/opt/fastflowlm" 2>&1 || true
+systemctl status ava-flm.service --no-pager -l 2>&1 || true
+curl -sf -m 2 "http://127.0.0.1:52625/v1/models" || true
+```
+
+If the documented FastFlowLM binary/runtime or service is absent, record **NPU runtime unavailable** and stop the NPU verification gate. Do not invent an installer, restore an undocumented service, or substitute stock Ollama as proof of NPU execution. CPU/Ollama fallback may be verified separately, but it does not satisfy an NPU verification claim.
+
+Current operator evidence on 2026-09-28 showed `/dev/accel/accel0` present but no FastFlowLM binary under the checked home tree and no `ava-flm.service`. Therefore the NPU gate remains blocked until an authorized/documented FastFlowLM installation procedure is available and the live `:52625` endpoint is verified.
+
 ```bash
 bash "System/scripts/plumbing/run-infer.sh" <operator-approved-test-arguments>
 ```
