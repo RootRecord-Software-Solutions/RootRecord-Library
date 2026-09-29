@@ -46,7 +46,7 @@ Work-Orders/
 | ID | Title | Priority | Status | File |
 |----|-------|----------|--------|------|
 | **WO-ECO-001** | Energy domain import (EcoFlow + hybrid reports) | P0 | Phase 1 **COMPLETE** on org Pacific — actions path LIVE | [WO](./WO-ECO-001-Energy-Domain-Import.md) · [Action Plan](./WO-ECO-001-Action-Plan.md) |
-| **WO-SRV-001** | Residual jobs path rewire | P0 | In progress — Energy actions + Plumbing + Telegram + A-Eyes source paths landed; runtime verification/legacy retirement remain | [WO](./WO-SRV-001-Residual-Jobs-Path-Rewire.md) |
+| **WO-SRV-001** | Residual jobs path rewire | P0 | Draft — blocked on WO-ECO-001 (and later domain imports); retained as reference while WO-SRV-2026-09-27 carries the active cutover | [WO](./WO-SRV-001-Residual-Jobs-Path-Rewire.md) |
 | **WO-RPT-001** | Reports / worklog domain import | P0 | **Foundation LIVE** | [WO](./WO-RPT-001-Reports-Worklog-Domain-Import.md) · [Action Plan](./WO-RPT-001-Action-Plan.md) |
 | **WO-WEB-001** | Public status / solar board alignment | P1 | Draft | [WO](./WO-WEB-001-Public-Status-Solar-Board.md) |
 | **WO-COM-001** | Communications surface | P1 | Draft — Telegram residual next | [WO](./WO-COM-001-Communications-Surface.md) |
