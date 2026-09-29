@@ -3,7 +3,7 @@
 | Field | Value |
 |-------|--------|
 | **Priority** | P0 |
-| **Status** | **IN PROGRESS** — Phase A+B started 2026-09-28 ~19:00 HST |
+| **Status** | **Phase B LIVE** — desk soak confirmed 2026-09-28 ~19:04 HST |
 | **Target** | Pacific `Reports/` on org `RootRecord-Pacific-Solar-Server` |
 | **Data home** | `/home/rootrecord/Database/WORKLOG/` (unchanged) |
 | **Human narrative** | Library `Documentation/01-operations/` (templates + active logs) |
@@ -38,33 +38,43 @@ and layer enhancements so migration progress itself is documented automatically.
 | Phase | Work | Status |
 |-------|------|--------|
 | **A** | `Reports/` shell + README on Pacific; Library WO + index | **DONE** 2026-09-28 |
-| **B** | Port `worklog_lib.sh` / `worklog_once.sh` / `worklog_poller.sh`; rewire `worklog_scan` | **DONE** (await desk soak) |
+| **B** | Port scripts; rewire `worklog_scan`; desk soak | **LIVE** 2026-09-28 ~19:04 HST |
 | **C** | Daily roll-up → Library Session template (structured summary) | OPEN |
 | **D** | Weekly archive job implementing WO-ARCH | OPEN |
-| **E** | G1 `reports/` `MIGRATED.md` + Old README + inventory map | OPEN after B soak |
+| **E** | G1 `reports/` `MIGRATED.md` + Old README + inventory map | OPEN (B soak done — ready) |
 
 ## Acceptance criteria
 
-1. `worklog_scan` in Pacific `jobs.py` points only at `Reports/scripts/` (no `~/.ollama/skills/reports`)
-2. One successful scan writes/updates `Database/WORKLOG/worklog_current.md` under poller
-3. Secrets/transcript paths remain pruned; scrub_log still runs against master-key.env
-4. Library WO status tracks phases; Pacific `Reports/README.md` matches live state
-5. Phase C/D optional until operator schedules them — do not block B LIVE on C/D
+1. [x] `worklog_scan` in Pacific `jobs.py` points only at `Reports/scripts/`
+2. [x] Successful scan: `OK wrote/updated /home/rootrecord/Database/WORKLOG/worklog_current.md`
+3. [x] Domain tags + `source_job=worklog_scan` present in log lines
+4. [x] Library WO + Pacific README track live state
+5. Phase C/D optional — do not block B LIVE
+
+## Soak evidence (operator window, 2026-09-28 ~19:04 HST)
+
+```text
+OK wrote/updated /home/rootrecord/Database/WORKLOG/worklog_current.md
+… domain=Database | source_job=worklog_scan
+… domain=Automations | source_job=worklog_scan
+… domain=Reports | source_job=worklog_scan
+… domain=System | source_job=worklog_scan
+NEW_DIR …/Reports | domain=Reports
+```
 
 ## Source inventory
 
 | Gen | Path | Role |
 |-----|------|------|
-| G2 live residual | `Solar-Pacific-RootRecord-Server/reports/scripts/worklog_*.sh` | Import source |
-| G1 archive | `Solar-Pacific-RootRecord-Server-Old/reports/` | Diff-only later |
+| G2 residual | `Solar-Pacific-RootRecord-Server/reports/scripts/worklog_*.sh` | Superseded for live path |
+| G1 archive | `Solar-Pacific-RootRecord-Server-Old/reports/` | Diff-only; Phase E marker |
 | G1 cousins | `hourly-clip-reports/`, `day-board-boot/`, `merged-morning/` | Not this WO |
 | Library | `01-operations/templates/` | Human templates |
-| Library | WO-ARCH-2026-09-27 | Weekly archive rules |
+| Library | WO-ARCH-2026-09-27 | Weekly archive → Phase D |
 
 ## Risks
 
-- Path spaces on Pacific Ecosystem tree — always double-quote bash strings
-- Double-running G2 poller + Pacific job if both enabled
+- Double-running G2 standalone `worklog_poller.sh` if still enabled — prefer jobs only
 - Scrub miss if secrets only in files not listed in master-key.env
 
 ## Notes
@@ -73,4 +83,4 @@ and layer enhancements so migration progress itself is documented automatically.
 - A-Eyes clips link from Reports later; they are not owned here
 - Standing policy: one domain at a time; no bulk G1 merge
 
-*Opened and Phase A+B executed 2026-09-28 HST.*
+*Phase B LIVE 2026-09-28 ~19:04 HST.*
