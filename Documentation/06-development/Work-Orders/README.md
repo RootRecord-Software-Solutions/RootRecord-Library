@@ -28,7 +28,7 @@ Work-Orders/
 | ID | Title | Status | File |
 | --- | --- | --- | --- |
 | WO-ECO-2026-09-27 | Ecosystem migration & repository foundation | **IN PROGRESS** — Pacific + Energy + System + Plumbing LIVE | [WO](./Ecosystem_Migration_Work_Order_WO-ECO-2026-09-27.md) |
-| WO-SRV-2026-09-27 | Pacific runtime path cutover (G2 → G3) | **IN PROGRESS** — Energy actions + Plumbing LIVE; Telegram / A-Eyes residual | [WO](./Servers_Cutover_Work_Order_WO-SRV-2026-09-27.md) |
+| WO-SRV-2026-09-27 | Pacific runtime path cutover (G2 → G3) | **IN PROGRESS** — Pacific source paths landed for active residuals; runtime verification + legacy retirement remain | [WO](./Servers_Cutover_Work_Order_WO-SRV-2026-09-27.md) |
 | **WO-RPT-001** | Reports / worklog domain import | **Foundation LIVE** (A–E) | [WO](./WO-RPT-001-Reports-Worklog-Domain-Import.md) · [Action Plan](./WO-RPT-001-Action-Plan.md) |
 | WO-MAP-2026-09-27 | Master-Prompt repository ownership map | OPEN | [WO](./MasterPrompt_RepoMap_Work_Order_WO-MAP-2026-09-27.md) |
 | WO-OLD-2026-09-28 | Selective recovery from Solar-Pacific-…-Old (G1) | OPEN — scheduler trio **MIGRATED**; other packets blocked on G2→G3 | [WO](./Old_Server_Selective_Recovery_Work_Order_WO-OLD-2026-09-28.md) |
@@ -46,7 +46,7 @@ Work-Orders/
 | ID | Title | Priority | Status | File |
 |----|-------|----------|--------|------|
 | **WO-ECO-001** | Energy domain import (EcoFlow + hybrid reports) | P0 | Phase 1 **COMPLETE** on org Pacific — actions path LIVE | [WO](./WO-ECO-001-Energy-Domain-Import.md) · [Action Plan](./WO-ECO-001-Action-Plan.md) |
-| **WO-SRV-001** | Residual jobs path rewire | P0 | In progress — Energy actions + Plumbing **done**; Telegram next | [WO](./WO-SRV-001-Residual-Jobs-Path-Rewire.md) |
+| **WO-SRV-001** | Residual jobs path rewire | P0 | In progress — Energy actions + Plumbing + Telegram + A-Eyes source paths landed; runtime verification/legacy retirement remain | [WO](./WO-SRV-001-Residual-Jobs-Path-Rewire.md) |
 | **WO-RPT-001** | Reports / worklog domain import | P0 | **Foundation LIVE** | [WO](./WO-RPT-001-Reports-Worklog-Domain-Import.md) · [Action Plan](./WO-RPT-001-Action-Plan.md) |
 | **WO-WEB-001** | Public status / solar board alignment | P1 | Draft | [WO](./WO-WEB-001-Public-Status-Solar-Board.md) |
 | **WO-COM-001** | Communications surface | P1 | Draft — Telegram residual next | [WO](./WO-COM-001-Communications-Surface.md) |
