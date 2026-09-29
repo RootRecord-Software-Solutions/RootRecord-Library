@@ -4,7 +4,7 @@
 | --- | --- |
 | **Work Order ID** | WO-SRV-2026-09-27 |
 | **Status** | **IN PROGRESS** — G3 runtime PASS: network globe, BLE owner, cam server, frame grab, System sampling, Reports worklog, Plumbing non-NPU, and read-only `solar-gate-status`. Open: Telegram runtime verification after token provisioning (model availability also needs verification), Energy actuating actions + timelapse VERIFY PENDING, poller runtime recheck after the canonical Database-root path correction/restart, NPU BLOCKED, poller §5 gate open |
-| **Updated** | 2026-09-29 ~01:11 HST — poller Database-root path correction landed; operator restart/recheck underway |
+| **Updated** | 2026-09-29 ~01:19 HST — poller restarted on canonical Database root: PASS; Telegram relay poll/auth PASS (models still missing) |
 
 **Policy:** Do not run the old desk as the poller host.
 
@@ -253,3 +253,11 @@ Retirement eligibility (after this evidence): Security/Cameras cam server + fram
 - **Plumbing non-NPU — PASS** (00:57 HST). **Energy `solar-gate-status` — PASS (read-only)**; the actuating actions stay VERIFY PENDING.
 - **G2 retired** after a dependency check: `~/.ollama/skills/energy/scripts/actions/solar-gate-status.sh` and `~/.ollama/skills/plumbing/scripts/ollama-warmup.sh`. Backup `/home/rootrecord/Database/GITHUB/g2-retire.bak-20260929-005845/`; MIGRATED.md placed. Kept: G2 `single-flight.sh`, `run-ollama.sh` and `run-infer.sh` (the G2 Telegram relay references them), `flm-warmup.sh`, `npu-status.sh`, and the Energy actuating actions.
 - **Open — poller log / poller paths:** not moved; they need a poller restart. See Next #1.
+
+## Poller realign + restart — 2026-09-29 ~01:12 HST
+
+- Evidence: `2 - RootRecord-Database/Logs/Migration/g3-poller-realign-evidence-20260929T111731Z.md`. Backup `/home/rootrecord/Database/GITHUB/g3-poller.bak-20260929-011046/`.
+- **Poller paths + log — PASS.** Pacific `d9f074b` (`rootserver_poller.py` ENERGY_ROOT/system-status, `run-poller.sh` + `open-poller-window.sh` POLLER_LOG) plus unit `Environment=POLLER_LOG` and `logging.conf` append targets → canonical `Logs/Automations/automations_current.log`. One restart 01:11:28 (old PID ignored SIGTERM, SIGKILL at 30 s); MainPID 804007, NRestarts 0, one poller + one cloudflared. Status line B2=85% = fresh `delta2-last.json` 85; served system-status.json = canonical file.
+- **Github `common.sh` — LANDED** (Pacific `75d86f2`): DATABASE_ROOT → canonical; BAK_ROOT pinned to `/home/rootrecord/Database/GITHUB` (outside the Database git tree).
+- **Log git churn — BLOCKED:** Database `.gitignore` rules for `Logs/Energy/ava-ecoflow-ble.log` and `Logs/Automations/automations_current.log` added (`a05805a`) but both files are tracked; needs an owner-approved `git rm --cached`.
+- **Telegram relay — PASS (poll/auth), replies BLOCKED:** PID 804326 up and single, no 401/Unauthorized; `*-telegram` models absent. G2 `council-relay.py`, `ensure-relay.sh`, `run-ollama.sh`, `run-infer.sh` RETIRED (skills `8297c26`); G2 `single-flight.sh` kept (`npu-status.sh`).
