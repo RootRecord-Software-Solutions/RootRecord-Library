@@ -4,7 +4,7 @@
 | --- | --- |
 | **Work Order ID** | WO-ECO-2026-09-27 |
 | **Date** | 2026-09-27 (HST) |
-| **Status** | IN PROGRESS — Pacific runtime cut over to Ecosystem Servers path |
+| **Status** | IN PROGRESS — Pacific runtime cut over to Ecosystem Servers path; G3 runtime verification partial (see WO-SRV status and Next, 2026-09-29 ~00:52 HST); Master-Prompt links and out-of-scope domain imports still open |
 | **Owner** | RootRecord |
 | **Related** | Library online; WO-SRV; domain wiring 2026-09-28 |
 | **Updated** | 2026-09-29 (HST) |
@@ -134,6 +134,7 @@ RootRecord-Ecosystem
 - [ ] Website continues via existing mirror
 - [ ] Node: leave placeholder
 - [x] **Resolved 2026-09-29:** the active Pacific source paths now use the canonical Ecosystem Database root `/home/rootrecord/RootRecord-Ecosystem/2 - RootRecord-Database`. The older `/home/rootrecord/Database/` tree is retained only where historical/runtime evidence or operator-controlled workflows still reference it; it is not the active Database authority. See WO-DATA for the boundary record.
+  - *Desk check 2026-09-29 ~00:52 HST:* some active Pacific sources still hardcode the old root: plumbing `single-flight.sh` (`STATE_DIR`) and `flm-warmup.sh`; Energy `solar-gate-{status,arm,disarm}.sh`; `ble-owner.py` LOG/PID and `devices.conf` `ble_log`. The running poller log is also still at `/home/rootrecord/Database/Logs/Automations/`. Tracked in WO-SRV Next #1; see `2 - RootRecord-Database/Logs/Migration/g3-energy-plumbing-evidence-20260929T104618Z.md`.
 
 ---
 

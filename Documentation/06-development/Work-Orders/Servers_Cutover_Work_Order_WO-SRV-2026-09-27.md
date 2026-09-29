@@ -3,8 +3,8 @@
 | Field | Value |
 | --- | --- |
 | **Work Order ID** | WO-SRV-2026-09-27 |
-| **Status** | **IN PROGRESS** — Pacific source paths landed for active residuals; runtime verification + legacy retirement remain |
-| **Updated** | 2026-09-28 — continued migration audit |
+| **Status** | **IN PROGRESS** — G3 runtime PASS: network globe, BLE owner, cam server, frame grab, System sampling, Reports worklog (their G2 files retired). Open: Telegram FAIL (no token, no `*-telegram` models), Plumbing FAIL (state path on old Database root), Energy actions + timelapse VERIFY PENDING, NPU BLOCKED, poller §5 gate open |
+| **Updated** | 2026-09-29 ~00:52 HST — G3 runtime verification and partial G2 retirement |
 
 **Policy:** Do not run the old desk as the poller host.
 
@@ -89,10 +89,15 @@
 
 ## Next
 
-1. Verify G3 runtime behavior for Telegram, A-Eyes, Energy actions, and the Pacific poller  
-2. After successful verification, retire each corresponding legacy function immediately and document old → new paths  
-3. Final grep of `jobs.py` + cwd cleanup  
-4. Move this work order to `Documentation/06-development/Work-Orders/Complete/` only after all acceptance criteria are satisfied
+*Refreshed 2026-09-29 ~00:52 HST.* Done tonight: globe and BLE owner cut over and PASS; cam server, frame grab, System sampling and Reports worklog PASS; their G2 executables retired (see sections below).
+
+1. **Database-root drift (blocks the Plumbing and Energy-actions PASS):** these files still hardcode `/home/rootrecord/Database`: `System/scripts/plumbing/single-flight.sh` (`STATE_DIR`) and `flm-warmup.sh` (LOG); `Energy/scripts/actions/solar-gate-{status,arm,disarm}.sh`; `Energy/scripts/ble/ble-owner.py` LOG/PID defaults and `devices.conf` `ble_log`. The running poller also still writes `/home/rootrecord/Database/Logs/Automations/automations_current.log`. First decide whether state files (single-flight holder, `solar-gate-state.json`) should be git-ignored in the auto-synced Database repo. Then realign and re-run the Plumbing and `solar-gate-status` checks.
+2. **Telegram:** the operator provisions `TELEGRAM_AVA_TOKEN` and the `ava-/bruce-/carly-telegram` Ollama models; then run runbook §1. After it passes, retire G2 `council-relay.py` and G2 plumbing `single-flight.sh` / `run-ollama.sh` / `run-infer.sh`, which the retained G2 relay still references.
+3. **Energy actuating actions:** an operator-approved hardware test (arm/disarm, AC always-on).
+4. **Security/Cameras timelapse:** observe an hourly compile in the 05–19 HST window; then retire G2 `grab_frame.py` and the timelapse scripts.
+5. **NPU/FLM:** blocked until FastFlowLM is installed.
+6. Re-score the Pacific poller (§5) once Telegram passes. Then do a final grep of `jobs.py` and clean up cwd.
+7. Move this work order to `Documentation/06-development/Work-Orders/Complete/` only after all acceptance criteria are satisfied.
 
 Import each residual function into its **existing** Pacific folder; rewire jobs; verify; then retire the completed legacy function immediately. No parallel names.
 
@@ -232,9 +237,10 @@ Retirement eligibility (after this evidence): Security/Cameras cam server + fram
 
 ## Energy status, Plumbing gate, B1 reading — 2026-09-29
 
-- Evidence: `2 - RootRecord-Database/Logs/Migration/g3-energy-plumbing-evidence-20260929T104618Z.md`. Poller not restarted; `jobs.py` and credentials unchanged.
-- **Energy `solar-gate-status` — PASS.** Read the script first: it only reads `/home/rootrecord/Database/ENERGY/ports/solar-gate-state.json`, with no BLE and no writes. Ran it once at 00:43 HST: `WAITING` / `No data - solar gate state not written yet` (exit 2). That is the correct answer, because the gate has never been armed. **Actuating actions** (arm/disarm, AC always-on on/off) stay **VERIFY PENDING**: testing them changes hardware and needs operator approval.
-- **Plumbing non-NPU — PASS (after fix).** The first single-flight test failed with exit 126 because Pacific `run-infer.sh`, `run-ollama.sh` and `single-flight.sh` had lost their exec bit in the migration (git 100644; the G2 copies are 755). This also broke the relay's `RUN_INFER` path. I restored mode 775 (backup `/home/rootrecord/Database/GITHUB/g3-plumbing.bak-20260929-004500/`). Retest at 00:45 HST: one `qwen2.5:1.5b-instruct-q8_0` inference through the Pacific gate returned `Ok` (exit 0); a parallel run was refused (exit 75); the holder was written and then cleared under `/home/rootrecord/Database/GITHUB/plumbing/state`. **NPU/FLM stays BLOCKED.**
-- **G2 retired** after a dependency check (G2 tree, systemd user/system units, cron, rc files, Pacific, processes): `~/.ollama/skills/energy/scripts/actions/solar-gate-status.sh` and `~/.ollama/skills/plumbing/scripts/ollama-warmup.sh` (the only remaining references are the dormant G2 `jobs.py` and docs). Backup: `/home/rootrecord/Database/GITHUB/g2-retire.bak-20260929-004619/`; `MIGRATED.md` placed; `SKILL.md` kept. Not retired: G2 `single-flight.sh`, `run-ollama.sh` and `run-infer.sh`, because the retained G2 Telegram relay (`council-relay.py`, `relay.conf`) points at them; `flm-warmup.sh` (NPU BLOCKED); `npu-status.sh` (no Pacific counterpart).
-- **Telegram — second blocker found.** The relay's voice models `ava-telegram`, `bruce-telegram` and `carly-telegram` are not in `ollama list`, so relay inference would fail even with a token.
-- **B1 = 0% (River 2 Pro) — finding only, not migration scope.** The data comes from the EcoFlow cloud API (`source: api`), not BLE. The values were frozen at `soc=26%` for 40 min (23:40–00:19 HST). After a 5-minute gap in reads, every read since 00:24:37 HST says `soc=0%` with the same outputs. This is a late report of a real discharge or an API/device artifact. It started before both cutovers. Check the unit's display.
+- Evidence: `2 - RootRecord-Database/Logs/Migration/g3-energy-plumbing-evidence-20260929T104618Z.md` (including a correction section). Poller not restarted; `jobs.py` and credentials unchanged.
+- **Energy `solar-gate-status` — VERIFY PENDING.** Read the script first: it only reads `solar-gate-state.json`, with no BLE and no writes. Ran it once at 00:43 HST: `WAITING` / `No data - solar gate state not written yet` (exit 2), the correct answer because the gate has never been armed. But it and `solar-gate-arm/disarm.sh` hardcode the old `/home/rootrecord/Database/ENERGY/ports/`, while `Energy/lib/paths.py` moved to the canonical Database root at 00:42 HST. **Actuating actions** stay VERIFY PENDING (a hardware change needs approval).
+- **Plumbing non-NPU — FAIL (state path); gate itself works.** The first test failed with exit 126: Pacific `run-infer.sh`, `run-ollama.sh` and `single-flight.sh` had lost their exec bit in the migration (git 100644; the G2 copies are 755), which also broke the relay's `RUN_INFER`. I restored mode 775 (backup `/home/rootrecord/Database/GITHUB/g3-plumbing.bak-20260929-004500/`; Pacific `cbe57eb`). Retest at 00:45 HST: one inference through the Pacific gate returned `Ok`; a parallel run was refused (exit 75). But state went to the old `/home/rootrecord/Database/GITHUB/plumbing/state`, and the runbook (revised 00:46 HST) requires the canonical root. **NPU/FLM BLOCKED.**
+- **G2 retirement for these rows reverted.** `solar-gate-status.sh` and `ollama-warmup.sh` were retired at 00:46 HST and then restored byte-identical from `/home/rootrecord/Database/GITHUB/g2-retire.bak-20260929-004619/` once the rows no longer passed. Their `MIGRATED.md` files were removed.
+- **G2 A-Eyes cam server retired** (cam-server PASS re-checked; evidence `2 - RootRecord-Database/Logs/Migration/g2-retire-aeyes-cam-evidence-20260929T105103Z.md`): `~/.ollama/skills/a-eyes/scripts/cam_server.py` and `ensure_cam_server.sh` → Pacific `Security/Cameras/`. Backup: `/home/rootrecord/Database/GITHUB/g2-retire.bak-20260929-005103/`. The earlier blocker, G2 `install_aeyes_web.sh`, turned out to be a manual one-shot installer for the dormant G2 poller that nothing invokes, so it doesn't block. Kept: `grab_frame.py` (G2 `timelapse_engine.py` imports it; timelapse pending), the timelapse scripts, `install_aeyes_web.sh` (obsolete; do not run).
+- **Telegram — second blocker.** The relay's voice models `ava-telegram`, `bruce-telegram` and `carly-telegram` are not in `ollama list`, so relay inference would fail even with a token.
+- **B1 = 0% (River 2 Pro) — finding only, not migration scope.** The data comes from the EcoFlow cloud API (`source: api`), not BLE. It was frozen at `soc=26%` for 40 min (23:40–00:19 HST); after a 5-minute gap in reads, every read since 00:24:37 HST says `soc=0%` with the same outputs (the canonical-root `river2pro-last.json` agrees). This is a late report of a real discharge or an API/device artifact, and it started before both cutovers. Check the unit's display.

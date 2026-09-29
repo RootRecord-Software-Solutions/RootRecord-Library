@@ -4,7 +4,7 @@
 | --- | --- |
 | **Work Order ID** | WO-GH-2026-09-27 |
 | **Status** | **IN PROGRESS** — Pacific `Github/` sync **LIVE**; website/mainland still disabled |
-| **Updated** | 2026-09-28 ~17:11 HST |
+| **Updated** | 2026-09-29 ~00:52 HST |
 
 **Scope:** Catalog + auto-sync under Pacific; org remotes for canonical three; retire non-canonical clutter when convenient.
 
@@ -28,7 +28,7 @@
 - [ ] Enable website when mirror worktree exists under `Database/GITHUB/worktrees/website`
 - [ ] Enable mainland when path is a real git clone
 - [ ] Delete non-canonical user-account Library repo if still present — 2026-09-29 ~00:28 HST desk check: `git ls-remote git@github.com:rootrecordsoftwaresolutions/RootRecord-Library.git` → `ERROR: Repository not found` (control: org Library returned `main` = `e28b1da`); the public URL also returns 404. Likely already deleted, but a private repo the desk key cannot read looks the same — confirm in the GitHub account before ticking.
-- [ ] Optional: stop publishing skills to historical Solar-Pacific remote when G2 is fully retired — 2026-09-29 assessment: **not yet.** G2 still hosts live runtime (`network-globe-hawaii.service` collector and `ava-ecoflow-ble.service` owner; Pacific copies staged, units not repointed) and residual executables (`a-eyes` `cam_server.py`, `ensure_cam_server.sh`, `grab_frame.py`, timelapse; Telegram, plumbing, Energy actions pending G3). The `skills` row (enabled=1) is also what publishes the retirement `MIGRATED.md` markers (last push `83e10bd`). Prerequisites: both unit repoints done, remaining G2 executables retired, then set `skills` enabled=0 in Pacific `Github/scripts/repos.conf`.
+- [ ] Optional: stop publishing skills to historical Solar-Pacific remote when G2 is fully retired — 2026-09-29 assessment: **not yet.** *Update ~00:52 HST:* both units were repointed to Pacific and PASS (00:33 / 00:35 HST), and no process now runs from `~/.ollama/skills`. Still pending G3: the residual G2 executables — `a-eyes` `grab_frame.py` and timelapse, the Telegram relay, plumbing `single-flight.sh` / `run-*.sh` / `*-warmup.sh`, and Energy actions. Until they are retired, the `skills` row must keep publishing. The `skills` row (enabled=1) is also what publishes the retirement `MIGRATED.md` markers (last push `83e10bd`). Prerequisites: both unit repoints done, remaining G2 executables retired, then set `skills` enabled=0 in Pacific `Github/scripts/repos.conf`.
 
 ## Catalog home
 
