@@ -130,7 +130,7 @@ curl -sf -m 2 "http://127.0.0.1:52625/v1/models" || true
 
 If the documented FastFlowLM binary/runtime or service is absent, record **NPU runtime unavailable** and stop the NPU verification gate. Do not invent an installer, restore an undocumented service, or substitute stock Ollama as proof of NPU execution. CPU/Ollama fallback may be verified separately, but it does not satisfy an NPU verification claim.
 
-Current operator evidence on 2026-09-29 showed `/dev/accel/accel0` present but no FastFlowLM binary under the checked home tree and no `ava-flm.service`. Therefore the NPU gate remains blocked until an authorized/documented FastFlowLM installation procedure is available and the live `:52625` endpoint is verified.
+Operator installation evidence on 2026-09-29 shows the AMD NPU prerequisite stack has now been installed: `amdxdna-dkms 7.0.0-rc1+git20260310.6b13cb8f4-resolute1`, `libxrt-npu2 1:2.25.0-4~resolute1`, and `libxrt2`. `/dev/accel/accel0` is present and `modinfo amdxdna` resolves the installed driver and supported NPU firmware entries. The DKMS install emitted a BUILD_EXCLUSIVE warning and did not build the module for the current kernel/config, so this is **prerequisite stack installed, NPU runtime not yet verified**. No `flm` binary or FastFlowLM service has been established by this evidence. A reboot is required before the next validation/install stage. Do not mark the NPU gate PASS until FastFlowLM is installed and `flm validate`, XRT/NPU visibility, and the approved inference gate have actually passed.
 
 ```bash
 bash "System/scripts/plumbing/run-infer.sh" <operator-approved-test-arguments>
@@ -369,6 +369,15 @@ After those gates pass, retire that completed legacy executable/function immedia
 - Active Pacific source code uses `/home/rootrecord/RootRecord-Ecosystem/2 - RootRecord-Database` as the Database authority.
 - Older `/home/rootrecord/Database/` references found in historical evidence, backups, or operator tooling are not evidence that the legacy root remains the active source boundary.
 - Do not rewrite historical evidence paths merely to make old evidence look current.
+
+## NPU installation evidence — 2026-09-29
+
+- Host is Ubuntu **26.04 / resolute** with kernel `7.0.0-34-generic`.
+- AMD XDNA2/XRT prerequisite packages are installed: `amdxdna-dkms`, `libxrt-npu2`, and `libxrt2`.
+- `/dev/accel/accel0` is present and `modinfo amdxdna` resolves the driver and firmware entries.
+- DKMS reported a `BUILD_EXCLUSIVE` mismatch for the current kernel/config; treat the driver as **not yet runtime-verified** until after reboot and live validation.
+- FastFlowLM itself is not yet established by this evidence.
+- Next gate: reboot, validate XRT/NPU visibility, install the current FastFlowLM runtime for Ubuntu 26.04 if absent, run `flm validate`, then perform the approved non-destructive inference test.
 
 ## Explicitly out of scope for this runbook
 
