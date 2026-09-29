@@ -51,6 +51,7 @@ Each test gets one file, `YYYY-MM-DD-<slug>.md`, created from [TEMPLATE.md](./TE
 | 2026-09-29 04:14 | [Hawaiian place-name pronunciation sheet](./2026-09-29-hawaiian-pronunciation-sheet.md) | PASS (text 99/99); by-ear VERIFY PENDING |
 | 2026-09-29 04:16 | [Specialist router unit test (no models)](./2026-09-29-specialist-router-unit-test.md) | PASS (35/35 labelled; held-out 5/8 informational; log privacy PASS) |
 | 2026-09-29 04:18 | [Specialists: 2 live tiny requests (Ollama rr-energy + FLM rr-weather system message)](./2026-09-29-specialist-live-tiny-requests.md) | PASS (gate honoured; 6.3 s / 5.1 s; nothing resident after) |
+| 2026-09-29 04:31 | [Template reports: one sample per Library template (3 light model calls)](./2026-09-29-template-report-samples.md) | PASS (4/4 structure-valid, 0 unsupported numbers; model text used for worklog, fallback for work order) |
 
 Related: [MIGRATION-DOCS-INDEX](../00-architecture/MIGRATION-DOCS-INDEX-2026-09-28.md) · [WO-SRV](../06-development/Work-Orders/Servers_Cutover_Work_Order_WO-SRV-2026-09-27.md) · [G3 Runtime Verification Checklist](../00-architecture/G3-Runtime-Verification-Checklist-2026-09-28.md)
 

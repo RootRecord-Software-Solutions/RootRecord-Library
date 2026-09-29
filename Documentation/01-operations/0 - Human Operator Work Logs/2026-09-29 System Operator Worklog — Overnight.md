@@ -125,3 +125,27 @@ Alexander's request: one isolated Modelfile per function (execution, reasoning, 
 - Approve applying the 2-line hook to `run-infer.sh` (text in the design doc §4) after the JSONL-logging pass settles, then set `RR_SPECIALIST_ROUTING=1`.
 - Decide whether `prefer=ollama` routes (reason/security/council) should skip the NPU (phase-2 hook).
 - The sign-off line above ("`*-telegram` models are missing") is superseded: they were rebuilt at 04:12 on `llama3.2:3b-instruct-q4_K_M`.
+
+## g3-template-reports pass (Library templates filled from measured data), 04:27–04:37 HST
+
+- **Built:** Pacific `Reports/template_fill.py` (stdlib) and `Reports/template_validate.py`. They fill all 4 templates in `01-operations/templates/`
+  with the same headings, tables, field order, date formats and status vocabulary. Sources are the 07-testing index, the inference JSONL,
+  the poller log and hourly archive, host/SOC/camera/weather freshness, the work orders and this worklog's sign-off list.
+  Design: [Template-Report-Generation.md](../../00-architecture/Template-Report-Generation.md).
+- **Output:** Database `Reports/Generated/<Template-Name>_current.md` with `Archive/` rotation and a validation JSON. **Nothing is written into the Library** (guarded).
+- **Validator:** rejects heading, table-column, field, vocabulary and leftover-placeholder mismatches, and flags numbers not in the sources.
+  Negative tests: the 3 structural mutations were rejected and the invented numbers were flagged.
+- **Samples (04:31–04:34):** 4/4 valid with 0 unsupported numbers. 3 light model calls, all `rr-exec` → NPU on demand, 5969–9217 ms each,
+  FLM peak about 2.0 GB, MemAvailable minimum 9879 MB. The worklog used the model's free text. The work order fell back twice because the 1B model
+  ignored the `KEY:` format under `run-infer.sh`'s generic voice system prompt. Afterwards `ollama ps` was empty and no flm was running.
+  Record: [2026-09-29-template-report-samples.md](../../07-testing/2026-09-29-template-report-samples.md).
+- **Fixed during the test:** cloudflared detection (the path contains spaces, so it now uses `/proc/*/comm`). The worklog "Next useful step" must now
+  name a real sign-off item (the model wrote a bare "Restart the poller.").
+- **jobs.py:** added ON_AT `template_reports_daily` 18:40. `enabled` only if `RR_TEMPLATE_REPORTS=1` at poller start (default off).
+  The file was re-read and backed up first (`jobs.py.pre-template-reports`). The poller was **not** restarted.
+- **Not touched:** `run-infer.sh`, the relay, `Media/Voice`, `~/Desktop/old txt`.
+
+**Needs Alexander:**
+- Decide whether to enable `RR_TEMPLATE_REPORTS=1`. This needs a poller restart (already on the sign-off list).
+- The specialist hook (`RR_SPEC_SYSTEM`) would give the NPU path the `rr-exec` format rules. Without it, most drafts fall back to fixed text.
+- Promoting generated files into the Library stays manual (copy by hand after review).
