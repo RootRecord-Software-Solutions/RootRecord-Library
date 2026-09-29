@@ -130,7 +130,7 @@ curl -sf -m 2 "http://127.0.0.1:52625/v1/models" || true
 
 If the documented FastFlowLM binary/runtime or service is absent, record **NPU runtime unavailable** and stop the NPU verification gate. Do not invent an installer, restore an undocumented service, or substitute stock Ollama as proof of NPU execution. CPU/Ollama fallback may be verified separately, but it does not satisfy an NPU verification claim.
 
-Current operator evidence on 2026-09-28 showed `/dev/accel/accel0` present but no FastFlowLM binary under the checked home tree and no `ava-flm.service`. Therefore the NPU gate remains blocked until an authorized/documented FastFlowLM installation procedure is available and the live `:52625` endpoint is verified.
+Current operator evidence on 2026-09-29 showed `/dev/accel/accel0` present but no FastFlowLM binary under the checked home tree and no `ava-flm.service`. Therefore the NPU gate remains blocked until an authorized/documented FastFlowLM installation procedure is available and the live `:52625` endpoint is verified.
 
 ```bash
 bash "System/scripts/plumbing/run-infer.sh" <operator-approved-test-arguments>
@@ -377,3 +377,10 @@ After those gates pass, retire that completed legacy executable/function immedia
 - Weather enablement.
 - Fabrication of missing Master-Prompt `08-repository-and-file-links.md`.
 - Moving any work order to `Complete/` before its acceptance criteria are satisfied.
+
+
+## Documentation refresh — 2026-09-29
+
+- Active Pacific Database references in this runbook now use `/home/rootrecord/RootRecord-Ecosystem/2 - RootRecord-Database`.
+- Historical evidence paths under `/home/rootrecord/Database/` are retained when they describe what was actually observed at the time; they are not rewritten into false current evidence.
+- The human `/home/rootrecord/RootRecord-Ecosystem/Pull.sh` workflow is explicitly operator-controlled and may coexist with automated `github_sync_all`; it is not a runtime conflict.
