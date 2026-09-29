@@ -4,63 +4,59 @@
 | --- | --- |
 | **Work Order ID** | WO-SRV-2026-09-27 |
 | **Date** | 2026-09-27 (HST) |
-| **Status** | IN PROGRESS — Runtime live; Energy Phase 1 desk fill done; residual non-Energy paths remain |
+| **Status** | **IN PROGRESS** — **systemd on Pacific**; tunnel READY; residual job domains still on G2 |
 | **Owner** | RootRecord |
-| **Related** | WO-ECO; WO-MAP; WO-ECO-001; path inventory 2026-09-28 |
-| **Updated** | 2026-09-28 ~16:15 HST — Energy desk fill |
+| **Related** | WO-ECO; WO-ECO-001; WO-MAP; WO-GH |
+| **Updated** | 2026-09-28 ~16:25 HST |
 
-**Scope:** Plan and execute a safe cutover from live `~/.ollama/skills` toward `RootRecord-Ecosystem/1 - Servers/1 - RootRecord-Pacific-Solar-Server` without breaking poller, jobs, or github_sync.
+**Scope:** Move authoritative runtime off `~/.ollama/skills` onto `RootRecord-Ecosystem/1 - Servers/1 - RootRecord-Pacific-Solar-Server`. **Policy: do not run the old desk.**
 
 ---
 
 ## 1. Intent
 
-The Ecosystem tree defines Servers as the long-term home for deployed runtime. Cutover moves authoritative running code into that tree under a domain-based layout (Automations, Communications, Weather, …).
+Servers tree is the only live runtime home. Domain-by-domain import until `jobs.py` has zero `~/.ollama/skills` absolute paths.
 
 ---
 
-## 2. Current reality (2026-09-28)
+## 2. Current reality (2026-09-28 ~16:23 HST)
 
-### 2.1 What exists
+### 2.1 Locked on Pacific
 
-| Item | Location / status |
+| Item | Status |
 | --- | --- |
-| **Live runtime (confirmed)** | `/home/rootrecord/RootRecord-Ecosystem/1 - Servers/1 - RootRecord-Pacific-Solar-Server` |
-| **GitHub** | `RootRecord-Software-Solutions/RootRecord-Pacific-Solar-Server` |
-| Poller unit | `rr-rootserver-poller.service` — **active** |
-| Public | `https://rootserver.rootrecord.cloud/` |
-| Jobs catalog | `…/Automations/scripts/jobs.py` |
-| Stack control | `…/Automations/scripts/stack/{schedule,do}-stack-reload.sh`, `stop-poller-stack.sh` |
-| cloudflared | `…/Communications/network/cloudflare/bin/cloudflared` |
-| Legacy skills tree | `~/.ollama/skills` — still referenced by non-Energy domain jobs |
-| **Path inventory** | Library `Documentation/00-architecture/Pacific-Jobs-Path-Inventory-2026-09-28.md` |
+| Live runtime root | `/home/rootrecord/RootRecord-Ecosystem/1 - Servers/1 - RootRecord-Pacific-Solar-Server` |
+| GitHub | `RootRecord-Software-Solutions/RootRecord-Pacific-Solar-Server` |
+| **systemd ExecStart** | `/bin/bash "…/Automations/scripts/poller/run-poller.sh"` (**not** skills) |
+| Unit | `rr-rootserver-poller.service` — **active (running)** |
+| Log | `/home/rootrecord/Database/Logs/Automations/automations_current.log` |
+| Tunnel | READY (cloudflared from Pacific Communications) |
+| jobs catalog | Pacific `Automations/scripts/jobs.py` |
 
-### 2.2 Completed so far
+### 2.2 Completed
 
-- [x] Target tree shape documented in WO-ECO
-- [x] GitHub org repo for Pacific Solar Server online
-- [x] Domain folders created (Automations, Communications, Weather, Energy, …)
-- [x] Automations core reorganized: `scripts/poller/`, `scripts/stack/`, `jobs.py` at scripts root
-- [x] Path wiring for Automations + Communications network + Weather ensure scripts
-- [x] Poller running from Ecosystem path (operator confirmed 2026-09-28)
-- [x] EcoFlow BLE reads, system samples, worklog scan observed healthy in poller window
-- [x] **Inventory remaining absolute path references in `jobs.py`** (full table in path inventory doc)
-- [x] Domain README residual-path notes on Pacific repo (Energy, Security, System, Github, …)
-- [x] **Energy Phase 1** — org read scripts + jobs rewire + desk lib/db/config fill (2026-09-28)
-- [ ] Energy stack reload + ≥15 min SUMMARY/ENERGY soak
-- [ ] Clear residual Energy inventory rows after soak
-- [ ] Import remaining domains one at a time
-- [ ] Update `repos.conf` skills/pacific row to Ecosystem path when catalog is ready
-- [ ] Full systemd unit path audit + reboot-test
+- [x] Automations core on Pacific (poller, stack, jobs)
+- [x] systemd unit rewritten off G2 skills path
+- [x] Path-with-spaces quoting in unit + Energy/network_globe job commands
+- [x] Energy job **command** paths on Pacific
+- [ ] Energy lib `read_runner.py` fill + BLE cycle OK
+- [ ] Import System, Github, Telegram, A-Eyes, Weather domains
+- [ ] `repos.conf` → Ecosystem paths only
+- [ ] Zero skills paths in jobs.py
+- [ ] Reboot-test unit still Pacific
 
-### 2.3 Observed live signals (2026-09-28 ~01:42–01:43 HST)
+### 2.3 Residual G2 (migrate next)
 
-- systemd: **active**
-- ENERGY snapshot: B2=100%, B1≈4.8%, src=sqlite
-- EcoFlow SUMMARY lines: river2pro + delta2 (ble/api)
-- SYSTEM samples writing under Database/SYSTEM
-- worklog_scan OK
-- One transient `ecoflow_read_cycle FAIL code=-15` (signal/timeout — not structural)
+| Domain | jobs still on skills |
+| --- | --- |
+| Energy lib modules | need desk fill `read_runner.py` from G2 energy |
+| system-stats | sys_stats_cycle |
+| github | setup + sync_all |
+| plumbing | ollama / flm warmup |
+| telegram | council_relay |
+| a-eyes | cam, grab, timelapse |
+| reports | worklog_scan |
+| Weather | disabled (path missing) |
 
 ---
 
@@ -68,60 +64,30 @@ The Ecosystem tree defines Servers as the long-term home for deployed runtime. C
 
 ```text
 1 - RootRecord-Pacific-Solar-Server/
-├─ Automations/scripts/
-│   ├─ rootserver_poller.py
-│   ├─ jobs.py
-│   ├─ poller/          # run, open-window, watch, internet_gate
-│   └─ stack/           # stop, do-reload, schedule-reload
-├─ Communications/
-│   ├─ network/cloudflare/{bin,config}
-│   ├─ network/scripts/
-│   └─ discord|email|slack|telegram|github/
-├─ Weather/scripts/
-├─ Energy/  Security/  System/  Logs/  Github/  Geology/
-└─ Pull.sh  Push.sh
+├─ Automations/scripts/{rootserver_poller.py,jobs.py,poller/,stack/}
+├─ Communications/{network/cloudflare,network/scripts,telegram,github,…}
+├─ Energy/   System/   Weather/   Geology/   Security/   Github/
 ```
 
 ---
 
 ## 4. Remaining tasks
 
-1. ~~Inventory remaining `~/.ollama/skills` absolute paths in `jobs.py`~~ **Done** — see path inventory.
-2. Complete Energy Phase 1 soak; then residual Energy path cleanup (WO-ECO-001 / WO-SRV-001).
-3. Import next domains one at a time; rewire jobs as each lands.
-4. Align `repos.conf` local_path with Ecosystem Servers path.
-5. Audit user systemd units / drop-ins for old skills paths.
-6. Document final paths in Master-Prompt map (WO-MAP).
+1. Complete Energy `read_runner` fill + soak (WO-ECO-001).
+2. Import System (sys-stats) → rewire job.
+3. Import Github sync → rewire + repos.conf (WO-GH).
+4. Communications telegram; A-Eyes; Weather.
+5. Master-Prompt map (WO-MAP).
+6. Archive G2 runtime use when jobs clean.
 
 ---
 
-## 5. Non-goals
+## 5. Notes
 
-- Teardown of Old-main zip / forensic tree in the same change
-- Library or Website moves
-- Bulk-deleting G2 skill tree before domain soak
-
----
-
-## 6. Key file / path reference
-
-| Path | Role |
-| --- | --- |
-| `…/1 - Servers/1 - RootRecord-Pacific-Solar-Server` | **Live runtime root** |
-| `Automations/scripts/jobs.py` | Job catalog |
-| `Automations/scripts/stack/schedule-stack-reload.sh` | Deploy reload trigger |
-| Library path inventory | Exhaustive residual path table |
-| `~/.ollama/skills` | Legacy references still in external domain jobs |
+- No force-push; no secrets in git.
+- Always quote Pacific paths (spaces in `1 - Servers`).
+- Never point poller ExecStart at `~/.ollama/skills`.
 
 ---
 
-## 7. Notes & constraints
-
-- No force-push.
-- Secrets stay out of git.
-- Prefer small reversible steps.
-- Residual legacy job paths are acceptable until domains are imported.
-
----
-
-*Work order prepared 2026-09-27 HST. Inventory closed 2026-09-28 HST. Energy desk fill 2026-09-28 HST.*
+*Updated 2026-09-28 HST after successful systemd cutover to Pacific.*
