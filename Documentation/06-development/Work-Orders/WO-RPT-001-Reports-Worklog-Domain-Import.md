@@ -3,7 +3,7 @@
 | Field | Value |
 |-------|--------|
 | **Priority** | P0 |
-| **Status** | **Phase B LIVE** — desk soak confirmed 2026-09-28 ~19:04 HST |
+| **Status** | **Phase B LIVE + Phase E done** — C/D still OPEN |
 | **Target** | Pacific `Reports/` on org `RootRecord-Pacific-Solar-Server` |
 | **Data home** | `/home/rootrecord/Database/WORKLOG/` (unchanged) |
 | **Human narrative** | Library `Documentation/01-operations/` (templates + active logs) |
@@ -23,7 +23,7 @@ and layer enhancements so migration progress itself is documented automatically.
 - Hygiene: extra path prunes (agent transcripts, credential-shaped paths)
 - Domain-tagged log lines when path sits under a known Pacific domain
 - Spec + later jobs: daily Library roll-up, weekly archive (WO-ARCH)
-- G1 `reports/` packet: `MIGRATED.md` only after Phase B soak (diff-only later)
+- G1 `reports/` packet: `MIGRATED.md` after Phase B soak
 
 ## Scope (out)
 
@@ -41,7 +41,7 @@ and layer enhancements so migration progress itself is documented automatically.
 | **B** | Port scripts; rewire `worklog_scan`; desk soak | **LIVE** 2026-09-28 ~19:04 HST |
 | **C** | Daily roll-up → Library Session template (structured summary) | OPEN |
 | **D** | Weekly archive job implementing WO-ARCH | OPEN |
-| **E** | G1 `reports/` `MIGRATED.md` + Old README + inventory map | OPEN (B soak done — ready) |
+| **E** | G1 `reports/` `MIGRATED.md` + Old README | **DONE** 2026-09-28 ~19:15 HST |
 
 ## Acceptance criteria
 
@@ -49,7 +49,8 @@ and layer enhancements so migration progress itself is documented automatically.
 2. [x] Successful scan: `OK wrote/updated /home/rootrecord/Database/WORKLOG/worklog_current.md`
 3. [x] Domain tags + `source_job=worklog_scan` present in log lines
 4. [x] Library WO + Pacific README track live state
-5. Phase C/D optional — do not block B LIVE
+5. [x] G1 `reports/MIGRATED.md` + Old README status table
+6. Phase C/D optional — do not block B LIVE
 
 ## Soak evidence (operator window, 2026-09-28 ~19:04 HST)
 
@@ -67,7 +68,7 @@ NEW_DIR …/Reports | domain=Reports
 | Gen | Path | Role |
 |-----|------|------|
 | G2 residual | `Solar-Pacific-RootRecord-Server/reports/scripts/worklog_*.sh` | Superseded for live path |
-| G1 archive | `Solar-Pacific-RootRecord-Server-Old/reports/` | Diff-only; Phase E marker |
+| G1 archive | `Solar-Pacific-RootRecord-Server-Old/reports/` | **MIGRATED.md** (worklog path) |
 | G1 cousins | `hourly-clip-reports/`, `day-board-boot/`, `merged-morning/` | Not this WO |
 | Library | `01-operations/templates/` | Human templates |
 | Library | WO-ARCH-2026-09-27 | Weekly archive → Phase D |
@@ -82,5 +83,6 @@ NEW_DIR …/Reports | domain=Reports
 - Machine worklog stays under Database; Library holds human sessions/checkpoints/WOs
 - A-Eyes clips link from Reports later; they are not owned here
 - Standing policy: one domain at a time; no bulk G1 merge
+- G1 `reports.py` draft-queue left archive-only (diff later)
 
-*Phase B LIVE 2026-09-28 ~19:04 HST.*
+*Phase B LIVE + Phase E 2026-09-28 HST.*
