@@ -3,86 +3,73 @@
 | Field | Value |
 |-------|--------|
 | **Priority** | P0 |
-| **Status** | **Phase B LIVE + Phase E done** — C/D still OPEN |
+| **Status** | **Foundation LIVE** (A–E) — radio/stream **future** layer deferred |
 | **Target** | Pacific `Reports/` on org `RootRecord-Pacific-Solar-Server` |
 | **Data home** | `/home/rootrecord/Database/WORKLOG/` (unchanged) |
 | **Human narrative** | Library `Documentation/01-operations/` (templates + active logs) |
-| **Related** | WO-ARCH-2026-09-27; WO-SRV-001 residual rewire; WO-COM-001/002 (notify later) |
+| **Related** | WO-ARCH-2026-09-27; WO-SRV-001; WO-COM-001/002; WO-AEYES; future AI-processing redesign |
 | **Action plan** | [WO-RPT-001-Action-Plan.md](./WO-RPT-001-Action-Plan.md) |
 
 ## Goal
 
-Move offline work auto-doc (worklog) off the G2 residual path
-`~/.ollama/skills/reports/` onto org Pacific **`Reports/`**, keep Database as machine SOT,
-and layer enhancements so migration progress itself is documented automatically.
+Move offline work auto-doc (worklog) off the G2 residual path onto org Pacific **`Reports/`**, keep Database as machine SOT, automate thin daily/weekly hygiene — and leave a **clean spine** for the old core function the messy AI report stack used to serve: **radio rundowns, live streaming, and public status**, without bringing the mess forward.
 
-## Scope (in)
+## Historical context (do not lose)
 
-- Pacific domain shell `Reports/` + scripts port from G2
-- Rewire `jobs.py` `worklog_scan` to Pacific paths (quoted)
-- Hygiene: extra path prunes (agent transcripts, credential-shaped paths)
-- Domain-tagged log lines when path sits under a known Pacific domain
-- Spec + later jobs: daily Library roll-up, weekly archive (WO-ARCH)
-- G1 `reports/` packet: `MIGRATED.md` after Phase B soak
+Legacy AIs **heavily automated reports** for on-air / stream workflows. That was a **core product function**, not only desk bookkeeping. Implementation was scattered (G1 `reports.py` draft queues, hourly-clip-reports, day-board, merged-morning, voice topics) and entangled with ops skills.
 
-## Scope (out)
+**This WO stabilizes intake + ops documentation.** It does **not** re-enable on-air automation. Future work must:
+
+- Treat WORKLOG domain tags + LIVE domain status as **facts**
+- Add digests / voice-safe summaries **on top** (Carly seal before public)
+- Keep **A-Eyes** (capture), **Communications** (delivery), **Website** (boards) as separate owners
+- Recover G1 draft-queue ideas only by **diff**, never bulk-merge
+
+## Scope (in) — foundation
+
+- Pacific `Reports/` + worklog scripts from G2
+- `jobs.py` path rewire; domain tags; hygiene prunes
+- Daily Library roll-up; weekly log archive; G1 `MIGRATED.md`
+
+## Scope (out) — foundation
 
 - Bulk-merge G1 `reports.py` public draft queue
-- Owning A-Eyes / hourly-clip / timelapse pipelines
-- Discord/Telegram notify of worklog events (WO-COM-*)
-- AI-authored full Session narratives (wait for AI processing redesign)
-- Changing Database/WORKLOG layout contract beyond additive tags
+- Owning A-Eyes / clips / timelapse
+- Discord/Telegram notify (WO-COM-*)
+- Full AI-authored session essays
+- **Radio / live-stream rundown automation** (explicit future phase)
 
 ## Phases
 
 | Phase | Work | Status |
 |-------|------|--------|
-| **A** | `Reports/` shell + README on Pacific; Library WO + index | **DONE** 2026-09-28 |
-| **B** | Port scripts; rewire `worklog_scan`; desk soak | **LIVE** 2026-09-28 ~19:04 HST |
-| **C** | Daily roll-up → Library Session template (structured summary) | OPEN |
-| **D** | Weekly archive job implementing WO-ARCH | OPEN |
-| **E** | G1 `reports/` `MIGRATED.md` + Old README | **DONE** 2026-09-28 ~19:15 HST |
+| **A–E** | Domain, worklog LIVE, roll-up + archive scripts, G1 marker | **DONE / LIVE** 2026-09-28 |
+| **F (future)** | Structured digests for radio/stream; seal path; link A-Eyes pointers | **DEFERRED** — after AI-processing redesign |
 
-## Acceptance criteria
-
-1. [x] `worklog_scan` in Pacific `jobs.py` points only at `Reports/scripts/`
-2. [x] Successful scan: `OK wrote/updated /home/rootrecord/Database/WORKLOG/worklog_current.md`
-3. [x] Domain tags + `source_job=worklog_scan` present in log lines
-4. [x] Library WO + Pacific README track live state
-5. [x] G1 `reports/MIGRATED.md` + Old README status table
-6. Phase C/D optional — do not block B LIVE
-
-## Soak evidence (operator window, 2026-09-28 ~19:04 HST)
+## Future fit (Phase F sketch)
 
 ```text
-OK wrote/updated /home/rootrecord/Database/WORKLOG/worklog_current.md
-… domain=Database | source_job=worklog_scan
-… domain=Automations | source_job=worklog_scan
-… domain=Reports | source_job=worklog_scan
-… domain=System | source_job=worklog_scan
-NEW_DIR …/Reports | domain=Reports
+WORKLOG (measured) + domain LIVE
+        → Reports digests (structured)
+            → Carly seal (honesty)
+                → Ava voice / Comms / stream overlay / radio rundown
+A-Eyes clips ──────────────────────────→ stream segments (not owned by Reports)
 ```
 
-## Source inventory
+Prefer Python + templates first; local LLM only after structure exists.
 
-| Gen | Path | Role |
-|-----|------|------|
-| G2 residual | `Solar-Pacific-RootRecord-Server/reports/scripts/worklog_*.sh` | Superseded for live path |
-| G1 archive | `Solar-Pacific-RootRecord-Server-Old/reports/` | **MIGRATED.md** (worklog path) |
-| G1 cousins | `hourly-clip-reports/`, `day-board-boot/`, `merged-morning/` | Not this WO |
-| Library | `01-operations/templates/` | Human templates |
-| Library | WO-ARCH-2026-09-27 | Weekly archive → Phase D |
+## Acceptance criteria (foundation)
 
-## Risks
-
-- Double-running G2 standalone `worklog_poller.sh` if still enabled — prefer jobs only
-- Scrub miss if secrets only in files not listed in master-key.env
+1. [x] `worklog_scan` → Pacific `Reports/scripts/` only
+2. [x] Desk soak: domain tags + `source_job=worklog_scan`
+3. [x] Daily roll-up + weekly archive scripts scheduled
+4. [x] G1 `reports/MIGRATED.md` + Old README
+5. [x] Docs record radio/stream as **future** consumer of this spine
 
 ## Notes
 
-- Machine worklog stays under Database; Library holds human sessions/checkpoints/WOs
-- A-Eyes clips link from Reports later; they are not owned here
-- Standing policy: one domain at a time; no bulk G1 merge
-- G1 `reports.py` draft-queue left archive-only (diff later)
+- Machine worklog → Database; human sessions → Library; closed WOs → `Work-Orders/Complete/`
+- Carly owns WO structure/drafts; Bruce builds accepted technical work
+- One domain at a time; no bulk G1 merge
 
-*Phase B LIVE + Phase E 2026-09-28 HST.*
+*Foundation 2026-09-28 HST. Radio/live-stream = Phase F after redesign.*
