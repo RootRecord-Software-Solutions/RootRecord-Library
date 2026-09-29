@@ -1,0 +1,23 @@
+# 08 — Ideas and Feature Proposals
+
+This folder holds ideas and feature proposals for the RootRecord ecosystem. It uses the same convention as [07-testing](../07-testing/README.md): one file per item, `YYYY-MM-DD-<slug>.md`, created from [TEMPLATE.md](./TEMPLATE.md).
+
+**Every item here is PROPOSED.** Nothing in this folder authorizes a code, service, model, hardware or data change.
+- An item only moves forward after Alexander signs off. It is then carried out through a work order (`Documentation/06-development/Work-Orders/`) and tested with a record in `07-testing/`.
+- Each proposal must name its grounding: the evidence file, test record or open item it comes from.
+- Standing rules still apply: no resident models, light tests, G2/legacy files are KEPT unless Alexander signs off, and no secrets.
+
+**Status vocabulary:** LANDED · VERIFY PENDING · PASS · FAIL · BLOCKED · RETIRED · PROPOSED · KEPT.
+
+## Index
+
+| Date | Proposal | State | Grounding |
+| --- | --- | --- | --- |
+| 2026-09-29 | [Auto-recovery for weather and relay after a mid-session crash](./2026-09-29-weather-relay-auto-recovery.md) | PROPOSED | follow-ups evidence 02:50 HST: both are ON_BOOT only |
+| 2026-09-29 | [Pacific copy of `npu-status.sh`](./2026-09-29-npu-status-pacific-copy.md) | PROPOSED | NPU/FLM evidence: G2-only script |
+| 2026-09-29 | [AI processing log and daily report](./2026-09-29-ai-processing-log-and-report.md) | PROPOSED | NPU on-demand test; FLM log privacy finding |
+| 2026-09-29 | [Restore voice reports](./2026-09-29-restore-voice-reports.md) | PROPOSED | G0/G1 voice packets; WO-RPT-001 |
+| 2026-09-29 | [Relay quiet mode without losing messages](./2026-09-29-relay-quiet-mode-message-hold.md) | PROPOSED | relay quiet-mode caveat |
+| 2026-09-29 | [Weather retention and a Weather repo](./2026-09-29-weather-retention-and-repo.md) | PROPOSED | Pacific `Weather/README.md` §Retention (PROPOSED) |
+
+*Folder created 2026-09-29 ~03:48 HST (docs only).*
