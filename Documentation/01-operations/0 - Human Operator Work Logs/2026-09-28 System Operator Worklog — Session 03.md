@@ -251,3 +251,9 @@ Filename:
 - The Work-Order README previously labeled WO-SRV-001 as in progress, but the WO itself states `Draft — blocked on WO-ECO-001 (and later domain imports)`.
 - The README was corrected to match the WO's own status. WO-SRV-2026-09-27 remains the active in-progress cutover work order for the current residual runtime verification/retirement sequence.
 - No scope was expanded and no runtime code was changed by this reconciliation.
+
+
+## Documentation Reconciliation — WO-GH Status — 2026-09-28
+
+- The Work-Order README previously listed WO-GH-2026-09-27 as OPEN, while the authoritative WO states IN PROGRESS — Pacific Github sync LIVE; website/mainland still disabled.
+- The README was corrected to match the WO. WO-RPT-001 remains Foundation LIVE and is not being treated as a separate active execution driver in this session.
