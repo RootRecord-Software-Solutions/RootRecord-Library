@@ -188,7 +188,7 @@ Read-only desk capture 2026-09-29T10:12–10:16Z (00:12–00:16 HST); evidence f
 | System sampling | PASS | `sys_stats_cycle` runs Pacific `System/scripts/sys-sample.sh` → `OK wrote /home/rootrecord/Database/SYSTEM/samples/…json` |
 | Reports worklog | PASS | `worklog_scan` runs Pacific `Reports/scripts/worklog_once.sh` → `OK wrote/updated /home/rootrecord/Database/WORKLOG/worklog_current.md` |
 | Plumbing (non-NPU) | VERIFY PENDING | `ollama_warmup` from Pacific `System/scripts/plumbing/` → `[ok] ollama up`; no inference through the Pacific single-flight gate (state dir `/home/rootrecord/Database/GITHUB/plumbing/state` absent) |
-| Plumbing (NPU / FLM) | BLOCKED | no `flm` binary, no `ava-flm.service`, `:52625` unreachable |
+| Plumbing (NPU / FLM) | **PASS** 2026-09-29 02:52 HST | FLM 1.0.6 + XRT 2.25; llama3.2:1b via `flm-warmup.sh` + `run-infer.sh` (single-flight) → `[ok] FLM/NPU`, 1.04 s; parallel refused rc 75. Evidence `2 - RootRecord-Database/Logs/Migration/g3-npu-flm-evidence-20260929T125429Z.md` |
 | Network globe | FAIL | `network-globe-hawaii.service` ExecStart/WorkingDirectory = G2 `~/.ollama/skills/coms/ssh/local-data-globe/collector.js` (running); Pacific has no collector |
 | systemd ExecStart | PASS | `rr-rootserver-poller.service` (user) ExecStart = Pacific `Automations/scripts/poller/run-poller.sh`; MainPID = Pacific `rootserver_poller.py` (imports `jobs` from its own dir) |
 | Pacific poller (§5) | FAIL | poller, `jobs.py` and log are Pacific; log fresh; no `.ollama/skills` refs in the last 3000 lines; no FAIL storm. Fails only because Network Globe resolves to the legacy runtime and the relay is not running |
@@ -357,3 +357,4 @@ Snapshot: `2 - RootRecord-Database/Logs/Migration/g3-pre-reboot-checkpoint-20260
 - Weather retention: PROPOSED in `Pacific/Weather/README.md` §Retention (not applied).
 - Evidence: `2 - RootRecord-Database/Logs/Migration/g3-followups-evidence-20260929T124741Z.md`.
 
+- *NPU/FLM 02:56 HST:* **PASS** (was BLOCKED). llama3.2:1b pulled (1.3 GB); one gated NPU inference 1.04 s; parallel refused (75); test server stopped. **Needs Alexander:** warmup/run-infer default `llama3.2:3b` is not downloaded (next poller start will try to fetch it); once FLM is up the relay starts posting Telegram replies via FLM; `--pmode default` is not a listed FLM mode. FLM log moved to git-ignored `Logs/AI/FLM/`; old tracked `GITHUB/logs/flm.log` needs an approved `git rm --cached`. Evidence `2 - RootRecord-Database/Logs/Migration/g3-npu-flm-evidence-20260929T125429Z.md`.

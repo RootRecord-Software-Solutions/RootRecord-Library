@@ -117,7 +117,7 @@ Supersedes the "PASS / retired" wording above: those surfaces are **PASS / G2 KE
 | B. Security timelapse | VERIFY PENDING (window 05:00–19:00 HST) | — |
 | C. Energy actions | read-only `solar-gate-status` PASS; actuating VERIFY PENDING; B1 0% needs physical check | — |
 | D. Poller full cycle | Poller realign **PASS** (`d9f074b`); log now canonical `2 - RootRecord-Database/Logs/Automations/automations_current.log` (untracked, `eabe62e`) | `2 - RootRecord-Database/Logs/Migration/g3-poller-realign-evidence-20260929T111731Z.md` |
-| Plumbing NPU/FLM | BLOCKED | — |
+| Plumbing NPU/FLM | PASS | `2 - RootRecord-Database/Logs/Migration/g3-npu-flm-evidence-20260929T125429Z.md` |
 
 **Open findings:**
 1. Relay PID 821015 was started from the desk agent session (cgroup `app-grok-bot-*.scope`), not the poller unit; if it dies it only returns at the next poller start (boot job `council_relay`).
@@ -136,10 +136,10 @@ Supersedes the "PASS / retired" wording above: those surfaces are **PASS / G2 KE
 - [x] AMD XDNA2/XRT prerequisite packages installed
 - [x] `/dev/accel/accel0` present
 - [x] `modinfo amdxdna` resolves installed driver/firmware entries
-- [ ] Reboot completed and DKMS/NPU driver loaded successfully
-- [ ] FastFlowLM runtime installed
-- [ ] `flm validate` passes
-- [ ] Approved NPU inference gate passes
+- [x] Reboot completed; in-tree `amdxdna` 0.7.0 loaded (DKMS build not needed)
+- [x] FastFlowLM runtime installed (1.0.6) + `libxrt-utils` (`xrt-smi`)
+- [x] `flm validate` passes
+- [x] Approved NPU inference gate passes (02:52 HST, llama3.2:1b, 1.04 s, parallel refused) — `2 - RootRecord-Database/Logs/Migration/g3-npu-flm-evidence-20260929T125429Z.md`
 
 **Current state:** prerequisite stack installed; NPU runtime is not yet VERIFIED. The installer reported a `BUILD_EXCLUSIVE` mismatch for kernel `7.0.0-34-generic` and requires post-reboot validation.
 
@@ -149,6 +149,6 @@ Supersedes the "PASS / retired" wording above: those surfaces are **PASS / G2 KE
 | --- | --- |
 | Weather | **PASS** — Pacific daemon + venv, job enabled; reports **PASS** (01:59:13 HST); ≈ 3 GB/day, git-ignored |
 | Telegram relay | login/polling PASS; retry fix `b3754fb` active after next relay start; replies BLOCKED (models) |
-| NPU / FLM | prereqs installed; FLM **pending after reboot** (`flm`, `xrt-smi` absent) |
+| NPU / FLM | **PASS** 02:52 HST (see NPU section) |
 
 Post-reboot list: WO-SRV "Pre-reboot checkpoint 2026-09-29". Snapshot `2 - RootRecord-Database/Logs/Migration/g3-pre-reboot-checkpoint-20260929T120755Z.md`.
