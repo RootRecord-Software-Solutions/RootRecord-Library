@@ -47,6 +47,8 @@ The event log uses `IN PROGRESS` or `CLOSED`. The work order uses `OPEN — …`
 
 For each template in `--model-templates`, the script makes **one** call:
 `nice -n 10 run-infer.sh rr-exec "<prompt>"`, with `RR_CALLER=template_fill` and `DESK_LIVE_FILE` unset.
+Since 2026-09-29 ~04:57 it also sets `RR_SPECIALIST_ROUTING=1 RR_SPECIALIST=rr-exec` for that call only (`RR_TEMPLATE_SPECIALIST_HOOK=0` turns this off).
+Through the `run-infer.sh` specialist hook, the NPU then gets the `rr-exec` Modelfile SYSTEM (temperature 0.1, 320 tokens) instead of the generic voice prompt.
 It only calls when `single-flight.sh status` is IDLE and MemAvailable ≥ 3 GB. `--draft auto` skips the call quietly otherwise.
 `run-infer.sh` starts FLM (NPU) on demand and falls back to Ollama `rr-exec` with keep_alive 0.
 The prompt starts: *"Use ONLY the facts below. Do not add any number, name, path, date or claim that is not in the facts…"*.
@@ -61,11 +63,15 @@ It then lists `KEY: <instruction>` lines and at most 30 fact lines. Each field i
 Any other field uses fixed deterministic text, so the report is always complete. Which fields came from the model is recorded
 in the validation JSON (`draft.fields`).
 
-**Known limitation (measured 2026-09-29):** on the NPU path, `run-infer.sh` currently sends its generic voice system prompt
-("You are RootRecord rr-exec…"), not the `rr-exec` Modelfile SYSTEM. The 1B model sometimes ignores the `KEY:` format.
-In the samples it did so for the work order twice, and those fields fell back. Applying the gated specialist hook
-([AI-Specialist-Models-and-Routing.md](./AI-Specialist-Models-and-Routing.md) §4, `RR_SPEC_SYSTEM`) should fix this.
-That needs Alexander's approval, and `run-infer.sh` was not edited here.
+**Known limitation (measured 2026-09-29):**
+
+- Before the hook (04:31–04:32), the NPU path used the generic voice prompt, and the 1B model ignored the `KEY:` format for the work order twice.
+- **With the hook (04:58:44, one re-run of the work-order sample)** the request did reach `rr-exec`: the JSONL shows `"specialist":"rr-exec","route_confidence":1.0`, NPU, cold start, 7364 ms, FLM peak 2005 MB.
+- The free text **still fell back**, but for a different reason. The `rr-exec` SYSTEM is a command persona with a desk layout and the DATA GATE, and the reply opened "No data — I can't see the desk." (INTENT missing). SCOPE listed repo folders from the SYSTEM text. The number check correctly rejected it (`2`, `1` from `2 - RootRecord-Database` / `1 - Servers`).
+- So the hook works, but `rr-exec` is the wrong prompt for facts-only drafting. Proposed, not done:
+  - pass the facts as a `DESK_LIVE_FILE` block, so the DATA GATE sees "measured" lines; or
+  - add a small `rr-draft` specialist whose SYSTEM is only "fill KEY: lines from the facts".
+  - Re-test with one call either way.
 
 ## 4. Structure validator (`Reports/template_validate.py`)
 
@@ -116,3 +122,4 @@ There are no warmups and nothing stays resident.
 Tests: [07-testing/2026-09-29-template-report-samples.md](../07-testing/2026-09-29-template-report-samples.md).
 
 *Created 2026-09-29 HST (g3-template-reports).*
+*Updated 2026-09-29 ~05:03 HST (specialist hook wired in; output paths belong to the test-reports pass).*

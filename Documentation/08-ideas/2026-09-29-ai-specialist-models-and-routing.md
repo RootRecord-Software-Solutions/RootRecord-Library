@@ -4,7 +4,7 @@
 | --- | --- |
 | **Date (HST)** | 2026-09-29 |
 | **Proposed by** | Alexander (operator request); built by agent pass g3-specialists |
-| **State** | **LANDED / gated.** Specialist models, router, config and tests landed. The `run-infer.sh` hook is PROPOSED only (`RR_SPECIALIST_ROUTING=1`, default off) |
+| **State** | **LANDED / gated.** Specialist models, router, config and tests landed. The `run-infer.sh` hook LANDED 2026-09-29 ~04:56 HST, OFF unless `RR_SPECIALIST_ROUTING=1` (flag-off byte-identical; see the design doc §4) |
 | **Grounding** | Team constitution §3 ("specialists over generalists"); `run-infer.sh` / relay fall back to `*-telegram` models that were missing from `ollama list` (overnight worklog sign-off list); G2 lane catalog `old ollama/agents/lanes.conf` |
 | **Needs sign-off from** | Alexander (to apply the hook to `run-infer.sh` and switch the gate on) |
 | **Related WO** | none yet |

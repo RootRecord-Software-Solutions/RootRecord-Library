@@ -4,9 +4,9 @@
 | --- | --- |
 | **Date (HST)** | 2026-09-29 (~04:10–04:25 HST) |
 | **Requested by** | Alexander (operator): isolated modelfiles, one per function (execution, reasoning, topic, specialty), with a keyword/topic router that sends each request to the right specialist, loaded on demand only |
-| **State** | **LANDED / gated.** Models built, router and tests landed. `run-infer.sh` hook **PROPOSED** (not applied; `RR_SPECIALIST_ROUTING` is off by default) |
+| **State** | **LANDED / gated.** Models, router (v2 keywords), tests and the `run-infer.sh` hook landed. The hook is **OFF** unless `RR_SPECIALIST_ROUTING=1` (flag-off behaviour verified byte-identical, §4) |
 | **Proposal record** | [08-ideas/2026-09-29-ai-specialist-models-and-routing.md](../08-ideas/2026-09-29-ai-specialist-models-and-routing.md) |
-| **Test records** | [Router unit test](../07-testing/2026-09-29-specialist-router-unit-test.md) · [Live tiny requests](../07-testing/2026-09-29-specialist-live-tiny-requests.md) |
+| **Test records** | [Router unit test](../07-testing/2026-09-29-specialist-router-unit-test.md) · [Live tiny requests](../07-testing/2026-09-29-specialist-live-tiny-requests.md) · [Hook + router v2](../07-testing/2026-09-29-specialist-hook-and-router-v2.md) |
 | **Backup** | `/home/rootrecord/Database/GITHUB/g3-specialists.bak-20260929-041126/` |
 
 ---
@@ -88,33 +88,50 @@ route-specialist.py --json … | --list | --system rr-energy
 
 Log: one JSON line per decision → `2 - RootRecord-Database/Logs/AI/Routing/routing_current.jsonl` (git-ignored, high churn). It records ts (HST offset), caller, voice, specialist, confidence, score, runner-up, **matched keyword/rule names**, prefer, model, model_verified, `prompt_chars` and elapsed µs. **It never stores prompt or reply text.** Matched keyword names are config terms, so they can hint at the topic. `RR_ROUTE_LOG=0` or `--no-log` disables it. Any router error falls back to `generic` with exit 0, so the hook can't break inference.
 
-## 4. Gate — proposed `run-infer.sh` hook (NOT applied)
+### 3.1 Router v2 (2026-09-29 ~04:51–04:55 HST)
 
-`run-infer.sh` is owned by another agent's pass (JSONL logging), so this pass did **not** edit it. For a later pass, back it up first, re-read it, then add:
+`specialist-routes.json` `version: 2`. Keywords were expanded from the Library domain docs (not from `~/Desktop/old txt`): WO-ECO-001 / WO-WEB-001 (energy), WO-WXG-001 / Geology / weather-retention (weather), WO-SYS-001 / G3 runbook / WO-GH / WO-CF (system), WO-AEYES (cameras), `03-security` / WO-COM-002 (security), and `05-public-surface` / WO-WEB-002 (Ava). A term was added only if it appears in those docs or is a plain-English synonym of a doc term.
 
-**Hook 1 (one line, right after the `case "$TARGET" in … esac` block):**
+| Specialist | Added (weight) |
+| --- | --- |
+| rr-energy | `panel*` 3, `pv` 3, `power bank` 3, `charge level` 3, `delta2` 3, `river2pro` 3, `charged` 2, `energy-status` 2, `producing` 1, `plugged in` 1 |
+| rr-weather | `swell*` 3, `shower*` / `downpour*` / `pour*` / `waves` / `cloudy` / `overcast` / `lightning` / `thunder*` 2; place names (county reports) `hilo`, `kona`, `maui`, `kauai`, `oahu`, `molokai`, `lanai`, `big island`, `north shore`, `summit` 1 |
+| rr-system | `github` / `sync` / `internet` / `network` / `wifi` / `starlink` / `disconnect*` / `sluggish` 2, `relay` 1→2, `push*` / `online` / `offline` / `loaded` 1; regex `keeps_failing` 2; `liveness_question` tightened (at most 2 words between *is/are* and the state word; `up` only at the end), which fixed "What **are** the downsides of **running** …" |
+| rr-cameras | `security feed` / `camera feed` 3, `stills` / `feed` / `recording` 2, `grab` 1; regex `a_still` 2 |
+| rr-security | `expose*` / `bot key` / `unknown ip` 3, `is it safe` / `log in` / `login*` / `discord bot` 2, `ip address*` 1; regex `secret_in_git` 3 (commit/push/post … key/token/secret) and `login_attempts` 3 |
+| rr-exec | `exact command` / `one-line` 3, `tail` / `markdown` 2, `table` 1; regex `transform_into` 3 ("turn/convert … into") |
+| rr-reason | `downside*` / `walk me through` 4, `pros and cons` / `trade-off*` / `tradeoff*` 3→4, `upside*` 3, `worth it` 2 (strong reasoning cues outweigh a single topic word) |
+| rr-council-ava | `announcement` 2→3, `public site` 3, `website` 2, `launch` 1 |
 
-```bash
-[[ "${RR_SPECIALIST_ROUTING:-0}" == "1" && "$TARGET" =~ ^(ava|bruce|carly)$ && -x "$HERE/route-specialist.py" ]] && eval "$(printf '%s' "$PROMPT" | RR_CALLER="${RR_CALLER:-run-infer}" "$HERE/route-specialist.py" --voice "$TARGET" --shell --with-system --verify-model 2>/dev/null)" && [[ "${RR_SPEC_DEFAULT:-1}" == "0" ]] && { OM="$RR_SPEC_OLLAMA_MODEL"; export RR_SPEC_SYSTEM RR_SPEC_TEMPERATURE RR_SPEC_MAX_TOKENS; }
-```
+**Accuracy (no models run; `test-route-specialist.py`, report `2 - RootRecord-Database/Logs/AI/Routing/router-test-2026-09-29-v2.md`):**
 
-**Hook 2 (FLM system message; one line inside `do_flm`'s Python, directly after the `system = (…)` assignment):**
+| Set | v1 | v2 | Notes |
+| --- | --- | --- | --- |
+| Labelled `CASES` (35 original) | 35/35 | 35/35 | no regressions |
+| Labelled `CASES` + 18 v2 tuning rows (53) | 43/53 | 53/53 | tuned on these rows (phrasing from the domain docs) |
+| Old held-out (8) | 5/8 | 5/8 | same 3 misses as before, now H2 / H4 / H5 |
+| **Fresh held-out `specialist-heldout-2026-09-29b.json` (27)**, written 04:51 before tuning | **11/27 (40.7%)** | 27/27 (100%) | **Optimistic.** The v1 baseline had to be scored first, so its failures were visible during tuning. Noted in the file's `_info` |
+| **Blind `specialist-heldout-2026-09-29c-blind.json` (22)**, written 04:55 after tuning ended, scored once | 17/22 (77.3%) | **17/22 (77.3%)** | **The unbiased number: no gain on truly new prompts.** Misses: "What percent is the River pack at?", "kilowatt hours", "high temperature", "master key" (spaced, vs `master-key`), "better to buy a battery or panels" (→ energy, not reason) |
 
-```python
-system = os.environ.get("RR_SPEC_SYSTEM") or system
-```
+Conclusion: the keyword additions fix the phrasings they target, but they don't generalize by themselves. The blind misses are vocabulary gaps and structure (topic word vs reasoning frame). Proposed next steps, not done: normalize hyphen and space (`master key` = `master-key`); add unit words (`kilowatt*`, `percent`) to energy; give "better to X or Y" a comparative-frame regex that goes to rr-reason. Then score against a **new** blind set.
 
-(Optional, same place: `"temperature": float(os.environ.get("RR_SPEC_TEMPERATURE") or 0.3)`, `"max_tokens": int(os.environ.get("RR_SPEC_MAX_TOKENS") or 180)`.)
+## 4. Gate — `run-infer.sh` hook (LANDED 2026-09-29 ~04:56 HST, OFF by default)
 
-Behaviour:
+`System/scripts/plumbing/run-infer.sh` (backup `run-infer.sh.pre-hook`). The file was re-read first; the JSONL-logging and single-flight changes were already in it.
 
-- Off by default (`RR_SPECIALIST_ROUTING` unset, or anything other than `1`). With it off, `run-infer.sh` behaves exactly as it does today.
-- It applies only when TARGET is a voice. Explicit model targets are never overridden.
-- `generic` leaves `OM` unchanged. A missing specialist model swaps to its `fallback` (`--verify-model`).
-- The existing `ailog` line then records the specialist as `model`, so the inference JSONL and the routing JSONL can be joined on time.
-- **Phase 2 (later, separate approval):** honour `RR_SPEC_PREFER=ollama` by skipping the FLM branch (`if [[ "${RR_SPEC_PREFER:-flm}" != ollama ]] && flm_up; then` and the same guard on the on-demand start). Until then every route still tries the NPU first with the specialist system message, which is the cheaper path.
-
-The relay needs no change. It already calls `run-infer.sh <voice> <prompt>`.
+- **Off** (`RR_SPECIALIST_ROUTING` unset or anything other than `1`): the hook block is skipped. `do_flm` gets empty `RR_SPEC_SYS` / `RR_SPEC_TEMP` / `RR_SPEC_MAXTOK`, so it keeps the generic voice prompt, `temperature` 0.3 and `max_tokens` 180. The JSONL line gets no new fields. A caller's own `RR_SPEC_*` variables are overridden to empty, so they can't leak in.
+- **On**, with TARGET `ava|bruce|carly` (routed by prompt), or `RR_SPECIALIST=<rr-name>`, or TARGET `rr-*` (forced; new `route-specialist.py --force`, confidence 1.0, unknown name → generic):
+  - **Ollama path:** `OM` = the routed specialist model (after `--verify-model`; a missing model falls back to its `fallback`).
+  - **FLM / NPU path:** the specialist's Modelfile `SYSTEM """…"""` block is sent as the system message, with its `temperature` and `num_predict` (as `max_tokens`). The Modelfile stays the one source (`route-specialist.py` reads it).
+  - **JSONL:** adds `"specialist":"<name|generic>","route_confidence":<0–1>` at the end of the line. The routing JSONL records the decision (names only).
+  - `generic` (low confidence) leaves `OM` and the generic prompt unchanged. Explicit non-`rr-*` model targets are never routed.
+  - Router errors → generic. Overhead is about 0.11 s wall per request (python start plus `/api/tags` for `--verify-model`).
+- **Verification without a model:** `System/scripts/plumbing/test-run-infer-hook.sh <reference run-infer.sh>` runs the reference (pre-hook backup) and the current script against a fake FLM server and a stub `run-ollama.sh`, with a private lock and log.
+  - Flag OFF: 8/8 cases **byte-identical**: stdout+stderr, the FLM request body, the normalised JSONL line and the Ollama model, including the injected-env, FLM-fail → Ollama and `DESK_LIVE_FILE` cases.
+  - Flag ON: 7/7 routing checks pass.
+  - A mutated reference (temperature 0.31) makes all 8 OFF cases FAIL, so the test is sensitive.
+- **Callers:** `Reports/template_fill.py` sets `RR_SPECIALIST_ROUTING=1 RR_SPECIALIST=rr-exec` for its own drafting calls only (`RR_TEMPLATE_SPECIALIST_HOOK=0` disables this). The relay and voice callers are unchanged, so they stay off until the flag is set in their environment.
+- **Phase 2 (not done, separate approval):** honour `RR_SPEC_PREFER=ollama` by skipping the FLM branch for reason / security / council.
 
 ## 5. Resource policy
 
@@ -135,9 +152,11 @@ The relay needs no change. It already calls `run-infer.sh <voice> <prompt>`.
 
 ## 7. Open items
 
-- Held-out routing accuracy is lower than on the tuned set: 5/8 (see the unit-test record). Known confusions: "batteries … NPU down" → system; "solar panel cam" → energy; power-cost phrasing without energy keywords → generic. Tune only with new labelled cases.
-- The hook is not wired. It needs a later pass on `run-infer.sh` once the JSONL-logging edits settle, plus Alexander's go.
-- Replies are only as good as 1.5B/3B models allow. The live FLM weather test answered the DATA GATE correctly but did not name the official source it was asked to name.
+- Router generalization: on the blind set, v2 = v1 = 17/22 (§3.1). The next tuning needs a new blind set.
+- The hook is landed but OFF for the relay and voices. Turning it on for them (`RR_SPECIALIST_ROUTING=1` in their environment) is Alexander's call.
+- With the hook, the NPU gets the specialist SYSTEM (live: `rr-weather` answered "No data — I can't see the desk." for a rain question). But `rr-exec`'s SYSTEM (desk layout plus DATA GATE) does not suit facts-only drafting: its reply printed the desk layout and "No data" ([template record](../07-testing/2026-09-29-specialist-hook-and-router-v2.md)).
+- Replies are only as good as 1B/1.5B/3B models allow.
 - `ava` / `bruce` / `carly` (voices.conf `fallback_model`) are still not built.
 
 *Created 2026-09-29 ~04:25 HST (g3-specialists pass).*
+*Updated 2026-09-29 ~05:02 HST (hook + router v2 pass).*

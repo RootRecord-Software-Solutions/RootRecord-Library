@@ -170,3 +170,26 @@ Backup: `/home/rootrecord/Database/GITHUB/g3-voice-reports2.bak-20260929-042153/
 - **04:46 HST:** Repointed generated template, AI-processing, and voice text reports to the non-git `RootRecord-Ecosystem/test-reports/{Templates,AI-Processing,Voice}/` tree; copied the existing Database reports without moving or deleting them. No restart, model call, send, or git command.
 - [ ] **Untrack generated reports (Alexander approval required):** review the remaining tracked copies in `Database/Reports/Generated/`, `Database/Logs/AI/Reports/`, `Database/Media/Audio/Voice/Reports/`, and the voice `.read.txt`/`.speak.txt` sidecars, then use `git rm --cached` plus `.gitignore`; not performed in this pass.
 - **04:49 HST:** Voice Markdown and `.read.txt`/`.speak.txt` outputs now use non-git `test-reports/Voice/`; WAVs and clip cache remain in Database `Media/Audio/Voice/`. Fully cached `hourly_chime` test was run with no model load.
+
+## g3-specialists hook + router v2 pass, 04:49–05:04 HST
+
+- **`run-infer.sh` hook landed (04:56), OFF by default.** The file was re-read first (JSONL logging and single-flight already in) and backed up (`run-infer.sh.pre-hook`).
+  - With `RR_SPECIALIST_ROUTING=1`, voices are routed by prompt, and `RR_SPECIALIST=<rr-name>` or TARGET `rr-*` forces a specialist (new `route-specialist.py --force`).
+  - Ollama uses the specialist model; FLM/NPU gets the specialist's Modelfile SYSTEM plus its temperature and max tokens. The JSONL gains `specialist` and `route_confidence`.
+  - **Flag-off verified byte-identical without a model:** new `System/scripts/plumbing/test-run-infer-hook.sh` (fake FLM server plus stub Ollama): 8/8 identical, 7/7 flag-on checks pass, and a mutated reference is caught.
+  - Design: [AI-Specialist-Models-and-Routing.md](../../00-architecture/AI-Specialist-Models-and-Routing.md) §4.
+- **Router v2 (04:51–04:55):** keywords and synonyms from the Library domain docs, plus a tightened liveness regex.
+  - Fresh held-out set of 27 prompts, written before tuning: **11/27 → 27/27**. That is optimistic, because its failures were visible during tuning.
+  - **Blind set of 22 prompts, written after tuning and scored once: 17/22 → 17/22 (no gain).**
+  - Original 35 labelled cases stay 35/35; old held-out stays 5/8.
+- **`template_fill.py`:** its draft call now passes `RR_SPECIALIST_ROUTING=1 RR_SPECIALIST=rr-exec` (two lines; output-path lines untouched, as owned by the test-reports pass).
+- **Live calls (2 total):**
+  1. 04:58 work-order re-run → NPU with the `rr-exec` SYSTEM, 7364 ms. The free text **still fell back**: "No data" plus the desk-layout paths, which the number check rejected.
+  2. 04:59 `bruce` "rain in Hilo" → `rr-weather` 0.5 → NPU, "No data — I can't see the desk.", 4687 ms.
+  - FLM peak about 2.0 GB; MemAvailable minimum 7643 MB. Afterwards `ollama ps` was empty, no flm was running, and the lock was IDLE.
+  - Record: [2026-09-29-specialist-hook-and-router-v2.md](../../07-testing/2026-09-29-specialist-hook-and-router-v2.md).
+
+**Needs Alexander:**
+- Whether to set `RR_SPECIALIST_ROUTING=1` for the relay and voices. That needs their environment changed and probably a restart.
+- Template drafting: pick a facts `DESK_LIVE_FILE` block or a small `rr-draft` specialist (one re-test).
+- Router next step: structural fixes plus a new blind set, not more synonyms.
