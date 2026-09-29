@@ -73,6 +73,13 @@
 - Current `jobs.py` source blob: `4276087c42c4ff36f50e79fb5e827ac7d5f01866`.
 - This is a static source audit only. It does not satisfy the required G3 runtime verification gate, so no legacy runtime function was retired.
 
+## Extended Pacific Runtime Static Audit — 2026-09-28
+
+- Direct fetch inspection extended to Pacific Automations poller/watch scripts, representative Energy action scripts, Reports runtime scripts, Github sync/remotes scripts, and the Network Globe ensure script.
+- No embedded `/home/rootrecord/.ollama/skills/` or `~/.ollama/skills/` references were found in the inspected files.
+- Representative source SHAs: `Automations/scripts/rootserver_poller.py` `93fbe25580cf7adfc0363cdf23d85d49ac4d4167`; `Automations/scripts/poller/poller-watch.py` `563b5c909e65ac9fd3c24ac7efa495e90164cacc`; `Energy/scripts/actions/river2pro-ac-always-on-on.sh` `6c40d2b24982ccf2c75f83745cfa94f05582d2c0`; `Energy/scripts/actions/solar-gate-arm.sh` `3c95f02f13f9fdc2c7906107166b13948c90430b`; `Reports/scripts/worklog_once.sh` `a12bd78fd75ed3beb7530f2235e62b4f13001643`; `Github/scripts/setup-all-remotes.sh` `22253d003c01488f618f195d7a3a983dbfd51f46`; `Communications/network/scripts/ensure-network-globe-hawaii.sh` `d8da6b7f3303248d77cc17a42e2ff61d32b7848d`.
+- This remains a static audit; runtime verification is not established by source inspection.
+
 ## Legacy Retirement Gate — 2026-09-28
 
 - Direct legacy-repository search confirms the old executable implementations remain present for the migrated plumbing warmups, single-flight/inference surfaces, Telegram relay, A-Eyes hourly scheduler, and Energy action wrappers.
