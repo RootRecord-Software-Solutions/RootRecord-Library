@@ -65,6 +65,13 @@
 - Pacific `Communications/telegram/scripts/status.sh` and `load_env.sh` do not exist at the inspected paths; no deletion was performed or inferred from that absence.
 - Runtime verification remains unavailable from this desk session, so legacy runtime functions remain in the old repository.
 
+## Legacy Retirement Gate — 2026-09-28
+
+- Direct legacy-repository search confirms the old executable implementations remain present for the migrated plumbing warmups, single-flight/inference surfaces, Telegram relay, A-Eyes hourly scheduler, and Energy action wrappers.
+- Their continued presence is intentional: the documented sequence requires successful G3 runtime verification before each corresponding legacy function is removed.
+- Legacy `SKILL.md` documentation remains outside the retirement target and must be preserved.
+- No legacy executable was deleted during this audit because this desk session has no remote runtime shell and therefore cannot establish the required G3 runtime verification.
+
 ## Next
 
 1. Verify G3 runtime behavior for Telegram, A-Eyes, Energy actions, and the Pacific poller  
