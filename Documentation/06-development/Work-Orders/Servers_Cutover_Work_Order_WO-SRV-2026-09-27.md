@@ -426,3 +426,19 @@ Copy/port only; no poller restart (PID 105444 untouched); no delivery, playback 
 - Also LANDED (text PASS, WAV VERIFY PENDING): `voice_reports.py hurricane_desk` (job `voice_hurricane_desk`, `RR_VOICE_HURRICANE=1`, 05:50/09:50/12:50/16:55/20:50) and `voice_reports.py kilauea_report` (job `voice_kilauea_report`, `RR_VOICE_KILAUEA=1`, :03). [Test record](../../07-testing/2026-09-29-voice-reports-batch3-hurricane-kilauea.md). Backup `/home/rootrecord/Database/GITHUB/migration-hurricane-desk.bak-20260929-133959/`.
 - **Standing rule received 13:45 HST:** `Automations/scripts/jobs.py` is edited only when Alexander asks or a work order requires it. This pass had already added 7 gated blocks (`geology_collect`, `geology_kilauea_cams`, `system_uptime_log`, `voice_earthquake_report`, `voice_kilauea_report`, `energy_sun_times`, `voice_hurricane_desk`); per instruction they are **left in place, not reverted**, all OFF. **Sign-off item:** keep them (then set the flags at the next poller start) or remove them. Exact blocks + line numbers: `2 - RootRecord-Database/Logs/Migration/migration-jobs-py-additions-20260929.md`. No further jobs.py edits after 13:45 HST.
 - 13:49 HST: G0 nearest-location tag ported into `Geology/scripts/geology_collect.py` (dataset `Geology/config/global-locations.json`, verbatim G0 copy); temp + one real `quakes` run **PASS**. No new job (rides `geology_collect`). Backup `/home/rootrecord/Database/GITHUB/migration-quake-locations.bak-20260929-134920/`.
+
+## US-Mainland-Server desk checkout — 2026-09-29 ~13:45–14:00 HST
+
+Second server folder now populated: `1 - Servers/2 - RootRecord-US-Mainland-Server/` = clone of `rootrecordsoftwaresolutions/US-Mainland-Server` at `b61d63c` (placeholder `Communications/` kept). No AWS change, no poller restart, no jobs.py edit. Backup `/home/rootrecord/Database/GITHUB/us-mainland-import.bak-20260929-134629/`. [Architecture](../../00-architecture/US-Mainland-Server.md) · [Test record](../../07-testing/2026-09-29-us-mainland-import-and-ssh.md) · [Plan](../../08-ideas/2026-09-29-aws-mainland-improvement-plan.md).
+
+| Item | State |
+| --- | --- |
+| Desk checkout (clone, clean, token-free remote) | **PASS** |
+| `.env.example` (names only) + README layout + `.gitignore` bytecode rule | LANDED (uncommitted) |
+| Auto-sync (`repos.conf` `mainland` row disabled, stale G2 path) | **BLOCKED** — sign-off to repoint + enable |
+| `rr-aws` ProxyCommand path fixed locally | LANDED; SSH **FAIL** (no cloudflared connector on AWS, Cloudflare 1033) |
+| `rr-aws-ip` 3.139.100.162 | **FAIL** — AWS IP is now 18.118.30.226 (read-only SSH PASS) |
+| AWS disk (`hawaii.ndjson` 1.82 GB, +39 MB/h, trim script missing) | **FAIL** risk — full ≈ 40 h; P0 fix PROPOSED |
+| Title-case restructure of the Mainland repo | PROPOSED (coordinated with AWS paths) |
+
+Note: the Smart-Devices pass earlier today (13:31 HST, before the 13:45 standing rule) added one gated block `smart_devices_collect` (`RR_SMART_DEVICES=1`, OFF) to Pacific `jobs.py` at Alexander's request; it is not in the 7-block list above.

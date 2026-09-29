@@ -22,5 +22,6 @@ Items Alexander approved show their current state in the index. Four were approv
 | 2026-09-29 | [Weather retention and a Weather repo](./2026-09-29-weather-retention-and-repo.md) | Retention LANDED / VERIFY PENDING (dry-run only; job disabled) — Pacific `52573e7`, Database `a775c2f` · Repo PROPOSED | Pacific `Weather/README.md` §Retention (PROPOSED) |
 | 2026-09-29 | [AI specialist models and keyword router](./2026-09-29-ai-specialist-models-and-routing.md) | LANDED / gated: 10 `rr-*` specialists + 3 restored `*-telegram` built (disk only), router v2 + tests landed; `run-infer.sh` hook LANDED 04:56, OFF unless `RR_SPECIALIST_ROUTING=1` | operator request; team constitution §3; missing `*-telegram` models |
 | 2026-09-29 | [Smart-plug load shedding and light dimming on low battery SOC](./2026-09-29-smart-plug-load-shedding.md) | PROPOSED | Smart-Devices foundation (plugs BLOCKED on `local_key`) |
+| 2026-09-29 | [AWS US-Mainland node: stabilise, then health + hazard continuity mirror](./2026-09-29-aws-mainland-improvement-plan.md) | PROPOSED (P0 disk fix urgent) | read-only SSH 13:49 HST: `hawaii.ndjson` 1.82 GB, 1.6 GB free, trim script missing |
 
 *Folder created 2026-09-29 ~03:48 HST (docs only).*

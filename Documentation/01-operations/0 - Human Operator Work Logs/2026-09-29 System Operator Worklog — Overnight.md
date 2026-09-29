@@ -287,3 +287,23 @@ Backups: `/home/rootrecord/Database/GITHUB/migration-geology.bak-20260929-131652
 | 13:49 | Backup 4 `/home/rootrecord/Database/GITHUB/migration-quake-locations.bak-20260929-134920/`; G0 nearest-location tag ported into `geology_collect.py` + dataset `Geology/config/global-locations.json` (verbatim G0 copy). Temp + one real `quakes` run: Hawaiʻi 9/9, global 14/34 tagged; matrix now 24 / 28 / 38 | **PASS** |
 
 **Needs Alexander:** keep or remove the 7 jobs.py registrations (sign-off item; standing rule), then set `RR_GEOLOGY=1`, `RR_KILAUEA_CAMS=1`, `RR_VOICE_QUAKE=1`, `RR_VOICE_KILAUEA=1`, `RR_VOICE_HURRICANE=1`, `RR_SUN_TIMES=1`, `RR_UPTIME_LOG=1` at the next poller start; approve deliveries (council-quake Telegram, Discord, speakers — BLOCKED); approve a full-range quake backfill; accept Geology last-json commit churn; retirement of G1/G0 sources stays KEPT until you sign off.
+
+## us-mainland-import pass (US-Mainland-Server desk checkout + AWS read-only check), 13:45–14:00 HST
+
+Backup: `/home/rootrecord/Database/GITHUB/us-mainland-import.bak-20260929-134629/` (target folder tgz + listing, `~/.ssh/config`, clone originals `README.md`/`.gitignore`/`communications/.env.example` + HEAD, Library 07/08 READMEs, this worklog, WO-SRV).
+
+| Time (HST) | What | State |
+| --- | --- | --- |
+| 13:45 | Pre-checks: target existed with only an empty `Communications/` (2026-09-27, not a repo); `gh` logged in (`rootrecordsoftwaresolutions`, keyring); repo PUBLIC, `main` `b61d63c` | done |
+| 13:47 | Cloned to a staging sibling (git refuses a non-empty dir), moved every entry incl. `.git` into the target after a per-entry conflict check, removed the empty staging dir. Remote token-free HTTPS, status clean; placeholder kept | **PASS** |
+| 13:47 | Auto-sync: Pacific `github_sync_all` → `sync-all.sh` → `repos.conf`; row `mainland` is **disabled** and points at the empty G2 `~/.ollama/skills/us-mainland-server`. Not changed (sign-off line in the [architecture doc](../../00-architecture/US-Mainland-Server.md)) | BLOCKED (sign-off) |
+| 13:47 | `~/.ssh/config`: only the `rr-aws` ProxyCommand path → Pacific `Communications/network/cloudflare/bin/cloudflared` (quoted). One `ssh -o BatchMode=yes -o ConnectTimeout=5 rr-aws uptime`: `websocket: bad handshake`, exit 255; tunnel hostnames return Cloudflare 1033 (no connector on AWS). `rr-aws-ip` 3.139.100.162: TCP timeout | **FAIL** (remote / stale IP) |
+| 13:49 | One read-only SSH to the collector's AWS address 18.118.30.226: up 3 d, 514 MB RAM avail, disk 77 % (1.6 G free); running poller + globe feed/history + github-poller only; **`hawaii.ndjson` 1.82 GB, +39 MB/h, trim script missing → disk full ≈ 40 h** | **PASS** (read) · finding **urgent** |
+| 13:50–13:52 | Checkout setup (uncommitted): root `.env.example` (57 names, no values), README *Desk checkout layout* section with proposed Title-case mapping (no rename — AWS pulls every minute and references lowercase paths), `.gitignore` `__pycache__/` + `*.py[cod]` | LANDED |
+| 13:52–13:58 | Library: [architecture](../../00-architecture/US-Mainland-Server.md), [test record](../../07-testing/2026-09-29-us-mainland-import-and-ssh.md), [AWS plan](../../08-ideas/2026-09-29-aws-mainland-improvement-plan.md), WO-SRV addendum. No sudo, restarts, sends, models, AWS mutation, jobs.py or Control-Panel edits | LANDED |
+
+**Needs Alexander:**
+- **Urgent (≤ 1 day):** OK to deploy `network-globe/maintain-hawaii-feed.sh` to AWS `…/network-globe/network-globe/scripts/` and run it once (plan P0-1, exact commands) — frees ~1.7 GB.
+- Enable auto-sync: replace the `mainland` row in Pacific `Github/scripts/repos.conf` with the line in the architecture doc (3 pending files then push and reach AWS in ~60 s).
+- Elastic IP (or accept dynamic IP) and update `rr-aws-ip` HostName to 18.118.30.226; restore cloudflared on AWS for `rr-aws` / `www.rootrecord.cloud`.
+- Decide: Title-case rename (coordinated with AWS paths), repo public vs private, root git pull on AWS, `github-poller`/`ip-notify.sh` not in repo.
