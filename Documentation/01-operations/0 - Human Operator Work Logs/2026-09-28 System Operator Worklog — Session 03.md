@@ -257,3 +257,10 @@ Filename:
 
 - The Work-Order README previously listed WO-GH-2026-09-27 as OPEN, while the authoritative WO states IN PROGRESS — Pacific Github sync LIVE; website/mainland still disabled.
 - The README was corrected to match the WO. WO-RPT-001 remains Foundation LIVE and is not being treated as a separate active execution driver in this session.
+
+
+## Documentation Reconciliation — Ecosystem Residual-Path Rule — 2026-09-28
+
+- WO-ECO's broad statement that residual legacy job paths are acceptable until domain import was narrowed to the current retirement gate.
+- Legacy runtime paths remain only where the corresponding Pacific implementation has not passed required runtime verification and retirement criteria. Static source inspection alone does not authorize legacy removal.
+- This preserves the documented verify → retire → document sequence without expanding execution scope.
