@@ -6,7 +6,7 @@
 | **Sources (read-only)** | https://github.com/rootrecordsoftwaresolutions/Solar-Pacific-RootRecord-Server-Old (G1, 97 top-level packets, 4 193 files) · https://github.com/rootrecordsoftwaresolutions/old (G0, 3 811 files). Shallow clones in `/tmp/rr-migr/` for reading, deleted after the pass. Nothing written to either repo. |
 | **Compared against** | Pacific `1 - RootRecord-Pacific-Solar-Server` (G3), Database `2 - RootRecord-Database`, [G1 README status list](https://github.com/rootrecordsoftwaresolutions/Solar-Pacific-RootRecord-Server-Old/blob/main/README.md), [Solar-Pacific-Old-Inventory-Map](./Solar-Pacific-Old-Inventory-Map-2026-09-28.md), [G3 Runtime Verification Checklist](./G3-Runtime-Verification-Checklist-2026-09-28.md), WO-ECO §4 migration checklist |
 | **Rule** | Copy and port only. Nothing retired, moved or deleted (retirement needs Alexander's explicit sign-off). Every periodic port is gated OFF in `jobs.py`. |
-| **Test records** | [Geology earthquakes + HVO](../07-testing/2026-09-29-geology-earthquakes-hvo-collector.md) · [Old-repo ports batch 1](../07-testing/2026-09-29-old-repo-ports-batch1.md) |
+| **Test records** | [Geology earthquakes + HVO](../07-testing/2026-09-29-geology-earthquakes-hvo-collector.md) · [Old-repo ports batch 1](../07-testing/2026-09-29-old-repo-ports-batch1.md) · [Voice batch 3 (hurricane + Kīlauea)](../07-testing/2026-09-29-voice-reports-batch3-hurricane-kilauea.md) |
 | **Evidence** | `2 - RootRecord-Database/Logs/Migration/migration-geology-evidence-20260929T2319Z.md` |
 
 **Status words:** *migrated* = the capability exists in G3 (LANDED or better; each row says whether it is gated) · *partial* = some of it exists in G3, the rest is listed · *missing* = not in G3. "THIS PASS" marks rows changed on 2026-09-29 13:12 HST onward. "Bucket" in the counts: core = Pacific runtime scope, geology = priority-1 scope, library = docs/agent context, product = product/website repos (out of Pacific scope), archive = archive-only.
@@ -15,7 +15,7 @@
 
 | Rows | migrated | partial | missing | touched this pass |
 |---|---|---|---|---|
-| 90 | 23 | 29 | 38 | 11 |
+| 90 | 23 | 29 | 38 | 13 |
 
 | Bucket | migrated | partial | missing |
 |---|---|---|---|
@@ -38,6 +38,8 @@ Grouped rows: related G1 packets that share one G3 target are one row (e.g. the 
 | Sun times | `Energy/scripts/sun_times.py` → Database `Energy/sun/` | `RR_SUN_TIMES=1`, hourly (1 fetch/day) | PASS |
 | Uptime log | `System/scripts/uptime_log.py` → Database `System/uptime/` | `RR_UPTIME_LOG=1`, 60 s | PASS |
 | MP4 converter | `Media/Video/scripts/mp4_converter.py` → Database `Media/Video/` | on demand | PASS |
+| Hurricane desk voice report (Carly, Hawaiʻi block) | `Media/Voice/scripts/voice_reports.py hurricane_desk` | `RR_VOICE_HURRICANE=1`, 05:50/09:50/12:50/16:55/20:50 | PASS (text); WAV VERIFY PENDING |
+| Kīlauea voice report (Carly, hourly desk + HVO notice) | `Media/Voice/scripts/voice_reports.py kilauea_report` | `RR_VOICE_KILAUEA=1`, :03 | PASS (text); WAV VERIFY PENDING |
 
 ## Matrix
 
@@ -45,7 +47,7 @@ Grouped rows: related G1 packets that share one G3 target are one row (e.g. the 
 |---|---|---|---|---|---|
 | 1 | USGS earthquake poll Hawaiʻi + global (earthquake-hourly fetch, M≥2 poll) | `Solar-Pacific-RootRecord-Server-Old/earthquakes/earthquake-hourly/scripts/earthquake_hourly.py` | **migrated** | Pacific `Geology/scripts/geology_collect.py` → Database `Geology/Earthquakes/` | THIS PASS. Job `geology_collect` gated `RR_GEOLOGY=1` (300 s). Discord post + speaker play not ported (sign-off). |
 | 2 | Earthquake hourly spoken report (Carly) | `Solar-Pacific-RootRecord-Server-Old/earthquakes/earthquake-hourly/scripts/earthquake_hourly.py (build_spoken)` | **migrated** | Pacific `Media/Voice/scripts/voice_reports.py earthquake_report` | THIS PASS. Job `voice_earthquake_report` gated `RR_VOICE_QUAKE=1` (:08). Text tested; WAV render not run (no model load). No delivery. |
-| 3 | Kīlauea HVO poll (alert level, notice, headline, multiplier, quakes ≤150 km) | `Solar-Pacific-RootRecord-Server-Old/kilauea/rr-kilauea/scripts/kilauea.py` | **partial** | Pacific `Geology/scripts/geology_collect.py` → Database `Geology/Volcanoes/` | THIS PASS (data half). Uses HANS public API instead of HTML scrape. NOT ported: Grok report_generation, public Discord draft queue (needs cloud spend + posting sign-off). |
+| 3 | Kīlauea HVO poll (alert level, notice, headline, multiplier, quakes ≤150 km) | `Solar-Pacific-RootRecord-Server-Old/kilauea/rr-kilauea/scripts/kilauea.py` | **partial** | Pacific `Geology/scripts/geology_collect.py` → Database `Geology/Volcanoes/`; spoken desk `voice_reports.py kilauea_report` | THIS PASS (data + template voice). Uses HANS public API instead of HTML scrape. Voice job `voice_kilauea_report` gated `RR_VOICE_KILAUEA=1` (:03). NOT ported: Grok report_generation, public Discord draft queue (needs cloud spend + posting sign-off). |
 | 4 | Mauna Loa / all HVO volcano status | `(new — HVO scope requested)` | **migrated** | Database `Geology/Volcanoes/{hvo,mauna-loa}-last.json` | THIS PASS (same collector). |
 | 5 | Kīlauea cams (USGS V1/V2/V3 catalog + still fallback) | `Solar-Pacific-RootRecord-Server-Old/kilauea/kilauea-cams/scripts/kilauea_cams.py` | **partial** | Pacific `Geology/scripts/kilauea_cams.py` → Database `Geology/Volcanoes/Cams/` | THIS PASS. Job `geology_kilauea_cams` gated `RR_KILAUEA_CAMS=1` (600 s). OBS push BLOCKED (no OBS in G3); YouTube id scraping not ported. |
 | 6 | Council quake Telegram posts (per-quake, Carly WAV) | `Solar-Pacific-RootRecord-Server-Old/council/council-quake/scripts/quake_watch.py` | **partial** | Detection: `hawaii-last.json new_local_m2_ids`; delivery: Communications/telegram (not built) | BLOCKED: Telegram send needs Alexander sign-off + relay replies BLOCKED (models). |
@@ -82,7 +84,7 @@ Grouped rows: related G1 packets that share one G3 target are one row (e.g. the 
 | 37 | System per-second / per-minute (cronologicals) | `old/operations/cronologicals/since-last-fire/every-second/system.py, every-minute/system-min.py` | **migrated** | Pacific `System/scripts/sys-sample.sh` | LIVE via G2→G3. |
 | 38 | Uptime per-minute (cronologicals) | `old/operations/cronologicals/since-last-fire/every-minute/uptime.py` | **migrated** | Pacific `System/scripts/uptime_log.py` | THIS PASS (same capability as G1 uptime-log). |
 | 39 | NWS Hawaiʻi counties / rr-noaa / live-wx | `Solar-Pacific-RootRecord-Server-Old/weather/nws-hawaii, rr-noaa, live-wx` | **partial** | Pacific `Weather/` (fetch, alerts, county_map, reports) | Weather daemon LIVE; chat helper (live_wx) not ported (council chat BLOCKED). |
-| 40 | Hurricane fetch / tracker / desk | `Solar-Pacific-RootRecord-Server-Old/weather/hurricane-fetch, hurricane-tracker, hurricane-desk` | **partial** | Pacific `Weather/hurricanes/` | Desk WAV not ported as voice report. |
+| 40 | Hurricane fetch / tracker / desk | `Solar-Pacific-RootRecord-Server-Old/weather/hurricane-fetch, hurricane-tracker, hurricane-desk` | **partial** | Pacific `Weather/hurricanes/` (fetch/track); desk `Media/Voice/scripts/voice_reports.py hurricane_desk` | THIS PASS (desk). Hawaiʻi block ported from G3 `track.json` + NWS HI alerts; job `voice_hurricane_desk` gated `RR_VOICE_HURRICANE=1` (05:50/09:50/12:50/16:55/20:50). Still missing: G1 global JTWC/RAMMB board (G3 tracks only Hawaiʻi-relevant NHC storms), storm plot. |
 | 41 | Hurricane OBS / radio | `Solar-Pacific-RootRecord-Server-Old/weather/hurricane-obs, hurricane-radio` | **missing** | — | BLOCKED: OBS + radio playback not in G3 (no playback allowed). |
 | 42 | Radar archive / official weather media | `Solar-Pacific-RootRecord-Server-Old/weather/radar-archive, official-weather-media` | **partial** | Pacific `Weather/fetch/radar.py`, `maps.py` | GIF loop builder not ported. |
 | 43 | US weather fetch (all states) | `old/operations/weather/fetch_us_weather.py + every-hour/fetch-us-weather.py` | **missing** | Website data (avaivy.cloud) | Product/website dataset; out of Pacific scope. |
@@ -90,7 +92,7 @@ Grouped rows: related G1 packets that share one G3 target are one row (e.g. the 
 | 45 | Morning / midday / late reports (generate) | `Solar-Pacific-RootRecord-Server-Old/reports/sort/morning-report, midday-report, late-report, report-generation` | **partial** | voice_reports.py roll-ups (template-first) | Grok/cloud generation not ported (no cloud spend). |
 | 46 | Report play jobs (morning/midday/late/evening play, periodic audio, replay) | `Solar-Pacific-RootRecord-Server-Old/reports/sort/*-play, report-periodic-audio, evening-*` | **missing** | — | BLOCKED: speaker playback not allowed. |
 | 47 | Remaining tasks / day board | `Solar-Pacific-RootRecord-Server-Old/remaining-tasks` | **migrated** | voice `remaining_tasks` | g3-voice-reports2. |
-| 48 | Hourly clip reports / chimes | `Solar-Pacific-RootRecord-Server-Old/hourly-clip-reports` | **partial** | voice `hourly_chime` | Kīlauea/security/bandwidth clip desks not ported. |
+| 48 | Hourly clip reports / chimes | `Solar-Pacific-RootRecord-Server-Old/hourly-clip-reports` | **partial** | voice `hourly_chime`, `kilauea_report` | THIS PASS: Kīlauea desk → `kilauea_report` (gated `RR_VOICE_KILAUEA`). Security/bandwidth desks not ported (need G3 bandwidth feed). |
 | 49 | Energy report (Carly) | `Solar-Pacific-RootRecord-Server-Old/reports/sort/energy-report` | **migrated** | voice `energy_report` | Vision caption not used. |
 | 50 | Daily report board / catch-up / day-reports / readiness / merged-morning | `Solar-Pacific-RootRecord-Server-Old/reports/sort/daily-*, day-reports*, report-readiness; Solar-Pacific-RootRecord-Server-Old/merged-morning` | **missing** | Reports/ | Depends on origin report engine; next pass design. |
 | 51 | Economy brief (+Discord) | `Solar-Pacific-RootRecord-Server-Old/reports/sort/economy-brief` | **missing** | — | Discord delivery → sign-off. |
@@ -147,6 +149,6 @@ Grouped rows: related G1 packets that share one G3 target are one row (e.g. the 
 
 ## Next candidates (safe, not done this pass)
 
-hurricane_desk voice report (Weather `hurricanes/` data exists; 760-line G1 script), hourly solar report, official_weather_media voice, web-facts (after council chat), load-categories (after field map), daily report board.
+hourly solar report, G1 global hurricane board (needs a JTWC/RAMMB source decision), official_weather_media voice, web-facts (after council chat), load-categories (after field map), daily report board.
 
 *Created 2026-09-29 (migration pass). Update this file and the [G1 README](https://github.com/rootrecordsoftwaresolutions/Solar-Pacific-RootRecord-Server-Old/blob/main/README.md) status tables together — the G1 README was **not** edited in this pass (no writes to old repos).*
