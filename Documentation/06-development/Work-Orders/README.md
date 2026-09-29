@@ -32,7 +32,7 @@ Work-Orders/
 | **WO-RPT-001** | Reports / worklog domain import | **Foundation LIVE** (A–E) | [WO](./WO-RPT-001-Reports-Worklog-Domain-Import.md) · [Action Plan](./WO-RPT-001-Action-Plan.md) |
 | WO-MAP-2026-09-27 | Master-Prompt repository ownership map | OPEN | [WO](./MasterPrompt_RepoMap_Work_Order_WO-MAP-2026-09-27.md) |
 | WO-OLD-2026-09-28 | Selective recovery from Solar-Pacific-…-Old (G1) | OPEN — scheduler trio **MIGRATED**; other packets blocked on G2→G3 | [WO](./Old_Server_Selective_Recovery_Work_Order_WO-OLD-2026-09-28.md) |
-| WO-GH-2026-09-27 | GitHub catalog hygiene | OPEN | [WO](./GitHub_Catalog_Hygiene_Work_Order_WO-GH-2026-09-27.md) |
+| WO-GH-2026-09-27 | GitHub catalog hygiene | **IN PROGRESS** — Pacific `Github/` sync LIVE; website/mainland still disabled | [WO](./GitHub_Catalog_Hygiene_Work_Order_WO-GH-2026-09-27.md) |
 | WO-DATA-2026-09-27 | Database boundary & publication policy | OPEN | [WO](./Database_Boundary_Work_Order_WO-DATA-2026-09-27.md) |
 | WO-AGENT-2026-09-27 | Agent context canonical home | OPEN | [WO](./AgentContext_CanonicalHome_Work_Order_WO-AGENT-2026-09-27.md) |
 | WO-CF-2026-09-27 | Cloudflare tunnel credential recovery | OPEN | [WO](./Cloudflare_Tunnel_Recovery_Work_Order_WO-CF-2026-09-27.md) |
