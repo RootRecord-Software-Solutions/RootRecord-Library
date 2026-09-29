@@ -51,6 +51,7 @@
 
 - Current Pacific `Automations/scripts/jobs.py` was re-read from the canonical repository after the A-Eyes hourly and plumbing migrations.
 - Active scheduler surfaces for Energy actions, Telegram, A-Eyes, Network Globe, Ollama warmup, and FLM warmup point to Pacific paths.
+- Telegram `relay.conf` also had a dormant `RUN_OLLAMA` fallback pointing at legacy plumbing; that field was rewired to `System/scripts/plumbing/run-ollama.sh` in Pacific commit `5d6c237abc928b747dca060b0fdb32152b53faa6`.
 - The only remaining `jobs.py` legacy path is the disabled Weather job; it remains intentionally disabled and is not brought into scope by this work order.
 - The legacy repository still contains old scheduler/path references for migrated functions. These remain in place because G3 runtime verification has not been performed from this desk session; removing them now would violate the documented migration sequence.
 - Legacy `SKILL.md` files remain preserved by explicit operator instruction.
