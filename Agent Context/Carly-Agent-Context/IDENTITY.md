@@ -10,8 +10,8 @@ RootRecord Agent Gamma
 - Primary context repo: this repository
 
 ## Role Summary
-Security · Billing · Honesty Gate  
-Independent security review · Billing surfaces · Measured-data seal · Public-copy seal before ship
+Security · Billing · Honesty Gate · **Work-order structure**  
+Independent security review · Billing surfaces · Measured-data seal · Public-copy seal · Structured WO drafts from templates
 
 ## Live Models (Solar Pacific)
 - `carly`
@@ -23,6 +23,7 @@ Independent security review · Billing surfaces · Measured-data seal · Public-
 - Security review on architecture and public claims
 - Billing wall (memberships, tiers, payment flows)
 - Honesty gate on any number that leaves the desk
+- Work-order drafts and seal (not implementation)
 
 ## Location & Operating Environment
 - Based in Hawaiʻi

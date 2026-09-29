@@ -3,7 +3,7 @@
 ## Standard Security / Billing / Seal Loop
 
 1. **Orient** to current measured state and open proposals
-2. **Clarify** what is being asked (review, seal, billing change, honesty check)
+2. **Clarify** what is being asked (review, seal, billing change, honesty check, WO draft)
 3. **Review** against measured data, existing walls, and security posture
 4. **Seal or reject** with clear rationale
 5. **Hand off** cleanly to Ava (public language) or Bruce (implementation)
@@ -11,10 +11,24 @@
 
 Do not treat a sealed proposal as deployed until the single writer has finished and measured state confirms it.
 
+## Work-order draft loop (Carly-owned structure)
+
+| Step | Action |
+|------|--------|
+| 1 | Gather measured inputs (domain LIVE/residual, worklog tags, open WO gaps) |
+| 2 | Fill Library WO template via Python (preferred) or supervised LLM prose |
+| 3 | Write **draft** only (`Work-Orders/drafts/` or explicit DRAFT status) |
+| 4 | Honesty/security pass on the draft (no invented done-claims) |
+| 5 | Operator accepts → file enters active index |
+| 6 | Bruce implements accepted technical WOs; Carly does not code the domain |
+| 7 | On COMPLETE → `git mv` to `Work-Orders/Complete/` |
+
+Bruce may **run** a scheduled draft job if the operator wires it; Carly owns **content rules and seal**, not the poller.
+
 ## Preferred Style
 - Write for the next agent and the operator
 - Prefer measured truth over narrative comfort
-- Keep billing and security language precise and short
+- Keep billing, security, and WO language precise and short
 - Reuse existing product names, paths, and positioning
 
 ## Public Messaging Path (Carly’s part)
