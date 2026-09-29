@@ -216,3 +216,16 @@ Retirement eligibility (after this evidence): Security/Cameras cam server + fram
 - **network-globe-hawaii — PASS.** Unit repointed to Pacific `Communications/network/local-data-globe/collector.js` at 00:33:44 HST; MainPID cmdline and cwd are Pacific; active, no restarts; SSH stream to AWS ready. The remaining warnings (remote `maintain-hawaii-feed.sh` missing, exit 127; one SSH reconnect at start) also appeared with the G2 collector before the cutover — pre-existing and remote-side.
 - **ava-ecoflow-ble — PASS.** Old owner stopped and confirmed gone, unit repointed to Pacific `Energy/scripts/ble/ble-owner.py`, `devices.conf` `ble_log` → `/home/rootrecord/Database/Logs/Energy/ava-ecoflow-ble.log` and `owner_script` → Pacific; started 00:35:14 HST; pid file matches MainPID, heartbeats every 30 s, no journal errors, one owner. A first attempt aborted in its own safety check (false match on the shell) and restarted the unchanged G2 unit, so the old owner was down about 2 s.
 - **G2 retired** after a dependency check (G2 tree, systemd user/system units, cron, rc files, Pacific, processes; no live reference): `~/.ollama/skills/coms/ssh/local-data-globe/collector.js`, `telegram-relay.js` (only used by that collector) and `~/.ollama/skills/energy/scripts/ble/ble-owner.py`. Backup: `/home/rootrecord/Database/GITHUB/g2-retire.bak-20260929-003720/`; `MIGRATED.md` placed in both folders; `SKILL.md` kept. Dormant references left: G2 `jobs.py` (globe cwd), G2 `stop-poller-stack.sh` (kill pattern), G2 `start.sh` / `package.json`, G2 `energy/config/devices.conf`.
+
+
+## Verified status refresh — 2026-09-29
+
+- **Security/Cameras:** cam server and frame-grab passed live verification; `Security/Cameras/grab_all.sh`, `System/scripts/sys-sample.sh`, and `Reports/scripts/worklog_once.sh` legacy executables were retired after evidence. Security timelapse remains verification-pending.
+- **Network Globe:** live systemd unit was repointed to Pacific and passed runtime verification; G2 collector/relay files were retired after dependency checks.
+- **Energy BLE owner:** live systemd unit was repointed to Pacific and passed runtime verification; G2 BLE owner was retired after dependency checks.
+- **Telegram:** remains blocked by missing `TELEGRAM_AVA_TOKEN`; no legacy retirement.
+- **Energy actions:** verification remains pending; no destructive hardware action is required or authorized for verification.
+- **Plumbing / NPU:** non-NPU verification remains pending; FastFlowLM/NPU remains blocked because the documented runtime is unavailable.
+- **Pacific poller:** runtime is on the Pacific path, but the overall acceptance gate remains open while Telegram and remaining verification items are unresolved.
+- **Database boundary:** active Pacific source paths now target `/home/rootrecord/RootRecord-Ecosystem/2 - RootRecord-Database`. Historical evidence may still contain `/home/rootrecord/Database/` and should not be rewritten as if it were current.
+- **Operator GitHub pull workflow:** the human `/home/rootrecord/RootRecord-Ecosystem/Pull.sh` remains intentionally available. Its coexistence with the 5-second automated GitHub sync is resolved and is not a migration blocker.
