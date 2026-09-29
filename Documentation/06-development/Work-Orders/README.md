@@ -23,13 +23,13 @@ Work-Orders/
 
 ---
 
-## Active ops backlog (updated 2026-09-28 ~19:08 HST)
+## Active ops backlog (updated 2026-09-28 ~20:55 HST)
 
 | ID | Title | Status | File |
 | --- | --- | --- | --- |
-| WO-ECO-2026-09-27 | Ecosystem migration & repository foundation | **IN PROGRESS** — Pacific + Energy + System LIVE; Automations engine sole authority | [WO](./Ecosystem_Migration_Work_Order_WO-ECO-2026-09-27.md) |
-| WO-SRV-2026-09-27 | Pacific runtime path cutover (G2 → G3) | **IN PROGRESS** — Energy + System + Reports Phase B LIVE | [WO](./Servers_Cutover_Work_Order_WO-SRV-2026-09-27.md) |
-| **WO-RPT-001** | Reports / worklog domain import | **Phase B LIVE** — C/D/E open | [WO](./WO-RPT-001-Reports-Worklog-Domain-Import.md) · [Action Plan](./WO-RPT-001-Action-Plan.md) |
+| WO-ECO-2026-09-27 | Ecosystem migration & repository foundation | **IN PROGRESS** — Pacific + Energy + System + Plumbing LIVE | [WO](./Ecosystem_Migration_Work_Order_WO-ECO-2026-09-27.md) |
+| WO-SRV-2026-09-27 | Pacific runtime path cutover (G2 → G3) | **IN PROGRESS** — Energy actions + Plumbing LIVE; Telegram / A-Eyes residual | [WO](./Servers_Cutover_Work_Order_WO-SRV-2026-09-27.md) |
+| **WO-RPT-001** | Reports / worklog domain import | **Foundation LIVE** (A–E) | [WO](./WO-RPT-001-Reports-Worklog-Domain-Import.md) · [Action Plan](./WO-RPT-001-Action-Plan.md) |
 | WO-MAP-2026-09-27 | Master-Prompt repository ownership map | OPEN | [WO](./MasterPrompt_RepoMap_Work_Order_WO-MAP-2026-09-27.md) |
 | WO-OLD-2026-09-28 | Selective recovery from Solar-Pacific-…-Old (G1) | OPEN — scheduler trio **MIGRATED**; other packets blocked on G2→G3 | [WO](./Old_Server_Selective_Recovery_Work_Order_WO-OLD-2026-09-28.md) |
 | WO-GH-2026-09-27 | GitHub catalog hygiene | OPEN | [WO](./GitHub_Catalog_Hygiene_Work_Order_WO-GH-2026-09-27.md) |
@@ -45,11 +45,11 @@ Work-Orders/
 
 | ID | Title | Priority | Status | File |
 |----|-------|----------|--------|------|
-| **WO-ECO-001** | Energy domain import (EcoFlow + hybrid reports) | P0 | Phase 1 **COMPLETE** on org Pacific — move to `Complete/` when operator closes companion docs | [WO](./WO-ECO-001-Energy-Domain-Import.md) · [Action Plan](./WO-ECO-001-Action-Plan.md) |
-| **WO-SRV-001** | Residual jobs path rewire | P0 | In progress — worklog path **done** via WO-RPT-001 | [WO](./WO-SRV-001-Residual-Jobs-Path-Rewire.md) |
-| **WO-RPT-001** | Reports / worklog domain import | P0 | **Phase B LIVE** | [WO](./WO-RPT-001-Reports-Worklog-Domain-Import.md) · [Action Plan](./WO-RPT-001-Action-Plan.md) |
+| **WO-ECO-001** | Energy domain import (EcoFlow + hybrid reports) | P0 | Phase 1 **COMPLETE** on org Pacific — actions path LIVE | [WO](./WO-ECO-001-Energy-Domain-Import.md) · [Action Plan](./WO-ECO-001-Action-Plan.md) |
+| **WO-SRV-001** | Residual jobs path rewire | P0 | In progress — Energy actions + Plumbing **done**; Telegram next | [WO](./WO-SRV-001-Residual-Jobs-Path-Rewire.md) |
+| **WO-RPT-001** | Reports / worklog domain import | P0 | **Foundation LIVE** | [WO](./WO-RPT-001-Reports-Worklog-Domain-Import.md) · [Action Plan](./WO-RPT-001-Action-Plan.md) |
 | **WO-WEB-001** | Public status / solar board alignment | P1 | Draft | [WO](./WO-WEB-001-Public-Status-Solar-Board.md) |
-| **WO-COM-001** | Communications surface | P1 | Draft | [WO](./WO-COM-001-Communications-Surface.md) |
+| **WO-COM-001** | Communications surface | P1 | Draft — Telegram residual next | [WO](./WO-COM-001-Communications-Surface.md) |
 | **WO-COM-002** | Discord bot credential rotation (migration gate) | P1 | OPEN | [WO](./WO-COM-002-Discord-Bot-Credential-Rotation.md) |
 | **WO-WXG-001** | Weather + Geology domain import | P1 | Draft — after Energy | [WO](./WO-WXG-001-Weather-Geology-Import.md) |
 | **WO-SYS-001** | Poller observability & FAIL handling | P2 | Draft (System Phase 1 live) | [WO](./WO-SYS-001-Poller-Observability.md) |
@@ -74,10 +74,10 @@ Folder + `SKILL.md` retained. Skills were functional packets (poor original desi
 
 ## Suggested attack order (remaining)
 
-1. ~~Energy~~ ~~System~~ ~~Reports Phase B~~ (LIVE)  
-2. **WO-RPT-001** Phase C/D/E (roll-up, weekly archive, G1 marker)  
-3. **WO-SRV-001** residual path cleanup (plumbing, telegram, a-eyes, energy actions)  
-4. Communications / Telegram / Discord (**WO-COM-002** token gate before Discord LIVE) → A-Eyes → Weather + Geology  
+1. ~~Energy~~ ~~System~~ ~~Reports~~ ~~Plumbing / Energy actions~~ (LIVE)  
+2. **Telegram / council_relay** → `Communications/`  
+3. A-Eyes → Weather + Geology  
+4. Final `jobs.py` grep + cwd cleanup  
 5. Retire G2 desk as residual host; close WO-ECO when foundation settles → move finished WOs to `Complete/`  
 
 Architecture maps (Library):
@@ -92,12 +92,14 @@ Architecture maps (Library):
 ## Live snapshot (ops)
 
 ```text
-systemd   Pacific run-poller.sh
-Energy    SUMMARY + ENERGY live
-System    sys-sample on Pacific System/scripts/
-Reports   Phase B LIVE — worklog_scan → Pacific Reports/scripts
+systemd   Pacific run-poller.sh (reload skips status window)
+Energy    reads + leapfrog + actions LIVE
+System    sys-sample + plumbing warmups LIVE
+Reports   foundation LIVE — worklog_scan → Pacific Reports/scripts
+Github    setup-remotes + sync-all LIVE
 Log       /home/rootrecord/Database/Logs/Automations/automations_current.log
 G1 sched  hybrid-night-poller / heartbeat / net-gate → MIGRATED.md on -Old
+Residual  telegram · a-eyes · weather(disabled) · network-globe cwd
 ```
 
 ---
