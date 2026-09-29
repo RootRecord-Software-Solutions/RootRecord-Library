@@ -8,23 +8,20 @@ Companion to [WO-RPT-001-Reports-Worklog-Domain-Import.md](./WO-RPT-001-Reports-
 - [x] Create this WO + index entry
 - [x] Document dual path: Database machine / Library human
 
-## Phase B — Path rewire (DONE in git; soak on desk)
+## Phase B — Path rewire (LIVE 2026-09-28 ~19:04 HST)
 
 - [x] Port `worklog_lib.sh` (hygiene prunes + domain tags)
 - [x] Port `worklog_once.sh`, `worklog_poller.sh`
 - [x] Rewire `jobs.py` `worklog_scan` → Pacific `Reports/scripts/worklog_once.sh`
-- [ ] Desk: auto-sync / stack reload; confirm `OK wrote/updated` in poller window
-- [ ] Confirm `Database/WORKLOG/worklog_current.md` advancing
+- [x] Desk: confirm `OK wrote/updated` + advancing `worklog_current.md`
+- [x] Domain tags observed (`Automations`, `Reports`, `System`, `Database`, …)
 
-### Desk verification (operator)
+### Desk verification (operator) — passed
 
 ```bash
 bash "/home/rootrecord/RootRecord-Ecosystem/1 - Servers/1 - RootRecord-Pacific-Solar-Server/Reports/scripts/worklog_once.sh"
-# expect: OK wrote/updated /home/rootrecord/Database/WORKLOG/worklog_current.md
 tail -n 30 /home/rootrecord/Database/WORKLOG/worklog_current.md
 ```
-
-After github_sync_all + schedule-stack-reload, `worklog_scan` should use Pacific only.
 
 ## Phase C — Daily Library roll-up (OPEN)
 
@@ -40,20 +37,20 @@ After github_sync_all + schedule-stack-reload, `worklog_scan` should use Pacific
 - [ ] Closed WOs only → `06-development/archive/YYYY-Www/`
 - [ ] Schedule Sunday ~19:00 HST after manual proof
 
-## Phase E — G1 hygiene (OPEN after B soak)
+## Phase E — G1 hygiene (OPEN — B soak done, ready)
 
 - [ ] `MIGRATED.md` on G1 `reports/`
 - [ ] Update Old README status table + Library inventory map
 
-## Enhancement checklist (baked into B where possible)
+## Enhancement checklist
 
 | Enhancement | Phase |
 |-------------|-------|
 | Dual-output design (Database + Library) | A docs; C job |
-| Domain tags on Pacific-path events | B |
-| Extra prunes (transcripts, credential-ish paths) | B |
+| Domain tags on Pacific-path events | **B LIVE** |
+| Extra prunes (transcripts, credential-ish paths) | **B LIVE** |
 | Weekly archive automation | D |
 | Migration progress surface | C |
 | Deny public-draft G1 bulk import | standing |
 
-*Updated 2026-09-28 HST.*
+*Phase B LIVE 2026-09-28 ~19:04 HST.*
