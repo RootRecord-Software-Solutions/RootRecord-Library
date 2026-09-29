@@ -420,3 +420,8 @@ Copy/port only; no poller restart (PID 105444 untouched); no delivery, playback 
 | MP4 converter | `Media/Video/scripts/mp4_converter.py` | on demand | LANDED · **PASS** |
 
 **Needs Alexander:** set the five flags at the next poller start (then close the VERIFY PENDING cells); approve any delivery (Telegram council-quake, Discord, speakers — **BLOCKED** until then); approve a full-range backfill; accept Database git churn from `Geology/*-last.json` every 5 min. Records: [geology](../../07-testing/2026-09-29-geology-earthquakes-hvo-collector.md), [batch 1](../../07-testing/2026-09-29-old-repo-ports-batch1.md).
+
+### Addendum ~13:46 HST — voice batch 3 + jobs.py standing rule
+
+- Also LANDED (text PASS, WAV VERIFY PENDING): `voice_reports.py hurricane_desk` (job `voice_hurricane_desk`, `RR_VOICE_HURRICANE=1`, 05:50/09:50/12:50/16:55/20:50) and `voice_reports.py kilauea_report` (job `voice_kilauea_report`, `RR_VOICE_KILAUEA=1`, :03). [Test record](../../07-testing/2026-09-29-voice-reports-batch3-hurricane-kilauea.md). Backup `/home/rootrecord/Database/GITHUB/migration-hurricane-desk.bak-20260929-133959/`.
+- **Standing rule received 13:45 HST:** `Automations/scripts/jobs.py` is edited only when Alexander asks or a work order requires it. This pass had already added 7 gated blocks (`geology_collect`, `geology_kilauea_cams`, `system_uptime_log`, `voice_earthquake_report`, `voice_kilauea_report`, `energy_sun_times`, `voice_hurricane_desk`); per instruction they are **left in place, not reverted**, all OFF. **Sign-off item:** keep them (then set the flags at the next poller start) or remove them. Exact blocks + line numbers: `2 - RootRecord-Database/Logs/Migration/migration-jobs-py-additions-20260929.md`. No further jobs.py edits after 13:45 HST.

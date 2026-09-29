@@ -68,6 +68,7 @@ python3 -c 'import importlib.util…jobs.py…'   # enabled flags, see evidence 
 
 ## Open items / caveats
 
+- **jobs.py registration is a sign-off item** (standing rule received 13:45 HST: jobs.py only on Alexander's request or a WO). The gated blocks were added before the rule arrived and are left in place, OFF; exact blocks in Database `Logs/Migration/migration-jobs-py-additions-20260929.md`.
 - Poller PID 105444 was **not** restarted; nothing is scheduled until the next poller start with `RR_GEOLOGY=1` (and `RR_VOICE_QUAKE=1`, `RR_KILAUEA_CAMS=1`) — **sign-off**.
 - Earthquake WAV render + by-ear check **VERIFY PENDING** (first run after sign-off, through `voice-render.sh`, single-flight).
 - Git churn if enabled: `*-last.json` rewrite every 5 min + Daily append (Database auto-sync). Stills are git-ignored.

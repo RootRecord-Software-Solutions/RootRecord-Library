@@ -60,6 +60,7 @@ nice -n 10 python3 Media/Video/scripts/mp4_converter.py --audio /tmp/rr-migr/t.m
 
 ## Open items / caveats
 
+- **jobs.py registration is a sign-off item** (standing rule received 13:45 HST: jobs.py only on Alexander's request or a WO). The gated blocks were added before the rule arrived and are left in place, OFF; exact blocks in Database `Logs/Migration/migration-jobs-py-additions-20260929.md`.
 - Enabling `RR_UPTIME_LOG` appends to `System/uptime/uptime-events.jsonl` only on events (start / gap), but rewrites `uptime-last.json` every 60 s → Database git churn; consider git-ignoring `uptime-last.json` (**sign-off**).
 - G1 sun-times consumers (hourly solar voice report) not ported yet.
 - MP4 converter is on demand only; G1 broadcast integration not ported (scope decision).

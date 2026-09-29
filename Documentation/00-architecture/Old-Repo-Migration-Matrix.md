@@ -147,6 +147,16 @@ Grouped rows: related G1 packets that share one G3 target are one row (e.g. the 
 7. **Field mapping:** load-categories uses G1 cloud-quota keys; G3 BLE last-files differ.
 8. **Scope decisions:** fs-index (full-disk index of private paths), python-drop-runner (runs arbitrary dropped code), broadcast (serves a file-tree browser), Hawaiʻi news collector target folder.
 
+## Sign-off items (Alexander)
+
+1. **jobs.py registrations** — 7 gated blocks added by this pass before the standing rule arrived (left in place, OFF): keep or remove. Exact blocks: `2 - RootRecord-Database/Logs/Migration/migration-jobs-py-additions-20260929.md`.
+2. **Flags** at the next poller start: `RR_GEOLOGY`, `RR_KILAUEA_CAMS`, `RR_VOICE_QUAKE`, `RR_VOICE_KILAUEA`, `RR_VOICE_HURRICANE`, `RR_SUN_TIMES`, `RR_UPTIME_LOG`.
+3. Any delivery (Telegram / Discord / speakers / radio) for the new voice reports.
+4. Full-range quake backfill (G0 defaults 2010 / 2020 → thousands of USGS requests).
+5. `kilauea_cams.py --keep-dated` archiving (disk).
+6. Database git churn from `Geology/*-last.json` (5 min) and `System/uptime/uptime-last.json` (60 s) once enabled — keep tracked or git-ignore.
+7. Retirement of any G1/G0 source (all **KEPT**).
+
 ## Next candidates (safe, not done this pass)
 
 hourly solar report, G1 global hurricane board (needs a JTWC/RAMMB source decision), official_weather_media voice, web-facts (after council chat), load-categories (after field map), daily report board.

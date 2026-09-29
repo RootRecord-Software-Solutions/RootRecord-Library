@@ -114,5 +114,7 @@ Record any post-check confirmation in WO-SRV notes if useful; do not re-open clo
 | Sun times | G1 `hourly-solar-weather` `sun_times` | `Energy/scripts/sun_times.py` | yes | manual PASS (`RR_SUN_TIMES`) | **KEPT** |
 | Uptime log | G1 `uptime-log` | `System/scripts/uptime_log.py` | yes | manual PASS (`RR_UPTIME_LOG`) | **KEPT** |
 | MP4 converter | G1 `mp4-converter` | `Media/Video/scripts/mp4_converter.py` | yes | manual PASS (on demand) | **KEPT** |
+| Hurricane desk voice | G1 `weather/hurricane-desk` | `Media/Voice/scripts/voice_reports.py hurricane_desk` | yes | text PASS; WAV VERIFY PENDING (`RR_VOICE_HURRICANE`) | **KEPT** |
+| Kīlauea hourly desk voice | G1 `hourly-clip-reports` Kīlauea desk, `persona._kilauea_line` | `Media/Voice/scripts/voice_reports.py kilauea_report` | yes | text PASS; WAV VERIFY PENDING (`RR_VOICE_KILAUEA`) | **KEPT** |
 
 All legacy sources stay in place; the **Retired** column changes only with Alexander's explicit sign-off. Full matrix: [Old-Repo-Migration-Matrix](./Old-Repo-Migration-Matrix.md).
