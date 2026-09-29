@@ -288,3 +288,12 @@ Filename:
 - Rechecked WO-ECO §4.1: the `Master-Prompt repository links section` remains unchecked.
 - Library search did not locate the specifically named `08-repository-and-file-links.md` artifact. No completion was inferred from unrelated Master-Prompt files elsewhere in accessible search results.
 - The item remains open rather than being fabricated or marked complete without the intended source artifact.
+
+
+## Documentation Reconciliation — WO-ECO Data / Website / Node Items — 2026-09-28
+
+- Rechecked WO-ECO §4.3 against the accessible Pacific catalog and repository evidence.
+- `Github/scripts/repos.conf` confirms Pacific, Database, and Library are enabled; Website and Mainland remain explicitly disabled. This does not establish completion of the Website mirror item.
+- The available evidence does not establish the broader generated-content separation condition, so that checklist item remains open.
+- The Node item remains the documented placeholder and is not being converted into an inferred completion state.
+- No repository/runtime change was made from this review; WO-ECO remains IN PROGRESS.
