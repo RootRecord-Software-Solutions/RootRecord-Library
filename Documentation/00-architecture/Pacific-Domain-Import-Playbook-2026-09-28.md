@@ -5,7 +5,7 @@
 | **Date** | 2026-09-28 (HST) |
 | **Live runtime** | `RootRecord-Pacific-Solar-Server` on Ecosystem `1 - Servers/` |
 | **Authority** | Org [RootRecord-Software-Solutions](https://github.com/RootRecord-Software-Solutions) |
-| **Updated** | 2026-09-28 ~18:13 HST — retirement stub pattern |
+| **Updated** | 2026-09-28 — residual runtime verification state |
 
 ---
 
@@ -78,7 +78,7 @@ When a G1/G2 packet is fully superseded:
 
 Unchanged import template: copy into existing **code** domain folder → rewire jobs → Database for bytes → verify → optional `MIGRATED.md` on old packet.
 
-Remaining residuals: worklog, github, plumbing, telegram, a-eyes, weather, Geology import, energy actions. Skills were functional packets, not a long-term AI design; redesign planned separately.
+Current residuals: runtime verification/legacy retirement for migrated Telegram, A-Eyes, Energy actions, and Pacific poller; Weather remains disabled and outside the active cutover scope. Geology import remains a separate open work order. Skills were functional packets, not a long-term AI design; redesign planned separately.
 
 ---
 
