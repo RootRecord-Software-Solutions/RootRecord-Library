@@ -17,6 +17,12 @@
 - [x] jobs.py → Pacific `setup-all-remotes` + `sync-all`
 - [x] Poller cycle fetches org pacific / database / library + legacy skills without fail storms
 
+## Operator pull workflow clarification — 2026-09-29
+
+- **Resolved:** the human/operator `/home/rootrecord/RootRecord-Ecosystem/Pull.sh` workflow is intentional and remains available for Bruce/operator use.
+- It is **not** a migration failure or an automation conflict. The 5-second `github_sync_all` job and the human `Pull.sh` workflow serve different operator/automation use cases and are allowed to coexist.
+- No change was made to remove, disable, or supersede `Pull.sh`.
+
 ## Remaining
 
 - [ ] Enable website when mirror worktree exists under `Database/GITHUB/worktrees/website`
