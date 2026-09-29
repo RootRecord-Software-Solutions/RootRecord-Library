@@ -29,7 +29,7 @@ Pacific root (desk):
 | Surface | Legacy pattern (historical) | Pacific target | Static source OK | Verified (runtime) | Retired |
 | --- | --- | --- | --- | --- | --- |
 | Telegram / council_relay | `…/skills/coms/telegram/…` | `Communications/telegram/` (+ plumbing under `System/scripts/plumbing/`) | Yes (paths rewired in source) | | |
-| A-Eyes cam / grab / timelapse | `…/skills/a-eyes/…` | `A-Eyes/scripts/` (hourly wrapper on Pacific) | Yes | | |
+| Security/Cameras cam / grab / timelapse | `…/skills/Security Cameras/…` | `Security/Cameras/scripts/` (hourly wrapper on Pacific) | Yes | | |
 | Energy actions | `…/skills/energy/scripts/actions` | `Energy/scripts/actions` | Yes — marked LIVE | | confirm only |
 | Plumbing warmups / single-flight | `…/skills/plumbing/…` | `System/scripts/plumbing/` | Yes — marked LIVE | | confirm only |
 | Weather poller | `…/skills/Weather/…` | `Weather/` (when imported) | N/A — **disabled** | leave disabled | leave until Weather WO |
