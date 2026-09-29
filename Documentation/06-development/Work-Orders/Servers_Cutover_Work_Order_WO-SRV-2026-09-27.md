@@ -112,3 +112,11 @@ Import each residual function into its **existing** Pacific folder; rewire jobs;
 - The old Telegram `SKILL.md` remains present and is intentionally preserved as documentation per operator instruction.
 - Legacy presence is not treated as failure at this stage. The documented sequence remains: verify the Pacific function live, then remove only that completed legacy runtime function and document old → new immediately.
 - No deletion was performed during this mapping audit; no live runtime claim is made.
+
+
+## Final Pacific Repository Legacy-Path Search — 2026-09-28
+
+- Repository search across the Pacific source for representative legacy scheduler/executable paths returned no matches for the inspected Automations, Telegram, A-Eyes, Energy-action, or Plumbing legacy path families.
+- Direct fetch remains authoritative where search indexing can lag. Current `Automations/scripts/jobs.py` blob `4276087c42c4ff36f50e79fb5e827ac7d5f01866` contains exactly one legacy path pair: the disabled `weather_poller` command/cwd at lines 168/171. The job is explicitly `enabled: False` and remains outside active cutover scope.
+- No additional active legacy scheduler path was found in the current jobs source. No source change is warranted from this audit.
+- Runtime verification remains the only unresolved WO-SRV acceptance gate for migrated active functions; no legacy runtime function was retired.
