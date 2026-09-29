@@ -122,6 +122,8 @@ IPA entries without an English respelling (not voiced specially): Volcano
 
 ## PROPOSED (not applied — needs Alexander's respelling, none invented)
 
+_Update 2026-09-29 04:41 (pass 2): candidate respellings were written from Hawaiian phonology plus the existing IPA sources that were found (Wiktionary in the G1 store; misaki us_gold). They were rendered as **PROPOSED** clips and are still not in the lexicon. See [pronunciation candidates](./2026-09-29-pronunciation-candidates-proposed.md)._
+
 - `Kalākaua` — not in lexicon; appears in G1 history/references/hawaiian.md
 - `Liliʻuokalani` — not in lexicon; appears in G1 history/references/hawaiian.md
 - `Nuʻuanu` — not in lexicon; appears in G1 history/references/hawaiian.md

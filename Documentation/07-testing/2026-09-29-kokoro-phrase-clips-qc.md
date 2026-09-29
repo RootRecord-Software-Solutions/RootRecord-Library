@@ -43,6 +43,18 @@ Every clip: 24000 Hz / mono / PCM_16, duration > 0.2 s, peak < −1 dBFS, leadin
 | `Carly/quake_hi_intro` | Hawaii Earthquake Report. | hah wye ee Earthquake Report. | How why E earthquake report? | 0.5 |
 | `Carly/quake_hi_none` | No new Hawaii earthquakes since the last report. | No new hah wye ee earthquakes since the last report. | No new Haw-Wi-E earthquakes since the last report. | 0.778 |
 
+### Added 2026-09-29 04:41 (pass 2) — **PROPOSED** pronunciation candidates (not PASS; not live)
+| Clip | Text | Spoken as | State |
+| --- | --- | --- | --- |
+| `Ava/proposed_kalakaua` | Kalākaua. | kah lah kow ah. | **PROPOSED** |
+| `Ava/proposed_liliuokalani` | Liliʻuokalani. | lee lee oo oh kah lah nee. | **PROPOSED** (A) |
+| `Ava/proposed_liliuokalani_b_misaki` | Liliʻuokalani. | Liliuokalani. (Kokoro's own us_gold entry) | **PROPOSED** (B) |
+| `Ava/proposed_nuuanu` | Nuʻuanu. | noo oo ah noo. | **PROPOSED** |
+| `Ava/proposed_mahele` | Māhele. | mah heh leh. (G2P reads the end as "lay") | **PROPOSED** (A) |
+| `Ava/proposed_mahele_b_ipa` | Māhele. | inline phonemes mˌɑhˈɛlɛ | **PROPOSED** (B) |
+
+Details and sources: [pronunciation candidates](./2026-09-29-pronunciation-candidates-proposed.md). Batch-2 report WAVs to spot-check: [voice reports batch 2](./2026-09-29-voice-reports-batch2.md#listen-list-additions-verify-pending-by-ear).
+
 Suggested order: `chime_0200` and `chime_1200` first (possible real issues). The rest are Hawaiian respellings or ASR limits. Also spot-check a few "match" clips, plus `system_perf_current.wav` for the join quality.
 
 ## Resource impact
