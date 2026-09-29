@@ -52,7 +52,7 @@ Public endpoint is configuration recovery, not a runtime rewrite. Poller tunnel 
 
 ## 3. Tasks
 
-1. Locate prior token or recreate tunnel token in Cloudflare Zero Trust for rootserver.
+1. Use the authoritative local secret path only. Do not copy credential material from repository history, mirrors, transcripts, documentation, backups, or other archival artifacts. If the local credential is unavailable, stop for operator-directed credential reissuance through Cloudflare.
 2. Place token only at `/home/rootrecord/.cloudflared/rootserver.token` (permissions restricted).
 3. Confirm `Communications/network/cloudflare/bin/cloudflared` present and executable.
 4. Restart or wait for `ensure_tunnel_online` / poller cycle; verify tunnel UP in poller log.
