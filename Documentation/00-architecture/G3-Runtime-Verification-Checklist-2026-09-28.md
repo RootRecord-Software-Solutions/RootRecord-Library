@@ -89,3 +89,18 @@ Already marked LIVE in WO-SRV; this is confirmation only.
 - Do not invent parallel domain folders  
 
 *Additive support doc for Bruce / operator. 2026-09-28 HST.*
+
+
+## Status refresh — 2026-09-29
+
+The checklist remains the runtime gate, but its earlier summary is stale. Current verified state is:
+
+- **PASS / retired:** Security camera server + frame grab, System sampling, Reports worklog.
+- **PASS / retired:** Network Globe runtime and Energy BLE owner runtime.
+- **VERIFY PENDING:** Security timelapse and Energy actions.
+- **BLOCKED / FAIL:** Telegram relay (missing authorized token), NPU/FastFlowLM runtime unavailable.
+- **VERIFY PENDING:** non-NPU plumbing and final Pacific poller acceptance while dependent failures remain.
+- Canonical Database root for active Pacific source is `/home/rootrecord/RootRecord-Ecosystem/2 - RootRecord-Database`.
+- The human `/home/rootrecord/RootRecord-Ecosystem/Pull.sh` workflow is intentionally retained and is **not** a failure condition.
+
+The older line that described Energy actions as already LIVE is superseded by the current runtime evidence: **Energy action retirement verification is still pending.**
