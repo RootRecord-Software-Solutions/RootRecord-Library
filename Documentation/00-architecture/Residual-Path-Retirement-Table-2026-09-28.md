@@ -26,18 +26,18 @@ Pacific root (desk):
 | --- | --- | --- | --- | --- | --- |
 | Telegram / council_relay | `…/skills/coms/telegram/…` | `Communications/telegram/` (+ plumbing under `System/scripts/plumbing/`) | Yes (paths rewired in source) | | |
 | A-Eyes cam / grab / timelapse | `…/skills/a-eyes/…` | `A-Eyes/scripts/` (hourly wrapper on Pacific) | Yes | | |
-| Energy actions | `…/skills/energy/scripts/actions` | `Energy/scripts/actions` | Yes — marked LIVE | | confirm only |
-| Plumbing warmups / single-flight | `…/skills/plumbing/…` | `System/scripts/plumbing/` | Yes — marked LIVE | | confirm only |
+| Energy actions | `…/skills/energy/scripts/actions` | `Energy/scripts/actions` | Yes — Pacific source/path landed | | |
+| Plumbing warmups / single-flight | `…/skills/plumbing/…` | `System/scripts/plumbing/` | Yes — Pacific source/path landed | | |
 | Weather poller | `…/skills/Weather/…` | `Weather/` (when imported) | N/A — **disabled** | leave disabled | leave until Weather WO |
-| Network globe cwd | legacy `coms/ssh/…` | Pacific `Communications/network/` | Yes — cwd LIVE | | |
+| Network globe cwd | legacy `coms/ssh/…` | Pacific `Communications/network/` | Yes — Pacific source/path landed | | |
 
 ---
 
-## Already LIVE (no residual action required for path)
+## Pacific source/path landed (runtime verification separate)
 
-Energy reads + leapfrog · System · Reports foundation · Github sync · Cloudflare tunnel · Network globe command  
+Energy reads + leapfrog · System · Reports foundation · Github sync · Cloudflare tunnel · Network globe command — these are static/source-path states only unless separately backed by runtime evidence.  
 
-Record any post-check confirmation in WO-SRV notes if useful; do not re-open closed path work.
+Record runtime confirmation only after the applicable G3 evidence exists; do not treat this section as a runtime verification record.
 
 ---
 
