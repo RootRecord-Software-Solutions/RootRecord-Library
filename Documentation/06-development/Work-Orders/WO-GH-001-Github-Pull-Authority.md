@@ -49,3 +49,10 @@ Decide and document **one authority** for automatic repository pulls so Pacific 
 ## Notes
 
 Default recommendation if operator is undecided: **Option A** until Pacific Energy/Weather imports stabilize — reduce moving parts on the solar node.
+
+## Open conflict — second pull authority (recorded 2026-09-29)
+
+- **Automated:** Pacific `github_sync_all` (`Github/scripts/sync-all.sh` → `push-repo-once.sh`, `interval_sec=5`) fetches, merges and pushes pacific, database, library and skills.
+- **Manual:** `/home/rootrecord/RootRecord-Ecosystem/Pull.sh` ("RootRecord Ecosystem Smart Pull") fetches and merges Pacific, Database and Library, logging to `2 - RootRecord-Database/Logs/Github/Manual/` (latest `pull-20260928-232443.log`). A matching manual `Push.sh` logs `push-*.log` there too.
+- Both act on the same three checkouts, so the manual run is a second pull authority competing with the 5 s auto-sync. No Core-Processor pull timer or unit was found on the desk (2026-09-29 check of systemd user and system unit files and timers), so today the conflict is Pacific auto-sync vs manual Smart Pull, not Core-Processor.
+- Open: pick the authority (options above) and mark the other path inactive. No script was changed.

@@ -133,6 +133,7 @@ RootRecord-Ecosystem
 - [ ] Keep generated content out of Library and runtime git trees
 - [ ] Website continues via existing mirror
 - [ ] Node: leave placeholder
+- [ ] **Open (2026-09-29): two Database roots.** Live runtime writes to `/home/rootrecord/Database/` (not a git repo: `Logs/Automations`, `ENERGY`, `SYSTEM`, `WORKLOG`, `GITHUB`, …), while the org repo checkout `…/2 - RootRecord-Database` (`RootRecord-Software-Solutions/RootRecord-Database`) holds `Media/Images`, `Logs/Migration`, `Logs/Github`, …. Which root is authoritative, and how they sync, is unresolved; see WO-DATA.
 
 ---
 

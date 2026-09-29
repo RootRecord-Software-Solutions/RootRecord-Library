@@ -21,8 +21,8 @@
 
 - [ ] Enable website when mirror worktree exists under `Database/GITHUB/worktrees/website`
 - [ ] Enable mainland when path is a real git clone
-- [ ] Delete non-canonical user-account Library repo if still present
-- [ ] Optional: stop publishing skills to historical Solar-Pacific remote when G2 is fully retired
+- [ ] Delete non-canonical user-account Library repo if still present — 2026-09-29 ~00:28 HST desk check: `git ls-remote git@github.com:rootrecordsoftwaresolutions/RootRecord-Library.git` → `ERROR: Repository not found` (control: org Library returned `main` = `e28b1da`); the public URL also returns 404. Likely already deleted, but a private repo the desk key cannot read looks the same — confirm in the GitHub account before ticking.
+- [ ] Optional: stop publishing skills to historical Solar-Pacific remote when G2 is fully retired — 2026-09-29 assessment: **not yet.** G2 still hosts live runtime (`network-globe-hawaii.service` collector and `ava-ecoflow-ble.service` owner; Pacific copies staged, units not repointed) and residual executables (`a-eyes` `cam_server.py`, `ensure_cam_server.sh`, `grab_frame.py`, timelapse; Telegram, plumbing, Energy actions pending G3). The `skills` row (enabled=1) is also what publishes the retirement `MIGRATED.md` markers (last push `83e10bd`). Prerequisites: both unit repoints done, remaining G2 executables retired, then set `skills` enabled=0 in Pacific `Github/scripts/repos.conf`.
 
 ## Catalog home
 
