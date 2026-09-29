@@ -5,16 +5,18 @@ One folder only. Docs-only updates do not migrate functions or change runtime co
 
 **Standing policy:** Do not run the old desk (`~/.ollama/skills`) as the poller host. Prefer Pacific under org `RootRecord-Pacific-Solar-Server`.
 
+**Authority:** [RootRecord-Software-Solutions](https://github.com/RootRecord-Software-Solutions).
+
 ---
 
-## Active ops backlog (updated 2026-09-28)
+## Active ops backlog (updated 2026-09-28 ~18:13 HST)
 
 | ID | Title | Status | File |
 | --- | --- | --- | --- |
-| WO-ECO-2026-09-27 | Ecosystem migration & repository foundation | **IN PROGRESS** — Pacific + Energy + System LIVE | [WO](./Ecosystem_Migration_Work_Order_WO-ECO-2026-09-27.md) |
-| WO-SRV-2026-09-27 | Pacific runtime path cutover (G2 → G3) | **IN PROGRESS** — Energy + System done | [WO](./Servers_Cutover_Work_Order_WO-SRV-2026-09-27.md) |
+| WO-ECO-2026-09-27 | Ecosystem migration & repository foundation | **IN PROGRESS** — Pacific + Energy + System LIVE; Automations engine sole authority | [WO](./Ecosystem_Migration_Work_Order_WO-ECO-2026-09-27.md) |
+| WO-SRV-2026-09-27 | Pacific runtime path cutover (G2 → G3) | **IN PROGRESS** — Energy + System done; G1 schedulers retired | [WO](./Servers_Cutover_Work_Order_WO-SRV-2026-09-27.md) |
 | WO-MAP-2026-09-27 | Master-Prompt repository ownership map | OPEN | [WO](./MasterPrompt_RepoMap_Work_Order_WO-MAP-2026-09-27.md) |
-| WO-OLD-2026-09-28 | Selective recovery from Solar-Pacific-…-Old (G1) | OPEN — blocked on G2→G3 | [WO](./Old_Server_Selective_Recovery_Work_Order_WO-OLD-2026-09-28.md) |
+| WO-OLD-2026-09-28 | Selective recovery from Solar-Pacific-…-Old (G1) | OPEN — scheduler trio **MIGRATED** (no run); other packets still blocked on G2→G3 | [WO](./Old_Server_Selective_Recovery_Work_Order_WO-OLD-2026-09-28.md) |
 | WO-GH-2026-09-27 | GitHub catalog hygiene | OPEN | [WO](./GitHub_Catalog_Hygiene_Work_Order_WO-GH-2026-09-27.md) |
 | WO-DATA-2026-09-27 | Database boundary & publication policy | OPEN | [WO](./Database_Boundary_Work_Order_WO-DATA-2026-09-27.md) |
 | WO-AGENT-2026-09-27 | Agent context canonical home | OPEN | [WO](./AgentContext_CanonicalHome_Work_Order_WO-AGENT-2026-09-27.md) |
@@ -39,19 +41,34 @@ One folder only. Docs-only updates do not migrate functions or change runtime co
 
 ---
 
+## Automations / G1 scheduler note (2026-09-28)
+
+Org Pacific **Automations** is production. On `Solar-Pacific-RootRecord-Server-Old`:
+
+| G1 skill | Marker |
+| --- | --- |
+| `hybrid-night-poller/` | `MIGRATED.md` → `rootserver_poller` |
+| `heartbeat/` | `MIGRATED.md` → jobs builtin |
+| `net-gate/` | `MIGRATED.md` → `internet_gate` |
+
+Folder + `SKILL.md` retained. Skills were functional packets (poor original design); AI processing redesign is planned — do not treat G1/G2 skill shells as the long-term agent model.
+
+---
+
 ## Suggested attack order (remaining)
 
-1. ~~Energy~~ ~~System~~ (done)
-2. Worklog / reports **or** Github **or** plumbing — operator pick
-3. **WO-SRV-001** residual path cleanup (zero `~/.ollama/skills` in jobs)
-4. Communications / Telegram → A-Eyes → Weather + Geology
-5. Retire G2 desk as poller host; close WO-ECO when foundation settles
+1. ~~Energy~~ ~~System~~ (done)  
+2. Worklog / reports **or** Github **or** plumbing — operator pick  
+3. **WO-SRV-001** residual path cleanup (zero `~/.ollama/skills` in jobs where domains land on Pacific)  
+4. Communications / Telegram → A-Eyes → Weather + Geology  
+5. Retire G2 desk as residual host; close WO-ECO when foundation settles  
 
 Architecture maps (Library):
 
 - `Documentation/00-architecture/Migration-Lineage-Three-Generations-2026-09-28.md`
 - `Documentation/00-architecture/Solar-Pacific-Old-Inventory-Map-2026-09-28.md`
 - `Documentation/00-architecture/Pacific-Domain-Import-Playbook-2026-09-28.md`
+- `Documentation/00-architecture/MIGRATION-DOCS-INDEX-2026-09-28.md`
 
 ---
 
@@ -62,6 +79,7 @@ systemd   Pacific run-poller.sh
 Energy    SUMMARY + ENERGY live
 System    sys-sample on Pacific System/scripts/
 Log       /home/rootrecord/Database/Logs/Automations/automations_current.log
+G1 sched  hybrid-night-poller / heartbeat / net-gate → MIGRATED.md on -Old
 ```
 
 ---
@@ -74,4 +92,5 @@ Log       /home/rootrecord/Database/Logs/Automations/automations_current.log
 - No secrets in WO text.
 - **Never bulk-merge G1 `origin/` into G3 runtime.**
 - **No code import** without operator source tree; **one domain at a time**.
+- Prefer **`MIGRATED.md`** over silent delete when a packet is fully superseded.
 - Document only until a WO is explicitly accepted for execution.

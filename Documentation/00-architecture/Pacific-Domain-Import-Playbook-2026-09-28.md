@@ -4,7 +4,8 @@
 | --- | --- |
 | **Date** | 2026-09-28 (HST) |
 | **Live runtime** | `RootRecord-Pacific-Solar-Server` on Ecosystem `1 - Servers/` |
-| **Updated** | 2026-09-28 ~17:01 HST — no Pacific Logs domain |
+| **Authority** | Org [RootRecord-Software-Solutions](https://github.com/RootRecord-Software-Solutions) |
+| **Updated** | 2026-09-28 ~18:13 HST — retirement stub pattern |
 
 ---
 
@@ -41,6 +42,8 @@ Rewrite G2 imports to the Pacific folder name (`Energy`, `System`, `Geology`, �
 
 ### 4. No old desk as runtime host
 
+G3 Automations is the only poller host. G1/G2 skill trees are not production schedulers.
+
 ### 5. Data stays in Database
 
 Samples, ENERGY stores, frames, **and logs** → `/home/rootrecord/Database/…`.
@@ -49,22 +52,34 @@ Samples, ENERGY stores, frames, **and logs** → `/home/rootrecord/Database/…`
 
 See [Geology-Domain-Ownership-Kilauea-Earthquakes-2026-09-28.md](./Geology-Domain-Ownership-Kilauea-Earthquakes-2026-09-28.md).
 
+### 7. Retirement stubs (preferred over silent delete)
+
+When a G1/G2 packet is fully superseded:
+
+1. Keep the folder shell and `SKILL.md` (if present).  
+2. Add **`MIGRATED.md`** at the packet root: status, date, canonical org repo + path, “do not run”.  
+3. Do not restore or schedule from the old path.  
+4. Auto-sync will carry GitHub markers to desk trees the catalog owns.
+
+**Example (done 2026-09-28 on `-Old`):** `hybrid-night-poller/`, `heartbeat/`, `net-gate/` → org Pacific Automations.
+
 ---
 
 ## Phase 0 — Preconditions
 
-- [x] Pacific code domains; Automations live
-- [x] Energy + System LIVE
-- [x] Pacific `Logs/` domain removed (2026-09-28) — Database only for logs
+- [x] Pacific code domains; Automations live  
+- [x] Energy + System LIVE  
+- [x] Pacific `Logs/` domain removed (2026-09-28) — Database only for logs  
+- [x] G1 scheduler trio marked `MIGRATED.md` on `-Old` (2026-09-28)  
 
 ---
 
 ## Phase 1–4
 
-Unchanged import template: copy into existing **code** domain folder → rewire jobs → Database for bytes → verify.
+Unchanged import template: copy into existing **code** domain folder → rewire jobs → Database for bytes → verify → optional `MIGRATED.md` on old packet.
 
-Remaining residuals: worklog, github, plumbing, telegram, a-eyes, weather, Geology import, energy actions.
+Remaining residuals: worklog, github, plumbing, telegram, a-eyes, weather, Geology import, energy actions. Skills were functional packets, not a long-term AI design; redesign planned separately.
 
 ---
 
-*Playbook 2026-09-28 HST.*
+*Playbook updated 2026-09-28 ~18:13 HST.*

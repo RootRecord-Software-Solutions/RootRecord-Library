@@ -2,6 +2,8 @@
 
 Single entry point for agents and operators working the Pacific server cutover.
 
+**Authority:** [RootRecord-Software-Solutions](https://github.com/RootRecord-Software-Solutions) — Library, Pacific, Database.
+
 ---
 
 ## Lineage & process
@@ -9,7 +11,7 @@ Single entry point for agents and operators working the Pacific server cutover.
 | Doc | Purpose |
 | --- | --- |
 | [Migration-Lineage-Three-Generations-2026-09-28.md](./Migration-Lineage-Three-Generations-2026-09-28.md) | G1 / G2 / G3 named; import order rule |
-| [Pacific-Domain-Import-Playbook-2026-09-28.md](./Pacific-Domain-Import-Playbook-2026-09-28.md) | Step-by-step Phase 0–4 |
+| [Pacific-Domain-Import-Playbook-2026-09-28.md](./Pacific-Domain-Import-Playbook-2026-09-28.md) | Step-by-step Phase 0–4; retirement stub pattern |
 | [Pacific-Jobs-Path-Inventory-2026-09-28.md](./Pacific-Jobs-Path-Inventory-2026-09-28.md) | Every residual path in `jobs.py` |
 | [Pacific-Server-Library-Dependency-Map-2026-09-28.md](./Pacific-Server-Library-Dependency-Map-2026-09-28.md) | Library files touched; domain status |
 | [Pacific-Unmigrated-Domains-Notes-2026-09-28.md](./Pacific-Unmigrated-Domains-Notes-2026-09-28.md) | Plumbing / Reports lack G3 folders |
@@ -20,6 +22,18 @@ Single entry point for agents and operators working the Pacific server cutover.
 | --- | --- |
 | [Solar-Pacific-Old-Inventory-Map-2026-09-28.md](./Solar-Pacific-Old-Inventory-Map-2026-09-28.md) | High-value packet → G3 mapping |
 | [Solar-Pacific-Old-Full-TopLevel-Catalog-2026-09-28.md](./Solar-Pacific-Old-Full-TopLevel-Catalog-2026-09-28.md) | All **95** G1 tops classified |
+
+### G1 scheduler skills — retired (2026-09-28)
+
+Folders kept; `SKILL.md` kept; **`MIGRATED.md`** added on `-Old`. Do not run.
+
+| G1 skill | Superseded by (org Pacific) |
+| --- | --- |
+| `hybrid-night-poller/` | `Automations/scripts/rootserver_poller.py` + stack |
+| `heartbeat/` | `jobs.py` builtin `heartbeat` |
+| `net-gate/` | `Automations/scripts/poller/internet_gate.py` + tunnel jobs |
+
+Repo: `rootrecordsoftwaresolutions/Solar-Pacific-RootRecord-Server-Old`.
 
 ## Session records
 
@@ -40,20 +54,20 @@ Single entry point for agents and operators working the Pacific server cutover.
 | WO-CF | Tunnel token |
 | WO-AEYES | Capture rate |
 
-See `Documentation/06-development/Work Orders/README.md`.
+See [`Documentation/06-development/Work-Orders/README.md`](../06-development/Work-Orders/README.md) (hyphen only — no space-named folder).
 
 ---
 
 ## Hard stops (cannot complete without operator)
 
-1. **G2 domain source trees** (Energy first) for code import  
+1. **G2 domain source trees** still residual in `jobs.py` (plumbing, a-eyes, telegram, worklog, energy actions, weather)  
 2. **Master-Prompt** file edits on desk `0 - Master-Prompt/` (not in Library)  
-3. **repos.conf** on live github scripts path  
+3. **repos.conf** on live Github scripts path  
 4. **systemd unit** audit on desk  
 5. **Secrets / tokens** restore (local only)  
 
-Everything else that can be done in Library + G3 domain README documentation is complete as of this index.
+**Done without operator tree:** Automations engine live on G3; G1 scheduler trio marked `MIGRATED.md` on `-Old`.
 
 ---
 
-*Index 2026-09-28 HST.*
+*Index updated 2026-09-28 ~18:13 HST — Automations G1 retirement + org authority.*

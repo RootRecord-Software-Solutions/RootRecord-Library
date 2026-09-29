@@ -3,10 +3,12 @@
 | Field | Value |
 | --- | --- |
 | **Date** | 2026-09-28 (HST) |
+| **Updated** | 2026-09-28 ~18:13 HST — G1 scheduler trio MIGRATED.md |
 | **Source repo** | https://github.com/rootrecordsoftwaresolutions/Solar-Pacific-RootRecord-Server-Old |
 | **Tree snapshot** | main @ inventory (~7286 paths) |
 | **Generation** | **G1** — see [Migration-Lineage-Three-Generations-2026-09-28.md](./Migration-Lineage-Three-Generations-2026-09-28.md) |
 | **Rule** | Forensic map only — do not bulk-import into live G3 |
+| **Authority** | Org [RootRecord-Software-Solutions](https://github.com/RootRecord-Software-Solutions) |
 
 ---
 
@@ -40,19 +42,33 @@ Largest tops by path count (approx.):
 
 ---
 
+## 1b. Retired G1 scheduler skills (2026-09-28)
+
+**Pattern:** keep folder + `SKILL.md`; add `MIGRATED.md`; do not run. Org Pacific Automations is production.
+
+| G1 top | Status | Points at |
+| --- | --- | --- |
+| `hybrid-night-poller/` | **MIGRATED** | `RootRecord-Pacific-Solar-Server/Automations/scripts/rootserver_poller.py` + stack |
+| `heartbeat/` | **MIGRATED** | `jobs.py` builtin `heartbeat` |
+| `net-gate/` | **MIGRATED** | `Automations/scripts/poller/internet_gate.py` + tunnel jobs |
+
+These were G1 scheduler functionality, not a model for future AI skill design. AI processing redesign is planned separately; do not treat remaining skill shells as live runtime.
+
+---
+
 ## 2. High-value packets → proposed G3 home
 
 ### 2.1 Energy (G1 `energy/`)
 
 | G1 packet | Notes | Proposed G3 |
 | --- | --- | --- |
-| `energy/ecoflow-ble-poller` | BLE polling ancestry | `Energy/` (after G2 energy import) |
+| `energy/ecoflow-ble-poller` | BLE polling ancestry | `Energy/` (G2 energy already Phase 1 on Pacific) |
 | `energy/ecoflow-automations` | Automation helpers | `Energy/` |
 | `energy/ecoflow-ac-solar-gate` | AC/solar gating | `Energy/` |
 | `energy/ecoflow-quota` | Quota logic | `Energy/` |
 | `energy/ecoflow-river-car` | River/car specific | `Energy/` or retire |
 
-**Order:** Import **G2** `~/.ollama/skills/energy/` first (matches live jobs). Then diff G1 packets for missing features only.
+**Order:** G2 energy read path is LIVE on G3. Diff G1 packets only for missing features.
 
 ### 2.2 Weather (G1 `weather/`)
 
@@ -72,14 +88,16 @@ Largest tops by path count (approx.):
 | `cloudflare-workers/` | Communications or Website edge — not poller cloudflared binary |
 | `public-edge/` | Website / public surface, not necessarily G3 |
 
-### 2.4 System / host
+### 2.4 System / host / scheduler
 
 | G1 | Proposed G3 |
 | --- | --- |
-| `host-metrics/` | `System/` (align with G2 system-stats) |
-| `heartbeat/` | Often engine builtin now — compare before import |
-| `system-perf/`, `uptime-log/`, `log-cleanup/` | `System/` or `Logs/` |
-| `scheduler-clock/` | Superseded by G3 Automations poller? **Verify before merge** |
+| `host-metrics/` | `System/` (align with live G3 System) |
+| `heartbeat/` | **Done — MIGRATED.md** → G3 builtin |
+| `hybrid-night-poller/` | **Done — MIGRATED.md** → G3 poller |
+| `net-gate/` | **Done — MIGRATED.md** → G3 internet_gate |
+| `system-perf/`, `uptime-log/`, `log-cleanup/` | `System/` or Database Logs policy |
+| `scheduler-clock/` | Likely superseded by G3 Automations — verify before any merge |
 | `boot/` | Historical boot — Master-Prompt / ops docs, not blind runtime |
 
 ### 2.5 Reports / worklog ancestry
@@ -146,7 +164,7 @@ Live residual jobs depend on G2 paths that are **not** top-level G1 names:
 | `plumbing/` ollama/flm | Partial cousins (`ollama-*` packets) — map carefully |
 | `system-stats/` | Closest: `host-metrics` |
 
-Therefore: **G1 cannot replace G2 for current jobs.** G1 is supplemental history.
+Therefore: **G1 cannot replace G2 for current residual jobs.** G1 is supplemental history.
 
 ---
 
@@ -160,7 +178,8 @@ For each packet:
 4. Copy only unique useful scripts into the G3 domain folder.  
 5. Update `jobs.py` only if a job should call the recovered script.  
 6. Document in Library (session note or WO).  
-7. One domain at a time; reload stack after path changes.  
+7. Prefer **`MIGRATED.md`** over silent delete when a packet is fully superseded.  
+8. One domain at a time; reload stack after path changes.  
 
 ---
 
@@ -171,8 +190,9 @@ For each packet:
 | [Migration-Lineage-Three-Generations-2026-09-28.md](./Migration-Lineage-Three-Generations-2026-09-28.md) | Order of operations |
 | [Pacific-Jobs-Path-Inventory-2026-09-28.md](./Pacific-Jobs-Path-Inventory-2026-09-28.md) | G2 residual job paths |
 | [Pacific-Server-Library-Dependency-Map-2026-09-28.md](./Pacific-Server-Library-Dependency-Map-2026-09-28.md) | G3/Library status |
+| [MIGRATION-DOCS-INDEX-2026-09-28.md](./MIGRATION-DOCS-INDEX-2026-09-28.md) | Entry index |
 | WO-SRV / WO-ECO | Cutover work orders |
 
 ---
 
-*Inventory derived from GitHub tree listing of Solar-Pacific-RootRecord-Server-Old main, 2026-09-28 HST. Path counts approximate.*
+*Inventory derived from GitHub tree listing of Solar-Pacific-RootRecord-Server-Old main, 2026-09-28 HST. Path counts approximate. Scheduler retirement recorded ~18:13 HST.*
