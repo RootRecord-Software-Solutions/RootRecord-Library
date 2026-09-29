@@ -1,11 +1,11 @@
-# Migration Lineage — Three Generations of Pacific Runtime
+# Migration Lineage — Generations of Pacific Runtime
 
 | Field | Value |
 | --- | --- |
 | **Date** | 2026-09-28 (HST) |
-| **Updated** | 2026-09-28 ~18:13 HST — G1 scheduler skills retired via MIGRATED.md |
-| **Purpose** | Name the three runtime generations and the only safe import order |
-| **Rule** | Documentation only — no bulk copy of Old into Pacific without staged domain review |
+| **Updated** | 2026-09-28 ~18:28 HST — G0 (`old`) named |
+| **Purpose** | Name runtime generations and the only safe import order |
+| **Rule** | Documentation only — no bulk copy of archives into Pacific without staged domain review |
 | **Authority** | Org [RootRecord-Software-Solutions](https://github.com/RootRecord-Software-Solutions) |
 
 ---
@@ -15,10 +15,9 @@
 | Gen | GitHub | Role |
 | --- | --- | --- |
 | **G3 — Current** | `RootRecord-Software-Solutions/RootRecord-Pacific-Solar-Server` | Live Ecosystem runtime under `1 - Servers/…`; domain folders (Automations, Communications, …) |
-| **G2 — Intermediate skills** | `rootrecordsoftwaresolutions/Solar-Pacific-RootRecord-Server` (+ desk `~/.ollama/skills`) | Lowercase skill tree that still powers residual jobs (energy actions, a-eyes, github, plumbing, …). Poor original skill design; AI processing redesign planned. Not the poller host. |
-| **G1 — Old skill archive** | `rootrecordsoftwaresolutions/Solar-Pacific-RootRecord-Server-Old` | Large historical skill packet tree; forensic / selective recovery source. Scheduler trio marked retired (see §3). |
-
-Also exists: `rootrecordsoftwaresolutions/old` (private; not the primary Old inventory used here).
+| **G2 — Intermediate skills** | `rootrecordsoftwaresolutions/Solar-Pacific-RootRecord-Server` (+ desk `~/.ollama/skills`) | Lowercase skill tree that still powers residual jobs. Not the poller host. AI processing redesign planned. |
+| **G1 — Grouped skill archive** | `rootrecordsoftwaresolutions/Solar-Pacific-RootRecord-Server-Old` | ~95 grouped packets; forensic / selective recovery. Scheduler trio marked `MIGRATED.md`. |
+| **G0 — Deepest archive** | `rootrecordsoftwaresolutions/old` | ~200 **flattened** skill tops; feature scavenger only. [G0 README](https://github.com/rootrecordsoftwaresolutions/old/blob/main/README.md). |
 
 ---
 
@@ -26,16 +25,18 @@ Also exists: `rootrecordsoftwaresolutions/old` (private; not the primary Old inv
 
 ```text
 Finish G2 residual domains into G3
-  → only then selectively recover from G1 (Old)
-    → never bulk-merge G1 over live G3
+  → only then selectively recover from G1
+    → only then G0 diff-only for unique scripts
+      → never bulk-merge G1 or G0 over live G3
 ```
 
 Reasons:
 
-1. **G3 is live** — poller confirmed active on Ecosystem path; **org is authority**.
-2. **G2 matches today’s residual job paths** — `jobs.py` still calls `~/.ollama/skills/…` for non-engine domains.
-3. **G1 is a different shape** — skill packets, not the G2/G3 domain layout.
-4. **G1 is huge** — `origin/` alone is thousands of paths; blind import would bury the live tree.
+1. **G3 is live** — org is authority.  
+2. **G2 matches today’s residual job paths.**  
+3. **G1 is a different shape** (grouped packets).  
+4. **G0 is deeper and noisier** (flattened tops + older AVA notes) — high noise, low urgency until residuals settle.  
+5. Blind import of either archive would bury the live tree.
 
 ---
 
@@ -43,17 +44,14 @@ Reasons:
 
 | Domain | G3 state |
 | --- | --- |
-| **Automations** | **Live / authoritative** — poller, jobs, stack, internet_gate |
+| **Automations** | **Live / authoritative** |
 | Communications/network (cloudflare) | Live binary + config |
 | Energy | LIVE (read path) |
 | System | LIVE (sys-sample) |
 | Weather | Partial ensure scripts |
 | Security, Github, Geology | Shells + residual-path READMEs |
-| Messaging shells | Placeholders |
 
 ### G1 scheduler skills — retired (do not run)
-
-On `-Old`, folders + `SKILL.md` retained; **`MIGRATED.md`** points at org Pacific:
 
 | G1 folder | G3 replacement |
 | --- | --- |
@@ -61,7 +59,7 @@ On `-Old`, folders + `SKILL.md` retained; **`MIGRATED.md`** points at org Pacifi
 | `heartbeat/` | jobs builtin `heartbeat` |
 | `net-gate/` | `poller/internet_gate.py` + tunnel builtins |
 
-Residual job strings may still execute **G2** paths for other domains. That is intentional until each domain is imported or redesign lands. Auto-sync from GitHub updates desk trees the catalog owns.
+G0 may still contain flat cousins of the same names — still archive only.
 
 ---
 
@@ -81,18 +79,13 @@ See: [Pacific-Jobs-Path-Inventory-2026-09-28.md](./Pacific-Jobs-Path-Inventory-2
 
 ---
 
-## 5. When G1 (Old) is allowed
+## 5. When G1 / G0 is allowed
 
-Only after the matching G2 domain is either:
+**G1:** after matching G2 domain imported or waived; review secrets, dead paths, supersession, size. Prefer `MIGRATED.md`.
 
-- imported into G3 and stable, **or**
-- explicitly abandoned (documented exception),
+**G0:** only after G1 pass for that theme, or as an explicit scavenger (broadcast, day-reports, hurricane, voice, agents, crypto nodes). See [MIGRATION-DOCS-INDEX § G0](./MIGRATION-DOCS-INDEX-2026-09-28.md).
 
-and each Old packet is reviewed for secrets, dead paths, supersession, and size.
-
-**Exception already taken:** G1 scheduler trio above — superseded by G3 Automations; marked `MIGRATED.md` only (no bulk delete of folder shells).
-
-Primary Old map: [Solar-Pacific-Old-Inventory-Map-2026-09-28.md](./Solar-Pacific-Old-Inventory-Map-2026-09-28.md).
+Primary G1 map: [Solar-Pacific-Old-Inventory-Map-2026-09-28.md](./Solar-Pacific-Old-Inventory-Map-2026-09-28.md).
 
 ---
 
@@ -107,4 +100,4 @@ Library holds migration docs, not the running code.
 
 ---
 
-*Lineage doc updated 2026-09-28 ~18:13 HST.*
+*Lineage doc updated 2026-09-28 ~18:28 HST.*
