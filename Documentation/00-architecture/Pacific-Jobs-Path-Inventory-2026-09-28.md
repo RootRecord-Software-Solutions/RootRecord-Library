@@ -3,14 +3,20 @@
 | Field | Value |
 | --- | --- |
 | **Date** | 2026-09-28 (HST) |
-| **Source file** | `RootRecord-Pacific-Solar-Server/Automations/scripts/jobs.py` (SHA at inventory: live main) |
-| **Live catalog path** | `…/1 - Servers/1 - RootRecord-Pacific-Solar-Server/Automations/scripts/jobs.py` |
-| **Purpose** | Complete list of absolute/legacy path references so domain imports can rewire without guessing |
+| **Status** | **HISTORICAL SNAPSHOT** — earlier same-day inventory |
+| **Source file** | `RootRecord-Pacific-Solar-Server/Automations/scripts/jobs.py` (at time of inventory) |
+| **Purpose** | Audit trail of absolute/legacy path references so domain imports could rewire without guessing |
 | **Rule** | Documentation only — no code changes in this artifact |
+
+> **Do not treat tables below as current LIVE status.**  
+> **Authoritative cutover status:** [Servers_Cutover_Work_Order_WO-SRV-2026-09-27.md](../06-development/Work-Orders/Servers_Cutover_Work_Order_WO-SRV-2026-09-27.md)  
+> **Runtime gate:** [G3-Runtime-Verification-Checklist-2026-09-28.md](./G3-Runtime-Verification-Checklist-2026-09-28.md)  
+> **Retirement tracking:** [Residual-Path-Retirement-Table-2026-09-28.md](./Residual-Path-Retirement-Table-2026-09-28.md)  
+> Later 2026-09-28 WO-SRV audits report Pacific **source paths landed** for Energy, System/Plumbing, Reports, Github, Telegram, A-Eyes; residual is **runtime verification**, not “unimported folder.”
 
 ---
 
-## 1. Summary
+## 1. Summary (at inventory time)
 
 | Category | Count (approx.) | Notes |
 | --- | --- | --- |
@@ -18,11 +24,11 @@
 | Jobs using **mixed** paths | Boot self_terminal, CF bin, Weather, network ensure | Paths under skills but PascalCase domain names (cutover transitional) |
 | Jobs with **no filesystem skill path** | heartbeat, ensure_tunnel_online, builtins | Engine-owned |
 
-**Important transitional pattern:** some boot jobs already use `~/.ollama/skills/Automations/…` and `~/.ollama/skills/Communications/…` (PascalCase under skills). Live operator confirmation showed the **running** jobs path is the Ecosystem Servers tree. Treat Ecosystem path as authoritative for the catalog file; legacy absolute strings inside the catalog still execute against whatever exists on disk at those paths.
+**Important transitional pattern:** some boot jobs already used `~/.ollama/skills/Automations/…` and `~/.ollama/skills/Communications/…` (PascalCase under skills). Live operator confirmation showed the **running** jobs path is the Ecosystem Servers tree. Treat Ecosystem path as authoritative for the catalog file; legacy absolute strings inside the catalog still execute against whatever exists on disk at those paths.
 
 ---
 
-## 2. Constants / helpers
+## 2. Constants / helpers (inventory-time)
 
 | Symbol | Path value | Domain |
 | --- | --- | --- |
@@ -33,57 +39,36 @@
 
 ---
 
-## 3. ON_BOOT
+## 3. ON_BOOT (inventory-time)
 
-| id | Paths | Domain | Import status |
+| id | Paths | Domain | Import status then |
 | --- | --- | --- | --- |
-| `self_terminal` | `process` → `…/skills/Automations/scripts/rootserver_poller.py`; `watch` → `…/skills/Automations/scripts/poller/poller-watch.py` | Automations | Core in Pacific repo; **absolute strings still skills-prefixed** |
+| `self_terminal` | `process` → `…/skills/Automations/scripts/rootserver_poller.py`; `watch` → `…/skills/Automations/scripts/poller/poller-watch.py` | Automations | Core in Pacific repo; absolute strings still skills-prefixed |
 | `cloudflare_tunnel` | `cloudflared_bin` → `…/skills/Communications/network/cloudflare/bin/cloudflared`; token `~/.cloudflared/rootserver.token` | Communications | Binary in Pacific repo; absolute string skills-prefixed |
-| `github_setup_remotes` | `…/skills/github/scripts/setup-all-remotes.sh`; cwd `…/skills/github` | Github | **Unimported** |
-| `ollama_warmup` | `…/skills/plumbing/scripts/ollama-warmup.sh` | Plumbing | **Unimported** |
-| `flm_npu_warmup` | `…/skills/plumbing/scripts/flm-warmup.sh` | Plumbing | **Unimported** |
-| `council_relay` | `…/skills/coms/telegram/scripts/ensure-relay.sh`; cwd `…/skills/coms/telegram` | Communications/telegram | **Unimported** (shell only in Pacific) |
-| `a_eyes_cam_server` | `…/skills/a-eyes/scripts/ensure_cam_server.sh`; cwd `…/skills/a-eyes` | Security/A-EYES | **Unimported** |
-| `a_eyes_timelapse_catchup` | `…/skills/a-eyes/scripts/timelapse_catchup.sh` | Security/A-EYES | **Unimported** |
+| `github_setup_remotes` | `…/skills/github/scripts/setup-all-remotes.sh`; cwd `…/skills/github` | Github | Listed unimported at inventory time |
+| `ollama_warmup` | `…/skills/plumbing/scripts/ollama-warmup.sh` | Plumbing | Listed unimported |
+| `flm_npu_warmup` | `…/skills/plumbing/scripts/flm-warmup.sh` | Plumbing | Listed unimported |
+| `council_relay` | `…/skills/coms/telegram/scripts/ensure-relay.sh`; cwd `…/skills/coms/telegram` | Communications/telegram | Listed unimported |
+| `a_eyes_cam_server` | `…/skills/a-eyes/scripts/ensure_cam_server.sh`; cwd `…/skills/a-eyes` | A-Eyes | Listed unimported |
+| `a_eyes_timelapse_catchup` | `…/skills/a-eyes/scripts/timelapse_catchup.sh` | A-Eyes | Listed unimported |
 | `weather_poller` | `…/skills/Weather/scripts/ensure-weather-poller.sh`; cwd `…/skills/Weather` | Weather | Ensure script in Pacific; absolute string skills-prefixed |
-| `network_globe_hawaii` | command `…/skills/Communications/network/scripts/ensure-network-globe-hawaii.sh`; cwd `…/skills/coms/ssh/local-data-globe` | Communications/network | Ensure in Pacific; **cwd still legacy coms/ssh** |
+| `network_globe_hawaii` | command `…/skills/Communications/network/scripts/ensure-network-globe-hawaii.sh`; cwd `…/skills/coms/ssh/local-data-globe` | Communications/network | Ensure in Pacific; cwd still legacy at inventory time |
 
 ---
 
-## 4. ONCE_AT_START
+## 4–6. ONCE_AT_START / EVERY_SECONDS / HOURLY (inventory-time)
 
-| id | Paths | Domain |
-| --- | --- | --- |
-| `ecoflow_read_boot` | `ECOFLOW_DUAL_READ`; cwd `…/skills/energy` | Energy — **Unimported** |
+See original sections retained conceptually:
 
----
+- Energy read/cycle, sys_stats, github_sync_all, worklog_scan, a_eyes_frame_grab were skills-prefixed at inventory time  
+- `a_eyes_timelapse_hourly_compile` / daily similarly  
+- Weather remains **disabled** in later WO-SRV scope  
 
-## 5. EVERY_SECONDS
-
-| id | Paths | Domain |
-| --- | --- | --- |
-| `heartbeat` | (builtin) | Automations engine |
-| `ecoflow_read_cycle` | `…/skills/energy/scripts/read/leapfrog-read.sh`; cwd `…/skills/energy` | Energy — **Unimported** |
-| `sys_stats_cycle` | `…/skills/system-stats/scripts/sys-sample.sh`; cwd `…/skills/system-stats` | System — **Unimported** |
-| `github_sync_all` | `…/skills/github/scripts/sync-all.sh`; cwd `…/skills/github` | Github — **Unimported** |
-| `worklog_scan` | `…/skills/reports/scripts/worklog_once.sh`; cwd `…/skills/reports/scripts` | Reports — **Unimported** |
-| `a_eyes_frame_grab` | `…/skills/a-eyes/scripts/grab_all.sh`; cwd `…/skills/a-eyes` | Security/A-EYES — **Unimported** |
+For **current** path strings, re-read Pacific `Automations/scripts/jobs.py` or WO-SRV audit sections — do not patch from this file.
 
 ---
 
-## 6. EVERY_MINUTE / EVERY_HOUR / ON_AT
-
-| id | Paths | Domain |
-| --- | --- | --- |
-| `ensure_tunnel_online` | (builtin) | Automations |
-| `a_eyes_timelapse_hourly_compile` | `…/skills/a-eyes/scripts/timelapse_hourly.sh` | Security/A-EYES |
-| `a_eyes_timelapse_daily_render` | `…/skills/a-eyes/scripts/timelapse_daily.sh` | Security/A-EYES |
-
----
-
-## 7. Energy domain — expected layout after import (doc only)
-
-When Energy source is provided, target shape under Pacific repo:
+## 7. Energy domain — expected layout (still valid as target shape)
 
 ```text
 Energy/
@@ -93,18 +78,8 @@ Energy/
       delta2-read.sh
       river2pro-read.sh
       leapfrog-read.sh
-    actions/          # ecoflow_command() scripts
-  # store/ secrets stay local — never commit tokens
+    actions/
 ```
-
-**jobs.py rewires after import (future code step):**
-
-| Current | Target (illustrative) |
-| --- | --- |
-| `…/skills/energy/scripts/read/…` | `…/Energy/scripts/read/…` under Ecosystem Servers root |
-| cwd `…/skills/energy` | cwd → Energy domain root on Ecosystem path |
-
-Prefer resolving from `REPO_ROOT` relative paths once engine supports it; until then absolute Ecosystem paths match the live catalog home.
 
 **Data remains:** `/home/rootrecord/Database/ENERGY/` (not in git).
 
@@ -114,11 +89,12 @@ Prefer resolving from `REPO_ROOT` relative paths once engine supports it; until 
 
 | Doc | Role |
 | --- | --- |
-| [Pacific-Server-Library-Dependency-Map-2026-09-28.md](./Pacific-Server-Library-Dependency-Map-2026-09-28.md) | Library file inventory |
-| [Grok-Pacific-Automations-Domain-Wiring-Session-2026-09-28.md](./Grok-Pacific-Automations-Domain-Wiring-Session-2026-09-28.md) | Wiring session |
-| WO-SRV | Cutover work order |
-| WO-AEYES | A-EYES interval / path notes |
+| [WO-SRV](../06-development/Work-Orders/Servers_Cutover_Work_Order_WO-SRV-2026-09-27.md) | **Authoritative** cutover + static audits |
+| [G3-Runtime-Verification-Checklist-2026-09-28.md](./G3-Runtime-Verification-Checklist-2026-09-28.md) | Runtime gate |
+| [Residual-Path-Retirement-Table-2026-09-28.md](./Residual-Path-Retirement-Table-2026-09-28.md) | Retirement tracking |
+| [Pacific-Domain-Import-Playbook-2026-09-28.md](./Pacific-Domain-Import-Playbook-2026-09-28.md) | Import rules |
+| [MIGRATION-DOCS-INDEX-2026-09-28.md](./MIGRATION-DOCS-INDEX-2026-09-28.md) | Entry point |
 
 ---
 
-*Inventory from live `jobs.py` content 2026-09-28 HST. Documentation only.*
+*Historical inventory from live `jobs.py` content earlier 2026-09-28 HST. Banner + authority pointers added ~21:40 HST same day. Documentation only.*
