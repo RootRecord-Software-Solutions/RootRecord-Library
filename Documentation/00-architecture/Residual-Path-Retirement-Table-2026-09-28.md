@@ -8,6 +8,10 @@
 
 ---
 
+## Operator runbook
+
+Use the companion [G3 Runtime Verification Runbook](./G3-Runtime-Verification-Runbook-2026-09-28.md) for exact desk commands and evidence requirements. This table remains the retirement record.
+
 ## How to use
 
 1. Run [G3 Runtime Verification Checklist](./G3-Runtime-Verification-Checklist-2026-09-28.md)  
