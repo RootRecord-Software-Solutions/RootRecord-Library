@@ -12,9 +12,9 @@ Single entry point for agents and operators working the Pacific server cutover *
 | --- | --- |
 | [Migration-Lineage-Three-Generations-2026-09-28.md](./Migration-Lineage-Three-Generations-2026-09-28.md) | G3 / G2 / G1 / **G0** named; import order rule |
 | [Pacific-Domain-Import-Playbook-2026-09-28.md](./Pacific-Domain-Import-Playbook-2026-09-28.md) | Step-by-step Phase 0–4; retirement stub pattern |
-| [Pacific-Jobs-Path-Inventory-2026-09-28.md](./Pacific-Jobs-Path-Inventory-2026-09-28.md) | Every residual path in `jobs.py` |
+| [Pacific-Jobs-Path-Inventory-2026-09-28.md](./Pacific-Jobs-Path-Inventory-2026-09-28.md) | **Historical** path inventory — live status is WO-SRV |
 | [Pacific-Server-Library-Dependency-Map-2026-09-28.md](./Pacific-Server-Library-Dependency-Map-2026-09-28.md) | Library files touched; domain status |
-| [Pacific-Unmigrated-Domains-Notes-2026-09-28.md](./Pacific-Unmigrated-Domains-Notes-2026-09-28.md) | Plumbing / Reports lack G3 folders |
+| [Pacific-Unmigrated-Domains-Notes-2026-09-28.md](./Pacific-Unmigrated-Domains-Notes-2026-09-28.md) | **Superseded** for Plumbing/Reports placement (resolved under System + Reports) |
 
 ## G3 verification & residual close-out (Ava → Bruce)
 
@@ -22,7 +22,7 @@ Single entry point for agents and operators working the Pacific server cutover *
 | --- | --- |
 | [G3-Runtime-Verification-Checklist-2026-09-28.md](./G3-Runtime-Verification-Checklist-2026-09-28.md) | Runtime gate before legacy retirement (supports WO-SRV) |
 | [Residual-Path-Retirement-Table-2026-09-28.md](./Residual-Path-Retirement-Table-2026-09-28.md) | Pre-filled old→new table; Bruce fills Verified/Retired |
-| [Communications-Notify-Policy-Draft-2026-09-28.md](./Communications-Notify-Policy-Draft-2026-09-28.md) | Notify policy draft for WO-COM-001 (not execution) |
+| [Communications-Notify-Policy-Draft-2026-09-28.md](./Communications-Notify-Policy-Draft-2026-09-28.md) | Notify policy draft for WO-COM-001 (pending Carly seal) |
 
 ## Product & archive inventory (Minecraft, apps, mirrors)
 
@@ -90,8 +90,8 @@ Best use: scavenger pass when redesigning **AI processing**, **weather/reports**
 
 | ID | Focus |
 | --- | --- |
-| WO-SRV | G2 → G3 path cutover |
-| WO-OLD | G1 selective recovery (blocked on G2) |
+| WO-SRV | G2 → G3 path cutover (**authoritative** static audit + residual list) |
+| WO-OLD | G1 selective recovery (blocked on G2 verification close-out) |
 | WO-ECO | Ecosystem umbrella |
 | WO-GH | repos.conf hygiene |
 | WO-MAP | Master-Prompt map |
@@ -103,16 +103,18 @@ See [`Documentation/06-development/Work-Orders/README.md`](../06-development/Wor
 
 ---
 
-## Hard stops (cannot complete without operator)
+## Hard stops (cannot complete without operator / desk shell)
 
-1. **G2 domain source trees** still residual in `jobs.py` (plumbing, a-eyes, telegram, worklog, energy actions, weather)  
+1. **G3 runtime verification** for Telegram, A-Eyes, Energy actions, Pacific poller — then legacy executable retirement (preserve `SKILL.md`)  
 2. **Master-Prompt** file edits on desk `0 - Master-Prompt/` (not in Library)  
 3. **repos.conf** on live Github scripts path  
 4. **systemd unit** audit on desk  
-5. **Secrets / tokens** restore (local only)  
+5. **Secrets / tokens** restore (local only; never from git history)  
+
+Weather remains **disabled** until its domain WO; not part of the active verification residual set above.
 
 **Documented without executing product migration:** full product/archive catalog (Paper, Nukkit, apps, mirrors); Automations G1 retirement; G0/G1 READMEs.
 
 ---
 
-*Index updated 2026-09-28 ~21:30 HST — G3 verification checklist, residual retirement table, Communications notify policy draft linked.*
+*Index updated 2026-09-28 ~21:40 HST — hard stops + lineage blurbs aligned with WO-SRV; stale placement notes superseded.*
