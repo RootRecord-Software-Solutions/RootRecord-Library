@@ -5,7 +5,7 @@
 | **Date** | 2026-09-28 (HST) |
 | **Status** | Draft — operator/Ava policy; not execution |
 | **Feeds** | WO-COM-001 |
-| **Rule** | No secrets. No second tunnel. Docs only until accepted. |
+| **Rule** | No secrets. No second tunnel. Docs only until accepted. Carly security-sealed with conditions; operator acceptance still required. |
 
 ---
 
@@ -15,7 +15,7 @@ All messaging and network edges live under Pacific:
 
 ```text
 Communications/
-  network/cloudflare/     # tunnel (LIVE)
+  network/cloudflare/     # tunnel source/config home; runtime state verified separately
   network/scripts/
   telegram/               # council_relay residual
   discord/                # shell; WO-COM-002 before LIVE
