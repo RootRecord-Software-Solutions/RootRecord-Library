@@ -3,54 +3,33 @@
 | Field | Value |
 |-------|--------|
 | **Priority** | P2 |
-| **Status** | **Log path slice complete** (2026-09-28); FAIL policy still draft |
-| **Target** | Pacific Automations + Logs; optional Communications notify |
+| **Status** | **Log path slice complete** — wired to RootRecord-Database |
+| **Target** | Pacific Automations; Database Logs; optional Communications notify |
 | **Depends on** | Live poller stable; WO-COM-001 if alerts desired |
-| **Related** | Live log sample 2026-09-28 (`ecoflow_read_cycle FAIL code=-15`) |
 
-## Goal
+## Log storage (canonical)
 
-Make poller health easy to read at a glance and define what happens on repeated job FAIL without spamming the operator.
+**Repo:** [RootRecord-Database](https://github.com/RootRecord-Software-Solutions/RootRecord-Database)  
+**Desk:** `/home/rootrecord/Database/`
 
-## Log storage cutover (done)
+| Stream | Path |
+|--------|------|
+| Poller / automations | `Logs/Automations/automations_current.log` |
+| Stack reload | `Logs/Automations/stack_reload_current.log` |
 
-| Stream | Old default (G2 residual) | New default |
-|--------|---------------------------|-------------|
-| Poller | `~/.ollama/skills/logs/store/rootserver-poller.log` | `/home/rootrecord/Database/LOGS/Automations/rootserver-poller.log` |
-| Stack reload | `~/.ollama/skills/logs/store/stack-reload.log` | `/home/rootrecord/Database/LOGS/Automations/stack-reload.log` |
+Pacific defaults (`POLLER_LOG`, `STACK_RELOAD_LOG`) point at these. Archive policy: Database `Logs/*/Archive/README.md`.
 
-Updated on **org** `RootRecord-Pacific-Solar-Server`: poller-watch, open-poller-window, run-poller, do-stack-reload, schedule-stack-reload. Contracts in `Logs/README.md` + `Logs/Automations/README.md`.
-
-**Operator still must:** `mkdir` Database path, optional `cp -an` old log, align **systemd unit** if it hardcodes the old path, pull + stack reload.
-
-## Observed signal (from operator live window)
-
-- SUMMARY lines for river2pro / delta2 (BLE + API)
-- SYSTEM samples under Database/SYSTEM/samples
-- ENERGY status live from sqlite
-- worklog_scan OK
-- Occasional `ecoflow_read_cycle FAIL code=-15`
+Supersedes earlier draft paths under `Database/LOGS/...` and G2 `~/.ollama/skills/logs/store/`.
 
 ## Remaining scope
 
-- Document FAIL code meanings when known
-- Thresholds: N consecutive FAILs → log escalate; optional Telegram after WO-COM-001
+- FAIL code meanings + thresholds
 - Operator guide: “how to read the poller window”
-- Optional daily one-line health rollup in WORKLOG
+- Optional Telegram after WO-COM-001
 
-## Scope (out)
+## Acceptance
 
-- Rewriting the poller engine
-- Metrics backends unless operator requests
-- Auto-restart loops that fight systemd
-
-## Acceptance criteria
-
-1. [x] Canonical log paths under Database + code defaults updated
-2. [ ] Short operator guide: “how to read the poller window”
-3. [ ] FAIL policy written (ignore / log / notify)
-4. [ ] Desk unit aligned + window shows new path
-
-## Notes
-
-Path cutover can land without Energy Phase 1 completion. FAIL policy can follow after desk confirms the new log path is live.
+1. [x] Canonical paths under RootRecord-Database
+2. [x] Pacific script defaults updated
+3. [ ] Desk unit + banner show `automations_current.log`
+4. [ ] FAIL policy written
