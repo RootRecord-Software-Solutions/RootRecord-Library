@@ -55,7 +55,7 @@
 ## 5. Key file / path reference
 
 | Path | Role |
-| --- | --- |
+|------|------|
 | {{path}} | {{role}} |
 
 ---
@@ -83,18 +83,34 @@
 
 ---
 
-## Archive note
+## Archive / location note
 
-Filename when saved:
+**Active / accepted WOs** — filename when saved:
 
 ```text
 {{Short_Name}}_Work_Order_WO-{{CODE}}-{{YYYY-MM-DD}}.md
+# or
+WO-{{CODE}}-{{short-title}}.md
 ```
 
 Location:
 
 ```text
-Documentation/06-development/Work Orders/
+Documentation/06-development/Work-Orders/
 ```
 
-Closed work orders may move to `Documentation/06-development/archive/` on the weekly archive pass.
+**Drafts (not on active index)** — use:
+
+```text
+Documentation/06-development/Work-Orders/drafts/
+```
+
+See `drafts/README.md` and WO-WOGEN-001. Do not auto-promote.
+
+**Closed WOs:** set Status → COMPLETE/CLOSED → `git mv` into:
+
+```text
+Documentation/06-development/Work-Orders/Complete/
+```
+
+Human session logs archive under `Documentation/01-operations/archive/YYYY-Www/` (WO-ARCH) — separate from closed work orders.
