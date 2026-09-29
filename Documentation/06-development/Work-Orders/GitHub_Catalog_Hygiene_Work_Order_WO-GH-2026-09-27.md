@@ -3,8 +3,8 @@
 | Field | Value |
 | --- | --- |
 | **Work Order ID** | WO-GH-2026-09-27 |
-| **Status** | **IN PROGRESS** — Pacific `Github/` sync **LIVE**; website/mainland still disabled |
-| **Updated** | 2026-09-29 ~01:37 HST |
+| **Status** | **IN PROGRESS** — Pacific `Github/` sync **PASS** (post-reboot evidence 2026-09-29); website/mainland still disabled (BLOCKED) |
+| **Updated** | 2026-09-29 ~03:45 HST |
 
 **Scope:** Catalog + auto-sync under Pacific; org remotes for canonical three; retire non-canonical clutter when convenient.
 
@@ -62,3 +62,13 @@ Token: `master-key.env` — never commit.
 - Representative current source SHAs: `repos.conf` `d3a24a3133c51117084c7440473b58e030436424`; `setup-all-remotes.sh` `22253d003c01488f618f195d7a3a983dbfd51f46`; `sync-all.sh` `57e2c7b2a570ba6340cfcb29c578e765727ec001`.
 - Desk re-read at Pacific HEAD `f70cc27`: `sync-all.sh` blob `8f125ed361b4f4f5d3581803f59266a9c31d7f2c` (last changed in commit `9d0d059`, "Prevent database sync from reloading poller stack"); the post-pull stack reload now lives in `push-repo-once.sh` `mark_code_pulled`. `jobs.py` `github_sync_all` `interval_sec` changed from 300 to 5 in commit `494bf8b`. A later comment/unused-variable cleanup of `sync-all.sh` header supersedes that blob.
 - This is a static catalog audit only. It does not enable Website/Mainland or authorize removal of the historical skills catalog before the remaining WO-GH prerequisites are satisfied.
+
+## Refresh — 2026-09-29 ~03:45 HST (truth-gated)
+
+- Pacific `Github/` auto-sync **PASS** after the 02:28 HST reboot (Database commits since boot; Pacific/Library/skills clean, no `index.lock` — `g3-post-reboot-evidence-20260929T123313Z.md`), and it is still committing after the 03:09 HST Title-case restart.
+- Docs-only pulls no longer reload the stack — **PASS** (`31fd21e`; [test record](../../07-testing/2026-09-29-poller-dashboard-single-window.md)).
+- Database `.gitignore` follows the Title-case names (`/Github/logs/`, `/Github/plumbing/state/`, `/Weather/`, `/RootRecord/`, `/Energy/state/`, `/Energy/ports/`; Database `92bd69c`). `BAK_ROOT` stays `/home/rootrecord/Database/GITHUB` (**KEPT**, outside the auto-synced tree).
+- `skills` catalog row: **KEPT** (G2 legacy files are retired only with Alexander sign-off).
+- Website/mainland: still disabled (**BLOCKED** on worktree/clone prerequisites above).
+- Security items **BLOCKED** (unremediated, need Alexander): camera stills in the public Database repo; `CONNECTION.json` in Pacific history (`6328af6`); G2 still tracks `a-eyes/store/CONNECTION.json`. History rewrite or untracking needs explicit approval.
+- Test records: [`Documentation/07-testing/`](../../07-testing/README.md).

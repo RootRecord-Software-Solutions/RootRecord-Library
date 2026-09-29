@@ -93,3 +93,11 @@ Record any post-check confirmation in WO-SRV notes if useful; do not re-open clo
 - Telegram tokens have been provisioned; relay/model runtime verification is still pending.
 - Energy actuating actions and Security timelapse remain VERIFY PENDING; NPU/FastFlowLM remains BLOCKED.
 - Pacific poller source has now been corrected to the canonical Database root. Its post-restart runtime verification remains open before the poller gate can be closed.
+
+## Current status refresh — 2026-09-29 ~03:45 HST
+
+- **All G2 entries in this table are KEPT** (retire only with Alexander sign-off). Nothing is RETIRED. The ~01:11 HST bullet above ("their G2 executables are retired") and the ~00:52/~01:00 HST "retired" notes are superseded: every G2 file was restored (skills `1dcee66`) and stays dormant.
+- The 27 dormant G2 files that still name old-root paths are **KEPT** unchanged.
+- Runtime states since the ~01:37 refresh: Plumbing NPU/FLM **PASS** (install/validate), on-demand `llama3.2:1b` route **PASS** (own-session fix VERIFY PENDING); Weather **PASS**; post-reboot **PASS**; Database Title-case rename **PASS** (Database `92bd69c`). Paths in the table rows above already use the Title-case forms where they describe the current state (`Energy/ports`, `Github/plumbing/state`); historical capture blocks keep the names observed at the time.
+- Still VERIFY PENDING: Security timelapse (after 05:00 HST), Energy arm/disarm + AC (need approval).
+- Per-test records: [`Documentation/07-testing/`](../07-testing/README.md).

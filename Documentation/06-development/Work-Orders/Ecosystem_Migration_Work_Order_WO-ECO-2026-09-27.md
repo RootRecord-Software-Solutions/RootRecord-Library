@@ -184,3 +184,10 @@ The operator installed the documented AMD XDNA2/XRT prerequisite stack on the Pa
 - Database top-level folders are now Title-case (`Energy`, `System`, `Weather`, `Github`, `RootRecord`, `Worklog`, `Intake`; Database `92bd69c`).
 - FLM warmup is opt-in only after an OOM restart loop (a resident 3b model used about 10 GB); Ollama CLI calls use `--keepalive 0`.
 - EcoFlow BLE is live again through the new `Pacific/Energy/.venv`; the cloud API values were stale. See WO-SRV for details.
+
+**2026-09-29 ~03:45 HST — status summary (truth-gated):**
+- Runtime inference is now `llama3.2:1b` **on demand** on the NPU (`run-infer.sh` starts `flm serve` per request and stops it on exit; Pacific `753168e`, `7000197`) — route **PASS**, own-session fix **VERIFY PENDING**. `llama3.2:3b` is installed but unused; it is no longer the default. The warmup is non-resident unless `FLM_WARMUP_RESIDENT=1` (`ff298b2`).
+- Database Title-case rename **PASS** (Database `92bd69c`, Pacific `1368822`). Energy freshness **PASS** via `Pacific/Energy/.venv`; B1/B2 low (flagged).
+- Relay replies are off by default (`RR_RELAY_REPLIES=0`); messages are consumed and will not be answered later.
+- Per-test records with evidence and SHAs: [`Documentation/07-testing/`](../../07-testing/README.md). Full truth-gated table and open items: WO-SRV "Status summary — 2026-09-29 ~03:45 HST".
+- Open items (not done): `OLLAMA_KEEP_ALIVE=0` in `ollama.service` BLOCKED (sudo); `*-telegram` models missing (replies BLOCKED until Alexander opts in); timelapse after 05:00 HST VERIFY PENDING; Energy arm/disarm + AC hardware tests need approval; B1 physical check; weather retention PROPOSED; Weather repo decision; ON_BOOT-only weather/relay (no mid-session recovery); 27 dormant G2 old-root files KEPT; `npu-status.sh` G2-only (optional copy); security items unremediated (camera stills in public Database repo, `CONNECTION.json` in Pacific history `6328af6`, G2 tracking `a-eyes/store/CONNECTION.json`). Canonical camera path: Pacific `Security/Cameras/`.

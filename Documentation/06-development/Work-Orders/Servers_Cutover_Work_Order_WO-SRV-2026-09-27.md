@@ -368,3 +368,39 @@ Snapshot: `2 - RootRecord-Database/Logs/Migration/g3-pre-reboot-checkpoint-20260
   - Test: one on-demand request took 4.8 s end to end, including the cold start, and was answered on the NPU. FLM peak RSS was about 1.9 GB and minimum available memory 6.0 GB. Afterwards there were 0 flm processes, port 52625 was closed and the lock was IDLE.
   - `llama3.2:3b` stays installed but unused.
   - Evidence: `Logs/Migration/g3-npu-flm-evidence-*.md`.
+
+## Status summary — 2026-09-29 ~03:45 HST (truth-gated)
+
+Test records: [`Documentation/07-testing/`](../../07-testing/README.md). Database root: `/home/rootrecord/RootRecord-Ecosystem/2 - RootRecord-Database` with Title-case folders (`Energy`, `System`, `Weather`, `Github`, `RootRecord`, `Worklog`, `Intake`; `AI`, `Archive`, `Logs` unchanged). The old root `/home/rootrecord/Database/` now holds only `GITHUB/` (backups/flags) and `README.md`; the old data is in `Archive/Previous-Datasets/G2-old-root-20260929/`.
+
+| Surface | State | Evidence / test record |
+| --- | --- | --- |
+| Poller on new Database root | PASS | `d9f074b`, `75d86f2`, `f27604d`, Database `eabe62e` — [record](../../07-testing/2026-09-29-poller-database-root-realign.md) |
+| Status viewer (dashboard, single window; docs-only pulls don't reload) | PASS | `884c832`, `89a8d6d`, `4a4107a`, `31fd21e` — [record](../../07-testing/2026-09-29-poller-dashboard-single-window.md) |
+| Weather (Pacific `Weather/`, `Weather/.venv`) | PASS | `b72db19`, `e977252` — [record](../../07-testing/2026-09-29-weather-pacific-venv-hook.md) |
+| Post-reboot 02:28 HST, all services | PASS | `g3-post-reboot-evidence-20260929T123313Z.md`, Library `65d654f` — [record](../../07-testing/2026-09-29-post-reboot-all-services.md) |
+| NPU / FastFlowLM install + validate | PASS | `g3-npu-flm-evidence-20260929T125429Z.md` — [record](../../07-testing/2026-09-29-npu-flm-install-validate.md) |
+| Database Title-case rename (one stack restart 03:09 HST) | PASS | Database `92bd69c`, Pacific `1368822`; docs `0b7be45` (Pacific), `7d2e79b` (Library), `66cbae7` (Database) — [record](../../07-testing/2026-09-29-database-titlecase-rename.md) |
+| OOM loop from resident FLM warmup (03:10–03:13 HST) | FAIL → fixed; fix PASS | `ff298b2` (non-resident warmup, `FLM_WARMUP_RESIDENT=1` opt-in), `3039c3f` (`--keepalive 0`); poller PID 105444 stable since 03:13:28 — [record](../../07-testing/2026-09-29-oom-flm-warmup-resident.md) |
+| EcoFlow data freshness (`Energy/.venv`) | PASS (battery levels flagged) | WO-SRV 03:20 entry; `Energy/soc/*-last.json` `source: ble` — [record](../../07-testing/2026-09-29-ecoflow-stale-data-energy-venv.md) |
+| Laptop battery B3 / `LAP=` | LANDED / VERIFY PENDING | `0ea16cd`; 0 `LAP=` lines at 03:38 HST (poller predates the commit) — [record](../../07-testing/2026-09-29-laptop-battery-b3-dashboard.md) |
+| NPU route `llama3.2:1b` on demand | PASS (route); own-session fix VERIFY PENDING | `753168e`, `7000197`; Library `e023b08`; Database `dc382a2` — [record](../../07-testing/2026-09-29-npu-llama3.2-1b-on-demand.md) |
+| Telegram relay | login/polling PASS; replies BLOCKED (models); quiet mode default | `ebc32a7`, `b3754fb` |
+| G2 legacy files | KEPT (retire only with Alexander sign-off) | skills `1dcee66` |
+
+**Open items (not done):**
+1. `OLLAMA_KEEP_ALIVE=0` in `ollama.service` — **BLOCKED** (needs sudo; the server default is still 5m; the CLI wrappers already pass `--keepalive 0`).
+2. `ava-/bruce-/carly-telegram` models missing — relay replies **BLOCKED**. Relay quiet mode is the default (`RR_RELAY_REPLIES=0`) until Alexander opts in. Caveat: in quiet mode incoming messages are consumed (marked read) and will **not** be answered later.
+3. Security timelapse check after 05:00 HST — **VERIFY PENDING**.
+4. Energy arm/disarm and AC hardware tests — **VERIFY PENDING** (need Alexander's approval).
+5. B1 (River 2 Pro) physical check; both batteries low (03:39 HST BLE: B2 47.56%, B1 5.23%) — **VERIFY PENDING**.
+6. Weather retention policy — **PROPOSED** (Pacific `Weather/README.md` §Retention, awaiting sign-off).
+7. Whether `Weather/` gets its own repo (RootRecord-Weather-Database) — **PROPOSED** / needs decision; weather data is local only.
+8. Weather and relay start only at poller boot (ON_BOOT); no mid-session auto-recovery — open design item.
+9. 27 dormant G2 files still use old-root paths — **KEPT** unchanged (retire only with Alexander sign-off).
+10. `npu-status.sh` exists only in G2 (`~/.ollama/skills/plumbing/scripts/`) — optional Pacific copy, **PROPOSED**.
+11. Security items unremediated — **BLOCKED** pending Alexander: camera stills in the public Database repo; `CONNECTION.json` in Pacific history (`6328af6`); G2 still tracks `a-eyes/store/CONNECTION.json`.
+12. Laptop `LAP=` status field — **VERIFY PENDING** until the next poller start (`0ea16cd`).
+13. `run-infer.sh` own-session fix (`7000197`) — **VERIFY PENDING** on the next real NPU request.
+
+Canonical camera path: Pacific `Security/Cameras/` (no A-Eyes compatibility layer).

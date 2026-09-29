@@ -152,3 +152,25 @@ Supersedes the "PASS / retired" wording above: those surfaces are **PASS / G2 KE
 | NPU / FLM | **PASS** 02:52 HST (see NPU section) |
 
 Post-reboot list: WO-SRV "Pre-reboot checkpoint 2026-09-29". Snapshot `2 - RootRecord-Database/Logs/Migration/g3-pre-reboot-checkpoint-20260929T120755Z.md`.
+
+## Status refresh — 2026-09-29 ~03:45 HST
+
+Supersedes open findings 1 (relay 821015 is gone; relay now runs under the poller unit), 8 (FLM/NPU now PASS) and 9 (`store.py` → canonical `RootRecord/`, `abc78b2`; G2 pulls no longer reload, `abc78b2`) in the ~01:37 block. Per-test records: [`Documentation/07-testing/`](../07-testing/README.md).
+
+| Row | State | Evidence |
+| --- | --- | --- |
+| A. Telegram / council_relay | login/polling PASS; replies BLOCKED (models); quiet mode default (`RR_RELAY_REPLIES=0`) | `ebc32a7`; WO-SRV |
+| B. Security timelapse | VERIFY PENDING (after 05:00 HST) | — |
+| C. Energy actions | read-only PASS; arm/disarm + AC VERIFY PENDING (need approval); data freshness PASS via `Energy/.venv`; B1/B2 low, B1 physical check | [EcoFlow record](../07-testing/2026-09-29-ecoflow-stale-data-energy-venv.md) |
+| D. Poller full cycle | PASS on the new root with Title-case folders; log `2 - RootRecord-Database/Logs/Automations/automations_current.log` | [realign](../07-testing/2026-09-29-poller-database-root-realign.md), [rename](../07-testing/2026-09-29-database-titlecase-rename.md) |
+| Plumbing NPU/FLM | PASS (install/validate); on-demand `llama3.2:1b` route PASS; own-session fix VERIFY PENDING | [NPU](../07-testing/2026-09-29-npu-flm-install-validate.md), [1b on demand](../07-testing/2026-09-29-npu-llama3.2-1b-on-demand.md) |
+| Resident-model safety | OOM FAIL → fixed; fix PASS (non-resident warmup, keepalive 0) | [OOM record](../07-testing/2026-09-29-oom-flm-warmup-resident.md) |
+| G2 legacy | KEPT (retire only with Alexander sign-off) | skills `1dcee66` |
+
+**Preconditions for any re-run (current state):**
+- **Database root:** `/home/rootrecord/RootRecord-Ecosystem/2 - RootRecord-Database` with Title-case top-level folders `Energy/`, `System/`, `Weather/`, `Github/`, `RootRecord/`, `Worklog/`, `Intake/` (plus `AI/`, `Archive/`, `Logs/`, `Geology/`, `Media/`, `Users/`). Upper-case `ENERGY/`, `SYSTEM/`, `WEATHER/`, `GITHUB/`, `ROOTRECORD/`, `WORKLOG/` and lower-case `intake/` under the new root are historical names (Database `92bd69c`). The old root `/home/rootrecord/Database/` is **not** a data path any more: it holds only `GITHUB/` (backups, flags, worktrees) and `README.md`; the old data is archived in `2 - RootRecord-Database/Archive/Previous-Datasets/G2-old-root-20260929/`.
+- **NPU inference:** `llama3.2:1b` **on demand**. `System/scripts/plumbing/run-infer.sh` starts `flm serve` (via `setsid nice -n 10`, `--pmode balanced`, `--ctx-len ${FLM_CTX_LEN:-4096}`, port 52625) only for a request and stops it on exit; `FLM_ON_DEMAND=0` disables this. An idle desk therefore shows **no** FLM process and a closed :52625 — that is expected, not a failure. `llama3.2:3b` is installed but not the default.
+- **No resident models:** the FLM warmup is non-resident unless `FLM_WARMUP_RESIDENT=1` (Pacific `ff298b2`, after the 03:10–03:13 HST OOM loop). Ollama CLI calls use `--keepalive ${OLLAMA_KEEP_ALIVE:-0}` (`3039c3f`). `OLLAMA_KEEP_ALIVE=0` in `ollama.service` is still open (needs sudo).
+- **Relay quiet mode is the default:** `ensure-relay.sh` exports `RR_RELAY_REPLIES=${RR_RELAY_REPLIES:-0}` (Pacific `ebc32a7`). Caveat: in quiet mode incoming Telegram messages are consumed (marked read) and **will not be answered later**. Replies also stay BLOCKED until the `*-telegram` models exist and Alexander opts in (`RR_RELAY_REPLIES=1`).
+- **Required venvs (git-ignored):** `Pacific/Energy/.venv` (without it `ecdsa`/eflib are missing and readings fall back to frozen cloud values) and `Pacific/Weather/.venv` (from `Weather/requirements.txt`).
+- Weather and relay start only at poller boot (ON_BOOT); a mid-session crash is not re-ensured until the next poller start.
