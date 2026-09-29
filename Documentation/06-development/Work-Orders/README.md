@@ -74,11 +74,11 @@ Folder + `SKILL.md` retained. Skills were functional packets (poor original desi
 
 ## Suggested attack order (remaining)
 
-1. ~~Energy~~ ~~System~~ ~~Reports~~ ~~Plumbing / Energy actions~~ (LIVE)  
-2. **Telegram / council_relay** → `Communications/`  
-3. A-Eyes → Weather + Geology  
+1. ~~Energy~~ ~~System~~ ~~Reports~~ ~~Plumbing / Energy actions~~ ~~Telegram~~ ~~A-Eyes~~ (Pacific source paths landed)  
+2. **Runtime verification** → Telegram, A-Eyes, Energy actions, Pacific poller  
+3. Retire each verified legacy runtime function immediately; preserve legacy `SKILL.md` documentation  
 4. Final `jobs.py` grep + cwd cleanup  
-5. Retire G2 desk as residual host; close WO-ECO when foundation settles → move finished WOs to `Complete/`  
+5. Move completed WOs to `Complete/` only after acceptance criteria are satisfied  
 
 Architecture maps (Library):
 
@@ -99,7 +99,7 @@ Reports   foundation LIVE — worklog_scan → Pacific Reports/scripts
 Github    setup-remotes + sync-all LIVE
 Log       /home/rootrecord/Database/Logs/Automations/automations_current.log
 G1 sched  hybrid-night-poller / heartbeat / net-gate → MIGRATED.md on -Old
-Residual  telegram · a-eyes · weather(disabled) · network-globe cwd
+Residual  runtime verification/legacy retirement · weather(disabled)
 ```
 
 ---
