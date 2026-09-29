@@ -272,3 +272,12 @@ Filename:
 - The two `.ollama/skills` references are catalog paths for the historical skills entry and disabled Website/Mainland entries, not active Pacific runtime executable references.
 - Pacific `setup-all-remotes.sh` and `sync-all.sh` contain no embedded legacy skills-tree executable references.
 - WO-GH remains IN PROGRESS; no Website/Mainland enablement or historical skills removal was performed from this static audit.
+
+
+## Documentation Reconciliation — WO-ECO Checklist — 2026-09-28
+
+- Re-read WO-ECO's completion/checklist section and reconciled stale entries with the documented Pacific state.
+- Energy, A-Eyes, Github, Plumbing, and Telegram Pacific source imports are now marked landed, with runtime verification remaining under WO-SRV.
+- The Pacific `repos.conf` catalog row is marked aligned to the Ecosystem path; Website/Mainland remain intentionally disabled.
+- The broad legacy `jobs.py` statement was narrowed: active Pacific scheduler surfaces resolve to Pacific paths; the remaining legacy Weather command/cwd pair is explicitly disabled and outside active cutover scope.
+- Remaining out-of-scope domain imports are still gated by their separate authorization/work orders. WO-ECO remains IN PROGRESS.
