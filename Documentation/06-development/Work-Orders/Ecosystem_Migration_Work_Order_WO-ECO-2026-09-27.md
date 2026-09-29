@@ -4,10 +4,10 @@
 | --- | --- |
 | **Work Order ID** | WO-ECO-2026-09-27 |
 | **Date** | 2026-09-27 (HST) |
-| **Status** | IN PROGRESS — Pacific runtime cut over to Ecosystem Servers path; G3 runtime verification partial (see WO-SRV status and Next, 2026-09-29 ~00:52 HST); Master-Prompt links and out-of-scope domain imports still open |
+| **Status** | IN PROGRESS — Pacific runtime cut over to Ecosystem Servers path; G3 runtime verification partial (see WO-SRV current status); Master-Prompt links and out-of-scope domain imports still open |
 | **Owner** | RootRecord |
 | **Related** | Library online; WO-SRV; domain wiring 2026-09-28 |
-| **Updated** | 2026-09-29 (HST) |
+| **Updated** | 2026-09-29 ~01:11 HST |
 
 **Scope:** Establish clean ownership boundaries between the local `RootRecord-Ecosystem` tree and independent GitHub repositories; migrate durable knowledge and runtime artifacts out of the legacy single-tree model.
 
@@ -133,7 +133,7 @@ RootRecord-Ecosystem
 - [ ] Keep generated content out of Library and runtime git trees
 - [ ] Website continues via existing mirror
 - [ ] Node: leave placeholder
-- [x] **Resolved 2026-09-29:** the active Pacific source paths now use the canonical Ecosystem Database root `/home/rootrecord/RootRecord-Ecosystem/2 - RootRecord-Database`. The older `/home/rootrecord/Database/` tree is retained only where historical/runtime evidence or operator-controlled workflows still reference it; it is not the active Database authority. See WO-DATA for the boundary record.
+- [x] **Resolved 2026-09-29:** the active Pacific source paths use the canonical Ecosystem Database root `/home/rootrecord/RootRecord-Ecosystem/2 - RootRecord-Database`. The older `/home/rootrecord/Database/` tree is retained only where historical/runtime evidence or operator-controlled workflows still reference it; it is not the active Database authority. See WO-DATA for the boundary record. The poller source was corrected to this root in the latest Pacific sync; its live post-restart check remains part of WO-SRV.
   - *Desk check 2026-09-29 ~00:52 HST:* some active Pacific sources still hardcode the old root: plumbing `single-flight.sh` (`STATE_DIR`) and `flm-warmup.sh`; Energy `solar-gate-{status,arm,disarm}.sh`; `ble-owner.py` LOG/PID and `devices.conf` `ble_log`. The running poller log is also still at `/home/rootrecord/Database/Logs/Automations/`. Tracked in WO-SRV Next #1; see `2 - RootRecord-Database/Logs/Migration/g3-energy-plumbing-evidence-20260929T104618Z.md`.
   - *Update ~00:57 HST:* those plumbing, solar-gate, BLE-owner and `devices.conf` paths now use the canonical root (Pacific `87a6469`). Still on the old root: the poller (`run-poller.sh` `POLLER_LOG`; `rootserver_poller.py` `ENERGY_ROOT` and system-status), which needs a poller restart, and the `Github/scripts/common.sh` `DATABASE_ROOT` default.
 - [x] **Database repo `.gitignore` — volatile runtime state excluded (2026-09-29 ~00:56 HST).** Added `/ENERGY/state/`, `/ENERGY/ports/`, `/GITHUB/plumbing/state/`, `*.pid` and `*.lock`, so pid, lock and state json files are not auto-committed to the Database repo every 5 s. Reasons: **privacy** (e.g. the single-flight holder file records the full inference command, prompt included) and **commit churn**. No tracked file matched, so nothing was untracked. Evidence: `2 - RootRecord-Database/Logs/Migration/g3-dbroot-realign-evidence-20260929T105845Z.md`.
