@@ -237,3 +237,10 @@ Filename:
 - Reconfirmed the legacy runtime functions pending verify-then-retire: Telegram relay, Plumbing inference/single-flight, Energy action wrappers, and legacy Automations scheduler surface.
 - Noted the legacy single-flight state path versus the Pacific Database-bound state path as an explicit runtime-verification point.
 - No legacy executable deletion performed; legacy `SKILL.md` preservation remains in force.
+
+
+## Documentation Reconciliation — 2026-09-28
+
+- Reconciled the Work-Order README status for WO-SRV-2026-09-27 and WO-SRV-001 so they no longer describe Telegram/A-Eyes source landing as future work.
+- Both remain in progress because runtime verification and the documented per-function legacy retirement sequence remain outstanding.
+- No work order was moved to `Complete/` because acceptance criteria are not yet satisfied.
