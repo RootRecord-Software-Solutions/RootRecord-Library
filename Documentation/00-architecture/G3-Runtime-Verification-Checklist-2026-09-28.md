@@ -35,6 +35,7 @@ Run from the Pacific desk (or any host that can see live processes and `jobs.py`
 | 3 | One inbound or outbound cycle succeeds (or status script reports healthy) |
 | 4 | Inference calls resolve via Pacific `System/scripts/plumbing/run-infer.sh` (or equivalent single-flight) |
 | 5 | No second getUpdates owner |
+| 6 | Verification output/logs contain no bot token, credential value, token fragment, or recovery material |
 
 **Pass →** eligible to retire legacy telegram/relay executable (keep legacy `SKILL.md`).
 
@@ -46,6 +47,7 @@ Run from the Pacific desk (or any host that can see live processes and `jobs.py`
 | 2 | One hourly or catchup cycle completes without path error |
 | 3 | Cam server ensure (if enabled) starts from Pacific path |
 | 4 | No active scheduler entry still on `~/.ollama/skills/a-eyes/…` |
+| 5 | Verification output/logs contain no credential value or sensitive capture material |
 
 **Pass →** eligible to retire corresponding legacy A-Eyes executables (keep `SKILL.md`).
 
@@ -55,6 +57,7 @@ Run from the Pacific desk (or any host that can see live processes and `jobs.py`
 | --- | --- |
 | 1 | `ECOFLOW_ACTIONS` / action scripts resolve under Pacific `Energy/` |
 | 2 | One read or action cycle OK; no legacy skills path in FAIL text |
+| 3 | Verification output/logs contain no credential value or secret material |
 
 Already marked LIVE in WO-SRV; this is confirmation only.
 
@@ -65,6 +68,7 @@ Already marked LIVE in WO-SRV; this is confirmation only.
 | 1 | One full poller cycle completes |
 | 2 | No path-related FAIL for domains already imported |
 | 3 | Log path remains under Database (`…/Database/Logs/Automations/…`) |
+| 4 | Verification output/logs contain no credential values or secret material |
 
 ---
 
