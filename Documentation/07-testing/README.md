@@ -41,6 +41,10 @@ Each test gets one file, `YYYY-MM-DD-<slug>.md`, created from [TEMPLATE.md](./TE
 | 2026-09-29 03:16 | [Laptop battery bar B3 on dashboard](./2026-09-29-laptop-battery-b3-dashboard.md) | LANDED / VERIFY PENDING |
 | 2026-09-29 03:20 | [EcoFlow stale data: Energy/.venv](./2026-09-29-ecoflow-stale-data-energy-venv.md) | PASS (freshness); battery levels flagged |
 | 2026-09-29 03:29 | [NPU route: llama3.2:1b on demand](./2026-09-29-npu-llama3.2-1b-on-demand.md) | PASS (route); own-session fix VERIFY PENDING |
+| 2026-09-29 04:00 | [Weather + relay supervisor (dry run)](./2026-09-29-service-supervisor-dry-run.md) | PASS (logic); live VERIFY PENDING (next poller start) |
+| 2026-09-29 04:00 | [Pacific npu-status.sh (idle)](./2026-09-29-npu-status-pacific-copy.md) | PASS (idle); lock-held run VERIFY PENDING |
+| 2026-09-29 04:02 | [Relay quiet-mode inbox + replay (parse only)](./2026-09-29-relay-quiet-inbox-parse.md) | PASS (parse); live VERIFY PENDING (next poller start) |
+| 2026-09-29 04:04 | [Weather retention dry run](./2026-09-29-weather-retention-dry-run.md) | PASS (dry run: 0 to move); apply OFF pending review |
 
 Related: [MIGRATION-DOCS-INDEX](../00-architecture/MIGRATION-DOCS-INDEX-2026-09-28.md) · [WO-SRV](../06-development/Work-Orders/Servers_Cutover_Work_Order_WO-SRV-2026-09-27.md) · [G3 Runtime Verification Checklist](../00-architecture/G3-Runtime-Verification-Checklist-2026-09-28.md)
 
