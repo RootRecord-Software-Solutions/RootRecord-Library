@@ -1,6 +1,6 @@
 # 🎺 RootRecord Library
 
-> **The shared knowledge base for Root Record Software Solutions** — agent context, architecture records, operations logs, guides, and handoff material that keep the ecosystem coherent across desks, agents, and time.
+> **The shared knowledge base for Root Record Software Solutions** — agent context, architecture records, operations logs, and guides that keep the ecosystem coherent across desks, agents, and time.
 
 [![Org](https://img.shields.io/badge/org-RootRecord--Software--Solutions-0B3D2E?style=flat-square)](https://github.com/RootRecord-Software-Solutions)
 [![Runtime](https://img.shields.io/badge/runtime-Pacific--Solar--Server-2F6FED?style=flat-square)](https://github.com/RootRecord-Software-Solutions/RootRecord-Pacific-Solar-Server)
@@ -31,10 +31,9 @@
 
 | Layer | Purpose |
 | --- | --- |
-| **Agent Context** | Identity, principles, bounds, workflow, and product/infrastructure maps for Ava, Bruce, and Carly |
+| **Agent Context** | Identity, principles, bounds, workflow, handoff templates, and product/infrastructure maps for Ava, Bruce, and Carly |
 | **Documentation** | Architecture sessions, operations work logs, security notes, data notes, public surface, development work orders, ADRs |
 | **Guides & Tutorials** | How-to material for turning messy AI output into clean plans and other standing practices |
-| **Handoff-Context** | Structured transfer points between sessions and operators |
 
 Desk path (Solar Pacific):
 
@@ -71,7 +70,6 @@ RootRecord-Library/
 │   ├─ archive/
 │   └─ schemas/
 ├─ Guides & Tutorials/
-├─ Handoff-Context/
 └─ README.md
 ```
 
@@ -97,6 +95,8 @@ Each agent pack follows a consistent spine so handoffs stay predictable:
 | **Ava** | [`Agent Context/Ava-Agent-Context/`](./Agent%20Context/Ava-Agent-Context/) |
 | **Bruce** | [`Agent Context/Bruce-Agent-Context/`](./Agent%20Context/Bruce-Agent-Context/) |
 | **Carly** | [`Agent Context/Carly-Agent-Context/`](./Agent%20Context/Carly-Agent-Context/) |
+
+Session handoffs use each pack’s `HANDOFF-TEMPLATE.md` — no separate top-level Handoff-Context folder.
 
 ---
 
