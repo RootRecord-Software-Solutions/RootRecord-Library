@@ -117,6 +117,14 @@ Rationale: lowest-risk / highest-clarity items first so Pacific poller can run c
 | Energy actions | G3 path landed; legacy retirement pending runtime verification |
 | Weather | Disabled; unchanged |
 
+### Session 04 continuation — current source audit
+
+- Re-read the canonical Pacific `Automations/scripts/jobs.py` after the latest migration commits.
+- Active Energy, Telegram, A-Eyes, Network Globe, Ollama, and FLM scheduler paths are Pacific-based.
+- The only remaining legacy path in `jobs.py` is the disabled Weather job; it remains disabled and outside current WO-SRV execution scope.
+- The old repository still contains historical scheduler/path references for migrated runtime functions. These remain pending the required G3 runtime verification before retirement.
+- Legacy `SKILL.md` documentation files remain intentionally preserved and are not retirement targets.
+
 ### Session 04 continuation — single-flight migration
 
 - The legacy `plumbing/scripts/single-flight.sh` implementation was migrated into Pacific `System/scripts/plumbing/single-flight.sh`.
