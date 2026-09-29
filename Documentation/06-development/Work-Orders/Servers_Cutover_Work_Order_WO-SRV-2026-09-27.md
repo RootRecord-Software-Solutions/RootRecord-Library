@@ -57,6 +57,14 @@
 - The legacy repository still contains old scheduler/path references for migrated functions. These remain in place because G3 runtime verification has not been performed from this desk session; removing them now would violate the documented migration sequence.
 - Legacy `SKILL.md` files remain preserved by explicit operator instruction.
 
+## Static Runtime-Source Audit — 2026-09-28
+
+- Direct fetch of migrated Pacific Telegram and System plumbing scripts found one embedded legacy executable fallback in `Communications/telegram/scripts/council-relay.py`.
+- The fallback `/home/rootrecord/.ollama/skills/plumbing/scripts/run-infer.sh` was replaced with a repository-relative Pacific `System/scripts/plumbing/run-infer.sh` resolution in commit `f3bd0a6620e7ee3f0c9877541efe00171c4752c3`.
+- Direct fetch of Pacific `run-infer.sh`, `run-ollama.sh`, `single-flight.sh`, `ollama-warmup.sh`, and `flm-warmup.sh` found no legacy skills-tree references.
+- Pacific `Communications/telegram/scripts/status.sh` and `load_env.sh` do not exist at the inspected paths; no deletion was performed or inferred from that absence.
+- Runtime verification remains unavailable from this desk session, so legacy runtime functions remain in the old repository.
+
 ## Next
 
 1. Verify G3 runtime behavior for Telegram, A-Eyes, Energy actions, and the Pacific poller  
