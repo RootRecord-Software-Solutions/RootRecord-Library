@@ -298,3 +298,28 @@ The operator installed the documented AMD XDNA2/XRT prerequisite stack on the Pa
 ## Weather hook-in + old-root archive — 2026-09-29 ~01:54 HST
 
 - Weather **PASS** (Pacific `Weather/`, venv `Weather/.venv`, job `weather_poller` enabled, data → canonical `WEATHER/Hawai'i/`; reports VERIFY PENDING). One poller restart 01:49 HST → PID 880218; relay 880530 and weather 880724 now under the poller unit. Old-root data archived to `2 - RootRecord-Database/Archive/Previous-Datasets/G2-old-root-20260929/` (4.5 GB, README only in git). `store.py` → canonical `ROOTRECORD/`; G2 pulls no longer arm a stack reload. Evidence: `2 - RootRecord-Database/Logs/Migration/g3-weather-archive-evidence-20260929T115429Z.md`.
+
+## Pre-reboot checkpoint 2026-09-29
+
+Snapshot: `2 - RootRecord-Database/Logs/Migration/g3-pre-reboot-checkpoint-20260929T120755Z.md`. Verdict **READY** (caveats below). Rule: never retire/delete G2/legacy code without Alexander's explicit sign-off.
+
+**Final state tonight**
+- Poller realign **PASS** (Pacific `d9f074b`); status line = fresh `delta2-last.json`.
+- Weather hooked in **PASS** (Pacific `Weather/`, venv, job enabled; `b72db19`/`e977252`); reports **PASS** (generated 01:59:13 HST incl. `solar_calculation_table_current.md`). Growth ≈ 2 MB/min (≈ 3 GB/day); git-ignored.
+- Old-root data archived (move) → `2 - RootRecord-Database/Archive/Previous-Datasets/G2-old-root-20260929/` (4.5 GB, README only in git).
+- `Energy/db/store.py` → canonical `ROOTRECORD/` (`abc78b2`); `push-repo-once.sh` no longer reloads the poller on G2 pulls (`abc78b2`); Pacific `Energy/lib/vendor/` canonical (`99cc71e`); READMEs → canonical root (`99cc71e`, `662bf97`).
+- Relay retry-on-network-error fix `b3754fb` — **pending until the next relay start** (the reboot).
+- Live logs untracked (Database `eabe62e`). G2 retirements reverted, all 14 files restored (skills `1dcee66`).
+- Ollama layout (Alexander's choice): Database `AI/Ollama/…` + `Logs/AI/Ollama/…`, symlinks `~/.ollama/{modelfiles,logs}` intentional. `ollama.service` runs as **User=ollama** and logs to journald — it may lack permission to write under `/home/rootrecord` (home is 750).
+- NPU prereqs installed (`amdxdna-dkms`, `libxrt-npu2`, `libxrt2`; `/dev/accel/accel0`); **FLM pending after reboot** (no `flm`, no `xrt-smi`).
+
+**Open items:** `ava-/bruce-/carly-telegram` models missing (replies BLOCKED); timelapse check after 05:00 HST; Energy actuating/hardware tests; B1 0% physical check; WEATHER repo decision (canonical `WEATHER/` is not its own RootRecord-Weather-Database repo; data local only); 27 dormant G2 files still use old-root paths; poller stop takes 30 s then SIGKILL; weather rewrites tracked `Pacific/Weather/reports/README.md` each report cycle (commit churn).
+
+**Post-reboot verification list**
+1. NPU: `lsmod | grep amdxdna`, `/dev/accel/accel0`; `xrt-smi examine` (XRT tools package may be missing → record, don't install blindly); `flm validate` once FLM is installed.
+2. Poller: `systemctl --user status rr-rootserver-poller` active, one `rootserver_poller.py`, NRestarts 0, log `2 - RootRecord-Database/Logs/Automations/automations_current.log` growing; `ENERGY` status line matches fresh `ENERGY/soc/*-last.json`.
+3. Relay: exactly one `council-relay.py`, started by boot job `council_relay`, retry fix active (`b3754fb`), no 401 in `Logs/Communications/council-relay.log`.
+4. BLE owner (`ava-ecoflow-ble`): one owner, canonical pid/log. Globe: `network-globe-hawaii` active (started by boot job; unit is static). cam_server: one process.
+5. Weather: one `Weather/scripts/run_poller.py` (Pacific venv), fresh files under `WEATHER/Hawai'i/`, no Traceback.
+6. Ollama: `systemctl status ollama` active, `ollama list` = 12 models. cloudflared: one poller child, tunnel connected.
+7. Auto-sync: new `auto:` commits in Pacific/Database/Library; no `index.lock`; no poller reload triggered by G2 pulls.

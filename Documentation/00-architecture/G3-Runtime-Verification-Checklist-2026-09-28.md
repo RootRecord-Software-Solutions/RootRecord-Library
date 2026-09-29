@@ -142,3 +142,13 @@ Supersedes the "PASS / retired" wording above: those surfaces are **PASS / G2 KE
 - [ ] Approved NPU inference gate passes
 
 **Current state:** prerequisite stack installed; NPU runtime is not yet VERIFIED. The installer reported a `BUILD_EXCLUSIVE` mismatch for kernel `7.0.0-34-generic` and requires post-reboot validation.
+
+## Pre-reboot status — 2026-09-29 ~02:08 HST
+
+| Row | State |
+| --- | --- |
+| Weather | **PASS** — Pacific daemon + venv, job enabled; reports **PASS** (01:59:13 HST); ≈ 3 GB/day, git-ignored |
+| Telegram relay | login/polling PASS; retry fix `b3754fb` active after next relay start; replies BLOCKED (models) |
+| NPU / FLM | prereqs installed; FLM **pending after reboot** (`flm`, `xrt-smi` absent) |
+
+Post-reboot list: WO-SRV "Pre-reboot checkpoint 2026-09-29". Snapshot `2 - RootRecord-Database/Logs/Migration/g3-pre-reboot-checkpoint-20260929T120755Z.md`.

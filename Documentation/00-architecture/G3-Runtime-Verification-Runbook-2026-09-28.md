@@ -377,6 +377,7 @@ After those gates pass, retire that completed legacy executable/function immedia
 - `/dev/accel/accel0` is present and `modinfo amdxdna` resolves the driver and firmware entries.
 - DKMS reported a `BUILD_EXCLUSIVE` mismatch for the current kernel/config; treat the driver as **not yet runtime-verified** until after reboot and live validation.
 - FastFlowLM itself is not yet established by this evidence.
+- 2026-09-29 02:07 HST desk check: `xrt-smi` is **not installed** (XRT tools package missing) and no `flm` binary; `amdxdna` is loaded. Post-reboot list: WO-SRV "Pre-reboot checkpoint 2026-09-29".
 - Next gate: reboot, validate XRT/NPU visibility, install the current FastFlowLM runtime for Ubuntu 26.04 if absent, run `flm validate`, then perform the approved non-destructive inference test.
 
 ## Explicitly out of scope for this runbook

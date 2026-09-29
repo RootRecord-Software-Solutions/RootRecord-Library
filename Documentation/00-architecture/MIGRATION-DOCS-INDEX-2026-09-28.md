@@ -114,7 +114,9 @@ See [`Documentation/06-development/Work-Orders/README.md`](../06-development/Wor
 4. **systemd unit** audit on desk  
 5. **Secrets / tokens** restore (local only; never from git history)  
 
-Weather remains **disabled** until its domain WO; not part of the active verification residual set above.
+Weather: **enabled and PASS** since 2026-09-29 (Pacific `Weather/`; see WO-SRV).
+
+**Migration evidence 2026-09-29** (`2 - RootRecord-Database/Logs/Migration/`): `g3-poller-realign-evidence-20260929T111731Z.md`, `g3-residual-path-survey-20260929T113523Z.md`, `g3-weather-archive-evidence-20260929T115429Z.md`, `g3-pre-reboot-checkpoint-20260929T120755Z.md` (post-reboot list in WO-SRV "Pre-reboot checkpoint 2026-09-29").
 
 **Documented without executing product migration:** full product/archive catalog (Paper, Nukkit, apps, mirrors); Automations G1 retirement; G0/G1 READMEs.
 
