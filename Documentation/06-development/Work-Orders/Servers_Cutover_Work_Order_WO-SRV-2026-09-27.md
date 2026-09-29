@@ -3,8 +3,8 @@
 | Field | Value |
 | --- | --- |
 | **Work Order ID** | WO-SRV-2026-09-27 |
-| **Status** | **IN PROGRESS** — G3 runtime PASS: network globe, BLE owner, cam server, frame grab, System sampling, Reports worklog (their G2 files retired). Open: Telegram FAIL (no token, no `*-telegram` models), Plumbing non-NPU PASS and Energy `solar-gate-status` PASS (read-only) after the Database-root realignment; Energy actuating actions + timelapse VERIFY PENDING; poller still reads/writes the old Database root (needs restart), NPU BLOCKED, poller §5 gate open |
-| **Updated** | 2026-09-29 ~01:00 HST — Database-root realignment, Plumbing / solar-gate re-verified |
+| **Status** | **IN PROGRESS** — G3 runtime PASS: network globe, BLE owner, cam server, frame grab, System sampling, Reports worklog, Plumbing non-NPU, and read-only `solar-gate-status`. Open: Telegram runtime verification after token provisioning (model availability also needs verification), Energy actuating actions + timelapse VERIFY PENDING, poller runtime recheck after the canonical Database-root path correction/restart, NPU BLOCKED, poller §5 gate open |
+| **Updated** | 2026-09-29 ~01:11 HST — poller Database-root path correction landed; operator restart/recheck underway |
 
 **Policy:** Do not run the old desk as the poller host.
 
@@ -91,8 +91,8 @@
 
 *Refreshed 2026-09-29 ~00:52 HST.* Done tonight: globe and BLE owner cut over and PASS; cam server, frame grab, System sampling and Reports worklog PASS; their G2 executables retired (see sections below).
 
-1. **Database-root drift — done ~00:57 HST** for plumbing `single-flight.sh` and `flm-warmup.sh`, `solar-gate-{status,arm,disarm}.sh`, the `ble-owner.py` log/pid (one controlled restart) and `devices.conf` (Pacific `87a6469`). Volatile state is git-ignored in the Database repo. **Still open (poller; needs an approved poller restart, not done):** `run-poller.sh` `POLLER_LOG` still defaults to `/home/rootrecord/Database/Logs/Automations/automations_current.log`. `rootserver_poller.py` also still reads `ENERGY_ROOT=/home/rootrecord/Database/ENERGY` and the old `SYSTEM/status/system-status.json`, so its desk ENERGY/B-status line has been **stale since ~00:42 HST** (e.g. it shows B2=100% while fresh reads say 89%). The new `poller-watch.py` / hourly archive target a canonical-root log that does not exist yet. Also open: whether to ignore or archive `Logs/Energy/ava-ecoflow-ble.log` (30 s heartbeat in the auto-synced repo); the `Github/scripts/common.sh` `DATABASE_ROOT` default; the G2 values of `devices.conf` `log_dir`/`state_dir`/`skill_root`.
-2. **Telegram:** the operator provisions `TELEGRAM_AVA_TOKEN` and the `ava-/bruce-/carly-telegram` Ollama models; then run runbook §1. After it passes, retire G2 `council-relay.py` and G2 plumbing `single-flight.sh` / `run-ollama.sh` / `run-infer.sh`, which the retained G2 relay still references.
+1. **Database-root drift — source correction landed.** Pacific `run-poller.sh` and `rootserver_poller.py` now default to `/home/rootrecord/RootRecord-Ecosystem/2 - RootRecord-Database`; the operator restart/recheck is the remaining runtime gate. The next cleanup items are the remaining `Github/scripts/common.sh` default and the 30-second `Logs/Energy/ava-ecoflow-ble.log` Git-ignore treatment. Historical evidence below retains the old root exactly as observed at the time.
+2. **Telegram:** `TELEGRAM_AVA_TOKEN`, `TELEGRAM_BRUCE_TOKEN`, and `TELEGRAM_CARLY_TOKEN` have been provisioned in the operator environment. Run runbook §1 and verify the three `*-telegram` Ollama models. After runtime PASS, retire G2 `council-relay.py` and the retained G2 plumbing functions it references.
 3. **Energy actuating actions:** an operator-approved hardware test (arm/disarm, AC always-on).
 4. **Security/Cameras timelapse:** observe an hourly compile in the 05–19 HST window; then retire G2 `grab_frame.py` and the timelapse scripts.
 5. **NPU/FLM:** blocked until FastFlowLM is installed.
@@ -228,7 +228,7 @@ Retirement eligibility (after this evidence): Security/Cameras cam server + fram
 - **Security/Cameras:** cam server and frame-grab passed live verification; `Security/Cameras/grab_all.sh`, `System/scripts/sys-sample.sh`, and `Reports/scripts/worklog_once.sh` legacy executables were retired after evidence. Security timelapse remains verification-pending.
 - **Network Globe:** live systemd unit was repointed to Pacific and passed runtime verification; G2 collector/relay files were retired after dependency checks.
 - **Energy BLE owner:** live systemd unit was repointed to Pacific and passed runtime verification; G2 BLE owner was retired after dependency checks.
-- **Telegram:** remains blocked by missing `TELEGRAM_AVA_TOKEN`; no legacy retirement.
+- **Telegram:** token has been provisioned; runtime verification remains pending, including the required `*-telegram` model check; no legacy retirement.
 - **Energy actions:** verification remains pending; no destructive hardware action is required or authorized for verification.
 - **Plumbing / NPU:** non-NPU verification remains pending; FastFlowLM/NPU remains blocked because the documented runtime is unavailable.
 - **Pacific poller:** runtime is on the Pacific path, but the overall acceptance gate remains open while Telegram and remaining verification items are unresolved.
