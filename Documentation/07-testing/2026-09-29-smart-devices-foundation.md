@@ -7,7 +7,7 @@
 | **Change under test** | New Pacific `Energy/Smart-Devices/` (wiz.py, tuya.py, smart_devices_collect.py), gated job `smart_devices_collect` in jobs.py. Architecture: [Smart-Devices-Energy](../00-architecture/Smart-Devices-Energy.md) |
 | **State** | Driver + collector **PASS** · real WiZ toggle test **BLOCKED** (no bulbs found) · Tuya plug **BLOCKED** (not on LAN, no `local_key`) · poller job **LANDED, gated OFF** |
 | **Evidence** | Database `Energy/Smart-Devices/{wiz,plugs,collector}-last.json` (13:30:37 HST run) |
-| **Commits** | see worklog section *smart-devices pass* (auto-sync; read with `git log --oneline`) |
+| **Commits** | Pacific `cd48536` (13:29, .gitignore + wiz.py + tuya.py + example config) · `11e7f2d` (13:33, collector, jobs.py gated job, READMEs) · Database `2818128` (13:33, `Energy/Smart-Devices/*-last.json` + README) · Library `225c36f` (13:37, these docs) |
 | **Backup** | `/home/rootrecord/Database/GITHUB/smart-devices.bak-20260929-132525/` |
 
 ## What was tested

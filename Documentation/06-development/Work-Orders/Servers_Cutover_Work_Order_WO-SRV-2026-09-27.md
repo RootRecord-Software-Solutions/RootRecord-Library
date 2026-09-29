@@ -404,3 +404,19 @@ Test records: [`Documentation/07-testing/`](../../07-testing/README.md). Databas
 13. `run-infer.sh` own-session fix (`7000197`) — **VERIFY PENDING** on the next real NPU request.
 
 Canonical camera path: Pacific `Security/Cameras/` (no A-Eyes compatibility layer).
+
+## Geology + old-repo migration pass — 2026-09-29 ~13:12–13:45 HST
+
+Copy/port only; no poller restart (PID 105444 untouched); no delivery, playback or model load; G1/G0 sources **KEPT**. Backups: `/home/rootrecord/Database/GITHUB/migration-geology.bak-20260929-131652/`, `/home/rootrecord/Database/GITHUB/migration-old-repos.bak-20260929-133118/`. Evidence: `2 - RootRecord-Database/Logs/Migration/migration-geology-evidence-20260929T2319Z.md`. Matrix: [Old-Repo-Migration-Matrix](../../00-architecture/Old-Repo-Migration-Matrix.md).
+
+| Item | Pacific path | Gate | State |
+| --- | --- | --- | --- |
+| USGS Hawaiʻi + global quakes, HVO Kīlauea / Mauna Loa | `Geology/scripts/geology_collect.py` | `geology_collect` 300 s, `RR_GEOLOGY=1` | LANDED · manual **PASS** · poller cycle VERIFY PENDING |
+| Kīlauea cams | `Geology/scripts/kilauea_cams.py` | `geology_kilauea_cams` 600 s, `RR_KILAUEA_CAMS=1` | LANDED · manual **PASS** |
+| Quake backfill | `Geology/scripts/earthquakes_backfill.py` | on demand | LANDED · **PASS** (`--days 1`) |
+| Earthquake voice report | `Media/Voice/scripts/voice_reports.py earthquake_report` | `voice_earthquake_report` :08, `RR_VOICE_QUAKE=1` | LANDED · text **PASS** · WAV VERIFY PENDING |
+| Sun times | `Energy/scripts/sun_times.py` | `energy_sun_times` hourly, `RR_SUN_TIMES=1` | LANDED · **PASS** |
+| Uptime log | `System/scripts/uptime_log.py` | `system_uptime_log` 60 s, `RR_UPTIME_LOG=1` | LANDED · **PASS** |
+| MP4 converter | `Media/Video/scripts/mp4_converter.py` | on demand | LANDED · **PASS** |
+
+**Needs Alexander:** set the five flags at the next poller start (then close the VERIFY PENDING cells); approve any delivery (Telegram council-quake, Discord, speakers — **BLOCKED** until then); approve a full-range backfill; accept Database git churn from `Geology/*-last.json` every 5 min. Records: [geology](../../07-testing/2026-09-29-geology-earthquakes-hvo-collector.md), [batch 1](../../07-testing/2026-09-29-old-repo-ports-batch1.md).

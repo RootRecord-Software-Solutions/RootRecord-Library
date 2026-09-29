@@ -72,3 +72,9 @@ Token: `master-key.env` — never commit.
 - Website/mainland: still disabled (**BLOCKED** on worktree/clone prerequisites above).
 - Security items **BLOCKED** (unremediated, need Alexander): camera stills in the public Database repo; `CONNECTION.json` in Pacific history (`6328af6`); G2 still tracks `a-eyes/store/CONNECTION.json`. History rewrite or untracking needs explicit approval.
 - Test records: [`Documentation/07-testing/`](../../07-testing/README.md).
+
+## Migration pass — 2026-09-29 ~13:40 HST
+
+- Database `.gitignore`: added `/Geology/Earthquakes/*.db`, `*.db-wal`, `*.db-shm` (quake backfill SQLite stays local) and the cam stills `Geology/Volcanoes/Cams/*.jpg` stay untracked. `Geology/*-last.json` + `Daily/*.jsonl` are tracked (small text); once `RR_GEOLOGY=1` they change every ~5 min → auto-sync commit churn (**sign-off** item).
+- New tracked Pacific paths: `Geology/scripts/*.py`, `Energy/scripts/sun_times.py`, `System/scripts/uptime_log.py`, `Media/Video/{README.md,scripts/mp4_converter.py}`. Commits made by desk auto-sync only (no manual git writes).
+- Old repos (`Solar-Pacific-RootRecord-Server-Old`, `old`): read via shallow `/tmp` clones, deleted afterwards; **no commits/pushes**. The G1 README status list was not edited — the [Old-Repo-Migration-Matrix](../../00-architecture/Old-Repo-Migration-Matrix.md) is the current comparison.

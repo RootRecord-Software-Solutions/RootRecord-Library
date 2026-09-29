@@ -247,6 +247,8 @@ Backup: `/home/rootrecord/Database/GITHUB/control-panel-settings.bak-20260929-12
 
 Backup: `/home/rootrecord/Database/GITHUB/smart-devices.bak-20260929-132525/` (Pacific `.gitignore`, `jobs.py` + pre-edit copy, `Energy/README.md` + pre-edit copy, Database `.gitignore`, Library 07/08 READMEs, this worklog). No daytime worklog exists, so this section is added here.
 
+Commits (auto-sync, verified with `git log`): Pacific `cd48536` (13:29, .gitignore + wiz.py + tuya.py + example config) · `11e7f2d` (13:33, collector, jobs.py gated job, READMEs) · Database `2818128` (13:33, `Energy/Smart-Devices/*-last.json` + README) · Library `225c36f` (13:37, these docs).
+
 | Time (HST) | What | State |
 | --- | --- | --- |
 | 13:25 | Pacific `.gitignore`: Smart-Devices secrets entries (`config/*.local.json`, `tuya-cloud.env`, tinytuya wizard `tinytuya.json`/`devices.json`/`tuya-raw.json`/`snapshot.json`, `.venv/`) **before** any secrets file; verified with `git check-ignore` | LANDED |
@@ -262,3 +264,20 @@ Backup: `/home/rootrecord/Database/GITHUB/smart-devices.bak-20260929-132525/` (P
 - Plugs: choose **Path A** (pair BSD01 in Smart Life on 2.4 GHz → iot.tuya.com cloud project, Western America, link app account → give Access ID/Secret to the desk via `.venv/bin/python -m tinytuya wizard`, outputs gitignored) or **Path B** (flash Tasmota/ESPHome — confirm ESP8266 vs Beken first).
 - Optional: `sudo ufw allow in on wlo1 proto udp from 192.168.1.0/24 to any port 6666:6667` for passive Tuya discovery.
 - Enable the collector: `RR_SMART_DEVICES=1` in the poller environment at the next ordinary stack reload.
+
+## migration-geology + old-repo ports pass, 13:12–13:45 HST
+
+Backups: `/home/rootrecord/Database/GITHUB/migration-geology.bak-20260929-131652/` (Pacific `jobs.py`, Geology + Voice READMEs, `voice_reports.py`; Library WOs, checklist, runbook, retirement table, Voice/Geology/Index docs, 07 README, this worklog; Database README + `.gitignore`) and `/home/rootrecord/Database/GITHUB/migration-old-repos.bak-20260929-133118/` (Energy + System READMEs, `jobs.py` after the geology edits). Old repos read from shallow `/tmp/rr-migr` clones (deleted at the end). Poller 105444 **not** restarted; nothing sent, played or loaded.
+
+| Time (HST) | What | State |
+| --- | --- | --- |
+| 13:12–13:16 | Survey: G1 `Solar-Pacific-RootRecord-Server-Old` (97 tops) + G0 `old` vs Pacific / Database / checklist | done |
+| 13:19 | `Geology/scripts/geology_collect.py` real run: Hawaiʻi 10 quakes (largest M2.35 14 km S of Fern Forest), global 33 (M5.6 southern Mid-Atlantic Ridge), HVO 8 volcanoes / 44 notices; **Kīlauea WATCH/ORANGE erupting**, **Mauna Loa NORMAL/GREEN**; rc 0, 2.64 s, 28 MB. Dedupe + timeout paths in temp root | **PASS** |
+| 13:20 | `voice_reports.py earthquake_report --no-voice` (temp output) ×2; empty-data gate | **PASS** (text); WAV VERIFY PENDING |
+| 13:24 | `kilauea_cams.py` 3 × 200, re-run 304; `earthquakes_backfill.py --days 1 --skip-global` 11 rows (`quakes.db` git-ignored) | **PASS** |
+| 13:21–13:31 | `jobs.py` gated entries: `geology_collect` (`RR_GEOLOGY`), `geology_kilauea_cams` (`RR_KILAUEA_CAMS`), `voice_earthquake_report` (`RR_VOICE_QUAKE`), `energy_sun_times` (`RR_SUN_TIMES`), `system_uptime_log` (`RR_UPTIME_LOG`); import check all False unset / True set, no duplicate ids (coexists with `smart_devices_collect`) | LANDED |
+| 13:26 | `Energy/scripts/sun_times.py` (06:11 / 18:10), `System/scripts/uptime_log.py tick` (+ gap sim) | **PASS** |
+| 13:29 | `Media/Video/scripts/mp4_converter.py` synthetic 2 s → h264 + aac | **PASS** |
+| 13:33–13:45 | Library: [Old-Repo-Migration-Matrix](../../00-architecture/Old-Repo-Migration-Matrix.md) (23 migrated / 29 partial / 38 missing of 90), test records [geology](../../07-testing/2026-09-29-geology-earthquakes-hvo-collector.md) + [batch 1](../../07-testing/2026-09-29-old-repo-ports-batch1.md), WO-SRV/ECO/GH, checklist, runbook, retirement table (all **KEPT**), Voice-Reports-G3, Geology ownership, index. Database evidence `Logs/Migration/migration-geology-evidence-20260929T2319Z.md` | LANDED |
+
+**Needs Alexander:** set `RR_GEOLOGY=1`, `RR_KILAUEA_CAMS=1`, `RR_VOICE_QUAKE=1`, `RR_SUN_TIMES=1`, `RR_UPTIME_LOG=1` at the next poller start; approve deliveries (council-quake Telegram, Discord, speakers — BLOCKED); approve a full-range quake backfill; accept Geology last-json commit churn; retirement of G1/G0 sources stays KEPT until you sign off.

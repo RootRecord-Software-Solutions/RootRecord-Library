@@ -126,6 +126,7 @@ RootRecord-Ecosystem
 - [x] Pacific server live under `1 - Servers/…`
 - [x] Automations core path-wired and operator-verified
 - [ ] Import remaining out-of-scope domains one at a time (including Weather/Geology where separately authorized)
+  - *Update 2026-09-29 ~13:40 HST:* **Geology** imported (LANDED, manual PASS, jobs gated OFF: `RR_GEOLOGY`, `RR_KILAUEA_CAMS`, `RR_VOICE_QUAKE`); old-repo batch 1 (sun times `RR_SUN_TIMES`, uptime log `RR_UPTIME_LOG`, MP4 converter on demand). Old-repo matrix: 23 migrated / 29 partial / 38 missing of 90 rows — [Old-Repo-Migration-Matrix](../../00-architecture/Old-Repo-Migration-Matrix.md). Box stays open until the missing rows are ported or BLOCKED with sign-off.
 - [x] `repos.conf` Pacific path alignment
 
 ### 4.3 Data / Website / Node
@@ -191,3 +192,10 @@ The operator installed the documented AMD XDNA2/XRT prerequisite stack on the Pa
 - Relay replies are off by default (`RR_RELAY_REPLIES=0`); messages are consumed and will not be answered later.
 - Per-test records with evidence and SHAs: [`Documentation/07-testing/`](../../07-testing/README.md). Full truth-gated table and open items: WO-SRV "Status summary — 2026-09-29 ~03:45 HST".
 - Open items (not done): `OLLAMA_KEEP_ALIVE=0` in `ollama.service` BLOCKED (sudo); `*-telegram` models missing (replies BLOCKED until Alexander opts in); timelapse after 05:00 HST VERIFY PENDING; Energy arm/disarm + AC hardware tests need approval; B1 physical check; weather retention PROPOSED; Weather repo decision; ON_BOOT-only weather/relay (no mid-session recovery); 27 dormant G2 old-root files KEPT; `npu-status.sh` G2-only (optional copy); security items unremediated (camera stills in public Database repo, `CONNECTION.json` in Pacific history `6328af6`, G2 tracking `a-eyes/store/CONNECTION.json`). Canonical camera path: Pacific `Security/Cameras/`.
+
+## Old-repo migration pass — 2026-09-29 ~13:12–13:45 HST
+
+- Survey of G1 `Solar-Pacific-RootRecord-Server-Old` and G0 `old` (read-only shallow clones in `/tmp`, deleted afterwards; nothing written to either repo) → [Old-Repo-Migration-Matrix](../../00-architecture/Old-Repo-Migration-Matrix.md): **23 migrated · 29 partial · 38 missing** (90 rows; 11 touched this pass).
+- Ported this pass (all LANDED, manual PASS, periodic jobs gated OFF): Geology collector, Kīlauea cams, quake backfill, earthquake voice report, sun times, uptime log, MP4 converter. Details in WO-SRV "Geology + old-repo migration pass".
+- BLOCKED (need Alexander): deliveries (Telegram/Discord/speakers), OBS, log-cleanup (deletes), actuation, cloud keys/spend, load-categories field map, fs-index / python-drop-runner / broadcast scope, Hawaiʻi news target.
+- Legacy sources **KEPT** (standing rule). Backups: `/home/rootrecord/Database/GITHUB/migration-geology.bak-20260929-131652/`, `/home/rootrecord/Database/GITHUB/migration-old-repos.bak-20260929-133118/`.
