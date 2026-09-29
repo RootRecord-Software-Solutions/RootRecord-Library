@@ -9,7 +9,7 @@
 status vocabulary. Everything except a few free-text fields comes from measured sources. `template_validate.py`
 checks each output against its template before it is written.
 
-| Template | Output (Database `Reports/Generated/`) | Free-text fields (specialist) |
+| Template | Output (non-git `test-reports/Templates/`) | Free-text fields (specialist) |
 | --- | --- | --- |
 | `TEMPLATE System Operator Worklog — Session.md` | `System-Operator-Worklog-Session_current.md` | Purpose, Next useful step, closing Status |
 | `TEMPLATE RootRecord Checkpoint.md` | `RootRecord-Checkpoint_current.md` | Operating principle, closing Status |
@@ -17,7 +17,7 @@ checks each output against its template before it is written.
 | `TEMPLATE Work Order.md` | `Work-Order_current.md` ("Desk Sign-off Backlog", `WO-GEN-<date>`) | Intent, Scope |
 
 Also written: `template-fill-validation_current.json` (per template: validation result, draft metadata, a 300-character reply preview).
-A previous `_current.md` moves to `Reports/Generated/Archive/<name>_YYYY-MM-DDTHHMM.md` only when the content changed.
+A previous `_current.md` moves to `test-reports/Templates/Archive/<name>_YYYY-MM-DDTHHMM.md` only when the content changed.
 An output that fails validation goes to `<name>_rejected.md` and the `_current` copy stays as it was.
 
 **Never writes into the Library.** `guard_out()` refuses any path under the Library root. The Library copies are for people:

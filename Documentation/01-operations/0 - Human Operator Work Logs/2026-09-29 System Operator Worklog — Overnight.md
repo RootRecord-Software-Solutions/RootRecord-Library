@@ -149,3 +149,23 @@ Alexander's request: one isolated Modelfile per function (execution, reasoning, 
 - Decide whether to enable `RR_TEMPLATE_REPORTS=1`. This needs a poller restart (already on the sign-off list).
 - The specialist hook (`RR_SPEC_SYSTEM`) would give the NPU path the `rr-exec` format rules. Without it, most drafts fall back to fixed text.
 - Promoting generated files into the Library stays manual (copy by hand after review).
+
+## g3-voice-reports2 pass (single-flight fix + 7 more voice reports + pronunciation candidates), 04:20–04:45 HST
+
+Backup: `/home/rootrecord/Database/GITHUB/g3-voice-reports2.bak-20260929-042153/` (with `.pre-edit-*` copies of the files other agents changed concurrently: `jobs.py`, the 07-testing README and this worklog).
+
+| Time (HST) | What | State |
+| --- | --- | --- |
+| 04:20–04:23 | `single-flight.sh run`: the RUN banner goes to **stderr**. `holder.txt` holds metadata only (`job caller pid ts cmd=<basename> prompt_chars`). `run-infer.sh` / `run-ollama.sh` pass `RR_PROMPT_CHARS` (the length only). Callers checked: run-infer, run-ollama, council-relay, voice-render/voice_generate/system_perf/voice_reports, npu-status, template_fill. One real request: rc 0, 4.27 s, stdout = the reply only, FLM peak 2,007 MB. [Record](../../07-testing/2026-09-29-single-flight-banner-holder-fix.md) | **LANDED, PASS** |
+| 04:24–04:35 | New Pacific `Media/Voice/scripts/voice_reports.py`: hourly_chime, nws_weather, energy_report, remaining_tasks, morning/midday/late roll-ups. Output: text `Reports/<report>_current.md` + stitched WAV, Archive rotation, **no delivery**. 13 new catalog clips, 83/83 QC PASS. One test each: 7/7 rc 0, WAV s16/24000/1 QC PASS. Roll-up LLM summary once via run-infer (6.2 s, FLM 2.0 GB). Bug fixed: "Delta 2 36%" was spoken as a clock time. [Record](../../07-testing/2026-09-29-voice-reports-batch2.md) | **PASS**; by-ear VERIFY PENDING |
+| 04:31 | `jobs.py` (re-read, backed up): `voice_hourly_chime` [0,30], `voice_nws_weather` [7,22,37,52], `voice_energy_report` [15,45], `voice_remaining_tasks` [32], `voice_morning/midday/late_report` 09:02/12:02/21:02. Flags `RR_VOICE_HOURLY_CHIME`, `RR_VOICE_NWS`, `RR_VOICE_ENERGY`, `RR_VOICE_REMAINING`, `RR_VOICE_ROLLUPS` (+ `RR_VOICE_ROLLUP_LLM`). All default OFF, read at poller start; the poller was **not** restarted | **LANDED** (gated OFF) |
+| — | earthquake_hourly / council_quake: no USGS data in Database `Geology/` (empty) and no collector in Pacific `Geology/` (README only). Skipped; no network collector added | **BLOCKED** |
+| 04:27–04:41 | Pronunciation Kalākaua, Liliʻuokalani, Nuʻuanu, Māhele: no respellings found anywhere. IPA found for Nuʻuanu/Māhele (Wiktionary, G1 store) and an English-style Liliuokalani in misaki us_gold. 6 candidate clips rendered (`Clips/Ava/proposed_*`, excluded from the stitcher, **not** in the lexicon) and added to the listen list. [Record](../../07-testing/2026-09-29-pronunciation-candidates-proposed.md) | **PROPOSED** |
+| 04:42 | Docs: `Voice-Reports-G3.md` §2/§4/§5/§6 (report map statuses, flags), `AI-Processing-Logs-and-Reports.md` §6 (single-flight fix LANDED), 3 new 07-testing records + README rows. Database `.gitignore` + `/Media/Audio/Voice/Reports/Archive/` | LANDED |
+
+**Needs Alexander:**
+- Listen to the 6 PROPOSED pronunciation clips (A/B for Liliʻuokalani and Māhele) and the batch-2 report WAVs. Approved respellings then go into `hawaiian_lexicon.py`.
+- Pick which voice-report flags to set. Each needs a poller restart (already on the sign-off list). Delivery (Telegram / speakers) is still off and still needs its own decision.
+- Earthquake reports need a USGS collector first (a new network poller): yes or no.
+- **04:46 HST:** Repointed generated template, AI-processing, and voice text reports to the non-git `RootRecord-Ecosystem/test-reports/{Templates,AI-Processing,Voice}/` tree; copied the existing Database reports without moving or deleting them. No restart, model call, send, or git command.
+- [ ] **Untrack generated reports (Alexander approval required):** review the remaining tracked copies in `Database/Reports/Generated/` and `Database/Logs/AI/Reports/`, then use `git rm --cached` plus `.gitignore`; not performed in this pass.

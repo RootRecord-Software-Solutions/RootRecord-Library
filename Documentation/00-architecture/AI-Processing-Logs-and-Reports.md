@@ -39,7 +39,7 @@ Git: `inference_current.jsonl` is ignored (high churn, like `automations_current
 
 ## 3. Report (`Pacific Reports/ai_processing_report.py`, stdlib only)
 
-Reads the current JSONL plus the archive days inside the window (`RR_AI_REPORT_HOURS`, default 24). Writes Database `Logs/AI/Reports/ai-processing-report_current.md`. If the content changed (the Generated/Window lines are ignored), the previous copy is first moved to `Logs/AI/Reports/Archive/ai-processing-report_YYYY-MM-DDTHHMM.md`.
+Reads the current JSONL plus the archive days inside the window (`RR_AI_REPORT_HOURS`, default 24). Writes non-git `test-reports/AI-Processing/ai-processing-report_current.md`. If the content changed (the Generated/Window lines are ignored), the previous copy is first moved to `test-reports/AI-Processing/Archive/ai-processing-report_YYYY-MM-DDTHHMM.md`.
 
 Contents: time window, request count, requests by route and by route/model, NPU share, fallback count, FLM cold starts, errors (exit_code ≠ 0) with the last 20 listed, empty replies, unparsable lines, latency p50/p95/max, max FLM peak RSS, and the lowest MemAvailable seen.
 
