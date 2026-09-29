@@ -137,3 +137,11 @@ Import each residual function into its **existing** Pacific folder; rewire jobs;
 - Direct inspection of Pacific `council-relay.py` confirms its voice configuration is `Communications/telegram/config/voices.conf`, which is present. The inspected state directory remains under `/home/rootrecord/Database/intake/council-relay`.
 - Therefore the three legacy Telegram supporting scripts found earlier are not identified as active Pacific scheduler/runtime dependencies from the inspected source. No replacement or deletion is inferred from their absence.
 - This remains a source/dependency audit only; live runtime verification is still required before legacy runtime retirement.
+
+
+## Active Scheduler Surface Audit — 2026-09-28
+
+- Direct fetch of current Pacific `Automations/scripts/jobs.py` confirms the inspected enabled scheduler surfaces for the poller/watch stack, Github remotes/sync, System warmups, Telegram, A-Eyes, Network Globe, Energy reads/snapshot, System sampling, and Reports all resolve to Pacific paths.
+- The sole remaining legacy `.ollama/skills` command/cwd pair is the explicitly disabled `weather_poller` entry; no enabled scheduler entry in the inspected file retains a legacy executable/cwd path.
+- This confirms the static scheduler-source boundary documented for WO-SRV. It does not establish live process health or successful hardware/service execution.
+- No source change, runtime retirement, or work-order completion is warranted from this audit alone.
