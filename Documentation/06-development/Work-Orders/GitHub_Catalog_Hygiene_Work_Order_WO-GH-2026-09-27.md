@@ -23,6 +23,12 @@
 - It is **not** a migration failure or an automation conflict. The 5-second `github_sync_all` job and the human `Pull.sh` workflow serve different operator/automation use cases and are allowed to coexist.
 - No change was made to remove, disable, or supersede `Pull.sh`.
 
+## Documentation sweep refresh — 2026-09-29 ~01:11 HST
+
+- The human `Pull.sh` workflow remains explicitly resolved and retained.
+- The Pacific poller source now uses the canonical Database root; this does not alter the operator pull workflow.
+- `Github/scripts/common.sh` still carries an old default Database root and remains a small cleanup item; it is not a reason to remove or disable `Pull.sh`.
+
 ## Remaining
 
 - [ ] Enable website when mirror worktree exists under `Database/GITHUB/worktrees/website`
