@@ -230,3 +230,10 @@ Filename:
 - Current Pacific `jobs.py` inspection confirms enabled scheduler surfaces for poller/watch, Github, System warmups, Telegram, A-Eyes, Network Globe, Energy, System sampling, and Reports use Pacific paths.
 - Only the disabled Weather entry retains a legacy path pair.
 - Static scheduler inspection is complete for this boundary; live runtime verification remains the acceptance gate.
+
+
+## Session 04 continuation — Legacy Function Retirement Inventory — 2026-09-28
+
+- Reconfirmed the legacy runtime functions pending verify-then-retire: Telegram relay, Plumbing inference/single-flight, Energy action wrappers, and legacy Automations scheduler surface.
+- Noted the legacy single-flight state path versus the Pacific Database-bound state path as an explicit runtime-verification point.
+- No legacy executable deletion performed; legacy `SKILL.md` preservation remains in force.
