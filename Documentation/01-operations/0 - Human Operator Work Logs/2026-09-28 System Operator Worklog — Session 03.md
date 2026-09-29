@@ -297,3 +297,11 @@ Filename:
 - The available evidence does not establish the broader generated-content separation condition, so that checklist item remains open.
 - The Node item remains the documented placeholder and is not being converted into an inferred completion state.
 - No repository/runtime change was made from this review; WO-ECO remains IN PROGRESS.
+
+
+## WO-SRV Static Acceptance Audit — 2026-09-28
+
+- Re-read the current WO-SRV acceptance/retirement sections and confirmed the documented state is internally consistent: migrated Pacific source paths are landed; active legacy scheduler paths are absent from the inspected Pacific runtime surfaces except the explicitly disabled Weather pair.
+- The legacy executable implementations for migrated Telegram, Plumbing, Energy-action, and A-Eyes surfaces remain intentionally present because live G3 runtime verification is unavailable from this desk session.
+- Legacy `SKILL.md` files remain explicitly preserved and are outside the executable retirement target.
+- No source change, runtime retirement, or WO completion was warranted by this static audit.
