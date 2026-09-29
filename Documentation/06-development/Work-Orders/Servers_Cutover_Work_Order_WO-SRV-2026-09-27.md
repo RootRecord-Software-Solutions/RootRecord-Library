@@ -145,3 +145,12 @@ Import each residual function into its **existing** Pacific folder; rewire jobs;
 - The sole remaining legacy `.ollama/skills` command/cwd pair is the explicitly disabled `weather_poller` entry; no enabled scheduler entry in the inspected file retains a legacy executable/cwd path.
 - This confirms the static scheduler-source boundary documented for WO-SRV. It does not establish live process health or successful hardware/service execution.
 - No source change, runtime retirement, or work-order completion is warranted from this audit alone.
+
+
+## Legacy Function Retirement Inventory — 2026-09-28
+
+- Direct legacy inspection reconfirmed the residual executable implementations that remain pending the documented verify-then-retire sequence: Telegram `council-relay.py`; Plumbing `run-infer.sh`, `run-ollama.sh`, and `single-flight.sh`; representative Energy action wrappers including `river2pro-ac-always-on-on.sh` and `solar-gate-arm.sh`; and the legacy Automations scheduler surface.
+- Legacy `single-flight.sh` still defaults its state to `/home/rootrecord/.ollama/skills/plumbing/state`; the Pacific implementation uses `/home/rootrecord/Database/GITHUB/plumbing/state`. This is an intentional G3 data-boundary change and must be included in runtime verification before retirement of the legacy function.
+- Pacific representative Energy action and poller sources are present and use Pacific/Data paths. No deletion was performed.
+- The legacy Telegram runtime still contains its historical fallback path; the Pacific counterpart was already rewired to repository-relative G3 plumbing. Legacy presence remains expected until live verification and immediate post-verification retirement.
+- Legacy `SKILL.md` files remain documentation artifacts and are not retirement targets.
