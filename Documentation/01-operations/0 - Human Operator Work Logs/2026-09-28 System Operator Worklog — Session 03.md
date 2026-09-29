@@ -186,3 +186,12 @@ Filename:
 ```text
 2026-09-28 System Operator Worklog — Session 03.md
 ```
+
+
+## Session 04 continuation — Final Static Scheduler + Action Audit — 2026-09-28
+
+- Direct fetch of current Pacific `Automations/scripts/jobs.py` confirms active Telegram, A-Eyes, Network Globe, Energy, System plumbing, Reports, Github, and poller/watch scheduler surfaces use Pacific paths.
+- The only remaining legacy path pair in `jobs.py` is the explicitly disabled `weather_poller`; it remains outside active cutover scope.
+- Direct fetch of representative Energy action wrappers and A-Eyes wrappers found no legacy skills-tree references. Static source SHAs were recorded in WO-SRV.
+- Two guessed Delta2 action filenames returned 404 at the inspected Pacific paths; no absence was interpreted as deletion or as a reason to modify source.
+- Static inspection does not substitute for live G3 runtime verification. No legacy runtime function was retired; legacy `SKILL.md` documentation remains preserved.
