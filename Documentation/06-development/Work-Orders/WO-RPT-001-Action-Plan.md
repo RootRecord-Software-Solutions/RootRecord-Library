@@ -16,13 +16,6 @@ Companion to [WO-RPT-001-Reports-Worklog-Domain-Import.md](./WO-RPT-001-Reports-
 - [x] Desk: confirm `OK wrote/updated` + advancing `worklog_current.md`
 - [x] Domain tags observed (`Automations`, `Reports`, `System`, `Database`, …)
 
-### Desk verification (operator) — passed
-
-```bash
-bash "/home/rootrecord/RootRecord-Ecosystem/1 - Servers/1 - RootRecord-Pacific-Solar-Server/Reports/scripts/worklog_once.sh"
-tail -n 30 /home/rootrecord/Database/WORKLOG/worklog_current.md
-```
-
 ## Phase C — Daily Library roll-up (OPEN)
 
 - [ ] Script: summarize today’s WORKLOG segments → optional append under Library ops logs
@@ -32,15 +25,14 @@ tail -n 30 /home/rootrecord/Database/WORKLOG/worklog_current.md
 
 ## Phase D — Weekly archive (OPEN)
 
-- [ ] Implement WO-ARCH rules in `Reports/scripts/weekly_archive.sh` (or Library-side)
-- [ ] `git mv` closed logs → `01-operations/archive/YYYY-Www/`
-- [ ] Closed WOs only → `06-development/archive/YYYY-Www/`
+- [ ] Implement WO-ARCH rules for **logs** → `01-operations/archive/YYYY-Www/`
+- [ ] Closed WOs use `Work-Orders/Complete/` (not weekly trees)
 - [ ] Schedule Sunday ~19:00 HST after manual proof
 
-## Phase E — G1 hygiene (OPEN — B soak done, ready)
+## Phase E — G1 hygiene (DONE 2026-09-28)
 
-- [ ] `MIGRATED.md` on G1 `reports/`
-- [ ] Update Old README status table + Library inventory map
+- [x] `MIGRATED.md` on G1 `reports/`
+- [x] Update Old README status table (MIGRATED count → 4)
 
 ## Enhancement checklist
 
@@ -52,5 +44,6 @@ tail -n 30 /home/rootrecord/Database/WORKLOG/worklog_current.md
 | Weekly archive automation | D |
 | Migration progress surface | C |
 | Deny public-draft G1 bulk import | standing |
+| G1 reports marker | **E DONE** |
 
-*Phase B LIVE 2026-09-28 ~19:04 HST.*
+*Phase B LIVE + E 2026-09-28 HST.*
