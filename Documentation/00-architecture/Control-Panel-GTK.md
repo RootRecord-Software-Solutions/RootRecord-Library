@@ -1,83 +1,112 @@
-# Control Panel (GTK4) + Conky readout — architecture
+# Root Monitor (GTK4 control panel) + Conky readout — architecture
 
-*Added 2026-09-29 ~12:15 HST. Status: **LANDED**. `--check` PASS, real-window render PASS. Conky and autostart are **VERIFY PENDING** (not installed / not enabled).*
+*Added 2026-09-29 ~12:15 HST as "RootRecord Control Panel"; renamed **Root Monitor** and extended 2026-09-29 12:43–13:10 HST (Running, Network + Starlink, SSH, Not-migrated placeholders, full Settings registry). File name and app paths are unchanged so existing launchers keep working. Status: **LANDED**. `--check` PASS (all functional checks), settings editor unit tests PASS (103/103), real-window render PASS. `--check` peak RSS 84.5 MB is **over** the 80 MB target (flagged). Default-viewer swap, autostart and Conky start are **VERIFY PENDING** (sign-off).*
 
 ## 1. What it is
 
-A native, read-only Linux desk app for the RootRecord Pacific Solar Server. It is Python + PyGObject with **GTK 4.22.4 + libadwaita 1.9** (system `python3`, no venv) and does not use a browser, Chromium or Electron. There is also a Conky config for an always-visible readout.
+A native Linux desk app for the RootRecord Pacific Solar Server: Python + PyGObject with **GTK 4.22.4 + libadwaita 1.9** (system `python3`, no venv for the app). No browser, Chromium or Electron. Plus a Conky config for an always-visible readout.
 
-It is **added alongside** the existing displays and replaces none of them:
+It is **added alongside** the existing displays and replaces none of them. All 10 existing viewer/dashboard/launcher files were re-compared byte-for-byte with the 11:56 backup at 13:08 HST: **unchanged**.
 
 | Existing display (unchanged) | Where | What it shows | Reads / how often |
 | --- | --- | --- | --- |
-| `poller-dashboard.py` (default viewer, opened by `open-poller-window.sh`, autostart `~/.config/autostart/rootrecord-poller-watch.desktop`, Desktop `RootRecord-Poller-Window.desktop`) | Pacific `Automations/scripts/poller/` | header + HST clock, refresh countdown, 8 service rows (poller, relay, BLE, globe, cam, weather, ollama, tunnel) PASS/WARN/FAIL, **B1 river2pro / B2 delta2 / B3 System (laptop) battery bars** + SUMMARY lines, SYS line, SUN (solar state), recent poller log | `Energy/soc/{river2pro,delta2}-last.json`, `/sys/class/power_supply/BAT*`, last 64 KB of `Logs/Automations/automations_current.log`, `/proc/*/cmdline`, `systemctl is-active` ×4, NOAA `solar_calculation_table_current.md` — snapshot every **5 s** (`POLLER_DASH_REFRESH`), redraw every 1 s |
-| `poller-watch.py` (Bruce's scrolling viewer, `POLLER_VIEWER=poller-watch.py`) | same | banner (public/local URL, systemd state), colour-formatted live log | tails `automations_current.log` (0.25 s poll), `systemctl --user is-active` once |
-| Poller **status line** (ENERGY heartbeat) | `rootserver_poller.py` `_energy_log_line()`; served at `http://127.0.0.1:8799/` (`/health`) | `ENERGY status= B2= B1= [B3=] solar= ac= usbc= src= [LAP=]` | SQLite board + `Energy/soc|watts/*-last.json` + sysfs; heartbeat job every **60 s** |
-| `npu-status.sh` | Pacific `System/scripts/plumbing/` | `/dev/accel`, xrt/npu dpkg packages, single-flight lock, FLM on-demand state | on demand |
+| `poller-dashboard.py` (default viewer; opened by `open-poller-window.sh`; autostart `~/.config/autostart/rootrecord-poller-watch.desktop`; Desktop `RootRecord-Poller-Window.desktop`) | Pacific `Automations/scripts/poller/` | header + clock, 8 service rows PASS/WARN/FAIL, **B1 river2pro / B2 delta2 / B3 laptop bars**, SUMMARY, SYS, SUN, recent log | soc JSON, sysfs, log tail, `/proc`, `systemctl` — every 5 s |
+| `poller-watch.py` (`POLLER_VIEWER=poller-watch.py`) | same | banner + colour live log | tails `automations_current.log` |
+| Poller **status line** (ENERGY heartbeat, `http://127.0.0.1:8799/`) | `rootserver_poller.py` | `ENERGY status= B2= B1= …` | every 60 s |
+| `npu-status.sh` | Pacific `System/scripts/plumbing/` | accel, packages, lock, FLM state | on demand |
 
-The data the panel reads is produced by these poller jobs: `sys_stats_cycle` every 5 s, `ecoflow_read_cycle` every 15 s, `security_camera_frame_grab` every 1 s, and `heartbeat` every 60 s.
+## 2. Pages
 
-## 2. Pages and data sources
+Every page does **nothing unless it is visible**. One GLib timeout (`refresh_sec`, 5 s) refreshes the header and the visible page only.
 
-All sources are read-only. There are no writes, no sqlite and no network, except the optional localhost camera fallback.
-
-| Page | Covers | Sources |
+| Page | Covers | Sources / cost |
 | --- | --- | --- |
-| Header (always) | poller state, B1/B2/B3 SOC, log age, clock | soc JSON, sysfs, `/proc`, log mtime |
-| Energy | the 3 dashboard bars (B1, B2, B3 laptop), watts per device (solar in, AC out/in, USB-C, charge source, source, time), the verbatim ENERGY status line, the Delta2 expansion B3 and `LAP=` when present, SUMMARY lines, SUN | `Energy/soc/*`, `Energy/watts/*`, sysfs, log tail, solar table (via `poller-watch.aeyes_solar_state`, import only) |
-| Weather | sun state, ZFP Today/Tonight + advisories for a configurable zone | `zfp_zone_forecast_current.md` (cached by mtime), state report header |
-| System | CPU / RAM bars, load 1/5/15, 5-min averages, SYSTEM line | `System/last/host-last.json`, `System/status/system-status.json` |
-| NPU | accel, FLM on-demand state, lock; button runs `npu-status.sh` at nice 10 | `/dev/accel`, `/proc`, `/proc/net/tcp`, `Github/plumbing/state/holder.txt` |
-| AI log | inference count/today/routes/models/callers/latency/fallbacks/exits, routing rows, report head | `Logs/AI/Inference/inference_current.jsonl` (cached by size+mtime), `Logs/AI/Routing/routing_current.jsonl`, `Logs/AI/Reports/ai-processing-report_current.md` |
-| Poller / services | the dashboard's 8 service rows (same rule) + MainPID, log age, recent formatted log | `/proc`, `systemctl [--user] show` (2 calls), log tail |
-| Cameras | latest still per enabled camera | `Database/Media/Images/chN-*.jpg` (listing + ≤1 JPEG per camera) |
-| Controls | safe actions, risky actions (sign-off), gated `RR_*` jobs list | `jobs.py` text scan |
-| Settings | every setting, Known URLs, camera toggles | `Apps/Control-Panel/settings.json` |
+| Header | poller state, B1/B2/B3 SOC, log age, clock | soc JSON, sysfs, `/proc` |
+| Energy, Weather, System, NPU, AI log, Poller/services, Cameras, Controls | unchanged from the 12:15 build (see §2 of the testing record `2026-09-29-control-panel-gtk.md`) | existing JSON / log files |
+| **Running** (new) | poller PID + its child jobs (tree) with listening ports; RootRecord processes (masked command lines); all local TCP listeners; tunnels (cloudflared, ssh -L/-R/-D, wg/tun interfaces); Ollama (version + loaded models via `GET /api/version`, `/api/ps` on 127.0.0.1) and FLM (pids, :52625, lock); systemd **user** units (all 108 loaded; RootRecord ones as rows) and **system** units (52 running); user/system timers; user crontab (masked) + `/etc/cron.*` names. Read-only, no actions; every row has **Settings →** to the matching Settings sub-page | `/proc`, `/proc/net/tcp*`, fd→socket inodes, `systemctl list-units/list-timers` + `crontab -l` cached 15 s; ~20–30 ms CPU per refresh |
+| **Network** (new) | per-interface rx/tx rate (delta between refreshes), totals + packets/errors/drops since boot, state/kind/speed; **Starlink**: state, uptime, PoP latency + drop, throughput, obstruction, alerts, software version | `/proc/net/dev` + sysfs; Starlink via `Starlink/starlink_status.py` (see §4) |
+| **SSH** (new) | `rr-aws` (Cloudflare Access hostname) and `rr-aws-ip` (direct IP) from `~/.ssh/config`: alias, user@host:port, ProxyCommand present / binary present, identity configured (paths and keys never read). Buttons: **Open terminal** (ptyxis → `ssh <alias>`) and **Status (uptime)** = `timeout 5 ssh -o BatchMode=yes -o ConnectTimeout=5 <alias> uptime`, once per press. **Mainland** = placeholder (no Host alias exists; set `ssh_mainland_alias`) | `~/.ssh/config` read at page build |
+| **Not migrated** (new) | 23 placeholder sub-pages (8 BLOCKED, 15 VERIFY PENDING), each with name, WO/tracker, state, note, "NOT MIGRATED — placeholder", buttons to open the source doc and related settings | `Apps/Control-Panel/Lib/rr_migration.json`, curated 2026-09-29 12:50 HST from the Work-Orders README, Residual-Path-Retirement-Table (all G2 **KEPT**), G3 checklist |
+| **Settings** (hub) | 10 sub-pages: Network, Messaging, Environment (.env), Feature Flags (RR_*), Services/Poller, Weather, Voice, AI/NPU, Cameras, Panel (the panel's own settings.json: refresh, paths, camera toggles, Known URLs, risky-action safety, Starlink poll, Mainland alias) | `Lib/rr_registry.py` + `Lib/rr_config_io.py` |
 
-**Not covered, or covered differently:**
+Not-migrated items: Telegram council replies (BLOCKED), Discord bot (BLOCKED, WO-COM-002), Slack/comms surface, Security timelapse, Energy actuating actions, FLM own-session fix, Reports roll-up, Weekly archive, Geology, Weather retention apply, Public status board, Public site + website sync (BLOCKED), US-Mainland-Server (BLOCKED), Cloudflare credential recovery (BLOCKED), G1 recovery packets (BLOCKED), G2 residual paths (all KEPT), Residual jobs rewire (BLOCKED), Poller observability, GitHub pull authority, Database boundary, Agent context home, Repo map, WO generator (BLOCKED).
 
-- The dashboard's 1 s "refresh in N s" countdown is replaced by one 5 s refresh.
-- `poller-watch.py`'s Ctrl-C stack-stop is intentionally **not** reproduced (the panel never stops anything).
-- `npu-status.sh`'s dpkg package list appears only when the script is run from the NPU page.
-- The SUN value is currently empty in **both** the dashboard and the panel, because today's date row is not found in `solar_calculation_table_current.md` (the collected page looks like the NOAA HTML shell). That is an existing data issue and was not changed.
+## 3. Settings registry (every setting)
 
-## 3. Runtime model
+`Lib/rr_registry.py` lists 27 config sources. For each setting it records file, key, type, secret?, service, restart needed, editable? (+ reason). Counts on 2026-09-29 13:05 HST — **1,590 settings**:
 
-- **One GLib timeout** (`refresh_sec`, default 5 s). Each tick refreshes the header and **the visible page only**. There are no busy loops and no threads, except one short-lived fetch thread for the camera fallback.
-- Pages are **built on first visit** in the window to save memory. `--check` builds them all.
-- **Camera viewer:** `camera_viewer_enabled` is false by default.
-  - **When off:** no timer, no directory scan, no image load, no stream. strace-verified: 0 syscalls under `Media/Images` and 0 connects to :8791.
-  - **When on:** a separate 10 s timer, added only while the Cameras page is visible and removed on leave or turn-off. Textures are dropped when you leave.
-  - Stills are decoded to at most 640×360. A still younger than 1.5 s is skipped, because it may still be being written.
-  - The localhost still fallback runs only if a camera has no still on disk.
-  - Missing or flapping stills (camera hardware work) are expected and shown as "no still on disk".
-- **Renderer:** `GSK_RENDERER=cairo` by default (`gsk_renderer` in settings). The environment variable overrides it.
-- **Single instance:** app id `cloud.rootrecord.ControlPanel`.
+| Page | Settings | Editable | Secret (masked) |
+| --- | ---: | ---: | ---: |
+| Network | 80 | 11 | 12 |
+| Messaging | 41 | 30 | 11 |
+| Environment (.env) | 38 | 23 | 26 |
+| Feature Flags (RR_*) | 47 | 46* | 1 |
+| Services / Poller | 170 | 95 | 2 |
+| Weather | 551 | 93 | 0 |
+| Voice | 139 | 0 | 1 |
+| AI / NPU | 483 | 436 | 7 |
+| Cameras | 16 | 7 | 7 |
+| Panel | 25 | via Panel controls | 0 |
 
-## 4. Launch
+\* RR_* flags are written to the poller drop-in `~/.config/systemd/user/rr-rootserver-poller.service.d/rr-flags.conf`. That file does **not** exist yet, so the editor refuses and says creating it is a sign-off item.
 
-- **App menu:** "RootRecord Control Panel" (`~/.local/share/applications/rootrecord-control-panel.desktop`).
-- **Terminal:** `python3 ".../1 - RootRecord-Pacific-Solar-Server/Apps/Control-Panel/rr_control_panel.py"`
-- **Test:** `--check [--camera-viewer on|off]`, `Tests/run-check.sh <outdir>`, `--screenshot DIR`, `--run-for SEC`.
+**Editable files** (env / ini / json / yaml / tsv / raw): `~/.cloudflared/rootserver.token` (secret file), `Communications/telegram/config/relay.conf`, `voices.conf`, `~/master/master-key.env` (secret file), `Github/scripts/repos.conf`, user units `rr-rootserver-poller.service` (+ `logging.conf` drop-in), `ava-ecoflow-ble.service`, `network-globe-hawaii.service`, `Energy/config/devices.conf`, `Weather/config/{hosts,tiers,resources,counties,report_counties,text_cleaning}.yaml`, `System/config/specialist-routes.json`, `Security/Cameras/store/CONNECTION.json` (secret file).
 
-## 5. Measured resources (2026-09-29)
+**Read-only:** `cf-status.json` / `cf-blocker.json` (tooling snapshots), `~/.config/gh/hosts.yml` + `config.yml` (managed by `gh`), `/etc/systemd/system/ollama.service` (needs sudo), `jobs.py` (code; job table shown), `weather-retention.py` constants (code), Kokoro model `config.json`, env-var references from scripts (default + where set), NetworkManager connections (`nmcli`, secrets never read), listening ports, structural unit keys (ExecStart, …), duplicate keys, lists/objects, and every secret-looking key inside a git-tracked file.
 
-| Mode | Peak RSS |
-| --- | --- |
-| `--check`, viewer off | 73.8 MB — **PASS** (< 80 MB target) |
-| `--check`, viewer on | 87.8 MB (opt-in) |
-| Window 30 s (cairo) | 85.0 MB, 0.58 s CPU incl. startup (an empty GTK4/Adw window is 66–68 MB on this desk) |
-| Window, default GL renderer | ~180 MB |
-| Window, gl renderer | ~275 MB |
+**Secrets:** detected by key name (TOKEN, KEY, SECRET, PASS, PAT, WEBHOOK, AUTH, COOKIE, ACCESS) and by secret files (`CONNECTION.json`, `master-key.env`, the tunnel token). Values are shown only as `set (len N)` / `empty`. Replace uses a PasswordEntry; Clear sets empty; both go through the masked diff + confirm. Values that equal a secret held in another file are masked everywhere too (display, diffs, Running command lines), and a redaction pass runs over every rendered row. Command lines also mask `--token`-style arguments and long opaque strings. The private-archive and model-drafts paths are shown as `<excluded path>` if another tool names them.
 
-## 6. Sign-off items (Alexander)
+**Each save:** masked unified diff → confirm dialog stating "takes effect after <service> restart" → backup to `/home/rootrecord/Database/GITHUB/control-panel-settings-backups/` (dir 0700; file 0600 for secrets, else the original mode) → atomic write (temp file in the same dir, fsync, chmod/chown to the original, `os.replace`). Refuses if the file changed since the diff. Comments, key order and formatting are kept (JSON edits replace only the value token). Validation: port 1–65535, bool01 0/1, int, float, URL (http/https/rtsp/ws), host. **Nothing is ever restarted.** No real setting was saved during testing.
 
-1. `sudo apt install conky-all` (conky is not installed). Then run `Packaging/install-launcher.sh` to copy the config, and start it with `conky -c ~/.config/conky/rootrecord.conkyrc`. Autostarting conky is a separate yes/no.
-2. Enable autostart: copy `Packaging/rootrecord-control-panel.service` to `~/.config/systemd/user/`, then run `systemctl --user daemon-reload && systemctl --user enable --now rootrecord-control-panel.service`.
-3. Risky actions: setting `risky_actions_enabled: true` and marking individual actions `signed_off: true` (poller restart). Telegram send, voice send and `RR_*` flag enabling also need a signed-off command before they can be wired.
-4. Accept or reject the window RSS of ~85 MB against the 80 MB target. If rejected, the options are fewer pages or a lighter toolkit.
+**Security items** (secret-looking keys or secret-equal values in git-tracked files — names only, never written from the panel):
 
-## 7. Files
+1. `Communications/network/cloudflare/config/cf-status.json` → `auth_source`
+2. `…/cf-status.json` → `account_id` (equals an entry of `master-key.env`)
+3. `…/cf-blocker.json` → `findings.CLOUDFLARE_API_TOKEN`
+4. `…/cf-blocker.json` → `findings.global_key_account`
+5. `…/cf-blocker.json` → `findings.origin_tunnel_account` (equals an entry of `master-key.env`)
+6. `Communications/telegram/config/relay.conf` → `SECRETS_1` (file-path reference, not a credential)
+7. `…/relay.conf` → `SECRETS_2` (file-path reference, not a credential)
 
-- **Pacific** `Apps/Control-Panel/`: `rr_control_panel.py`, `Lib/rr_sources.py`, `Lib/rr_settings.py`, `settings.json`, `Conky/rootrecord.conkyrc`, `Conky/conky_readout.py`, `Packaging/rootrecord-control-panel.desktop`, `Packaging/rootrecord-control-panel.service`, `Packaging/install-launcher.sh`, `Tests/run-check.sh`, `README.md`.
-- **Test record:** [../07-testing/2026-09-29-control-panel-gtk.md](../07-testing/2026-09-29-control-panel-gtk.md)
+## 4. Starlink
+
+The dish answers gRPC at `192.168.100.1:9200` (reachable 12:45 HST). No Starlink tooling existed in the repos (only keyword mentions in specialist configs). Installed without sudo: `Apps/Control-Panel/Starlink/.venv` (uv, Python 3.12; `starlink-grpc-core` 1.2.5, grpcio 1.84.0, protobuf, yagrc; `.venv/` is gitignored). The PyPI name `starlink-grpc-tools` does not exist; `starlink-grpc-core` is its published module.
+
+`Starlink/starlink_status.py` calls **only** `status_data` (get_status; never reboot/stow/config) and prints one JSON line per poll (dish id/serial are not forwarded). Root Monitor starts it with `--loop 10` (minimum 10 s, `starlink_poll_sec`) **only while the Network page is visible** and kills it on leave or window close. One-shot cost: 55.7 MB RSS in its own process, 0.43 s CPU, ~180–260 ms RPC.
+
+## 5. Launch
+
+- **App menu:** "Root Monitor" (`~/.local/share/applications/rootrecord-control-panel.desktop`, same file as before, Name changed).
+- **Terminal dashboard (kept):** app menu "Poller Dashboard (terminal)" (`rootrecord-poller-dashboard-terminal.desktop` → unchanged `open-poller-window.sh`); the Desktop launcher and autostart entry are untouched.
+- **Terminal:** `python3 ".../Apps/Control-Panel/rr_control_panel.py"`.
+- **Make Root Monitor the default viewer at login (sign-off):** `bash ".../Apps/Control-Panel/Packaging/swap-default-viewer.sh" apply` — moves the unchanged `rootrecord-poller-watch.desktop` into `~/.config/autostart/.root-monitor-swap/` (sha256 recorded) and installs `root-monitor.desktop`. `… revert` restores it byte-identically; `… status` is read-only. The poller keeps starting at login on its own (its unit is enabled via `default.target`). `do-stack-reload.sh` still opens the terminal dashboard after a stack reload (unchanged).
+- **Test:** `--check [--camera-viewer on|off] [--no-starlink]`, `Tests/run-check.sh <outdir>`, `Tests/test_settings_io.py`, `--screenshot DIR`, `--run-for SEC`.
+
+## 6. Measured resources (2026-09-29 13:02–13:08 HST, nice 10, MemAvailable ≥ 7.2 GB)
+
+| Mode | Peak RSS | CPU |
+| --- | --- | --- |
+| `--check`, viewer off (every page + every Settings / placeholder sub-page built once, all data loaded) | **84.5 MB — over the 80 MB target by 4.5 MB** (73.8 MB before this pass) | 1.1 s user + 0.1 s sys |
+| `--check`, viewer on | 98.9 MB (opt-in) | 1.3 s |
+| Window 25 s (Energy start page, cairo) | 85.7 MB | 0.52 + 0.07 s |
+| Screenshot mode (24 pages rendered to textures) | 127.3 MB | 5.4 s |
+| Starlink helper (own process, only while Network visible) | 55.7 MB | 0.43 s per poll incl. start |
+
+RSS work done in this pass: Settings rows use one label per row (not Adw.ActionRow), files with > 20 settings show 12 rows + "show the other N", sub-pages are built on visit and released on leave (gc + `malloc_trim`), `git ls-files` asks only about the 27 registry paths, and Ollama is queried with a raw local HTTP/1.0 GET (no urllib/ssl import).
+
+## 7. Sign-off items (Alexander)
+
+1. **Default viewer swap:** run `Packaging/swap-default-viewer.sh apply` (reversible with `revert`). Either this or item 2, not both.
+2. **systemd --user unit** (alternative autostart): copy `Packaging/rootrecord-control-panel.service` to `~/.config/systemd/user/`, `systemctl --user daemon-reload && systemctl --user enable --now rootrecord-control-panel.service`.
+3. **Conky:** `conky-all` 1.22.2 is now installed (dpkg 12:35 HST, not by this pass). The config was installed to `~/.config/conky/rootrecord.conkyrc` and **not started**: `conky -c ~/.config/conky/rootrecord.conkyrc`. Autostarting Conky is a separate decision.
+4. **RSS:** accept `--check` 84.5 MB / window 85.7 MB against the 80 MB target, or ask for a slimmer build (e.g. a separate Settings app).
+5. **RR_* flags:** create the poller drop-in `rr-flags.conf` so flag edits can be saved; every change needs a poller restart by you.
+6. **SSH:** `rr-aws` ProxyCommand points at `~/.local/bin/cloudflared`, which does not exist (the tunnel binary is Pacific `Communications/network/cloudflare/bin/cloudflared`); `rr-aws-ip` timed out after 5 s. Fix `~/.ssh/config` / the AWS side yourself. Mainland: add a Host block and set `ssh_mainland_alias`.
+7. **Security items** in §3: review the cloudflare snapshot files (git-tracked) and decide whether those fields should leave git.
+8. Risky actions: `risky_actions_enabled` + per-action `signed_off` (unchanged rule).
+9. System-level settings (NetworkManager, `/etc/systemd/system/ollama.service`) stay read-only (need sudo).
+
+## 8. Files
+
+- **Pacific** `Apps/Control-Panel/`: `rr_control_panel.py`, `rr_pages.py` (new pages + Settings hub), `rr_ui.py` (shared widgets, redaction), `Lib/rr_sources.py`, `Lib/rr_settings.py`, `Lib/rr_registry.py`, `Lib/rr_config_io.py`, `Lib/rr_running.py`, `Lib/rr_netstat.py`, `Lib/rr_ssh.py`, `Lib/rr_migration.json`, `Starlink/starlink_status.py` (+ gitignored `.venv`), `settings.json`, `Conky/`, `Packaging/` (`rootrecord-control-panel.desktop` = Root Monitor, `poller-dashboard-terminal.desktop`, `root-monitor-autostart.desktop`, `swap-default-viewer.sh`, `rootrecord-control-panel.service`, `install-launcher.sh`), `Tests/run-check.sh`, `Tests/test_settings_io.py`, `README.md`.
+- **Test records:** [../07-testing/2026-09-29-control-panel-gtk.md](../07-testing/2026-09-29-control-panel-gtk.md) · [../07-testing/2026-09-29-root-monitor-settings-running-network-ssh.md](../07-testing/2026-09-29-root-monitor-settings-running-network-ssh.md)

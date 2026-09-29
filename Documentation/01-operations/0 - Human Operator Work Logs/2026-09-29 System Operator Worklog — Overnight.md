@@ -228,3 +228,17 @@ No daytime worklog exists for 2026-09-29, so this section is added here. Backup:
 - Risky panel actions (poller restart; Telegram, voice and `RR_*` are not wired): set `risky_actions_enabled` and per-action `signed_off` in `settings.json` only after sign-off.
 - Accept the ~85 MB window RSS against the 80 MB target, or ask for a slimmer build.
 - Note: SUN is empty in both the dashboard and the panel, because today's row is missing from `solar_calculation_table_current.md` (existing data issue, not changed).
+
+## root-monitor pass (rename + Running / Network / SSH / Not-migrated pages + every setting), 12:35–13:10 HST
+
+Backup: `/home/rootrecord/Database/GITHUB/control-panel-settings.bak-20260929-123505/` (+ `Control-Panel-before-root-monitor-1244.tgz`). No daytime worklog exists, so this section is added here.
+
+| Time (HST) | What | State |
+| --- | --- | --- |
+| 12:35–12:44 | Discovery (read-only): config sources across Pacific / Database / home configs, env vars used by scripts, `~/.ssh/config` (aliases only), Library WO / retirement / checklist docs. Starlink dish reachable at 192.168.100.1:9200; no Starlink tooling in the repos | done |
+| 12:45 | `Apps/Control-Panel/Starlink/.venv` (uv, py3.12, `starlink-grpc-core` 1.2.5 — `starlink-grpc-tools` is not on PyPI) + read-only `starlink_status.py` (get_status only): CONNECTED, ~54 ms, 0.07 % obstructed | **PASS** |
+| 12:47 | One read-only SSH check each: `rr-aws` FAIL (ProxyCommand binary `~/.local/bin/cloudflared` missing), `rr-aws-ip` FAIL (5 s timeout) | FAIL (config / remote side) |
+| 12:50–13:03 | App renamed **Root Monitor** (title, header, `.desktop` Name; paths + app id kept). New pages Running, Network (+ Starlink), SSH, Not migrated (23 placeholders), Settings hub with 10 sub-pages from `Lib/rr_registry.py` (1,590 settings, secrets masked, masked diff → confirm → 0600 backup → atomic write, never restarts). New launcher "Poller Dashboard (terminal)"; `swap-default-viewer.sh` (status/apply/revert) + `root-monitor-autostart.desktop` written, **not applied** | **LANDED** |
+| 12:56–13:08 | `Tests/run-check.sh`: `--check` off/on PASS, strace camera-off 0/0, secret leak tests 0, settings editor 103/103 on temp copies (no real setting saved). Window render of 24 pages with a secret guard (0 matches). `--check` RSS 84.5 MB (> 80 MB target), window 85.7 MB. Existing 10 viewer files byte-identical; poller 105444 untouched. [Record](../../07-testing/2026-09-29-root-monitor-settings-running-network-ssh.md) · [Architecture](../../00-architecture/Control-Panel-GTK.md) | **PASS**; RSS **FAIL** (flagged) |
+
+**Needs Alexander:** apply the viewer swap (`Packaging/swap-default-viewer.sh apply`, reversible) or enable the user unit; start Conky (`conky-all` is now installed; config in `~/.config/conky/`); accept ~85 MB RSS; create `rr-flags.conf` before RR_* edits; fix the `rr-aws` ProxyCommand path and add a Mainland Host alias; review 7 security items (cloudflare snapshot fields in git; relay.conf `SECRETS_1/2` are path refs).
