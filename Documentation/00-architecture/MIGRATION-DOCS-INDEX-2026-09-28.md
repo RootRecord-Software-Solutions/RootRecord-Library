@@ -4,12 +4,15 @@ Single entry point for agents and operators working the Pacific server cutover *
 
 **Authority:** [RootRecord-Software-Solutions](https://github.com/RootRecord-Software-Solutions) — Library, Pacific, Database.
 
+**Team constitution (standing):** [Local-Multi-Agent-Team-and-Migration-to-Build-2026-09-28.md](./Local-Multi-Agent-Team-and-Migration-to-Build-2026-09-28.md) — Ava → Carly → Bruce; small local models; migrate then build.
+
 ---
 
 ## Lineage & process
 
 | Doc | Purpose |
 | --- | --- |
+| [Local-Multi-Agent-Team-and-Migration-to-Build-2026-09-28.md](./Local-Multi-Agent-Team-and-Migration-to-Build-2026-09-28.md) | **Team OS** — roles, truth gates, migrate→build, hardware capacity |
 | [Migration-Lineage-Three-Generations-2026-09-28.md](./Migration-Lineage-Three-Generations-2026-09-28.md) | G3 / G2 / G1 / **G0** named; import order rule |
 | [Pacific-Domain-Import-Playbook-2026-09-28.md](./Pacific-Domain-Import-Playbook-2026-09-28.md) | Step-by-step Phase 0–4; retirement stub pattern |
 | [Pacific-Jobs-Path-Inventory-2026-09-28.md](./Pacific-Jobs-Path-Inventory-2026-09-28.md) | **Historical** path inventory — live status is WO-SRV |
@@ -22,7 +25,7 @@ Single entry point for agents and operators working the Pacific server cutover *
 | --- | --- |
 | [G3-Runtime-Verification-Checklist-2026-09-28.md](./G3-Runtime-Verification-Checklist-2026-09-28.md) | Runtime gate before legacy retirement (supports WO-SRV) |
 | [Residual-Path-Retirement-Table-2026-09-28.md](./Residual-Path-Retirement-Table-2026-09-28.md) | Pre-filled old→new table; Bruce fills Verified/Retired |
-| [Communications-Notify-Policy-Draft-2026-09-28.md](./Communications-Notify-Policy-Draft-2026-09-28.md) | Notify policy draft for WO-COM-001 (pending Carly seal) |
+| [Communications-Notify-Policy-Draft-2026-09-28.md](./Communications-Notify-Policy-Draft-2026-09-28.md) | Notify policy draft for WO-COM-001 (Carly conditional seal may land via PR; check main) |
 
 ## Product & archive inventory (Minecraft, apps, mirrors)
 
@@ -115,6 +118,8 @@ Weather remains **disabled** until its domain WO; not part of the active verific
 
 **Documented without executing product migration:** full product/archive catalog (Paper, Nukkit, apps, mirrors); Automations G1 retirement; G0/G1 READMEs.
 
+**Strategy:** close residual verification before build-mode expansion — see [Local Multi-Agent Team](./Local-Multi-Agent-Team-and-Migration-to-Build-2026-09-28.md).
+
 ---
 
-*Index updated 2026-09-28 ~21:40 HST — hard stops + lineage blurbs aligned with WO-SRV; stale placement notes superseded.*
+*Index updated 2026-09-28 ~22:16 HST — team constitution doc linked.*
