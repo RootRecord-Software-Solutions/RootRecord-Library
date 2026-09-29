@@ -31,3 +31,12 @@
 ```
 
 Token: `master-key.env` — never commit.
+
+
+## Static Catalog Audit — 2026-09-28
+
+- Direct Pacific inspection of `Github/scripts/repos.conf` confirms the enabled catalog entries are Pacific, Database, Library, and the historical skills repository; Website and mainland remain explicitly disabled.
+- The two `.ollama/skills` references in `repos.conf` are the intentional `skills` catalog path and disabled Website/Mainland paths, not active Pacific runtime executable references.
+- Direct inspection of `Github/scripts/setup-all-remotes.sh` and `Github/scripts/sync-all.sh` found no embedded `/home/rootrecord/.ollama/skills/` or `~/.ollama/skills/` executable references.
+- Representative current source SHAs: `repos.conf` `d3a24a3133c51117084c7440473b58e030436424`; `setup-all-remotes.sh` `22253d003c01488f618f195d7a3a983dbfd51f46`; `sync-all.sh` `57e2c7b2a570ba6340cfcb29c578e765727ec001`.
+- This is a static catalog audit only. It does not enable Website/Mainland or authorize removal of the historical skills catalog before the remaining WO-GH prerequisites are satisfied.
