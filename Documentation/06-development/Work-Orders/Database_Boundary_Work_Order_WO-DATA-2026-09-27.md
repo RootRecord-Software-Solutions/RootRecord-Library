@@ -4,7 +4,7 @@
 | --- | --- |
 | **Work Order ID** | WO-DATA-2026-09-27 |
 | **Date** | 2026-09-27 (HST) |
-| **Status** | OPEN |
+| **Status** | **IN PROGRESS** — canonical Database root standardized in active Pacific source; historical `/home/rootrecord/Database/` references remain only where explicitly preserved as historical/operator evidence |
 | **Owner** | RootRecord |
 | **Related** | WO-ECO; RootRecord-Weather-Database |
 
@@ -24,8 +24,8 @@ Ecosystem tree separates generated data from knowledge and code. Weather already
 
 | Item | Location / status |
 | --- | --- |
-| Local Database tree | `RootRecord-Ecosystem/2 - RootRecord-Database/` |
-| Desk Database | `/home/rootrecord/Database/` (live runtime writes) |
+| Canonical Database tree | `/home/rootrecord/RootRecord-Ecosystem/2 - RootRecord-Database/` |
+| Legacy desk root | `/home/rootrecord/Database/` (historical/runtime evidence only; not the active source boundary) |
 | Weather GitHub | `rootrecordsoftwaresolutions/RootRecord-Weather-Database` |
 | Library | Must not hold generated telemetry dumps |
 
@@ -33,13 +33,15 @@ Ecosystem tree separates generated data from knowledge and code. Weather already
 
 - [x] Boundary stated in WO-ECO (generated → Database)
 - [x] Weather publication path exists
+- [x] Active Pacific source paths standardized on the canonical Ecosystem Database root
+- [x] Database `.gitignore` now excludes generated/binary image, audio, video, and icon media
 - [ ] Map each Database subtree to local-only / publish / archive-drive
-- [ ] Confirm gitignore and MAX_FILE_MB protect runtime repos
+- [ ] Confirm sync size guards remain correct
 
 ### 2.3 Known friction
 
-- Two paths: Ecosystem `2 - RootRecord-Database` vs `/home/rootrecord/Database`
-- Media/timelapses can exceed git-friendly sizes
+- Historical evidence and older desk tooling still contain `/home/rootrecord/Database/` references; these must be treated as historical/operator paths unless separately verified as active.
+- Media/timelapses can exceed git-friendly sizes; generated binary media is now gitignored in the Database repo.
 
 ---
 
@@ -64,8 +66,8 @@ Ecosystem tree separates generated data from knowledge and code. Weather already
 
 | Path | Role |
 | --- | --- |
-| `2 - RootRecord-Database/` | Ecosystem data home |
-| `/home/rootrecord/Database/` | Live desk writes |
+| `/home/rootrecord/RootRecord-Ecosystem/2 - RootRecord-Database/` | Canonical Ecosystem data home |
+| `/home/rootrecord/Database/` | Legacy/historical desk root; not the active Pacific source boundary |
 | Weather-Database repo | Published weather |
 | `MAX_FILE_MB` in github scripts | Sync size guard |
 
