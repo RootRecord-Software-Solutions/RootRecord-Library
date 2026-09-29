@@ -49,6 +49,7 @@ Single entry point for agents and operators working the Pacific server cutover *
 | **[G1 README — migration status](https://github.com/rootrecordsoftwaresolutions/Solar-Pacific-RootRecord-Server-Old/blob/main/README.md)** | **Single list** of migrated / not migrated / archive + operations |
 | [Solar-Pacific-Old-Inventory-Map-2026-09-28.md](./Solar-Pacific-Old-Inventory-Map-2026-09-28.md) | High-value packet → G3 mapping (Library side) |
 | [Solar-Pacific-Old-Full-TopLevel-Catalog-2026-09-28.md](./Solar-Pacific-Old-Full-TopLevel-Catalog-2026-09-28.md) | All **95** G1 tops classified |
+| **[Old-Repo-Migration-Matrix.md](./Old-Repo-Migration-Matrix.md)** | G1 + G0 → G3 matrix (90 rows: migrated / partial / missing, target, blockers), 2026-09-29 pass |
 
 ### G1 scheduler skills — retired (2026-09-28)
 
@@ -136,3 +137,5 @@ Weather: **enabled and PASS** since 2026-09-29 (Pacific `Weather/`; see WO-SRV).
 *Index updated 2026-09-28 ~22:16 HST — team constitution doc linked.*
 
 *Index updated 2026-09-29 ~03:45 HST — Testing folder (`Documentation/07-testing/`) and the full 2026-09-29 evidence list added.*
+
+*Index updated 2026-09-29 ~13:40 HST — Old-Repo-Migration-Matrix linked; Geology collector + ports batch 1 test records in `07-testing/`.*

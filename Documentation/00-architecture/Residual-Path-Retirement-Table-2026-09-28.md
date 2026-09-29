@@ -101,3 +101,18 @@ Record any post-check confirmation in WO-SRV notes if useful; do not re-open clo
 - Runtime states since the ~01:37 refresh: Plumbing NPU/FLM **PASS** (install/validate), on-demand `llama3.2:1b` route **PASS** (own-session fix VERIFY PENDING); Weather **PASS**; post-reboot **PASS**; Database Title-case rename **PASS** (Database `92bd69c`). Paths in the table rows above already use the Title-case forms where they describe the current state (`Energy/ports`, `Github/plumbing/state`); historical capture blocks keep the names observed at the time.
 - Still VERIFY PENDING: Security timelapse (after 05:00 HST), Energy arm/disarm + AC (need approval).
 - Per-test records: [`Documentation/07-testing/`](../07-testing/README.md).
+
+## Old-repo migration pass — 2026-09-29 ~13:40 HST (copy/port only; nothing retired)
+
+| Surface | Legacy source (KEPT, unchanged) | Pacific target (new copy) | Static source OK | Verified (runtime) | Retired |
+| --- | --- | --- | --- | --- | --- |
+| USGS earthquakes (hourly + M2 poll) | G1 `earthquakes/`, `earthquake-hourly`, `earthquake-m2-poll`; G2 skill copies | `Geology/scripts/geology_collect.py` | yes | manual PASS; poller VERIFY PENDING (`RR_GEOLOGY`) | **KEPT** |
+| HVO Kīlauea / Mauna Loa status | G1 `kilauea/*` (HANS pulls) | `Geology/scripts/geology_collect.py` | yes | manual PASS; poller VERIFY PENDING | **KEPT** |
+| Kīlauea cams | G1 `kilauea-cams` | `Geology/scripts/kilauea_cams.py` | yes | manual PASS; poller VERIFY PENDING (`RR_KILAUEA_CAMS`) | **KEPT** |
+| Quake backfill | G0 `old` `backfillquakes.py` | `Geology/scripts/earthquakes_backfill.py` | yes | manual PASS (on demand) | **KEPT** |
+| Earthquake voice report | G1 `earthquake-hourly` spoken script | `Media/Voice/scripts/voice_reports.py earthquake_report` | yes | text PASS; WAV VERIFY PENDING (`RR_VOICE_QUAKE`) | **KEPT** |
+| Sun times | G1 `hourly-solar-weather` `sun_times` | `Energy/scripts/sun_times.py` | yes | manual PASS (`RR_SUN_TIMES`) | **KEPT** |
+| Uptime log | G1 `uptime-log` | `System/scripts/uptime_log.py` | yes | manual PASS (`RR_UPTIME_LOG`) | **KEPT** |
+| MP4 converter | G1 `mp4-converter` | `Media/Video/scripts/mp4_converter.py` | yes | manual PASS (on demand) | **KEPT** |
+
+All legacy sources stay in place; the **Retired** column changes only with Alexander's explicit sign-off. Full matrix: [Old-Repo-Migration-Matrix](./Old-Repo-Migration-Matrix.md).

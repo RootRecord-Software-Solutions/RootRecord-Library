@@ -408,3 +408,19 @@ Apply these before running any section above. Test records (one per run, with re
 - **Relay quiet mode is the default:** `ensure-relay.sh` exports `RR_RELAY_REPLIES=${RR_RELAY_REPLIES:-0}` (Pacific `ebc32a7`). Caveat: in quiet mode incoming Telegram messages are consumed (marked read) and **will not be answered later**. Replies also stay BLOCKED until the `*-telegram` models exist and Alexander opts in (`RR_RELAY_REPLIES=1`).
 - **Required venvs (git-ignored):** `Pacific/Energy/.venv` (without it `ecdsa`/eflib are missing and readings fall back to frozen cloud values) and `Pacific/Weather/.venv` (from `Weather/requirements.txt`).
 - Weather and relay start only at poller boot (ON_BOOT); a mid-session crash is not re-ensured until the next poller start.
+
+## Geology verification — 2026-09-29 ~13:40 HST
+
+Run at `nice -n 10`; each call is ≤ 10 s per HTTP request, no delivery, no model.
+
+```bash
+PAC="/home/rootrecord/RootRecord-Ecosystem/1 - Servers/1 - RootRecord-Pacific-Solar-Server"
+DB="/home/rootrecord/RootRecord-Ecosystem/2 - RootRecord-Database"
+nice -n 10 python3 "$PAC/Geology/scripts/geology_collect.py" --dry-run      # fetch + summarise, write nothing
+nice -n 10 python3 "$PAC/Geology/scripts/geology_collect.py" all            # one real pull
+python3 -m json.tool "$DB/Geology/collector-last.json"                       # every source ok:true, ms < 10000
+python3 -c 'import json,sys;d=json.load(open(sys.argv[1]));print(d.get("alert_level"),d.get("color_code"),d.get("erupting"))' "$DB/Geology/Volcanoes/kilauea-last.json"
+RR_VOICE_REPORT_OUT=/tmp/eq-test RR_VOICE_QUAKE_DRY=1 nice -n 10 python3 "$PAC/Media/Voice/scripts/voice_reports.py" earthquake_report --no-voice
+```
+
+After the next poller start with `RR_GEOLOGY=1`: `collector-last.json` `at` advances every ~5 min; the Daily JSONL files gain no duplicate ids. Evidence: `2 - RootRecord-Database/Logs/Migration/migration-geology-evidence-20260929T2319Z.md`; record [geology](../07-testing/2026-09-29-geology-earthquakes-hvo-collector.md).

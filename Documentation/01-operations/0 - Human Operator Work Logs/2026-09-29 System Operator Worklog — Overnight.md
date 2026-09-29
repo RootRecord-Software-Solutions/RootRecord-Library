@@ -242,3 +242,23 @@ Backup: `/home/rootrecord/Database/GITHUB/control-panel-settings.bak-20260929-12
 | 12:56–13:08 | `Tests/run-check.sh`: `--check` off/on PASS, strace camera-off 0/0, secret leak tests 0, settings editor 103/103 on temp copies (no real setting saved). Window render of 24 pages with a secret guard (0 matches). `--check` RSS 84.5 MB (> 80 MB target), window 85.7 MB. Existing 10 viewer files byte-identical; poller 105444 untouched. [Record](../../07-testing/2026-09-29-root-monitor-settings-running-network-ssh.md) · [Architecture](../../00-architecture/Control-Panel-GTK.md) | **PASS**; RSS **FAIL** (flagged) |
 
 **Needs Alexander:** apply the viewer swap (`Packaging/swap-default-viewer.sh apply`, reversible) or enable the user unit; start Conky (`conky-all` is now installed; config in `~/.config/conky/`); accept ~85 MB RSS; create `rr-flags.conf` before RR_* edits; fix the `rr-aws` ProxyCommand path and add a Mainland Host alias; review 7 security items (cloudflare snapshot fields in git; relay.conf `SECRETS_1/2` are path refs).
+
+## smart-devices pass (WiZ bulbs + Tuya BSD01 plugs foundation in Energy), 13:24–13:40 HST
+
+Backup: `/home/rootrecord/Database/GITHUB/smart-devices.bak-20260929-132525/` (Pacific `.gitignore`, `jobs.py` + pre-edit copy, `Energy/README.md` + pre-edit copy, Database `.gitignore`, Library 07/08 READMEs, this worklog). No daytime worklog exists, so this section is added here.
+
+| Time (HST) | What | State |
+| --- | --- | --- |
+| 13:25 | Pacific `.gitignore`: Smart-Devices secrets entries (`config/*.local.json`, `tuya-cloud.env`, tinytuya wizard `tinytuya.json`/`devices.json`/`tuya-raw.json`/`snapshot.json`, `.venv/`) **before** any secrets file; verified with `git check-ignore` | LANDED |
+| 13:26–13:28 | `Energy/Smart-Devices/scripts/wiz.py` (stdlib). Broadcast discovery 0 replies (ufw DROP eats broadcast replies) → added `--sweep` unicast; sweep of .1–.254: **0 WiZ bulbs**. LAN (`ip neigh`): .1 router, .33 Night Owl, .35 Delta 2 Wi-Fi (Espressif), .192 private-MAC phone, .210 Espressif (not WiZ, TCP 6668 refused → not Tuya) | **BLOCKED** (no bulbs) |
+| 13:28 | `nmcli dev wifi list` (read-only): only `Bmwfarm`; **no `SmartLife-XXXX` AP** (plug likely in EZ fast-blink mode). Desk stayed on Bmwfarm; no Wi-Fi/NM change | BLOCKED |
+| 13:29 | Gitignored `.venv` + `tinytuya` 1.20.0; `scripts/tuya.py` scaffold (listen / config-check / status / on / off; reads gitignored `config/tuya-devices.local.json`; template `tuya-devices.example.json`). 20 s listen UDP 6666/6667/7000: 0 packets (ufw drops inbound broadcasts — inconclusive) | LANDED · control **BLOCKED** |
+| 13:30 | `scripts/smart_devices_collect.py --discover` → Database `Energy/Smart-Devices/{wiz,plugs,collector}-last.json` (both sources BLOCKED, count 0, exit 0). Mock bulb on 127.0.0.1: save → dim/off/temp → restore → SAME | **PASS** |
+| 13:31 | jobs.py `EVERY_SECONDS` `smart_devices_collect` (300 s, nice 10, no internet), `enabled = RR_SMART_DEVICES=="1"`: default False, gated True. Poller 105444 **not** restarted (start 03:13:28 unchanged). Energy README row added (after the concurrent Sun-times row) | LANDED (gated OFF) |
+| 13:32–13:36 | Library: [architecture](../../00-architecture/Smart-Devices-Energy.md) (incl. future Root Monitor Energy → Devices page design, BLE relation), [test record](../../07-testing/2026-09-29-smart-devices-foundation.md), [idea: load shedding](../../08-ideas/2026-09-29-smart-plug-load-shedding.md); Database `Energy/Smart-Devices/README.md`. MemAvailable ≥ 6.7 GB throughout; no BLE, sudo, restarts, sends, models or git writes; `Apps/Control-Panel/` not touched | LANDED |
+
+**Needs Alexander:**
+- WiZ: check the bulbs are on (wall switch) and on `Bmwfarm`, WiZ app → *Allow local communication* ON, note their IPs; then the single save/dim/restore test can run.
+- Plugs: choose **Path A** (pair BSD01 in Smart Life on 2.4 GHz → iot.tuya.com cloud project, Western America, link app account → give Access ID/Secret to the desk via `.venv/bin/python -m tinytuya wizard`, outputs gitignored) or **Path B** (flash Tasmota/ESPHome — confirm ESP8266 vs Beken first).
+- Optional: `sudo ufw allow in on wlo1 proto udp from 192.168.1.0/24 to any port 6666:6667` for passive Tuya discovery.
+- Enable the collector: `RR_SMART_DEVICES=1` in the poller environment at the next ordinary stack reload.

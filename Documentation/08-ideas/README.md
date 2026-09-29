@@ -21,5 +21,6 @@ Items Alexander approved show their current state in the index. Four were approv
 | 2026-09-29 | [Relay quiet mode without losing messages](./2026-09-29-relay-quiet-mode-message-hold.md) | LANDED / VERIFY PENDING (next poller start) — Pacific `5353e1f`, `52573e7`; Database `57172d0` | relay quiet-mode caveat |
 | 2026-09-29 | [Weather retention and a Weather repo](./2026-09-29-weather-retention-and-repo.md) | Retention LANDED / VERIFY PENDING (dry-run only; job disabled) — Pacific `52573e7`, Database `a775c2f` · Repo PROPOSED | Pacific `Weather/README.md` §Retention (PROPOSED) |
 | 2026-09-29 | [AI specialist models and keyword router](./2026-09-29-ai-specialist-models-and-routing.md) | LANDED / gated: 10 `rr-*` specialists + 3 restored `*-telegram` built (disk only), router v2 + tests landed; `run-infer.sh` hook LANDED 04:56, OFF unless `RR_SPECIALIST_ROUTING=1` | operator request; team constitution §3; missing `*-telegram` models |
+| 2026-09-29 | [Smart-plug load shedding and light dimming on low battery SOC](./2026-09-29-smart-plug-load-shedding.md) | PROPOSED | Smart-Devices foundation (plugs BLOCKED on `local_key`) |
 
 *Folder created 2026-09-29 ~03:48 HST (docs only).*

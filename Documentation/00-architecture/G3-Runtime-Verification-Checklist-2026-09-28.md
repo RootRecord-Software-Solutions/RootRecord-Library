@@ -174,3 +174,17 @@ Supersedes open findings 1 (relay 821015 is gone; relay now runs under the polle
 - **Relay quiet mode is the default:** `ensure-relay.sh` exports `RR_RELAY_REPLIES=${RR_RELAY_REPLIES:-0}` (Pacific `ebc32a7`). Caveat: in quiet mode incoming Telegram messages are consumed (marked read) and **will not be answered later**. Replies also stay BLOCKED until the `*-telegram` models exist and Alexander opts in (`RR_RELAY_REPLIES=1`).
 - **Required venvs (git-ignored):** `Pacific/Energy/.venv` (without it `ecdsa`/eflib are missing and readings fall back to frozen cloud values) and `Pacific/Weather/.venv` (from `Weather/requirements.txt`).
 - Weather and relay start only at poller boot (ON_BOOT); a mid-session crash is not re-ensured until the next poller start.
+
+## Geology + old-repo ports — 2026-09-29 ~13:40 HST
+
+| Row | Pacific path | Gate (read at poller start) | Manual test | State |
+| --- | --- | --- | --- | --- |
+| USGS earthquakes (Hawaiʻi bbox + global M2.5) + HVO Kīlauea / Mauna Loa status, notices | `Geology/scripts/geology_collect.py` → Database `Geology/{Earthquakes,Volcanoes}/` | `geology_collect` 300 s, `RR_GEOLOGY=1` | 13:19 HST rc 0, 2.64 s, 28 MB | **PASS** (manual) · poller cycle **VERIFY PENDING** |
+| Kīlauea cams stills | `Geology/scripts/kilauea_cams.py` → `Geology/Volcanoes/Cams/` | `geology_kilauea_cams` 600 s, `RR_KILAUEA_CAMS=1` | 13:24 3 × 200, re-run 304 | **PASS** (manual) · cycle **VERIFY PENDING** |
+| Quake backfill (SQLite) | `Geology/scripts/earthquakes_backfill.py` | on demand | `--days 1` 11 rows | **PASS** |
+| Earthquake voice report | `Media/Voice/scripts/voice_reports.py earthquake_report` | `voice_earthquake_report` :08, `RR_VOICE_QUAKE=1` | text 2 runs | **PASS** (text) · WAV **VERIFY PENDING** |
+| Sun times | `Energy/scripts/sun_times.py` → `Energy/sun/` | `energy_sun_times` hourly, `RR_SUN_TIMES=1` | 06:11 / 18:10 | **PASS** (manual) |
+| Uptime log | `System/scripts/uptime_log.py` → `System/uptime/` | `system_uptime_log` 60 s, `RR_UPTIME_LOG=1` | tick + gap sim | **PASS** (manual) |
+| MP4 converter | `Media/Video/scripts/mp4_converter.py` | on demand | 2 s synthetic | **PASS** |
+
+Close the "VERIFY PENDING" cells only after the next poller start with the flag set (Alexander's sign-off): check `Geology/collector-last.json` `at` advances every ~5 min and the poller log shows the job rc 0. Records: [geology](../07-testing/2026-09-29-geology-earthquakes-hvo-collector.md), [batch 1](../07-testing/2026-09-29-old-repo-ports-batch1.md); [migration matrix](./Old-Repo-Migration-Matrix.md); evidence `2 - RootRecord-Database/Logs/Migration/migration-geology-evidence-20260929T2319Z.md`.
