@@ -30,16 +30,16 @@ Pacific root (desk):
 | --- | --- | --- | --- | --- | --- |
 | Telegram / council_relay | `…/skills/coms/telegram/…` | `Communications/telegram/` (+ plumbing under `System/scripts/plumbing/`) | Yes (paths rewired in source) | | |
 | Security/Cameras cam / grab / timelapse | `…/.ollama/skills/a-eyes/scripts/…` | `Security/Cameras/` (hourly wrapper on Pacific) | Yes | | |
-| Energy actions | `…/skills/energy/scripts/actions` | `Energy/scripts/actions` | Yes — marked LIVE | | confirm only |
-| Plumbing warmups / single-flight | `…/skills/plumbing/…` | `System/scripts/plumbing/` | Yes — marked LIVE | | confirm only |
+| Energy actions | `…/skills/energy/scripts/actions` | `Energy/scripts/actions` | Yes — source LANDED / runtime VERIFY PENDING | | confirm only |
+| Plumbing warmups / single-flight | `…/skills/plumbing/…` | `System/scripts/plumbing/` | Yes — source LANDED / runtime VERIFY PENDING | | confirm only |
 | System sampling | `…/.ollama/skills/system-stats/scripts/sys-sample.sh` | `System/scripts/sys-sample.sh` | Present on Pacific; `jobs.py` points here — VERIFY PENDING | | |
 | Reports worklog | `…/.ollama/skills/reports/scripts/worklog_once.sh` | `Reports/scripts/worklog_once.sh` | Present on Pacific; `jobs.py` points here — VERIFY PENDING | | |
 | Weather poller | `…/skills/Weather/…` | `Weather/` (when imported) | N/A — **disabled** | leave disabled | leave until Weather WO |
-| Network globe cwd | legacy `coms/ssh/…` | Pacific `Communications/network/` | Yes — cwd LIVE | | |
+| Network globe cwd | legacy `coms/ssh/…` | Pacific `Communications/network/` | Yes — cwd source LANDED / runtime VERIFY PENDING | | |
 
 ---
 
-## Already LIVE (no residual action required for path)
+## Source LANDED / runtime VERIFY PENDING (no residual action required for path)
 
 Energy reads + leapfrog · System · Reports foundation · Github sync · Cloudflare tunnel · Network globe command  
 

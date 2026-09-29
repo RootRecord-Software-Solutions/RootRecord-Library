@@ -22,7 +22,7 @@
 | Plumbing (ollama + FLM warmup) | source LANDED / runtime VERIFY PENDING — under **`System/scripts/plumbing/`** |
 | Reports (worklog + roll-up + archive) | source LANDED / runtime VERIFY PENDING — folder **`Reports/` only** (WO-RPT-001 foundation) |
 | Github (setup-remotes + sync-all) | source LANDED / runtime VERIFY PENDING — folder **`Github/` only** |
-| Communications/network (cloudflare + globe command) | LIVE — command + cwd now Pacific |
+| Communications/network (cloudflare + globe command) | source LANDED / runtime VERIFY PENDING — command + cwd now Pacific |
 | Stack reload | Automated reload **does not** open status window (window-close was tearing down stack) |
 
 ## Residual G2 (from Pacific `jobs.py` 2026-09-28 ~21:10 HST)
@@ -32,7 +32,7 @@
 | Telegram / coms | `council_relay` | G3 surface + `System/scripts/plumbing/single-flight.sh` landed; runtime verification pending |
 | Security/Cameras (formerly A-Eyes) | cam server, frame grab, timelapse | G3 surface landed, including hourly wrapper; runtime verification pending |
 | Weather | `weather_poller` | Already **disabled** |
-| Network globe | cwd | **LIVE** — cwd now Pacific |
+| Network globe | cwd | source LANDED / runtime VERIFY PENDING — cwd now Pacific |
 
 ### Legacy `SKILL.md` preservation rule
 

@@ -179,8 +179,8 @@ From the Pacific root:
 PACIFIC="/home/rootrecord/RootRecord-Ecosystem/1 - Servers/1 - RootRecord-Pacific-Solar-Server"
 cd "$PACIFIC"
 
-test -x "Security/Cameras/ensure_cam_server.sh"
-test -x "Security/Cameras/grab_all.sh"
+test -f "Security/Cameras/ensure_cam_server.sh"
+test -f "Security/Cameras/grab_all.sh"
 test -f "Security/Cameras/grab_frame.py"
 test -f "Security/Cameras/cam_server.py"
 
