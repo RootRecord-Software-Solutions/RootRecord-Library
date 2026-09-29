@@ -103,3 +103,25 @@ Runtime code changed with approval. No restarts, no sudo, no playback, no Telegr
 - Respellings for Kalākaua / Liliʻuokalani / Nuʻuanu / Māhele.
 - A Grok voice: none exists (open question).
 - PROPOSED `single-flight.sh` fix: the RUN banner goes to stdout, and `holder.txt` stores `RR_PROMPT` during a run.
+
+---
+
+## g3-specialists pass (AI specialist models + keyword router), 04:06–04:25 HST
+
+Alexander's request: one isolated Modelfile per function (execution, reasoning, topic, specialty), plus a keyword/topic router that sends each request to the right specialist, loaded on demand only. No restarts, no sudo, no Telegram sends, no model pulls, no hand-run git commands, no G1/G2 files deleted. **`run-infer.sh`, `jobs.py`, the relay and `Media/Voice` were not edited.** Backup: `/home/rootrecord/Database/GITHUB/g3-specialists.bak-20260929-041126/` (Database `.gitignore`, Library 08-ideas/07-testing READMEs, MIGRATION-DOCS-INDEX, this worklog).
+
+| Time | Step |
+| --- | --- |
+| 04:06–04:10 | Inventory. `ollama list`: no `*-telegram`, no `llama3.2:1b` (that model exists only in FLM). Old Modelfiles found in `/home/rootrecord/old ollama/agents/{ava,bruce,carly}/` (lanes.conf, `FROM dolphin-mistral:latest`, not installed). `~/.ollama/modelfiles` → Database `AI/Ollama/Modelfiles/` (Archive/Development/Production were empty). Reused the G2 council `classify.py` heuristics and Library Agent Context packs + Pacific domain READMEs for grounding. |
+| 04:11–04:12 | Wrote 10 specialists to `Database/AI/Ollama/Modelfiles/Specialists/`: `rr-exec`, `rr-reason`, `rr-energy`, `rr-weather`, `rr-system`, `rr-security`, `rr-cameras`, `rr-council-{ava,bruce,carly}`. Bases: `qwen2.5:1.5b-instruct-q8_0` or `llama3.2:3b-instruct-q4_K_M`; `num_ctx` ≤ 4096; exec temp 0.1. Restored `ava/bruce/carly-telegram` into `Modelfiles/Production/`: base changed to 3B, ctx 8192→4096, ideologies block dropped. |
+| 04:12 | `ollama create` ×13, all success, disk only. `ollama ps` empty. **The `*-telegram` models now exist**, so the run-infer/relay Ollama fallback resolves again (the relay stays quiet by default). `ava`/`bruce`/`carly` fallback models not rebuilt. |
+| 04:13–04:17 | Pacific `System/config/specialist-routes.json` + `System/scripts/plumbing/route-specialist.py` (stdlib; `--explain/--json/--shell/--list/--system`, `--verify-model`; metadata-only JSONL → `Database/Logs/AI/Routing/routing_current.jsonl`, git-ignored) + `test-route-specialist.py`. Auto-sync Pacific `b9044b1` (04:18:57), Database `63bd396` (04:15:00, Modelfiles) and `2da4fa2` (04:19:06: `.gitignore` + Routing README + test table). |
+| 04:16 | Router unit test (no models): **35/35 labelled, privacy PASS**. Held-out 5/8 (informational). Table: `Logs/AI/Routing/router-test-2026-09-29.md`. |
+| 04:18:13 | Live 1: Ollama `rr-energy`, keep_alive 0, nice 10, single-flight. "No data — I can't see the desk". 6.35 s (cold load 2.56 s). MemAvailable min 9,857 MB. `ollama ps` empty after. |
+| 04:18:32 | Live 2: FLM `llama3.2:1b` + `rr-weather` SYSTEM as the system message. "No data — I can't see the desk." 5.14 s incl. cold start; VmHWM ~2,007 MB; MemAvailable min 9,734 MB. After: 0 flm, :52625 closed, lock IDLE. |
+| 04:19–04:25 | Library: `00-architecture/AI-Specialist-Models-and-Routing.md` (design, table, config, **gated hook**, resource policy, how to add), 08-ideas record (LANDED / gated), 2 × 07-testing records + index rows, MIGRATION-DOCS-INDEX row. The proposed hook was simulated in isolation: gate off = unchanged; explicit model targets are never overridden. |
+
+**Needs Alexander:**
+- Approve applying the 2-line hook to `run-infer.sh` (text in the design doc §4) after the JSONL-logging pass settles, then set `RR_SPECIALIST_ROUTING=1`.
+- Decide whether `prefer=ollama` routes (reason/security/council) should skip the NPU (phase-2 hook).
+- The sign-off line above ("`*-telegram` models are missing") is superseded: they were rebuilt at 04:12 on `llama3.2:3b-instruct-q4_K_M`.

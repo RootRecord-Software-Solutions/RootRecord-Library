@@ -28,6 +28,7 @@ Single entry point for agents and operators working the Pacific server cutover *
 | [Communications-Notify-Policy-Draft-2026-09-28.md](./Communications-Notify-Policy-Draft-2026-09-28.md) | Notify policy draft for WO-COM-001 (Carly conditional seal may land via PR; check main) |
 | **[07-testing/README.md](../07-testing/README.md)** | **Testing thread** (2026-09-29): one record per test run (HST time, method, pass criteria, state, resource impact, evidence, SHAs, cleanup) + test-safety policy + index |
 | **[08-ideas/README.md](../08-ideas/README.md)** | **Ideas & feature proposals** (2026-09-29): all PROPOSED; auto-recovery, `npu-status.sh` Pacific copy, AI processing log, voice reports, relay message hold, weather retention/repo |
+| [AI-Specialist-Models-and-Routing.md](./AI-Specialist-Models-and-Routing.md) | **AI specialists + router** (2026-09-29): one Modelfile per function/topic, keyword router `route-specialist.py`, FLM system-message route, gated `run-infer.sh` hook (off by default), resource policy, how to add a specialist |
 | [Voice-Reports-G3.md](./Voice-Reports-G3.md) | **Voice (2026-09-29)**: Kokoro-82M G3 port, persona map, phrase-clip cache, G1→G3 report map, gates (delivery OFF), naming standard (PROPOSED) |
 | [AI-Processing-Logs-and-Reports.md](./AI-Processing-Logs-and-Reports.md) | **AI processing (2026-09-29)**: run-infer JSONL fields, rotation, report, `RR_AI_REPORT` gate, FLM log redaction |
 | Ops worklog `2026-09-29 System Operator Worklog — Overnight.md` | Overnight docs pass steps (HST) + **Needs Alexander sign-off** list |
