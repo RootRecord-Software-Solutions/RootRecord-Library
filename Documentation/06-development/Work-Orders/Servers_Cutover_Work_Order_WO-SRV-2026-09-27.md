@@ -323,3 +323,5 @@ Snapshot: `2 - RootRecord-Database/Logs/Migration/g3-pre-reboot-checkpoint-20260
 5. Weather: one `Weather/scripts/run_poller.py` (Pacific venv), fresh files under `WEATHER/Hawai'i/`, no Traceback.
 6. Ollama: `systemctl status ollama` active, `ollama list` = 12 models. cloudflared: one poller child, tunnel connected.
 7. Auto-sync: new `auto:` commits in Pacific/Database/Library; no `index.lock`; no poller reload triggered by G2 pulls.
+
+- *Viewer fix 02:20 HST:* status window flashing **fixed — PASS** (read-only `poller-dashboard.py`, single instance, survives reloads). Cause: every Pacific pull (incl. docs-only) triggers a stack reload that killed/reopened `poller-watch`; no gnome-terminal (ptyxis `-e` without hold); G2 autostart. Relay re-crashed 02:08 (old code), restarted once 02:12 with retry fix. Evidence `2 - RootRecord-Database/Logs/Migration/g3-poller-viewer-evidence-20260929T121959Z.md`.
