@@ -36,6 +36,7 @@
 - G2 retirements reverted (skills `1dcee66`); the `skills` catalog entry stays. **Standing rule (Alexander, 2026-09-29):** never retire or delete G2/legacy code. "No live references" is not grounds — unimported automations (e.g. the older repo `rootrecordsoftwaresolutions/old`) may need it. Retirement happens only with Alexander's explicit sign-off.
 - Needs decision: `push-repo-once.sh` `is_runtime_code_tree` still arms a poller stack reload on `~/.ollama/skills` pulls. Survey: `2 - RootRecord-Database/Logs/Migration/g3-residual-path-survey-20260929T113523Z.md`.
 - *~02:08 HST:* `push-repo-once.sh` no longer treats `~/.ollama/skills` pulls as runtime code (Pacific `abc78b2`) — G2 syncs never restart the poller. Note: the weather daemon rewrites tracked `Pacific/Weather/reports/README.md` each report cycle (sync churn; decision pending).
+- *02:23 HST (Alexander-approved):* `push-repo-once.sh` `pull_is_docs_only` — a pull whose changed files are all `*.md`/`*.markdown`/`README*` no longer arms a poller stack reload; any code/config file (or empty/unknown diff) reloads exactly as before (Pacific `31fd21e`; tested on eb8f465 docs range = skip, 884c832/89a8d6d/mixed = reload).
 
 ## Remaining
 

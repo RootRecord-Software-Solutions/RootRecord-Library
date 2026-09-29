@@ -313,6 +313,8 @@ Snapshot: `2 - RootRecord-Database/Logs/Migration/g3-pre-reboot-checkpoint-20260
 - Ollama layout (Alexander's choice): Database `AI/Ollama/…` + `Logs/AI/Ollama/…`, symlinks `~/.ollama/{modelfiles,logs}` intentional. `ollama.service` runs as **User=ollama** and logs to journald — it may lack permission to write under `/home/rootrecord` (home is 750).
 - NPU prereqs installed (`amdxdna-dkms`, `libxrt-npu2`, `libxrt2`; `/dev/accel/accel0`); **FLM pending after reboot** (no `flm`, no `xrt-smi`).
 
+- Docs-only pulls no longer reload the stack (02:23 HST, Alexander-approved, Pacific `31fd21e`): `push-repo-once.sh` skips the reload when every pulled file is `*.md`/`*.markdown`/`README*`; code/config/mixed/unknown diffs reload as before.
+
 **Open items:** `ava-/bruce-/carly-telegram` models missing (replies BLOCKED); timelapse check after 05:00 HST; Energy actuating/hardware tests; B1 0% physical check; WEATHER repo decision (canonical `WEATHER/` is not its own RootRecord-Weather-Database repo; data local only); 27 dormant G2 files still use old-root paths; poller stop takes 30 s then SIGKILL; weather rewrites tracked `Pacific/Weather/reports/README.md` each report cycle (commit churn).
 
 **Post-reboot verification list**
