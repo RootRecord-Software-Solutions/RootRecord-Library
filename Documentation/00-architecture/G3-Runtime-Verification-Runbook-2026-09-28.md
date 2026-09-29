@@ -52,6 +52,12 @@ ps -ef | grep -E '[c]ouncil-relay.py|[t]elegram.*relay' || true
 bash "Communications/telegram/scripts/ensure-relay.sh"
 
 pgrep -af 'council-relay.py|telegram.*relay' || true
+
+# ensure-relay.sh's pgrep also matches the legacy council-relay.py, so confirm the live relay runs from Pacific:
+for RELAY_PID in $(pgrep -f '^python3 .+/council-relay\.py'); do
+  readlink "/proc/$RELAY_PID/cwd"
+  tr '\0' ' ' < "/proc/$RELAY_PID/cmdline"; echo
+done
 ```
 
 Then, using the normal operator Telegram test route, send **one controlled smoke message** through the council relay and inspect the corresponding relay log/output. Do not paste message content if it is sensitive.
@@ -62,6 +68,7 @@ If the relay uses Telegram `getUpdates`, verify that exactly one live relay proc
 
 - Exactly one active council relay owns Telegram `getUpdates` for the bot.
 - `ensure-relay.sh` resolves and launches/validates the Pacific relay path.
+- The running `council-relay.py` cmdline/cwd resolve to Pacific `Communications/telegram/scripts/`, not `/home/rootrecord/.ollama/skills/` (`ensure-relay.sh`'s pgrep alone would also accept the legacy relay).
 - One controlled smoke message traverses the expected Pacific relay path.
 - No second relay process or competing `getUpdates` owner appears.
 - No new repeated relay/HTTP conflict error is produced by the smoke test.
@@ -172,30 +179,39 @@ From the Pacific root:
 PACIFIC="/home/rootrecord/RootRecord-Ecosystem/1 - Servers/1 - RootRecord-Pacific-Solar-Server"
 cd "$PACIFIC"
 
-test -x "Security/Cameras/scripts/ensure_cam_server.sh"
-test -x "Security/Cameras/scripts/grab_all.sh"
-test -f "Security/Cameras/scripts/grab_frame.py"
-test -f "Security/Cameras/scripts/cam_server.py"
+test -x "Security/Cameras/ensure_cam_server.sh"
+test -x "Security/Cameras/grab_all.sh"
+test -f "Security/Cameras/grab_frame.py"
+test -f "Security/Cameras/cam_server.py"
 
-bash "Security/Cameras/scripts/ensure_cam_server.sh"
+bash "Security/Cameras/ensure_cam_server.sh"
 
 ps -ef | grep -E '[c]am_server.py' || true
 
-find "/home/rootrecord/RootRecord-Ecosystem/2 - RootRecord-Database/Media/Images/frames" -maxdepth 2 -type f -print 2>/dev/null | head -20
+# ensure_cam_server.sh only checks that :8791 is listening, so a legacy cam server would also satisfy it.
+# Confirm the :8791 listener runs from the Pacific path, not /home/rootrecord/.ollama/skills:
+ss -ltnp 'sport = :8791'
+CAM_PID="$(ss -ltnpH 'sport = :8791' | grep -oE 'pid=[0-9]+' | head -1 | cut -d= -f2)"
+readlink "/proc/$CAM_PID/cwd"
+tr '\0' ' ' < "/proc/$CAM_PID/cmdline"; echo
+
+find "/home/rootrecord/RootRecord-Ecosystem/2 - RootRecord-Database/Media/Images" -maxdepth 2 -type f -print 2>/dev/null | head -20
 ```
 
 Run one normal frame-grab test using the operator's documented camera invocation. If the deployment exposes a wrapper/argument contract, use that exact contract; do not invent camera credentials or arguments.
 
 ### Pass criteria
 
-- Camera server resolves to the Pacific `Security/Cameras/scripts/cam_server.py`.
+- Camera server resolves to the Pacific `Security/Cameras/cam_server.py`.
+- The process listening on `:8791` has its cwd/cmdline under Pacific `Security/Cameras/`, not `/home/rootrecord/.ollama/skills/`.
 - The camera service is reachable/healthy according to the existing operator check.
-- One frame path is created or observed under `/home/rootrecord/RootRecord-Ecosystem/2 - RootRecord-Database/Media/Images/frames/`.
+- One frame path is created or observed under `/home/rootrecord/RootRecord-Ecosystem/2 - RootRecord-Database/Media/Images/`.
 - No frame data is written into the Pacific Git tree.
 
 ### Fail criteria
 
-- Camera server resolves to the legacy lowercase `Security Cameras/` runtime.
+- Camera server resolves to the legacy `/home/rootrecord/.ollama/skills/a-eyes/scripts/` runtime.
+- The `:8791` listener's cwd or cmdline resolves under `/home/rootrecord/.ollama/skills/` (a legacy cam server satisfies `ensure_cam_server.sh`'s port-only check).
 - Frame capture fails.
 - Frame data is written into the Pacific repository instead of Database.
 - Credentials are required from Git-tracked files.
@@ -283,7 +299,7 @@ Use the normal operator command/service check to confirm the live poller is exec
 Then inspect a short fixed observation window of the current log:
 
 ```bash
-tail -n 100 "/home/rootrecord/Database/Logs/automations_current.log"
+tail -n 100 "/home/rootrecord/Database/Logs/Automations/automations_current.log"
 ```
 
 Record a fresh short-window tail after the poller has had an opportunity to execute its scheduled work. Use the established log location if the deployment exposes `automations_current.log` through a different documented path.

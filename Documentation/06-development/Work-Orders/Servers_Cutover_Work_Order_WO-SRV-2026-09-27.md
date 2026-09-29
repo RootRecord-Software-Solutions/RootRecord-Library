@@ -17,11 +17,11 @@
 | Item | Status |
 | --- | --- |
 | systemd ExecStart | Pacific `run-poller.sh` (quoted) |
-| Energy (reads + leapfrog + actions) | LIVE — folder **`Energy/` only**; `ECOFLOW_ACTIONS` → `Energy/scripts/actions` |
-| System | LIVE — folder **`System/` only** |
-| Plumbing (ollama + FLM warmup) | LIVE under **`System/scripts/plumbing/`** |
-| Reports (worklog + roll-up + archive) | LIVE — folder **`Reports/` only** (WO-RPT-001 foundation) |
-| Github (setup-remotes + sync-all) | LIVE — folder **`Github/` only** |
+| Energy (reads + leapfrog + actions) | source LANDED / runtime VERIFY PENDING — folder **`Energy/` only**; `ECOFLOW_ACTIONS` → `Energy/scripts/actions` |
+| System | source LANDED / runtime VERIFY PENDING — folder **`System/` only** |
+| Plumbing (ollama + FLM warmup) | source LANDED / runtime VERIFY PENDING — under **`System/scripts/plumbing/`** |
+| Reports (worklog + roll-up + archive) | source LANDED / runtime VERIFY PENDING — folder **`Reports/` only** (WO-RPT-001 foundation) |
+| Github (setup-remotes + sync-all) | source LANDED / runtime VERIFY PENDING — folder **`Github/` only** |
 | Communications/network (cloudflare + globe command) | LIVE — command + cwd now Pacific |
 | Stack reload | Automated reload **does not** open status window (window-close was tearing down stack) |
 
@@ -30,7 +30,7 @@
 | Domain | Jobs / constants | Notes |
 | --- | --- | --- |
 | Telegram / coms | `council_relay` | G3 surface + `System/scripts/plumbing/single-flight.sh` landed; runtime verification pending |
-| A-Eyes | cam server, frame grab, timelapse | G3 surface landed, including hourly wrapper; runtime verification pending |
+| Security/Cameras (formerly A-Eyes) | cam server, frame grab, timelapse | G3 surface landed, including hourly wrapper; runtime verification pending |
 | Weather | `weather_poller` | Already **disabled** |
 | Network globe | cwd | **LIVE** — cwd now Pacific |
 
@@ -43,7 +43,7 @@
 ## Static Cutover Check — 2026-09-28 ~21:50 HST
 
 - Pacific `RootRecord-Pacific-Solar-Server` search returned no `/home/rootrecord/.ollama/skills/` references.
-- Pacific `jobs.py` now points the active A-Eyes hourly wrapper at `A-Eyes/scripts/timelapse_hourly.sh`.
+- Pacific `jobs.py` now points the active A-Eyes hourly wrapper at `A-Eyes/scripts/timelapse_hourly.sh`. **Superseded** by Pacific commits `66ca49d` / `2e6be6e`: the hourly job now runs `Security/Cameras/timelapse_hourly.sh`.
 - Pacific `System/scripts/plumbing/single-flight.sh` is present; Telegram G3 configuration no longer requires the legacy plumbing path.
 - The legacy repository still contains historical `/home/rootrecord/.ollama/skills/` references across residual and non-residual trees. These are not treated as completed migrations without runtime verification and explicit scope.
 
@@ -70,7 +70,7 @@
 - Direct fetch inspection covered the migrated A-Eyes runtime scripts, Telegram runtime scripts, System plumbing scripts, and `Automations/scripts/jobs.py`.
 - No embedded `/home/rootrecord/.ollama/skills/` or `~/.ollama/skills/` references were found in the inspected migrated A-Eyes, Telegram, or System plumbing runtime files.
 - `Automations/scripts/jobs.py` contains one remaining legacy path pair only for `weather_poller`; that job is explicitly `enabled: False` and documented as disabled until the Weather domain path exists on the desk. No active scheduler entry in the inspected file retains a legacy executable/cwd path.
-- Current `jobs.py` source blob: `4276087c42c4ff36f50e79fb5e827ac7d5f01866`.
+- Current `jobs.py` source blob: `57ba4768208519c6db2a75c07c37e1e504675830`.
 - This is a static source audit only. It does not satisfy the required G3 runtime verification gate, so no legacy runtime function was retired.
 
 ## Extended Pacific Runtime Static Audit — 2026-09-28
@@ -117,7 +117,7 @@ Import each residual function into its **existing** Pacific folder; rewire jobs;
 ## Final Pacific Repository Legacy-Path Search — 2026-09-28
 
 - Repository search across the Pacific source for representative legacy scheduler/executable paths returned no matches for the inspected Automations, Telegram, A-Eyes, Energy-action, or Plumbing legacy path families.
-- Direct fetch remains authoritative where search indexing can lag. Current `Automations/scripts/jobs.py` blob `4276087c42c4ff36f50e79fb5e827ac7d5f01866` contains exactly one legacy path pair: the disabled `weather_poller` command/cwd at lines 168/171. The job is explicitly `enabled: False` and remains outside active cutover scope.
+- Direct fetch remains authoritative where search indexing can lag. Current `Automations/scripts/jobs.py` blob `57ba4768208519c6db2a75c07c37e1e504675830` contains exactly one legacy path pair: the disabled `weather_poller` command/cwd at lines 168/171. The job is explicitly `enabled: False` and remains outside active cutover scope.
 - No additional active legacy scheduler path was found in the current jobs source. No source change is warranted from this audit.
 - Runtime verification remains the only unresolved WO-SRV acceptance gate for migrated active functions; no legacy runtime function was retired.
 
@@ -163,18 +163,6 @@ Operator correction: the camera/security runtime previously migrated under **A-E
 - Pacific target: `Security/`
 - Persistent security logs: `/home/rootrecord/RootRecord-Ecosystem/2 - RootRecord-Database/Logs/Security/`
 - Persistent security media: the new RootRecord-Database `Media/` authority, using its documented Images/Timelapses locations.
-- Do not continue troubleshooting the old A-Eyes path as the final architecture.
-- Do not retire the legacy runtime until the renamed Security implementation passes the normal G3 verification gate.
-- Runtime-only camera credentials/configuration must remain outside Git; do not commit `CONNECTION.json`.
-
-
-## Domain Naming Correction — 2026-09-28
-
-Operator correction: the camera/security runtime previously migrated under **A-Eyes/** is not the intended Pacific domain name. The canonical domain is **Security/**. The A-Eyes work is therefore treated as an intermediate misnamed import and must be realigned before runtime verification or legacy retirement.
-
-- Pacific target: `Security/`
-- Persistent security logs: `/home/rootrecord/RootRecord-Ecosystem/2 - RootRecord-Database/Logs/Security/`
-- Persistent security media: the new RootRecord-Database `Media/` authority, using its Images/Timelapses locations.
 - Do not continue troubleshooting the old A-Eyes path as the final architecture.
 - Do not retire the legacy runtime until the renamed Security implementation passes the normal G3 verification gate.
 - Runtime-only camera credentials/configuration must remain outside Git; do not commit `CONNECTION.json`.

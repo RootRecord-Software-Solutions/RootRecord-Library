@@ -29,9 +29,11 @@ Pacific root (desk):
 | Surface | Legacy pattern (historical) | Pacific target | Static source OK | Verified (runtime) | Retired |
 | --- | --- | --- | --- | --- | --- |
 | Telegram / council_relay | `…/skills/coms/telegram/…` | `Communications/telegram/` (+ plumbing under `System/scripts/plumbing/`) | Yes (paths rewired in source) | | |
-| Security/Cameras cam / grab / timelapse | `…/skills/Security Cameras/…` | `Security/Cameras/scripts/` (hourly wrapper on Pacific) | Yes | | |
+| Security/Cameras cam / grab / timelapse | `…/.ollama/skills/a-eyes/scripts/…` | `Security/Cameras/` (hourly wrapper on Pacific) | Yes | | |
 | Energy actions | `…/skills/energy/scripts/actions` | `Energy/scripts/actions` | Yes — marked LIVE | | confirm only |
 | Plumbing warmups / single-flight | `…/skills/plumbing/…` | `System/scripts/plumbing/` | Yes — marked LIVE | | confirm only |
+| System sampling | `…/.ollama/skills/system-stats/scripts/sys-sample.sh` | `System/scripts/sys-sample.sh` | Present on Pacific; `jobs.py` points here — VERIFY PENDING | | |
+| Reports worklog | `…/.ollama/skills/reports/scripts/worklog_once.sh` | `Reports/scripts/worklog_once.sh` | Present on Pacific; `jobs.py` points here — VERIFY PENDING | | |
 | Weather poller | `…/skills/Weather/…` | `Weather/` (when imported) | N/A — **disabled** | leave disabled | leave until Weather WO |
 | Network globe cwd | legacy `coms/ssh/…` | Pacific `Communications/network/` | Yes — cwd LIVE | | |
 

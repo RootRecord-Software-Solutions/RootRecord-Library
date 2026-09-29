@@ -42,11 +42,11 @@ Run from the Pacific desk (or any host that can see live processes and `jobs.py`
 
 **Pass →** eligible to retire legacy telegram/relay executable (keep legacy `SKILL.md`).
 
-### B. A-Eyes
+### B. Security/Cameras
 
 | Step | Pass criteria |
 | --- | --- |
-| 1 | Active jobs use `A-Eyes/scripts/` paths (hourly wrapper, ensure, grab as scheduled) |
+| 1 | Active jobs use `Security/Cameras/` paths (hourly wrapper, ensure, grab as scheduled) |
 | 2 | One hourly or catchup cycle completes without path error |
 | 3 | Cam server ensure (if enabled) starts from Pacific path |
 | 4 | No active scheduler entry still on `~/.ollama/skills/a-eyes/…` |
