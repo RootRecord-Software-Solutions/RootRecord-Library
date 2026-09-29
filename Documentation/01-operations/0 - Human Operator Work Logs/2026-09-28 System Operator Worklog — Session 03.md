@@ -315,3 +315,10 @@ Filename:
 - Website remains disabled pending the documented mirror-worktree prerequisite; Mainland remains disabled pending a real git clone.
 - Historical skills publishing remains unchanged and is still conditional on full G2 retirement.
 - WO-GH remains IN PROGRESS; no catalog configuration change was made.
+
+
+## Active Work-Order Consistency Sweep — 2026-09-28
+
+- Searched the canonical Library work-order documentation for stale active-status strings associated with WO-SRV-001, WO-GH, WO-ECO, and WO-SRV-2026-09-27; no conflicting search hits were returned.
+- Re-read the canonical Work-Order README. Its active execution drivers remain WO-ECO-2026-09-27, WO-SRV-2026-09-27, and WO-GH-2026-09-27. WO-SRV-001 remains Draft/reference, not an active execution driver.
+- No work-order status changes were warranted by this sweep.
