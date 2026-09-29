@@ -4,9 +4,9 @@
 | --- | --- |
 | **Work Order ID** | WO-ARCH-2026-09-27 |
 | **Date** | 2026-09-27 (HST) |
-| **Status** | OPEN — Spec ready for automation |
+| **Status** | OPEN — Spec ready; **implementation owned by WO-RPT-001 Phase D** |
 | **Owner** | RootRecord |
-| **Related** | `Documentation/01-operations/templates/README.md` |
+| **Related** | `Documentation/01-operations/templates/README.md`; [WO-RPT-001](./WO-RPT-001-Reports-Worklog-Domain-Import.md) |
 
 **Scope:** Implement a weekly archive pass so active worklog and work-order folders stay uncluttered. Move closed material only; never rewrite content; never touch templates or OPEN work orders.
 
@@ -15,6 +15,8 @@
 ## 1. Intent
 
 Operator logs will grow daily. Templates and naming are standing. Archive weekly under `YYYY-Www` so humans and agents always see a thin active set.
+
+**Implementation note (2026-09-28):** Script + schedule land under Pacific `Reports/` as WO-RPT-001 Phase D (after worklog path rewire soaks).
 
 ---
 
@@ -28,11 +30,13 @@ Operator logs will grow daily. Templates and naming are standing. Archive weekly
 | Templates | `Documentation/01-operations/templates/` |
 | Active WOs | `Documentation/06-development/Work-Orders/` |
 | Archive dirs | Not yet created (create on first pass) |
+| Worklog engine | Pacific `Reports/` (WO-RPT-001 Phase B) |
 
 ### 2.2 Completed so far
 
 - [x] Filename convention and templates documented
 - [x] Archive rules written in templates README
+- [x] Linked to WO-RPT-001 Phase D
 - [ ] Create archive folder structure
 - [ ] Automation or scripted weekly job
 - [ ] First successful archive week
@@ -71,6 +75,7 @@ Operator logs will grow daily. Templates and naming are standing. Archive weekly
 | `Documentation/01-operations/templates/README.md` | Rules |
 | `Documentation/01-operations/archive/YYYY-Www/` | Log archive |
 | `Documentation/06-development/archive/YYYY-Www/` | Closed WO archive |
+| Pacific `Reports/scripts/` | Future weekly_archive.sh (Phase D) |
 
 ---
 
@@ -92,4 +97,4 @@ Operator logs will grow daily. Templates and naming are standing. Archive weekly
 
 ---
 
-*Work order prepared 2026-09-27 HST. Update status when closed.*
+*Work order prepared 2026-09-27 HST. Linked to WO-RPT-001 2026-09-28.*
