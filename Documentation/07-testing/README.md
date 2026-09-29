@@ -45,6 +45,10 @@ Each test gets one file, `YYYY-MM-DD-<slug>.md`, created from [TEMPLATE.md](./TE
 | 2026-09-29 04:00 | [Pacific npu-status.sh (idle)](./2026-09-29-npu-status-pacific-copy.md) | PASS (idle); lock-held run VERIFY PENDING |
 | 2026-09-29 04:02 | [Relay quiet-mode inbox + replay (parse only)](./2026-09-29-relay-quiet-inbox-parse.md) | PASS (parse); live VERIFY PENDING (next poller start) |
 | 2026-09-29 04:04 | [Weather retention dry run](./2026-09-29-weather-retention-dry-run.md) | PASS (dry run: 0 to move); apply OFF pending review |
+| 2026-09-29 03:59 | [AI inference JSONL + FLM log redaction + AI processing report](./2026-09-29-ai-inference-log-and-report.md) | PASS; run-infer rc now 0 (kill fix); report job gated OFF |
+| 2026-09-29 04:05 | [Kokoro-82M G3 port: one clip per persona](./2026-09-29-kokoro-voice-port-g3.md) | PASS (format/resources); by-ear VERIFY PENDING |
+| 2026-09-29 04:12 | [Kokoro phrase-clip cache, stitcher, QC, system_perf](./2026-09-29-kokoro-phrase-clips-qc.md) | PASS (68/68 QC; ASR 59/68); listen list VERIFY PENDING; job gated OFF |
+| 2026-09-29 04:14 | [Hawaiian place-name pronunciation sheet](./2026-09-29-hawaiian-pronunciation-sheet.md) | PASS (text 99/99); by-ear VERIFY PENDING |
 
 Related: [MIGRATION-DOCS-INDEX](../00-architecture/MIGRATION-DOCS-INDEX-2026-09-28.md) · [WO-SRV](../06-development/Work-Orders/Servers_Cutover_Work_Order_WO-SRV-2026-09-27.md) · [G3 Runtime Verification Checklist](../00-architecture/G3-Runtime-Verification-Checklist-2026-09-28.md)
 

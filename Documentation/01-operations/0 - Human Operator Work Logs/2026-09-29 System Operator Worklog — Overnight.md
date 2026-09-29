@@ -76,3 +76,30 @@ Backup of every file edited: `/home/rootrecord/Database/GITHUB/library-full-doc-
 
 - Ambiguous stale references, listed rather than changed. See the final report and WO-SRV "Status summary — 2026-09-29 ~03:45 HST".
 - **WO-SRV open items need updating** for the 04:00 landings (supervisor job, relay inbox, npu-status copy, retention script/job). WO-SRV itself was not edited in this pass.
+
+---
+
+## g3-voice-ailog pass (AI processing log + Kokoro voice port + phrase cache), 03:50–04:17 HST
+
+Runtime code changed with approval. No restarts, no sudo, no playback, no Telegram/AWS sends, no deletions of G1/G2 files, no git commands by hand. Backup: `/home/rootrecord/Database/GITHUB/g3-voice-ailog.bak-20260929-035454/`. The `*.pre-edit-*` copies of jobs.py and this worklog were taken because other agents edited them concurrently. Docs: `00-architecture/Voice-Reports-G3.md`, `00-architecture/AI-Processing-Logs-and-Reports.md`.
+
+| Time | Step |
+| --- | --- |
+| 03:55 | Database `.gitignore`: `/AI/Kokoro/Kokoro-82M/`, `*.pth`, `*.pt`, `inference_current.jsonl`, `/Media/Audio/Voice/Archive/`. Kokoro-82M copied from G1 (340 MB; `.pth` sha256 `496dba11…ad1e4`, matches the source; G1 untouched). `git check-ignore` confirmed. |
+| 03:57 | `run-infer.sh`: one JSON line per request → `Logs/AI/Inference/inference_current.jsonl` (lengths only). FLM output goes through `flm-log-redact.awk` (drops request bodies and model output). New `ai-log-rotate.sh` (daily `Archive/`) and `Reports/ai_processing_report.py`. Pacific auto-sync `b17780c`. |
+| 03:58 | AI report run by hand on empty data: **PASS**. Inference test 1: NPU answered, but **rc=1**. Root cause: `set -e` + `kill -KILL` on the already-dead flm pid; the earlier `setsid` change was not the fix. Fixed with `|| true`. |
+| 03:59 | Inference test 2: **rc=0**, 4.64 s, FLM peak RSS 2,007 MB, MemAvailable min 5,483 MB. 1 JSON line; flm.log body/output redacted. Clean: 0 flm, :52625 closed, lock IDLE, `ollama ps` empty. Latency field fixed to `$EPOCHREALTIME` (uutils `date` ignores `%3N`). Pacific `5353e1f`. |
+| 04:03 | Voice venv `Media/Voice/.venv` (uv CPython 3.12, kokoro 0.9.4, misaki 0.9.4, torch 2.14.0+cpu, spaCy sm). The first render failed because espeak-ng ignores data paths over 160 chars; fixed with a short copy in `~/.local/share/rootrecord/espeak-ng-data`. |
+| 04:05 | One clip per persona: **PASS**. Ava / Bruce / Carly 5.1 / 4.6 / 5.1 s, peak RSS ~1.24 GB each, s16 / 24 kHz / mono, 2.0 / 2.0 / 2.95 s. |
+| 04:06–04:08 | Steering from Alexander: phrase-clip cache. 68 clips rendered in 3 batches (Bruce 5, Carly 9, Ava 54 incl. 48 chimes), peak RSS ≤ 1,968 MB, load ≤ 4.05. QC **68/68 PASS**. Manifest tracked: Database `a775c2f`, `88b2396`. |
+| 04:09 | whisper-tiny round trip (on demand, 576 MB): 59/68 match. 9 clips on the listen list. |
+| 04:11 | `system_perf` (Bruce, template + stitch): **PASS**, 23.4 s WAV, 11.6 s wall. All-cached chime stitch: 0.2 s, model not loaded. |
+| 04:12 | `jobs.py`: `voice_system_perf` (:06, `RR_VOICE_SYSTEM_PERF=1`) and `ai_processing_report_hourly` (`RR_AI_REPORT=1`), both **disabled by default**, taking effect only at the next poller start. Pacific `d6c3f8f`. |
+| 04:14–04:16 | Library docs + 4 test records (07-testing README rows) + MIGRATION-DOCS-INDEX links. Library `3b39824`. |
+
+**Needs Alexander:**
+- Listen to the 9-clip list (start with `chime_0200`, `chime_1200`) and the test clips.
+- Sign off on voice delivery (Telegram sendVoice needs OGG/Opus; speaker playback) and set the two env gates.
+- Respellings for Kalākaua / Liliʻuokalani / Nuʻuanu / Māhele.
+- A Grok voice: none exists (open question).
+- PROPOSED `single-flight.sh` fix: the RUN banner goes to stdout, and `holder.txt` stores `RR_PROMPT` during a run.
