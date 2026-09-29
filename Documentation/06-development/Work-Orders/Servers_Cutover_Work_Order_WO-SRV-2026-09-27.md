@@ -12,17 +12,17 @@
 
 ---
 
-## Locked on Pacific
+## Pacific source/path landed (not a runtime verification claim)
 
 | Item | Status |
 | --- | --- |
 | systemd ExecStart | Pacific `run-poller.sh` (quoted) |
-| Energy (reads + leapfrog + actions) | LIVE — folder **`Energy/` only**; `ECOFLOW_ACTIONS` → `Energy/scripts/actions` |
-| System | LIVE — folder **`System/` only** |
-| Plumbing (ollama + FLM warmup) | LIVE under **`System/scripts/plumbing/`** |
-| Reports (worklog + roll-up + archive) | LIVE — folder **`Reports/` only** (WO-RPT-001 foundation) |
-| Github (setup-remotes + sync-all) | LIVE — folder **`Github/` only** |
-| Communications/network (cloudflare + globe command) | LIVE — command + cwd now Pacific |
+| Energy (reads + leapfrog + actions) | **Pacific source/path LIVE; runtime verification pending** — folder **`Energy/` only**; `ECOFLOW_ACTIONS` → `Energy/scripts/actions` |
+| System | **Pacific source/path LIVE; runtime verification pending** — folder **`System/` only** |
+| Plumbing (ollama + FLM warmup) | **Pacific source/path LIVE; runtime verification pending** under **`System/scripts/plumbing/`** |
+| Reports (worklog + roll-up + archive) | **Pacific source/path LIVE; runtime verification pending** — folder **`Reports/` only** (WO-RPT-001 foundation) |
+| Github (setup-remotes + sync-all) | **Pacific source/path LIVE; runtime verification pending** — folder **`Github/` only** |
+| Communications/network (cloudflare + globe command) | **Pacific source/path LIVE; runtime verification pending where applicable** — command + cwd now Pacific |
 | Stack reload | Automated reload **does not** open status window (window-close was tearing down stack) |
 
 ## Residual G2 (from Pacific `jobs.py` 2026-09-28 ~21:10 HST)
