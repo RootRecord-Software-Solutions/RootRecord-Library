@@ -120,3 +120,11 @@ Import each residual function into its **existing** Pacific folder; rewire jobs;
 - Direct fetch remains authoritative where search indexing can lag. Current `Automations/scripts/jobs.py` blob `4276087c42c4ff36f50e79fb5e827ac7d5f01866` contains exactly one legacy path pair: the disabled `weather_poller` command/cwd at lines 168/171. The job is explicitly `enabled: False` and remains outside active cutover scope.
 - No additional active legacy scheduler path was found in the current jobs source. No source change is warranted from this audit.
 - Runtime verification remains the only unresolved WO-SRV acceptance gate for migrated active functions; no legacy runtime function was retired.
+
+
+## Supporting-File Mapping Audit — 2026-09-28
+
+- Direct legacy/G3 inspection confirms the migrated Telegram `ensure-relay.sh` and `voices.conf` exist on Pacific with the same content blob SHAs as their inspected legacy counterparts: `fa12a398916e49934571fdcf8cc8fe3a6558547a` and `dc2d5b5ec84db25104e95c0bf69003933e90a7c0`.
+- The legacy Telegram `status.sh`, `load_env.sh`, and `post-voice.sh` exist in the old repository, but corresponding Pacific paths returned 404 during direct inspection. No deletion, migration failure, or replacement was inferred from absence alone; none is currently identified as an active scheduler dependency.
+- Direct Pacific inspection confirms the migrated A-Eyes runtime files `ensure_cam_server.sh`, `grab_all.sh`, `grab_frame.py`, `timelapse_engine.py`, and `cam_server.py` are present. No legacy skills-tree reference was found in the inspected active runtime surfaces.
+- This audit does not satisfy live runtime verification. No legacy runtime function was retired, and legacy `SKILL.md` preservation remains unchanged.
