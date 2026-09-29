@@ -67,6 +67,7 @@ RootRecord-Library/
 │  ├─ 06-development/
 │  │  └─ Work-Orders/
 │  ├─ 07-testing/
+│  ├─ 08-ideas/
 │  ├─ adr/
 │  ├─ archive/
 │  └─ schemas/
@@ -98,6 +99,8 @@ Each agent pack follows the same basic spine:
 G2 → G3 migration: the Pacific runtime is on the new Database root (`2 - RootRecord-Database`, Title-case folders). Post-reboot checks, Weather, NPU/FastFlowLM (`llama3.2:1b` on demand) and the Title-case rename are **PASS**. G2 legacy files are **KEPT** until Alexander signs off. Open items are tracked as BLOCKED / PROPOSED / VERIFY PENDING in WO-SRV.
 
 - 🧪 **Testing thread:** [Documentation/07-testing/](./Documentation/07-testing/README.md) — one record per test run, plus the test-safety policy
+- 💡 **Ideas & proposals:** [Documentation/08-ideas/](./Documentation/08-ideas/README.md) — every item PROPOSED until Alexander signs off
+- 📝 **Overnight worklog:** [2026-09-29 System Operator Worklog — Overnight](./Documentation/01-operations/0%20-%20Human%20Operator%20Work%20Logs/2026-09-29%20System%20Operator%20Worklog%20%E2%80%94%20Overnight.md) (includes the "Needs Alexander sign-off" list)
 - 🗂️ **Migration index:** [MIGRATION-DOCS-INDEX](./Documentation/00-architecture/MIGRATION-DOCS-INDEX-2026-09-28.md)
 
 ---
