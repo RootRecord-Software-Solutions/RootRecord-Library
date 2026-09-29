@@ -128,3 +128,12 @@ Import each residual function into its **existing** Pacific folder; rewire jobs;
 - The legacy Telegram `status.sh`, `load_env.sh`, and `post-voice.sh` exist in the old repository, but corresponding Pacific paths returned 404 during direct inspection. No deletion, migration failure, or replacement was inferred from absence alone; none is currently identified as an active scheduler dependency.
 - Direct Pacific inspection confirms the migrated A-Eyes runtime files `ensure_cam_server.sh`, `grab_all.sh`, `grab_frame.py`, `timelapse_engine.py`, and `cam_server.py` are present. No legacy skills-tree reference was found in the inspected active runtime surfaces.
 - This audit does not satisfy live runtime verification. No legacy runtime function was retired, and legacy `SKILL.md` preservation remains unchanged.
+
+
+## Active Telegram Dependency Check — 2026-09-28
+
+- Direct inspection of the active Pacific scheduler confirms `council_relay` invokes only `Communications/telegram/scripts/ensure-relay.sh`.
+- Direct inspection of Pacific `ensure-relay.sh` confirms it starts `council-relay.py` directly and does not invoke legacy `status.sh`, `load_env.sh`, or `post-voice.sh`.
+- Direct inspection of Pacific `council-relay.py` confirms its voice configuration is `Communications/telegram/config/voices.conf`, which is present. The inspected state directory remains under `/home/rootrecord/Database/intake/council-relay`.
+- Therefore the three legacy Telegram supporting scripts found earlier are not identified as active Pacific scheduler/runtime dependencies from the inspected source. No replacement or deletion is inferred from their absence.
+- This remains a source/dependency audit only; live runtime verification is still required before legacy runtime retirement.
