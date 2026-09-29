@@ -169,6 +169,12 @@ Rationale: lowest-risk / highest-clarity items first so Pacific poller can run c
 - The only remaining legacy path in `jobs.py` is the explicitly disabled `weather_poller` command/cwd; no active scheduler entry inspected retains a legacy executable path.
 - Static audit does not replace live G3 runtime verification; no legacy runtime function was retired.
 
+### Session 04 continuation — extended Pacific runtime static audit
+
+- Extended direct inspection to Automations poller/watch, representative Energy actions, Reports scripts, Github scripts, and Network Globe runtime.
+- No embedded legacy skills-tree references were found in the inspected files.
+- Static inspection remains distinct from required live runtime verification; no legacy runtime retirement was performed.
+
 ### Documentation rule
 
 Continue updating the canonical work order and operator worklog as migration steps land. Preserve existing templates, terminology, timestamps, and factual status; do not backfill unverified runtime claims. A work order moves to `Documentation/06-development/Work-Orders/Complete/` only after its acceptance criteria are satisfied.
