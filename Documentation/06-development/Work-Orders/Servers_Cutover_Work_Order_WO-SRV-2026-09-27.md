@@ -166,3 +166,15 @@ Operator correction: the camera/security runtime previously migrated under **A-E
 - Do not continue troubleshooting the old A-Eyes path as the final architecture.
 - Do not retire the legacy runtime until the renamed Security implementation passes the normal G3 verification gate.
 - Runtime-only camera credentials/configuration must remain outside Git; do not commit `CONNECTION.json`.
+
+
+## Domain Naming Correction — 2026-09-28
+
+Operator correction: the camera/security runtime previously migrated under **A-Eyes/** is not the intended Pacific domain name. The canonical domain is **Security/**. The A-Eyes work is therefore treated as an intermediate misnamed import and must be realigned before runtime verification or legacy retirement.
+
+- Pacific target: `Security/`
+- Persistent security logs: `/home/rootrecord/RootRecord-Ecosystem/2 - RootRecord-Database/Logs/Security/`
+- Persistent security media: the new RootRecord-Database `Media/` authority, using its Images/Timelapses locations.
+- Do not continue troubleshooting the old A-Eyes path as the final architecture.
+- Do not retire the legacy runtime until the renamed Security implementation passes the normal G3 verification gate.
+- Runtime-only camera credentials/configuration must remain outside Git; do not commit `CONNECTION.json`.
