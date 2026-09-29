@@ -5,6 +5,7 @@ Documentation about RootRecord agents. **Canonical identity packs do not live he
 | Field | Value |
 | --- | --- |
 | **Canonical packs** | [`Agent Context/`](../../Agent%20Context/) at Library repo root |
+| **Team constitution** | [Local Multi-Agent Team & Migration → Build](../00-architecture/Local-Multi-Agent-Team-and-Migration-to-Build-2026-09-28.md) |
 | **Related WO** | [WO-AGENT-2026-09-27](../06-development/Work-Orders/AgentContext_CanonicalHome_Work_Order_WO-AGENT-2026-09-27.md) |
 
 ---
@@ -19,6 +20,8 @@ Documentation about RootRecord agents. **Canonical identity packs do not live he
 
 Pipeline: **Ava → Carly → Bruce**.
 
+Standing strategy: same roles on small local NPU models or future larger capacity; **migrate & stabilize first**, then **build**. Truth gate: path landed ≠ runtime verified ≠ legacy retired.
+
 ## Empty subfolders under this path
 
 Any `Ava-Agent-Context/`, `Bruce-Agent-Context/`, or `Carly-Agent-Context/` directories **under** `Documentation/02-agents/` are placeholders only. Do **not** maintain a second copy of IDENTITY/ROLE files here — edit the root `Agent Context/` packs.
@@ -28,4 +31,4 @@ Any `Ava-Agent-Context/`, `Bruce-Agent-Context/`, or `Carly-Agent-Context/` dire
 - `AvaIvy/AvaIvy-Agent-Context` — personal mirror; Library pack is authority for org work  
 - `CarlyMal/Carly-Agent-Context` — personal pack; sync toward Library when bounds change  
 
-*README added 2026-09-28 HST — avoid dual homes.*
+*README updated 2026-09-28 HST — team constitution link.*
