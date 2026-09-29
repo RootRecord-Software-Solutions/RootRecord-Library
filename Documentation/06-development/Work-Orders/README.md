@@ -1,54 +1,77 @@
-# Work Orders — Proposal drafts
+# Work Orders — single index
 
-Draft proposals for domain imports, public surface, and supporting work. Status: **proposal only** until operator accepts and supplies sources/approvals — except items already executing on org Pacific (see Active ops backlog).
+**Canonical work-order home** for RootRecord (org Library).  
+One folder only. Docs-only updates do not migrate functions or change runtime code.
 
-**Canonical home:** `RootRecord-Software-Solutions` org (not personal account).
-
-**Active ops backlog (live status):** [`../Work Orders/`](../Work%20Orders/)
-
-**Docs-only rule:** Updating these indexes does not migrate functions or change runtime code.
+**Standing policy:** Do not run the old desk (`~/.ollama/skills`) as the poller host. Prefer Pacific under org `RootRecord-Pacific-Solar-Server`.
 
 ---
 
-## Active proposals
+## Active ops backlog (updated 2026-09-28)
+
+| ID | Title | Status | File |
+| --- | --- | --- | --- |
+| WO-ECO-2026-09-27 | Ecosystem migration & repository foundation | **IN PROGRESS** — Pacific + Energy + System LIVE | [WO](./Ecosystem_Migration_Work_Order_WO-ECO-2026-09-27.md) |
+| WO-SRV-2026-09-27 | Pacific runtime path cutover (G2 → G3) | **IN PROGRESS** — Energy + System done | [WO](./Servers_Cutover_Work_Order_WO-SRV-2026-09-27.md) |
+| WO-MAP-2026-09-27 | Master-Prompt repository ownership map | OPEN | [WO](./MasterPrompt_RepoMap_Work_Order_WO-MAP-2026-09-27.md) |
+| WO-OLD-2026-09-28 | Selective recovery from Solar-Pacific-…-Old (G1) | OPEN — blocked on G2→G3 | [WO](./Old_Server_Selective_Recovery_Work_Order_WO-OLD-2026-09-28.md) |
+| WO-GH-2026-09-27 | GitHub catalog hygiene | OPEN | [WO](./GitHub_Catalog_Hygiene_Work_Order_WO-GH-2026-09-27.md) |
+| WO-DATA-2026-09-27 | Database boundary & publication policy | OPEN | [WO](./Database_Boundary_Work_Order_WO-DATA-2026-09-27.md) |
+| WO-AGENT-2026-09-27 | Agent context canonical home | OPEN | [WO](./AgentContext_CanonicalHome_Work_Order_WO-AGENT-2026-09-27.md) |
+| WO-CF-2026-09-27 | Cloudflare tunnel credential recovery | OPEN | [WO](./Cloudflare_Tunnel_Recovery_Work_Order_WO-CF-2026-09-27.md) |
+| WO-ARCH-2026-09-27 | Weekly operations log archive | OPEN | [WO](./Ops_Weekly_Archive_Work_Order_WO-ARCH-2026-09-27.md) |
+| WO-AEYES-2026-09-27 | A-EYES capture rate & timelapse | OPEN | [WO](./A-EYES_Work_Order_WO-AEYES-2026-09-27.md) |
+
+---
+
+## Domain / feature proposals
 
 | ID | Title | Priority | Status | File |
 |----|-------|----------|--------|------|
-| **WO-ECO-001** | Energy domain import (EcoFlow + hybrid reports) | **P0** | Phase 1 **COMPLETE** on org Pacific | [WO](WO-ECO-001-Energy-Domain-Import.md) · [**Action Plan**](WO-ECO-001-Action-Plan.md) |
-| **WO-SRV-001** | Residual jobs path rewire | **P0** | In progress after Energy/System; clear `~/.ollama/skills` residuals | [WO-SRV-001](WO-SRV-001-Residual-Jobs-Path-Rewire.md) |
-| **WO-WEB-001** | Public status / solar board alignment | **P1** | Draft | [WO-WEB-001](WO-WEB-001-Public-Status-Solar-Board.md) |
-| **WO-COM-001** | Communications surface (tunnel, Telegram, network) | **P1** | Draft | [WO-COM-001](WO-COM-001-Communications-Surface.md) |
-| **WO-WXG-001** | Weather + Geology domain import | **P1** | Draft — after Energy | [WO-WXG-001](WO-WXG-001-Weather-Geology-Import.md) |
-| **WO-SYS-001** | Poller observability & FAIL handling | **P2** | Draft (System Phase 1 already live) | [WO-SYS-001](WO-SYS-001-Poller-Observability.md) |
-| **WO-WEB-002** | RootRecord public site foundation pass | **P2** | Draft | [WO-WEB-002](WO-WEB-002-Public-Site-Foundation.md) |
-| **WO-GH-001** | GitHub pull authority & timer policy | **P2** | Draft | [WO-GH-001](WO-GH-001-Github-Pull-Authority.md) |
+| **WO-ECO-001** | Energy domain import (EcoFlow + hybrid reports) | P0 | Phase 1 **COMPLETE** on org Pacific | [WO](./WO-ECO-001-Energy-Domain-Import.md) · [Action Plan](./WO-ECO-001-Action-Plan.md) |
+| **WO-SRV-001** | Residual jobs path rewire | P0 | In progress after Energy/System | [WO](./WO-SRV-001-Residual-Jobs-Path-Rewire.md) |
+| **WO-WEB-001** | Public status / solar board alignment | P1 | Draft | [WO](./WO-WEB-001-Public-Status-Solar-Board.md) |
+| **WO-COM-001** | Communications surface | P1 | Draft | [WO](./WO-COM-001-Communications-Surface.md) |
+| **WO-WXG-001** | Weather + Geology domain import | P1 | Draft — after Energy | [WO](./WO-WXG-001-Weather-Geology-Import.md) |
+| **WO-SYS-001** | Poller observability & FAIL handling | P2 | Draft (System Phase 1 live) | [WO](./WO-SYS-001-Poller-Observability.md) |
+| **WO-WEB-002** | Public site foundation pass | P2 | Draft | [WO](./WO-WEB-002-Public-Site-Foundation.md) |
+| **WO-GH-001** | GitHub pull authority & timer policy | P2 | Draft | [WO](./WO-GH-001-Github-Pull-Authority.md) |
 
 ---
 
-## Recommended order
+## Suggested attack order (remaining)
 
-1. ~~**WO-ECO-001 Phase 1**~~ — complete on org Pacific
-2. **WO-SRV-001** — residual path cleanup after Energy/System
-3. **WO-COM-001** — policy + README; optional Telegram later
-4. **WO-WEB-001** — status contract (can draft in parallel)
-5. **WO-SYS-001** — FAIL policy / poller window (parallel OK)
-6. **WO-WXG-001** — Weather then Geology
-7. **WO-GH-001** — pull timer authority
-8. **WO-WEB-002** — public site foundation after status truth exists
+1. ~~Energy~~ ~~System~~ (done)
+2. Worklog / reports **or** Github **or** plumbing — operator pick
+3. **WO-SRV-001** residual path cleanup (zero `~/.ollama/skills` in jobs)
+4. Communications / Telegram → A-Eyes → Weather + Geology
+5. Retire G2 desk as poller host; close WO-ECO when foundation settles
+
+Architecture maps (Library):
+
+- `Documentation/00-architecture/Migration-Lineage-Three-Generations-2026-09-28.md`
+- `Documentation/00-architecture/Solar-Pacific-Old-Inventory-Map-2026-09-28.md`
+- `Documentation/00-architecture/Pacific-Domain-Import-Playbook-2026-09-28.md`
 
 ---
 
-## Architecture context
+## Live snapshot (ops)
 
-- `Documentation/00-architecture/` (org Library)
-- Pacific: `RootRecord-Software-Solutions/RootRecord-Pacific-Solar-Server`
-- Database: `RootRecord-Software-Solutions/RootRecord-Database`
+```text
+systemd   Pacific run-poller.sh
+Energy    SUMMARY + ENERGY live
+System    sys-sample on Pacific System/scripts/
+Log       /home/rootrecord/Database/Logs/Automations/automations_current.log
+```
 
 ---
 
 ## Rules
 
-- **No code import** without operator source tree
-- **One domain at a time**
-- **Document only** until a WO is explicitly accepted for execution
-- Preserve historical paths in notes when retiring residuals
+- One WO per coherent outcome; link related IDs.
+- Keep **Status** accurate (`OPEN`, `IN PROGRESS`, `BLOCKED`, `CLOSED`, `COMPLETE`).
+- Closed WOs: weekly archive under `Documentation/06-development/archive/YYYY-Www/`.
+- No secrets in WO text.
+- **Never bulk-merge G1 `origin/` into G3 runtime.**
+- **No code import** without operator source tree; **one domain at a time**.
+- Document only until a WO is explicitly accepted for execution.
