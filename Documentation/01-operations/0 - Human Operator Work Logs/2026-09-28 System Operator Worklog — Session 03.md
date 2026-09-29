@@ -156,6 +156,12 @@ Rationale: lowest-risk / highest-clarity items first so Pacific poller can run c
 - Pacific `Communications/telegram/scripts/status.sh` and `load_env.sh` are absent at the inspected paths; no deletion was inferred.
 - Runtime verification remains pending; no legacy runtime functions were retired.
 
+### Session 04 continuation — legacy retirement gate audit
+
+- Direct legacy-repository search confirmed old executable implementations remain for migrated plumbing warmups, inference/single-flight surfaces, Telegram relay, A-Eyes hourly scheduler, and Energy action wrappers.
+- No legacy executable was removed because G3 runtime verification remains unavailable from this desk session.
+- Legacy `SKILL.md` files remain preserved as documentation artifacts.
+
 ### Documentation rule
 
 Continue updating the canonical work order and operator worklog as migration steps land. Preserve existing templates, terminology, timestamps, and factual status; do not backfill unverified runtime claims. A work order moves to `Documentation/06-development/Work-Orders/Complete/` only after its acceptance criteria are satisfied.
