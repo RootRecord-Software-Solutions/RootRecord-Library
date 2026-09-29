@@ -1,6 +1,6 @@
 # Pacific Migration Documentation Index (2026-09-28)
 
-Single entry point for agents and operators working the Pacific server cutover.
+Single entry point for agents and operators working the Pacific server cutover **and** the broader product/archive inventory.
 
 **Authority:** [RootRecord-Software-Solutions](https://github.com/RootRecord-Software-Solutions) — Library, Pacific, Database.
 
@@ -15,6 +15,14 @@ Single entry point for agents and operators working the Pacific server cutover.
 | [Pacific-Jobs-Path-Inventory-2026-09-28.md](./Pacific-Jobs-Path-Inventory-2026-09-28.md) | Every residual path in `jobs.py` |
 | [Pacific-Server-Library-Dependency-Map-2026-09-28.md](./Pacific-Server-Library-Dependency-Map-2026-09-28.md) | Library files touched; domain status |
 | [Pacific-Unmigrated-Domains-Notes-2026-09-28.md](./Pacific-Unmigrated-Domains-Notes-2026-09-28.md) | Plumbing / Reports lack G3 folders |
+
+## Product & archive inventory (Minecraft, apps, mirrors)
+
+| Doc | Purpose |
+| --- | --- |
+| **[Product-Archive-Repo-Catalog-2026-09-28.md](./Product-Archive-Repo-Catalog-2026-09-28.md)** | **Full catalog** — RootMC Paper suite, Nukkit legacy, Business/Weather Manager, Solana, web, Ava stacks, **~79 inventory mirrors**, future migration tracks A–H |
+
+**Rule:** Document now; **migrate products only after** Pacific residual domains catch up. Do **not** bulk-merge plugins into Pacific server core.
 
 ## G1 (Old) archive
 
@@ -49,8 +57,6 @@ Repo: [`Solar-Pacific-RootRecord-Server-Old`](https://github.com/rootrecordsoftw
 **Do not** start bulk recovery from G0 while Automations / Energy / System residuals are still in flight (high noise, low urgency).
 
 ### G0 unique vs G1 — thin scavenger list
-
-Tops that are easy to miss because G1 nests or omits them as separate roots:
 
 | Theme | G0 packet examples |
 | --- | --- |
@@ -96,8 +102,8 @@ See [`Documentation/06-development/Work-Orders/README.md`](../06-development/Wor
 4. **systemd unit** audit on desk  
 5. **Secrets / tokens** restore (local only)  
 
-**Done without operator tree:** Automations engine live on G3; G1 scheduler trio `MIGRATED.md`; G1 + G0 READMEs published; G0 scavenger list in this index.
+**Documented without executing product migration:** full product/archive catalog (Paper, Nukkit, apps, mirrors); Automations G1 retirement; G0/G1 READMEs.
 
 ---
 
-*Index updated 2026-09-28 ~18:28 HST — G0 section + scavenger list.*
+*Index updated 2026-09-28 ~18:31 HST — product/archive catalog linked.*
