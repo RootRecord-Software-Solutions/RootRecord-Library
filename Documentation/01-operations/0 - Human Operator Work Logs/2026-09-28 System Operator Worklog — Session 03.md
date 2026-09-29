@@ -322,3 +322,10 @@ Filename:
 - Searched the canonical Library work-order documentation for stale active-status strings associated with WO-SRV-001, WO-GH, WO-ECO, and WO-SRV-2026-09-27; no conflicting search hits were returned.
 - Re-read the canonical Work-Order README. Its active execution drivers remain WO-ECO-2026-09-27, WO-SRV-2026-09-27, and WO-GH-2026-09-27. WO-SRV-001 remains Draft/reference, not an active execution driver.
 - No work-order status changes were warranted by this sweep.
+
+
+## Work-Order Completion Placement Check — 2026-09-28
+
+- Rechecked the canonical Work-Order README rule: a work order is moved to `Documentation/06-development/Work-Orders/Complete/` only when its documented acceptance criteria are actually satisfied and its Status is COMPLETE/CLOSED.
+- WO-ECO-001 currently states **Phase 1 COMPLETE / LIVE**, not whole-work-order COMPLETE; its Phase 2+ items remain listed. Therefore it is not moved to `Complete/`.
+- No other active WO reviewed in this session has reached a documented COMPLETE/CLOSED state. No completion-folder move is warranted at this time.
