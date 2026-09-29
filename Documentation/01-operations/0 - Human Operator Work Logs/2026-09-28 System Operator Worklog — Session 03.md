@@ -125,6 +125,12 @@ Rationale: lowest-risk / highest-clarity items first so Pacific poller can run c
 - The old repository still contains historical scheduler/path references for migrated runtime functions. These remain pending the required G3 runtime verification before retirement.
 - Legacy `SKILL.md` documentation files remain intentionally preserved and are not retirement targets.
 
+### Session 04 continuation — Telegram fallback cleanup
+
+- Static comparison found the migrated Telegram relay implementation matches the legacy relay implementation; G3 configuration supplies the Pacific runtime surface.
+- A dormant `RUN_OLLAMA` fallback in Pacific `Communications/telegram/config/relay.conf` still referenced legacy plumbing. It was rewired to `System/scripts/plumbing/run-ollama.sh` in Pacific commit `5d6c237abc928b747dca060b0fdb32152b53faa6`.
+- No legacy Telegram runtime files were removed because live G3 verification remains unavailable.
+
 ### Session 04 continuation — single-flight migration
 
 - The legacy `plumbing/scripts/single-flight.sh` implementation was migrated into Pacific `System/scripts/plumbing/single-flight.sh`.
