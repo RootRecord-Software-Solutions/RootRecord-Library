@@ -3,10 +3,12 @@
 | Field | Value |
 | --- | --- |
 | **Work Order ID** | WO-SRV-2026-09-27 |
-| **Status** | **IN PROGRESS** — Energy + **System LIVE**; next residual domains |
-| **Updated** | 2026-09-28 ~16:50 HST |
+| **Status** | **IN PROGRESS** — Energy + System LIVE; residual G2 domains remain |
+| **Updated** | 2026-09-28 ~16:56 HST |
 
 **Policy:** Do not run the old desk as the poller host.
+
+**Domain naming SOP (standing):** One Pacific folder per domain (the capitalized name already in the tree). Python package name **matches that folder**. Never add a lowercase sibling symlink (e.g. no `energy` → `Energy`) to satisfy G2 imports — rewrite imports instead. Full text: [Pacific-Domain-Import-Playbook-2026-09-28.md](../../00-architecture/Pacific-Domain-Import-Playbook-2026-09-28.md) § Standing rules.
 
 ---
 
@@ -15,23 +17,13 @@
 | Item | Status |
 | --- | --- |
 | systemd ExecStart | Pacific `run-poller.sh` (quoted) |
-| Energy Phase 1 | LIVE (SUMMARY); watch for code=126 after restarts → chmod + energy symlink |
-| **System Phase 1** | **LIVE** — `sys_stats_cycle` → `System/scripts/sys-sample.sh` |
+| Energy | LIVE — folder **`Energy/` only** |
+| System | LIVE — folder **`System/` only** |
 
 ## Residual G2
 
-| Domain | Jobs |
-| --- | --- |
-| reports | worklog_scan |
-| github | setup + sync_all |
-| plumbing | ollama / flm |
-| telegram | council_relay |
-| a-eyes | cam, grab, timelapse |
-| Weather | disabled |
-| energy actions | Phase 2 |
+worklog · github · plumbing · telegram · a-eyes · weather (disabled) · energy actions
 
 ## Next
 
-1. Confirm Energy cycle OK after chmod/symlink if needed
-2. worklog or github or plumbing (pick smallest)
-3. Zero skills paths in jobs.py
+Import next residual domain into its **existing** Pacific folder; rewire jobs; no parallel names.
