@@ -148,6 +148,14 @@ Rationale: lowest-risk / highest-clarity items first so Pacific poller can run c
 
 - Per operator instruction, legacy `SKILL.md` files are to remain in the old repository as documentation artifacts. They are not to be deleted when the associated runtime function is retired.
 
+### Session 04 continuation — Telegram source fallback cleanup
+
+- Direct inspection of the migrated Pacific Telegram relay found one embedded legacy inference fallback in `Communications/telegram/scripts/council-relay.py`.
+- The fallback was rewired from `/home/rootrecord/.ollama/skills/plumbing/scripts/run-infer.sh` to repository-relative Pacific `System/scripts/plumbing/run-infer.sh` resolution in commit `f3bd0a6620e7ee3f0c9877541efe00171c4752c3`.
+- Direct inspection of the migrated Pacific System plumbing scripts found no remaining legacy skills-tree references in the inspected runtime files.
+- Pacific `Communications/telegram/scripts/status.sh` and `load_env.sh` are absent at the inspected paths; no deletion was inferred.
+- Runtime verification remains pending; no legacy runtime functions were retired.
+
 ### Documentation rule
 
 Continue updating the canonical work order and operator worklog as migration steps land. Preserve existing templates, terminology, timestamps, and factual status; do not backfill unverified runtime claims. A work order moves to `Documentation/06-development/Work-Orders/Complete/` only after its acceptance criteria are satisfied.
