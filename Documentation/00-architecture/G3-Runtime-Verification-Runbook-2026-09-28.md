@@ -384,3 +384,4 @@ After those gates pass, retire that completed legacy executable/function immedia
 - Active Pacific Database references in this runbook now use `/home/rootrecord/RootRecord-Ecosystem/2 - RootRecord-Database`.
 - Historical evidence paths under `/home/rootrecord/Database/` are retained when they describe what was actually observed at the time; they are not rewritten into false current evidence.
 - The human `/home/rootrecord/RootRecord-Ecosystem/Pull.sh` workflow is explicitly operator-controlled and may coexist with automated `github_sync_all`; it is not a runtime conflict.
+- **Current refresh — 2026-09-29 ~01:11 HST:** Telegram tokens are provisioned; live relay/model verification remains pending. Pacific poller source now defaults to the canonical Database root; verify the live post-restart log/energy line before closing the poller gate.
