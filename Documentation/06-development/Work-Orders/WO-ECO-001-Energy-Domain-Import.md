@@ -3,29 +3,38 @@
 | Field | Value |
 |-------|--------|
 | **Priority** | P0 |
-| **Status** | **Phase 1 LIVE** — Pacific reads OK (SUMMARY delta2 + river2pro 2026-09-28 ~16:37 HST) |
+| **Status** | **Phase 1 COMPLETE / LIVE** — soak confirmed 2026-09-28 ~16:39–16:40 HST |
 | **Target repo** | `RootRecord-Software-Solutions/RootRecord-Pacific-Solar-Server` (`Energy/`) |
 | **Action plan** | [WO-ECO-001-Action-Plan.md](WO-ECO-001-Action-Plan.md) |
 
-## Done (Phase 1)
+## Phase 1 — done
 
-- [x] Read scripts on Pacific
+- [x] Read scripts on Pacific org git
 - [x] jobs.py EcoFlow commands on Pacific (quoted paths)
-- [x] systemd poller on Pacific
-- [x] Energy lib fill (`read_runner`, ble, api, db)
-- [x] `energy` → `Energy` symlink + `lib/py` PYTHONPATH (Pacific root)
-- [x] Manual + scheduled SUMMARY lines (api/db)
+- [x] systemd poller on Pacific only
+- [x] Energy lib fill (`read_runner`, ble, api, db, config)
+- [x] `energy` → `Energy` symlink + `lib/py` PYTHONPATH
+- [x] Manual SUMMARY + scheduled alternating SUMMARY in poller window
+- [x] ENERGY status=live from Database
 
-## Standing desk note
+## Evidence (operator window)
+
+```text
+SUMMARY=delta2 soc=39% solar=35W ac_out=… src=api db=ok
+SUMMARY=river2pro soc=100% … src=api charge=battery_transfer db=ok
+ENERGY  status=live  B2=41.1%  B1=98.9%  …
+```
+
+## Standing
 
 ```bash
-ln -sfn Energy energy   # at Pacific repo root (import energy.*)
+ln -sfn Energy energy   # Pacific repo root, every checkout
 ```
 
 ## Phase 2+
 
-actions/, hybrid reports, Core-Ops single-writer, commit non-secret lib to org git, archive G2 energy runtime use.
+actions/, hybrid reports, Core-Ops single-writer, optional commit of non-secret lib to org, archive G2 energy runtime.
 
-## Next migration (WO-SRV)
+## Next ecosystem step
 
-System (sys-stats) → then Github → Telegram → A-Eyes → Weather. Zero `~/.ollama/skills` in jobs.py.
+**WO-SRV** → import **System** (sys-stats) off `~/.ollama/skills`.
