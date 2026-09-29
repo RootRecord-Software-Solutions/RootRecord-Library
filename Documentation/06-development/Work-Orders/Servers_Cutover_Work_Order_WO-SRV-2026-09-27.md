@@ -34,6 +34,12 @@
 | Weather | `weather_poller` | Already **disabled** |
 | Network globe | cwd | **LIVE** — cwd now Pacific |
 
+### Legacy `SKILL.md` preservation rule
+
+- Legacy domain `SKILL.md` files are intentional documentation artifacts and must remain in the old repository after a function/domain migration.
+- Retirement applies to completed executable/runtime functions and their active scheduler references, not to the legacy `SKILL.md` documentation files.
+- Do not delete or otherwise remove legacy `SKILL.md` files solely because the associated runtime has migrated to Pacific.
+
 ## Static Cutover Check — 2026-09-28 ~21:50 HST
 
 - Pacific `RootRecord-Pacific-Solar-Server` search returned no `/home/rootrecord/.ollama/skills/` references.
