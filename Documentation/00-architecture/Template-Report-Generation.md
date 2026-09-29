@@ -72,6 +72,13 @@ in the validation JSON (`draft.fields`).
   - pass the facts as a `DESK_LIVE_FILE` block, so the DATA GATE sees "measured" lines; or
   - add a small `rr-draft` specialist whose SYSTEM is only "fill KEY: lines from the facts".
   - Re-test with one call either way.
+- **Desk-file fix (2026-09-29 ~05:10).** With the hook on (`RR_TEMPLATE_SPECIALIST_HOOK=1`, the default), `draft()` writes the same fact lines it already has to a temporary desk file (`$XDG_RUNTIME_DIR/rr-template-desk-*.txt`, mode 0600).
+  - It passes the file as `DESK_LIVE_FILE`, so the NPU sees "[desk: measured — cite only these lines]". The prompt then refers to those lines instead of repeating them, and ends with "Answer now with only the KEY: lines."
+  - The file is deleted in `finally`. `RR_TEMPLATE_SPECIALIST_HOOK=0` restores the old path (no hook, no desk file).
+  - Live, 2 NPU calls on the work-order sample:
+    1. 05:10:58: 9580 ms. The reply was replaced by `run-infer.sh` `sanitize()` with "No live desk data attached.", most likely because the 1B model echoed the DATA GATE text containing `DESK_LIVE:`. Both fields fell back. (`template_fill` now records `sanitized_by_run_infer`.)
+    2. 05:11:52: 7028 ms, after adding the end-of-prompt reminder. **INTENT was accepted** ("The measured desk lines indicate a need for a restart to ensure accurate data."). SCOPE fell back: it echoed the desk-layout path, and the number check rejected `1`, `1`.
+  - **Caution:** the accepted INTENT has no numbers, so it passed the checks, but "to ensure accurate data" is **not supported by the facts**. The number check cannot catch unsupported claims made only in words. Treat model free text as a draft for human review.
 
 ## 4. Structure validator (`Reports/template_validate.py`)
 
@@ -123,3 +130,4 @@ Tests: [07-testing/2026-09-29-template-report-samples.md](../07-testing/2026-09-
 
 *Created 2026-09-29 HST (g3-template-reports).*
 *Updated 2026-09-29 ~05:03 HST (specialist hook wired in; output paths belong to the test-reports pass).*
+*Updated 2026-09-29 ~05:14 HST (desk-file drafting pass).*

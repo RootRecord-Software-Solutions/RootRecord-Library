@@ -115,6 +115,32 @@ Log: one JSON line per decision → `2 - RootRecord-Database/Logs/AI/Routing/rou
 
 Conclusion: the keyword additions fix the phrasings they target, but they don't generalize by themselves. The blind misses are vocabulary gaps and structure (topic word vs reasoning frame). Proposed next steps, not done: normalize hyphen and space (`master key` = `master-key`); add unit words (`kilowatt*`, `percent`) to energy; give "better to X or Y" a comparative-frame regex that goes to rr-reason. Then score against a **new** blind set.
 
+**v3 update (2026-09-29 ~05:08–05:10 HST, router `3.0`, config `version: 3`).** These were the structural fixes above, done as proposed:
+
+- **Separator normalization.** Keyword matching now treats a space, hyphen or underscore the same (`kw_normalize`), so "master key" = `master-key` = `master_key`, and "a eyes" = `a-eyes`. Duplicate terms that now collide (`time-lapse` / `time lapse`, `single-flight` / `single flight`) count once, at the higher weight. Regex rules still see separators (`wo-[a-z]+`, token shapes).
+- **Energy unit words:** `kilowatt*` 3, `kwh` 3, `watts` 3, `amps` 3, `amp` 2, `ampere*` 3, `amperage` 3, `volt*` 3, `percent*` 2.
+- **Comparison rule:** rr-reason regex `comparison_frame` (weight 6). "is it / would it be / which is … better/best/cheaper/safer … or …" and "better to/than/for … or …" now beat one or two topic words.
+- A **new blind set, `specialist-heldout-2026-09-29d-blind.json`** (21 prompts), was written at 05:08:05, before any v3 change or result, and scored once after the change.
+
+| Set | v2 | v3 |
+| --- | --- | --- |
+| Original labelled (35) | 35/35 | **35/35** |
+| Labelled + v2 tuning rows (53) | 53/53 | 53/53 |
+| Old held-out (8) | 5/8 | 5/8 |
+| Held-out 29b (27, 04:51) | 27/27 | 27/27 |
+| Blind 29c (22, 04:55) | 17/22 (77.3%) | 21/22 (95.5%). Optimistic: its misses motivated the v3 fixes |
+| **New blind 29d (21, 05:08)** | 14/21 (66.7%) | **20/21 (95.2%)** |
+
+Caveat: set 29d was written knowing which three fixes were planned, and it deliberately includes unit, comparison and separator prompts. So it tests the fixes rather than being a random sample.
+
+v3 misses:
+- 29c: "What's the high temperature going to be tomorrow?" → generic (`temperature` weight 1).
+- 29d: "What's the rollback if the new poller build breaks?" → rr-system instead of rr-council-bruce.
+- Old held-out: H2 / H4 / H5, unchanged.
+- "Where is the api-key for the weather feed stored?" is correct but only just reaches the threshold (0.30).
+
+Report: `2 - RootRecord-Database/Logs/AI/Routing/router-test-2026-09-29-v3.md`.
+
 ## 4. Gate — `run-infer.sh` hook (LANDED 2026-09-29 ~04:56 HST, OFF by default)
 
 `System/scripts/plumbing/run-infer.sh` (backup `run-infer.sh.pre-hook`). The file was re-read first; the JSONL-logging and single-flight changes were already in it.
@@ -152,7 +178,7 @@ Conclusion: the keyword additions fix the phrasings they target, but they don't 
 
 ## 7. Open items
 
-- Router generalization: on the blind set, v2 = v1 = 17/22 (§3.1). The next tuning needs a new blind set.
+- Router generalization: v2 gave no blind gain (17/22). v3's structural fixes gave blind 29c 21/22 and new blind 29d 14/21 → 20/21 (§3.1). The remaining misses are "temperature" (weight 1) and rollback phrasing going to system instead of Bruce.
 - The hook is landed but OFF for the relay and voices. Turning it on for them (`RR_SPECIALIST_ROUTING=1` in their environment) is Alexander's call.
 - With the hook, the NPU gets the specialist SYSTEM (live: `rr-weather` answered "No data — I can't see the desk." for a rain question). But `rr-exec`'s SYSTEM (desk layout plus DATA GATE) does not suit facts-only drafting: its reply printed the desk layout and "No data" ([template record](../07-testing/2026-09-29-specialist-hook-and-router-v2.md)).
 - Replies are only as good as 1B/1.5B/3B models allow.
@@ -160,3 +186,4 @@ Conclusion: the keyword additions fix the phrasings they target, but they don't 
 
 *Created 2026-09-29 ~04:25 HST (g3-specialists pass).*
 *Updated 2026-09-29 ~05:02 HST (hook + router v2 pass).*
+*Updated 2026-09-29 ~05:14 HST (router v3 pass).*

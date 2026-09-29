@@ -193,3 +193,19 @@ Backup: `/home/rootrecord/Database/GITHUB/g3-voice-reports2.bak-20260929-042153/
 - Whether to set `RR_SPECIALIST_ROUTING=1` for the relay and voices. That needs their environment changed and probably a restart.
 - Template drafting: pick a facts `DESK_LIVE_FILE` block or a small `rr-draft` specialist (one re-test).
 - Router next step: structural fixes plus a new blind set, not more synonyms.
+
+## g3-router-v3 pass (router structural fixes + template desk file), 05:07–05:15 HST
+
+- **Router v3 (router 3.0, config v3):** keyword matching now ignores space/hyphen/underscore differences, so "master key" matches `master-key`. Added energy unit words (kilowatt, kWh, watts, amps, volts, percent) and an rr-reason `comparison_frame` rule, so "better to X or Y" goes to reasoning.
+  - A new blind set of 21 prompts was written at 05:08, before any change, and scored once.
+  - **Results:** labelled 35/35 kept; new blind **14/21 → 20/21**; 04:55 blind 17/22 → 21/22 (optimistic); old held-out 5/8 unchanged.
+- **Template drafting:** `template_fill.py` writes its facts to a temporary desk file (mode 0600, deleted afterwards) and passes it as `DESK_LIVE_FILE`. The `RR_TEMPLATE_SPECIALIST_HOOK=0` off-switch is kept.
+  - **2 live NPU calls:** 9580 ms and 7028 ms, FLM peak 2006 MB, MemAvailable minimum 7603 MB.
+  - Call 1 was blanked by `run-infer.sh` `sanitize()`.
+  - Call 2 got **INTENT accepted but partly unsupported** ("…to ensure accurate data"); SCOPE fell back.
+  - Afterwards `ollama ps` was empty, no flm was running, and no temp files were left.
+  - Record: [2026-09-29-router-v3-and-template-desk-file.md](../../07-testing/2026-09-29-router-v3-and-template-desk-file.md).
+
+**Needs Alexander:**
+- Model free text still needs human review; the number check cannot catch word-only claims.
+- Decide whether to add a claim/overlap check or keep templates deterministic-only (`--draft none`).
