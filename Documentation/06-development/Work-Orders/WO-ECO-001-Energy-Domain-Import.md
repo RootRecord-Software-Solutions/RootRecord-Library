@@ -3,25 +3,29 @@
 | Field | Value |
 |-------|--------|
 | **Priority** | P0 |
-| **Status** | **Pacific poller + Energy job paths live** — fill `Energy/lib/read_runner.py` from G2; then soak; no old desk |
+| **Status** | **Phase 1 LIVE** — Pacific reads OK (SUMMARY delta2 + river2pro 2026-09-28 ~16:37 HST) |
 | **Target repo** | `RootRecord-Software-Solutions/RootRecord-Pacific-Solar-Server` (`Energy/`) |
 | **Action plan** | [WO-ECO-001-Action-Plan.md](WO-ECO-001-Action-Plan.md) |
 
-## Done
+## Done (Phase 1)
 
-- Energy read scripts on org Pacific
-- jobs.py EcoFlow commands → Ecosystem Energy (quoted paths)
-- systemd `rr-rootserver-poller` → Pacific `run-poller.sh`
-- Tunnel READY; ENERGY heartbeat from Database
+- [x] Read scripts on Pacific
+- [x] jobs.py EcoFlow commands on Pacific (quoted paths)
+- [x] systemd poller on Pacific
+- [x] Energy lib fill (`read_runner`, ble, api, db)
+- [x] `energy` → `Energy` symlink + `lib/py` PYTHONPATH (Pacific root)
+- [x] Manual + scheduled SUMMARY lines (api/db)
 
-## Operator next
+## Standing desk note
 
-1. `cp -an` G2 `energy/lib` (must include `read_runner.py`) → Pacific `Energy/lib`
-2. Manual `delta2-read.sh` until exit 0
-3. `systemctl --user restart rr-rootserver-poller.service`
-4. Confirm SUMMARY / no structural cycle FAIL ≥15 min
-5. Do not use G2 as poller host; archive G2 energy after soak
+```bash
+ln -sfn Energy energy   # at Pacific repo root (import energy.*)
+```
 
 ## Phase 2+
 
-actions/, hybrid reports, Core-Ops single-writer policy.
+actions/, hybrid reports, Core-Ops single-writer, commit non-secret lib to org git, archive G2 energy runtime use.
+
+## Next migration (WO-SRV)
+
+System (sys-stats) → then Github → Telegram → A-Eyes → Weather. Zero `~/.ollama/skills` in jobs.py.
