@@ -3,12 +3,15 @@
 | Field | Value |
 | --- | --- |
 | **Date** | 2026-09-28 (HST) |
-| **Updated** | 2026-09-28 ~18:13 HST — G1 scheduler trio MIGRATED.md |
+| **Updated** | 2026-09-28 ~18:16 HST — G1 README status list live |
 | **Source repo** | https://github.com/rootrecordsoftwaresolutions/Solar-Pacific-RootRecord-Server-Old |
+| **Canonical status list on G1** | [README.md on -Old](https://github.com/rootrecordsoftwaresolutions/Solar-Pacific-RootRecord-Server-Old/blob/main/README.md) |
 | **Tree snapshot** | main @ inventory (~7286 paths) |
 | **Generation** | **G1** — see [Migration-Lineage-Three-Generations-2026-09-28.md](./Migration-Lineage-Three-Generations-2026-09-28.md) |
 | **Rule** | Forensic map only — do not bulk-import into live G3 |
 | **Authority** | Org [RootRecord-Software-Solutions](https://github.com/RootRecord-Software-Solutions) |
+
+**Both sides:** Keep the migration status table in the G1 README and this Library map in sync when a packet gains `MIGRATED.md` or a domain import completes.
 
 ---
 
@@ -51,6 +54,8 @@ Largest tops by path count (approx.):
 | `hybrid-night-poller/` | **MIGRATED** | `RootRecord-Pacific-Solar-Server/Automations/scripts/rootserver_poller.py` + stack |
 | `heartbeat/` | **MIGRATED** | `jobs.py` builtin `heartbeat` |
 | `net-gate/` | **MIGRATED** | `Automations/scripts/poller/internet_gate.py` + tunnel jobs |
+
+Full single list (migrated / not / archive): **[G1 README](https://github.com/rootrecordsoftwaresolutions/Solar-Pacific-RootRecord-Server-Old/blob/main/README.md)**.
 
 These were G1 scheduler functionality, not a model for future AI skill design. AI processing redesign is planned separately; do not treat remaining skill shells as live runtime.
 
@@ -177,7 +182,7 @@ For each packet:
 3. Diff against G2/G3.  
 4. Copy only unique useful scripts into the G3 domain folder.  
 5. Update `jobs.py` only if a job should call the recovered script.  
-6. Document in Library (session note or WO).  
+6. Document in Library (session note or WO) **and** update the G1 [README status tables](https://github.com/rootrecordsoftwaresolutions/Solar-Pacific-RootRecord-Server-Old/blob/main/README.md).  
 7. Prefer **`MIGRATED.md`** over silent delete when a packet is fully superseded.  
 8. One domain at a time; reload stack after path changes.  
 
@@ -187,6 +192,7 @@ For each packet:
 
 | Doc | Role |
 | --- | --- |
+| **[G1 README — migration status](https://github.com/rootrecordsoftwaresolutions/Solar-Pacific-RootRecord-Server-Old/blob/main/README.md)** | Single list on the archive repo |
 | [Migration-Lineage-Three-Generations-2026-09-28.md](./Migration-Lineage-Three-Generations-2026-09-28.md) | Order of operations |
 | [Pacific-Jobs-Path-Inventory-2026-09-28.md](./Pacific-Jobs-Path-Inventory-2026-09-28.md) | G2 residual job paths |
 | [Pacific-Server-Library-Dependency-Map-2026-09-28.md](./Pacific-Server-Library-Dependency-Map-2026-09-28.md) | G3/Library status |
@@ -195,4 +201,4 @@ For each packet:
 
 ---
 
-*Inventory derived from GitHub tree listing of Solar-Pacific-RootRecord-Server-Old main, 2026-09-28 HST. Path counts approximate. Scheduler retirement recorded ~18:13 HST.*
+*Inventory derived from GitHub tree listing of Solar-Pacific-RootRecord-Server-Old main, 2026-09-28 HST. Path counts approximate. G1 README added ~18:16 HST.*
