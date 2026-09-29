@@ -25,7 +25,7 @@
 
 | What | Where | Git |
 | --- | --- | --- |
-| Code | Pacific `Media/Voice/scripts/` — `voice_generate.py` (engine: render / stitch / clips / asr), `voice-render.sh` (lock wrapper), `speakers.py` (personas, gate, retire), `speakable.py`, `hawaiian_lexicon.py`, `test_hawaiian_lexicon.py`, `clip_catalog.py`, `voice_asr_check.py`, `system_perf.py` | tracked |
+| Code | Pacific `Media/Voice/scripts/` — `voice_generate.py` (engine: render / stitch / clips / asr), `voice-render.sh` (lock wrapper), `speakers.py` (personas, gate, retire), `speakable.py`, `hawaiian_lexicon.py`, `test_hawaiian_lexicon.py`, `clip_catalog.py`, `voice_asr_check.py`, `system_perf.py`, `voice_reports.py` (batch-2 report templates, stdlib) | tracked |
 | Venv | Pacific `Media/Voice/.venv` (uv CPython 3.12, 1.3 GB, incl. openai-whisper for QC) | ignored (`.venv/`) |
 | Model | Database `AI/Kokoro/Kokoro-82M/` (weights, config, all 54 voice packs; 340 MB; copied from G1, source untouched) | ignored (`/AI/Kokoro/Kokoro-82M/`, `*.pth`, `*.pt`) |
 | ASR model | Database `AI/Whisper/tiny.pt` (72 MB, on-demand QC only) | ignored (`*.pt`) |
@@ -34,7 +34,8 @@
 | History | Database `Media/Audio/Voice/Archive/<report>_YYYYMMDDTHHMM.wav` (+ sidecars) | ignored (`/Media/Audio/Voice/Archive/`) |
 | Phrase clips | Database `Media/Audio/Voice/Clips/<Persona>/<slug>.wav` | ignored (`*.wav`) |
 | Clip manifest | Database `Media/Audio/Voice/Clips/clips_manifest.json` | **tracked** |
-| system_perf text | Database `System/Reports/system_perf_current.md` → `Archive/system_perf_YYYYMMDDTHHMM.md` | tracked |
+| system_perf text | Database `System/Reports/system_perf_current.md` → `Archive/system_perf_YYYYMMDDTHHMM.md` (stays in `System/Reports`) | tracked |
+| Voice report text (batch 2) | Database `Media/Audio/Voice/Reports/<report>_current.md` → `Reports/Archive/<report>_YYYYMMDDTHHMM.md` (WAV history → `Media/Audio/Voice/Archive/` as above) | `_current.md` tracked; `Reports/Archive/` ignored (rotates every run) |
 
 Env overrides: `RR_DATABASE_ROOT`, `RR_KOKORO_MODEL_DIR`, `RR_VOICE_OUT_DIR`, `RR_VOICE_THREADS` (default 4 of 8 cores), `RR_VOICE_GAP_MS` (180), `RR_VOICE_PY`, `RR_WHISPER_DIR`, `RR_ESPEAK_DATA`. No `~/.ollama/skills/…`, `~/Media/…` or `/origin` paths remain.
 
@@ -53,7 +54,7 @@ Live-facts gate: G1 `speakers.is_live` is kept. Text with no live facts does not
 
 ## 4. Phrase-clip cache (stitcher)
 
-- **Catalog** (`clip_catalog.py`): 68 clips. Ava 54 (48 half-hour chimes, "It's three p.m." etc., plus NWS/official/boot lines), Bruce 5 (hourly solar, EcoFlow offline, remaining tasks, system intro/outro), Carly 9 (quake none/intro, Kilauea intro + HVO notice, hurricane intro/quiet/outro, EcoFlow offline). Each entry names its G1 source template. Titles that carried a time in G1 ("Hawaii Earthquake Report at <time>.") are cached as the fixed sentence, and the time is spoken live as its own sentence.
+- **Catalog** (`clip_catalog.py`): 68 clips in pass 1, **81** after batch 2 (2026-09-29 04:27): +9 fixed lines (Ava "State forecast for today./tonight.", "Morning/Midday/Late report.", "End of report.", "EcoFlow is offline."; Carly "Energy desk report."; Bruce "No open tasks on file.") + 4 **PROPOSED** pronunciation clips (`Ava/proposed_*`, catalog `proposed: true`, explicit `spoken` respelling; the stitcher never uses them). 81/81 QC PASS. Pass-1 inventory: Ava 54 (48 half-hour chimes, "It's three p.m." etc., plus NWS/official/boot lines), Bruce 5 (hourly solar, EcoFlow offline, remaining tasks, system intro/outro), Carly 9 (quake none/intro, Kilauea intro + HVO notice, hurricane intro/quiet/outro, EcoFlow offline). Each entry names its G1 source template. Titles that carried a time in G1 ("Hawaii Earthquake Report at <time>.") are cached as the fixed sentence, and the time is spoken live as its own sentence.
 - **Manifest** (`clips_manifest.json`, tracked): per clip `text`, `spoken`, `persona`, `voice`, `speed`, `sha256`, `duration_s`, `peak_dbfs`, `rms_dbfs`, `lead_silence_ms`, `trimmed_ms`, `qc`, `rendered` (ISO −10:00), engine versions, `source`, and `asr` (heard/score/verdict).
 - **Stitch rule**: the text is split into sentences. A sentence whose exact text (case/space-normalized) matches a QC-PASS clip for that persona *and* voice is reused. Every other sentence (numbers, names, values), or any sentence whose clip is missing, is rendered live as a whole sentence. Joins: every part is trimmed (−45 dBFS, 25 ms kept), RMS-normalized on speech frames to **−20 dBFS**, peak-capped at **−1.5 dBFS**, 8 ms fades, **180 ms** silence between sentences (90 ms at the ends). Same 24 kHz / 16-bit / mono format as the clips.
 - **Quality gate** (every clip): format 24000/1/PCM_16, duration > 0.2 s, peak < −1 dBFS, silence trimmed. Result: **68/68 PASS** (peak −6.7 … −2.0 dBFS, speech RMS −20.6 … −20.0 dBFS, 0.77–7.11 s). Whisper-tiny round trip: **59/68 match** (score ≥ 0.8). The 9 "review" clips are on the manual listen list in the QC test record: 2 chimes (02:00, noon) plus respelled Hawaiian names and NWS expansions that ASR can't judge.
@@ -64,16 +65,16 @@ Live-facts gate: G1 `speakers.is_live` is kept. Text with no live facts does not
 | G1 report (job id) | G1 schedule (HST) | Persona | G3 data source | G3 output | Port status |
 | --- | --- | --- | --- | --- | --- |
 | system_perf (`system-performance`) | :06 hourly | Bruce | `/proc`, `/sys/class/power_supply`, `shutil.disk_usage` (stdlib) | `system_perf_current.wav` + `System/Reports/system_perf_current.md` | **LANDED, PASS**, gated OFF (`RR_VOICE_SYSTEM_PERF=1`) |
-| hourly_chime (`time-chime`) | :00 / :30 | Ava | clock only | `hourly_chime_current.wav` | clips 48/48 cached, stitch **PASS**. Job **PROPOSED**: it only makes sense with playback |
+| hourly_chime (`time-chime`) | :00 / :30 | Ava | clock only | `hourly_chime_current.wav` + `Reports/hourly_chime_current.md` | **LANDED, PASS** (fully cached, no model load, 0.3 s), gated OFF (`RR_VOICE_HOURLY_CHIME=1`). Useful mainly once playback exists |
 | hourly-clip-reports (+ `hourly-clip-prebuild` :55) | :02 hourly | Bruce (hourly/solar) | Database `Energy/` (soc, watts last JSON) + Weather | `hourly_solar_current.wav` | **PROPOSED** (rebuild as template + stitch, not G1 clip-stitch) |
-| nws_hawaii (`nws-hawaii-counties`) | :07 :22 :37 :52 | Ava | Database `Weather/Hawai'i/` (Pacific weather poller) | `nws_hawaii_current.wav` | **PROPOSED**; intro/county/no-alerts clips cached |
+| nws_hawaii (`nws-hawaii-counties`) | :07 :22 :37 :52 | Ava | Database `Weather/Hawai'i/hfo/api.weather.gov/alerts/active/area=HI/area=HI_current.json` + `Weather/Hawai'i/reports/0 Level Processing/sfp_state_forecast_current.md` (first period) | `nws_weather_current.wav` + `Reports/nws_weather_current.md` | **LANDED, PASS** (report id `nws_weather`), gated OFF (`RR_VOICE_NWS=1`). Per-county breakdown not ported (API sample is state-wide) |
 | official_weather_media | every 10 min | Ava | `Weather/Hawai'i/hurricanes` + NWS products | `official_weather_current.wav` | **PROPOSED**; no-statement clip cached |
-| earthquake_hourly (+ `earthquake-m2-poll` 10 min) | :08 hourly | Carly | Pacific `Geology` domain (USGS) → Database `Geology/` (empty today) | `earthquake_hourly_current.wav` | **PROPOSED**; intro/none clips cached |
-| council_quake | every 2 min | Carly | same as above | `council_quake_current.wav` | **PROPOSED** (G1 fed the Telegram council, so delivery-bound) |
+| earthquake_hourly (+ `earthquake-m2-poll` 10 min) | :08 hourly | Carly | Pacific `Geology` domain (USGS) → Database `Geology/` | `earthquake_hourly_current.wav` | **BLOCKED — skipped**: no USGS data collected (Database `Geology/` empty, Pacific `Geology/` README only). Needs a USGS collector first (new network collector — not added). Intro/none clips cached |
+| council_quake | every 2 min | Carly | same as above | `council_quake_current.wav` | **BLOCKED** (no USGS data) and delivery-bound (G1 fed the Telegram council) |
 | hurricane_desk (+ evening) | 05/09/12/20 :50, 16:55 | Carly | `Weather/Hawai'i/hurricanes` | `hurricane_desk_current.wav` | **PROPOSED**; intro/quiet/outro clips cached |
-| energy_report | every 30 min | Carly | Database `Energy/` (Delta 2 / River 2 Pro last JSON) | `energy_report_current.wav` | **PROPOSED** |
-| remaining_tasks | :32 hourly | Bruce | Library work orders / Database `Worklog/` | `remaining_tasks_current.wav` | **PROPOSED** (G3 task source not defined) |
-| morning / midday / late / day reports (+ `_play`, slots, merged-morning 10:20) | 09:00 (+:05, 09:10), 12:00 (+12:05, 13:00), 18:00, 21:00 (+21:08), 23:30 | Ava | Energy + Weather + System + Worklog | `morning_report_current.wav`, `midday_report_current.wav`, `late_report_current.wav`, … | **PROPOSED**: G1 wrote these with an LLM, so they need a `run-infer.sh` route decision first |
+| energy_report | every 30 min | Carly | Database `Energy/soc/{delta2,river2pro}-last.json` + `Energy/watts/…-last.json` (EcoFlow BLE) | `energy_report_current.wav` + `Reports/energy_report_current.md` | **LANDED, PASS**, gated OFF (`RR_VOICE_ENERGY=1`) at :15/:45. Vision caption skipped (as asked). Stale (> 30 min) readings are said as such |
+| remaining_tasks | :32 hourly | Bruce | Library `06-development/Work-Orders/*.md` unchecked `- [ ]` boxes (27 in 9 work orders today) | `remaining_tasks_current.wav` + `Reports/remaining_tasks_current.md` | **LANDED, PASS**, gated OFF (`RR_VOICE_REMAINING=1`). Reads the Library read-only |
+| morning / midday / late reports (+ `_play`, slots, merged-morning 10:20) | 09:00, 12:00, 21:00 (G3: 09:02 / 12:02 / 21:02) | Ava | Energy + Weather (alerts + SFP) + host `/proc` + work-order count | `morning_report_current.wav`, `midday_report_current.wav`, `late_report_current.wav` + `Reports/*_current.md` | **LANDED, PASS**, template-first, gated OFF (`RR_VOICE_ROLLUPS=1`). Optional one-line LLM summary through `run-infer.sh` (`RR_VOICE_ROLLUP_LLM=1`, caller `voice_rollup`, lengths-only log) PASS once. G1 `day` (18:00) and 23:30 slots not ported (**PROPOSED**) |
 | boot_brief / audio_request (`boot_prelims`) | on boot | Ava (boot) | System + Energy last JSON | `boot_brief_current.wav` | **PROPOSED**; boot status clips cached |
 
 ## 6. Gates, and what enabling needs
@@ -82,7 +83,17 @@ Live-facts gate: G1 `speakers.is_live` is kept. Text with no live facts does not
 - **Delivery is OFF** everywhere: no Telegram `sendVoice`, no AWS radio push (G1 `_push_aws_radio`/`publish_current` were deliberately not ported), and no speaker playback. Enabling needs Alexander's sign-off plus:
   1. **Telegram**: a sendVoice step that converts WAV → OGG/Opus (the Bot API wants OGG/Opus for voice notes; the OGG goes in git-ignored `Archive/`), wired through the existing council relay / `Communications/telegram` (single `getUpdates` owner). It must not send when unchanged or when the gate skips.
   2. **Speakers**: a playback step (e.g. `pw-play`/`aplay`) behind its own flag, with quiet hours and a queue so two reports never overlap.
-- Scheduled report jobs other than `system_perf` are not added (see §5).
+- Batch 2 (2026-09-29 04:31, all in the same `jobs.py`, each `enabled = os.environ.get(FLAG, "0") == "1"`, read only at poller start, **no delivery**; command `nice -n 10 python3 {PACIFIC}/Media/Voice/scripts/voice_reports.py <report>`):
+
+  | Job id | Schedule (HST) | Flag |
+  | --- | --- | --- |
+  | `voice_hourly_chime` | EVERY_MINUTE `only_at_minutes=[0, 30]` | `RR_VOICE_HOURLY_CHIME=1` |
+  | `voice_nws_weather` | EVERY_MINUTE `[7, 22, 37, 52]` | `RR_VOICE_NWS=1` |
+  | `voice_energy_report` | EVERY_MINUTE `[15, 45]` | `RR_VOICE_ENERGY=1` |
+  | `voice_remaining_tasks` | EVERY_MINUTE `[32]` | `RR_VOICE_REMAINING=1` |
+  | `voice_morning_report` / `voice_midday_report` / `voice_late_report` | ON_AT `09:02` / `12:02` / `21:02` | `RR_VOICE_ROLLUPS=1` (+ `RR_VOICE_ROLLUP_LLM=1` for the LLM summary line) |
+
+  If the single-flight lock is busy the text `_current.md` is still written and the WAV is skipped (rc 75 from `voice-render.sh`, logged in the JSON line). Not scheduled: earthquake/council_quake (no data), hourly solar, official_weather_media, hurricane_desk, boot_brief (**PROPOSED**).
 
 ## 7. Naming and formats standard — **PROPOSED**
 
