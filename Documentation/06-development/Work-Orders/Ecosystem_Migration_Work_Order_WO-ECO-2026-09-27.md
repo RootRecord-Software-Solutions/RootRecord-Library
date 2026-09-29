@@ -7,7 +7,7 @@
 | **Status** | IN PROGRESS — Pacific runtime cut over to Ecosystem Servers path |
 | **Owner** | RootRecord |
 | **Related** | Library online; WO-SRV; domain wiring 2026-09-28 |
-| **Updated** | 2026-09-28 (HST) |
+| **Updated** | 2026-09-29 (HST) |
 
 **Scope:** Establish clean ownership boundaries between the local `RootRecord-Ecosystem` tree and independent GitHub repositories; migrate durable knowledge and runtime artifacts out of the legacy single-tree model.
 
@@ -99,8 +99,8 @@ RootRecord-Ecosystem
 
 ### RootRecord-Database + Weather Database
 
-- **GitHub:** https://github.com/RootRecord-Software-Solutions/RootRecord-Database (local `/home/rootrecord/RootRecord-Ecosystem/2 - RootRecord-Database`)
-- **Local:** `2 - RootRecord-Database` / `/home/rootrecord/Database/`
+- **GitHub:** https://github.com/RootRecord-Software-Solutions/RootRecord-Database
+- **Local / canonical:** `/home/rootrecord/RootRecord-Ecosystem/2 - RootRecord-Database`
 - **GitHub weather publication:** https://github.com/rootrecordsoftwaresolutions/RootRecord-Weather-Database
 
 ### Master-Prompt
@@ -133,7 +133,7 @@ RootRecord-Ecosystem
 - [ ] Keep generated content out of Library and runtime git trees
 - [ ] Website continues via existing mirror
 - [ ] Node: leave placeholder
-- [ ] **Open (2026-09-29): two Database roots.** Live runtime writes to `/home/rootrecord/Database/` (not a git repo: `Logs/Automations`, `ENERGY`, `SYSTEM`, `WORKLOG`, `GITHUB`, …), while the org repo checkout `…/2 - RootRecord-Database` (`RootRecord-Software-Solutions/RootRecord-Database`) holds `Media/Images`, `Logs/Migration`, `Logs/Github`, …. Which root is authoritative, and how they sync, is unresolved; see WO-DATA.
+- [x] **Resolved 2026-09-29:** the active Pacific source paths now use the canonical Ecosystem Database root `/home/rootrecord/RootRecord-Ecosystem/2 - RootRecord-Database`. The older `/home/rootrecord/Database/` tree is retained only where historical/runtime evidence or operator-controlled workflows still reference it; it is not the active Database authority. See WO-DATA for the boundary record.
 
 ---
 
