@@ -10,40 +10,27 @@ Companion to [WO-RPT-001-Reports-Worklog-Domain-Import.md](./WO-RPT-001-Reports-
 
 ## Phase B — Path rewire (LIVE 2026-09-28 ~19:04 HST)
 
-- [x] Port `worklog_lib.sh` (hygiene prunes + domain tags)
-- [x] Port `worklog_once.sh`, `worklog_poller.sh`
-- [x] Rewire `jobs.py` `worklog_scan` → Pacific `Reports/scripts/worklog_once.sh`
-- [x] Desk: confirm `OK wrote/updated` + advancing `worklog_current.md`
-- [x] Domain tags observed (`Automations`, `Reports`, `System`, `Database`, …)
+- [x] Port worklog scripts; rewire `worklog_scan`; desk soak confirmed
 
-## Phase C — Daily Library roll-up (OPEN)
+## Phase C — Daily Library roll-up (SHIPPED 2026-09-28)
 
-- [ ] Script: summarize today’s WORKLOG segments → optional append under Library ops logs
-- [ ] Use Session template placeholders; no secrets
-- [ ] Job: `ON_AT` ~18:30 HST or operator-chosen
-- [ ] Migration progress stub (domain status lines)
+- [x] `Reports/scripts/daily_roll_up.sh` — measured counts → Session auto.md
+- [x] Job `reports_daily_roll_up` ON_AT **18:30** HST
+- [ ] Desk: run once after sync to confirm file under Library ops logs
 
-## Phase D — Weekly archive (OPEN)
+```bash
+bash "/home/rootrecord/RootRecord-Ecosystem/1 - Servers/1 - RootRecord-Pacific-Solar-Server/Reports/scripts/daily_roll_up.sh"
+```
 
-- [ ] Implement WO-ARCH rules for **logs** → `01-operations/archive/YYYY-Www/`
-- [ ] Closed WOs use `Work-Orders/Complete/` (not weekly trees)
-- [ ] Schedule Sunday ~19:00 HST after manual proof
+## Phase D — Weekly log archive (SHIPPED 2026-09-28)
+
+- [x] `Reports/scripts/weekly_archive_logs.sh` (WO-ARCH rules for logs)
+- [x] Closed WOs stay on `Work-Orders/Complete/` path (not weekly)
+- [x] Job `reports_weekly_archive` ON_AT **19:00** HST (safe daily; only moves pre-week files)
+- [ ] Optional: `DRY_RUN=1` once on desk before first real move
 
 ## Phase E — G1 hygiene (DONE 2026-09-28)
 
-- [x] `MIGRATED.md` on G1 `reports/`
-- [x] Update Old README status table (MIGRATED count → 4)
+- [x] `MIGRATED.md` on G1 `reports/` + Old README
 
-## Enhancement checklist
-
-| Enhancement | Phase |
-|-------------|-------|
-| Dual-output design (Database + Library) | A docs; C job |
-| Domain tags on Pacific-path events | **B LIVE** |
-| Extra prunes (transcripts, credential-ish paths) | **B LIVE** |
-| Weekly archive automation | D |
-| Migration progress surface | C |
-| Deny public-draft G1 bulk import | standing |
-| G1 reports marker | **E DONE** |
-
-*Phase B LIVE + E 2026-09-28 HST.*
+*C/D scripts + schedules 2026-09-28 HST.*
