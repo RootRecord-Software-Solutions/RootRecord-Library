@@ -244,3 +244,10 @@ Filename:
 - Reconciled the Work-Order README status for WO-SRV-2026-09-27 and WO-SRV-001 so they no longer describe Telegram/A-Eyes source landing as future work.
 - Both remain in progress because runtime verification and the documented per-function legacy retirement sequence remain outstanding.
 - No work order was moved to `Complete/` because acceptance criteria are not yet satisfied.
+
+
+## Documentation Reconciliation — WO-SRV-001 Status — 2026-09-28
+
+- The Work-Order README previously labeled WO-SRV-001 as in progress, but the WO itself states `Draft — blocked on WO-ECO-001 (and later domain imports)`.
+- The README was corrected to match the WO's own status. WO-SRV-2026-09-27 remains the active in-progress cutover work order for the current residual runtime verification/retirement sequence.
+- No scope was expanded and no runtime code was changed by this reconciliation.
