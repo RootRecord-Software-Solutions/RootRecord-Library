@@ -30,14 +30,14 @@
 | Model | Database `AI/Kokoro/Kokoro-82M/` (weights, config, all 54 voice packs; 340 MB; copied from G1, source untouched) | ignored (`/AI/Kokoro/Kokoro-82M/`, `*.pth`, `*.pt`) |
 | ASR model | Database `AI/Whisper/tiny.pt` (72 MB, on-demand QC only) | ignored (`*.pt`) |
 | espeak-ng data | `~/.local/share/rootrecord/espeak-ng-data` (19 MB copy of the venv's) — espeak-ng silently ignores data paths over 160 chars and the venv path under Pacific is 163. Override: `RR_ESPEAK_DATA` | outside repos |
-| Live audio | Database `Media/Audio/Voice/<report>_current.wav` + `.read.txt` (text as written) + `.speak.txt` (text as spoken) | WAV ignored; sidecars tracked (small) |
-| History | Database `Media/Audio/Voice/Archive/<report>_YYYYMMDDTHHMM.wav` (+ sidecars) | ignored (`/Media/Audio/Voice/Archive/`) |
+| Live audio | Database `Media/Audio/Voice/<report>_current.wav`; non-git `test-reports/Voice/<report>_current.read.txt` + `.speak.txt` | WAV cache ignored; text sidecars non-git |
+| History | Database `Media/Audio/Voice/Archive/<report>_YYYYMMDDTHHMM.wav`; sidecars in `test-reports/Voice/Archive/` | WAV cache ignored; text sidecars non-git |
 | Phrase clips | Database `Media/Audio/Voice/Clips/<Persona>/<slug>.wav` | ignored (`*.wav`) |
 | Clip manifest | Database `Media/Audio/Voice/Clips/clips_manifest.json` | **tracked** |
-| system_perf text | `test-reports/Voice/system_perf_current.md` → `test-reports/Voice/Archive/system_perf_YYYYMMDDTHHMM.md` (non-git) | tracked |
-| Voice report text (batch 2) | `test-reports/Voice/<report>_current.md` → `test-reports/Voice/Archive/<report>_YYYYMMDDTHHMM.md` (WAV history remains in `Media/Audio/Voice/Archive/` as above) | `_current.md` tracked; `Reports/Archive/` ignored (rotates every run) |
+| system_perf text | `test-reports/Voice/system_perf_current.md` → `test-reports/Voice/Archive/system_perf_YYYYMMDDTHHMM.md` (non-git) | non-git |
+| Voice report text (batch 2) | `test-reports/Voice/<report>_current.md` → `test-reports/Voice/Archive/<report>_YYYYMMDDTHHMM.md` (WAV history remains in `Media/Audio/Voice/Archive/` as above) | non-git; Archive retained |
 
-Env overrides: `RR_DATABASE_ROOT`, `RR_KOKORO_MODEL_DIR`, `RR_VOICE_OUT_DIR`, `RR_VOICE_THREADS` (default 4 of 8 cores), `RR_VOICE_GAP_MS` (180), `RR_VOICE_PY`, `RR_WHISPER_DIR`, `RR_ESPEAK_DATA`. No `~/.ollama/skills/…`, `~/Media/…` or `/origin` paths remain.
+Env overrides: `RR_DATABASE_ROOT`, `RR_KOKORO_MODEL_DIR`, `RR_VOICE_OUT_DIR`, `RR_VOICE_REPORT_OUT`, `RR_VOICE_THREADS` (default 4 of 8 cores), `RR_VOICE_GAP_MS` (180), `RR_VOICE_PY`, `RR_WHISPER_DIR`, `RR_ESPEAK_DATA`. No `~/.ollama/skills/…`, `~/Media/…` or `/origin` paths remain.
 
 ## 3. How a render runs (performance rules)
 
@@ -108,6 +108,6 @@ Based on the conventions already in the Database: Weather `_current` + `archived
 | Timestamps | ISO 8601 with offset `-10:00` | `2026-09-29T04:10:57-10:00` |
 | Machine logs | JSONL, one object per line, metadata only | `Logs/AI/Inference/…` |
 | Reports | Markdown | `test-reports/AI-Processing/ai-processing-report_current.md` |
-| Audio | 24 kHz 16-bit mono WAV + `.read.txt` / `.speak.txt` sidecars. Audio and model weights are git-ignored | — |
+| Audio | 24 kHz 16-bit mono WAV in Database; `.read.txt` / `.speak.txt` sidecars in non-git `test-reports/Voice/` | WAV cache and model weights are git-ignored |
 
 Existing exceptions, kept as they are: `ai-processing-report_current.md` (hyphenated name, as specified), `Archive/ai-processing-report_YYYY-MM-DDTHHMM.md`, Weather `archived/`, G2/G1 names.
