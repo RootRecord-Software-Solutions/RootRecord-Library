@@ -329,3 +329,12 @@ Filename:
 - Rechecked the canonical Work-Order README rule: a work order is moved to `Documentation/06-development/Work-Orders/Complete/` only when its documented acceptance criteria are actually satisfied and its Status is COMPLETE/CLOSED.
 - WO-ECO-001 currently states **Phase 1 COMPLETE / LIVE**, not whole-work-order COMPLETE; its Phase 2+ items remain listed. Therefore it is not moved to `Complete/`.
 - No other active WO reviewed in this session has reached a documented COMPLETE/CLOSED state. No completion-folder move is warranted at this time.
+
+
+## Active WO Gate Review — 2026-09-28
+
+- Re-read the acceptance/checklist sections of WO-ECO, WO-SRV, and WO-GH after the prior reconciliation passes.
+- WO-ECO remains open on the specifically named Master-Prompt artifact/link section, remaining separately authorized domain imports, generated-content separation, Website mirror continuation, and Node placeholder.
+- WO-SRV remains open solely on live G3 runtime verification for the migrated active functions; source inspection does not satisfy that gate.
+- WO-GH remains open on Website/Mainland prerequisites, the unverified user-account Library-repository deletion condition, and the optional historical-skills publishing retirement condition.
+- No completion-folder move is supported by the source evidence, and no runtime/configuration change was made in this review.
