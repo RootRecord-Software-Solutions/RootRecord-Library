@@ -85,3 +85,11 @@ Record any post-check confirmation in WO-SRV notes if useful; do not re-open clo
 - Do not remove legacy `SKILL.md` solely because runtime moved  
 
 *Pre-filled for Bruce. Empty columns are intentional. 2026-09-28 HST.*
+
+## Current status refresh — 2026-09-29 ~01:11 HST
+
+- Historical evidence blocks above are retained as historical captures and are not rewritten to match later runtime state.
+- Current Pacific state: Network Globe and Energy BLE owner are PASS and their G2 executables are retired; Security camera server/frame grab, System sampling, Reports worklog, Plumbing non-NPU, and read-only `solar-gate-status` have also passed the documented checks.
+- Telegram tokens have been provisioned; relay/model runtime verification is still pending.
+- Energy actuating actions and Security timelapse remain VERIFY PENDING; NPU/FastFlowLM remains BLOCKED.
+- Pacific poller source has now been corrected to the canonical Database root. Its post-restart runtime verification remains open before the poller gate can be closed.
