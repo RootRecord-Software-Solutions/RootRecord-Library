@@ -3,7 +3,7 @@
 **Date:** 2026-09-28  
 **Session:** Residual jobs path inventory + migration rewire plan  
 **Timezone:** HST  
-**Window:** ~20:00–21:25 HST  
+**Window:** ~20:00–21:40 HST  
 **Status:** ACTIVE — execution continued under WO-SRV  
 **Operator:** RootRecord  
 **Agent assist:** Grok (xAI) / BruceMonitor
@@ -112,7 +112,7 @@ Rationale: lowest-risk / highest-clarity items first so Pacific poller can run c
 
 | Item | State |
 | --- | --- |
-| A-Eyes hourly wrapper | Legacy path retained pending safety-block clearance |
+| A-Eyes hourly wrapper | G3 wrapper landed; `jobs.py` rewired; runtime verification pending |
 | Telegram inference `single-flight.sh` | G3 `System/scripts/plumbing/single-flight.sh` landed; runtime verification pending |
 | Energy actions | G3 path landed; legacy retirement pending runtime verification |
 | Weather | Disabled; unchanged |
@@ -122,11 +122,11 @@ Rationale: lowest-risk / highest-clarity items first so Pacific poller can run c
 - The legacy `plumbing/scripts/single-flight.sh` implementation was migrated into Pacific `System/scripts/plumbing/single-flight.sh`.
 - The Pacific copy preserves the single-inference lock behavior and moves plumbing state to `/home/rootrecord/Database/GITHUB/plumbing/state` rather than the legacy skills tree.
 - `jobs.py` residual documentation was refreshed. The Telegram inference plumbing path is no longer a legacy-path dependency in source; runtime verification is still required before legacy retirement.
-- The A-Eyes hourly wrapper remains the next unresolved source/path item. The legacy repository search did not return a source file for `timelapse_hourly.sh`, so no replacement implementation was invented.
+- The A-Eyes hourly wrapper was added under `A-Eyes/scripts/` as a minimal wrapper around the already-migrated `timelapse_engine.py hourly` CLI documented in the legacy scheduler/engine. `jobs.py` now points to the Pacific wrapper.
 
 ### Documentation rule
 
-Continue updating the canonical work order and operator worklog as migration steps land. Preserve existing templates, terminology, timestamps, and factual status; do not backfill unverified runtime claims.
+Continue updating the canonical work order and operator worklog as migration steps land. Preserve existing templates, terminology, timestamps, and factual status; do not backfill unverified runtime claims. A work order moves to `Documentation/06-development/Work-Orders/Complete/` only after its acceptance criteria are satisfied.
 
 ## Archive note
 
