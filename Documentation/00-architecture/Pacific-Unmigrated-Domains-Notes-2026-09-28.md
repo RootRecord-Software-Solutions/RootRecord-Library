@@ -18,7 +18,7 @@
 | --- | --- |
 | Legacy path | `~/.ollama/skills/plumbing/scripts/` |
 | Jobs | `ollama_warmup`, `flm_npu_warmup` (ON_BOOT) |
-| Pacific placement | **`System/scripts/plumbing/`** (LIVE per WO-SRV) |
+| Pacific placement | **`System/scripts/plumbing/`** (gates PASS per WO-SRV 2026-09-29: non-NPU + NPU on demand) |
 
 Standing inference note (updated 2026-09-29): prefer FLM `llama3.2:1b` **on demand** on NPU `:52625` (started per request by `run-infer.sh`, stopped on exit; no resident warmup); Ollama dolphin lanes = CPU fallback (`--keepalive 0`). Enforcement remains Bruce’s single-flight path.
 
@@ -31,7 +31,7 @@ Standing inference note (updated 2026-09-29): prefer FLM `llama3.2:1b` **on dema
 | Legacy path | `~/.ollama/skills/reports/scripts/` |
 | Jobs | `worklog_scan` → `worklog_once.sh` |
 | Data | `/home/rootrecord/Database/WORKLOG/` |
-| Pacific placement | **`Reports/`** domain (foundation LIVE — WO-RPT-001) |
+| Pacific placement | **`Reports/`** domain (worklog_scan PASS; roll-up VERIFY PENDING — WO-RPT-001) |
 
 ---
 

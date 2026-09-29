@@ -15,7 +15,8 @@ Primary operational environment (Hawaiʻi desk).
 |----------------|------|
 | `rr-rootserver-poller.service` | User systemd unit for the poller engine |
 | `rootserver_poller.py` | HTTP :8799, job scheduler, tunnel ownership |
-| `poller-watch.py` | Status window; Ctrl-C stops entire stack |
+| `poller-dashboard.py` | Default status viewer (read-only; never starts/stops anything), opened via the single-window launcher `Automations/scripts/poller/open-poller-window.sh` (Pacific `884c832`, `89a8d6d`, `4a4107a`) |
+| `poller-watch.py` | Older status viewer — still exists; Ctrl-C in it stops the entire stack, and stack reloads kill it |
 | `cloudflared` | Tunnel binary under `Communications/network/cloudflare/bin/` |
 | `network-globe-hawaii.service` | Hawaii Network Globe SSH collector (stopped with stack) |
 

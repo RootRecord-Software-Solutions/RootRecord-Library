@@ -15,14 +15,14 @@ Domain layout (PascalCase top-level folders):
 ```text
 Automations/          # poller engine, jobs catalog, stack lifecycle
 Communications/       # network (cloudflare), discord, email, slack, telegram, github
-Energy/               # EcoFlow reads/actions (LIVE per WO-SRV)
+Energy/               # EcoFlow reads PASS (Energy/.venv, BLE); actuating actions VERIFY PENDING (WO-SRV)
 System/               # sys-sample + plumbing warmups / single-flight
 Reports/              # worklog foundation (WO-RPT-001)
 Weather/              # weather poller (job enabled 2026-09-29; Weather/.venv)
 Github/               # setup-remotes + sync-all
 Geology/              # domain shell; Kīlauea ownership note in Library architecture
-Security/             # security domain shell
-A-Eyes/               # cam / grab / timelapse (source on Pacific; runtime verify pending)
+Security/             # Cameras/ = canonical cam / grab / timelapse (jobs.py); cam+grab PASS, timelapse VERIFY PENDING
+A-Eyes/               # legacy leftover (stale __pycache__ only, untracked) — KEPT; not used by jobs.py
 ```
 
 **Not a Pacific code domain:** `Logs/` — log **bytes** live under Database only.

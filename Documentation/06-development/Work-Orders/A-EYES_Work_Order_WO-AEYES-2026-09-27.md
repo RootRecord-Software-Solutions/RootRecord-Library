@@ -6,11 +6,18 @@
 | **Date**         | 2026-09-27                     |
 | **Status**       | OPEN — Ready for additions     |
 | **Owner**        | RootRecord                     |
-| **Updated**      | 2026-09-28 (HST) — path notes only |
+| **Updated**      | 2026-09-29 ~03:52 HST — current paths → Pacific `Security/Cameras/` |
 
 **Scope:** Reduce A-EYES archive load while producing a clean, human-viewable 1-minute daily timelapse. This document captures the current system, the math, the recommended changes, and leaves room for additional requirements.
 
 **Migration note (2026-09-28):** Job catalog path is now `Automations/scripts/jobs.py` on the Pacific server. A-EYES skill code is **not yet imported** into the Pacific domain tree; runtime commands may still resolve under legacy `~/.ollama/skills/a-eyes/` until the Security/A-EYES domain is brought in.
+
+**Current paths (read-only desk check 2026-09-29 ~03:52 HST; supersedes the 2026-09-28 note above):** Pacific `Security/Cameras/` is canonical and there is no A-Eyes compatibility layer.
+- `jobs.py` runs all camera jobs from there (`cwd` = `Security/Cameras`): `ensure_cam_server.sh`, `timelapse_catchup.sh`, `grab_all.sh` (job `security_camera_frame_grab`), `timelapse_hourly.sh`, `timelapse_daily.sh`. The running `cam_server.py` has cwd `…/Security/Cameras`.
+- Frames go to `2 - RootRecord-Database/Media/Images/`; timelapses go to `2 - RootRecord-Database/Media/Timelapses/`.
+- Pacific `A-Eyes/` still exists but holds only a stale, git-ignored `scripts/__pycache__/grab_frame.cpython-314.pyc` (dated 09-28 21:06). It has no source, no tracked files and no job references: **legacy, KEPT**.
+- G2 `~/.ollama/skills/a-eyes/` is **KEPT** (retire only with Alexander sign-off).
+- State: cam server + frame grab **PASS** (`2 - RootRecord-Database/Logs/Migration/g3-runtime-evidence-20260929T101550Z.md`); timelapse compile **VERIFY PENDING** (05:00–19:00 HST window).
 
 ---
 
@@ -18,18 +25,18 @@
 
 ### 1.1 Capture Path
 
-- Scheduler: `Automations/scripts/jobs.py` → `EVERY_SECONDS` → `a_eyes_frame_grab`
+- Scheduler: `Automations/scripts/jobs.py` → `EVERY_SECONDS` → `security_camera_frame_grab` (was `a_eyes_frame_grab`)
   - **Historical:** `automations/scripts/jobs.py` (pre-domain layout)
 - `interval_sec = 1` (1 frame per second per camera)
-- Command: `bash …/a-eyes/scripts/grab_all.sh` (legacy skills path until import)
+- Command: `bash "{PACIFIC}/Security/Cameras/grab_all.sh"` (cwd `Security/Cameras`)
 - `grab_all.sh` loops channels 1–4 and calls `grab_frame.py` for each
-- `grab_frame.py`: RTSP → single JPEG → `/home/rootrecord/Database/A-EYES/frames/`
+- `grab_frame.py`: RTSP → single JPEG → `/home/rootrecord/RootRecord-Ecosystem/2 - RootRecord-Database/Media/Images/`
 - Crop applied at grab time (right edge % + 20 px). Left side (timestamp OSD) preserved.
-- Cross-process flock (`/tmp/a-eyes-frames.lock`). Grabs are non-blocking (skip if busy).
+- Cross-process flock (`/tmp/security-camera-frames.lock`). Grabs are non-blocking (skip if busy).
 
 ### 1.2 Timelapse Path
 
-- Engine: `a-eyes/scripts/timelapse_engine.py` (legacy location until import)
+- Engine: `Security/Cameras/timelapse_engine.py` (output under `2 - RootRecord-Database/Media/Timelapses/`)
 - Window: **05:00–19:00 HST** (14 hours)
 - `TARGET_TOTAL_SECONDS = 180` (3-minute master)
 - `MASTER_FPS = 68`
@@ -63,7 +70,7 @@
 ### 3.1 Capture Interval (primary lever)
 
 **File:** `Automations/scripts/jobs.py`  
-**Job:** `a_eyes_frame_grab` (EVERY_SECONDS section)
+**Job:** `security_camera_frame_grab` (EVERY_SECONDS section)
 
 ```python
 # Change:
@@ -72,7 +79,7 @@
 
 ### 3.2 Timelapse Output Length & FPS
 
-**File:** `a-eyes/scripts/timelapse_engine.py` (or env overrides; path may still be legacy until domain import)
+**File:** `Security/Cameras/timelapse_engine.py` (or env overrides; the `A_EYES_TIMELAPSE_*` env names are unchanged)
 
 ```bash
 A_EYES_TIMELAPSE_TOTAL_SEC = 60     # was 180
@@ -92,11 +99,11 @@ A_EYES_TIMELAPSE_FPS       = 20     # was 68  (15–24 acceptable)
 
 ## 4. Implementation Tasks
 
-1. Change `interval_sec` from `1` → `5` in `Automations/scripts/jobs.py` (`a_eyes_frame_grab`).
+1. Change `interval_sec` from `1` → `5` in `Automations/scripts/jobs.py` (`security_camera_frame_grab`; still `1` on 2026-09-29, PROPOSED).
 2. Set `TARGET_TOTAL_SECONDS = 60` and `MASTER_FPS = 20` (env vars preferred).
 3. Push → auto-reload (`schedule-stack-reload`).
 4. Verify after next daily window.
-5. Optional: import A-EYES into Pacific `Security/` (or dedicated domain) and rewire job commands.
+5. ~~Optional: import A-EYES into Pacific `Security/`~~ **LANDED**: code is in Pacific `Security/Cameras/` and the jobs are rewired. Cam server + grab PASS; timelapse VERIFY PENDING.
 
 ---
 
@@ -105,11 +112,14 @@ A_EYES_TIMELAPSE_FPS       = 20     # was 68  (15–24 acceptable)
 | Path                                      | Role                                              |
 |-------------------------------------------|---------------------------------------------------|
 | `Automations/scripts/jobs.py`             | Canonical scheduler — capture interval            |
-| `a-eyes/scripts/grab_all.sh`              | Loops ch1–4 (legacy path until import)            |
-| `a-eyes/scripts/grab_frame.py`            | Single RTSP grab + crop                           |
-| `a-eyes/scripts/timelapse_engine.py`      | Hourly compile + daily stitch                     |
-| `a-eyes/scripts/cam_server.py`            | Live stills server (`127.0.0.1:8791`)             |
-| `a-eyes/store/CONNECTION.json`            | RTSP + crop config (secrets stay local)           |
+| `Security/Cameras/grab_all.sh`            | Loops ch1–4                                       |
+| `Security/Cameras/grab_frame.py`          | Single RTSP grab + crop → `Media/Images/`         |
+| `Security/Cameras/timelapse_engine.py`    | Hourly compile + daily stitch → `Media/Timelapses/` |
+| `Security/Cameras/timelapse_{hourly,daily,catchup}.sh`, `ensure_cam_server.sh` | Job wrappers |
+| `Security/Cameras/cam_server.py`          | Live stills server (`127.0.0.1:8791`)             |
+| `Security/Cameras/store/CONNECTION.json`  | RTSP + crop config (secrets stay local; `store/` git-ignored) |
+| Pacific `A-Eyes/`                         | Legacy leftover (stale `__pycache__` only) — **KEPT**, not used |
+| G2 `~/.ollama/skills/a-eyes/`             | Legacy — **KEPT** (sign-off). G2 still tracks `a-eyes/store/CONNECTION.json`: security item BLOCKED pending Alexander |
 | **Historical:** `automations/scripts/jobs.py` | Pre-domain-layout scheduler path                |
 
 ---

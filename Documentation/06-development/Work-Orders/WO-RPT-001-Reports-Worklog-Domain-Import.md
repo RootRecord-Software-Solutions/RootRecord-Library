@@ -3,7 +3,7 @@
 | Field | Value |
 |-------|--------|
 | **Priority** | P0 |
-| **Status** | **Foundation LIVE** (A–E) — radio/stream **future** layer deferred |
+| **Status** | **Foundation PASS** (A–E; `worklog_scan` PASS — `2 - RootRecord-Database/Logs/Migration/g3-runtime-evidence-20260929T101550Z.md`; `Worklog/worklog_current.md` fresh 03:18:48 HST after the Title-case rename) · daily roll-up VERIFY PENDING (next 18:30 HST run) — radio/stream **future** layer deferred |
 | **Target** | Pacific `Reports/` on org `RootRecord-Pacific-Solar-Server` |
 | **Data home** | `/home/rootrecord/RootRecord-Ecosystem/2 - RootRecord-Database/Worklog/` (moved 2026-09-29; old `/home/rootrecord/Database/WORKLOG/` archived) |
 | **Human narrative** | Library `Documentation/01-operations/` (templates + active logs) |
@@ -43,7 +43,7 @@ Legacy AIs **heavily automated reports** for on-air / stream workflows. That was
 
 | Phase | Work | Status |
 |-------|------|--------|
-| **A–E** | Domain, worklog LIVE, roll-up + archive scripts, G1 marker | **DONE / LIVE** 2026-09-28 |
+| **A–E** | Domain, worklog LIVE, roll-up + archive scripts, G1 marker | **DONE** 2026-09-28 / worklog **PASS** 2026-09-29 |
 | **F (future)** | Structured digests for radio/stream; seal path; link A-Eyes pointers | **DEFERRED** — after AI-processing redesign |
 
 ## Future fit (Phase F sketch)

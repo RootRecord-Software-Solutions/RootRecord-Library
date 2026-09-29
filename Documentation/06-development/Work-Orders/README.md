@@ -28,12 +28,12 @@ Work-Orders/
 
 | ID | Title | Status | File |
 | --- | --- | --- | --- |
-| WO-ECO-2026-09-27 | Ecosystem migration & repository foundation | **IN PROGRESS** — Pacific + Energy + System + Plumbing LIVE | [WO](./Ecosystem_Migration_Work_Order_WO-ECO-2026-09-27.md) |
+| WO-ECO-2026-09-27 | Ecosystem migration & repository foundation | **IN PROGRESS** — Pacific + Energy reads + System + Plumbing PASS (2026-09-29 evidence; see WO-SRV status summary) | [WO](./Ecosystem_Migration_Work_Order_WO-ECO-2026-09-27.md) |
 | WO-SRV-2026-09-27 | Pacific runtime path cutover (G2 → G3) | **IN PROGRESS** — Pacific source paths landed for active residuals; runtime verification + legacy retirement remain | [WO](./Servers_Cutover_Work_Order_WO-SRV-2026-09-27.md) |
-| **WO-RPT-001** | Reports / worklog domain import | **Foundation LIVE** (A–E) | [WO](./WO-RPT-001-Reports-Worklog-Domain-Import.md) · [Action Plan](./WO-RPT-001-Action-Plan.md) |
+| **WO-RPT-001** | Reports / worklog domain import | **Foundation PASS** (A–E; worklog_scan, 2026-09-29 evidence) | [WO](./WO-RPT-001-Reports-Worklog-Domain-Import.md) · [Action Plan](./WO-RPT-001-Action-Plan.md) |
 | WO-MAP-2026-09-27 | Master-Prompt repository ownership map | OPEN | [WO](./MasterPrompt_RepoMap_Work_Order_WO-MAP-2026-09-27.md) |
 | WO-OLD-2026-09-28 | Selective recovery from Solar-Pacific-…-Old (G1) | OPEN — scheduler trio **MIGRATED**; other packets blocked on G2→G3 | [WO](./Old_Server_Selective_Recovery_Work_Order_WO-OLD-2026-09-28.md) |
-| WO-GH-2026-09-27 | GitHub catalog hygiene | **IN PROGRESS** — Pacific `Github/` sync LIVE; website/mainland still disabled | [WO](./GitHub_Catalog_Hygiene_Work_Order_WO-GH-2026-09-27.md) |
+| WO-GH-2026-09-27 | GitHub catalog hygiene | **IN PROGRESS** — Pacific `Github/` sync PASS (post-reboot 2026-09-29); website/mainland still disabled | [WO](./GitHub_Catalog_Hygiene_Work_Order_WO-GH-2026-09-27.md) |
 | WO-DATA-2026-09-27 | Database boundary & publication policy | OPEN | [WO](./Database_Boundary_Work_Order_WO-DATA-2026-09-27.md) |
 | WO-AGENT-2026-09-27 | Agent context canonical home | OPEN | [WO](./AgentContext_CanonicalHome_Work_Order_WO-AGENT-2026-09-27.md) |
 | WO-CF-2026-09-27 | Cloudflare tunnel credential recovery | OPEN | [WO](./Cloudflare_Tunnel_Recovery_Work_Order_WO-CF-2026-09-27.md) |
@@ -46,9 +46,9 @@ Work-Orders/
 
 | ID | Title | Priority | Status | File |
 |----|-------|----------|--------|------|
-| **WO-ECO-001** | Energy domain import (EcoFlow + hybrid reports) | P0 | Phase 1 **COMPLETE** on org Pacific — actions path LIVE | [WO](./WO-ECO-001-Energy-Domain-Import.md) · [Action Plan](./WO-ECO-001-Action-Plan.md) |
+| **WO-ECO-001** | Energy domain import (EcoFlow + hybrid reports) | P0 | Phase 1 **COMPLETE** on org Pacific — actions path LANDED (read-only PASS; actuating VERIFY PENDING) | [WO](./WO-ECO-001-Energy-Domain-Import.md) · [Action Plan](./WO-ECO-001-Action-Plan.md) |
 | **WO-SRV-001** | Residual jobs path rewire | P0 | Draft — blocked on WO-ECO-001 (and later domain imports); retained as reference while WO-SRV-2026-09-27 carries the active cutover | [WO](./WO-SRV-001-Residual-Jobs-Path-Rewire.md) |
-| **WO-RPT-001** | Reports / worklog domain import | P0 | **Foundation LIVE** | [WO](./WO-RPT-001-Reports-Worklog-Domain-Import.md) · [Action Plan](./WO-RPT-001-Action-Plan.md) |
+| **WO-RPT-001** | Reports / worklog domain import | P0 | **Foundation PASS** (worklog_scan; roll-up VERIFY PENDING) | [WO](./WO-RPT-001-Reports-Worklog-Domain-Import.md) · [Action Plan](./WO-RPT-001-Action-Plan.md) |
 | **WO-WEB-001** | Public status / solar board alignment | P1 | Draft | [WO](./WO-WEB-001-Public-Status-Solar-Board.md) |
 | **WO-COM-001** | Communications surface | P1 | Draft — Telegram residual next | [WO](./WO-COM-001-Communications-Surface.md) |
 | **WO-COM-002** | Discord bot credential rotation (migration gate) | P1 | OPEN | [WO](./WO-COM-002-Discord-Bot-Credential-Rotation.md) |
@@ -96,14 +96,15 @@ Architecture maps (Library):
 
 ```text
 systemd   Pacific run-poller.sh (reload skips status window)
-Energy    reads + leapfrog + actions LIVE
-System    sys-sample + plumbing warmups LIVE
-Reports   foundation LIVE — worklog_scan → Pacific Reports/scripts
-Github    setup-remotes + sync-all LIVE
+Energy    reads PASS (BLE via Energy/.venv) · leapfrog VERIFY PENDING · actions: read-only PASS, actuating VERIFY PENDING
+System    sys-sample PASS · plumbing gate PASS (non-NPU + NPU 1b on demand) · FLM warmup opt-in only
+Reports   worklog_scan PASS → Pacific Reports/scripts · daily roll-up VERIFY PENDING (18:30 HST run)
+Github    setup-remotes + sync-all PASS (post-reboot 2026-09-29)
 Log       /home/rootrecord/RootRecord-Ecosystem/2 - RootRecord-Database/Logs/Automations/automations_current.log
 G1 sched  hybrid-night-poller / heartbeat / net-gate → MIGRATED.md on -Old
 Residual  runtime verification · G2 KEPT (sign-off) · weather enabled (PASS 2026-09-29)
 Testing   Documentation/07-testing/ (per-test records, 2026-09-29)
+Evidence  2 - RootRecord-Database/Logs/Migration/g3-runtime-evidence-20260929T101550Z.md · g3-dbroot-realign-evidence-20260929T105845Z.md · g3-post-reboot-evidence-20260929T123313Z.md · g3-npu-flm-evidence-20260929T125429Z.md
 ```
 
 ---
