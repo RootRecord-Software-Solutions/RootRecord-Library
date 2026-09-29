@@ -209,3 +209,22 @@ Backup: `/home/rootrecord/Database/GITHUB/g3-voice-reports2.bak-20260929-042153/
 **Needs Alexander:**
 - Model free text still needs human review; the number check cannot catch word-only claims.
 - Decide whether to add a claim/overlap check or keep templates deterministic-only (`--draft none`).
+
+## control-panel pass (native GTK4 panel + Conky readout), 11:53–12:16 HST
+
+No daytime worklog exists for 2026-09-29, so this section is added here. Backup: `/home/rootrecord/Database/GITHUB/control-panel.bak-20260929-115632/`. It holds the 07-testing README, this worklog, and copies plus sha256 of every existing viewer, dashboard and script.
+
+| Time (HST) | What | State |
+| --- | --- | --- |
+| 11:53–11:58 | Survey (read-only) of `poller-dashboard.py` (B1/B2/B3 laptop bars, 8 service rows, SYS, SUN, log; 5 s snapshot), `poller-watch.py`, `open-poller-window.sh`, autostart + Desktop launchers, the poller ENERGY status line (heartbeat every 60 s, `/health`) and `npu-status.sh`. Toolkit: system python3 3.14.4 has gi 3.56.2, Gtk 4.22.4 and Adw 1.9. **conky is not installed** | done |
+| 12:03 | New Pacific `Apps/Control-Panel/`: `rr_control_panel.py`, `Lib/rr_sources.py`, `Lib/rr_settings.py`, `settings.json`, `Conky/`, `Packaging/`, `Tests/run-check.sh`, `README.md`. Read-only; one 5 s GLib timeout refreshes the header plus the visible page. There are 9 pages: Energy, Weather, System, NPU, AI log, Poller/services, Cameras, Controls, Settings (Known URLs, camera toggles). The camera viewer is OFF by default | **LANDED** |
+| 12:03–12:09 | `--check` viewer off: PASS, peak RSS 73.8 MB, camera work 0 (strace: 0 `Media/Images`, 0 `:8791`, 0 `CONNECTION.json`). Viewer on: PASS, 4/4 stills, 87.8 MB. Real window (Alexander away, permitted): 30 s at 85.0 MB with the cairo renderer (default renderer ~180 MB). All 10 page screenshots are in `RootRecord-Ecosystem/test-reports/Control-Panel/20260929-120924-*.png`. Window closed; no process left. [Record](../../07-testing/2026-09-29-control-panel-gtk.md) · [Architecture](../../00-architecture/Control-Panel-GTK.md) | **PASS**; window RSS over the 80 MB target (flagged) |
+| 12:10 | `.desktop` launcher installed to `~/.local/share/applications/rootrecord-control-panel.desktop` (validated). The systemd --user unit is written to the repo only (not installed or enabled). The Conky config is in the repo only (conky missing) | LANDED; autostart + Conky **VERIFY PENDING** |
+| 12:12 | Existing files re-hashed: all 10 unchanged. Poller PID 105444 is still up (not restarted). No sudo, apt, sends, playback, model loads or git writes | PASS |
+
+**Needs Alexander:**
+- `sudo apt install conky-all`, then `bash Apps/Control-Panel/Packaging/install-launcher.sh` and `conky -c ~/.config/conky/rootrecord.conkyrc`. Autostarting Conky is a separate decision.
+- Enable the panel autostart: copy the unit, then `systemctl --user daemon-reload && systemctl --user enable --now rootrecord-control-panel.service`.
+- Risky panel actions (poller restart; Telegram, voice and `RR_*` are not wired): set `risky_actions_enabled` and per-action `signed_off` in `settings.json` only after sign-off.
+- Accept the ~85 MB window RSS against the 80 MB target, or ask for a slimmer build.
+- Note: SUN is empty in both the dashboard and the panel, because today's row is missing from `solar_calculation_table_current.md` (existing data issue, not changed).

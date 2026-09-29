@@ -57,6 +57,7 @@ Each test gets one file, `YYYY-MM-DD-<slug>.md`, created from [TEMPLATE.md](./TE
 | 2026-09-29 04:22 | [single-flight: RUN banner to stderr, holder.txt metadata only](./2026-09-29-single-flight-banner-holder-fix.md) | PASS (rc 0, clean one-line reply, no prompt text in holder) |
 | 2026-09-29 04:35 | [G3 voice reports batch 2: 7 ported reports (jobs gated OFF)](./2026-09-29-voice-reports-batch2.md) | PASS (7/7 rc 0, WAV QC PASS, rotation PASS, LLM summary PASS once); earthquake BLOCKED (no USGS data); by-ear VERIFY PENDING |
 | 2026-09-29 04:41 | [Pronunciation candidates: Kalākaua, Liliʻuokalani, Nuʻuanu, Māhele](./2026-09-29-pronunciation-candidates-proposed.md) | PROPOSED (6 clips rendered, format QC only; not in lexicon) |
+| 2026-09-29 12:09 | [Control Panel GTK4 + Conky readout (read-only, alongside existing viewers)](./2026-09-29-control-panel-gtk.md) | PASS (`--check` off/on, camera-off strace 0, all pages rendered); Conky + autostart VERIFY PENDING; window RSS 85 MB > 80 MB target |
 
 Related: [MIGRATION-DOCS-INDEX](../00-architecture/MIGRATION-DOCS-INDEX-2026-09-28.md) · [WO-SRV](../06-development/Work-Orders/Servers_Cutover_Work_Order_WO-SRV-2026-09-27.md) · [G3 Runtime Verification Checklist](../00-architecture/G3-Runtime-Verification-Checklist-2026-09-28.md)
 
