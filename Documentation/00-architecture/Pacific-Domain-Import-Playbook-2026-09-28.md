@@ -26,7 +26,7 @@ Reports/          A-Eyes/
 Persistent logs and operational log files live under the **Database** authority:
 
 ```text
-/home/rootrecord/Database/Logs/
+/home/rootrecord/RootRecord-Ecosystem/2 - RootRecord-Database/Logs/
   Automations/automations_current.log   # poller (canonical)
   …
 ```

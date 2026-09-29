@@ -18,7 +18,7 @@ Communications/       # network (cloudflare), discord, email, slack, telegram, g
 Energy/               # EcoFlow reads/actions (LIVE per WO-SRV)
 System/               # sys-sample + plumbing warmups / single-flight
 Reports/              # worklog foundation (WO-RPT-001)
-Weather/              # ensure helpers; poller job may remain disabled
+Weather/              # weather poller (job enabled 2026-09-29; Weather/.venv)
 Github/               # setup-remotes + sync-all
 Geology/              # domain shell; Kīlauea ownership note in Library architecture
 Security/             # security domain shell
@@ -34,8 +34,8 @@ Key operational paths (desk):
 - cloudflared binary: `Communications/network/cloudflare/bin/cloudflared`
 - CF config: `Communications/network/cloudflare/config/`
 - Plumbing / single-flight: `System/scripts/plumbing/`
-- Desk live file: `/home/rootrecord/Database/intake/desk-live.txt`
-- Logs: `/home/rootrecord/Database/Logs/` (e.g. Automations/automations_current.log)
+- Desk live file: `/home/rootrecord/RootRecord-Ecosystem/2 - RootRecord-Database/Intake/desk-live.txt`
+- Logs: `/home/rootrecord/RootRecord-Ecosystem/2 - RootRecord-Database/Logs/` (e.g. Automations/automations_current.log)
 - Backups: `/home/rootrecord/Database/GITHUB/`
 - Master env: `/home/rootrecord/master/master-key.env` (never commit)
 

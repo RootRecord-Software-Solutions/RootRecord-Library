@@ -5,7 +5,7 @@
 | **Priority** | P0 |
 | **Status** | **Foundation LIVE** (A–E) — radio/stream **future** layer deferred |
 | **Target** | Pacific `Reports/` on org `RootRecord-Pacific-Solar-Server` |
-| **Data home** | `/home/rootrecord/Database/WORKLOG/` (unchanged) |
+| **Data home** | `/home/rootrecord/RootRecord-Ecosystem/2 - RootRecord-Database/Worklog/` (moved 2026-09-29; old `/home/rootrecord/Database/WORKLOG/` archived) |
 | **Human narrative** | Library `Documentation/01-operations/` (templates + active logs) |
 | **Related** | WO-ARCH-2026-09-27; WO-SRV-001; WO-COM-001/002; WO-AEYES; future AI-processing redesign |
 | **Action plan** | [WO-RPT-001-Action-Plan.md](./WO-RPT-001-Action-Plan.md) |

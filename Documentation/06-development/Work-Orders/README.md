@@ -100,9 +100,10 @@ Energy    reads + leapfrog + actions LIVE
 System    sys-sample + plumbing warmups LIVE
 Reports   foundation LIVE — worklog_scan → Pacific Reports/scripts
 Github    setup-remotes + sync-all LIVE
-Log       /home/rootrecord/Database/Logs/Automations/automations_current.log
+Log       /home/rootrecord/RootRecord-Ecosystem/2 - RootRecord-Database/Logs/Automations/automations_current.log
 G1 sched  hybrid-night-poller / heartbeat / net-gate → MIGRATED.md on -Old
-Residual  runtime verification/legacy retirement · weather(disabled)
+Residual  runtime verification · G2 KEPT (sign-off) · weather enabled (PASS 2026-09-29)
+Testing   Documentation/07-testing/ (per-test records, 2026-09-29)
 ```
 
 ---

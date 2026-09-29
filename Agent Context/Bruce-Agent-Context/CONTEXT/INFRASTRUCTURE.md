@@ -24,8 +24,8 @@ Primary operational environment (Hawaiʻi desk).
 - Stack stop/reload: `Automations/scripts/stack/`
 - cloudflared: `Communications/network/cloudflare/bin/cloudflared`
 - Token (local only): `/home/rootrecord/.cloudflared/rootserver.token`
-- Poller log: `~/.ollama/skills/logs/store/rootserver-poller.log`
-- Desk live: `/home/rootrecord/Database/intake/desk-live.txt`
+- Poller log: `/home/rootrecord/RootRecord-Ecosystem/2 - RootRecord-Database/Logs/Automations/automations_current.log` (since 2026-09-29)
+- Desk live: `/home/rootrecord/RootRecord-Ecosystem/2 - RootRecord-Database/Intake/desk-live.txt`
 - Backups: `/home/rootrecord/Database/GITHUB/`
 - Master env: `/home/rootrecord/master/master-key.env` (never commit)
 

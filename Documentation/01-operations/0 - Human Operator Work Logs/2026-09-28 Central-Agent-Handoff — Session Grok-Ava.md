@@ -168,3 +168,15 @@ Human will return when Bruce finishes desk session or signals. Next central agen
 ---
 
 *Handoff written 2026-09-28 ~22:20 HST. Documentation only.*
+
+## 11. Status summary — 2026-09-29 ~03:45 HST (dated addendum)
+
+Sections 2–7 above are the 2026-09-28 snapshot and are kept as written. Current truth-gated state:
+
+- **Database root:** `/home/rootrecord/RootRecord-Ecosystem/2 - RootRecord-Database` with Title-case folders (`Energy`, `System`, `Weather`, `Github`, `RootRecord`, `Worklog`, `Intake`). The log paths in §2 now live at `…/2 - RootRecord-Database/Logs/Automations/automations_current.log` and `…/2 - RootRecord-Database/Worklog/`. The old root `/home/rootrecord/Database/` holds only `GITHUB/` backups and `README.md`.
+- **PASS:** poller on the new root; status dashboard (single window; docs-only pulls don't reload); Weather from Pacific (`Weather/.venv`) — no longer disabled; post-reboot (02:28 HST) all services; NPU/FastFlowLM install + validate; Database Title-case rename; EcoFlow data freshness (`Energy/.venv`); NPU `llama3.2:1b` on-demand route.
+- **FAIL → fixed (fix PASS):** OOM loop from the resident FLM warmup (03:10–03:13 HST). The warmup is now non-resident by default, and Ollama runs with `--keepalive 0`.
+- **LANDED / VERIFY PENDING:** laptop battery B3 / `LAP=`; run-infer own-session fix.
+- **BLOCKED / PROPOSED / VERIFY PENDING (open):** `OLLAMA_KEEP_ALIVE=0` in `ollama.service` (sudo); `*-telegram` models (relay quiet by default, `RR_RELAY_REPLIES=0`; messages are consumed and not answered later); timelapse after 05:00 HST; Energy arm/disarm + AC (approval); B1 physical check, both batteries low; weather retention PROPOSED; Weather repo decision; ON_BOOT-only weather/relay; security items (camera stills in public Database repo, `CONNECTION.json` in Pacific history `6328af6`, G2 `a-eyes/store/CONNECTION.json`).
+- **KEPT:** all G2 legacy files (retire only with Alexander sign-off), including 27 dormant files with old-root paths.
+- **Testing thread:** `Documentation/07-testing/README.md` (one record per test, index, test-safety policy). Full table: WO-SRV "Status summary — 2026-09-29 ~03:45 HST".

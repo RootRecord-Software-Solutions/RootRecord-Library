@@ -20,7 +20,7 @@
 | Jobs | `ollama_warmup`, `flm_npu_warmup` (ON_BOOT) |
 | Pacific placement | **`System/scripts/plumbing/`** (LIVE per WO-SRV) |
 
-Standing inference note: prefer FLM llama3.2:3b on NPU `:52625`; Ollama dolphin lanes = CPU fallback. Enforcement remains Bruce’s single-flight path.
+Standing inference note (updated 2026-09-29): prefer FLM `llama3.2:1b` **on demand** on NPU `:52625` (started per request by `run-infer.sh`, stopped on exit; no resident warmup); Ollama dolphin lanes = CPU fallback (`--keepalive 0`). Enforcement remains Bruce’s single-flight path.
 
 ---
 

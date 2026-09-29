@@ -66,6 +66,7 @@ RootRecord-Library/
 │  ├─ 05-public-surface/
 │  ├─ 06-development/
 │  │  └─ Work-Orders/
+│  ├─ 07-testing/
 │  ├─ adr/
 │  ├─ archive/
 │  └─ schemas/
@@ -89,6 +90,15 @@ Each agent pack follows the same basic spine:
 - [Ava](./Agent%20Context/Ava-Agent-Context/)
 - [Bruce](./Agent%20Context/Bruce-Agent-Context/)
 - [Carly](./Agent%20Context/Carly-Agent-Context/)
+
+---
+
+## 📌 Current status — 2026-09-29 (HST)
+
+G2 → G3 migration: the Pacific runtime is on the new Database root (`2 - RootRecord-Database`, Title-case folders). Post-reboot checks, Weather, NPU/FastFlowLM (`llama3.2:1b` on demand) and the Title-case rename are **PASS**. G2 legacy files are **KEPT** until Alexander signs off. Open items are tracked as BLOCKED / PROPOSED / VERIFY PENDING in WO-SRV.
+
+- 🧪 **Testing thread:** [Documentation/07-testing/](./Documentation/07-testing/README.md) — one record per test run, plus the test-safety policy
+- 🗂️ **Migration index:** [MIGRATION-DOCS-INDEX](./Documentation/00-architecture/MIGRATION-DOCS-INDEX-2026-09-28.md)
 
 ---
 

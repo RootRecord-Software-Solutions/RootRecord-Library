@@ -28,8 +28,8 @@ Carly does **not** implement the generator. Bruce does **not** invent WO policy.
 ## Scope (in) — v0
 
 1. **Inputs (measured only)**
-   - Tail of `/home/rootrecord/Database/Logs/Automations/automations_current.log` (FAIL / path-error patterns only; no full dump into git)
-   - Optional: recent lines from `/home/rootrecord/Database/WORKLOG/worklog_current.md` filtered by `domain=` tags (path/size/mtime metadata already scrubbed by design)
+   - Tail of `/home/rootrecord/RootRecord-Ecosystem/2 - RootRecord-Database/Logs/Automations/automations_current.log` (FAIL / path-error patterns only; no full dump into git)
+   - Optional: recent lines from `/home/rootrecord/RootRecord-Ecosystem/2 - RootRecord-Database/Worklog/worklog_current.md` filtered by `domain=` tags (path/size/mtime metadata already scrubbed by design)
    - Optional: presence of open residual markers from known WO-SRV residual list (static allowlist, not free invention)
 
 2. **Processing**
@@ -101,8 +101,8 @@ Carly does **not** implement the generator. Bruce does **not** invent WO policy.
 
 | Path | Role |
 |------|------|
-| `/home/rootrecord/Database/Logs/Automations/automations_current.log` | Poller FAIL source |
-| `/home/rootrecord/Database/WORKLOG/` | Measured file activity |
+| `/home/rootrecord/RootRecord-Ecosystem/2 - RootRecord-Database/Logs/Automations/automations_current.log` | Poller FAIL source |
+| `/home/rootrecord/RootRecord-Ecosystem/2 - RootRecord-Database/Worklog/` | Measured file activity |
 | `…/Pacific-Solar-Server/Reports/scripts/` | Existing intake spine |
 | `Library/.../Work-Orders/drafts/` | Generator output only |
 | `Library/.../templates/TEMPLATE Work Order.md` | Template |
