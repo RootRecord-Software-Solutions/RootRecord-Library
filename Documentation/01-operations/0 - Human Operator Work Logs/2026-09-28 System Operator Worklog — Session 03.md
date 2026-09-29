@@ -209,3 +209,10 @@ Filename:
 - Pacific repository search returned no matches for representative legacy scheduler/executable path families covering Automations, Telegram, A-Eyes, Energy actions, and Plumbing.
 - Direct `jobs.py` fetch confirms the only remaining `.ollama/skills` references are the explicitly disabled Weather command/cwd.
 - No source change was warranted; runtime verification remains the unresolved acceptance gate and no legacy runtime function was retired.
+
+
+## Session 04 continuation — Supporting-File Mapping Audit — 2026-09-28
+
+- Telegram supporting-file inspection confirmed Pacific `ensure-relay.sh` and `voices.conf` match the inspected legacy blobs; legacy `status.sh`, `load_env.sh`, and `post-voice.sh` are not present at corresponding Pacific paths.
+- Their absence was recorded without inferring deletion or migration failure, and no active scheduler dependency was identified for those paths.
+- Pacific A-Eyes supporting/runtime files inspected are present; runtime verification remains pending.
