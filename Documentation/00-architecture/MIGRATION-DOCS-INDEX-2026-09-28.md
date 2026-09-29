@@ -16,6 +16,14 @@ Single entry point for agents and operators working the Pacific server cutover *
 | [Pacific-Server-Library-Dependency-Map-2026-09-28.md](./Pacific-Server-Library-Dependency-Map-2026-09-28.md) | Library files touched; domain status |
 | [Pacific-Unmigrated-Domains-Notes-2026-09-28.md](./Pacific-Unmigrated-Domains-Notes-2026-09-28.md) | Plumbing / Reports lack G3 folders |
 
+## G3 verification & residual close-out (Ava → Bruce)
+
+| Doc | Purpose |
+| --- | --- |
+| [G3-Runtime-Verification-Checklist-2026-09-28.md](./G3-Runtime-Verification-Checklist-2026-09-28.md) | Runtime gate before legacy retirement (supports WO-SRV) |
+| [Residual-Path-Retirement-Table-2026-09-28.md](./Residual-Path-Retirement-Table-2026-09-28.md) | Pre-filled old→new table; Bruce fills Verified/Retired |
+| [Communications-Notify-Policy-Draft-2026-09-28.md](./Communications-Notify-Policy-Draft-2026-09-28.md) | Notify policy draft for WO-COM-001 (not execution) |
+
 ## Product & archive inventory (Minecraft, apps, mirrors)
 
 | Doc | Purpose |
@@ -89,6 +97,7 @@ Best use: scavenger pass when redesigning **AI processing**, **weather/reports**
 | WO-MAP | Master-Prompt map |
 | WO-CF | Tunnel token |
 | WO-AEYES | Capture rate |
+| WO-COM-001 | Communications surface (notify policy draft linked above) |
 
 See [`Documentation/06-development/Work-Orders/README.md`](../06-development/Work-Orders/README.md) (hyphen only — no space-named folder).
 
@@ -106,4 +115,4 @@ See [`Documentation/06-development/Work-Orders/README.md`](../06-development/Wor
 
 ---
 
-*Index updated 2026-09-28 ~18:31 HST — product/archive catalog linked.*
+*Index updated 2026-09-28 ~21:30 HST — G3 verification checklist, residual retirement table, Communications notify policy draft linked.*
