@@ -10,7 +10,7 @@ Single entry point for agents and operators working the Pacific server cutover.
 
 | Doc | Purpose |
 | --- | --- |
-| [Migration-Lineage-Three-Generations-2026-09-28.md](./Migration-Lineage-Three-Generations-2026-09-28.md) | G1 / G2 / G3 named; import order rule |
+| [Migration-Lineage-Three-Generations-2026-09-28.md](./Migration-Lineage-Three-Generations-2026-09-28.md) | G3 / G2 / G1 / **G0** named; import order rule |
 | [Pacific-Domain-Import-Playbook-2026-09-28.md](./Pacific-Domain-Import-Playbook-2026-09-28.md) | Step-by-step Phase 0–4; retirement stub pattern |
 | [Pacific-Jobs-Path-Inventory-2026-09-28.md](./Pacific-Jobs-Path-Inventory-2026-09-28.md) | Every residual path in `jobs.py` |
 | [Pacific-Server-Library-Dependency-Map-2026-09-28.md](./Pacific-Server-Library-Dependency-Map-2026-09-28.md) | Library files touched; domain status |
@@ -34,7 +34,36 @@ Folders kept; `SKILL.md` kept; **`MIGRATED.md`** added on `-Old`. Do not run.
 | `heartbeat/` | `jobs.py` builtin `heartbeat` |
 | `net-gate/` | `Automations/scripts/poller/internet_gate.py` + tunnel jobs |
 
-Repo: [`Solar-Pacific-RootRecord-Server-Old`](https://github.com/rootrecordsoftwaresolutions/Solar-Pacific-RootRecord-Server-Old) — keep README status tables in sync with Library when packets change.
+Repo: [`Solar-Pacific-RootRecord-Server-Old`](https://github.com/rootrecordsoftwaresolutions/Solar-Pacific-RootRecord-Server-Old).
+
+## G0 (deepest archive) — `old`
+
+| Item | Link |
+| --- | --- |
+| **Repo** | [`rootrecordsoftwaresolutions/old`](https://github.com/rootrecordsoftwaresolutions/old) (private) |
+| **G0 README** | [README.md on `old`](https://github.com/rootrecordsoftwaresolutions/old/blob/main/README.md) |
+| **Shape** | ~200 **flattened** skill tops (G1 groups many of these) |
+| **Role** | Feature scavenger only — **not** day-to-day ops |
+| **Recovery order** | After G2→G3 and selective G1 — then G0 **diff-only** |
+
+**Do not** start bulk recovery from G0 while Automations / Energy / System residuals are still in flight (high noise, low urgency).
+
+### G0 unique vs G1 — thin scavenger list
+
+Tops that are easy to miss because G1 nests or omits them as separate roots:
+
+| Theme | G0 packet examples |
+| --- | --- |
+| **Broadcast / boards** | `broadcast`, `broadcast-loop`, `broadcast-render` |
+| **Day / evening reports** | `day-reports*`, `morning-report*`, `midday-report*`, `evening-report*`, `late-report*`, `hybrid-reports`, `energy-report` |
+| **Hurricane / weather depth** | `hurricane-desk`, `hurricane-fetch`, `hurricane-obs`, `hurricane-radio`, `hurricane-tracker`, `live-wx`, `nws-hawaii`, `rr-noaa`, `radar-archive` |
+| **Voice / media** | `voice`, `voice-events`, `startup-voice`, `kokoro`, `radio`, `youtube-download`, `obs-studio` |
+| **Agents / ops** | `carly-mal`, `bruce-monitor`, `ava-ops`, `ava-ivy`, `avaivy-cloud` |
+| **Council** | `council-telegram`, `council-health`, `council-quake`, `council-bruce-stats` |
+| **Crypto / edge nodes** | `bitcoin`, `bitcoin-cash`, `dogecoin`, `solana`, `xmrig`, `freeltc`, `ltc-node`, `pi-node` |
+| **Energy ancestry (flat)** | `ecoflow-ble-poller`, `ecoflow-automations`, `ecoflow-ac-solar-gate`, `ecoflow-quota`, `ecoflow-river-car` |
+
+Best use: scavenger pass when redesigning **AI processing**, **weather/reports**, or **broadcast** — not while closing residual job paths.
 
 ## Session records
 
@@ -67,8 +96,8 @@ See [`Documentation/06-development/Work-Orders/README.md`](../06-development/Wor
 4. **systemd unit** audit on desk  
 5. **Secrets / tokens** restore (local only)  
 
-**Done without operator tree:** Automations engine live on G3; G1 scheduler trio marked `MIGRATED.md` on `-Old`; G1 README status list published.
+**Done without operator tree:** Automations engine live on G3; G1 scheduler trio `MIGRATED.md`; G1 + G0 READMEs published; G0 scavenger list in this index.
 
 ---
 
-*Index updated 2026-09-28 ~18:17 HST — G1 README linked.*
+*Index updated 2026-09-28 ~18:28 HST — G0 section + scavenger list.*
