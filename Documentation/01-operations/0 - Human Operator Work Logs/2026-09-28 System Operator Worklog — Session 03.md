@@ -3,7 +3,7 @@
 **Date:** 2026-09-28  
 **Session:** Residual jobs path inventory + migration rewire plan  
 **Timezone:** HST  
-**Window:** ~20:00–21:40 HST  
+**Window:** ~20:00–21:50 HST  
 **Status:** ACTIVE — execution continued under WO-SRV  
 **Operator:** RootRecord  
 **Agent assist:** Grok (xAI) / BruceMonitor
@@ -105,7 +105,7 @@ Rationale: lowest-risk / highest-clarity items first so Pacific poller can run c
 - Plumbing warmups were migrated under `System/scripts/plumbing/`; `jobs.py` was rewired to the Pacific warmup paths.
 - Network Globe cwd was moved to Pacific `Communications/network`; the command path was already Pacific.
 - Telegram residual surface was migrated into `Communications/telegram/`. `jobs.py` now points `council_relay` at the G3 surface. The remaining inference dependency is being consolidated under `System/scripts/plumbing/`; `single-flight.sh` was landed under `System/scripts/plumbing/`; no safety bypass was used.
-- A-Eyes was migrated into `A-Eyes/`, including camera server, frame capture, timelapse engine, catchup, daily wrapper, and references. The hourly wrapper remains legacy because its G3 creation was safety-blocked. The landed A-Eyes wrappers were rewired to G3 paths.
+- A-Eyes was migrated into `A-Eyes/`, including camera server, frame capture, timelapse engine, catchup, daily wrapper, and references. The A-Eyes hourly wrapper was subsequently added under `A-Eyes/scripts/` and `jobs.py` was rewired to the G3 path.
 - No legacy functions were retired because live G3 runtime verification is not available from this desk session. Retirement remains gated by successful G3 verification, followed immediately by removal from the old repository and documentation of old → new paths.
 
 ### Current residuals
@@ -123,6 +123,12 @@ Rationale: lowest-risk / highest-clarity items first so Pacific poller can run c
 - The Pacific copy preserves the single-inference lock behavior and moves plumbing state to `/home/rootrecord/Database/GITHUB/plumbing/state` rather than the legacy skills tree.
 - `jobs.py` residual documentation was refreshed. The Telegram inference plumbing path is no longer a legacy-path dependency in source; runtime verification is still required before legacy retirement.
 - The A-Eyes hourly wrapper was added under `A-Eyes/scripts/` as a minimal wrapper around the already-migrated `timelapse_engine.py hourly` CLI documented in the legacy scheduler/engine. `jobs.py` now points to the Pacific wrapper.
+
+### Session 04 continuation — static cutover check
+
+- A repository-wide search of the canonical Pacific repo returned no `/home/rootrecord/.ollama/skills/` references.
+- The Pacific A-Eyes hourly wrapper and System single-flight plumbing are present and referenced from the G3 scheduler/configuration surfaces.
+- The legacy repository continues to contain historical skills-tree references in residual and unrelated legacy trees. These remain subject to the documented migration sequence and were not removed based on static inspection alone.
 
 ### Documentation rule
 
