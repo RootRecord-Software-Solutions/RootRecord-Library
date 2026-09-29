@@ -155,11 +155,11 @@ Record: warmup command/result, inference-gate command/result, observed state pat
 
 ---
 
-## 3. A-Eyes
+## 3. Security/Cameras
 
 ### Preconditions
 
-- Pacific `A-Eyes/` runtime files are present.
+- Pacific `Security/Cameras/` runtime files are present.
 - Camera credentials remain outside Git and are available to the runtime.
 - Operator can inspect the camera service and Database path.
 - The verification must not publish or delete stored frames.
@@ -172,37 +172,37 @@ From the Pacific root:
 PACIFIC="/home/rootrecord/RootRecord-Ecosystem/1 - Servers/1 - RootRecord-Pacific-Solar-Server"
 cd "$PACIFIC"
 
-test -x "A-Eyes/scripts/ensure_cam_server.sh"
-test -x "A-Eyes/scripts/grab_all.sh"
-test -f "A-Eyes/scripts/grab_frame.py"
-test -f "A-Eyes/scripts/cam_server.py"
+test -x "Security/Cameras/scripts/ensure_cam_server.sh"
+test -x "Security/Cameras/scripts/grab_all.sh"
+test -f "Security/Cameras/scripts/grab_frame.py"
+test -f "Security/Cameras/scripts/cam_server.py"
 
-bash "A-Eyes/scripts/ensure_cam_server.sh"
+bash "Security/Cameras/scripts/ensure_cam_server.sh"
 
 ps -ef | grep -E '[c]am_server.py' || true
 
-find "/home/rootrecord/Database/A-EYES/frames" -maxdepth 2 -type f -print 2>/dev/null | head -20
+find "/home/rootrecord/RootRecord-Ecosystem/2 - RootRecord-Database/Media/Images/frames" -maxdepth 2 -type f -print 2>/dev/null | head -20
 ```
 
 Run one normal frame-grab test using the operator's documented camera invocation. If the deployment exposes a wrapper/argument contract, use that exact contract; do not invent camera credentials or arguments.
 
 ### Pass criteria
 
-- Camera server resolves to the Pacific `A-Eyes/scripts/cam_server.py`.
+- Camera server resolves to the Pacific `Security/Cameras/scripts/cam_server.py`.
 - The camera service is reachable/healthy according to the existing operator check.
-- One frame path is created or observed under `/home/rootrecord/Database/A-EYES/frames/`.
+- One frame path is created or observed under `/home/rootrecord/RootRecord-Ecosystem/2 - RootRecord-Database/Media/Images/frames/`.
 - No frame data is written into the Pacific Git tree.
 
 ### Fail criteria
 
-- Camera server resolves to the legacy lowercase `a-eyes/` runtime.
+- Camera server resolves to the legacy lowercase `Security Cameras/` runtime.
 - Frame capture fails.
 - Frame data is written into the Pacific repository instead of Database.
 - Credentials are required from Git-tracked files.
 
 ### Record in Residual-Path-Retirement-Table
 
-Record: camera-server process/path evidence, frame-path evidence only (not sensitive image content), timestamp HST, pass/fail, redacted log excerpt, and A-Eyes legacy executable retirement eligibility.
+Record: camera-server process/path evidence, frame-path evidence only (not sensitive image content), timestamp HST, pass/fail, redacted log excerpt, and Security/Cameras legacy executable retirement eligibility.
 
 ---
 
@@ -292,7 +292,7 @@ Record a fresh short-window tail after the poller has had an opportunity to exec
 
 - `jobs.py` compiles.
 - The live poller resolves to the Pacific `Automations/scripts/jobs.py`.
-- Active Energy, Telegram, A-Eyes, Network Globe, Ollama/FLM plumbing paths resolve to Pacific paths.
+- Active Energy, Telegram, Security/Cameras, Network Globe, Ollama/FLM plumbing paths resolve to Pacific paths.
 - No repeated FAIL storm appears in the short observation window.
 - Disabled Weather remains disabled.
 
