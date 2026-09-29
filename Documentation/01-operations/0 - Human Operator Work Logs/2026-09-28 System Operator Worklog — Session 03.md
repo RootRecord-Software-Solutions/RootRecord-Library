@@ -223,3 +223,10 @@ Filename:
 - Pacific scheduler and Telegram runtime inspection confirms the active relay path is `ensure-relay.sh` → `council-relay.py` → `voices.conf`.
 - Legacy `status.sh`, `load_env.sh`, and `post-voice.sh` are not referenced by the inspected active Pacific scheduler/runtime path.
 - No source change or deletion was warranted from this dependency check; live runtime verification remains pending.
+
+
+## Session 04 continuation — Active Scheduler Surface Audit — 2026-09-28
+
+- Current Pacific `jobs.py` inspection confirms enabled scheduler surfaces for poller/watch, Github, System warmups, Telegram, A-Eyes, Network Globe, Energy, System sampling, and Reports use Pacific paths.
+- Only the disabled Weather entry retains a legacy path pair.
+- Static scheduler inspection is complete for this boundary; live runtime verification remains the acceptance gate.
