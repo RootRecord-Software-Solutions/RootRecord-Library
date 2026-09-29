@@ -5,19 +5,67 @@
 | **Date** | 2026-09-28 (HST) |
 | **Applies to** | G2 → G3 imports; then selective G1 recovery |
 | **Live runtime** | `RootRecord-Pacific-Solar-Server` on Ecosystem `1 - Servers/` |
+| **Updated** | 2026-09-28 ~16:56 HST — domain naming SOP |
 
 ---
 
-## Phase 0 — Preconditions (already mostly met)
+## Standing rules (always)
 
-- [x] G3 repo exists under org  
-- [x] Domain folder shells exist  
-- [x] Automations core wired and poller live  
-- [x] Library path inventory for residual jobs  
-- [x] G1 Old inventory mapped  
-- [ ] Operator provides **source tree** for the domain being imported  
+### 1. One domain folder — the name the tree already uses
 
-Do not start Phase 1 without source (or an explicit path on the desk to copy from).
+Pacific domains are the **capitalized** folders already in the repo:
+
+```text
+Automations/  Communications/  Energy/  System/  Weather/
+Github/  Geology/  Security/  Logs/
+```
+
+**Do not** create a second parallel folder or symlink just to match a legacy Python package name (e.g. no `energy` → `Energy` symlink).
+
+| Wrong | Right |
+| --- | --- |
+| `Energy/` **and** `energy/` (symlink) | Only `Energy/` |
+| Import package `energy` via fake path | Import package **`Energy`** (matches folder) |
+| Leave G2 lowercase names on disk in G3 | Rename/adapt to the G3 domain folder name |
+
+### 2. Python packages match the domain folder
+
+When G2 code used `import energy…` because the skill path was `skills/energy/`:
+
+1. Copy into **`Energy/`** (existing domain shell).
+2. Rewrite imports: `energy` → `Energy` (same for any future domain).
+3. Set launcher `PYTHONPATH` to **Pacific repo root** (+ vendor as needed) so `import Energy…` resolves.
+4. **Never** add a lowercase sibling symlink for import convenience.
+
+Same pattern for future domains: folder name is the package name (e.g. `System`, `Weather`).
+
+### 3. Paths with spaces
+
+Ecosystem path contains `1 - Servers`. **Always double-quote** absolute paths in:
+
+- `jobs.py` command strings
+- systemd `ExecStart`
+- shell wrappers
+
+### 4. No old desk as runtime host
+
+- systemd `ExecStart` → Pacific only
+- After a domain is LIVE, jobs for that domain must not point at `~/.ollama/skills/…`
+- G2 remains copy-source / archive until the operator removes it — not the live host
+
+### 5. Data stays in Database
+
+Code in Pacific domain folders. Bytes (logs, samples, ENERGY sqlite, frames) under `/home/rootrecord/Database/…`.
+
+---
+
+## Phase 0 — Preconditions
+
+- [x] G3 repo under org
+- [x] Domain folder shells exist (use those names — do not invent parallel ones)
+- [x] Automations core + poller live on Pacific
+- [x] Energy Phase 1 LIVE; System Phase 1 LIVE
+- [ ] Operator source tree for the domain being imported
 
 ---
 
@@ -27,109 +75,90 @@ Do not start Phase 1 without source (or an explicit path on the desk to copy fro
 
 | Field | Fill in |
 | --- | --- |
-| Domain name | e.g. Energy |
+| Domain name | **Must match existing Pacific folder** (e.g. `Energy`, not `energy`) |
 | G2 source path | e.g. `~/.ollama/skills/energy/` |
-| G3 destination | e.g. `Energy/` |
-| jobs.py ids touched | e.g. ecoflow_read_boot, ecoflow_read_cycle |
+| G3 destination | e.g. `Energy/` only |
+| jobs.py ids | e.g. ecoflow_read_cycle |
 | Data dirs (off-git) | e.g. Database/ENERGY |
 
 ### Step 1.2 — Inventory source
 
-- List scripts, configs, SKILL.md  
-- Mark secrets (never commit)  
-- Note absolute paths inside scripts  
+- Scripts, configs, SKILL.md
+- Secrets (never commit)
+- Absolute paths inside scripts
+- Python `import <pkg>` names — plan rewrite to **domain folder name**
 
 ### Step 1.3 — Copy into G3
 
-- Place under domain folder  
-- Preserve useful structure (`scripts/read/`, etc.)  
-- Add/update domain README  
-- Ensure `.gitignore` covers secrets/store  
+- Into the **existing** domain folder only
+- Preserve useful structure (`scripts/`, `lib/`, `db/`)
+- **No** lowercase duplicate dir/symlink for package hacks
+- Update domain README
+- `.gitignore` secrets/stores
 
-### Step 1.4 — Rewire jobs.py
+### Step 1.4 — Adapt Python / shell
 
-- Point command + cwd at Ecosystem Servers paths (or relative once standardized)  
-- Keep ECOFLOW_LOCK-style local locks  
-- Commit jobs change **with** or immediately after domain files  
+- Rewrite `import oldname` → `import DomainFolderName`
+- Launcher: `PYTHONPATH=vendor:Pacific_root` (or domain-local if top-level modules)
+- Quote all Pacific absolute paths
 
-### Step 1.5 — Deploy
+### Step 1.5 — Rewire jobs.py
+
+- `command` + `cwd` → Ecosystem Pacific paths (quoted)
+- Commit with or right after domain files
+
+### Step 1.6 — Deploy
 
 ```text
-push → github_sync_all → schedule-stack-reload
+push → pull on desk → schedule-stack-reload / systemctl --user restart rr-rootserver-poller
 ```
 
-### Step 1.6 — Verify
+### Step 1.7 — Verify
 
-- Poller window: job OK lines  
-- Domain-specific signals (EcoFlow SUMMARY, SYSTEM samples, …)  
-- No new FAIL storms  
+- Poller: job uses Pacific path (not skills)
+- Domain signals OK
+- Tree shows **one** domain folder for that capability
 
-### Step 1.7 — Document
+### Step 1.8 — Document
 
-- Short Library note or WO-SRV checkbox  
-- Update path inventory row to “migrated”  
-
----
-
-## Phase 2 — Repeat for next G2 domain
-
-Recommended order:
-
-1. Energy  
-2. Github  
-3. System-stats  
-4. Weather full  
-5. A-EYES / Security  
-6. Plumbing  
-7. Telegram  
-8. Reports  
-9. Agents  
+- Domain README status LIVE
+- WO-SRV residual row cleared for that domain
 
 ---
 
-## Phase 3 — Selective G1 (Old) recovery
+## Phase 2 — Remaining G2 domains
 
-Only after Phase 1–2 for that capability (or explicit waiver).
+Recommended order (Energy + System done):
 
-### Step 3.1 — Pick packet
+1. ~~Energy~~ ~~System~~
+2. worklog (reports) **or** Github **or** plumbing
+3. Telegram (Communications)
+4. A-Eyes
+5. Weather (re-enable when present)
+6. Energy actions (Phase 2)
 
-From [Solar-Pacific-Old-Inventory-Map-2026-09-28.md](./Solar-Pacific-Old-Inventory-Map-2026-09-28.md).
+---
 
-### Step 3.2 — Diff
+## Phase 3 — Selective G1 recovery
 
-- G1 packet vs current G3 domain  
-- Keep only unique useful scripts  
-
-### Step 3.3 — Integrate
-
-- Same as Phase 1.3–1.7  
-- Label commit `G1 recovery: <packet>`  
-
-### Step 3.4 — Never
-
-- Bulk-copy `origin/` or `ecosystem-history/` into G3  
-- Commit tokens, RTSP passwords, bot secrets  
-- Enable two Telegram getUpdates owners  
+Only after matching G2→G3 for that capability. Never bulk-merge Old into G3. Same **one folder name** rule.
 
 ---
 
 ## Phase 4 — Catalog & Master-Prompt
 
-When most residual jobs are G3-native:
-
-- Align `repos.conf` local_path to Ecosystem Servers (WO-GH)  
-- Write Master-Prompt `08-repository-and-file-links.md` (WO-MAP)  
-- Close WO-SRV residual items  
+- `repos.conf` → Ecosystem paths (WO-GH)
+- Master-Prompt map (WO-MAP)
+- Zero skills paths in jobs.py
 
 ---
 
 ## Rollback
 
-- Revert the domain commit(s) on G3  
-- Restore jobs.py paths to G2 skills strings  
-- schedule-stack-reload  
-- G2 tree on disk remains safety net until operator removes it  
+- Revert domain commits; restore jobs to G2 only if emergency
+- G2 on disk remains safety net until operator deletes it
+- Do **not** “fix” imports by re-adding lowercase symlinks — fix package names instead
 
 ---
 
-*Playbook 2026-09-28 HST.*
+*Playbook 2026-09-28 HST. Domain naming SOP added same day.*
