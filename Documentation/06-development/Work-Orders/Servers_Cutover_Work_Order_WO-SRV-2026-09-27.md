@@ -4,7 +4,7 @@
 | --- | --- |
 | **Work Order ID** | WO-SRV-2026-09-27 |
 | **Status** | **IN PROGRESS** — Energy + System + Reports + Github + Plumbing LIVE; residual domains remain |
-| **Updated** | 2026-09-28 ~20:55 HST (Session 04) |
+| **Updated** | 2026-09-28 ~21:10 HST (Session 04) |
 
 **Policy:** Do not run the old desk as the poller host.
 
@@ -22,22 +22,23 @@
 | Plumbing (ollama + FLM warmup) | LIVE under **`System/scripts/plumbing/`** |
 | Reports (worklog + roll-up + archive) | LIVE — folder **`Reports/` only** (WO-RPT-001 foundation) |
 | Github (setup-remotes + sync-all) | LIVE — folder **`Github/` only** |
-| Communications/network (cloudflare + globe command) | LIVE path for command; cwd residual remains |
+| Communications/network (cloudflare + globe command) | LIVE — command + cwd now Pacific |
 | Stack reload | Automated reload **does not** open status window (window-close was tearing down stack) |
 
-## Residual G2 (from live `jobs.py` 2026-09-28 ~20:55 HST)
+## Residual G2 (from Pacific `jobs.py` 2026-09-28 ~21:10 HST)
 
 | Domain | Jobs / constants | Notes |
 | --- | --- | --- |
-| Telegram / coms | `council_relay` | Shell only in Pacific — next |
-| A-Eyes | cam server, frame grab, 3× timelapse | Larger; WO-AEYES |
+| Telegram / coms | `council_relay` | G3 surface landed; inference dependency remains under System plumbing |
+| A-Eyes | cam server, frame grab, timelapse | G3 surface landed; hourly wrapper remains legacy pending safety-block clearance |
 | Weather | `weather_poller` | Already **disabled** |
-| Network globe | cwd still legacy | Command path already Pacific |
+| Network globe | cwd | **LIVE** — cwd now Pacific |
 
 ## Next
 
-1. Telegram / council_relay → `Communications/`  
-2. A-Eyes  
-3. Final grep of `jobs.py` + cwd cleanup  
+1. Clear the remaining Telegram/System plumbing dependency (`single-flight.sh`) and recheck council relay paths  
+2. Land the remaining A-Eyes hourly wrapper, then recheck all A-Eyes scheduler paths  
+3. Verify G3 runtime behavior before retiring corresponding legacy functions  
+4. Final grep of `jobs.py` + cwd cleanup
 
-Import next residual domain into its **existing** Pacific folder; rewire jobs; no parallel names.
+Import each residual function into its **existing** Pacific folder; rewire jobs; verify; then retire the completed legacy function immediately. No parallel names.
