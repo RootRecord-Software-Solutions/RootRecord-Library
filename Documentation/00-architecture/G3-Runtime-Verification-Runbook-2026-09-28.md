@@ -136,10 +136,10 @@ Current operator evidence on 2026-09-28 showed `/dev/accel/accel0` present but n
 bash "System/scripts/plumbing/run-infer.sh" <operator-approved-test-arguments>
 ```
 
-Inspect the single-flight state under the Pacific/Data-bound location:
+Inspect the single-flight state under the canonical Pacific Database location:
 
 ```bash
-find "/home/rootrecord/Database/GITHUB/plumbing/state" -maxdepth 2 -type f -print 2>/dev/null | head -50
+find "/home/rootrecord/RootRecord-Ecosystem/2 - RootRecord-Database/GITHUB/plumbing/state" -maxdepth 2 -type f -print 2>/dev/null | head -50
 ```
 
 ### Pass criteria
@@ -147,7 +147,7 @@ find "/home/rootrecord/Database/GITHUB/plumbing/state" -maxdepth 2 -type f -prin
 - Warmup resolves through `System/scripts/plumbing/`.
 - One approved inference request passes through the Pacific single-flight gate.
 - No concurrent duplicate gate execution is observed.
-- State is written/read under `/home/rootrecord/Database/GITHUB/plumbing/state`, not the legacy `~/.ollama/skills/plumbing/state` location.
+- State is written/read under `/home/rootrecord/RootRecord-Ecosystem/2 - RootRecord-Database/GITHUB/plumbing/state`, not the legacy `~/.ollama/skills/plumbing/state` location.
 
 ### Fail criteria
 
@@ -299,7 +299,7 @@ Use the normal operator command/service check to confirm the live poller is exec
 Then inspect a short fixed observation window of the current log:
 
 ```bash
-tail -n 100 "/home/rootrecord/Database/Logs/Automations/automations_current.log"
+tail -n 100 "/home/rootrecord/RootRecord-Ecosystem/2 - RootRecord-Database/Logs/Automations/automations_current.log"
 ```
 
 Record a fresh short-window tail after the poller has had an opportunity to execute its scheduled work. Use the established log location if the deployment exposes `automations_current.log` through a different documented path.
@@ -363,6 +363,12 @@ A migrated family is eligible for legacy executable retirement only when:
 6. No other active job still depends on the legacy executable.
 
 After those gates pass, retire that completed legacy executable/function immediately and update the table. Do not batch unrelated retirements.
+
+## Canonical Database boundary — verified 2026-09-29
+
+- Active Pacific source code uses `/home/rootrecord/RootRecord-Ecosystem/2 - RootRecord-Database` as the Database authority.
+- Older `/home/rootrecord/Database/` references found in historical evidence, backups, or operator tooling are not evidence that the legacy root remains the active source boundary.
+- Do not rewrite historical evidence paths merely to make old evidence look current.
 
 ## Explicitly out of scope for this runbook
 
