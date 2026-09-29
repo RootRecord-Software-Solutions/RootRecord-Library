@@ -59,13 +59,13 @@ RootRecord-Ecosystem
 - [x] Live runtime path: `…/1 - Servers/1 - RootRecord-Pacific-Solar-Server`
 - [x] Domain folders + Automations core wired (poller, jobs, stack, Communications/network)
 - [x] Poller confirmed active from Ecosystem path (2026-09-28)
-- [ ] Full domain import (energy, a-eyes, github, plumbing, telegram)
-- [ ] `repos.conf` row(s) aligned to Ecosystem path
+- [x] Pacific source imports for Energy, A-Eyes, Github, Plumbing, and Telegram landed; runtime verification remains tracked under WO-SRV
+- [x] `repos.conf` Pacific catalog row aligned to the Ecosystem path; Website/Mainland remain intentionally disabled
 - [ ] Master-Prompt `08-repository-and-file-links.md` authored
 
 ### 2.3 Transitional friction
 
-- Some `jobs.py` entries still call legacy `~/.ollama/skills/…` absolute paths for domains not yet imported
+- Current Pacific `jobs.py` active scheduler surfaces resolve to Pacific paths; the remaining legacy Weather command/cwd pair is explicitly disabled and outside active cutover scope
 - Org placement: **Library + Pacific Server** under `RootRecord-Software-Solutions`; other operational repos under `rootrecordsoftwaresolutions`
 - Prior remote `rootrecordsoftwaresolutions/Solar-Pacific-RootRecord-Server` is legacy for Pacific runtime
 
@@ -123,8 +123,8 @@ RootRecord-Ecosystem
 
 - [x] Pacific server live under `1 - Servers/…`
 - [x] Automations core path-wired and operator-verified
-- [ ] Import remaining domains one at a time
-- [ ] `repos.conf` path alignment
+- [ ] Import remaining out-of-scope domains one at a time (including Weather/Geology where separately authorized)
+- [x] `repos.conf` Pacific path alignment
 
 ### 4.3 Data / Website / Node
 
