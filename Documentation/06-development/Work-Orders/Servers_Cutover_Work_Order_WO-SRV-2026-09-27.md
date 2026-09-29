@@ -284,7 +284,7 @@ Retirement eligibility (after this evidence): Security/Cameras cam server + fram
 **Open findings:**
 1. Relay PID 821015 was started from the desk agent session (cgroup `app-grok-bot-*.scope`), not the poller unit; if it dies it only returns at the next poller start (boot job `council_relay`).
 2. Poller stop takes 30 s and is SIGKILLed (TimeoutStopSec) on every restart/reload; an auto-pull stack reload (01:19 HST) also kills the relay because it lives in the poller cgroup.
-3. `jobs.py` vs intake: re-checked — `jobs.py` only mentions intake in its header comment, already the canonical `2 - RootRecord-Database/intake/`; relay state is canonical too. Old `/home/rootrecord/Database/intake/council-relay/` remains (historical). `jobs.py` not touched.
+3. `jobs.py` vs intake: re-checked — `jobs.py` only mentions intake in its header comment, already the canonical `2 - RootRecord-Database/Intake/`; relay state is canonical too. Old `/home/rootrecord/Database/intake/council-relay/` remains (historical). `jobs.py` not touched.
 4. `Logs/Communications/council-relay.log` is 0 bytes because the relay's stdout is block-buffered (nohup to file); stderr errors would still appear.
 5. `devices.conf` G2 `log_dir`/`state_dir`/`skill_root` — fixed in `58ee023` (see above).
 6. Security timelapse check must wait for the 05:00–19:00 HST window.

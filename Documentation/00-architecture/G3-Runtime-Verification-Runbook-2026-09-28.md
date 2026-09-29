@@ -139,7 +139,7 @@ bash "System/scripts/plumbing/run-infer.sh" <operator-approved-test-arguments>
 Inspect the single-flight state under the canonical Pacific Database location:
 
 ```bash
-find "/home/rootrecord/RootRecord-Ecosystem/2 - RootRecord-Database/GITHUB/plumbing/state" -maxdepth 2 -type f -print 2>/dev/null | head -50
+find "/home/rootrecord/RootRecord-Ecosystem/2 - RootRecord-Database/Github/plumbing/state" -maxdepth 2 -type f -print 2>/dev/null | head -50
 ```
 
 ### Pass criteria
@@ -147,7 +147,7 @@ find "/home/rootrecord/RootRecord-Ecosystem/2 - RootRecord-Database/GITHUB/plumb
 - Warmup resolves through `System/scripts/plumbing/`.
 - One approved inference request passes through the Pacific single-flight gate.
 - No concurrent duplicate gate execution is observed.
-- State is written/read under `/home/rootrecord/RootRecord-Ecosystem/2 - RootRecord-Database/GITHUB/plumbing/state`, not the legacy `~/.ollama/skills/plumbing/state` location.
+- State is written/read under `/home/rootrecord/RootRecord-Ecosystem/2 - RootRecord-Database/Github/plumbing/state`, not the legacy `~/.ollama/skills/plumbing/state` location.
 
 ### Fail criteria
 
