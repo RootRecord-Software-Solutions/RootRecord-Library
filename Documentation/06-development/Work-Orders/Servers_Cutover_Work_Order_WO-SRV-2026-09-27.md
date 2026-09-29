@@ -3,8 +3,8 @@
 | Field | Value |
 | --- | --- |
 | **Work Order ID** | WO-SRV-2026-09-27 |
-| **Status** | **IN PROGRESS** — G3 runtime PASS: network globe, BLE owner, cam server, frame grab, System sampling, Reports worklog, Plumbing non-NPU, and read-only `solar-gate-status`. Open: Telegram runtime verification after token provisioning (model availability also needs verification), Energy actuating actions + timelapse VERIFY PENDING, poller runtime recheck after the canonical Database-root path correction/restart, NPU BLOCKED, poller §5 gate open |
-| **Updated** | 2026-09-29 ~01:19 HST — poller restarted on canonical Database root: PASS; Telegram relay poll/auth PASS (models still missing) |
+| **Status** | **IN PROGRESS** — G3 PASS: poller on canonical root, network globe, BLE owner, cam server, frame grab, System sampling, Reports worklog, Plumbing non-NPU, read-only `solar-gate-status`, Telegram relay login/polling. Open: Telegram replies BLOCKED (models), Energy actuating actions + timelapse VERIFY PENDING, NPU BLOCKED, poller §5 gate. G2 code KEPT (retire only with Alexander sign-off) |
+| **Updated** | 2026-09-29 ~01:37 HST — status + open findings refresh; G2 retirements reverted; residual path survey |
 
 **Policy:** Do not run the old desk as the poller host.
 
@@ -267,3 +267,27 @@ Retirement eligibility (after this evidence): Security/Cameras cam server + fram
 
 - **KEPT (restored 2026-09-29, retire only with Alexander sign-off).** Alexander rejected tonight's G2 retirements (no live references is not grounds; unimported automations may need them). All 14 files restored byte-identical with original modes from `/home/rootrecord/Database/GITHUB/g2-retire.bak-*` (verified against `git show <parent>:<path>`): a-eyes `grab_all.sh`, `cam_server.py`, `ensure_cam_server.sh`; system-stats `sys-sample.sh`; reports `worklog_once.sh`; coms/ssh/local-data-globe `collector.js`, `telegram-relay.js`; energy `ble/ble-owner.py`, `actions/solar-gate-status.sh`; plumbing `ollama-warmup.sh`, `run-ollama.sh`, `run-infer.sh`; coms/telegram `council-relay.py`, `ensure-relay.sh`. All 8 MIGRATED.md markers removed (backup `/home/rootrecord/Database/GITHUB/g2-restore.bak-20260929-012907/`); SKILL.md kept. Skills `1dcee66`.
 - Restored copies are dormant: nothing started/enabled/restarted; systemd units and running processes still use Pacific paths only (one each: BLE owner, globe collector, cam server, relay, poller). Earlier "G2 retired" bullets above are superseded by this entry.
+
+## Status + findings refresh — 2026-09-29 ~01:37 HST
+
+**Standing rule (Alexander, 2026-09-29):** never retire or delete G2/legacy code. "No live references" is not grounds — unimported automations (e.g. the older repo `rootrecordsoftwaresolutions/old`) may need it. Retirement happens only with Alexander's explicit sign-off.
+
+- **Poller realign — PASS** (Pacific `d9f074b`): energy/system-status/log on the canonical Database root; status line matches fresh readings.
+- **`Github/scripts/common.sh` — LANDED** (`75d86f2`): DATABASE_ROOT canonical; BAK_ROOT intentionally stays `/home/rootrecord/Database/GITHUB`.
+- **Relay quoting fix — LANDED** (`f27604d`); **relay login/polling PASS**, replies **BLOCKED** (`ava-telegram`/`bruce-telegram`/`carly-telegram` models missing).
+- **Live logs untracked — PASS** (Database `eabe62e`): BLE, poller-current and relay logs git-ignored, still written on disk; hourly archive is the synced copy.
+- **G2 retirements reverted — KEPT** (skills `1dcee66`): all 14 files restored, MIGRATED.md markers removed, restored copies dormant.
+- **Remaining no-restart defaults — LANDED** (Pacific `58ee023`): `devices.conf` `log_dir`/`state_dir` → canonical root, `skill_root` → Pacific `Energy` (no code reads `[paths]`; G2 energy uses its own G2 `devices.conf`, so nothing G2 depends on it); stack-reload log default → canonical `Logs/Automations/stack_reload_current.log` (next reload); `daily_roll_up.sh` WORKLOG_DIR → canonical (next 18:30 HST run).
+- Residual path survey: `2 - RootRecord-Database/Logs/Migration/g3-residual-path-survey-20260929T113523Z.md`.
+- Evidence: `2 - RootRecord-Database/Logs/Migration/g3-poller-realign-evidence-20260929T111731Z.md`.
+
+**Open findings:**
+1. Relay PID 821015 was started from the desk agent session (cgroup `app-grok-bot-*.scope`), not the poller unit; if it dies it only returns at the next poller start (boot job `council_relay`).
+2. Poller stop takes 30 s and is SIGKILLed (TimeoutStopSec) on every restart/reload; an auto-pull stack reload (01:19 HST) also kills the relay because it lives in the poller cgroup.
+3. `jobs.py` vs intake: re-checked — `jobs.py` only mentions intake in its header comment, already the canonical `2 - RootRecord-Database/intake/`; relay state is canonical too. Old `/home/rootrecord/Database/intake/council-relay/` remains (historical). `jobs.py` not touched.
+4. `Logs/Communications/council-relay.log` is 0 bytes because the relay's stdout is block-buffered (nohup to file); stderr errors would still appear.
+5. `devices.conf` G2 `log_dir`/`state_dir`/`skill_root` — fixed in `58ee023` (see above).
+6. Security timelapse check must wait for the 05:00–19:00 HST window.
+7. B1 (River 2 Pro) reads 0% — needs a physical check.
+8. FLM/NPU BLOCKED (no FLM binary/service).
+9. Needs decision: `Energy/db/store.py` still defaults to old-root `ROOTRECORD/rootrecord.db` (no canonical copy); `push-repo-once.sh` still treats `~/.ollama/skills` pulls as runtime code (arms a stack reload).

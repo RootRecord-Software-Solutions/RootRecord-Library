@@ -4,7 +4,7 @@
 | --- | --- |
 | **Date** | 2026-09-28 (HST) |
 | **Supports** | WO-SRV-2026-09-27 |
-| **Rule** | Pre-filled from existing static audits. Bruce fills Verified / Retired after G3 checklist. Docs only. |
+| **Rule** | Pre-filled from existing static audits. Bruce fills Verified / Retired after G3 checklist. Docs only. **Standing rule (Alexander, 2026-09-29): never retire or delete G2/legacy code; "no live references" is not grounds (unimported automations, e.g. `rootrecordsoftwaresolutions/old`, may need it). Retire only with Alexander's explicit sign-off.** |
 
 ---
 
@@ -16,7 +16,7 @@ Use the companion [G3 Runtime Verification Runbook](./G3-Runtime-Verification-Ru
 
 1. Run [G3 Runtime Verification Checklist](./G3-Runtime-Verification-Checklist-2026-09-28.md)  
 2. Mark **Verified** only with evidence (cycle OK + path on Pacific)  
-3. Mark **Retired** only after legacy **executable** removed or `MIGRATED.md` placed  
+3. Mark **Retired** only after Alexander's explicit sign-off, then legacy **executable** removed or `MIGRATED.md` placed  
 4. Keep legacy `SKILL.md` files  
 
 Pacific root (desk):  

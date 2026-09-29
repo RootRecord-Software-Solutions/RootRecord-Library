@@ -7,7 +7,7 @@
 | **Status** | IN PROGRESS — Pacific runtime cut over to Ecosystem Servers path; G3 runtime verification partial (see WO-SRV current status); Master-Prompt links and out-of-scope domain imports still open |
 | **Owner** | RootRecord |
 | **Related** | Library online; WO-SRV; domain wiring 2026-09-28 |
-| **Updated** | 2026-09-29 ~01:11 HST |
+| **Updated** | 2026-09-29 ~01:37 HST |
 
 **Scope:** Establish clean ownership boundaries between the local `RootRecord-Ecosystem` tree and independent GitHub repositories; migrate durable knowledge and runtime artifacts out of the legacy single-tree model.
 
@@ -137,6 +137,7 @@ RootRecord-Ecosystem
   - *Desk check 2026-09-29 ~00:52 HST:* some active Pacific sources still hardcode the old root: plumbing `single-flight.sh` (`STATE_DIR`) and `flm-warmup.sh`; Energy `solar-gate-{status,arm,disarm}.sh`; `ble-owner.py` LOG/PID and `devices.conf` `ble_log`. The running poller log is also still at `/home/rootrecord/Database/Logs/Automations/`. Tracked in WO-SRV Next #1; see `2 - RootRecord-Database/Logs/Migration/g3-energy-plumbing-evidence-20260929T104618Z.md`.
   - *Update ~00:57 HST:* those plumbing, solar-gate, BLE-owner and `devices.conf` paths now use the canonical root (Pacific `87a6469`). Still on the old root: the poller (`run-poller.sh` `POLLER_LOG`; `rootserver_poller.py` `ENERGY_ROOT` and system-status), which needs a poller restart, and the `Github/scripts/common.sh` `DATABASE_ROOT` default.
   - *Update ~01:12 HST:* poller realigned + restarted, PASS (Pacific `d9f074b`); `common.sh` DATABASE_ROOT LANDED (`75d86f2`). Ignore rules for the BLE and poller logs added (Database `a05805a`) but BLOCKED — both are tracked (`git rm --cached` needs approval). Evidence `2 - RootRecord-Database/Logs/Migration/g3-poller-realign-evidence-20260929T111731Z.md`.
+  - *Update ~01:37 HST:* remaining no-restart defaults LANDED (Pacific `58ee023`); live logs untracked (Database `eabe62e`); G2 retirements reverted, G2 code KEPT (skills `1dcee66`). **Residual path survey:** `2 - RootRecord-Database/Logs/Migration/g3-residual-path-survey-20260929T113523Z.md` (FX 4 files · MM 2 docs · KI 13 · ND 5). **Standing rule (Alexander, 2026-09-29):** never retire or delete G2/legacy code. "No live references" is not grounds — unimported automations (e.g. the older repo `rootrecordsoftwaresolutions/old`) may need it. Retirement happens only with Alexander's explicit sign-off.
 - [x] **Database repo `.gitignore` — volatile runtime state excluded (2026-09-29 ~00:56 HST).** Added `/ENERGY/state/`, `/ENERGY/ports/`, `/GITHUB/plumbing/state/`, `*.pid` and `*.lock`, so pid, lock and state json files are not auto-committed to the Database repo every 5 s. Reasons: **privacy** (e.g. the single-flight holder file records the full inference command, prompt included) and **commit churn**. No tracked file matched, so nothing was untracked. Evidence: `2 - RootRecord-Database/Logs/Migration/g3-dbroot-realign-evidence-20260929T105845Z.md`.
 
 ---

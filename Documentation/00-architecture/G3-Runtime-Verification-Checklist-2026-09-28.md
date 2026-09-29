@@ -4,7 +4,7 @@
 | --- | --- |
 | **Date** | 2026-09-28 (HST) |
 | **Authority** | Supports WO-SRV-2026-09-27 |
-| **Rule** | Docs only. Bruce (or operator with shell) runs this. No retirement until each row passes. |
+| **Rule** | Docs only. Bruce (or operator with shell) runs this. No retirement until each row passes — and even then only with Alexander's explicit sign-off (standing rule 2026-09-29). |
 
 ---
 
@@ -74,7 +74,7 @@ Already marked LIVE in WO-SRV; this is confirmation only.
 
 ## After all applicable rows pass
 
-1. For each verified surface: retire **executable** legacy function only  
+1. For each verified surface: retire **executable** legacy function only — **only with Alexander's explicit sign-off** (2026-09-29 rule; a PASS or "no live references" is not enough)  
 2. Leave legacy `SKILL.md` in place  
 3. Prefer `MIGRATED.md` on old packet over silent delete  
 4. Record old → new in the Residual Path Retirement Table  
@@ -104,3 +104,28 @@ The checklist remains the runtime gate, but its earlier summary is stale. Curren
 - The human `/home/rootrecord/RootRecord-Ecosystem/Pull.sh` workflow is intentionally retained and is **not** a failure condition.
 
 The older line that described Energy actions as already LIVE is superseded by the current runtime evidence: **Energy action retirement verification is still pending.**
+
+## Status refresh — 2026-09-29 ~01:37 HST
+
+Supersedes the "PASS / retired" wording above: those surfaces are **PASS / G2 KEPT** — all tonight's G2 retirements were reverted (skills `1dcee66`).
+
+**Standing rule (Alexander, 2026-09-29):** never retire or delete G2/legacy code. "No live references" is not grounds — unimported automations (e.g. the older repo `rootrecordsoftwaresolutions/old`) may need it. Retirement happens only with Alexander's explicit sign-off.
+
+| Row | State | Evidence |
+| --- | --- | --- |
+| A. Telegram / council_relay | Login/polling **PASS**; replies **BLOCKED** (`*-telegram` models missing) | relay quoting fix `f27604d`; `2 - RootRecord-Database/Logs/Migration/g3-poller-realign-evidence-20260929T111731Z.md` |
+| B. Security timelapse | VERIFY PENDING (window 05:00–19:00 HST) | — |
+| C. Energy actions | read-only `solar-gate-status` PASS; actuating VERIFY PENDING; B1 0% needs physical check | — |
+| D. Poller full cycle | Poller realign **PASS** (`d9f074b`); log now canonical `2 - RootRecord-Database/Logs/Automations/automations_current.log` (untracked, `eabe62e`) | `2 - RootRecord-Database/Logs/Migration/g3-poller-realign-evidence-20260929T111731Z.md` |
+| Plumbing NPU/FLM | BLOCKED | — |
+
+**Open findings:**
+1. Relay PID 821015 was started from the desk agent session (cgroup `app-grok-bot-*.scope`), not the poller unit; if it dies it only returns at the next poller start (boot job `council_relay`).
+2. Poller stop takes 30 s and is SIGKILLed (TimeoutStopSec) on every restart/reload; an auto-pull stack reload (01:19 HST) also kills the relay because it lives in the poller cgroup.
+3. `jobs.py` vs intake: re-checked — `jobs.py` only mentions intake in its header comment, already the canonical `2 - RootRecord-Database/intake/`; relay state is canonical too. Old `/home/rootrecord/Database/intake/council-relay/` remains (historical). `jobs.py` not touched.
+4. `Logs/Communications/council-relay.log` is 0 bytes because the relay's stdout is block-buffered (nohup to file); stderr errors would still appear.
+5. `devices.conf` G2 `log_dir`/`state_dir`/`skill_root` — fixed in `58ee023` (see above).
+6. Security timelapse check must wait for the 05:00–19:00 HST window.
+7. B1 (River 2 Pro) reads 0% — needs a physical check.
+8. FLM/NPU BLOCKED (no FLM binary/service).
+9. Needs decision: `Energy/db/store.py` still defaults to old-root `ROOTRECORD/rootrecord.db` (no canonical copy); `push-repo-once.sh` still treats `~/.ollama/skills` pulls as runtime code (arms a stack reload).

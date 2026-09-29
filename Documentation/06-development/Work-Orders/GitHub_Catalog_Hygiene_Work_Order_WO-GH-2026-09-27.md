@@ -4,7 +4,7 @@
 | --- | --- |
 | **Work Order ID** | WO-GH-2026-09-27 |
 | **Status** | **IN PROGRESS** — Pacific `Github/` sync **LIVE**; website/mainland still disabled |
-| **Updated** | 2026-09-29 ~00:52 HST |
+| **Updated** | 2026-09-29 ~01:37 HST |
 
 **Scope:** Catalog + auto-sync under Pacific; org remotes for canonical three; retire non-canonical clutter when convenient.
 
@@ -28,6 +28,13 @@
 - The human `Pull.sh` workflow remains explicitly resolved and retained.
 - The Pacific poller source now uses the canonical Database root; this does not alter the operator pull workflow.
 - `Github/scripts/common.sh` still carries an old default Database root and remains a small cleanup item; it is not a reason to remove or disable `Pull.sh`.
+
+## Refresh — 2026-09-29 ~01:37 HST
+
+- `Github/scripts/common.sh` DATABASE_ROOT default → canonical — **LANDED** (Pacific `75d86f2`). `BAK_ROOT` intentionally stays `/home/rootrecord/Database/GITHUB` (flags/worktrees/backups outside the auto-synced Database tree; matches the stack-reload scripts).
+- Live logs untracked in the Database repo (`eabe62e`) to stop per-sync churn; hourly archives remain synced.
+- G2 retirements reverted (skills `1dcee66`); the `skills` catalog entry stays. **Standing rule (Alexander, 2026-09-29):** never retire or delete G2/legacy code. "No live references" is not grounds — unimported automations (e.g. the older repo `rootrecordsoftwaresolutions/old`) may need it. Retirement happens only with Alexander's explicit sign-off.
+- Needs decision: `push-repo-once.sh` `is_runtime_code_tree` still arms a poller stack reload on `~/.ollama/skills` pulls. Survey: `2 - RootRecord-Database/Logs/Migration/g3-residual-path-survey-20260929T113523Z.md`.
 
 ## Remaining
 
