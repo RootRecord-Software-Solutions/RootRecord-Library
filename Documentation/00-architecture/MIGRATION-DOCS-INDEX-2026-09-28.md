@@ -26,6 +26,7 @@ Single entry point for agents and operators working the Pacific server cutover *
 | [G3-Runtime-Verification-Checklist-2026-09-28.md](./G3-Runtime-Verification-Checklist-2026-09-28.md) | Runtime gate before legacy retirement (supports WO-SRV) |
 | [Residual-Path-Retirement-Table-2026-09-28.md](./Residual-Path-Retirement-Table-2026-09-28.md) | Pre-filled old→new table; Bruce fills Verified/Retired |
 | [Communications-Notify-Policy-Draft-2026-09-28.md](./Communications-Notify-Policy-Draft-2026-09-28.md) | Notify policy draft for WO-COM-001 (Carly conditional seal may land via PR; check main) |
+| **[07-testing/README.md](../07-testing/README.md)** | **Testing thread** (2026-09-29): one record per test run (HST time, method, pass criteria, state, resource impact, evidence, SHAs, cleanup) + test-safety policy + index |
 
 ## Product & archive inventory (Minecraft, apps, mirrors)
 
@@ -118,6 +119,8 @@ Weather: **enabled and PASS** since 2026-09-29 (Pacific `Weather/`; see WO-SRV).
 
 **Migration evidence 2026-09-29** (`2 - RootRecord-Database/Logs/Migration/`): `g3-poller-realign-evidence-20260929T111731Z.md`, `g3-residual-path-survey-20260929T113523Z.md`, `g3-weather-archive-evidence-20260929T115429Z.md`, `g3-pre-reboot-checkpoint-20260929T120755Z.md` (post-reboot list in WO-SRV "Pre-reboot checkpoint 2026-09-29").
 
+**More evidence 2026-09-29** (same folder): `g3-runtime-evidence-20260929T101550Z.md`, `g3-cutover-evidence-20260929T103720Z.md`, `g3-energy-plumbing-evidence-20260929T104618Z.md`, `g2-retire-aeyes-cam-evidence-20260929T105103Z.md`, `g3-dbroot-realign-evidence-20260929T105845Z.md`, `g3-poller-viewer-evidence-20260929T121959Z.md`, `g3-post-reboot-evidence-20260929T123313Z.md`, `g3-followups-evidence-20260929T124741Z.md`, `g3-npu-flm-evidence-20260929T125429Z.md` (addenda 03:02 and 03:29 HST), `g3-titlecase-rename-evidence-20260929T130752Z.md`. Per-test records: [07-testing](../07-testing/README.md).
+
 **Documented without executing product migration:** full product/archive catalog (Paper, Nukkit, apps, mirrors); Automations G1 retirement; G0/G1 READMEs.
 
 **Strategy:** close residual verification before build-mode expansion — see [Local Multi-Agent Team](./Local-Multi-Agent-Team-and-Migration-to-Build-2026-09-28.md).
@@ -125,3 +128,5 @@ Weather: **enabled and PASS** since 2026-09-29 (Pacific `Weather/`; see WO-SRV).
 ---
 
 *Index updated 2026-09-28 ~22:16 HST — team constitution doc linked.*
+
+*Index updated 2026-09-29 ~03:45 HST — Testing folder (`Documentation/07-testing/`) and the full 2026-09-29 evidence list added.*
