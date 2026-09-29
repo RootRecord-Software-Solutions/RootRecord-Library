@@ -65,6 +65,14 @@
 - Pacific `Communications/telegram/scripts/status.sh` and `load_env.sh` do not exist at the inspected paths; no deletion was performed or inferred from that absence.
 - Runtime verification remains unavailable from this desk session, so legacy runtime functions remain in the old repository.
 
+## Pacific Runtime Static Audit — 2026-09-28
+
+- Direct fetch inspection covered the migrated A-Eyes runtime scripts, Telegram runtime scripts, System plumbing scripts, and `Automations/scripts/jobs.py`.
+- No embedded `/home/rootrecord/.ollama/skills/` or `~/.ollama/skills/` references were found in the inspected migrated A-Eyes, Telegram, or System plumbing runtime files.
+- `Automations/scripts/jobs.py` contains one remaining legacy path pair only for `weather_poller`; that job is explicitly `enabled: False` and documented as disabled until the Weather domain path exists on the desk. No active scheduler entry in the inspected file retains a legacy executable/cwd path.
+- Current `jobs.py` source blob: `4276087c42c4ff36f50e79fb5e827ac7d5f01866`.
+- This is a static source audit only. It does not satisfy the required G3 runtime verification gate, so no legacy runtime function was retired.
+
 ## Legacy Retirement Gate — 2026-09-28
 
 - Direct legacy-repository search confirms the old executable implementations remain present for the migrated plumbing warmups, single-flight/inference surfaces, Telegram relay, A-Eyes hourly scheduler, and Energy action wrappers.
