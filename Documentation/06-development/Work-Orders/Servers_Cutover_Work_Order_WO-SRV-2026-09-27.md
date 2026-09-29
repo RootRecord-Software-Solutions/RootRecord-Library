@@ -95,3 +95,12 @@
 4. Move this work order to `Documentation/06-development/Work-Orders/Complete/` only after all acceptance criteria are satisfied
 
 Import each residual function into its **existing** Pacific folder; rewire jobs; verify; then retire the completed legacy function immediately. No parallel names.
+
+
+## Final Static Scheduler + Action Audit — 2026-09-28
+
+- Direct fetch of the current Pacific `Automations/scripts/jobs.py` confirms all inspected active residual scheduler surfaces use Pacific paths: Telegram, A-Eyes, Network Globe, Energy reads/actions, System plumbing warmups, Reports, Github, and the Pacific poller/watch process.
+- The sole remaining legacy path pair in `jobs.py` is `weather_poller`, which is explicitly `enabled: False` and remains outside the active cutover scope.
+- Direct fetch of representative Energy action wrappers and A-Eyes wrappers found no `/home/rootrecord/.ollama/skills/` or `~/.ollama/skills/` references. Inspected source SHAs include Energy `river2pro-ac-always-on-on.sh` `6c40d2b24982ccf2c75f83745cfa94f05582d2c0`, `river2pro-ac-always-on-off.sh` `7a8d51147ee4d38a1ff145b39b8ac9b944558276`, `solar-gate-arm.sh` `3c95f02f13f9fdc2c7906107166b13948c90430b`, `solar-gate-disarm.sh` `cf4de448d0d6950070e167c974b0779743c8eb31`, `solar-gate-status.sh` `90e361a6362eb739de63c9ef8b380410a2ecf1bb`; and A-Eyes `ensure_cam_server.sh` `9e7bf1d3b08f9b80b34d4070c33b621fba58b5bd`, `grab_all.sh` `8c8a610155d28b011420ac347319d85ab4cf2fb4`, `timelapse_catchup.sh` `af717738f1474389427db6e7d16179b491ff111f`, `timelapse_daily.sh` `b562e22430569a680d929a668d6953f8808b5041`, `timelapse_hourly.sh` `3298a47163a6f60966745cf13bb4f7ed9d57c930`.
+- Two guessed Energy filenames (`delta2-ac-always-on-on.sh` / `delta2-ac-always-on-off.sh`) do not exist at the inspected Pacific paths; no deletion or replacement was inferred from that 404.
+- Static inspection does not establish live runtime behavior. Legacy runtime implementations remain pending the documented G3 runtime verification gate; legacy `SKILL.md` documentation remains preserved.
