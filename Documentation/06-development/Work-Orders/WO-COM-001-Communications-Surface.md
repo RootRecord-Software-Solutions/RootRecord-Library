@@ -5,8 +5,8 @@
 | **Priority** | P1 |
 | **Status** | Draft |
 | **Target** | Pacific `Communications/` (incl. `network/cloudflare`, `discord/`, `telegram/`) |
-| **Depends on** | Live tunnel already working; operator policy on Telegram/Discord/alerts |
-| **Related** | WO-WEB-001; WO-COM-002; poller stack lifecycle scripts; [Communications-Notify-Policy-Draft-2026-09-28.md](../../00-architecture/Communications-Notify-Policy-Draft-2026-09-28.md) (Ava draft — pending Carly seal) |
+| **Depends on** | Cloudflare tunnel recovery/runtime verification; operator policy on Telegram/Discord/alerts |
+| **Related** | WO-WEB-001; WO-COM-002; poller stack lifecycle scripts; [Communications-Notify-Policy-Draft-2026-09-28.md](../../00-architecture/Communications-Notify-Policy-Draft-2026-09-28.md) (Ava draft — Carly security-sealed with conditions; operator acceptance required) |
 
 ## Goal
 
@@ -54,7 +54,7 @@ Treat Communications as the single home for outbound/inbound edges: Cloudflare t
 
 ## Notes
 
-Live poller already shows tunnel + public URL healthy. This WO is organization and policy, not a rebuild of Cloudflare.
+Operator worklog records a public URL shown active in the poller window banner; this is not a substitute for the open WO-CF runtime gate. Tunnel UP after clean restore and end-to-end public URL verification remain acceptance evidence. This WO is organization and policy, not a rebuild of Cloudflare.
 
 Discord credential rotation is **WO-COM-002** — required gate for any Discord migration phase.
 
