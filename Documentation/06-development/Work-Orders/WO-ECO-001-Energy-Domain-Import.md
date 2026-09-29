@@ -3,7 +3,7 @@
 | Field | Value |
 |-------|--------|
 | **Priority** | P0 |
-| **Status** | **Phase 1 on org Pacific** — read scripts + jobs rewire pushed 2026-09-28 |
+| **Status** | **Phase 1 desk fill done** — org scripts + jobs rewire + desk lib/db/config fill 2026-09-28; stack reload + soak pending |
 | **Target repo** | `RootRecord-Software-Solutions/RootRecord-Pacific-Solar-Server` (`Energy/`) |
 | **Action plan** | [WO-ECO-001-Action-Plan.md](WO-ECO-001-Action-Plan.md) |
 
@@ -11,15 +11,15 @@
 
 - Energy read scripts under `Energy/scripts/read/`
 - Partial `Energy/lib/` + jobs.py rewire to Ecosystem Energy paths
-- `ENERGY_EFLIB_PATH` → live G2 vendor for BLE
+- `ENERGY_EFLIB_PATH` → live G2 vendor for BLE (until soak / vendor policy)
 
-## Operator next (desk)
+## Desk log (2026-09-28 HST)
 
-1. `git pull` on Ecosystem Pacific checkout (org remote)
-2. Ensure `Energy/lib/read_runner.py`, `ble_client.py`, `ecoflow_api.py`, `db/`, `config/devices.conf` exist — copy from `~/.ollama/skills/energy/` if still missing after pull
-3. Stack reload
-4. Watch SUMMARY / ENERGY lines ≥15 min
-5. Do not delete G2 skill tree until soak OK
+1. [x] `git pull` on Ecosystem Pacific — already up to date
+2. [x] `Energy/lib`, `Energy/db`, `Energy/config` filled from G2 (`cp -an`)
+3. [ ] Stack reload (`Automations/scripts/stack/schedule-stack-reload.sh`)
+4. [ ] Watch SUMMARY / ENERGY lines ≥15 min
+5. [ ] Do not delete G2 skill tree until soak OK
 
 ## Phase 2+
 
