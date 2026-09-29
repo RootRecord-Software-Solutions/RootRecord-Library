@@ -3,8 +3,8 @@
 | Field | Value |
 | --- | --- |
 | **Work Order ID** | WO-SRV-2026-09-27 |
-| **Status** | **IN PROGRESS** — Energy + System + Reports + Github + Plumbing + Telegram plumbing LIVE; residual A-Eyes hourly wrapper remains |
-| **Updated** | 2026-09-28 ~21:25 HST (Session 04) |
+| **Status** | **IN PROGRESS** — Pacific source paths landed for active residuals; runtime verification + legacy retirement remain |
+| **Updated** | 2026-09-28 ~21:40 HST (Session 04) |
 
 **Policy:** Do not run the old desk as the poller host.
 
@@ -30,15 +30,15 @@
 | Domain | Jobs / constants | Notes |
 | --- | --- | --- |
 | Telegram / coms | `council_relay` | G3 surface + `System/scripts/plumbing/single-flight.sh` landed; runtime verification pending |
-| A-Eyes | cam server, frame grab, timelapse | G3 surface landed; hourly wrapper remains legacy pending safety-block clearance |
+| A-Eyes | cam server, frame grab, timelapse | G3 surface landed, including hourly wrapper; runtime verification pending |
 | Weather | `weather_poller` | Already **disabled** |
 | Network globe | cwd | **LIVE** — cwd now Pacific |
 
 ## Next
 
-1. Recheck council relay paths after the G3 single-flight landing; runtime verification remains required  
-2. Resolve the remaining A-Eyes hourly wrapper source/path, then recheck all A-Eyes scheduler paths  
-3. Verify G3 runtime behavior before retiring corresponding legacy functions  
-4. Final grep of `jobs.py` + cwd cleanup
+1. Verify G3 runtime behavior for Telegram, A-Eyes, Energy actions, and the Pacific poller  
+2. After successful verification, retire each corresponding legacy function immediately and document old → new paths  
+3. Final grep of `jobs.py` + cwd cleanup  
+4. Move this work order to `Documentation/06-development/Work-Orders/Complete/` only after all acceptance criteria are satisfied
 
 Import each residual function into its **existing** Pacific folder; rewire jobs; verify; then retire the completed legacy function immediately. No parallel names.
