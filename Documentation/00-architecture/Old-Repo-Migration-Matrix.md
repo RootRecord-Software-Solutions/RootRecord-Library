@@ -15,11 +15,11 @@
 
 | Rows | migrated | partial | missing | touched this pass |
 |---|---|---|---|---|
-| 90 | 23 | 29 | 38 | 13 |
+| 90 | 24 | 28 | 38 | 14 |
 
 | Bucket | migrated | partial | missing |
 |---|---|---|---|
-| geology | 5 | 4 | 0 |
+| geology | 6 | 3 | 0 |
 | core | 18 | 21 | 16 |
 | library | 0 | 2 | 3 |
 | product | 0 | 0 | 15 |
@@ -40,6 +40,7 @@ Grouped rows: related G1 packets that share one G3 target are one row (e.g. the 
 | MP4 converter | `Media/Video/scripts/mp4_converter.py` → Database `Media/Video/` | on demand | PASS |
 | Hurricane desk voice report (Carly, Hawaiʻi block) | `Media/Voice/scripts/voice_reports.py hurricane_desk` | `RR_VOICE_HURRICANE=1`, 05:50/09:50/12:50/16:55/20:50 | PASS (text); WAV VERIFY PENDING |
 | Kīlauea voice report (Carly, hourly desk + HVO notice) | `Media/Voice/scripts/voice_reports.py kilauea_report` | `RR_VOICE_KILAUEA=1`, :03 | PASS (text); WAV VERIFY PENDING |
+| G0 nearest-location tag on quakes (≤ 250 km) | `Geology/scripts/geology_collect.py` + `Geology/config/global-locations.json` | rides `RR_GEOLOGY` | PASS |
 
 ## Matrix
 
@@ -55,7 +56,7 @@ Grouped rows: related G1 packets that share one G3 target are one row (e.g. the 
 | 8 | weather-kilauea topic map | `Solar-Pacific-RootRecord-Server-Old/kilauea/weather-kilauea` | **partial** | Library / Pacific `Geology/README.md` | Docs-only packet; Geology README now lists the scripts. |
 | 9 | USGS quake backfill → SQLite | `old/operations/backfillquakes.py` | **migrated** | Pacific `Geology/scripts/earthquakes_backfill.py` → Database `Geology/Earthquakes/quakes.db` (git-ignored) | THIS PASS. On demand only (no job). Full G0 default range = thousands of requests: operator decision. |
 | 10 | 5-min quake poller → SQLite | `old/operations/cronologicals/since-last-fire/every-5-minutes/quakes.py` | **migrated** | Superseded by `geology_collect.py` (JSON last + Daily JSONL) | THIS PASS (capability). SQLite live table not kept; backfill script covers SQLite. |
-| 11 | Global quake poller + nearest-location tag | `old/operations/earthquakes/global/poller.py` | **partial** | `geology_collect.py` global feed | Nearest-location enrichment needs `config/locations/global-locations.json` (G0 web dataset) — not ported. |
+| 11 | Global quake poller + nearest-location tag | `old/operations/earthquakes/global/poller.py` | **migrated** | `geology_collect.py` global + Hawaiʻi feeds; dataset Pacific `Geology/config/global-locations.json` (verbatim G0 copy) | THIS PASS. Every event gets `nearest` (location_id, name, country_code, admin1_code, km ≤ 250) like the G0 SQLite columns; real run 13:49 HST: Hawaiʻi 9/9 tagged, global 14/34. |
 | 12 | Hybrid night poller | `Solar-Pacific-RootRecord-Server-Old/hybrid-night-poller` | **migrated** | Pacific `Automations/scripts/rootserver_poller.py` | MIGRATED.md 2026-09-28. |
 | 13 | Heartbeat | `Solar-Pacific-RootRecord-Server-Old/heartbeat` | **migrated** | `jobs.py` builtin `heartbeat` | MIGRATED.md 2026-09-28. |
 | 14 | Net gate | `Solar-Pacific-RootRecord-Server-Old/net-gate` | **migrated** | `Automations/scripts/poller/internet_gate.py` | MIGRATED.md 2026-09-28. |

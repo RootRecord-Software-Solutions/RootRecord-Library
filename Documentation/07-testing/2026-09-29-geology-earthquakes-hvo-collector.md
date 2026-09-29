@@ -74,6 +74,14 @@ python3 -c 'import importlib.util…jobs.py…'   # enabled flags, see evidence 
 - Git churn if enabled: `*-last.json` rewrite every 5 min + Daily append (Database auto-sync). Stills are git-ignored.
 - Not ported (sign-off): Telegram/Discord posts, Grok drafts, playback, OBS.
 
+## Addendum — G0 nearest-location tag (2026-09-29 13:49 HST)
+
+- Change: `geology_collect.py` `nearest_location()` (port of G0 `old/operations/earthquakes/global/poller.py` `nearest()`, 250 km cut-off) adds `nearest` {location_id, name, country_code, admin1_code, km} to every event; dataset `Geology/config/global-locations.json` is a verbatim copy of G0 `old/config/locations/global-locations.json` (sha256 `5defe5c7c262efc2dc679fb3bf31503f307f556de6cf7a5cfd893d973348b49a`, 306 public places). Backup `/home/rootrecord/Database/GITHUB/migration-quake-locations.bak-20260929-134920/`.
+- Pass criteria: rc 0; each tag ≤ 250 km; untagged events have `nearest: null`; no change to counts/dedupe.
+- Temp root 13:49:45: rc 0, 1.10 s, 28 MB; Hawaiʻi 9/9 tagged (e.g. M1.72 "5 km SSW of Pāhala" → Volcano Village 40.5 km; M1.78 "1 km WNW of Captain Cook" → Kailua-Kona 16.3 km), global 14/34 (e.g. M4.5 Colombia → Bogotá 188.4 km; M4.8 Tonga → Nukuʻalofa 223.0 km; M4.7 Philippines untagged).
+- Real run 13:49:55 (`quakes` only): rc 0, 1.09 s, 28 MB; Hawaiʻi new 1 (`hv75045507`, tagged), global new 1; Daily files 11 / 34 lines, no duplicates. **PASS.**
+- Regression: `earthquake_report` text build unchanged (reads mag/place only).
+
 ## Commits
 
 Pacific `0399076` (collector + voice), `b2c4973` (cams + backfill), `cd48536` (jobs gates); Database `e8854f0` (first Geology data), `101d05a` (`.gitignore` + cams); later doc commits in the worklog section.

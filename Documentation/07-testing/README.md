@@ -63,6 +63,7 @@ Each test gets one file, `YYYY-MM-DD-<slug>.md`, created from [TEMPLATE.md](./TE
 | 2026-09-29 13:19 | [Geology collector: USGS earthquakes + HVO Kīlauea / Mauna Loa, earthquake voice report, Kīlauea cams, quake backfill](./2026-09-29-geology-earthquakes-hvo-collector.md) | PASS (manual runs; collector rc 0 2.64 s 28 MB; Kīlauea WATCH/ORANGE, Mauna Loa NORMAL/GREEN); jobs LANDED gated OFF (`RR_GEOLOGY`, `RR_KILAUEA_CAMS`, `RR_VOICE_QUAKE`); earthquake WAV VERIFY PENDING |
 | 2026-09-29 13:26 | [Old-repo ports batch 1: sun times, uptime log, MP4 converter](./2026-09-29-old-repo-ports-batch1.md) | PASS (manual runs); jobs LANDED gated OFF (`RR_SUN_TIMES`, `RR_UPTIME_LOG`) |
 | 2026-09-29 13:43 | [Voice reports batch 3: hurricane desk + Kīlauea report](./2026-09-29-voice-reports-batch3-hurricane-kilauea.md) | PASS (text, live Nolo + HVO data, empty-data gate); WAV VERIFY PENDING; jobs LANDED gated OFF (`RR_VOICE_HURRICANE`, `RR_VOICE_KILAUEA`) — jobs.py registration is a sign-off item |
+| 2026-09-29 13:49 | [Geology: G0 nearest-location tag on quake events (addendum in the geology record)](./2026-09-29-geology-earthquakes-hvo-collector.md#addendum--g0-nearest-location-tag-2026-09-29-1349-hst) | PASS (temp + one real `quakes` run; Hawaiʻi 9/9, global 14/34 tagged ≤ 250 km) |
 
 Related: [MIGRATION-DOCS-INDEX](../00-architecture/MIGRATION-DOCS-INDEX-2026-09-28.md) · [WO-SRV](../06-development/Work-Orders/Servers_Cutover_Work_Order_WO-SRV-2026-09-27.md) · [G3 Runtime Verification Checklist](../00-architecture/G3-Runtime-Verification-Checklist-2026-09-28.md)
 
