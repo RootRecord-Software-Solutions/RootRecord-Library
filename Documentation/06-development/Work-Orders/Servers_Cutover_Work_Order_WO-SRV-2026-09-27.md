@@ -3,8 +3,8 @@
 | Field | Value |
 | --- | --- |
 | **Work Order ID** | WO-SRV-2026-09-27 |
-| **Status** | **IN PROGRESS** — Energy + System + Reports + Github + Plumbing LIVE; residual domains remain |
-| **Updated** | 2026-09-28 ~21:10 HST (Session 04) |
+| **Status** | **IN PROGRESS** — Energy + System + Reports + Github + Plumbing + Telegram plumbing LIVE; residual A-Eyes hourly wrapper remains |
+| **Updated** | 2026-09-28 ~21:25 HST (Session 04) |
 
 **Policy:** Do not run the old desk as the poller host.
 
@@ -29,15 +29,15 @@
 
 | Domain | Jobs / constants | Notes |
 | --- | --- | --- |
-| Telegram / coms | `council_relay` | G3 surface landed; inference dependency remains under System plumbing |
+| Telegram / coms | `council_relay` | G3 surface + `System/scripts/plumbing/single-flight.sh` landed; runtime verification pending |
 | A-Eyes | cam server, frame grab, timelapse | G3 surface landed; hourly wrapper remains legacy pending safety-block clearance |
 | Weather | `weather_poller` | Already **disabled** |
 | Network globe | cwd | **LIVE** — cwd now Pacific |
 
 ## Next
 
-1. Clear the remaining Telegram/System plumbing dependency (`single-flight.sh`) and recheck council relay paths  
-2. Land the remaining A-Eyes hourly wrapper, then recheck all A-Eyes scheduler paths  
+1. Recheck council relay paths after the G3 single-flight landing; runtime verification remains required  
+2. Resolve the remaining A-Eyes hourly wrapper source/path, then recheck all A-Eyes scheduler paths  
 3. Verify G3 runtime behavior before retiring corresponding legacy functions  
 4. Final grep of `jobs.py` + cwd cleanup
 
