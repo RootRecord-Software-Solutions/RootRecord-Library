@@ -5,7 +5,7 @@
 | **Date** | 2026-09-28 (HST) |
 | **Live runtime** | `RootRecord-Pacific-Solar-Server` on Ecosystem `1 - Servers/` |
 | **Authority** | Org [RootRecord-Software-Solutions](https://github.com/RootRecord-Software-Solutions) |
-| **Updated** | 2026-09-28 — residual runtime verification state |
+| **Updated** | 2026-09-28 — domain list + residual verification state |
 
 ---
 
@@ -13,11 +13,12 @@
 
 ### 1. One domain folder — code domains only
 
-Pacific **code** domains (capitalized):
+Pacific **code** domains (capitalized), as present on the live tree:
 
 ```text
-Automations/  Communications/  Energy/  System/  Weather/
-Github/  Geology/  Security/
+Automations/      Communications/   Energy/      System/
+Weather/          Github/           Geology/     Security/
+Reports/          A-Eyes/
 ```
 
 **Not a Pacific domain:** `Logs/`.
@@ -69,6 +70,8 @@ When a G1/G2 packet is fully superseded:
 
 - [x] Pacific code domains; Automations live  
 - [x] Energy + System LIVE  
+- [x] Reports foundation LIVE (WO-RPT-001)  
+- [x] Plumbing under `System/scripts/plumbing/`  
 - [x] Pacific `Logs/` domain removed (2026-09-28) — Database only for logs  
 - [x] G1 scheduler trio marked `MIGRATED.md` on `-Old` (2026-09-28)  
 
@@ -78,8 +81,8 @@ When a G1/G2 packet is fully superseded:
 
 Unchanged import template: copy into existing **code** domain folder → rewire jobs → Database for bytes → verify → optional `MIGRATED.md` on old packet.
 
-Current residuals: runtime verification/legacy retirement for migrated Telegram, A-Eyes, Energy actions, and Pacific poller; Weather remains disabled and outside the active cutover scope. Geology import remains a separate open work order. Skills were functional packets, not a long-term AI design; redesign planned separately.
+Current residuals: **runtime verification / legacy retirement** for Telegram, A-Eyes, Energy actions, and Pacific poller ([G3 checklist](./G3-Runtime-Verification-Checklist-2026-09-28.md)). Weather remains disabled and outside the active cutover scope. Geology import remains a separate open work order. Skills were functional packets, not a long-term AI design; redesign planned separately.
 
 ---
 
-*Playbook updated 2026-09-28 ~18:13 HST.*
+*Playbook updated 2026-09-28 ~21:40 HST — Reports + A-Eyes on domain list; residual = verification.*
