@@ -56,7 +56,7 @@ Run from the Pacific desk (or any host that can see live processes and `jobs.py`
 | 1 | `ECOFLOW_ACTIONS` / action scripts resolve under Pacific `Energy/` |
 | 2 | One read or action cycle OK; no legacy skills path in FAIL text |
 
-Already marked LIVE in WO-SRV; this is confirmation only.
+Pacific source/path is already landed in WO-SRV; this row still requires runtime evidence and is not a confirmation of LIVE runtime state.
 
 ### D. Poller full cycle
 
