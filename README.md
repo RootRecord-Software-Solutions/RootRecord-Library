@@ -1,10 +1,27 @@
-# 🌺 RootRecord Library
+# 🎺 RootRecord Library
 
 > **The shared knowledge base for Root Record Software Solutions** — agent context, architecture records, operations logs, guides, and handoff material that keep the ecosystem coherent across desks, agents, and time.
 
 [![Org](https://img.shields.io/badge/org-RootRecord--Software--Solutions-0B3D2E?style=flat-square)](https://github.com/RootRecord-Software-Solutions)
 [![Runtime](https://img.shields.io/badge/runtime-Pacific--Solar--Server-2F6FED?style=flat-square)](https://github.com/RootRecord-Software-Solutions/RootRecord-Pacific-Solar-Server)
 [![Locale](https://img.shields.io/badge/base-Hawai%CA%BBi-C8102E?style=flat-square)](https://rootrecord.cloud)
+
+---
+
+## Canonical homes (as of 2026-09-28)
+
+| Role | Owner | Repository |
+| --- | --- | --- |
+| **Durable docs & agent context** | Org | [RootRecord-Library](https://github.com/RootRecord-Software-Solutions/RootRecord-Library) (this repo) |
+| **Primary Pacific runtime** | Org | [RootRecord-Pacific-Solar-Server](https://github.com/RootRecord-Software-Solutions/RootRecord-Pacific-Solar-Server) |
+| **Data / log layout (source of truth)** | Org | [RootRecord-Database](https://github.com/RootRecord-Software-Solutions/RootRecord-Database) |
+| Continuity node | User account | [US-Mainland-Server](https://github.com/rootrecordsoftwaresolutions/US-Mainland-Server) |
+| Public website | User account | [RootRecord-Website](https://github.com/rootrecordsoftwaresolutions/RootRecord-Website) |
+| Weather data & media | User account | [RootRecord-Weather-Database](https://github.com/rootrecordsoftwaresolutions/RootRecord-Weather-Database) |
+
+**Historical / read-only:** personal accounts `RootRecord` and `RootMC`, inventory mirrors under `rootrecordsoftwaresolutions/mirror-*`, and legacy `Solar-Pacific-RootRecord-Server` / `-Old`. Product educational docs still live in [RootRecord/Doc-Repo](https://github.com/RootRecord/Doc-Repo) (pre-org layout; see banner there).
+
+**Migration posture:** inventory and mirrors are done; active feature work lands in the org (canonical public) or primary non-mirror repos under `rootrecordsoftwaresolutions` (ops / solar / Ava). No code is changed by documentation-only updates in this repo.
 
 ---
 
@@ -97,6 +114,13 @@ Each agent pack follows a consistent spine so handoffs stay predictable:
 | **archive** | Historical material retained for audit |
 | **schemas** | Shared schema definitions |
 
+### Work orders (two folders, clear roles)
+
+| Folder | Role |
+| --- | --- |
+| [`Documentation/06-development/Work Orders/`](./Documentation/06-development/Work%20Orders/) | **Active ops backlog** — live migration status, Pacific cutover, residual cleanup |
+| [`Documentation/06-development/Work-Orders/`](./Documentation/06-development/Work-Orders/) | **Proposal drafts** — domain imports, web/status, communications (accept before execution) |
+
 ---
 
 ## Guides & Tutorials
@@ -112,7 +136,7 @@ Practical standing guides live under [`Guides & Tutorials/`](./Guides%20%26%20Tu
 Library content is authored on the Solar Pacific desk and published through the RootRecord Git synchronization workflow:
 
 1. Local edits under `RootRecord-Ecosystem/5 - RootRecord-Library`
-2. Catalogued in `repos.conf` as id `library` (inplace mode)
+2. Catalogued in `repos.conf` as id `library` (EXISTS mode)
 3. Picked up by `github_sync_all` (≈300s) via `sync-all.sh` → `push-repo-once.sh`
 4. Merged safely (no force-push); conflicts abort and preserve local history
 
@@ -121,6 +145,7 @@ Related infrastructure repos:
 | Repository | Role |
 | --- | --- |
 | [RootRecord-Pacific-Solar-Server](https://github.com/RootRecord-Software-Solutions/RootRecord-Pacific-Solar-Server) | Primary desk runtime (Automations + domain layout) |
+| [RootRecord-Database](https://github.com/RootRecord-Software-Solutions/RootRecord-Database) | Official data & log layout |
 | [US-Mainland-Server](https://github.com/rootrecordsoftwaresolutions/US-Mainland-Server) | Secondary continuity node |
 | [RootRecord-Website](https://github.com/rootrecordsoftwaresolutions/RootRecord-Website) | Public Next.js surface |
 | [RootRecord-Weather-Database](https://github.com/rootrecordsoftwaresolutions/RootRecord-Weather-Database) | Hawaiʻi weather data & media |
@@ -140,6 +165,7 @@ Live Pacific runtime path:
 - **No force-push** — history is part of the operational record.
 - **Desk is authoritative for live ops** — this repo is the published, shareable layer of that desk knowledge.
 - **File layout is standing** — keep section banners and templates where they exist in sibling systems.
+- **Docs-only hygiene is allowed anytime** — README and work-order index updates do not imply code migration.
 
 ---
 
@@ -149,6 +175,7 @@ Live Pacific runtime path:
 | --- | --- |
 | Organization | [github.com/RootRecord-Software-Solutions](https://github.com/RootRecord-Software-Solutions) |
 | Pacific runtime | [RootRecord-Pacific-Solar-Server](https://github.com/RootRecord-Software-Solutions/RootRecord-Pacific-Solar-Server) |
+| Database | [RootRecord-Database](https://github.com/RootRecord-Software-Solutions/RootRecord-Database) |
 | Cloud / status | [rootrecord.cloud](https://rootrecord.cloud) |
 | Marketing & accounts | [rootrecord.info](https://rootrecord.info) |
 | Contact | rootrecord@outlook.com |
