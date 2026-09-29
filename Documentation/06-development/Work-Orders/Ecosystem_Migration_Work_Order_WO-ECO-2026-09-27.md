@@ -154,7 +154,7 @@ Deploy standing rule: push → sync merge → `schedule-stack-reload` when runti
 - No force-push.
 - Secrets stay out of git.
 - Prefer structure over sprawl.
-- Residual legacy job paths are acceptable until each domain is imported deliberately.
+- Residual legacy runtime paths are retained only where the corresponding Pacific implementation has not yet passed required runtime verification and retirement criteria. For migrated functions, static source presence alone does not authorize legacy removal.
 
 ---
 
