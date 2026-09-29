@@ -86,3 +86,20 @@ Current residuals: **runtime verification / legacy retirement** for Telegram, A-
 ---
 
 *Playbook updated 2026-09-28 ~21:40 HST — Reports + A-Eyes on domain list; residual = verification.*
+
+
+## Security Domain Naming Correction — 2026-09-28
+
+Operator correction: the camera/security packet previously labeled **A-Eyes** is to be built under the Pacific **Security/** domain. A-Eyes is not the final domain name.
+
+The Security runtime remains code on Pacific. Persistent security log bytes and media bytes belong to the new RootRecord-Database authority:
+
+```text
+/home/rootrecord/RootRecord-Ecosystem/2 - RootRecord-Database/
+├── Logs/Security/
+└── Media/
+    ├── Images/
+    └── Timelapses/
+```
+
+The existing A-Eyes migration is an intermediate state and must be renamed/rebased to Security before its runtime verification and legacy retirement gate can be satisfied. Runtime camera credentials/configuration are not Git artifacts.
