@@ -190,3 +190,13 @@ Read-only desk capture 2026-09-29T10:12–10:16Z (00:12–00:16 HST); evidence f
 | Preconditions: single poller / relay / cloudflared | PASS | 1 Pacific `rootserver_poller.py`, no G2 poller; 0 relays (no second getUpdates owner); 1 `cloudflared` (Pacific binary) |
 
 Retirement eligibility (after this evidence): Security/Cameras cam server + frame grab, System sampling, Reports worklog. The Retired column is untouched; retirement is a separate step.
+
+
+## G2 Legacy Retirement — 2026-09-29
+
+- Retired after the G3 runtime PASS in `2 - RootRecord-Database/Logs/Migration/g3-runtime-evidence-20260929T101550Z.md`, with a read-only dependency check first (G2 skills tree, systemd user/system units and timers, crontab, shell rc files, Pacific tree, running processes). Removed files backed up to `/home/rootrecord/Database/GITHUB/g2-retire.bak-20260929-002518/`; a `MIGRATED.md` was placed in each G2 scripts folder.
+  - `~/.ollama/skills/a-eyes/scripts/grab_all.sh` → Pacific `Security/Cameras/grab_all.sh`
+  - `~/.ollama/skills/system-stats/scripts/sys-sample.sh` → Pacific `System/scripts/sys-sample.sh`
+  - `~/.ollama/skills/reports/scripts/worklog_once.sh` → Pacific `Reports/scripts/worklog_once.sh`
+- Not retired (still referenced by G2 scripts that stay in place): `a-eyes/scripts/cam_server.py` and `ensure_cam_server.sh` (`install_aeyes_web.sh` checks them out, pkills and relaunches them), and `a-eyes/scripts/grab_frame.py` (imported by G2 `timelapse_engine.py` and `cam_server.py`; checked out by `install_aeyes_web.sh`). The Security/Cameras timelapse part stays open.
+- The only other references to the retired files were in the dormant G2 `automations/scripts/jobs.py` (no G2 poller runs) and in G2 documentation (`SKILL.md`, `references/CAMERAS.md`). Legacy `SKILL.md` files are kept.
