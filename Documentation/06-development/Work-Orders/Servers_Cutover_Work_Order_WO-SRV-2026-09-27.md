@@ -4,7 +4,7 @@
 | --- | --- |
 | **Work Order ID** | WO-SRV-2026-09-27 |
 | **Status** | **IN PROGRESS** — Pacific source paths landed for active residuals; runtime verification + legacy retirement remain |
-| **Updated** | 2026-09-28 ~21:50 HST (Session 04) |
+| **Updated** | 2026-09-28 — continued migration audit |
 
 **Policy:** Do not run the old desk as the poller host.
 
@@ -46,6 +46,14 @@
 - Pacific `jobs.py` now points the active A-Eyes hourly wrapper at `A-Eyes/scripts/timelapse_hourly.sh`.
 - Pacific `System/scripts/plumbing/single-flight.sh` is present; Telegram G3 configuration no longer requires the legacy plumbing path.
 - The legacy repository still contains historical `/home/rootrecord/.ollama/skills/` references across residual and non-residual trees. These are not treated as completed migrations without runtime verification and explicit scope.
+
+## Current Source Audit — 2026-09-28
+
+- Current Pacific `Automations/scripts/jobs.py` was re-read from the canonical repository after the A-Eyes hourly and plumbing migrations.
+- Active scheduler surfaces for Energy actions, Telegram, A-Eyes, Network Globe, Ollama warmup, and FLM warmup point to Pacific paths.
+- The only remaining `jobs.py` legacy path is the disabled Weather job; it remains intentionally disabled and is not brought into scope by this work order.
+- The legacy repository still contains old scheduler/path references for migrated functions. These remain in place because G3 runtime verification has not been performed from this desk session; removing them now would violate the documented migration sequence.
+- Legacy `SKILL.md` files remain preserved by explicit operator instruction.
 
 ## Next
 
