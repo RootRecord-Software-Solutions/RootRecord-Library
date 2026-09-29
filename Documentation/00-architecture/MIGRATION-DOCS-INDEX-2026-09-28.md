@@ -22,7 +22,7 @@ Single entry point for agents and operators working the Pacific server cutover *
 | --- | --- |
 | [G3-Runtime-Verification-Checklist-2026-09-28.md](./G3-Runtime-Verification-Checklist-2026-09-28.md) | Runtime gate before legacy retirement (supports WO-SRV) |
 | [Residual-Path-Retirement-Table-2026-09-28.md](./Residual-Path-Retirement-Table-2026-09-28.md) | Pre-filled old→new table; Bruce fills Verified/Retired |
-| [Communications-Notify-Policy-Draft-2026-09-28.md](./Communications-Notify-Policy-Draft-2026-09-28.md) | Notify policy draft for WO-COM-001 (pending Carly seal) |
+| [Communications-Notify-Policy-Draft-2026-09-28.md](./Communications-Notify-Policy-Draft-2026-09-28.md) | Notify policy for WO-COM-001 — Carly security-sealed with conditions; operator acceptance still required |
 
 ## Product & archive inventory (Minecraft, apps, mirrors)
 
@@ -97,7 +97,7 @@ Best use: scavenger pass when redesigning **AI processing**, **weather/reports**
 | WO-MAP | Master-Prompt map |
 | WO-CF | Tunnel token |
 | WO-AEYES | Capture rate |
-| WO-COM-001 | Communications surface (notify policy draft linked above) |
+| WO-COM-001 | Communications surface (notify policy security-sealed with conditions; operator acceptance still required) |
 
 See [`Documentation/06-development/Work-Orders/README.md`](../06-development/Work-Orders/README.md) (hyphen only — no space-named folder).
 
