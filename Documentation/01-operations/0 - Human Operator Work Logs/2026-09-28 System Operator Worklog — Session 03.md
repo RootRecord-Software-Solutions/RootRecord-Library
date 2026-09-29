@@ -264,3 +264,11 @@ Filename:
 - WO-ECO's broad statement that residual legacy job paths are acceptable until domain import was narrowed to the current retirement gate.
 - Legacy runtime paths remain only where the corresponding Pacific implementation has not passed required runtime verification and retirement criteria. Static source inspection alone does not authorize legacy removal.
 - This preserves the documented verify → retire → document sequence without expanding execution scope.
+
+
+## Documentation Reconciliation — WO-GH Static Catalog Audit — 2026-09-28
+
+- Pacific `Github/scripts/repos.conf` was directly inspected. Enabled entries are Pacific, Database, Library, and the historical skills catalog; Website and mainland remain disabled.
+- The two `.ollama/skills` references are catalog paths for the historical skills entry and disabled Website/Mainland entries, not active Pacific runtime executable references.
+- Pacific `setup-all-remotes.sh` and `sync-all.sh` contain no embedded legacy skills-tree executable references.
+- WO-GH remains IN PROGRESS; no Website/Mainland enablement or historical skills removal was performed from this static audit.
