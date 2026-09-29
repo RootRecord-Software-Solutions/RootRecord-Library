@@ -1,188 +1,144 @@
-# 🎺 RootRecord Library
+# 🌺 RootRecord Library
 
-> **The shared knowledge base for Root Record Software Solutions** — agent context, architecture records, operations logs, and guides that keep the ecosystem coherent across desks, agents, and time.
+> **The durable knowledge layer for RootRecord Software Solutions.**
+>
+> Architecture • agent context • operations • security • data notes • work orders
 
-[![Org](https://img.shields.io/badge/org-RootRecord--Software--Solutions-0B3D2E?style=flat-square)](https://github.com/RootRecord-Software-Solutions)
-[![Runtime](https://img.shields.io/badge/runtime-Pacific--Solar--Server-2F6FED?style=flat-square)](https://github.com/RootRecord-Software-Solutions/RootRecord-Pacific-Solar-Server)
-[![Locale](https://img.shields.io/badge/base-Hawai%CA%BBi-C8102E?style=flat-square)](https://rootrecord.cloud)
-
----
-
-## Canonical homes (as of 2026-09-28)
-
-| Role | Owner | Repository |
-| --- | --- | --- |
-| **Durable docs & agent context** | Org | [RootRecord-Library](https://github.com/RootRecord-Software-Solutions/RootRecord-Library) (this repo) |
-| **Primary Pacific runtime** | Org | [RootRecord-Pacific-Solar-Server](https://github.com/RootRecord-Software-Solutions/RootRecord-Pacific-Solar-Server) |
-| **Data / log layout (source of truth)** | Org | [RootRecord-Database](https://github.com/RootRecord-Software-Solutions/RootRecord-Database) |
-| Continuity node | User account | [US-Mainland-Server](https://github.com/rootrecordsoftwaresolutions/US-Mainland-Server) |
-| Public website | User account | [RootRecord-Website](https://github.com/rootrecordsoftwaresolutions/RootRecord-Website) |
-| Weather data & media | User account | [RootRecord-Weather-Database](https://github.com/rootrecordsoftwaresolutions/RootRecord-Weather-Database) |
-
-**Historical / read-only:** personal accounts `RootRecord` and `RootMC`, inventory mirrors under `rootrecordsoftwaresolutions/mirror-*`, and legacy `Solar-Pacific-RootRecord-Server` / `-Old`.
-
-**Migration posture:** inventory and mirrors are done; active feature work lands in the org (canonical public) or primary non-mirror repos under `rootrecordsoftwaresolutions` (ops / solar / Ava). No code is changed by documentation-only updates in this repo.
+<p align="center">
+  <a href="https://github.com/RootRecord-Software-Solutions"><strong>Organization</strong></a>
+  ·
+  <a href="https://github.com/RootRecord-Software-Solutions/RootRecord-Pacific-Solar-Server"><strong>Runtime</strong></a>
+  ·
+  <a href="https://github.com/RootRecord-Software-Solutions/RootRecord-Database"><strong>Database</strong></a>
+  ·
+  <a href="https://rootrecord.cloud"><strong>rootrecord.cloud</strong></a>
+</p>
 
 ---
 
-## What this repository is
+## 🧭 What this is
 
-**RootRecord Library** is the durable, versioned documentation and context layer for the RootRecord ecosystem. It is **not** application source code. It holds the material that agents, operators, and future sessions need in order to act with continuity:
+**RootRecord Library** is the versioned context and documentation layer for the RootRecord ecosystem.
+
+It gives operators and agents a durable place to find the same architecture, constraints, work orders, operational records, and handoff context across sessions.
+
+**This repository is documentation and context — not application runtime code.**
 
 | Layer | Purpose |
 | --- | --- |
-| **Agent Context** | Identity, principles, bounds, workflow, handoff templates, and product/infrastructure maps for Ava, Bruce, and Carly |
-| **Documentation** | Architecture sessions, operations work logs, security notes, data notes, public surface, development work orders, ADRs |
-| **Guides & Tutorials** | How-to material for turning messy AI output into clean plans and other standing practices |
-
-Desk path (Solar Pacific):
-
-```text
-/home/rootrecord/RootRecord-Ecosystem/5 - RootRecord-Library
-```
-
-GitHub org home:
-
-```text
-https://github.com/RootRecord-Software-Solutions/RootRecord-Library
-```
+| 🧠 **Agent Context** | Identity, principles, bounds, workflow, infrastructure maps, handoffs |
+| 🏗️ **Architecture** | System design, migration records, decisions, canonical paths |
+| 🛠️ **Operations** | Operator logs, recovery notes, runtime verification, security records |
+| 📋 **Work Orders** | Active migration and development work with explicit acceptance criteria |
+| 📚 **Guides** | Standing practices and reusable how-to material |
 
 ---
 
-## Repository map
+## 🗺️ Canonical ecosystem
+
+| Repository | Role |
+| --- | --- |
+| **[RootRecord-Library](https://github.com/RootRecord-Software-Solutions/RootRecord-Library)** | Durable docs, agent context & work orders |
+| **[RootRecord-Pacific-Solar-Server](https://github.com/RootRecord-Software-Solutions/RootRecord-Pacific-Solar-Server)** | Primary Pacific runtime |
+| **[RootRecord-Database](https://github.com/RootRecord-Software-Solutions/RootRecord-Database)** | Data, media & log layout |
+| **[US-Mainland-Server](https://github.com/rootrecordsoftwaresolutions/US-Mainland-Server)** | Continuity node |
+| **[RootRecord-Website](https://github.com/rootrecordsoftwaresolutions/RootRecord-Website)** | Public web surface |
+| **[RootRecord-Weather-Database](https://github.com/rootrecordsoftwaresolutions/RootRecord-Weather-Database)** | Hawaiʻi weather data & media |
+
+Historical and mirror repositories remain useful for lineage and inventory; active canonical org work belongs in the appropriate current repository.
+
+---
+
+## 📁 Repository map
 
 ```text
 RootRecord-Library/
 ├─ Agent Context/
-│   ├─ Ava-Agent-Context/
-│   ├─ Bruce-Agent-Context/
-│   └─ Carly-Agent-Context/
+│  ├─ Ava-Agent-Context/
+│  ├─ Bruce-Agent-Context/
+│  └─ Carly-Agent-Context/
 ├─ Documentation/
-│   ├─ 00-architecture/
-│   ├─ 01-operations/
-│   ├─ 02-agents/
-│   ├─ 03-security/
-│   ├─ 04-data/
-│   ├─ 05-public-surface/
-│   ├─ 06-development/
-│   │   └─ Work-Orders/     # single work-order home
-│   ├─ adr/
-│   ├─ archive/
-│   └─ schemas/
+│  ├─ 00-architecture/
+│  ├─ 01-operations/
+│  ├─ 02-agents/
+│  ├─ 03-security/
+│  ├─ 04-data/
+│  ├─ 05-public-surface/
+│  ├─ 06-development/
+│  │  └─ Work-Orders/
+│  ├─ adr/
+│  ├─ archive/
+│  └─ schemas/
 ├─ Guides & Tutorials/
 └─ README.md
 ```
 
----
+### 📋 Work orders
 
-## Agent Context
+**Single work-order home:**
+[Documentation/06-development/Work-Orders/](./Documentation/06-development/Work-Orders/)
 
-Each agent pack follows a consistent spine so handoffs stay predictable:
+Work orders are the execution spine for active migrations and development. They carry scope, acceptance criteria, verification requirements, and retirement conditions.
 
-| File | Role |
-| --- | --- |
-| `IDENTITY.md` | Who the agent is |
-| `PRINCIPLES.md` | Standing values and constraints |
-| `ROLE-AND-BOUNDS.md` | What is in scope vs out of scope |
-| `WORKFLOW.md` | How the agent is expected to operate |
-| `HANDOFF-TEMPLATE.md` | Standard transfer format |
-| `CONTEXT/` | Infrastructure, products, repos |
-| `CHANGELOG.md` | Material changes to the pack |
-| `README.md` | Pack entry point |
+### 🧠 Agent packs
 
-| Agent | Path |
-| --- | --- |
-| **Ava** | [`Agent Context/Ava-Agent-Context/`](./Agent%20Context/Ava-Agent-Context/) |
-| **Bruce** | [`Agent Context/Bruce-Agent-Context/`](./Agent%20Context/Bruce-Agent-Context/) |
-| **Carly** | [`Agent Context/Carly-Agent-Context/`](./Agent%20Context/Carly-Agent-Context/) |
+Each agent pack follows the same basic spine:
 
-Session handoffs use each pack’s `HANDOFF-TEMPLATE.md` — no separate top-level Handoff-Context folder.
+`IDENTITY.md` · `PRINCIPLES.md` · `ROLE-AND-BOUNDS.md` · `WORKFLOW.md` · `HANDOFF-TEMPLATE.md` · `CONTEXT/` · `CHANGELOG.md`
+
+- [Ava](./Agent%20Context/Ava-Agent-Context/)
+- [Bruce](./Agent%20Context/Bruce-Agent-Context/)
+- [Carly](./Agent%20Context/Carly-Agent-Context/)
 
 ---
 
-## Documentation index
+## 🔄 How the ecosystem stays in sync
 
-| Section | Contents |
-| --- | --- |
-| **00-architecture** | Multi-model restructuring sessions and system design exploration |
-| **01-operations** | Human operator work logs, checkpoints, reinstall / recovery notes |
-| **02-agents** | Agent documentation mirrors and indexes |
-| **03-security** | Security notes and posture records |
-| **04-data** | Data layout and integrity notes |
-| **05-public-surface** | Public-facing surface documentation |
-| **06-development** | Work orders and development records |
-| **adr** | Architecture decision records |
-| **archive** | Historical material retained for audit |
-| **schemas** | Shared schema definitions |
-
-### Work orders
-
-**One folder only:** [`Documentation/06-development/Work-Orders/`](./Documentation/06-development/Work-Orders/)
-
-Unified index of active ops backlog + domain/feature proposals. (The old space-named `Work Orders/` duplicate was removed 2026-09-28.)
-
----
-
-## Guides & Tutorials
-
-Practical standing guides live under [`Guides & Tutorials/`](./Guides%20%26%20Tutorials/), including:
-
-- **How to turn messy AI output into one clean plan** — intake, structure, and execution discipline for multi-model sessions.
-
----
-
-## How this stays current
-
-Library content is authored on the Solar Pacific desk and published through the RootRecord Git synchronization workflow:
-
-1. Local edits under `RootRecord-Ecosystem/5 - RootRecord-Library`
-2. Catalogued in `repos.conf` as id `library` (EXISTS mode)
-3. Picked up by `github_sync_all` (≈300s) via `sync-all.sh` → `push-repo-once.sh`
-4. Merged safely (no force-push); conflicts abort and preserve local history
-
-Related infrastructure repos:
-
-| Repository | Role |
-| --- | --- |
-| [RootRecord-Pacific-Solar-Server](https://github.com/RootRecord-Software-Solutions/RootRecord-Pacific-Solar-Server) | Primary desk runtime |
-| [RootRecord-Database](https://github.com/RootRecord-Software-Solutions/RootRecord-Database) | Official data & log layout |
-| [US-Mainland-Server](https://github.com/rootrecordsoftwaresolutions/US-Mainland-Server) | Secondary continuity node |
-| [RootRecord-Website](https://github.com/rootrecordsoftwaresolutions/RootRecord-Website) | Public Next.js surface |
-| [RootRecord-Weather-Database](https://github.com/rootrecordsoftwaresolutions/RootRecord-Weather-Database) | Hawaiʻi weather data & media |
-
-Live Pacific runtime path:
+The Library is authored on the Solar Pacific desk and published through the RootRecord Git synchronization workflow.
 
 ```text
-/home/rootrecord/RootRecord-Ecosystem/1 - Servers/1 - RootRecord-Pacific-Solar-Server
+Desk edit
+   │
+   ▼
+Git repository
+   │
+   ▼
+Automated GitHub sync
+   │
+   ▼
+GitHub — durable shared context
+   │
+   ▼
+Other agents / desks can inspect current commits
 ```
 
+GitHub commits therefore act as durable checkpoints between sessions. **A pushed path is not, by itself, proof that a runtime is deployed or verified.** Runtime state remains subject to the documented verification gates.
+
 ---
 
-## Principles for contributors
+## 🧱 Operating principles
 
-- **Preserve source identity** — session notes and operator logs remain attributable.
-- **Prefer structure over sprawl** — use the numbered Documentation sections and agent pack spine.
+- **Preserve source identity** — records remain attributable.
+- **Prefer structure over sprawl** — use the numbered documentation layout.
 - **No force-push** — history is part of the operational record.
-- **Desk is authoritative for live ops** — this repo is the published, shareable layer of that desk knowledge.
-- **Docs-only hygiene is allowed anytime** — README and work-order index updates do not imply code migration.
+- **Separate code from context** — runtime belongs in runtime repositories; durable knowledge belongs here.
+- **Verify before declaring** — landed, running, verified, and retired are distinct states.
+- **Docs-only hygiene is safe** — README and documentation improvements do not imply runtime migration.
 
 ---
 
-## Quick links
+## 🔗 Quick links
 
-| Resource | URL |
+| Resource | Link |
 | --- | --- |
-| Organization | [github.com/RootRecord-Software-Solutions](https://github.com/RootRecord-Software-Solutions) |
-| Pacific runtime | [RootRecord-Pacific-Solar-Server](https://github.com/RootRecord-Software-Solutions/RootRecord-Pacific-Solar-Server) |
-| Database | [RootRecord-Database](https://github.com/RootRecord-Software-Solutions/RootRecord-Database) |
-| Work orders | [Work-Orders/](./Documentation/06-development/Work-Orders/) |
-| Cloud / status | [rootrecord.cloud](https://rootrecord.cloud) |
-| Marketing & accounts | [rootrecord.info](https://rootrecord.info) |
+| GitHub organization | https://github.com/RootRecord-Software-Solutions |
+| Pacific runtime | https://github.com/RootRecord-Software-Solutions/RootRecord-Pacific-Solar-Server |
+| Database | https://github.com/RootRecord-Software-Solutions/RootRecord-Database |
+| Work orders | [Documentation/06-development/Work-Orders/](./Documentation/06-development/Work-Orders/) |
+| Public site | https://rootrecord.cloud |
 | Contact | rootrecord@outlook.com |
-
----
 
 <p align="center">
   <strong>Root Record Software Solutions</strong><br/>
-  <em>Oriented from Hawaiʻi Island · Building software, infrastructure, automation, AI, and distributed systems</em>
+  <em>Oriented from Hawaiʻi Island · software · infrastructure · automation · AI · distributed systems</em>
 </p>
