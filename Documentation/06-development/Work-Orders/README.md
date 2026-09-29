@@ -16,6 +16,7 @@ Work-Orders/
 ├─ README.md                 # this index (active only)
 ├─ Complete/                 # CLOSED / COMPLETE WOs (git mv here)
 │   └─ README.md
+├─ drafts/                   # generator / Carly drafts (not auto-promoted)
 └─ WO-*.md / *_Work_Order_*.md
 ```
 
@@ -53,6 +54,7 @@ Work-Orders/
 | **WO-COM-002** | Discord bot credential rotation (migration gate) | P1 | OPEN | [WO](./WO-COM-002-Discord-Bot-Credential-Rotation.md) |
 | **WO-WXG-001** | Weather + Geology domain import | P1 | Draft — after Energy | [WO](./WO-WXG-001-Weather-Geology-Import.md) |
 | **WO-SYS-001** | Poller observability & FAIL handling | P2 | Draft (System Phase 1 live) | [WO](./WO-SYS-001-Poller-Observability.md) |
+| **WO-WOGEN-001** | Work order generator (measured friction → draft WOs) | P2 | **Draft** — architecture only; Carly seal + operator accept before implement | [WO](./WO-WOGEN-001-Work-Order-Generator.md) |
 | **WO-WEB-002** | Public site foundation pass | P2 | Draft | [WO](./WO-WEB-002-Public-Site-Foundation.md) |
 | **WO-GH-001** | GitHub pull authority & timer policy | P2 | Draft | [WO](./WO-GH-001-Github-Pull-Authority.md) |
 
@@ -79,6 +81,7 @@ Folder + `SKILL.md` retained. Skills were functional packets (poor original desi
 3. Retire each verified legacy runtime function immediately; preserve legacy `SKILL.md` documentation  
 4. Final `jobs.py` grep + cwd cleanup  
 5. Move completed WOs to `Complete/` only after acceptance criteria are satisfied  
+6. **Later:** WO-WOGEN-001 (after Carly seal + operator accept; does not block cutover)  
 
 Architecture maps (Library):
 
@@ -107,8 +110,9 @@ Residual  runtime verification/legacy retirement · weather(disabled)
 ## Rules
 
 - One WO per coherent outcome; link related IDs.
-- Keep **Status** accurate (`OPEN`, `IN PROGRESS`, `BLOCKED`, `CLOSED`, `COMPLETE`).
+- Keep **Status** accurate (`OPEN`, `IN PROGRESS`, `BLOCKED`, `CLOSED`, `COMPLETE`, `DRAFT`).
 - **Closed WOs:** `git mv` into [`Complete/`](./Complete/) — not a separate weekly tree.
+- **Draft / generator WOs:** stay under `drafts/` or explicit DRAFT status until operator promotes — never auto-promote.
 - **Human session logs:** weekly archive under `Documentation/01-operations/archive/YYYY-Www/` (WO-ARCH).
 - No secrets in WO text.
 - **Never bulk-merge G1 `origin/` into G3 runtime.**
