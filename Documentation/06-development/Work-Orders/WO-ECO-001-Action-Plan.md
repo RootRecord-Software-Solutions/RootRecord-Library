@@ -3,12 +3,11 @@
 | Field | Value |
 |-------|--------|
 | **Parent WO** | [WO-ECO-001](WO-ECO-001-Energy-Domain-Import.md) |
-| **Phase** | 1 of N — live BLE/API read only |
-| **Status** | **COMPLETE (Phase 1 LIVE)** — 2026-09-28 ~16:37 HST |
+| **Phase** | 1 of N |
+| **Status** | **COMPLETE (LIVE + soak)** — 2026-09-28 ~16:40 HST |
 | **Target repo** | `RootRecord-Software-Solutions/RootRecord-Pacific-Solar-Server` |
-| **Updated** | 2026-09-28 ~16:38 HST |
 
-## Acceptance (met)
+## Acceptance (all met)
 
 - [x] Read scripts on Pacific
 - [x] jobs.py Energy on Pacific (quoted)
@@ -16,22 +15,25 @@
 - [x] `read_runner.py` + lib on desk Energy/
 - [x] `ln -sfn Energy energy` at Pacific root
 - [x] `lib/py` PYTHONPATH = vendor + Pacific parent
-- [x] SUMMARY=delta2 and SUMMARY=river2pro in automations log
+- [x] SUMMARY loop in automations log / poller window (≥1 min continuous)
 
-## Evidence
+## Soak evidence
 
 ```text
-SUMMARY=delta2 soc=39% solar=31W ac_out=65W usbc=55W src=api db=ok
-SUMMARY=river2pro soc=100% solar=0W ac_out=46W usbc=0W src=api charge=battery_transfer db=ok
-ENERGY status=live … src=sqlite
+16:39:27  SUMMARY=river2pro … src=api db=ok
+16:39:44  SUMMARY=delta2 … src=api db=ok
+16:39:58  ENERGY status=live …
+16:40:13  SUMMARY=delta2 …
+16:40:29  SUMMARY=river2pro …
+16:40:44  SUMMARY=delta2 …
 ```
 
-## Standing
+## Standing ops
 
 - No old desk for Energy reads
-- Symlink `energy` → `Energy` required on each checkout
-- Phase 2: actions/, hybrid, commit lib to org, archive G2 energy
+- Symlink `energy` → `Energy` on each checkout
+- Phase 2: actions/, hybrid, org lib commit optional
 
-## Next (WO-SRV)
+## Next
 
-Import System (sys-stats) off `~/.ollama/skills`.
+**WO-SRV** — System domain (sys-stats) import.
