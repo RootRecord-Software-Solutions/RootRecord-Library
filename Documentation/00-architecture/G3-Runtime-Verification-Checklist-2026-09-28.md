@@ -8,6 +8,10 @@
 
 ---
 
+## Operator runbook
+
+Use the companion [G3 Runtime Verification Runbook](./G3-Runtime-Verification-Runbook-2026-09-28.md) for exact desk commands, family-specific pass/fail criteria, evidence capture, and retirement gates.
+
 ## Purpose
 
 Static path audits are complete. This checklist is the **runtime gate** before retiring corresponding legacy functions on G1/G2 trees.
