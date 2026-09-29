@@ -130,6 +130,10 @@ Rationale: lowest-risk / highest-clarity items first so Pacific poller can run c
 - The Pacific A-Eyes hourly wrapper and System single-flight plumbing are present and referenced from the G3 scheduler/configuration surfaces.
 - The legacy repository continues to contain historical skills-tree references in residual and unrelated legacy trees. These remain subject to the documented migration sequence and were not removed based on static inspection alone.
 
+### Legacy documentation preservation
+
+- Per operator instruction, legacy `SKILL.md` files are to remain in the old repository as documentation artifacts. They are not to be deleted when the associated runtime function is retired.
+
 ### Documentation rule
 
 Continue updating the canonical work order and operator worklog as migration steps land. Preserve existing templates, terminology, timestamps, and factual status; do not backfill unverified runtime claims. A work order moves to `Documentation/06-development/Work-Orders/Complete/` only after its acceptance criteria are satisfied.
