@@ -20,7 +20,8 @@ Single entry point for agents and operators working the Pacific server cutover.
 
 | Doc | Purpose |
 | --- | --- |
-| [Solar-Pacific-Old-Inventory-Map-2026-09-28.md](./Solar-Pacific-Old-Inventory-Map-2026-09-28.md) | High-value packet → G3 mapping |
+| **[G1 README — migration status](https://github.com/rootrecordsoftwaresolutions/Solar-Pacific-RootRecord-Server-Old/blob/main/README.md)** | **Single list** of migrated / not migrated / archive + operations |
+| [Solar-Pacific-Old-Inventory-Map-2026-09-28.md](./Solar-Pacific-Old-Inventory-Map-2026-09-28.md) | High-value packet → G3 mapping (Library side) |
 | [Solar-Pacific-Old-Full-TopLevel-Catalog-2026-09-28.md](./Solar-Pacific-Old-Full-TopLevel-Catalog-2026-09-28.md) | All **95** G1 tops classified |
 
 ### G1 scheduler skills — retired (2026-09-28)
@@ -33,7 +34,7 @@ Folders kept; `SKILL.md` kept; **`MIGRATED.md`** added on `-Old`. Do not run.
 | `heartbeat/` | `jobs.py` builtin `heartbeat` |
 | `net-gate/` | `Automations/scripts/poller/internet_gate.py` + tunnel jobs |
 
-Repo: `rootrecordsoftwaresolutions/Solar-Pacific-RootRecord-Server-Old`.
+Repo: [`Solar-Pacific-RootRecord-Server-Old`](https://github.com/rootrecordsoftwaresolutions/Solar-Pacific-RootRecord-Server-Old) — keep README status tables in sync with Library when packets change.
 
 ## Session records
 
@@ -66,8 +67,8 @@ See [`Documentation/06-development/Work-Orders/README.md`](../06-development/Wor
 4. **systemd unit** audit on desk  
 5. **Secrets / tokens** restore (local only)  
 
-**Done without operator tree:** Automations engine live on G3; G1 scheduler trio marked `MIGRATED.md` on `-Old`.
+**Done without operator tree:** Automations engine live on G3; G1 scheduler trio marked `MIGRATED.md` on `-Old`; G1 README status list published.
 
 ---
 
-*Index updated 2026-09-28 ~18:13 HST — Automations G1 retirement + org authority.*
+*Index updated 2026-09-28 ~18:17 HST — G1 README linked.*
