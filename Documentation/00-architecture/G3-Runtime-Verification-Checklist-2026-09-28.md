@@ -129,3 +129,16 @@ Supersedes the "PASS / retired" wording above: those surfaces are **PASS / G2 KE
 7. B1 (River 2 Pro) reads 0% — needs a physical check.
 8. FLM/NPU BLOCKED (no FLM binary/service).
 9. Needs decision: `Energy/db/store.py` still defaults to old-root `ROOTRECORD/rootrecord.db` (no canonical copy); `push-repo-once.sh` still treats `~/.ollama/skills` pulls as runtime code (arms a stack reload).
+
+
+## NPU installation update — 2026-09-29
+
+- [x] AMD XDNA2/XRT prerequisite packages installed
+- [x] `/dev/accel/accel0` present
+- [x] `modinfo amdxdna` resolves installed driver/firmware entries
+- [ ] Reboot completed and DKMS/NPU driver loaded successfully
+- [ ] FastFlowLM runtime installed
+- [ ] `flm validate` passes
+- [ ] Approved NPU inference gate passes
+
+**Current state:** prerequisite stack installed; NPU runtime is not yet VERIFIED. The installer reported a `BUILD_EXCLUSIVE` mismatch for kernel `7.0.0-34-generic` and requires post-reboot validation.
