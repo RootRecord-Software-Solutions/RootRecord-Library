@@ -4,10 +4,11 @@
 |-------|--------|
 | **Parent WO** | [WO-ECO-001](WO-ECO-001-Energy-Domain-Import.md) |
 | **Phase** | 1 of N — live BLE/API read only |
-| **Status** | **Executing on org Pacific** — scripts + jobs rewire pushed; desk pull + lib fill remaining |
+| **Status** | **Desk fill done** — org push + pull + lib/db/config copy complete; stack reload + soak pending |
 | **Target repo** | `RootRecord-Software-Solutions/RootRecord-Pacific-Solar-Server` |
 | **Data authority** | Keep writing to existing Database paths; do not invent a second store |
 | **Date drafted** | 2026-09-28 |
+| **Updated** | 2026-09-28 ~16:15 HST |
 
 ---
 
@@ -18,7 +19,7 @@ Move the **already-live** EcoFlow read chain out of the G2 skill tree and into P
 After Phase 1:
 
 - `ecoflow_read_cycle` and `ecoflow_read_boot` run from `Energy/scripts/read/`
-- No `~/.ollama/skills/energy/...` paths remain for those jobs
+- No `~/.ollama/skills/energy/...` paths remain for those jobs (except intentional `ENERGY_EFLIB_PATH` vendor until soak)
 - Hybrid reports, actions/, Core-Ops writers stay **untouched**
 
 ---
@@ -54,7 +55,7 @@ Also: `ECOFLOW_DUAL_READ`, `ECOFLOW_LOCK=/tmp/ecoflow-ble.lock`, READS helpers, 
 RootRecord-Pacific-Solar-Server/Energy/
   README.md
   scripts/read/{leapfrog,delta2,river2pro}-read.sh
-  lib/ (py, paths, read_runner, ble, api, config, envload; vendor via ENERGY_EFLIB_PATH)
+  lib/ (py, paths, config, envload, vendor; fill remaining from G2 if needed)
   db/ config/  (fill from G2 skill if missing after pull)
 ```
 
@@ -70,7 +71,7 @@ Ecosystem path:
 
 - Hybrid / solar_weather writers (Core-Ops)
 - `scripts/actions/`
-- Changing BLE lock or Database paths
+- Changing BLE lock or Database measured-data paths
 - Weather, Geology, A-Eyes, GitHub, Telegram
 - Deleting old skill tree until soak ≥1 hour
 
@@ -84,23 +85,33 @@ Ecosystem path:
 | B–C Scripts on org Pacific | **Done** |
 | D Relative ROOT in read scripts | **Done** |
 | E jobs.py rewire | **Done** on org |
-| F Desk pull + stack reload | **Operator** |
-| G Live verify | **Operator** |
-| H Docs | Org Library WO updated |
+| F Desk pull + lib/db/config fill | **Done** 2026-09-28 (pull already up to date; `cp -an` from G2) |
+| G Stack reload + live verify | **Operator** — run schedule-stack-reload; soak ≥15 min |
+| H Docs | **This update** |
 | I Old tree | Do not delete yet |
 
-### Desk commands
+### Desk execution log — 2026-09-28 HST
+
+```text
+PACIFIC=/home/rootrecord/RootRecord-Ecosystem/1 - Servers/1 - RootRecord-Pacific-Solar-Server
+git pull --ff-only origin main     → Already up to date
+mkdir -p Energy/{lib,db,config}
+cp -an ~/.ollama/skills/energy/lib/.    Energy/lib/
+cp -an ~/.ollama/skills/energy/db/.     Energy/db/
+cp -an ~/.ollama/skills/energy/config/. Energy/config/
+chmod +x Energy/scripts/read/*.sh Energy/lib/py
+# NEXT: Automations/scripts/stack/schedule-stack-reload.sh
+# NEXT: tail -f /home/rootrecord/Database/Logs/Automations/automations_current.log
+```
+
+### Remaining desk commands
 
 ```bash
 PACIFIC="/home/rootrecord/RootRecord-Ecosystem/1 - Servers/1 - RootRecord-Pacific-Solar-Server"
 cd "$PACIFIC"
-git pull --ff-only origin main
-mkdir -p Energy/lib Energy/db Energy/config
-cp -an /home/rootrecord/.ollama/skills/energy/lib/.   Energy/lib/
-cp -an /home/rootrecord/.ollama/skills/energy/db/.    Energy/db/
-cp -an /home/rootrecord/.ollama/skills/energy/config/. Energy/config/
-chmod +x Energy/scripts/read/*.sh Energy/lib/py 2>/dev/null || true
-# schedule-stack-reload — full stop/start
+./Automations/scripts/stack/schedule-stack-reload.sh
+# then watch ≥15 min:
+tail -f /home/rootrecord/Database/Logs/Automations/automations_current.log
 ```
 
 ---
@@ -121,8 +132,8 @@ actions/, hybrid reports, single-writer vs Core-Ops, vendor in-repo optional.
 
 - [x] Three read scripts under Pacific `Energy/scripts/read/` (org git)
 - [x] jobs.py cycle + boot + READS point at Pacific Energy (org git)
-- [ ] Desk pull + lib fill complete
-- [ ] Poller SUMMARY/ENERGY soak OK
+- [x] Desk pull + lib/db/config fill complete
+- [ ] Poller SUMMARY/ENERGY soak OK (≥15 min)
 - [ ] Old skill `read/` not deleted without operator OK
 
 ---
