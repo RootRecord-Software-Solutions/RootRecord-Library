@@ -53,3 +53,5 @@ Complete Weather and Geology under Pacific domain folders so poller jobs and pub
 ## Notes
 
 Align with all-connections `crons/solar_weather.py` only after deciding **one** runtime home (Pacific vs desk).
+
+- *2026-09-29 02:50 HST:* weather retention policy **PROPOSED** (not applied) in `Pacific/Weather/README.md` §Retention; steady growth ≈ 0.23 GB/day once the `_current` set is filled.

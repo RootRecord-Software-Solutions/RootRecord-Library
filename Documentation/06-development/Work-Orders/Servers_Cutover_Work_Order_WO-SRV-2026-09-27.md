@@ -295,6 +295,25 @@ Retirement eligibility (after this evidence): Security/Cameras cam server + fram
 
 The operator installed the documented AMD XDNA2/XRT prerequisite stack on the Pacific host: `amdxdna-dkms`, `libxrt-npu2`, and `libxrt2`. The host exposes `/dev/accel/accel0`, and `modinfo amdxdna` resolves the installed driver and firmware entries. The DKMS install reported a `BUILD_EXCLUSIVE` mismatch for kernel `7.0.0-34-generic`, so the NPU is **not yet runtime-verified**. A reboot and post-reboot validation are required before FastFlowLM can be marked installed/verified. No production deployment or legacy retirement is implied by this prerequisite installation.
 
+### FastFlowLM install — paste-ready for Alexander (prepared 2026-09-29 02:50 HST, NOT run)
+
+Checked on the desk (read-only): Ubuntu 26.04.1, kernel 7.0.0-34. The in-tree `amdxdna` 0.7.0 is loaded, firmware `npu_7.sbin` loaded, and `/dev/accel/accel0` exists (root:render). The `ppa:lemonade-team/stable` PPA is already configured. `libxrt2` and `libxrt-npu2` 2.25.0-4~resolute1 are installed; `libxrt-npu2` already ships the XDNA plugin (`libxrt_driver_xdna.so`). Memlock is unlimited for `rootrecord`.
+- **`xrt-smi` comes from `libxrt-utils`** (checked with `dpkg -c`). `libxrt-utils-npu` adds `xrt-runner`/`aiebu-*`.
+- **FastFlowLM:** the repo moved to `ROCm/FastFlowLM`. The latest release is **v1.0.6** (2026-09-18), `fastflowlm_1.0.6_ubuntu26.04_amd64.deb`, sha256 `22e6fdb62773de1a31426bfcbbf34f14f415358ea976a714c7b5fb0183d33ad7` (matches the GitHub digest). It installs `/opt/fastflowlm/bin/flm` with a `/usr/bin/flm` symlink, which `System/scripts/plumbing/flm-warmup.sh` finds through `PATH`. It has no postinst and all dependencies are user-space.
+- **No reboot needed.** The kernel driver and firmware are already live, and these packages are user-space only (the DKMS build is not needed while the in-tree driver works).
+
+```bash
+sudo apt update
+sudo apt install -y libxrt-utils libxrt-utils-npu
+cd /tmp && curl -fLO https://github.com/ROCm/FastFlowLM/releases/download/v1.0.6/fastflowlm_1.0.6_ubuntu26.04_amd64.deb
+echo "22e6fdb62773de1a31426bfcbbf34f14f415358ea976a714c7b5fb0183d33ad7  fastflowlm_1.0.6_ubuntu26.04_amd64.deb" | sha256sum -c -
+sudo apt install -y ./fastflowlm_1.0.6_ubuntu26.04_amd64.deb
+# verify (no sudo)
+xrt-smi examine
+flm validate
+```
+After that, `flm_npu_warmup` picks it up at the next poller start; no restart is required for the install itself.
+
 ## Weather hook-in + old-root archive — 2026-09-29 ~01:54 HST
 
 - Weather **PASS** (Pacific `Weather/`, venv `Weather/.venv`, job `weather_poller` enabled, data → canonical `WEATHER/Hawai'i/`; reports VERIFY PENDING). One poller restart 01:49 HST → PID 880218; relay 880530 and weather 880724 now under the poller unit. Old-root data archived to `2 - RootRecord-Database/Archive/Previous-Datasets/G2-old-root-20260929/` (4.5 GB, README only in git). `store.py` → canonical `ROOTRECORD/`; G2 pulls no longer arm a stack reload. Evidence: `2 - RootRecord-Database/Logs/Migration/g3-weather-archive-evidence-20260929T115429Z.md`.
@@ -329,3 +348,12 @@ Snapshot: `2 - RootRecord-Database/Logs/Migration/g3-pre-reboot-checkpoint-20260
 - *Viewer fix 02:20 HST:* status window flashing **fixed — PASS** (read-only `poller-dashboard.py`, single instance, survives reloads). Cause: every Pacific pull (incl. docs-only) triggers a stack reload that killed/reopened `poller-watch`; no gnome-terminal (ptyxis `-e` without hold); G2 autostart. Relay re-crashed 02:08 (old code), restarted once 02:12 with retry fix. Evidence `2 - RootRecord-Database/Logs/Migration/g3-poller-viewer-evidence-20260929T121959Z.md`.
 
 - *Post-reboot 02:33 HST (boot 02:28:09):* **PASS**: poller 3226 (NRestarts 0, status = fresh energy), relay 4634 (boot job, retry fix live, no 401), BLE 3195, globe 5436, cam 5223, weather 5355 (upstream NWS 500s only), ollama 12 models, cloudflared 3509, auto-sync committing, 1 dashboard (autostart→Pacific), 0 G2 duplicates. NPU **partial**: amdxdna + accel0 + firmware OK; `xrt-smi`/`flm` missing (Alexander). Evidence `2 - RootRecord-Database/Logs/Migration/g3-post-reboot-evidence-20260929T123313Z.md`.
+
+## Follow-ups 2026-09-29 ~02:50 HST (no restarts; effective at next natural start)
+
+- Relay log: `ensure-relay.sh` launches with `PYTHONUNBUFFERED=1` (argv unchanged) → `council-relay.log` fills in real time from the next relay start.
+- 30 s poller stop, **cause found**: after SIGTERM, the rest of the scheduler pass kept launching jobs. `ensure_tunnel_online` respawned cloudflared and waited up to 45 s for it (logs 02:13:13 → 02:13:25; systemd SIGKILLed python + a new cloudflared). **Fix:** `run_job()` returns right away once `_stop` is set (4 lines, `rootserver_poller.py`; tested on a separate copy, not the live poller). Takes effect at the next poller start; the unit is unchanged.
+- Stack-stop weather pattern → `[Ww]eather/scripts/run_poller\.py`. This matches the design: a reload restarts weather, and a weather started by the boot job already sits in the poller cgroup, so `systemctl stop` stops it anyway. The `ensure-weather-poller.sh` match is `[Ww]eather/`, so no duplicates are possible. Note: `weather_poller` and `council_relay` are ON_BOOT only, so a crash mid-session is not auto-restarted until the next poller start.
+- Weather retention: PROPOSED in `Pacific/Weather/README.md` §Retention (not applied).
+- Evidence: `2 - RootRecord-Database/Logs/Migration/g3-followups-evidence-20260929T124741Z.md`.
+
