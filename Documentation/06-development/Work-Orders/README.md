@@ -1,7 +1,7 @@
 # Work Orders — single index
 
 **Canonical work-order home** for RootRecord (org Library).  
-One folder only. Docs-only updates do not migrate functions or change runtime code unless a WO is accepted for execution.
+One active folder + **`Complete/`** for finished WOs. Docs-only updates do not migrate functions or change runtime code unless a WO is accepted for execution.
 
 **Standing policy:** Do not run the old desk (`~/.ollama/skills`) as the poller host. Prefer Pacific under org `RootRecord-Pacific-Solar-Server`.
 
@@ -9,13 +9,27 @@ One folder only. Docs-only updates do not migrate functions or change runtime co
 
 ---
 
-## Active ops backlog (updated 2026-09-28 ~19:00 HST)
+## Layout
+
+```text
+Work-Orders/
+├─ README.md                 # this index (active only)
+├─ Complete/                 # CLOSED / COMPLETE WOs (git mv here)
+│   └─ README.md
+└─ WO-*.md / *_Work_Order_*.md
+```
+
+**Close a WO:** set Status → COMPLETE/CLOSED → `git mv` into [`Complete/`](./Complete/).
+
+---
+
+## Active ops backlog (updated 2026-09-28 ~19:08 HST)
 
 | ID | Title | Status | File |
 | --- | --- | --- | --- |
 | WO-ECO-2026-09-27 | Ecosystem migration & repository foundation | **IN PROGRESS** — Pacific + Energy + System LIVE; Automations engine sole authority | [WO](./Ecosystem_Migration_Work_Order_WO-ECO-2026-09-27.md) |
-| WO-SRV-2026-09-27 | Pacific runtime path cutover (G2 → G3) | **IN PROGRESS** — Energy + System done; G1 schedulers retired; **Reports Phase B in flight** | [WO](./Servers_Cutover_Work_Order_WO-SRV-2026-09-27.md) |
-| **WO-RPT-001** | Reports / worklog domain import | **IN PROGRESS** — Phase A+B in git; desk soak next | [WO](./WO-RPT-001-Reports-Worklog-Domain-Import.md) · [Action Plan](./WO-RPT-001-Action-Plan.md) |
+| WO-SRV-2026-09-27 | Pacific runtime path cutover (G2 → G3) | **IN PROGRESS** — Energy + System + Reports Phase B LIVE | [WO](./Servers_Cutover_Work_Order_WO-SRV-2026-09-27.md) |
+| **WO-RPT-001** | Reports / worklog domain import | **Phase B LIVE** — C/D/E open | [WO](./WO-RPT-001-Reports-Worklog-Domain-Import.md) · [Action Plan](./WO-RPT-001-Action-Plan.md) |
 | WO-MAP-2026-09-27 | Master-Prompt repository ownership map | OPEN | [WO](./MasterPrompt_RepoMap_Work_Order_WO-MAP-2026-09-27.md) |
 | WO-OLD-2026-09-28 | Selective recovery from Solar-Pacific-…-Old (G1) | OPEN — scheduler trio **MIGRATED**; other packets blocked on G2→G3 | [WO](./Old_Server_Selective_Recovery_Work_Order_WO-OLD-2026-09-28.md) |
 | WO-GH-2026-09-27 | GitHub catalog hygiene | OPEN | [WO](./GitHub_Catalog_Hygiene_Work_Order_WO-GH-2026-09-27.md) |
@@ -31,9 +45,9 @@ One folder only. Docs-only updates do not migrate functions or change runtime co
 
 | ID | Title | Priority | Status | File |
 |----|-------|----------|--------|------|
-| **WO-ECO-001** | Energy domain import (EcoFlow + hybrid reports) | P0 | Phase 1 **COMPLETE** on org Pacific | [WO](./WO-ECO-001-Energy-Domain-Import.md) · [Action Plan](./WO-ECO-001-Action-Plan.md) |
-| **WO-SRV-001** | Residual jobs path rewire | P0 | In progress — worklog path moves with WO-RPT-001 | [WO](./WO-SRV-001-Residual-Jobs-Path-Rewire.md) |
-| **WO-RPT-001** | Reports / worklog domain import | P0 | **IN PROGRESS** Phase A+B | [WO](./WO-RPT-001-Reports-Worklog-Domain-Import.md) · [Action Plan](./WO-RPT-001-Action-Plan.md) |
+| **WO-ECO-001** | Energy domain import (EcoFlow + hybrid reports) | P0 | Phase 1 **COMPLETE** on org Pacific — move to `Complete/` when operator closes companion docs | [WO](./WO-ECO-001-Energy-Domain-Import.md) · [Action Plan](./WO-ECO-001-Action-Plan.md) |
+| **WO-SRV-001** | Residual jobs path rewire | P0 | In progress — worklog path **done** via WO-RPT-001 | [WO](./WO-SRV-001-Residual-Jobs-Path-Rewire.md) |
+| **WO-RPT-001** | Reports / worklog domain import | P0 | **Phase B LIVE** | [WO](./WO-RPT-001-Reports-Worklog-Domain-Import.md) · [Action Plan](./WO-RPT-001-Action-Plan.md) |
 | **WO-WEB-001** | Public status / solar board alignment | P1 | Draft | [WO](./WO-WEB-001-Public-Status-Solar-Board.md) |
 | **WO-COM-001** | Communications surface | P1 | Draft | [WO](./WO-COM-001-Communications-Surface.md) |
 | **WO-COM-002** | Discord bot credential rotation (migration gate) | P1 | OPEN | [WO](./WO-COM-002-Discord-Bot-Credential-Rotation.md) |
@@ -60,11 +74,11 @@ Folder + `SKILL.md` retained. Skills were functional packets (poor original desi
 
 ## Suggested attack order (remaining)
 
-1. ~~Energy~~ ~~System~~ (done)  
-2. **Reports / worklog (WO-RPT-001)** — Phase B soak → C daily roll-up → D weekly archive  
+1. ~~Energy~~ ~~System~~ ~~Reports Phase B~~ (LIVE)  
+2. **WO-RPT-001** Phase C/D/E (roll-up, weekly archive, G1 marker)  
 3. **WO-SRV-001** residual path cleanup (plumbing, telegram, a-eyes, energy actions)  
 4. Communications / Telegram / Discord (**WO-COM-002** token gate before Discord LIVE) → A-Eyes → Weather + Geology  
-5. Retire G2 desk as residual host; close WO-ECO when foundation settles  
+5. Retire G2 desk as residual host; close WO-ECO when foundation settles → move finished WOs to `Complete/`  
 
 Architecture maps (Library):
 
@@ -81,7 +95,7 @@ Architecture maps (Library):
 systemd   Pacific run-poller.sh
 Energy    SUMMARY + ENERGY live
 System    sys-sample on Pacific System/scripts/
-Reports   Phase B — worklog_scan → Pacific Reports/scripts (soak)
+Reports   Phase B LIVE — worklog_scan → Pacific Reports/scripts
 Log       /home/rootrecord/Database/Logs/Automations/automations_current.log
 G1 sched  hybrid-night-poller / heartbeat / net-gate → MIGRATED.md on -Old
 ```
@@ -92,7 +106,8 @@ G1 sched  hybrid-night-poller / heartbeat / net-gate → MIGRATED.md on -Old
 
 - One WO per coherent outcome; link related IDs.
 - Keep **Status** accurate (`OPEN`, `IN PROGRESS`, `BLOCKED`, `CLOSED`, `COMPLETE`).
-- Closed WOs: weekly archive under `Documentation/06-development/archive/YYYY-Www/`.
+- **Closed WOs:** `git mv` into [`Complete/`](./Complete/) — not a separate weekly tree.
+- **Human session logs:** weekly archive under `Documentation/01-operations/archive/YYYY-Www/` (WO-ARCH).
 - No secrets in WO text.
 - **Never bulk-merge G1 `origin/` into G3 runtime.**
 - **No code import** without operator source tree; **one domain at a time**.
