@@ -9,7 +9,7 @@ One folder only. Docs-only updates do not migrate functions or change runtime co
 
 ---
 
-## Active ops backlog (updated 2026-09-28 ~18:13 HST)
+## Active ops backlog (updated 2026-09-28 ~18:50 HST)
 
 | ID | Title | Status | File |
 | --- | --- | --- | --- |
@@ -34,6 +34,7 @@ One folder only. Docs-only updates do not migrate functions or change runtime co
 | **WO-SRV-001** | Residual jobs path rewire | P0 | In progress after Energy/System | [WO](./WO-SRV-001-Residual-Jobs-Path-Rewire.md) |
 | **WO-WEB-001** | Public status / solar board alignment | P1 | Draft | [WO](./WO-WEB-001-Public-Status-Solar-Board.md) |
 | **WO-COM-001** | Communications surface | P1 | Draft | [WO](./WO-COM-001-Communications-Surface.md) |
+| **WO-COM-002** | Discord bot credential rotation (migration gate) | P1 | OPEN | [WO](./WO-COM-002-Discord-Bot-Credential-Rotation.md) |
 | **WO-WXG-001** | Weather + Geology domain import | P1 | Draft — after Energy | [WO](./WO-WXG-001-Weather-Geology-Import.md) |
 | **WO-SYS-001** | Poller observability & FAIL handling | P2 | Draft (System Phase 1 live) | [WO](./WO-SYS-001-Poller-Observability.md) |
 | **WO-WEB-002** | Public site foundation pass | P2 | Draft | [WO](./WO-WEB-002-Public-Site-Foundation.md) |
@@ -60,7 +61,7 @@ Folder + `SKILL.md` retained. Skills were functional packets (poor original desi
 1. ~~Energy~~ ~~System~~ (done)  
 2. Worklog / reports **or** Github **or** plumbing — operator pick  
 3. **WO-SRV-001** residual path cleanup (zero `~/.ollama/skills` in jobs where domains land on Pacific)  
-4. Communications / Telegram → A-Eyes → Weather + Geology  
+4. Communications / Telegram / Discord (**WO-COM-002** token gate before Discord LIVE) → A-Eyes → Weather + Geology  
 5. Retire G2 desk as residual host; close WO-ECO when foundation settles  
 
 Architecture maps (Library):
@@ -94,3 +95,4 @@ G1 sched  hybrid-night-poller / heartbeat / net-gate → MIGRATED.md on -Old
 - **No code import** without operator source tree; **one domain at a time**.
 - Prefer **`MIGRATED.md`** over silent delete when a packet is fully superseded.
 - Document only until a WO is explicitly accepted for execution.
+- **Messaging credentials (Discord, Telegram, etc.):** issue fresh tokens on migration/enablement; never load tokens from archive/mirror history.
