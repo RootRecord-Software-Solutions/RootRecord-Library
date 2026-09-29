@@ -281,3 +281,10 @@ Filename:
 - The Pacific `repos.conf` catalog row is marked aligned to the Ecosystem path; Website/Mainland remain intentionally disabled.
 - The broad legacy `jobs.py` statement was narrowed: active Pacific scheduler surfaces resolve to Pacific paths; the remaining legacy Weather command/cwd pair is explicitly disabled and outside active cutover scope.
 - Remaining out-of-scope domain imports are still gated by their separate authorization/work orders. WO-ECO remains IN PROGRESS.
+
+
+## Documentation Reconciliation — WO-ECO Master-Prompt Link Item — 2026-09-28
+
+- Rechecked WO-ECO §4.1: the `Master-Prompt repository links section` remains unchecked.
+- Library search did not locate the specifically named `08-repository-and-file-links.md` artifact. No completion was inferred from unrelated Master-Prompt files elsewhere in accessible search results.
+- The item remains open rather than being fabricated or marked complete without the intended source artifact.
