@@ -216,3 +216,10 @@ Filename:
 - Telegram supporting-file inspection confirmed Pacific `ensure-relay.sh` and `voices.conf` match the inspected legacy blobs; legacy `status.sh`, `load_env.sh`, and `post-voice.sh` are not present at corresponding Pacific paths.
 - Their absence was recorded without inferring deletion or migration failure, and no active scheduler dependency was identified for those paths.
 - Pacific A-Eyes supporting/runtime files inspected are present; runtime verification remains pending.
+
+
+## Session 04 continuation — Active Telegram Dependency Check — 2026-09-28
+
+- Pacific scheduler and Telegram runtime inspection confirms the active relay path is `ensure-relay.sh` → `council-relay.py` → `voices.conf`.
+- Legacy `status.sh`, `load_env.sh`, and `post-voice.sh` are not referenced by the inspected active Pacific scheduler/runtime path.
+- No source change or deletion was warranted from this dependency check; live runtime verification remains pending.
