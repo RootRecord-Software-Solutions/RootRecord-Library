@@ -4,7 +4,7 @@
 | --- | --- |
 | **Work Order ID** | WO-DATA-2026-09-27 |
 | **Date** | 2026-09-27 (HST) |
-| **Status** | **IN PROGRESS** — canonical Database root standardized in active Pacific source; historical `/home/rootrecord/Database/` references remain only where explicitly preserved as historical/operator evidence |
+| **Status** | **IN PROGRESS** — canonical Database root standardized in active Pacific source; historical `/home/rootrecord/Database/` references remain only where explicitly preserved as historical/operator evidence. Poller source has now been corrected to the canonical root; remaining runtime confirmation is tracked in WO-SRV. |
 | **Owner** | RootRecord |
 | **Related** | WO-ECO; RootRecord-Weather-Database |
 
