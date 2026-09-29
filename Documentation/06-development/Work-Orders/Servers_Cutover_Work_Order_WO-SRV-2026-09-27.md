@@ -4,7 +4,7 @@
 | --- | --- |
 | **Work Order ID** | WO-SRV-2026-09-27 |
 | **Status** | **IN PROGRESS** — Pacific source paths landed for active residuals; runtime verification + legacy retirement remain |
-| **Updated** | 2026-09-28 ~21:40 HST (Session 04) |
+| **Updated** | 2026-09-28 ~21:50 HST (Session 04) |
 
 **Policy:** Do not run the old desk as the poller host.
 
@@ -33,6 +33,13 @@
 | A-Eyes | cam server, frame grab, timelapse | G3 surface landed, including hourly wrapper; runtime verification pending |
 | Weather | `weather_poller` | Already **disabled** |
 | Network globe | cwd | **LIVE** — cwd now Pacific |
+
+## Static Cutover Check — 2026-09-28 ~21:50 HST
+
+- Pacific `RootRecord-Pacific-Solar-Server` search returned no `/home/rootrecord/.ollama/skills/` references.
+- Pacific `jobs.py` now points the active A-Eyes hourly wrapper at `A-Eyes/scripts/timelapse_hourly.sh`.
+- Pacific `System/scripts/plumbing/single-flight.sh` is present; Telegram G3 configuration no longer requires the legacy plumbing path.
+- The legacy repository still contains historical `/home/rootrecord/.ollama/skills/` references across residual and non-residual trees. These are not treated as completed migrations without runtime verification and explicit scope.
 
 ## Next
 
