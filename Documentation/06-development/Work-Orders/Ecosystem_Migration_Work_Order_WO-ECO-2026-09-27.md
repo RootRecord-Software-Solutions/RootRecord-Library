@@ -174,6 +174,8 @@ Deploy standing rule: push → sync merge → `schedule-stack-reload` when runti
 *Work order prepared 2026-09-27 HST. Updated 2026-09-28 HST after Pacific Automations domain wiring and live poller confirmation.*
 ## NPU prerequisite installation update — 2026-09-29
 
+**2026-09-29 03:02 HST:** `llama3.2:3b` pre-pulled (2.7 GB) and kept as default; FLM warmup pmode `balanced`; relay replies opt-in (`RR_RELAY_REPLIES=0` default, Pacific `ebc32a7`).
+
 **2026-09-29 02:56 HST — NPU/FLM PASS** (supersedes the pending note below): xrt-smi sees RyzenAI-npu6 (FW 1.1.2.64), `flm validate` OK, gated llama3.2:1b inference on the NPU in 1.04 s, parallel refused. Open: default model `llama3.2:3b` not downloaded; relay will reply via FLM once it runs. Evidence `2 - RootRecord-Database/Logs/Migration/g3-npu-flm-evidence-20260929T125429Z.md`.
 
 The operator installed the documented AMD XDNA2/XRT prerequisite stack on the Pacific host: `amdxdna-dkms`, `libxrt-npu2`, and `libxrt2`. The host exposes `/dev/accel/accel0`, and `modinfo amdxdna` resolves the installed driver and firmware entries. The DKMS install reported a `BUILD_EXCLUSIVE` mismatch for kernel `7.0.0-34-generic`, so the NPU is **not yet runtime-verified**. A reboot and post-reboot validation are required before FastFlowLM can be marked installed/verified. No production deployment or legacy retirement is implied by this prerequisite installation.
