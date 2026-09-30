@@ -114,7 +114,7 @@ Folder name: **Economy-Brief**, a subfolder of Reports. One capitalized name in 
 | `System/NightSleep/scripts/night_sleep.py` | Call `should_run` only if that file exists. |
 | `/home/rootrecord/master/master-key.env` | Sole secrets file. No keys added by this function. |
 | `/home/rootrecord/old ollama/old skills/reports/sort/economy-brief/` | Old local source, including `scripts/job.py`, `SKILL.md`, `INDEX.md`, `DAILY.md`, `references/migrate.md`, and `__pycache__`. Gitignored. |
-| `/home/rootrecord/old ollama/old skills/origin/ns/apps/core/crons/on_time/economy_brief.py` | GitHub-tracked shim. Phase 4 only. |
+| `/home/rootrecord/old ollama/old skills/origin/ns/apps/core/crons/on_time/economy_brief.py` | Removed. Commit `27f7c442`, pushed to `online-safe-20260920`. |
 | `Old repos deleted and merged/Solar-Pacific-RootRecord-Server/reports/sort/economy-brief/` | Phase 4 archive of the gitignored tree, same in-repo path. |
 | `Old repos deleted and merged/Solar-Pacific-RootRecord-Server/origin/ns/apps/core/crons/on_time/economy_brief.py` | Phase 4 archive of the shim. |
 | `5 - RootRecord-Library/Documentation/00-architecture/Old-Repo-Migration-Matrix.md` | Row 51. Correct only after phase 4. |

@@ -79,5 +79,6 @@ Geology/
 - **Layout used:** flat `Geology/scripts/` (the "Suggested layout" above stays a future option). Database: `Geology/Earthquakes/{hawaii,global}-last.json` + `Daily/*.jsonl`, `Geology/Volcanoes/{hvo,kilauea,mauna-loa}-last.json` + `Daily/hvo-notices-*.jsonl` + `Cams/`, `Geology/collector-last.json`. Event DB `quakes.db` and cam JPGs are git-ignored (rule 5).
 - **Gates:** `RR_GEOLOGY=1` (300 s), `RR_KILAUEA_CAMS=1` (600 s), `RR_VOICE_QUAKE=1` (voice :08). All OFF until Alexander signs off and the poller restarts.
 - **Council quake notices:** dry-run landed as Pacific `Communications/CouncilQuake/` (WO-MIG-25). Reads `hawaii-last.json`. Telegram send and Carly WAV stay off until sign-off.
-- **Not imported (BLOCKED / sign-off):** Discord posts, rr-kilauea public drafts, Grok drafts, OBS cam push, YouTube scraping, G0 nearest-location enrichment (needs a dataset).
+- **Public draft queue:** landed 2026-09-30 as Pacific `Geology/PublicDraftQueue/` (WO-MIG-24). Reads `kilauea-last.json`. Job `geology_kilauea_public_draft` gated `RR_KILAUEA_DRAFT`. No send.
+- **Not imported (BLOCKED / sign-off):** Discord posts, Grok drafts, OBS cam push, YouTube scraping, G0 nearest-location enrichment (needs a dataset).
 - Records: [geology test](../07-testing/2026-09-29-geology-earthquakes-hvo-collector.md), [migration matrix](./Old-Repo-Migration-Matrix.md).

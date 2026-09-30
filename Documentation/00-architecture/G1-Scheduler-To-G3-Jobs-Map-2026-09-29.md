@@ -15,7 +15,7 @@ States: **LIVE** = enabled in G3 now · **GATED** = in jobs.py, OFF until its fl
 | radar-archive | every 10 min | `weather_poller` (`Weather/fetch/radar.py`, 14-day dated archive); all-time zip `weather_radar_zip` (`Weather/RadarZip/scripts/radar_zip.py`, 600 s) | LIVE fetch; zip GATED `RR_RADAR_ZIP` |
 | official-weather-media | every 10 min | `Weather/scripts/official_statement.py` (HLS) + `voice_reports.py official_weather` | PROPOSED `RR_OFFICIAL_HLS`, `RR_VOICE_OFFICIAL`; OBS BLOCKED |
 | nws-hawaii-counties | :07 :22 :37 :52 | `voice_nws_weather` | GATED `RR_VOICE_NWS` |
-| rr-kilauea | every 60 min | `geology_collect` (HVO) + `voice_kilauea_report` | GATED `RR_GEOLOGY`, `RR_VOICE_KILAUEA`; Grok draft / Discord BLOCKED |
+| rr-kilauea | every 60 min | `geology_collect` (HVO) + `voice_kilauea_report` + `geology_kilauea_public_draft` (`Geology/PublicDraftQueue/scripts/queue_draft.py`, 3600 s) | GATED `RR_GEOLOGY`, `RR_VOICE_KILAUEA`, `RR_KILAUEA_DRAFT`; draft queues from `kilauea-last.json` and does not send; Grok draft BLOCKED |
 | time-chime | :00 :30 | `voice_hourly_chime` | GATED `RR_VOICE_HOURLY_CHIME` |
 | remaining-tasks | :32 | `voice_remaining_tasks` | GATED `RR_VOICE_REMAINING` |
 | morning-boot-replay | :32 | `Media/MorningBootReplay/scripts/replay.py` | PROPOSED `RR_MORNING_BOOT_REPLAY` (not in jobs.py). Dry-run handoff to `Media/Playback`. Speaker still off |
