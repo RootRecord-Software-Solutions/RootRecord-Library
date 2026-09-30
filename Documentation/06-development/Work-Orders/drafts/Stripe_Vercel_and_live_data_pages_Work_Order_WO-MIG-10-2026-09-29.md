@@ -8,7 +8,7 @@
 | **Owner** | RootRecord |
 | **Related** | Agent 10. Build pauses on agent 07 (Public website checkout) until `3 - RootRecord-Website` holds the one Vercel app. Agent 38 (AdSense and AdMob end-of-day) depends on this function later. |
 
-**Scope:** Bring Stripe balance snapshots, Vercel failed-build records, and live-data pages that read Energy, Weather, and Geology files already on disk. Public pages land in the one Vercel app after checkout exists, using the US-Mainland globe glass-card direction. Old page skins, including the holding page, stay out of that app. This draft does not build, deploy, enable jobs, or delete old-repo files.
+**Scope:** Bring Stripe balance snapshots, Vercel failed-build records, and live-data pages that read Energy, Weather, and Geology files already on disk. Public pages land in the one Vercel app after checkout exists, using the US-Mainland globe glass-card direction. Old page skins, including the holding page, stay out of that app. Server code is landed and the public page shell is staged. Deploy, enabled jobs, and old-repo deletion are still waiting.
 
 ---
 
@@ -150,11 +150,18 @@ Build only after Alexander accepts this draft and says to build. Until then, do 
 - Do not import system-generated data into the live Folders.
 - Phase 4 is ordered for after a working build: archive first, then delete the old function’s files locally and on GitHub. It does not run while this status is draft.
 
-**Small test, only after a build is ordered.** With no keys present: the Stripe writer emits `not_configured` and prints no secret; the Vercel writer emits `missing_vercel_token` and writes no log; the power page JSON includes only fields present on an existing Energy last file.
+**Small test, run 2026-09-30 HST with no keys.** Stripe printed `stripe not_configured` and wrote that detail. Vercel printed `vercel missing_vercel_token` and wrote no log. The power page JSON includes only fields present on the Energy last files.
 
 ### Result note
 
-Not written. Phase 5 fills this after the archive and the GitHub deletion: what landed, the archive path, and what was removed on GitHub.
+Landed 2026-09-30 HST, with checkout still missing.
+
+- Server code: `Website/lib/envload.py`, `Website/scripts/stripe_poll.py`, `Website/scripts/vercel_builds.py`, `Website/scripts/live_data_pages.py`.
+- No-key test: Stripe wrote `Database/Website/stripe-snapshot.json` with `detail: not_configured` and printed `stripe not_configured`. Vercel printed `vercel missing_vercel_token` and wrote no log. Live pages wrote `Database/Website/pages/{power,weather,kilauea}.json` from Energy, the Hawaiʻi state report header, and `kilauea-last.json` only.
+- Jobs: `stripe_poll` (1800 s, `RR_STRIPE=1`) and `vercel_builds` (300 s, `RR_VERCEL_BUILDS=1`) in `EVERY_SECONDS`, both off.
+- Staged, not deployed: `Website/staged/live-data.html` and `Website/staged/cards.css`. `3 - RootRecord-Website` is still empty.
+- Theme archive: `5 - RootRecord-Library/Archive/Website-Themes/holding/` matches `holding/site` (`index.html`, `vercel.json`, `.gitignore`).
+- Not done: no Stripe or Vercel API call, no deploy, no prune, no deletion from `Solar-Pacific-RootRecord-Server` or `Ava-Core-Dev/holding`, no GitHub push. Shared `origin/scripts/config.py` was left in place. Library matrix and scheduler rows stay until that deletion.
 
 ---
 

@@ -4,7 +4,7 @@
 | --- | --- |
 | **Work Order ID** | WO-MIG-04-2026-09-29 |
 | **Date** | 2026-09-29 (HST) |
-| **Status** | OPEN — draft, not accepted for execution |
+| **Status** | COMPLETE — migrated 2026-09-29. Not promoted to the active index. |
 | **Owner** | RootRecord |
 | **Related** | Agent 04. Later consumer: agent 20 OBS studio and overlays. Live board: `Weather/hurricanes/scripts/global_board.py`. |
 
@@ -38,13 +38,13 @@ The live system already merges NHC, RAMMB, and JTWC in `global_board.py` and wri
 ### 2.2 Completed so far
 
 - [x] Live four-source merge and `storms-last.json` write
-- [ ] RAMMB per-storm page, track tables, persist, and text plot
-- [ ] Archive of the two old source files, then removal from the old repo
+- [x] RAMMB per-storm page, track tables, persist, and text plot
+- [x] Archive of the two old source files, then removal from the old repo locally. GitHub push of that commit was rejected.
 
 ### 2.3 Known friction
 
 - Extra HTTP: up to 14 storm-page GETs after the existing four source GETs. Each page times out at 14 s and a failure skips that storm.
-- `Solar-Pacific-RootRecord-Server-Old` may not be checked out on this machine. GitHub deletion pauses until that repo is named and the archive copy is on disk.
+- GitHub push of the deletion commit is blocked by push protection on an ancestor that is already the remote tip. See the result note. No force-push.
 - `hurricane_tracker.py` is shared with the already-ported board and with the OBS kit. It stays in the old tree.
 
 ---
@@ -97,7 +97,7 @@ No dependency Folder is missing. `global_board.py` is already in Weather/hurrica
 
 - Agent 20 may read `track_history`, `forecast_track`, `ir_url`, `track_summary`, and `storm-plot.txt`. This work order does not build those scenes.
 - Label doubling ("Fay Fay") stays a separate check-later. Do not retune labels here.
-- GitHub deletion of the two old files waits on a confirmed old-repo checkout and a successful archive copy.
+- GitHub still has the two source files on `online-safe-20260920` because push protection rejected the deletion commit. Local commit is `e8c37881`.
 
 ---
 
@@ -124,3 +124,22 @@ Documentation/06-development/Work-Orders/drafts/RAMMB_per_storm_tracks_and_plot_
 ```
 
 Do not auto-promote.
+
+---
+
+## Result (2026-09-29 HST)
+
+Landed in `Weather/hurricanes/scripts/`: `storm_track.py`, `storm_plot.py`, and an extension of `global_board.refresh()` (per-storm RAMMB page, `ir_url`, track attach, `storm-plot.txt`, log line under `Logs/Weather/hurricanes/`). `jobs.py` was not edited. Fixture test `Weather/tests/hurricanes/test_storm_track_plot.py` PASS. No live board fetch was run.
+
+Archive (verified with `cmp` before delete):
+
+```text
+Old repos deleted and merged/Solar-Pacific-RootRecord-Server/weather/hurricane-tracker/scripts/storm_track.py
+Old repos deleted and merged/Solar-Pacific-RootRecord-Server/weather/hurricane-desk/scripts/storm_plot.py
+```
+
+Bytecode that sat beside those sources was archived under each script's `__pycache__/` and removed locally. `hurricane_tracker.py` and the rest of `hurricane-desk` stayed. Test files that still name the old modules were left: `origin/tests/test_storm_track.py`, `origin/tests/council/test_storm_plot.py`, and `council/council-telegram/desk/src/tests/council/test_storm_plot.py`.
+
+Local old repo `Solar-Pacific-RootRecord-Server` (`/home/rootrecord/old ollama/old skills`, branch `online-safe-20260920`) commit `e8c37881` deletes the two source files. Push to `origin/online-safe-20260920` was rejected by GitHub push protection. The blocked ancestor is `679fd86c`, already the remote tip, because `ecosystem-history/references/archives-pull-20260916/august-emergency-txt/chatgpt improvements.txt` contains an OpenAI API key. This pass did not force-push and did not use the secret-allow URL. The two files are not on `origin/main`.
+
+Library lines corrected: breadth-batch-5 check-later, and Old-Repo-Migration-Matrix row 40 plus the next-candidates sentence.

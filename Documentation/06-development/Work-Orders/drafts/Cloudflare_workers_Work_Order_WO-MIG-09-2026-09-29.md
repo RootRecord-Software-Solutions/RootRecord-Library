@@ -4,7 +4,7 @@
 | --- | --- |
 | **Work Order ID** | WO-MIG-09-2026-09-29 |
 | **Date** | 2026-09-29 (HST) |
-| **Status** | OPEN — draft, not accepted for execution |
+| **Status** | OPEN — code landed locally. Route not attached. Deploy not signed off. |
 | **Owner** | RootRecord |
 | **Related** | Agent 09. Depends on 7. Public website checkout and 8. Site Cloudflare config and thumbnails. No later function depends on this one. |
 
@@ -28,26 +28,25 @@ Folder name, used in all three places: **Cloudflare-Workers**. Domain: Communica
 
 | Item | Location / status |
 | --- | --- |
-| Server code | `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Communications/Cloudflare-Workers/scripts` — not created. Wrangler package (`package.json`, `tsconfig.json`, `src/`) lands here at build. |
-| Config | `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Communications/Cloudflare-Workers/config/` — not created. Wrangler toml only. Account id and D1 ids from the old toml are not copied in. |
-| Database data | `2 - RootRecord-Database/Communications/Cloudflare-Workers/` — not created. Samples, last files, and stores only. |
-| Database logs | `2 - RootRecord-Database/Logs/Communications/Cloudflare-Workers/` — not created. Logs only here. |
+| Server code | `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Communications/Cloudflare-Workers/scripts` — landed. `src/worker.ts`, `src/publicPaths.ts`, `src/proxy.ts`, `src/envload.ts`. |
+| Config | `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Communications/Cloudflare-Workers/config/wrangler.toml` — landed. No route, no cron, no account id, no D1 id. Origin var is `https://root-record-cloud.vercel.app`. |
+| Database data | `2 - RootRecord-Database/Communications/Cloudflare-Workers/` — folder only. No samples imported. |
+| Database logs | `2 - RootRecord-Database/Logs/Communications/Cloudflare-Workers/` — folder only. No log lines written. |
 | Secret key name | `/home/rootrecord/master/master-key.env` already has `CLOUDFLARE_ACCOUNT_ID`. Allowlist that name only, same pattern as `Energy/lib/envload.py`. Never print the value. A deploy token is not in that file today. Do not add one until a deploy is signed off. Do not add a second env file. |
 | Live tunnel (keep) | `Communications/network/cloudflare/` — poller starts `bin/cloudflared`. Public host `rootserver.rootrecord.cloud`. Job `cloudflare_tunnel`. Do not replace the binary, the token file, or the job. |
 | Old source read | `old ollama/github-history/09202026 1830/cloudflare-workers/`. Skill desk says live git root was `Ava-Core/workers`. `Solar-Pacific-RootRecord-Server-Old` is not checked out on this machine. `node_modules` and `.wrangler-out` stay out of the live tree. |
 | Public site | `3 - RootRecord-Website` is empty. Staged clone `Communications/website/RootRecord-Cloud/` is gitignored and belongs to agent 07, not this function. |
-| Matrix | Library `Old-Repo-Migration-Matrix.md` row 62 still says this function is missing and out of Pacific runtime scope. Correct that row only in phase 5. |
+| Matrix | Library `Old-Repo-Migration-Matrix.md` row 62 now says partial, at `Communications/Cloudflare-Workers/`. |
 
 ### 2.2 Completed so far
 
 - [x] Old source read. Five workers, shared path policy, and the live tunnel boundary are identified.
 - [x] Folder name and the three paths are fixed above.
-- [ ] Draft accepted for execution.
-- [ ] Dependency folders from agents 07 and 08 are in place.
-- [ ] Worker source landed under `Communications/Cloudflare-Workers/`.
-- [ ] Local typecheck and path check passed, with no deploy.
-- [ ] Phase 4 archive and old-repo deletion.
-- [ ] Phase 5 result note and Library corrections.
+- [x] Worker source landed under `Communications/Cloudflare-Workers/`.
+- [x] Local typecheck and path check passed, with no deploy.
+- [x] Phase 5 result note and the two Library corrections below.
+- [ ] Dependency folders from agents 07 and 08 are in place. Route stays off until they exist.
+- [ ] Phase 4 archive and old-repo deletion. No old-repo checkout was on this machine.
 
 ### 2.3 Known friction
 
@@ -115,7 +114,7 @@ Folder name, used in all three places: **Cloudflare-Workers**. Domain: Communica
 
 - Sign-off before `wrangler deploy`, attaching a route, creating D1, changing DNS, or any other Cloudflare spend.
 - Sign-off before sends, speaker playback, OBS, hardware switching, or deletion of live Ecosystem files. Phase 4 deletion is only the old function's files, and only after the archive copy is on disk.
-- Small test that proves the new behavior: in `scripts/`, `tsc --noEmit`, then local wrangler dev — a private path returns 404 and an allowlisted path is forwarded at the worker. No deploy.
+- Small test that proved the new behavior (2026-09-30 HST): `tsc --noEmit`, then `node dist/check.js`. Private `/ops` is 404 and was not forwarded. `GET /status` was forwarded to `https://root-record-cloud.vercel.app/status`. No `wrangler dev` and no deploy. `wrangler dev` stays off until the route from agent 08 exists.
 - Dependency pause: if 7. Public website checkout or 8. Site Cloudflare config and thumbnails has no folder when build is ordered, stop and name that function.
 
 ---
@@ -127,11 +126,12 @@ Folder name, used in all three places: **Cloudflare-Workers**. Domain: Communica
 - Prefer small reversible steps.
 - New code wins. If a newer worker already exists under `Communications/Cloudflare-Workers/` at build time, enhance that version. Do not copy the five old workers over it.
 - One Vercel site. Workers sit in front of it. Data and logs stay on the Database paths in section 2.
-- Phase 4 result (fill after archive and GitHub deletion; leave blank until then):
-  - Landed:
-  - Archived:
-  - Removed on GitHub:
-- Do not auto-promote this draft onto the active index.
+- Phase 4 result (2026-09-30 HST):
+  - Landed: `Communications/Cloudflare-Workers/scripts` and `config/wrangler.toml`. Origin is `https://root-record-cloud.vercel.app`. `tsc --noEmit` passed. `node dist/check.js` passed: `/ops` and `/api/finance` are 404 and were not forwarded; `POST /status` is 405; `GET /status` and `GET /api/solar` were forwarded to that origin. `CLOUDFLARE_ACCOUNT_ID` is present. The value was not printed. No `wrangler deploy`.
+  - Not built here: 7. Public website checkout (`3 - RootRecord-Website` still empty) and 8. Site Cloudflare config and thumbnails (`Communications/Site` still absent). The wrangler file has no route because of that.
+  - Archived: nothing. `Ava-Core/workers` is not checked out on this machine. `Solar-Pacific-RootRecord-Server-Old` is not checked out. The `old ollama/` snapshot was left in place.
+  - Removed on GitHub: nothing. No deletion, no push, no force-push. `sql/rootmc-live.sql` was left for RootMC.
+- This file stays in `drafts/`. It is not on the active index.
 
 ---
 

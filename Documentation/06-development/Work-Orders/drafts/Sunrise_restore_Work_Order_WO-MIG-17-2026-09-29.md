@@ -4,7 +4,7 @@
 | --- | --- |
 | **Work Order ID** | WO-MIG-17-2026-09-29 |
 | **Date** | 2026-09-29 (HST) |
-| **Status** | OPEN — draft, not accepted for execution |
+| **Status** | BUILT — playback request landed, speakers off. Not promoted. |
 | **Owner** | RootRecord |
 | **Related** | Agent 17, Wave C. Depends on 15, Report playback. No later function depends on this one. Old source: `old ollama/old skills/sunrise-restore/scripts/sunrise_restore.py`. Live sun times: `Energy/scripts/sun_times.py`. Live Kokoro: `Media/Voice`. |
 

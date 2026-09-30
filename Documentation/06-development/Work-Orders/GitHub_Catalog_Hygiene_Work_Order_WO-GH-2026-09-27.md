@@ -3,12 +3,12 @@
 | Field | Value |
 | --- | --- |
 | **Work Order ID** | WO-GH-2026-09-27 |
-| **Status** | **IN PROGRESS** — desk publishes `ecosystem` (umbrella git root) and `skills`. `pacific`, `database`, and `library` are disabled because those directories are not separate checkouts. website/mainland still disabled |
-| **Updated** | 2026-09-29 22:22 HST |
+| **Status** | **IN PROGRESS** — desk publishes `ecosystem` (inplace) and `pacific`, `database`, `library` (mirror). `skills` stays on. `website` and `mainland` stay disabled |
+| **Updated** | 2026-09-30 00:05 HST |
 
 **Scope:** Catalog + auto-sync under Pacific; org remotes for canonical three; retire non-canonical clutter when convenient.
 
-**Desk correction, 2026-09-29 evening:** `/home/rootrecord/RootRecord-Ecosystem` is one git repository. Enabled catalog rows are `ecosystem` and `skills`. Do not re-enable `pacific`, `database`, or `library` until each path is a checkout outside this snapshot. Do not retire the `skills` row without Alexander's sign-off. `Pull.sh` stays as the manual pull path.
+**Desk correction, 2026-09-30 00:05 HST:** `/home/rootrecord/RootRecord-Ecosystem` is still one git repository. Do not put a nested `.git` in Pacific, Database, or Library. Those three publish as `mirror` rows from `/home/rootrecord/Database/GITHUB/worktrees/`. Do not retire the `skills` row without Alexander's sign-off. `Pull.sh` stays as the manual pull path.
 
 ---
 
@@ -17,7 +17,7 @@
 - [x] Github scripts imported to `…/Pacific/Github/scripts/`
 - [x] `repos.conf` tab-separated. As of 23:45 HST the enabled rows are `ecosystem` (inplace) plus `pacific`, `database`, and `library` (mirror publishes of the live subfolders) and `skills`. `website` and `mainland` stay disabled.
 - [x] jobs.py → Pacific `setup-all-remotes` + `sync-all`
-- [x] Poller cycle syncs `ecosystem` and `skills` without fail storms (22:21 HST). It does not sync separate pacific, database, or library checkouts.
+- [x] Poller cycle publishes `ecosystem`, `pacific`, `database`, `library`, and `skills`. Evidence 2026-09-29 ~23:49–23:52 HST: Pacific `9d2ce23` (23 files), Library `fa93b0c` (3 files), Database `b8e904d` (16 files), Ecosystem `b4b9739` (4 files).
 
 ## Operator pull workflow clarification — 2026-09-29
 

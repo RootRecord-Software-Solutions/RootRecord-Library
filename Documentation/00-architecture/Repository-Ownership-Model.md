@@ -17,7 +17,7 @@ RootRecord kept separate homes so public context, operational knowledge, runtime
 
 ## What this desk syncs
 
-`Github/scripts/repos.conf` enables `ecosystem` and `skills`. `pacific`, `database`, and `library` are disabled because those folders have no `.git` of their own. `website` and `mainland` stay disabled until each is a real checkout outside this snapshot. `Pull.sh` remains the manual pull path.
+`Github/scripts/repos.conf` enables `ecosystem` (inplace) plus `pacific`, `database`, and `library` (mirror publishes; the live folders have no `.git` of their own). `skills` stays enabled. `website` and `mainland` stay disabled until each is a real checkout outside this snapshot. `Pull.sh` remains the manual pull path.
 
 ## What stays out of the public umbrella
 

@@ -4,7 +4,7 @@
 | --- | --- |
 | **Work Order ID** | WO-MIG-15-2026-09-29 |
 | **Date** | 2026-09-29 (HST) |
-| **Status** | OPEN — draft, not accepted for execution |
+| **Status** | BUILT — dry-run pass; live speaker play still needs sign-off |
 | **Owner** | RootRecord |
 | **Related** | Agent 15. Later callers (do not build them here): 16 Morning boot replay, 17 Sunrise restore, 18 Report readiness audio, 19 Hurricane radio, 33 Cloud TTS routing. Kokoro stays in Media/Voice. |
 
@@ -38,7 +38,7 @@ WAV clips stay in `2 - RootRecord-Database/Media/Audio/Voice`. No `config/`. No 
 
 | Item | Location / status |
 | --- | --- |
-| Playback folder | Not installed |
+| Playback folder | Installed. `Media/Playback/scripts/play.py` |
 | Kokoro renderer, personas, clip catalog | Pacific `Media/Voice/scripts/` — live. Do not replace |
 | Report and phrase WAVs | Database `Media/Audio/Voice/<report>_current.wav` and `Clips/<Persona>/<slug>.wav`. Delivery is off |
 | Old play jobs | `/home/rootrecord/old ollama/old skills/reports/sort/` — morning, midday, late, and evening play, evening-report-audio, report-periodic-audio. Checkout branch `online-safe-20260920`, remote `Solar-Pacific-RootRecord-Server`. `reports/` is gitignored |
@@ -47,13 +47,13 @@ WAV clips stay in `2 - RootRecord-Database/Media/Audio/Voice`. No `config/`. No 
 
 ### 2.2 Completed so far
 
-- [x] Draft written (this file). Status stays OPEN — draft, not accepted for execution
-- [ ] Alexander accepts this draft and says to build
-- [ ] `play.py` landed
-- [ ] Dry-run proof recorded
-- [ ] Old play-job folders archived, then removed locally
-- [ ] GitHub check recorded (no empty deletion commit)
-- [ ] Result note and the three Library corrections
+- [x] Draft written (this file)
+- [x] Alexander said to complete the remaining work
+- [x] `play.py` landed
+- [x] Dry-run proof recorded (2026-09-30 00:01 HST)
+- [x] Old play-job folders archived, then removed from the old-repo working tree
+- [x] GitHub check recorded. `main` and `online-safe-20260920` already omitted the files. Deletion commit `7416bf2f` was made for `skills-rebuild`. The push did not confirm.
+- [x] Result note and the Library corrections
 
 ### 2.3 Known friction
 
@@ -153,7 +153,16 @@ The first prints `dry_run` or `audio_missing` and does not open a device. The se
 
 ## 8. Result note
 
-Not written. Phase 4 and phase 5 have not run. After they do, record here what landed, the archive path, and what was removed on GitHub (or that the play folders were never tracked).
+Landed 2026-09-30 ~00:01 HST.
+
+- Player: `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Media/Playback/scripts/play.py`. `jobs.py` was not edited. Kokoro in `Media/Voice` was not edited.
+- Proof, speakers off: `--clip Ava/boot_all_systems_running --dry-run` returned `audio_missing` (that clip is not on disk) with `played: false`. `--play` without `RR_PLAYBACK` returned `playback_gated` (exit 2). With `RR_PLAYBACK=1` during quiet hours (00:01 HST) it returned `quiet_hours` and did not call `aplay`. A second caller holding the lock got `busy` (exit 3). A path outside Voice was `refused`.
+- Runtime state and the player log are under Database `Media/Playback/` and `Logs/Media/Playback/`, gitignored.
+- Archive: `Old repos deleted and merged/Solar-Pacific-RootRecord-Server/reports/sort/` holds `morning-report-play`, `midday-report-play`, `late-report-play`, `evening-report-play`, `evening-report-audio`, and `report-periodic-audio`. File counts matched the source before delete.
+- Removed from the working tree of `/home/rootrecord/old ollama/old skills` (branch `online-safe-20260920`). Left in place: `evening-report/`, `day-reports-evening/`, `media/voice/scripts/director.py`, `voice-events/scripts/voice_events.py`.
+- GitHub: `origin/main` and `origin/online-safe-20260920` already had none of those paths. They were still on `origin/skills-rebuild` (37 files) and on local branches `main` and `solar-battery-offline-recovery`. Commit `7416bf2f` (`Remove retired report play jobs.`) deletes them from the `skills-rebuild` tip. The first push failed because the commit was detached (`HEAD:skills-rebuild` was not a full ref). A retry of `git push origin 7416bf2f:refs/heads/skills-rebuild` did not return a result. Those two local branches were not rewritten. The repository was not deleted.
+
+This file stays in `Work-Orders/drafts/`. It is not on the active index. Live `aplay` still needs a separate sign-off.
 
 ---
 

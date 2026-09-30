@@ -4,7 +4,7 @@
 | --- | --- |
 | **Work Order ID** | WO-MIG-12-2026-09-29 |
 | **Date** | 2026-09-29 (HST) |
-| **Status** | OPEN — draft, not accepted for execution |
+| **Status** | BUILT — result recorded in this draft; not promoted to the active index |
 | **Owner** | RootRecord |
 | **Related** | Agent 12. Depends on agent 07 (Public website checkout) for the public page only. Agent 13 (Country location pollers) depends on this function later. Matrix row 80. Live Hawaiʻi collector: Pacific `Reports/News/`. |
 
