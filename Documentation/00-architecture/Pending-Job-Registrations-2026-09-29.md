@@ -22,7 +22,20 @@ Exact blocks and line numbers: Database `Logs/Migration/migration-jobs-py-additi
 
 ## B. Proposed, NOT in jobs.py (add only after sign-off)
 
-Minutes are chosen to avoid the used minutes (0, 3, 6, 7, 8, 15, 22, 30, 32, 37, 45, 52) so two voice renders never race for the single-flight lock. G1 ran all hourly desks at :02.
+Minutes are chosen to avoid the used minutes (0, 3, 6, 7, 8, 15, 22, 30, 32, 37, 45, 52; proposed 4, 11, 12, 25) so two voice renders never race for the single-flight lock. G1 ran all hourly desks at :02.
+
+| Job id | List | Schedule (HST) | Flag | Added | Test |
+| --- | --- | --- | --- | --- | --- |
+| `system_net_sample` | EVERY_SECONDS | 300 s | `RR_NET_SAMPLES` | 14:08 | [batch 4](../07-testing/2026-09-29-old-repo-ports-breadth-batch4.md) |
+| `voice_solar_desk` / `voice_security_desk` / `voice_bandwidth_desk` | EVERY_MINUTE | :04 / :11 / :12 | `RR_VOICE_SOLAR` / `RR_VOICE_SECURITY` / `RR_VOICE_BANDWIDTH` | 14:08 | batch 4 + [batch 5 fixes](../07-testing/2026-09-29-old-repo-ports-breadth-batch5.md#voice-text-fixes) |
+| `reports_hawaii_news` | ON_AT | 10:00 | `RR_HAWAII_NEWS` (env `RR_NEWS_SEEDS_ONLY=1`) | 14:08, updated 14:25 | [batch 5](../07-testing/2026-09-29-old-repo-ports-breadth-batch5.md#hawaiʻi-news-seed-feeds) |
+| `weather_official_hls` | EVERY_SECONDS | 600 s | `RR_OFFICIAL_HLS` | 14:42 | [batch 5](../07-testing/2026-09-29-old-repo-ports-breadth-batch5.md#official-statement-fetcher-hls) |
+| `voice_official_weather` | EVERY_MINUTE | :25 | `RR_VOICE_OFFICIAL` | 14:42 | [batch 5](../07-testing/2026-09-29-old-repo-ports-breadth-batch5.md#official-weather-voice-report) |
+| `weather_hurricane_global` | ON_AT | 05:40 09:40 12:40 16:40 20:40 | `RR_HURRICANE_GLOBAL` | 14:42 | [batch 5](../07-testing/2026-09-29-old-repo-ports-breadth-batch5.md#global-hurricane-board) |
+| `reports_board_catchup` | ON_AT | 14:00 | `RR_REPORT_BOARD` | 14:42 | [batch 5](../07-testing/2026-09-29-old-repo-ports-breadth-batch5.md#report-board-and-catch-up-ledger) |
+| `voice_boot_brief` | ON_BOOT | priority 20 | `RR_VOICE_BOOT` | 14:42 | [batch 5](../07-testing/2026-09-29-old-repo-ports-breadth-batch5.md#boot-brief-voice-report) |
+
+Commands run through `bash -lc` in the poller (`rootserver_poller.py`), so the `;` chain in `voice_boot_brief` works. Minute :25 is also free of the proposed :04 / :11 / :12.
 
 ### `EVERY_SECONDS`
 

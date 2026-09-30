@@ -265,7 +265,7 @@ Commits (auto-sync, verified with `git log`): Pacific `cd48536` (13:29, .gitigno
 - Optional: `sudo ufw allow in on wlo1 proto udp from 192.168.1.0/24 to any port 6666:6667` for passive Tuya discovery.
 - Enable the collector: `RR_SMART_DEVICES=1` in the poller environment at the next ordinary stack reload.
 
-## migration-geology + old-repo ports pass, 13:12–14:15 HST
+## migration-geology + old-repo ports pass, 13:12–14:45 HST
 
 Backups: `/home/rootrecord/Database/GITHUB/migration-geology.bak-20260929-131652/` (Pacific `jobs.py`, Geology + Voice READMEs, `voice_reports.py`; Library WOs, checklist, runbook, retirement table, Voice/Geology/Index docs, 07 README, this worklog; Database README + `.gitignore`) and `/home/rootrecord/Database/GITHUB/migration-old-repos.bak-20260929-133118/` (Energy + System READMEs, `jobs.py` after the geology edits). Old repos read from shallow `/tmp/rr-migr` clones (deleted at the end). Poller 105444 **not** restarted; nothing sent, played or loaded.
 
@@ -295,8 +295,19 @@ Backups: `/home/rootrecord/Database/GITHUB/migration-geology.bak-20260929-131652
 | 14:09 | `Communications/live-wx/scripts/live_wx.py` (G1 live-wx): `--offline` 0.12 s 26 MB; live 2.07 s 29 MB — NWS "This Afternoon, 78F, Isolated Rain Showers", High Surf Advisory (Big Island), Hurricane Nolo 270 nm from Līhuʻe | **PASS** |
 | 14:06–14:12 | Matrix rows 17 / 34 / 35 / 39 / 42 / 48 / 50 / 60 / 76 / 79 (now **27 / 27 / 36**, 23 touched); [breadth test record](../../07-testing/2026-09-29-old-repo-ports-breadth-batch4.md) with a check-later list; Voice-Reports-G3, checklist, retirement table (KEPT), index, WO-SRV / ECO / GH addenda | LANDED |
 | 14:10 | Reviewed, BLOCKED: council health / Bruce stats (bot tokens, chat-probe model load, alert sends), load categories (field map), official-weather-media (HLS/HWO not collected + OBS), report ledger / catch-up / readiness (playback + report_generation), sunrise-restore (playback), economy brief (MySQL + Discord) | BLOCKED |
+| 14:16 | User request (breadth pass 2): fix the 3 voice text items, seed Hawaiʻi news, port the remaining unblocked rows (gated / on demand, smoke each, check-later list), update matrix counts + docs. Backup `/home/rootrecord/Database/GITHUB/migration-breadth2.bak-20260929-141732/` (24 files). Fresh G1/G0 shallow clones in `/tmp/rr-migr2/` | started |
+| 14:18 | Voice fixes: `speakable.spoken_clock` "two oh one p.m."; `voice_reports.spoken_watts` ("zero watts", idle devices); `spoken_hhmm` sun times. Re-smoke solar / security / bandwidth / energy / morning / kilauea rc 0 (0.1–0.64 s, ≈ 21 MB) — [batch 5](../../07-testing/2026-09-29-old-repo-ports-breadth-batch5.md) | **PASS** (text) |
+| 14:25 | Hawaiʻi news: `_collector.run(seed_feeds=…)` + 16 `SEED_FEEDS` (each 200 with items; `RR_NEWS_SEEDS_ONLY=1`). Seeds-only 11.6 s → **278 posts**; full 22.8 s, same + 25 × 404 (temp roots). News README + Pending block updated | **PASS** |
+| 14:27 | Steering (Alexander via parent): document everything in the Library as you go — 07-testing record + README row per smoke test, worklog, matrix, docs per function + gate flag | noted |
+| 14:27 | `Weather/scripts/official_statement.py` (G1 official-weather-media HLS): Nolo HLS 7014 chars, re-run changed=False; one real run (git-ignored `/Weather/`). **Correction:** poller already collects HWO; only HLS was missing | **PASS** |
+| 14:28 | Voice `official_weather` (Ava; HLS ≤ 24 h → HWO → AFD) text PASS on AFD; `boot_brief` (Ava, G1 boot-prelims) text PASS (BUILD-order NameError fixed; 15 reports import) | **PASS** (text); WAV VERIFY PENDING |
+| 14:31 | `Reports/scripts/report_board.py status\|run-due` (G1 board + 14:00 catch-up, text only): midday caught up 0.65 s; second run nothing_due; rollover; bad arg rc 2 (temp root) | **PASS** |
+| 14:33–14:36 | `Energy/scripts/load_categories.py` (68 W Starlink/lights; night scenario), `Weather/hurricanes/scripts/global_board.py` (4/4 sources, 7 storms, 2.9 s, temp root), `System/scripts/host_hw.py` (48 °C, nvme 56.5%, GPU 1%, NPU 0%), `Media/Voice/scripts/speech_scrub.py` | **PASS** |
+| 14:37 | Library `00-architecture/G1-Scheduler-To-G3-Jobs-Map-2026-09-29.md`: 64 G1 job ids → G3 state (matrix row 15) | done |
+| 14:38–14:45 | Docs: Pending (5 new PROPOSED blocks + summary table: `RR_OFFICIAL_HLS`, `RR_VOICE_OFFICIAL`, `RR_VOICE_BOOT`, `RR_REPORT_BOARD`, `RR_HURRICANE_GLOBAL`), matrix (**35 / 22 / 33**, explicit buckets, blockers 7/9/10 closed), [batch 5](../../07-testing/2026-09-29-old-repo-ports-breadth-batch5.md) + 11 README rows, batch 4 update note, Voice-Reports-G3, Pacific Voice / Weather / Energy / System / Reports READMEs, checklist, retirement table (7 rows KEPT), index, WO-SRV / ECO / GH, Database jobs-additions addendum. jobs.py untouched | done |
+| 14:45 | Reviewed, still BLOCKED / OUT: cams YouTube ids (OBS), sunrise-restore / replay / readiness (playback), council health (tokens + sends), drop-runner / fs-index / broadcast / FastAPI session builder (security scope), `reset_series.py` (data-moving), product / website. No clean candidates left | reviewed |
 
-**Needs Alexander:** keep or remove the 7 jobs.py registrations (sign-off item; standing rule), then set `RR_GEOLOGY=1`, `RR_KILAUEA_CAMS=1`, `RR_VOICE_QUAKE=1`, `RR_VOICE_KILAUEA=1`, `RR_VOICE_HURRICANE=1`, `RR_SUN_TIMES=1`, `RR_UPTIME_LOG=1` at the next poller start; approve deliveries (council-quake Telegram, Discord, speakers — BLOCKED); approve a full-range quake backfill; accept Geology last-json commit churn; retirement of G1/G0 sources stays KEPT until you sign off. Breadth batch: register (or not) the 5 PROPOSED jobs in [Pending-Job-Registrations-2026-09-29](../../00-architecture/Pending-Job-Registrations-2026-09-29.md); pick Hawaiʻi news seed feeds; work the check-later list in the [breadth test record](../../07-testing/2026-09-29-old-repo-ports-breadth-batch4.md).
+**Needs Alexander:** keep or remove the 7 jobs.py registrations (sign-off item; standing rule), then set `RR_GEOLOGY=1`, `RR_KILAUEA_CAMS=1`, `RR_VOICE_QUAKE=1`, `RR_VOICE_KILAUEA=1`, `RR_VOICE_HURRICANE=1`, `RR_SUN_TIMES=1`, `RR_UPTIME_LOG=1` at the next poller start; approve deliveries (council-quake Telegram, Discord, speakers — BLOCKED); approve a full-range quake backfill; accept Geology last-json commit churn; retirement of G1/G0 sources stays KEPT until you sign off. Breadth batch: register (or not) the 5 PROPOSED jobs in [Pending-Job-Registrations-2026-09-29](../../00-architecture/Pending-Job-Registrations-2026-09-29.md); pick Hawaiʻi news seed feeds; work the check-later list in the [breadth test record](../../07-testing/2026-09-29-old-repo-ports-breadth-batch4.md). Breadth pass 2 (14:45): also decide the 10 PROPOSED blocks in Library `00-architecture/Pending-Job-Registrations-2026-09-29.md`, review the 16 Hawaiʻi news seed feeds, and decide whether `Reports/board/daily-reports-due.json` is tracked.
 
 ## us-mainland-import pass (US-Mainland-Server desk checkout + AWS read-only check), 13:45–14:00 HST
 
@@ -395,3 +406,26 @@ Not touched: AWS (read-only only), `jobs.py`, `Control-Panel`, the poller, DNS/t
 - **Security fix (P0).** Replace `app.use(express.static(__dirname))` with `app.use('/overlay', express.static(path.join(__dirname,'overlay')))`, then restart `network-globe-web.service`.
 - Reconcile the mirror with the AWS runtime globe code, and commit the Mainland checkout (enable auto-sync or commit by hand).
 - When ready, turn on `cards.home.enabled` (needs `/home` → Vercel routing) and switch `cards.signup.mode` to `link` (needs the goals auth API).
+
+## Android import pass (2 TB drive read-only → `6 - Android Development`), 14:19–14:50 HST
+
+Backup: `/home/rootrecord/Database/GITHUB/android-import.bak-20260929-143931/` (07 README + this worklog). The target was empty before the pass. Records: [inventory](../../00-architecture/Android-Apps-Inventory.md) · [test record](../../07-testing/2026-09-29-android-apps-import.md). Alexander's steering during the pass: the drive is the old home layout, **not** the dying drive; copy only what's needed; 40 GB budget; Kilauea and Weather first; document everything.
+
+| Time (HST) | What | State |
+| --- | --- | --- |
+| 14:19 | `lsblk`: `sda1` 1.8 T NTFS (WD20EARZ, MAYA enclosure), auto-mounted by udisks at `/run/media/rootrecord/6CD8FA150F0B0035` (ntfs3, rw, relatime). `journalctl -k`: clean attach, no "dirty" line. The 03:50–03:55 dirty/disconnect lines belong to a different 128 GB JMicron drive. `dmesg` not readable | done |
+| 14:20–14:23 | Drive inventory with `nice`/`ionice` `find` and heavy dirs pruned (46 s, 0 errors): 39 markers. The only Android "source" is 0-byte symlink remnants in `Solar-Pacific-RootRecord-Server(-Old)-main` zip extracts. Real items: RootMC AAB 1.0.31/1.0.32, RootMC APK 1.0.27–1.0.30, Weather APK ×3 (2026-04-25), `ava-ops-android.tgz` (2026-09-15). No `AndroidStudioProjects`; `Desktop/` empty | done |
+| 14:21–14:24 | Desk: `~/AndroidStudioProjects` absent; `~/Database` holds backups only; `~/master` holds an env file only. Full projects found in `~/old ollama/` (4 identical copies each of Kilauea 1.0.47, RootMC 1.0.31, Ava-Ops 0.2.0; `old skills/` is the only one with signing files) | done |
+| 14:24–14:31 | GitHub read-only (`gh`): tree scan of 90 repos. Newest Capacitor apps in `mirror-rootrecord-monorepo` `Mobile/` (Weather **1.0.46**, Business 1.0.42, Goals 1.0.9, Farms 1.0.9, Token 0.1.2, Account Hub 0.1.3). Older in `mirror-rootrecord-mobile-development-2026` and the others. Cloned 2 public repos read-only to staging | done |
+| 14:33–14:36 | Copied 9 apps (rsync, `--ignore-existing`, excludes build/cache/artifacts, 95 MB `.exe` and `.mp4` dropped from Root-Farms), then Releases/ (7 artifacts; the RootMC 1.0.32 AAB is the only file read from the drive, `--open-noatime`) | **PASS** |
+| 14:35–14:38 | `.gitignore` written **before** any secret landed. 17 secrets set to 0600, 24/24 secret and artifact paths `check-ignore`d. The folder isn't a repo and isn't in `repos.conf`, `Push.sh` or `Pull.sh` | **PASS** |
+| 14:38 | Capacitor web sources (`Web/apps/<app>-web`, no `node_modules/` or `build/`) added as `<App>/Web-Source/` for the 6 Capacitor apps. Checksum compare 0 diffs. Total **80.7 MB**, 1,033 files | **PASS** |
+| 14:37–14:50 | `6 - Android Development/README.md`, Library inventory, test record, 07 README row, this section | LANDED |
+
+Android SDK / Studio / Java: **none on the desk**, so no build (VERIFY PENDING). No sudo, remounts, fsck/chkdsk/ntfsfix, drive writes, git writes in any existing repo, restarts, sends or models. `Desktop/old txt` and `I'll sort these models tomorrow` were pruned from every search.
+
+**Needs Alexander:**
+- **Security:** some Android signing material is in GitHub repos that aren't private (details in the operator report, not repeated in this public page). Decide on making them private and rotating keys, or accept the risk.
+- The Kilauea project folder contains a `github-recovery-codes.txt` (now 0600, ignored). Move it to a password manager.
+- Install JDK 17 + Android SDK (+ Studio if wanted) before the first build; fix `sdk.dir` in 3 `local.properties` and Capacitor `webDir`.
+- Optional: remount the 2 TB drive `ro` (needs you) or unplug it. Remove the staging clones (`~/.cache/rr-android-import-20260929/`, `/tmp/android-inv/`) when satisfied.

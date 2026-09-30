@@ -50,7 +50,8 @@ Single entry point for agents and operators working the Pacific server cutover *
 | [Solar-Pacific-Old-Inventory-Map-2026-09-28.md](./Solar-Pacific-Old-Inventory-Map-2026-09-28.md) | High-value packet → G3 mapping (Library side) |
 | [Solar-Pacific-Old-Full-TopLevel-Catalog-2026-09-28.md](./Solar-Pacific-Old-Full-TopLevel-Catalog-2026-09-28.md) | All **95** G1 tops classified |
 | **[Old-Repo-Migration-Matrix.md](./Old-Repo-Migration-Matrix.md)** | G1 + G0 → G3 matrix (90 rows: migrated / partial / missing, target, blockers), 2026-09-29 pass |
-| **[Pending-Job-Registrations-2026-09-29.md](./Pending-Job-Registrations-2026-09-29.md)** | Job registrations: 7 gated blocks already in jobs.py (sign-off) + 5 PROPOSED blocks not in jobs.py (net sampler, solar / security / bandwidth desks, Hawaiʻi news) |
+| **[Pending-Job-Registrations-2026-09-29.md](./Pending-Job-Registrations-2026-09-29.md)** | Job registrations: 7 gated blocks already in jobs.py (sign-off) + 10 PROPOSED blocks not in jobs.py (net sampler, solar / security / bandwidth desks, Hawaiʻi news; 14:40: HLS fetcher, official-weather + boot-brief voice, report-board catch-up, global hurricane board) |
+| **[G1-Scheduler-To-G3-Jobs-Map-2026-09-29.md](./G1-Scheduler-To-G3-Jobs-Map-2026-09-29.md)** | G1 `scheduler-clock` job ids (64) → G3 state (LIVE / GATED / PROPOSED / ON DEMAND / BLOCKED / OUT); matrix row 15 verification |
 
 ### G1 scheduler skills — retired (2026-09-28)
 
@@ -139,4 +140,4 @@ Weather: **enabled and PASS** since 2026-09-29 (Pacific `Weather/`; see WO-SRV).
 
 *Index updated 2026-09-29 ~03:45 HST — Testing folder (`Documentation/07-testing/`) and the full 2026-09-29 evidence list added.*
 
-*Index updated 2026-09-29 ~13:40 HST — Old-Repo-Migration-Matrix linked; Geology collector + ports batch 1 test records in `07-testing/`. ~14:10 HST — Pending-Job-Registrations linked; breadth batch 4 test record.*
+*Index updated 2026-09-29 ~13:40 HST — Old-Repo-Migration-Matrix linked; Geology collector + ports batch 1 test records in `07-testing/`. ~14:10 HST — Pending-Job-Registrations linked; breadth batch 4 test record. ~14:40 HST — G1-Scheduler-To-G3-Jobs-Map linked; breadth batch 5 test record (`07-testing/2026-09-29-old-repo-ports-breadth-batch5.md`); matrix now 35 / 22 / 33.*

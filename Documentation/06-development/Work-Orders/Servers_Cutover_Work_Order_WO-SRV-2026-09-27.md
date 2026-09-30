@@ -434,6 +434,29 @@ Copy/port only; no poller restart (PID 105444 untouched); no delivery, playback 
 - BLOCKED / not ported: official-weather-media (HLS/HWO not collected, OBS), report ledger / catch-up / readiness (playback + report_generation), sunrise-restore (playback), economy brief (MySQL + Discord), council health / Bruce stats (bot tokens + chat-probe model load + alert sends), load categories (field map).
 - [Test record with check-later list](../../07-testing/2026-09-29-old-repo-ports-breadth-batch4.md). Backup `/home/rootrecord/Database/GITHUB/migration-breadth.bak-20260929-135720/`.
 
+
+### Addendum ~14:40 HST: breadth batch 5 (user 14:16: fix voice text, seed news, port the rest; steering 14:27: document everything)
+
+- **Fixes:**
+  - Voice clock says "two oh one p.m.".
+  - Watts are spoken as words, and a device at zero is "idle".
+  - Sun times are spoken as words.
+  - Re-smoke of 6 reports: **PASS** (text).
+- **Hawaiʻi news:** 16 seed feeds give **278 posts** (**PASS**, temp root).
+- **LANDED + smoke PASS:**
+  - `Weather/scripts/official_statement.py` (HLS)
+  - `Media/Voice/scripts/voice_reports.py official_weather` and `boot_brief` (text; WAV VERIFY PENDING)
+  - `Reports/scripts/report_board.py`
+  - `Energy/scripts/load_categories.py`
+  - `Weather/hurricanes/scripts/global_board.py`
+  - `System/scripts/host_hw.py`
+  - `Media/Voice/scripts/speech_scrub.py`
+  - Verification doc [G1-Scheduler-To-G3-Jobs-Map](../../00-architecture/G1-Scheduler-To-G3-Jobs-Map-2026-09-29.md)
+- **No jobs.py edit.** PROPOSED blocks are in [Pending-Job-Registrations-2026-09-29](../../00-architecture/Pending-Job-Registrations-2026-09-29.md): `weather_official_hls` (`RR_OFFICIAL_HLS`), `voice_official_weather` (`RR_VOICE_OFFICIAL`), `voice_boot_brief` (`RR_VOICE_BOOT`, ON_BOOT), `reports_board_catchup` (`RR_REPORT_BOARD`), `weather_hurricane_global` (`RR_HURRICANE_GLOBAL`).
+- **Correction:** the weather poller already collects HWO; only HLS was missing.
+- **Matrix:** now **35 migrated / 22 partial / 33 missing**. No clean candidates remain; everything left is BLOCKED or OUT.
+- [Test record with a check-later list per smoke test](../../07-testing/2026-09-29-old-repo-ports-breadth-batch5.md). Backup `/home/rootrecord/Database/GITHUB/migration-breadth2.bak-20260929-141732/`.
+
 ## US-Mainland-Server desk checkout — 2026-09-29 ~13:45–14:00 HST
 
 Second server folder now populated: `1 - Servers/2 - RootRecord-US-Mainland-Server/` = clone of `rootrecordsoftwaresolutions/US-Mainland-Server` at `b61d63c` (placeholder `Communications/` kept). No AWS change, no poller restart, no jobs.py edit. Backup `/home/rootrecord/Database/GITHUB/us-mainland-import.bak-20260929-134629/`. [Architecture](../../00-architecture/US-Mainland-Server.md) · [Test record](../../07-testing/2026-09-29-us-mainland-import-and-ssh.md) · [Plan](../../08-ideas/2026-09-29-aws-mainland-improvement-plan.md).
