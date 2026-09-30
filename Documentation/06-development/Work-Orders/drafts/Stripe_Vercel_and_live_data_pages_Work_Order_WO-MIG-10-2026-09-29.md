@@ -4,7 +4,7 @@
 | --- | --- |
 | **Work Order ID** | WO-MIG-10-2026-09-29 |
 | **Date** | 2026-09-29 (HST) |
-| **Status** | OPEN — server code landed; public pages staged; checkout blocked |
+| **Status** | OPEN — server code landed; pages staged; old files archived locally; GitHub push blocked |
 | **Owner** | RootRecord |
 | **Related** | Agent 10. Build pauses on agent 07 (Public website checkout) until `3 - RootRecord-Website` holds the one Vercel app. Agent 38 (AdSense and AdMob end-of-day) depends on this function later. |
 
@@ -55,9 +55,9 @@ Public pages, after checkout exists: `3 - RootRecord-Website`. Data and logs sta
 
 - [x] Draft work order written. Not on the active index.
 - [x] Website code, no-key Stripe snapshot, live-page JSON, and gated-off jobs.
-- [x] Public page shell staged under `Website/staged/`. Holding skin copied into the theme archive.
-- [ ] Public website checkout exists in `3 - RootRecord-Website`. Pages stay staged until then.
-- [ ] Old-repo deletion and GitHub push. Archive of the four skill folders is not done, because the Vercel pages are not in the live app yet.
+- [x] Public page shell staged under `Website/staged/`. Holding skin copied into the theme archive. Folder 3 stays empty for the checkout.
+- [ ] Public website checkout exists in `3 - RootRecord-Website`.
+- [x] Old folders archived, then removed from the local old repo (`577ad693`). GitHub push of that branch was rejected by push protection on an older commit. `Ava-Core-Dev/holding` was not found, so that remote was not changed.
 
 ### 2.3 Known friction
 
@@ -154,14 +154,16 @@ Build only after Alexander accepts this draft and says to build. Until then, do 
 
 ### Result note
 
-Landed 2026-09-30 HST, with checkout still missing.
+Landed 2026-09-30 HST. Folder 3 is still empty, so the public pages stay staged.
 
-- Server code: `Website/lib/envload.py`, `Website/scripts/stripe_poll.py`, `Website/scripts/vercel_builds.py`, `Website/scripts/live_data_pages.py`.
-- No-key test: Stripe wrote `Database/Website/stripe-snapshot.json` with `detail: not_configured` and printed `stripe not_configured`. Vercel printed `vercel missing_vercel_token` and wrote no log. Live pages wrote `Database/Website/pages/{power,weather,kilauea}.json` from Energy, the Hawaiʻi state report header, and `kilauea-last.json` only.
+- Server code: `Website/lib/envload.py`, `Website/scripts/stripe_poll.py`, `Website/scripts/vercel_builds.py`, `Website/scripts/live_data_pages.py`. Readmes: Pacific `Website/README.md`, Database `Website/README.md`, `Logs/Website/README.md`.
+- No-key test: Stripe wrote `Database/Website/stripe-snapshot.json` with `detail: not_configured`. Vercel printed `missing_vercel_token` and wrote no log. Live pages wrote `Database/Website/pages/{power,weather,kilauea}.json`.
 - Jobs: `stripe_poll` (1800 s, `RR_STRIPE=1`) and `vercel_builds` (300 s, `RR_VERCEL_BUILDS=1`) in `EVERY_SECONDS`, both off.
-- Staged, not deployed: `Website/staged/live-data.html` and `Website/staged/cards.css`. `3 - RootRecord-Website` is still empty.
-- Theme archive: `5 - RootRecord-Library/Archive/Website-Themes/holding/` matches `holding/site` (`index.html`, `vercel.json`, `.gitignore`).
-- Not done: no Stripe or Vercel API call, no deploy, no prune, no deletion from `Solar-Pacific-RootRecord-Server` or `Ava-Core-Dev/holding`, no GitHub push. Shared `origin/scripts/config.py` was left in place. Library matrix and scheduler rows stay until that deletion.
+- Staged, not deployed: `Website/staged/live-data.html` and `Website/staged/cards.css`. `3 - RootRecord-Website` was left empty so the RootRecord-Cloud checkout can land there.
+- Theme archive: `5 - RootRecord-Library/Archive/Website-Themes/holding/`.
+- Old-repo archive: `Old repos deleted and merged/Solar-Pacific-RootRecord-Server/{stripe-poll,vercel-builds,live-data-pages,holding}/`.
+- Local deletion commit on `online-safe-20260920`: `577ad693`. Not pushed. GitHub rejected the branch because an older commit trips push protection. History was not rewritten. `Ava-Core-Dev/holding` returned repository not found, so that remote was left as it is.
+- Library: migration matrix row 75 and the scheduler map rows for stripe-poll and vercel-builds. `ltc-pending` stays OUT. Shared `origin/scripts/config.py` was not edited.
 
 ---
 
