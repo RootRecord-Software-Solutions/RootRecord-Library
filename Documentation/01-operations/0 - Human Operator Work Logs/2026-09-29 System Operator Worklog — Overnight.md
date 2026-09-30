@@ -367,3 +367,31 @@ Not touched: the poller, the Elastic IP, the `rootserver` tunnel (its connectors
 - OK to replace the stale `ssh.rootrecord.cloud` entry in the desk `~/.ssh/known_hosts`: `ssh-keygen -R ssh.rootrecord.cloud`, then pin `SHA256:KdsqhyZ0zGl+ezS07KKNUh9U5kO2WPgJt37VgewFbXA`. After that, `ssh rr-aws uptime` works.
 - Enable `mainland` auto-sync (or commit by hand) so the mirrored units and crontab reach GitHub.
 - Optional: fix the `connection-history.py` re-ingest after a trim (it inflates daily counters).
+
+## globe-landing pass: glass overlay cards on the Network Globe (`www.rootrecord.cloud` landing), 14:19–14:40 HST
+
+This follows Alexander's design brief: the globe becomes the landing page, with Sign-up / Website Home / Status glass cards and an optional rail, all vanilla JS/CSS. Backup: `/home/rootrecord/Database/GITHUB/globe-landing.bak-20260929-141948/` (`mainland/` originals; `library/` README/worklog copies, with fresh pre-edit copies taken because other agents had edited them; `aws-runtime-readonly/` holds read-only copies of the live AWS `index.html` + `server.js`). Design: [08-ideas/2026-09-29-globe-landing-overlay](../../08-ideas/2026-09-29-globe-landing-overlay.md). Record: [07-testing/2026-09-29-globe-landing-overlay-preview](../../07-testing/2026-09-29-globe-landing-overlay-preview.md).
+
+| Time (HST) | What | State |
+| --- | --- | --- |
+| 14:19 | Backup taken. Globe source: Mainland checkout `mirror/network-globe/network-globe/` (vanilla, `globe.gl` from unpkg) | done |
+| 14:19–14:22 | Sign-up flow check: Vercel `/login` 200, but its API `api-goals.rootrecord.info` is unreachable and `api.rootrecord.info` returns 503, so the card uses **placeholder** mode (badged "Preview · not live", submits nowhere). `rootserver…/health` is plain text with a path, so it is not used | done |
+| 14:20–14:33 | Added `overlay/overlay.{js,css}`, `overlay-config.json`, `README.md`, and the desk-only `preview-server.js` + `sample-state.json`. Also +1 `<script>` line in `index.html` and +17 lines in the mirror `server.js` (3-path allowlist) | LANDED (uncommitted; Mainland is not in auto-sync) |
+| 14:24–14:26 | Preview on 127.0.0.1:8794 (8791 belonged to another agent's python3). Headless Firefox shots at 1440×900, 1280×540, 390×844 and 360×640. Mobile dock overlapped the HUD, so it was moved to a bottom row and re-shot | PASS |
+| 14:27–14:29 | `www` now returns 200 (after the AWS pass). Read-only check: the live AWS globe is a **different Express `server.js`/`index.html`** from the repo mirror (`/health`, not `/healthz`; HTML fallback on every path). The status card was made schema-tolerant (`healthUrls: ["/healthz","/health"]`, `hawaii-feed` collector) | done |
+| 14:29 | **P0 security finding:** the live runtime's `express.static(__dirname)` serves `/server.js`, `/package.json`, `/README.md` and `/data/hawaii.ndjson` publicly (206 on a 1-byte range; contents not read). Not changed (AWS change + restart need sign-off) | **FAIL (security) / PROPOSED fix** |
+| 14:30–14:31 | Preview B (AWS runtime schema + runtime page copy, production flags) and C (503 failure view) | PASS |
+| 14:31 | Cleanup: 0 preview/firefox/memwatch processes, port 8794 closed, min MemAvailable 6.21 GB. One `pkill -f` also killed its own shell; the leftovers were rechecked (0) and the later runs used a PID-based stop | PASS |
+| 14:33–14:40 | Design doc, test record, and 07/08 README rows | LANDED |
+
+Screenshots (11): `/home/rootrecord/RootRecord-Ecosystem/test-reports/Globe-Landing/`, covering `desktop-1440x900-{rail,rail-open-status-closed,production-flags,status-down}.png`, `desktop-1280x540-short-cards-closed.png`, `mobile-390x844-{rail,cards-closed,production-flags}.png`, `mobile-360x640-short.png` and `awsruntime-{desktop-1440x900,mobile-390x844}-production-flags.png`. The globe canvas is blank in every shot (no WebGL in headless `--screenshot`), so **drag/zoom under the cards is VERIFY PENDING** in a real browser.
+
+Production flags: `enabled:true`, `rail.enabled:false`, `legacyHud:"compact"`, `cards.signup {enabled:true, mode:"placeholder"}`, **`cards.home.enabled:false`** (until Vercel `/home` is routed), `cards.status {enabled:true, pollSec:15}`, `allowUrlOverrides:false`.
+
+Not touched: AWS (read-only only), `jobs.py`, `Control-Panel`, the poller, DNS/tunnels, Vercel, and the other agent's uncommitted Mainland files. There were no git writes, sudo or restarts.
+
+**Needs Alexander:**
+- **Deploy (PROPOSED).** Copy only `overlay/overlay.{js,css}` + `overlay-config.json` to AWS `…/network-globe/network-globe/overlay/` after a host backup, and add 1 include line to the **runtime** `index.html`. No restart is needed. Exact commands are in the design doc and in `overlay/README.md`. Do not copy the mirror `server.js`/`index.html`.
+- **Security fix (P0).** Replace `app.use(express.static(__dirname))` with `app.use('/overlay', express.static(path.join(__dirname,'overlay')))`, then restart `network-globe-web.service`.
+- Reconcile the mirror with the AWS runtime globe code, and commit the Mainland checkout (enable auto-sync or commit by hand).
+- When ready, turn on `cards.home.enabled` (needs `/home` → Vercel routing) and switch `cards.signup.mode` to `link` (needs the goals auth API).

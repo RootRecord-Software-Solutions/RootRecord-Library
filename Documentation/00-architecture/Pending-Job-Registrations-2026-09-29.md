@@ -38,6 +38,18 @@ Minutes are chosen to avoid the used minutes (0, 3, 6, 7, 8, 15, 22, 30, 32, 37,
         "cwd": f"{PACIFIC}/System/scripts",
         "env": {},
     },
+    {
+        "id": "weather_official_hls",
+        "enabled": os.environ.get("RR_OFFICIAL_HLS", "0") == "1",
+        "description": "NWS HFO hurricane local statement (HLS) -> Database Weather/Hawai'i/official/ (G1 official-weather-media).",
+        "interval_sec": 600,
+        "builtin": "",
+        "command": f'nice -n 10 python3 "{PACIFIC}/Weather/scripts/official_statement.py"',
+        "timeout_sec": 60,
+        "needs_internet": True,
+        "cwd": f"{PACIFIC}/Weather/scripts",
+        "env": {},
+    },
 ```
 
 ### `EVERY_MINUTE`
@@ -76,6 +88,17 @@ Minutes are chosen to avoid the used minutes (0, 3, 6, 7, 8, 15, 22, 30, 32, 37,
         "cwd": f"{PACIFIC}/Media/Voice/scripts",
         "env": {},
     },
+    {
+        "id": "voice_official_weather",
+        "enabled": os.environ.get("RR_VOICE_OFFICIAL", "0") == "1",
+        "description": "Ava official NWS Honolulu statement (HLS < 24 h, else HWO, else AFD; 4500-char cap). No delivery.",
+        "only_at_minutes": [25],
+        "builtin": "",
+        "command": f'nice -n 10 python3 "{PACIFIC}/Media/Voice/scripts/voice_reports.py" official_weather',
+        "timeout_sec": 600,
+        "cwd": f"{PACIFIC}/Media/Voice/scripts",
+        "env": {},
+    },
 ```
 
 ### `ON_AT`
@@ -92,10 +115,51 @@ Minutes are chosen to avoid the used minutes (0, 3, 6, 7, 8, 15, 22, 30, 32, 37,
         "cwd": f"{PACIFIC}/Reports/News/scripts",
         "env": {"RR_NEWS_SEEDS_ONLY": "1"},  # seed feeds only (~12 s); drop to also run G0 portal discovery (~23 s, 25 x 404 today)
     },
+    {
+        "id": "weather_hurricane_global",
+        "enabled": os.environ.get("RR_HURRICANE_GLOBAL", "0") == "1",
+        "description": "Worldwide TC board (NHC + RAMMB + JTWC ABPW/ABIO) -> Database Weather/Hawai'i/hurricanes/global/ (G1 hurricane-tracker).",
+        "at_times": ["05:40", "09:40", "12:40", "16:40", "20:40"],
+        "builtin": "",
+        "command": f'nice -n 10 python3 "{PACIFIC}/Weather/hurricanes/scripts/global_board.py"',
+        "timeout_sec": 120,
+        "needs_internet": True,
+        "cwd": f"{PACIFIC}/Weather/hurricanes/scripts",
+        "env": {},
+    },
+    {
+        "id": "reports_board_catchup",
+        "enabled": os.environ.get("RR_REPORT_BOARD", "0") == "1",
+        "description": "Daily report due ledger + catch-up (G1 daily-reports-catchup 14:00): text roll-up only, never plays.",
+        "at_times": ["14:00"],
+        "builtin": "",
+        "command": f'nice -n 10 python3 "{PACIFIC}/Reports/scripts/report_board.py" run-due',
+        "timeout_sec": 900,
+        "cwd": f"{PACIFIC}/Reports/scripts",
+        "env": {},
+    },
+```
+
+
+### `ON_BOOT`
+
+```python
+    {
+        "id": "voice_boot_brief",
+        "enabled": os.environ.get("RR_VOICE_BOOT", "0") == "1",
+        "priority": 20,
+        "description": "G1 boot-prelims: refresh Kilauea / quakes first, then the Ava boot brief (file + WAV, no Grok, no playback).",
+        "builtin": "",
+        "command": f'nice -n 10 python3 "{PACIFIC}/Geology/scripts/geology_collect.py" ; nice -n 10 python3 "{PACIFIC}/Media/Voice/scripts/voice_reports.py" boot_brief',
+        "timeout_sec": 600,
+        "needs_internet": True,
+        "cwd": f"{PACIFIC}/Media/Voice/scripts",
+        "env": {},
+    },
 ```
 
 ## On-demand ports (no job needed)
 
-`Geology/scripts/earthquakes_backfill.py`, `Media/Video/scripts/mp4_converter.py`, `Communications/web-facts/scripts/web_facts.py`, `Communications/live-wx/scripts/live_wx.py`, `System/scripts/host_desks.py security|net-usage`.
+`Geology/scripts/earthquakes_backfill.py`, `Media/Video/scripts/mp4_converter.py`, `Communications/web-facts/scripts/web_facts.py`, `Communications/live-wx/scripts/live_wx.py`, `Energy/scripts/load_categories.py`, `System/scripts/host_hw.py`, `Media/Voice/scripts/speech_scrub.py` (library), `Reports/scripts/report_board.py status`, `System/scripts/host_desks.py security|net-usage`.
 
-*Created 2026-09-29 ~14:08 HST (old-repo migration, breadth pass). Updated ~14:25 HST: `reports_hawaii_news` now seeded (278 posts in a temp-root run), env `RR_NEWS_SEEDS_ONLY=1`, timeout 300 s.*
+*Created 2026-09-29 ~14:08 HST (old-repo migration, breadth pass). Updated ~14:25 HST: `reports_hawaii_news` now seeded (278 posts in a temp-root run), env `RR_NEWS_SEEDS_ONLY=1`, timeout 300 s. Updated ~14:42 HST (breadth pass 2): + `weather_official_hls`, `voice_official_weather`, `weather_hurricane_global`, `reports_board_catchup`, `voice_boot_brief`.*
