@@ -30,11 +30,11 @@ Folder name: **ContextSession**. It does not belong inside Energy, Geology, Weat
 
 | Item | Location / status |
 | --- | --- |
-| Server code | `1 - Servers/1 - RootRecord-Pacific-Solar-Server/ContextSession/scripts` — not created yet. Package name `ContextSession`. No `Logs/` directory on the server. `config/` is not needed. |
-| Database data | `2 - RootRecord-Database/ContextSession/` — not created yet. Per-user sqlite files live here after a real run. The smoke test does not write here. |
-| Database logs | `2 - RootRecord-Database/Logs/ContextSession/` — not created yet. |
+| Server code | `1 - Servers/1 - RootRecord-Pacific-Solar-Server/ContextSession/scripts` — landed. Package name `ContextSession`. No `Logs/` directory on the server. `config/` is not needed. |
+| Database data | `2 - RootRecord-Database/ContextSession/` — README only. Per-user sqlite files live here after a real run. The smoke test does not write here. |
+| Database logs | `2 - RootRecord-Database/Logs/ContextSession/` — README only. The CLI does not write a log file. |
 | Secrets | None. No key names in `/home/rootrecord/master/master-key.env`. No second env file. |
-| Old source | GitHub `rootrecordsoftwaresolutions/old`, `operations/context_session_builder/` (`__init__.py`, `api.py`, `store.py`, two placeholder READMEs). Not cloned as a live Folder. |
+| Old source | Removed from GitHub `rootrecordsoftwaresolutions/old` commit `3c67f7a`. Archive: `Old repos deleted and merged/old/operations/context_session_builder/`. |
 | Live functions to keep | EcoFlow BLE, the poller, Hawaiʻi weather, the globe collector, camera grabs, Kokoro, `geology_collect.py` |
 
 ### 2.2 Completed so far
@@ -84,11 +84,11 @@ Folder name: **ContextSession**. It does not belong inside Energy, Geology, Weat
 | Path | Role |
 |------|------|
 | `1 - Servers/1 - RootRecord-Pacific-Solar-Server/ContextSession/scripts` | Server code. Package name `ContextSession`. |
-| `1 - Servers/1 - RootRecord-Pacific-Solar-Server/ContextSession/scripts/ContextSession/store.py` | Session store. To add. |
-| `1 - Servers/1 - RootRecord-Pacific-Solar-Server/ContextSession/scripts/ContextSession/api.py` | FastAPI factory only. Not served. To add. |
-| `1 - Servers/1 - RootRecord-Pacific-Solar-Server/ContextSession/scripts/ContextSession/__init__.py` | Package exports. To add. |
-| `1 - Servers/1 - RootRecord-Pacific-Solar-Server/ContextSession/scripts/context_session.py` | CLI. No listener. To add. |
-| `1 - Servers/1 - RootRecord-Pacific-Solar-Server/ContextSession/README.md` | Domain readme. To add. |
+| `1 - Servers/1 - RootRecord-Pacific-Solar-Server/ContextSession/scripts/ContextSession/store.py` | Session store. Landed. |
+| `1 - Servers/1 - RootRecord-Pacific-Solar-Server/ContextSession/scripts/ContextSession/api.py` | FastAPI factory only. Not served. Landed. |
+| `1 - Servers/1 - RootRecord-Pacific-Solar-Server/ContextSession/scripts/ContextSession/__init__.py` | Package exports. Landed. |
+| `1 - Servers/1 - RootRecord-Pacific-Solar-Server/ContextSession/scripts/context_session.py` | CLI. No listener. Landed. |
+| `1 - Servers/1 - RootRecord-Pacific-Solar-Server/ContextSession/README.md` | Domain readme. Landed. |
 | `2 - RootRecord-Database/ContextSession/` | Per-user sqlite after a real run. README only in git. |
 | `2 - RootRecord-Database/Logs/ContextSession/` | Logs. README only until a real run. |
 | `/home/rootrecord/master/master-key.env` | Not used. Not edited. |

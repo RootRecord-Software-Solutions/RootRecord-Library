@@ -4,7 +4,7 @@
 | --- | --- |
 | **Work Order ID** | WO-MIG-15-2026-09-29 |
 | **Date** | 2026-09-29 (HST) |
-| **Status** | BUILT — dry-run pass; live speaker play still needs sign-off |
+| **Status** | BUILT — dry-run pass 2026-09-30 00:57 HST; live speaker play still needs sign-off |
 | **Owner** | RootRecord |
 | **Related** | Agent 15. Later callers (do not build them here): 16 Morning boot replay, 17 Sunrise restore, 18 Report readiness audio, 19 Hurricane radio, 33 Cloud TTS routing. Kokoro stays in Media/Voice. |
 

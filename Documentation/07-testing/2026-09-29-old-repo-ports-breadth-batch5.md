@@ -200,6 +200,6 @@ Read-only comparison of the G1 `scheduler-clock` `add_job` calls against G3 `job
 - Kīlauea cams YouTube live-id scraping: used only for OBS embeds, so it falls under the OBS blocker.
 - Sunrise-restore, morning boot replay, report readiness: speaker playback.
 - Council health / Bruce stats: bot tokens, a model load and Telegram sends.
-- python-drop-runner (runs arbitrary code), fs-index (private paths), broadcast (file browser), context session builder (listening FastAPI service): security scope or design.
+- python-drop-runner (runs arbitrary code), fs-index (private paths), broadcast (file browser): security scope or design. Context session builder: WO-MIG-43 library, no listener (2026-09-30).
 - Host `reset_series.py`: moves live history files aside (data-moving).
 - Row 21 Ollama idle-stop: superseded by keepalive 0. Row 88 audio clips: regenerated in G3. Rows 69 / 78 / 90: Library or archive decisions. Product / website rows: OUT of scope.
