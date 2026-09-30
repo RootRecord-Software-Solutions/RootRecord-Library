@@ -79,3 +79,12 @@ RR_VOICE_REPORT_OUT=/tmp/rr-migr/voice-test RR_VOICE_BANDWIDTH_DRY=1 nice -n 10 
 - 49 other state + global news builders: product / website data, out of Pacific scope.
 - G1 host series-reset and wattage helpers; Windows PDH GPU/NPU counters (not applicable on Linux).
 - official-weather-media: HLS / HWO are not collected by G3 weather (a weather-poller change in another domain), and there is no OBS.
+
+## Update, 14:16–14:40 HST (breadth pass 2)
+
+See [breadth batch 5](./2026-09-29-old-repo-ports-breadth-batch5.md).
+
+- Hawaiʻi news is now **PASS**: 16 seed feeds give 278 posts. The FAIL above stands as the 14:05 result.
+- The three voice check-later items are fixed (clock "two oh one", watts words / idle, spoken sun times).
+- Load categories is ported with a G3 field adapter.
+- **Correction:** the G3 weather poller already collects HWO. Only HLS was missing, and `Weather/scripts/official_statement.py` now fetches it.

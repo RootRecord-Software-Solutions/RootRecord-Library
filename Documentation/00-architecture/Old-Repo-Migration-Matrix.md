@@ -6,7 +6,7 @@
 | **Sources (read-only)** | https://github.com/rootrecordsoftwaresolutions/Solar-Pacific-RootRecord-Server-Old (G1, 97 top-level packets, 4 193 files) · https://github.com/rootrecordsoftwaresolutions/old (G0, 3 811 files). Shallow clones in `/tmp/rr-migr/` for reading, deleted after the pass. Nothing written to either repo. |
 | **Compared against** | Pacific `1 - RootRecord-Pacific-Solar-Server` (G3), Database `2 - RootRecord-Database`, [G1 README status list](https://github.com/rootrecordsoftwaresolutions/Solar-Pacific-RootRecord-Server-Old/blob/main/README.md), [Solar-Pacific-Old-Inventory-Map](./Solar-Pacific-Old-Inventory-Map-2026-09-28.md), [G3 Runtime Verification Checklist](./G3-Runtime-Verification-Checklist-2026-09-28.md), WO-ECO §4 migration checklist |
 | **Rule** | Copy and port only. Nothing retired, moved or deleted (retirement needs Alexander's explicit sign-off). Every periodic port is gated OFF in `jobs.py`. |
-| **Test records** | [Geology earthquakes + HVO](../07-testing/2026-09-29-geology-earthquakes-hvo-collector.md) · [Old-repo ports batch 1](../07-testing/2026-09-29-old-repo-ports-batch1.md) · [Voice batch 3 (hurricane + Kīlauea)](../07-testing/2026-09-29-voice-reports-batch3-hurricane-kilauea.md) |
+| **Test records** | [Geology earthquakes + HVO](../07-testing/2026-09-29-geology-earthquakes-hvo-collector.md) · [Old-repo ports batch 1](../07-testing/2026-09-29-old-repo-ports-batch1.md) · [Voice batch 3 (hurricane + Kīlauea)](../07-testing/2026-09-29-voice-reports-batch3-hurricane-kilauea.md) · [Breadth batch 4](../07-testing/2026-09-29-old-repo-ports-breadth-batch4.md) · [Breadth batch 5](../07-testing/2026-09-29-old-repo-ports-breadth-batch5.md) |
 | **Evidence** | `2 - RootRecord-Database/Logs/Migration/migration-geology-evidence-20260929T2319Z.md` |
 
 **Status words:** *migrated* = the capability exists in G3 (LANDED or better; each row says whether it is gated) · *partial* = some of it exists in G3, the rest is listed · *missing* = not in G3. "THIS PASS" marks rows changed on 2026-09-29 13:12 HST onward. "Bucket" in the counts: core = Pacific runtime scope, geology = priority-1 scope, library = docs/agent context, product = product/website repos (out of Pacific scope), archive = archive-only.
@@ -44,12 +44,22 @@ Grouped rows: related G1 packets that share one G3 target are one row (e.g. the 
 | Kīlauea voice report (Carly, hourly desk + HVO notice) | `Media/Voice/scripts/voice_reports.py kilauea_report` | `RR_VOICE_KILAUEA=1`, :03 | PASS (text); WAV VERIFY PENDING |
 | G0 nearest-location tag on quakes (≤ 250 km) | `Geology/scripts/geology_collect.py` + `Geology/config/global-locations.json` | rides `RR_GEOLOGY` | PASS |
 | Web facts (allowlisted HTTPS GET) | `Communications/web-facts/scripts/web_facts.py` | on demand | PASS |
-| Hawaiʻi news collector (G0 RSS discovery) | `Reports/News/scripts/{_collector,hawaii_news}.py` → Database `Reports/News/hawaii/` | PROPOSED `RR_HAWAII_NEWS=1`, 10:00 (not in jobs.py) | rc 0 but FAIL on content (0 posts) |
+| Hawaiʻi news collector (G0 RSS discovery) | `Reports/News/scripts/{_collector,hawaii_news}.py` → Database `Reports/News/hawaii/` | PROPOSED `RR_HAWAII_NEWS=1`, 10:00, env `RR_NEWS_SEEDS_ONLY=1` (not in jobs.py) | PASS (14:25 re-test: 16 seed feeds → 278 posts; 14:05 first run had 0 posts) |
 | Host net counters / usage windows / security snapshot | `System/scripts/host_desks.py` → Database `System/{network,security}/` | PROPOSED `RR_NET_SAMPLES=1`, 300 s (not in jobs.py) | PASS |
 | Solar / security / bandwidth desk voice reports | `voice_reports.py solar_desk` (Bruce), `security_desk`, `bandwidth_desk` (Carly) | PROPOSED `RR_VOICE_SOLAR` :04, `RR_VOICE_SECURITY` :11, `RR_VOICE_BANDWIDTH` :12 (not in jobs.py) | PASS (text); WAV VERIFY PENDING |
 | Live weather lines for chat (G1 live-wx) | `Communications/live-wx/scripts/live_wx.py` | on demand (`--offline` = no HTTP) | PASS |
+| Voice text fixes (clock "two oh one", watts words, idle devices, sun times) | `Media/Voice/scripts/speakable.py` `spoken_clock`; `voice_reports.py` `spoken_watts` / `spoken_hhmm` | rides existing report flags | PASS (text) |
+| NWS HFO hurricane local statement (HLS) | `Weather/scripts/official_statement.py` → Database `Weather/Hawai'i/official/` (git-ignored) | PROPOSED `RR_OFFICIAL_HLS=1`, 600 s | PASS |
+| Official weather voice report (Ava) | `voice_reports.py official_weather` (HLS ≤ 24 h, else HWO, else AFD) | PROPOSED `RR_VOICE_OFFICIAL=1`, :25 | PASS (text); WAV VERIFY PENDING |
+| Boot brief voice report (Ava, G1 boot-prelims) | `voice_reports.py boot_brief` | PROPOSED ON_BOOT `RR_VOICE_BOOT=1` (after `geology_collect`) | PASS (text); WAV VERIFY PENDING |
+| Daily report board + catch-up ledger | `Reports/scripts/report_board.py status\|run-due` → Database `Reports/board/daily-reports-due.json` | PROPOSED `RR_REPORT_BOARD=1`, ON_AT 14:00 | PASS |
+| Load categories (solar desk labels) | `Energy/scripts/load_categories.py` | on demand | PASS |
+| Global hurricane board (NHC + RAMMB + JTWC) | `Weather/hurricanes/scripts/global_board.py` → Database `Weather/Hawai'i/hurricanes/global/` (git-ignored) | PROPOSED `RR_HURRICANE_GLOBAL=1`, 05:40/09:40/12:40/16:40/20:40 | PASS |
+| Host hardware (temp, drives, GPU, NPU) | `System/scripts/host_hw.py` | on demand | PASS |
+| Speech scrub (persona) | `Media/Voice/scripts/speech_scrub.py` | on demand (library; not wired) | PASS |
+| G1 scheduler → G3 jobs map (verification) | Library [G1-Scheduler-To-G3-Jobs-Map-2026-09-29](./G1-Scheduler-To-G3-Jobs-Map-2026-09-29.md) | — | PASS (64 job ids mapped) |
 
-Breadth rows (13:58–14:09 HST): test record [2026-09-29-old-repo-ports-breadth-batch4](../07-testing/2026-09-29-old-repo-ports-breadth-batch4.md); proposed job blocks: [Pending-Job-Registrations-2026-09-29](Pending-Job-Registrations-2026-09-29.md).
+Breadth rows (13:58–14:09 HST): test record [2026-09-29-old-repo-ports-breadth-batch4](../07-testing/2026-09-29-old-repo-ports-breadth-batch4.md); proposed job blocks: [Pending-Job-Registrations-2026-09-29](Pending-Job-Registrations-2026-09-29.md). Breadth pass 2 rows (14:16–14:40 HST): [2026-09-29-old-repo-ports-breadth-batch5](../07-testing/2026-09-29-old-repo-ports-breadth-batch5.md).
 
 ## Matrix
 
@@ -149,30 +159,35 @@ Breadth rows (13:58–14:09 HST): test record [2026-09-29-old-repo-ports-breadth
 ## Blockers (BLOCKED — need Alexander)
 
 1. **Delivery / posting:** council-quake Telegram posts, earthquake Discord post, rr-kilauea public draft queue, council health alerts, Discord/Slack pollers, economy brief — sends need explicit sign-off (and relay replies are BLOCKED on missing `*-telegram` models).
-2. **Playback:** report play jobs, hurricane radio, morning boot replay — speaker playback not allowed.
-3. **OBS:** kilauea-cams OBS push, hurricane OBS, obs-studio — no OBS in G3.
-4. **Destructive:** log-cleanup deletes files — conflicts with never-delete; needs a retention design like `weather_retention` (dry run first).
+2. **Playback:** report play jobs, hurricane radio, morning boot replay, sunrise-restore, report readiness — speaker playback not allowed.
+3. **OBS:** kilauea-cams OBS push + YouTube live-id embeds, hurricane OBS, official-weather overlay, obs-studio — no OBS in G3.
+4. **Destructive / data-moving:** log-cleanup deletes files; host `reset_series.py` moves live history files aside — conflicts with never-delete; needs a retention design like `weather_retention` (dry run first).
 5. **Actuation:** river-car DC drive, panels-cam power session, solar gate arm/disarm — hardware changes need approval.
 6. **Secrets / cloud spend:** EcoFlow cloud quota, API prices / xAI / Cursor fallback, Grok report generation, AdMob/AdSense, Stripe, D1/MySQL — need keys (env var names only) and a spend decision.
-7. **Field mapping:** load-categories uses G1 cloud-quota keys; G3 BLE last-files differ.
-8. **Scope decisions:** fs-index (full-disk index of private paths), python-drop-runner (runs arbitrary dropped code), broadcast (serves a file-tree browser), Hawaiʻi news collector target folder.
-9. **Weather products not collected:** official-weather-media needs HLS / HWO; G3 weather collects AFD / SFP / CWF / ZFP only — changing the weather poller product list is another domain's change.
-10. **Hawaiʻi news source:** G0 discovery finds 0 posts (25 × HTTP 404 on hawaii.gov news links); needs seed feeds chosen by Alexander.
-11. **Report ledger / catch-up / readiness, sunrise-restore, economy brief:** depend on G1 report_generation + speaker playback, MySQL credentials and Discord posting.
+7. ~~Field mapping~~ — solved 14:35 HST: `load_categories.py` adapter from G3 BLE fields (check-later: no USB-A / 12 V / car fields; thresholds).
+8. **Scope decisions:** fs-index (full-disk index of private paths), python-drop-runner (runs arbitrary dropped code), broadcast (serves a file-tree browser), context session builder (would open a FastAPI listening service). Hawaiʻi news target folder: Database `Reports/News/hawaii/` used (confirm).
+9. ~~Weather products not collected~~ — **corrected 14:30 HST:** the G3 weather poller already collects HWO (and AFD / SFP / ZFP / CWF / NOW); only HLS was missing and `Weather/scripts/official_statement.py` now fetches it (separate script, poller product list unchanged).
+10. ~~Hawaiʻi news source~~ — solved 14:25 HST: 16 seed feeds (each HTTP 200 with items) → 278 posts. Alexander to review the seed list (Maui County feed is not hawaii.gov).
+11. **Readiness, sunrise-restore, economy brief:** speaker playback, MySQL credentials and Discord posting. (Due ledger + catch-up ported 14:33 as `report_board.py`, text only.)
+12. **Council health / Bruce stats:** bot tokens + model load + Telegram sends.
 
 ## Sign-off items (Alexander)
 
 1. **jobs.py registrations** — 7 gated blocks added by this pass before the standing rule arrived (left in place, OFF): keep or remove. Exact blocks: `2 - RootRecord-Database/Logs/Migration/migration-jobs-py-additions-20260929.md`.
 2. **Flags** at the next poller start: `RR_GEOLOGY`, `RR_KILAUEA_CAMS`, `RR_VOICE_QUAKE`, `RR_VOICE_KILAUEA`, `RR_VOICE_HURRICANE`, `RR_SUN_TIMES`, `RR_UPTIME_LOG`.
-8. **Proposed job registrations (not in jobs.py)** — `system_net_sample` (`RR_NET_SAMPLES`), `voice_solar_desk` (`RR_VOICE_SOLAR`), `voice_security_desk` (`RR_VOICE_SECURITY`), `voice_bandwidth_desk` (`RR_VOICE_BANDWIDTH`), `reports_hawaii_news` (`RR_HAWAII_NEWS`); exact blocks in [Pending-Job-Registrations-2026-09-29](Pending-Job-Registrations-2026-09-29.md). Standing rule: jobs.py edited only on Alexander's request or a WO.
+8. **Proposed job registrations (not in jobs.py)** — `system_net_sample` (`RR_NET_SAMPLES`), `voice_solar_desk` (`RR_VOICE_SOLAR`), `voice_security_desk` (`RR_VOICE_SECURITY`), `voice_bandwidth_desk` (`RR_VOICE_BANDWIDTH`), `reports_hawaii_news` (`RR_HAWAII_NEWS` + `RR_NEWS_SEEDS_ONLY`), and from breadth pass 2 `weather_official_hls` (`RR_OFFICIAL_HLS`), `voice_official_weather` (`RR_VOICE_OFFICIAL`), `voice_boot_brief` (`RR_VOICE_BOOT`, ON_BOOT), `reports_board_catchup` (`RR_REPORT_BOARD`), `weather_hurricane_global` (`RR_HURRICANE_GLOBAL`); exact blocks in [Pending-Job-Registrations-2026-09-29](Pending-Job-Registrations-2026-09-29.md). Standing rule: jobs.py edited only on Alexander's request or a WO.
 3. Any delivery (Telegram / Discord / speakers / radio) for the new voice reports.
 4. Full-range quake backfill (G0 defaults 2010 / 2020 → thousands of USGS requests).
 5. `kilauea_cams.py --keep-dated` archiving (disk).
 6. Database git churn from `Geology/*-last.json` (5 min) and `System/uptime/uptime-last.json` (60 s) once enabled — keep tracked or git-ignore.
 7. Retirement of any G1/G0 source (all **KEPT**).
+9. Hawaiʻi news seed list (16 feeds, incl. Maui County, not hawaii.gov) — keep / trim.
+10. Database `Reports/board/daily-reports-due.json` (written by `report_board.py run-due`) — keep tracked or git-ignore; G1 all-time radar zip (disk).
 
-## Next candidates (safe, not done this pass)
+## Next candidates
 
-G1 global hurricane board (needs a JTWC/RAMMB source decision), official_weather_media voice (after HLS/HWO collection), web-facts wiring into council chat (after relay replies), load-categories (after field map), daily report ledger (after a G3 design), Hawaiʻi news seed feeds, host series-reset / wattage helpers.
+As of 14:40 HST no clean candidates remain: every row that is still partial or missing is BLOCKED (sends, playback, OBS, keys/cloud, deletion/data-moving, actuation, security scope), OUT (product/website, archive, Library content) or a design decision (context session builder, code review pack, G3 night-sleep gate). Small follow-ups that are check-later rather than ports: wire `speech_scrub` into the voice path, G1 RAMMB per-storm track tables, `web_facts` in council chat (after relay replies).
 
 *Created 2026-09-29 (migration pass). Update this file and the [G1 README](https://github.com/rootrecordsoftwaresolutions/Solar-Pacific-RootRecord-Server-Old/blob/main/README.md) status tables together — the G1 README was **not** edited in this pass (no writes to old repos).*
+
+*Breadth pass 2 update 2026-09-29 ~14:40 HST: counts 35 / 22 / 33; test record [breadth batch 5](../07-testing/2026-09-29-old-repo-ports-breadth-batch5.md).*
