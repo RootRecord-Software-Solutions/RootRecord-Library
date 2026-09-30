@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "record": "capability",
+  "required": ["id", "description", "kind", "agents", "side_effects", "agent_may_invoke", "inputs", "returns"],
+  "fields": {
+    "id": "stable name, snake_case",
+    "description": "one short line a 3B model can read",
+    "kind": "read | diagnose | recover | write | communicate",
+    "agents": {"ava": "allowed|denied", "bruce": "allowed|denied", "carly": "allowed|denied"},
+    "side_effects": "list of effects. empty means read-only",
+    "agent_may_invoke": "false until the execution broker is unlocked for this id",
+    "executor": "who actually performs it today: broker-read, poller_job, or none",
+    "inputs": "parameter names",
+    "returns": "field names, not prose",
+    "requires_confirmation": "true when a human must agree before any future unlock"
+  }
+}

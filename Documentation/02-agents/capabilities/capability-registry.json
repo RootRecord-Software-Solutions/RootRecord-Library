@@ -1,0 +1,162 @@
+{
+  "schema_version": 1,
+  "note": "Declared capabilities. agent_may_invoke true is only set for reads the broker can answer from the snapshot or from verify.sh. Recovery stays with the poller.",
+  "capabilities": [
+    {
+      "id": "inspect_service",
+      "description": "Read one service row from the state snapshot.",
+      "kind": "read",
+      "agents": {"ava": "allowed", "bruce": "allowed", "carly": "allowed"},
+      "side_effects": [],
+      "agent_may_invoke": true,
+      "executor": "broker-read",
+      "inputs": ["service"],
+      "returns": ["state", "status", "confidence"],
+      "requires_confirmation": false
+    },
+    {
+      "id": "inspect_system",
+      "description": "Read host resources from the state snapshot. No hostname.",
+      "kind": "read",
+      "agents": {"ava": "allowed", "bruce": "allowed", "carly": "allowed"},
+      "side_effects": [],
+      "agent_may_invoke": true,
+      "executor": "broker-read",
+      "inputs": [],
+      "returns": ["cpu_percent", "mem_used_percent", "load1"],
+      "requires_confirmation": false
+    },
+    {
+      "id": "inspect_energy",
+      "description": "Read pack freshness and SOC from the state snapshot.",
+      "kind": "read",
+      "agents": {"ava": "allowed", "bruce": "allowed", "carly": "allowed"},
+      "side_effects": [],
+      "agent_may_invoke": true,
+      "executor": "broker-read",
+      "inputs": [],
+      "returns": ["state", "soc_percent", "age_min"],
+      "requires_confirmation": false
+    },
+    {
+      "id": "inspect_npu",
+      "description": "Read whether the NPU device is present.",
+      "kind": "read",
+      "agents": {"ava": "allowed", "bruce": "allowed", "carly": "allowed"},
+      "side_effects": [],
+      "agent_may_invoke": true,
+      "executor": "broker-read",
+      "inputs": [],
+      "returns": ["state"],
+      "requires_confirmation": false
+    },
+    {
+      "id": "inspect_relay",
+      "description": "Read council relay status from the state snapshot.",
+      "kind": "read",
+      "agents": {"ava": "allowed", "bruce": "allowed", "carly": "allowed"},
+      "side_effects": [],
+      "agent_may_invoke": true,
+      "executor": "broker-read",
+      "inputs": [],
+      "returns": ["status", "pids", "confidence"],
+      "requires_confirmation": false
+    },
+    {
+      "id": "inspect_github_sync",
+      "description": "Read whether GitHub sync is scheduled. Does not push.",
+      "kind": "read",
+      "agents": {"ava": "allowed", "bruce": "allowed", "carly": "allowed"},
+      "side_effects": [],
+      "agent_may_invoke": true,
+      "executor": "broker-read",
+      "inputs": [],
+      "returns": ["status", "confidence"],
+      "requires_confirmation": false
+    },
+    {
+      "id": "run_verification",
+      "description": "Run verify.sh. Read-only.",
+      "kind": "diagnose",
+      "agents": {"ava": "allowed", "bruce": "allowed", "carly": "allowed"},
+      "side_effects": [],
+      "agent_may_invoke": true,
+      "executor": "broker-read",
+      "inputs": [],
+      "returns": ["lines", "exit_code"],
+      "requires_confirmation": false
+    },
+    {
+      "id": "restart_known_service",
+      "description": "Respawn weather poller or council relay. Owned by the poller supervisor.",
+      "kind": "recover",
+      "agents": {"ava": "denied", "bruce": "denied", "carly": "denied"},
+      "side_effects": ["process_restart"],
+      "agent_may_invoke": false,
+      "executor": "poller_job:service_supervisor",
+      "inputs": ["service"],
+      "returns": ["alive", "blocked"],
+      "requires_confirmation": true,
+      "why_not": {
+        "kind": "gated",
+        "reason": "supervise-services.sh already restarts weather and the relay, at most 3 times per 30 minutes, then BLOCKED. Agents do not call it.",
+        "blocked_by": "agent_may_invoke",
+        "enable_condition": "Alexander unlocks this id in the registry and the broker"
+      }
+    },
+    {
+      "id": "run_known_diagnostic",
+      "description": "Supervisor dry-run. Detection only.",
+      "kind": "diagnose",
+      "agents": {"ava": "denied", "bruce": "denied", "carly": "denied"},
+      "side_effects": [],
+      "agent_may_invoke": false,
+      "executor": "none",
+      "inputs": ["service"],
+      "returns": ["alive", "would_respawn", "would_block"],
+      "requires_confirmation": true,
+      "why_not": {
+        "kind": "not_built",
+        "reason": "The dry-run exists on supervise-services.sh. The broker does not call it yet.",
+        "blocked_by": "agent_may_invoke",
+        "enable_condition": "a later unlock that still passes --dry-run"
+      }
+    },
+    {
+      "id": "generate_report",
+      "description": "Write a report.",
+      "kind": "write",
+      "agents": {"ava": "denied", "bruce": "denied", "carly": "denied"},
+      "side_effects": ["writes_files"],
+      "agent_may_invoke": false,
+      "executor": "poller_job",
+      "inputs": ["report"],
+      "returns": ["path"],
+      "requires_confirmation": true,
+      "why_not": {
+        "kind": "gated",
+        "reason": "Report jobs already run on the poller. Agents do not start them.",
+        "blocked_by": "agent_may_invoke",
+        "enable_condition": "Alexander unlocks one named report"
+      }
+    },
+    {
+      "id": "create_work_order",
+      "description": "Add a work order file.",
+      "kind": "write",
+      "agents": {"ava": "denied", "bruce": "denied", "carly": "denied"},
+      "side_effects": ["writes_files"],
+      "agent_may_invoke": false,
+      "executor": "none",
+      "inputs": ["id", "target"],
+      "returns": ["path"],
+      "requires_confirmation": true,
+      "why_not": {
+        "kind": "not_built",
+        "reason": "Work orders are written by a human or by Cursor. Agents do not add them.",
+        "blocked_by": "agent_may_invoke",
+        "enable_condition": "Alexander unlocks work-order creation"
+      }
+    }
+  ]
+}
