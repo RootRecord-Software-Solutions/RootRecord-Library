@@ -4,11 +4,11 @@
 | --- | --- |
 | **Work Order ID** | WO-MIG-39-2026-09-29 |
 | **Date** | 2026-09-30 (HST) |
-| **Status** | OPEN — draft, not accepted for execution |
+| **Status** | OPEN — built, dry-run verified; hardware not switched |
 | **Owner** | RootRecord |
 | **Related** | Agent 39. Old home `energy/ecoflow-river-car`. Live BLE switch `Energy/scripts/actions/river2pro-dc-on.sh` and `river2pro-dc-off.sh`. |
 
-**Scope:** Policy layer for the River 2 Pro car/12V port that powers external drives. Default off. Dry-run unless `--execute`, and `--execute` still refuses unless `RR_RIVER_CAR_EXECUTE=1`. This draft does not build that layer, edit runtime files, switch hardware, edit `jobs.py`, archive the old repo, or delete anything on GitHub.
+**Scope:** Policy layer for the River 2 Pro car/12V port that powers external drives. Default off. Dry-run unless `--execute`, and `--execute` still refuses unless `RR_RIVER_CAR_EXECUTE=1`. Built 2026-09-30 HST. The car port was not switched. The 30-minute job is gated off.
 
 ---
 
@@ -34,26 +34,26 @@ No new `master-key.env` keys. Actuation reuses the live BLE scripts, which alrea
 
 | Item | Location / status |
 | --- | --- |
-| Folder name | `River-Car` under Energy (not created yet) |
-| Code path | `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Energy/River-Car/scripts` (not created yet) |
-| Database path | `2 - RootRecord-Database/Energy/River-Car/` (runtime state; not created yet; not git) |
-| Logs path | `2 - RootRecord-Database/Logs/Energy/River-Car/` (not created yet) |
+| Folder name | `River-Car` under Energy |
+| Code path | `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Energy/River-Car/scripts` |
+| Database path | `2 - RootRecord-Database/Energy/River-Car/` (runtime state; gitignored) |
+| Logs path | `2 - RootRecord-Database/Logs/Energy/River-Car/` (runtime; gitignored) |
 | Secrets | No new keys. Existing allowlist name used by the BLE scripts: `ECOFLOW_RIVER_2_PRO`. Do not print values. |
 | Old source | Git root `/home/rootrecord/old ollama/old skills`, remote `rootrecordsoftwaresolutions/Solar-Pacific-RootRecord-Server`. Tracked: `energy/ecoflow-river-car/` (`SKILL.md`, `INDEX.md`, `DAILY.md`, `references/migrate.md`, `scripts/river_car_dc.py`, `scripts/drive_automation.py`, `scripts/disk_session.py`). `__pycache__` beside those scripts is untracked generated data. |
 | Live atomic switch | `Energy/scripts/actions/river2pro-dc-on.sh` and `river2pro-dc-off.sh` via `enable_dc_12v_port`. Keep. |
-| Automation policy | Absent. River-Car state files and the gated job do not exist. |
+| Automation policy | `Energy/River-Car/scripts/`. Job `energy_river_car_drive` gated off. |
 | Car state for status | Existing Energy reads (`dc_12v_port` in `read_runner.py`). Not a new cloud poll. |
 | Dependency Folders | Energy and `Energy/scripts/actions/` already exist. No pause for a missing Folder. |
 
 ### 2.2 Completed so far
 
-- [x] Draft work order written. Status stays OPEN — draft, not accepted for execution.
-- [ ] `Energy/River-Car` scripts
-- [ ] Database state and logs directories (created at runtime, not committed)
-- [ ] Gated `jobs.py` block (only if that file is free at build time)
-- [ ] Dry-run proof test
-- [ ] Archive, old-repo deletion, GitHub file deletion
-- [ ] Result note and Library row corrections
+- [x] Draft work order written.
+- [x] `Energy/River-Car` scripts
+- [x] Database state and logs directories (created at runtime by the dry-run; not committed)
+- [x] Gated `jobs.py` block (`RR_RIVER_CAR_DRIVE` default off)
+- [x] Dry-run proof test (spawn count 0)
+- [x] Archive, old-repo deletion, GitHub file deletion (`e41510a8`)
+- [x] Result note and Library row corrections
 
 ### 2.3 Known friction
 
@@ -173,4 +173,8 @@ Human session logs archive under `Documentation/01-operations/archive/YYYY-Www/`
 
 ## Result note
 
-Not written. Phase 4 has not run. After archive and the GitHub file deletion, record what landed, the archive path, and what was removed on GitHub, then correct only the Library pages named in section 5.
+Built 2026-09-30 HST. Landed: `Energy/River-Car/README.md`, `scripts/river_car_dc.py`, `scripts/disk_session.py`, `scripts/drive_automation.py`. `jobs.py` gained gated-off `energy_river_car_drive` (1800 s, `RR_RIVER_CAR_DRIVE` default off). Proof: `--tick` printed `skipped=auto_off`, `--on` recorded `dry_run_on`, `--on --execute` without `RR_RIVER_CAR_EXECUTE=1` exited refused. Spawn count 0. The car port was not switched.
+
+Archived to `Old repos deleted and merged/Solar-Pacific-RootRecord-Server/energy/ecoflow-river-car/` (tracked sources plus `__pycache__`, and the untracked sibling bytecode). Removed from `/home/rootrecord/old ollama/old skills` and from GitHub `rootrecordsoftwaresolutions/Solar-Pacific-RootRecord-Server` branch `online-safe-20260920` commit `e41510a8`. The repository was not deleted. No force-push.
+
+Library rows corrected: Old-Repo-Migration-Matrix row 32, and the `ecoflow-river-car` line in Solar-Pacific-Old-Inventory-Map-2026-09-28. This work order stays in `drafts/` and is not on the active index.

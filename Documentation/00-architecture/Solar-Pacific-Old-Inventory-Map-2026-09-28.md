@@ -71,7 +71,7 @@ These were G1 scheduler functionality, not a model for future AI skill design. A
 | `energy/ecoflow-automations` | Automation helpers | `Energy/` |
 | `energy/ecoflow-ac-solar-gate` | AC/solar gating | `Energy/` |
 | `energy/ecoflow-quota` | Quota logic | `Energy/` |
-| `energy/ecoflow-river-car` | River/car specific | `Energy/` or retire |
+| `energy/ecoflow-river-car` | River/car specific | `Energy/River-Car/` (policy; BLE switch stays in `Energy/scripts/actions/`) |
 
 **Order:** G2 energy read path is LIVE on G3. Diff G1 packets only for missing features.
 

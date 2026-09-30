@@ -4,7 +4,7 @@
 | --- | --- |
 | **Work Order ID** | WO-MIG-33-2026-09-29 |
 | **Date** | 2026-09-30 (HST) |
-| **Status** | OPEN — draft, not accepted for execution |
+| **Status** | BUILT — gated dry-run pass; live xAI call still needs sign-off |
 | **Owner** | RootRecord |
 | **Related** | Agent 33. Depends on agent 15 Report playback (`Media/Playback`), which is already installed. Kokoro stays in `Media/Voice`. |
 
@@ -40,7 +40,7 @@ No `config/` directory. No `Logs/` directory on the server. No website page.
 
 | Item | Location / status |
 | --- | --- |
-| CloudTTS folder | Not installed yet |
+| CloudTTS folder | Installed. `Media/CloudTTS/scripts/route.py` |
 | Kokoro renderer, personas, clip catalog | Pacific `Media/Voice/scripts/` — live. Do not replace |
 | Report playback | Pacific `Media/Playback/` — present. If it is missing when the build starts, pause and name Report playback. Do not rebuild it |
 | Old text router | `/home/rootrecord/old ollama/old skills/synth/scripts/synth.py` — shared with cloud narrative routing. Leave it |
@@ -51,11 +51,11 @@ No `config/` directory. No `Logs/` directory on the server. No website page.
 ### 2.2 Completed so far
 
 - [x] Draft written (this file)
-- [ ] Alexander accepted the draft and said to build
-- [ ] `CloudTTS` router landed
-- [ ] Gated proof recorded (no HTTP, no speaker)
-- [ ] Phase 4 recorded: no exclusive old file to archive or delete
-- [ ] Result note and the Library corrections
+- [x] Alexander said to build
+- [x] `CloudTTS` router landed
+- [x] Gated proof recorded (no HTTP, no speaker)
+- [x] Phase 4 recorded: no exclusive old file to archive or delete
+- [x] Result note and the Library corrections
 
 ### 2.3 Known friction
 

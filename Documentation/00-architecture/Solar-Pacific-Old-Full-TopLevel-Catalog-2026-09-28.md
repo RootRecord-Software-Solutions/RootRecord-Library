@@ -115,7 +115,7 @@
 | stripe-poll | Product | Billing |
 | subscribers | Product | |
 | sunrise-restore | Review | |
-| synth | Review | |
+| synth | Media / CloudTTS | Gated Ara route beside Kokoro (WO-MIG-33). Live xAI call still needs sign-off |
 | system-perf | G3-optional / System | |
 | topics | Library / Review | |
 | uptime-log | G3-optional / Logs | |

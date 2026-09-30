@@ -4,7 +4,7 @@
 | --- | --- |
 | **Work Order ID** | WO-MIG-36-2026-09-29 |
 | **Date** | 2026-09-30 (HST) |
-| **Status** | OPEN — draft, not accepted for execution |
+| **Status** | BUILT — gate in place, job not inserted, archive copied, GitHub deletion pushed. Not on the active index. |
 | **Owner** | RootRecord |
 | **Related** | Agent 36. Wave E. Cloud and keys, after the local path. No earlier function has to exist before the build. No later function in this list depends on this one. Matrix row 31. |
 
@@ -50,12 +50,12 @@ Folder name, used in all three paths: **Cloud-Quota**. It is a subfolder of Ener
 - [x] Newer client confirmed in `Energy/lib/ecoflow_api.py`. BLE leap-frog confirmed as the live poll.
 - [x] Folder `Cloud-Quota` and the three paths named above.
 - [x] `master-key.env` checked for key names only. Access and secret names are set. Region name is absent.
-- [ ] Alexander accepts this draft and says to build.
-- [ ] `Energy/Cloud-Quota/scripts/quota_poll.py` and a short README. Default run prints `cloud=off` and does not HTTP.
-- [ ] `read_runner._read_api` skips the Open Platform unless `RR_ECOFLOW_CLOUD=1`, then labels `source: cloud`.
-- [ ] Proposed gated `jobs.py` block, left off. Pause if `jobs.py` still has other edits.
-- [ ] Phase 4 archive of this function’s exclusive old files, then delete only after the copy is on disk.
-- [ ] Result note and the Library lines that still say the cloud poll was not ported or was blocked.
+- [x] Alexander accepted this draft and said to build.
+- [x] `Energy/Cloud-Quota/scripts/quota_poll.py` and a short README. Default run prints `cloud=off` and does not HTTP.
+- [x] `read_runner._read_api` skips the Open Platform unless `RR_ECOFLOW_CLOUD=1`, then labels `source: cloud`.
+- [ ] Proposed gated `jobs.py` block. Paused: `jobs.py` already had other edits. The block stays in section 3.
+- [x] Phase 4 archive of this function’s exclusive old files, then delete only after the copy was on disk.
+- [x] Result note and the Library lines that still said the cloud poll was not ported or was blocked.
 
 ### 2.3 Known friction
 
@@ -161,7 +161,7 @@ Do these only after Alexander accepts this draft and says to build. Until then, 
 - Prefer small reversible steps.
 - Sign-off before any send, speaker playback, OBS, hardware switch, deletion of live Ecosystem files, or cloud spend. The cloud spend gate is `RR_ECOFLOW_CLOUD=1`. It stays unset for this draft and for the build’s default test. Phase 4 deletion is limited to this function’s exclusive old files, and only after they are in `Old repos deleted and merged/ecoflow-quota/`. Do not delete the GitHub repository.
 - Small test, at build time: run `quota_poll.py` with `RR_ECOFLOW_CLOUD` unset. Expect exit 0, text `cloud=off`, no new file under `Energy/Cloud-Quota/`, and no request to `api.ecoflow.com`. A fixture map of `pd.soc` through `map_quota_to_fields` proves the field shape without HTTP. Not run for this draft.
-- Result note: add it after phase 4 (what landed, what was archived, what was removed on GitHub). Not written yet. Archive path: `Old repos deleted and merged/ecoflow-quota/`. GitHub deletion: none yet. `energy.py` and `ecoflow_public.py` stay.
+- Result note (2026-09-30 HST): Landed `Energy/Cloud-Quota/scripts/quota_poll.py`, `store.py`, and `README.md`. `read_runner._read_api` returns `cloud=off` unless `RR_ECOFLOW_CLOUD=1`, and a signed-off read is labeled `source: cloud` under Database `Energy/Cloud-Quota/`. BLE samples stay in `Energy/samples`. Dry run: exit 0, text `cloud=off`, fixture `pd.soc=55.0`, no file written, no EcoFlow request. `jobs.py` was not edited. Archive path: `Old repos deleted and merged/ecoflow-quota/` (`scripts/ecoflow_quota.py`, `SKILL.md`, `INDEX.md`, `DAILY.md`, `references/migrate.md`, plus the old `__pycache__` bytecode). Left in the old skill folder: `scripts/energy.py`, `scripts/ecoflow_public.py`, and `desk/scheduler.py` (symlink). GitHub deletion: commit `50d3b0a6` on `Solar-Pacific-RootRecord-Server` branch `online-safe-20260920` (remote at `c1ea1dd5`, which contains that commit). Repository was not deleted. No force-push.
 
 ---
 

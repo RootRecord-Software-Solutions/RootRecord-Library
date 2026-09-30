@@ -4,11 +4,11 @@
 | --- | --- |
 | **Work Order ID** | WO-MIG-24-2026-09-29 |
 | **Date** | 2026-09-30 (HST) |
-| **Status** | OPEN — draft, not accepted for execution |
+| **Status** | OPEN — built. Phase 4 pushed. Not promoted. |
 | **Owner** | RootRecord |
 | **Related** | Agent 24. Wave D. One send pipe, then the messages. No later function depends on this one. Build pauses if Council persona prompts (agent 03) or the Discord poller (agent 21) is missing. Matrix row 3 (public draft queue half). |
 
-**Scope:** One Geology subfolder that queues a Kīlauea public draft from volcano JSON already on disk. In scope after accept: the script, the Database queue, a log line, and an optional gated job block. Out of scope until a later sign-off: Discord, Slack, or Telegram sends, Grok, and phase 4 archive or GitHub deletion. This draft does not edit runtime files.
+**Scope:** One Geology subfolder that queues a Kīlauea public draft from volcano JSON already on disk. Landed: the script, the gated job block, the temp-tree test, the archive, and the GitHub deletion of this function's old files. Still out of scope: Discord, Slack, or Telegram sends, and Grok.
 
 ---
 
@@ -24,11 +24,11 @@ The live system already collects HVO status with the HANS API. `1 - Servers/1 - 
 
 ### 2.1 What exists
 
-Folder name, used in all three paths: **PublicDraftQueue**. It is a subfolder of Geology. No second top-level domain. No lowercase twin. No symlink. No `Logs/` directory on the server. The folder is not installed yet.
+Folder name, used in all three paths: **PublicDraftQueue**. It is a subfolder of Geology. No second top-level domain. No lowercase twin. No symlink. No `Logs/` directory on the server. Installed 2026-09-30.
 
 | Item | Location / status |
 | --- | --- |
-| Folder | `PublicDraftQueue` under Geology. Not created. This draft does not create it. |
+| Folder | `PublicDraftQueue` under Geology. Landed 2026-09-30. |
 | Code | `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Geology/PublicDraftQueue/scripts` |
 | Database | `2 - RootRecord-Database/Geology/PublicDraftQueue/` |
 | Logs | `2 - RootRecord-Database/Logs/Geology/PublicDraftQueue/` |
@@ -40,22 +40,22 @@ Folder name, used in all three paths: **PublicDraftQueue**. It is a subfolder of
 | Old source read | `/home/rootrecord/old ollama/old skills/kilauea/rr-kilauea/scripts/kilauea.py` and `queue_public_draft` in `old ollama/old skills/reports/scripts/reports.py`. |
 | Old GitHub tree | Local checkout `/home/rootrecord/old ollama/old skills`, remote `rootrecordsoftwaresolutions/Solar-Pacific-RootRecord-Server`. Tracked path `kilauea/rr-kilauea/`. |
 | Spoken desk, keep it | `voice_reports.py` `kilauea_report`, job gated `RR_VOICE_KILAUEA`. |
-| Matrix | Row 3 is partial. The public draft queue is the half not ported. This draft does not edit that row. |
+| Matrix | Row 3 stays partial because Grok is not ported. The draft-queue half is corrected. |
 
 ### 2.2 Completed so far
 
 - [x] Old runner and `queue_public_draft` read. Live `kilauea-last.json` confirmed.
 - [x] Folder name and the three paths named above.
 - [x] Dependency folders checked. `Communications/Discord` and `Communications/CouncilPersona` are present.
-- [ ] Accepted build of `PublicDraftQueue` (waits on Alexander).
-- [ ] Phase 4 archive and GitHub file deletion.
-- [ ] Result note and Library corrections.
+- [x] Accepted build of `PublicDraftQueue` (2026-09-30).
+- [x] Phase 4 archive and GitHub file deletion (`c1ea1dd5` on `online-safe-20260920`).
+- [x] Result note and Library corrections.
 
 ### 2.3 Known friction
 
-- This file is a draft. Do not build, restart services, send messages, actuate hardware, or spend cloud money until Alexander accepts it.
-- At build time, pause if `Communications/Discord` or `Communications/CouncilPersona` is missing. Name the missing function. Do not build it. Both are present as of this draft.
-- `jobs.py` is not edited by this draft. A gated block is proposed below. If `jobs.py` or `master-key.env` is already being edited at build time, pause.
+- Build ran after Alexander said to build. Sends, speaker playback, OBS, hardware, and cloud spend stayed off.
+- `Communications/Discord` and `Communications/CouncilPersona` were present, so the dependency pause did not fire.
+- `jobs.py` received only the gated `geology_kilauea_public_draft` block. `RR_KILAUEA_DRAFT` is unset. `master-key.env` was not edited.
 - `reports/scripts/reports.py` is shared with weather, NWS, and the Cursor job. Leave it. The shim `origin/ns/apps/core/services/kilauea.py` and `kilauea/rr-kilauea/desk/scheduler.py` (symlink into the shared scheduler) stay too.
 
 ---
@@ -111,24 +111,24 @@ Do these only after Alexander accepts this draft and says to build. Until then, 
 
 | Path | Role |
 |------|------|
-| `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Geology/PublicDraftQueue/scripts` | Code. Not created by this draft. |
+| `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Geology/PublicDraftQueue/scripts` | Code. Landed. |
 | `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Geology/PublicDraftQueue/scripts/queue_draft.py` | Stdlib queue writer. No HTTP. |
-| `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Geology/PublicDraftQueue/README.md` | Folder note. Add on build. |
-| `2 - RootRecord-Database/Geology/PublicDraftQueue/publish-last.json` | Fingerprint seed. Written only on build. |
+| `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Geology/PublicDraftQueue/README.md` | Folder note. Landed. |
+| `2 - RootRecord-Database/Geology/PublicDraftQueue/publish-last.json` | Fingerprint seed. Written by a run, not by this draft file. |
 | `2 - RootRecord-Database/Geology/PublicDraftQueue/queue/` | Draft markdown. One file per real change. |
 | `2 - RootRecord-Database/Logs/Geology/PublicDraftQueue/` | Decision log. |
 | `2 - RootRecord-Database/Geology/Volcanoes/kilauea-last.json` | Source JSON. Read only. |
 | `2 - RootRecord-Database/Geology/Earthquakes/hawaii-last.json` | Optional `kilauea_150km_count` line. |
 | `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Geology/scripts/geology_collect.py` | Live HANS collector. Do not replace. |
-| `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Automations/scripts/jobs.py` | Optional gated block only, after accept. `RR_KILAUEA_DRAFT` stays unset. |
+| `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Automations/scripts/jobs.py` | Gated block landed. `RR_KILAUEA_DRAFT` stays unset. |
 | `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Communications/Discord/` | Agent 21. Present. Do not edit. |
 | `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Communications/CouncilPersona/` | Agent 03. Present. Do not edit. |
-| `/home/rootrecord/old ollama/old skills/kilauea/rr-kilauea/scripts/kilauea.py` | Old runner. Phase 4 archive, then delete from that repo and GitHub. |
-| `Old repos deleted and merged/Solar-Pacific-RootRecord-Server/kilauea/rr-kilauea/` | Phase 4 archive path. Not copied in this draft. |
-| `5 - RootRecord-Library/Documentation/00-architecture/Old-Repo-Migration-Matrix.md` | Row 3. Correct only after phase 4. |
-| `5 - RootRecord-Library/Documentation/00-architecture/G1-Scheduler-To-G3-Jobs-Map-2026-09-29.md` | Correct only after phase 4. |
-| `5 - RootRecord-Library/Documentation/00-architecture/Voice-Reports-G3.md` | Correct only after phase 4. |
-| `5 - RootRecord-Library/Documentation/00-architecture/Geology-Domain-Ownership-Kilauea-Earthquakes-2026-09-28.md` | Correct only after phase 4. |
+| `/home/rootrecord/old ollama/old skills/kilauea/rr-kilauea/scripts/kilauea.py` | Removed from the old repo and from GitHub `c1ea1dd5`. Scheduler symlink left. |
+| `Old repos deleted and merged/Solar-Pacific-RootRecord-Server/kilauea/rr-kilauea/` | Phase 4 archive. Copied 2026-09-30. |
+| `5 - RootRecord-Library/Documentation/00-architecture/Old-Repo-Migration-Matrix.md` | Row 3 corrected. Grok still not ported. |
+| `5 - RootRecord-Library/Documentation/00-architecture/G1-Scheduler-To-G3-Jobs-Map-2026-09-29.md` | rr-kilauea row names the gated draft job. |
+| `5 - RootRecord-Library/Documentation/00-architecture/Voice-Reports-G3.md` | Grok stays blocked. Draft queue named as separate. |
+| `5 - RootRecord-Library/Documentation/00-architecture/Geology-Domain-Ownership-Kilauea-Earthquakes-2026-09-28.md` | Public draft queue marked landed. |
 
 ---
 
@@ -136,11 +136,8 @@ Do these only after Alexander accepts this draft and says to build. Until then, 
 
 **Additional requirements:**
 
-- Alexander accepts this draft before any build.
-- At build time, `Communications/Discord` and `Communications/CouncilPersona` must still be present. If either is missing, pause and name it.
 - `RR_KILAUEA_DRAFT` stays unset. Enabling the job, or any Discord, Slack, or Telegram send, needs a separate sign-off.
-- Phase 4 runs only after the queue works, and only after the archive copy is on disk. A failed copy means no delete.
-- If `jobs.py` or `master-key.env` is already being edited at build time, pause.
+- Phase 4 is done. The GitHub repository remains.
 
 ---
 
@@ -150,8 +147,8 @@ Do these only after Alexander accepts this draft and says to build. Until then, 
 - Secrets stay out of git. This function has no key names. Do not print values from `master-key.env`. Do not add a second env file.
 - Prefer small reversible steps.
 - Sign-off before any send, speaker playback, OBS, hardware switch, deletion of live Ecosystem files, or cloud spend (no Grok). Phase 4 deletion is limited to this function's old files, and only after they are in `Old repos deleted and merged/Solar-Pacific-RootRecord-Server/`. Do not delete the GitHub repository.
-- Small test, after accept: point `RR_DATABASE_ROOT` at a temp tree that holds a copy of `kilauea-last.json`. First run seeds `publish-last.json` and writes no queue file. Change `status_notice_id` in the copy. Second run writes one `*-kilauea-cron.md` and opens no socket.
-- Result note: not written. Nothing has landed, nothing has been archived, and nothing has been removed on GitHub.
+- Small test, 2026-09-30 00:56 HST: temp `RR_DATABASE_ROOT` with a copy of `kilauea-last.json`. First run printed `seed` and wrote `publish-last.json` with no queue file. Second run printed `unchanged`. After `status_notice_id` changed, the next run wrote one `*-kilauea-cron.md` (621 characters, header `**Ava kilauea report**`). `strace -e trace=network` showed no connect, send, or socket.
+- Result note (2026-09-30 00:56 HST): Landed `Geology/PublicDraftQueue/` (`scripts/queue_draft.py`, package `PublicDraftQueue`, README). Gated job `geology_kilauea_public_draft` is in `jobs.py`. `RR_KILAUEA_DRAFT` stays unset. No send. Archived `kilauea/rr-kilauea/` source plus `scripts/__pycache__` to `Old repos deleted and merged/Solar-Pacific-RootRecord-Server/kilauea/rr-kilauea/`. Removed those tracked files from `/home/rootrecord/old ollama/old skills` and pushed `c1ea1dd5` to `rootrecordsoftwaresolutions/Solar-Pacific-RootRecord-Server` branch `online-safe-20260920`. Left the scheduler symlink, `origin/ns/apps/core/services/kilauea.py`, and `reports/scripts/reports.py`. The GitHub repository was not deleted.
 
 ---
 

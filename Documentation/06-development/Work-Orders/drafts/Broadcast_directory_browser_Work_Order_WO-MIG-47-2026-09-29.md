@@ -4,7 +4,7 @@
 | --- | --- |
 | **Work Order ID** | WO-MIG-47-2026-09-29 |
 | **Date** | 2026-09-30 (HST) |
-| **Status** | OPEN — draft, not accepted for execution |
+| **Status** | BUILT — stays in drafts, not promoted to the active index |
 | **Owner** | RootRecord |
 | **Related** | Agent 47, Wave G. No other function has to exist before this build. No later function in the agent list depends on this one. Old home: `operations/broadcast.py` in GitHub `rootrecordsoftwaresolutions/old` (branch `cursor/radio-idle-obs-gates`). Matrix row 83. |
 
@@ -32,9 +32,9 @@ Folder name: **DirectoryBrowser**. It belongs in Security, so it is a subfolder 
 
 | Item | Location / status |
 | --- | --- |
-| Server code | `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Security/DirectoryBrowser/scripts` — not created yet. Package name `DirectoryBrowser`. No `Logs/` directory on the server. `config/` is not needed. |
-| Database data | `2 - RootRecord-Database/Security/DirectoryBrowser/` — not created yet. README only in git. |
-| Database logs | `2 - RootRecord-Database/Logs/Security/DirectoryBrowser/` — not created yet. README only in git. |
+| Server code | `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Security/DirectoryBrowser/scripts` — landed. Package name `DirectoryBrowser`. No `Logs/` directory on the server. `config/` is not needed. |
+| Database data | `2 - RootRecord-Database/Security/DirectoryBrowser/` — README only in git. |
+| Database logs | `2 - RootRecord-Database/Logs/Security/DirectoryBrowser/` — README only in git. |
 | Secrets | None. No key names in `/home/rootrecord/master/master-key.env`. No second env file. |
 | Old source | GitHub `rootrecordsoftwaresolutions/old`, branch `cursor/radio-idle-obs-gates`. Directory behavior lives inside `operations/broadcast.py` and the always-on copy. The files that belong only to this function are `operations/cronologicals/always-on/directory.enabled` and `web/sites/avaivy.cloud/directory/directory.js`. |
 | Live functions to keep | EcoFlow BLE, the poller, Hawaiʻi weather, the globe collector, camera grabs, Kokoro, `geology_collect.py` |
@@ -42,11 +42,11 @@ Folder name: **DirectoryBrowser**. It belongs in Security, so it is a subfolder 
 ### 2.2 Completed so far
 
 - [x] Old source read (`operations/broadcast.py` directory section, `directory.js` header, `directory.enabled`) and Security / Energy layout checked
-- [ ] `DirectoryBrowser` package and CLI
-- [ ] Empty Database and Logs READMEs
-- [ ] Temp-root smoke test
-- [ ] The two directory-only old files archived, then removed from the old repo and GitHub
-- [ ] Library row 83 and the broadcast blocker sentence corrected
+- [x] `DirectoryBrowser` package and CLI
+- [x] Empty Database and Logs READMEs
+- [x] Temp-root smoke test
+- [x] The two directory-only old files archived, then removed from the old repo and GitHub
+- [x] Library row 83 and the broadcast blocker sentence corrected
 
 ### 2.3 Known friction
 
@@ -126,7 +126,18 @@ Folder name: **DirectoryBrowser**. It belongs in Security, so it is a subfolder 
 - Sign-off gates: HTTP listener, public page, a listing root of `/home` or the live Ecosystem, sends, speaker playback, OBS, hardware switching, deletion of live Ecosystem files, and cloud spend. Phase 4 archive-then-delete of `directory.enabled` and `directory.js` is already ordered, and only after the archive copy succeeds.
 - Proof, and the only test to run: CLI list of a temp root under `/tmp` that contains one file and one symlink pointing outside that root. Expect the file in the listing and the symlink omitted or refused, and no listening socket. Do not write that listing into `2 - RootRecord-Database/Security/DirectoryBrowser/`.
 
-The result note (what landed, archive path, GitHub deletion) is added to this file after phase 4. It is not written yet.
+## Result
+
+Landed 2026-09-30. Package `DirectoryBrowser` at `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Security/DirectoryBrowser/scripts/DirectoryBrowser/` with CLI `scripts/directory_browser.py`. `--root` is required. No `serve` command. `jobs.py` and `master-key.env` were not edited. Import does not bind a socket.
+
+Smoke test, temp root `/tmp/rr-mig47-list`: `note.txt` listed as a file, `inside` listed as a link that stays in the root, `escape` refused with reason `outside root`. `--rel ../` exited 1 with `path traversal`. A missing root exited 1. Omitting `--root` exited 2. Listening sockets were unchanged. No listing was written under `2 - RootRecord-Database/Security/DirectoryBrowser/`.
+
+Archive (checksums matched the old files before deletion):
+
+- `Old repos deleted and merged/old/operations/cronologicals/always-on/directory.enabled`
+- `Old repos deleted and merged/old/web/sites/avaivy.cloud/directory/directory.js`
+
+Removed on GitHub `rootrecordsoftwaresolutions/old` branch `cursor/radio-idle-obs-gates` commit `528ca18`. The repository was not deleted. Left in that repo: `operations/broadcast.py`, `operations/cronologicals/always-on/broadcast.py`, and `web/sites/avaivy.cloud/js/earthquake-directory.js`.
 
 ---
 
