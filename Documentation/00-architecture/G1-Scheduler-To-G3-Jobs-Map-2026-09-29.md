@@ -42,7 +42,7 @@ States: **LIVE** = enabled in G3 now · **GATED** = in jobs.py, OFF until its fl
 | governance-daily | 10:23 | — | OUT (Library content) |
 | api-prices | 10:25 | — | BLOCKED (keys / spend) |
 | code-review | 11:20 17:20 | — | BLOCKED (LLM model load) |
-| economy-brief | 15:00 | — | BLOCKED (MySQL creds + Discord) |
+| economy-brief | 15:00 | `Reports/Economy-Brief/scripts/economy_brief.py` on demand | PROPOSED `RR_ECONOMY_BRIEF` (not in jobs.py). Discord send not signed off. |
 | adsense-eod / admob-eod | 21:00 / 21:05 | — | BLOCKED (ad account secrets) / OUT |
 | overnight-relay | 22:20 | — | BLOCKED (D1 + DMs) |
 | minecraft-live | every 10 min | — | OUT (RootMC) |
