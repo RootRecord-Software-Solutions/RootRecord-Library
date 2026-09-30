@@ -473,3 +473,5 @@ This follows Alexander's new direction. The desk is the main copy, and AWS gets 
 8. Root Monitor write mode
 9. Cut down the AWS `.env`
 10. Globe `/api/state` at 5 s + gzip before the Vercel background launch
+
+Commits (auto desk sync). Library: `cc396fc` (proposal, 2 test records, 07 and 08 rows), `fe48f49` (this section, Control-Panel-GTK addendum, US-Mainland-Server change log). Pacific: `890a799` (page, lib, catalog, `rr_control_panel.py`, `rr_settings.py`), `f0836d0` (Control-Panel README). No desk git writes, sudo or restarts; nothing changed on AWS; `jobs.py` untouched.
