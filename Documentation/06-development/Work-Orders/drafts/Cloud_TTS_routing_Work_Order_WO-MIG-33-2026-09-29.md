@@ -151,7 +151,15 @@ The first prints `called: false` and `detail: gated`. The second does the same w
 
 ## 8. Result note
 
-Pending the build.
+Landed 2026-09-30 ~01:07 HST.
+
+- Router: `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Media/CloudTTS/scripts/route.py`. `jobs.py` was not edited. Kokoro in `Media/Voice` was not edited. `Media/Playback` was present and was not called.
+- Proof, no cloud spend, speakers off, `RR_CLOUD_TTS` unset: `--engine ara` returned `called: false`, `detail: gated` (exit 0). `--engine ara --speak` returned the same with exit 2. `--engine kokoro` returned `kokoro_local` (exit 0) and did not render a WAV. `--engine cursor` returned `cursor_is_text_queue`. `--engine grok` returned `refused` (exit 1). `RR_CLOUD_TTS=1` without `--speak` stayed `gated`. No `ara-last.mp3`. An in-process tripwire on `urlopen` was not hit.
+- Runtime state is `2 - RootRecord-Database/Media/CloudTTS/last-route.json`. The log is `2 - RootRecord-Database/Logs/Media/CloudTTS/route.log`. Both paths are gitignored.
+- Archive: none. No file belongs only to this function. Left in place: `/home/rootrecord/old ollama/old skills/synth/scripts/synth.py`, `/home/rootrecord/old ollama/old skills/api/ai-external-api/xai/scripts/xai.py`, and the Kokoro scripts. Nothing was deleted from the old repo or from GitHub. No push.
+- Library corrections: matrix row 54, the Grok voice bullet in `Voice-Reports-G3.md`, and the synth row in the 2026-09-28 top-level catalog.
+
+This file stays in `Work-Orders/drafts/`. It is not on the active index. A live xAI call still needs a separate sign-off.
 
 ---
 

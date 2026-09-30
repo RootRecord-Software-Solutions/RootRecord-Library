@@ -159,4 +159,10 @@ Human session logs archive under `Documentation/01-operations/archive/YYYY-Www/`
 
 ### Phase 4 / phase 5 result
 
-Not written. Fill this subsection after the build works and the archive copies are on disk.
+**Landed.** `Communications/BruceStats/` reads the live host and EcoFlow last files and writes `slot.json` plus `last-text.txt` under Database `Communications/BruceStats/`. The dry-run printed `Desk sample (measured)`, a host line, and an EcoFlow line. `sent` was false. Job `bruce_stats_posts` is in `jobs.py`, off unless `RR_BRUCE_STATS=1`. `RR_BRUCE_STATS_SEND` was not set. No poller restart.
+
+**Archived.** `Old repos deleted and merged/Solar-Pacific-RootRecord-Server-Old/` keeping the old paths: `council/council-bruce-stats/` (including `scripts/__pycache__/job.cpython-314.pyc`), `council/council-telegram/scripts/bruce_stats.py`, `origin/ns/apps/council/bruce_stats.py`, and `origin/ns/apps/council/__pycache__/bruce_stats.cpython-314.pyc`.
+
+**Removed on GitHub.** `rootrecordsoftwaresolutions/Solar-Pacific-RootRecord-Server`, branch `online-safe-20260920`, commit `7feb8e5f`. The repository was not deleted. `origin/main` did not contain these files. Shared files left in the old repo: the rest of `council/council-telegram/`, the rest of `origin/ns/apps/council/`, `notify.py`, and `scheduler.py`.
+
+**Library.** Bruce lines only: `G1-Scheduler-To-G3-Jobs-Map-2026-09-29.md`, matrix row 60 and item 12, and the batch-4 blocked bullet. Council health text in those pages was left as the health work order wrote it.

@@ -4,11 +4,11 @@
 | --- | --- |
 | **Work Order ID** | WO-MIG-10-2026-09-29 |
 | **Date** | 2026-09-29 (HST) |
-| **Status** | OPEN — server code landed; pages staged; old files archived locally; GitHub push blocked |
+| **Status** | OPEN — pages are in the Vercel app; jobs off; GitHub push of the old-repo branch blocked |
 | **Owner** | RootRecord |
 | **Related** | Agent 10. Build pauses on agent 07 (Public website checkout) until `3 - RootRecord-Website` holds the one Vercel app. Agent 38 (AdSense and AdMob end-of-day) depends on this function later. |
 
-**Scope:** Bring Stripe balance snapshots, Vercel failed-build records, and live-data pages that read Energy, Weather, and Geology files already on disk. Public pages land in the one Vercel app after checkout exists, using the US-Mainland globe glass-card direction. Old page skins, including the holding page, stay out of that app. Server code is landed and the public page shell is staged. The old folders are archived and removed locally. Deploy, enabled jobs, and the GitHub push are still waiting.
+**Scope:** Bring Stripe balance snapshots, Vercel failed-build records, and live-data pages that read Energy, Weather, and Geology files already on disk. Public pages are in the one Vercel app at `/data`, using glass cards. Old page skins stay out of that app. Jobs stay off. The old folders are archived and removed locally. A production deploy and the GitHub push of the old-repo branch are still waiting.
 
 ---
 

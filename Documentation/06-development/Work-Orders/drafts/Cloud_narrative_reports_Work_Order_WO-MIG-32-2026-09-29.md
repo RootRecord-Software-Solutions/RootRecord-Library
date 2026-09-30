@@ -4,7 +4,7 @@
 | --- | --- |
 | **Work Order ID** | WO-MIG-32-2026-09-29 |
 | **Date** | 2026-09-29 (HST) |
-| **Status** | OPEN — draft, not accepted for execution |
+| **Status** | BUILT — dry-run landed; spend off; old engine archived and removed on GitHub. Not promoted to the active index. |
 | **Owner** | RootRecord |
 | **Related** | Agent 32. Wave E. Optional cloud pass on the existing templates. No other function has to exist first. No later function depends on this one. |
 
@@ -43,21 +43,22 @@ Folder: `CloudNarrative`, not installed yet. It belongs in Reports. One capitali
 
 | Item | Location / status |
 | --- | --- |
-| Folder `CloudNarrative` | Absent. Create it at build time under Reports |
+| Folder `CloudNarrative` | Installed. `scripts/cloud_narrative.py` dry-run. Spend stays off |
 | Morning / midday / late templates | `voice_reports.py` roll-ups. Text under `RR_VOICE_REPORT_OUT` (default `test-reports/Voice/<report>_current.md`). Jobs gated `RR_VOICE_ROLLUPS=1` |
 | Kīlauea template | `voice_reports.py kilauea_report`. Job gated `RR_VOICE_KILAUEA=1`. `geology_collect.py` stays the data source |
 | Optional local one-line summary | `RR_VOICE_ROLLUP_LLM=1` via `run-infer.sh`. Stays. This function does not replace it |
-| Old cloud engine | Still on disk under `old ollama/old skills/reports/sort/report-generation/`. Not ported |
+| Old cloud engine | Archived. Removed from the local skills tree and from GitHub `main` `85add20` |
 | `XAI_API_KEY` | Not in `master-key.env`. A live call cannot run until Alexander adds that name there |
 | GitHub `Solar-Pacific-RootRecord-Server-Old` | Not in the org (404). Remaining repos: Library, Database, Pacific, Ecosystem, `.github` |
 
 ### 2.2 Completed so far
 
-- [x] Draft work order written (this file). Status stays OPEN — draft, not accepted for execution
-- [ ] Alexander accepts this draft and says to build
-- [ ] `CloudNarrative` code and dry-run test
-- [ ] Phase 4 archive, then deletion of this function's old files only
-- [ ] Phase 5 result note and the Library pages this function made stale
+- [x] Draft work order written (this file)
+- [x] Alexander said to build
+- [x] `CloudNarrative` code and dry-run test (no socket, template unchanged)
+- [x] Phase 4 archive, then local deletion and GitHub `main` `85add20`
+- [x] Phase 5 result note and the Library pages this function made stale
+- [ ] `jobs.py` block. The file was already modified when build started, so it was left alone. The gated proposal stays in section 3.
 
 ### 2.3 Known friction
 
@@ -171,6 +172,18 @@ Add a short result note to this work order: what landed, what was archived, what
 - `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Geology/README.md` ("Grok report generation" line only)
 
 Do not rewrite unrelated work orders.
+
+### Result note
+
+Landed 2026-09-30: `Reports/CloudNarrative/scripts/cloud_narrative.py`. It reads the template markdown, strips NWS product bodies, and writes a prompt package plus `last.json`. Default and `--dry-run` set `http: false`. `merged` copies today's `morning-current.md` only when `--spend` is allowed, and it never calls the model. A live call needs both `--spend` and `RR_CLOUD_NARRATIVE_SPEND=1`, plus `XAI_API_KEY`. That call was not made.
+
+Proof: `morning --dry-run` exited 0 with `dry_run: true` and `http: false`. A socket guard saw no sockets. The morning template file was absent before and after. A fixture template with a long NWS product line stayed byte-identical, the product line was dropped from the package, and the measured battery line was kept.
+
+`jobs.py` was already modified (hurricane radio and Bruce stats), so the gated `cloud_narrative_dry_run` block was not registered. `RR_CLOUD_NARRATIVE` stays off.
+
+Archived to `Old repos deleted and merged/Solar-Pacific-RootRecord-Server-Old/reports/sort/report-generation/` (scripts, skill notes, migrate note; no `__pycache__`). Removed that tree from `/home/rootrecord/old ollama/old skills/reports/sort/report-generation/`. Shared files left in place: `morning-report/`, `midday-report/`, `late-report/`, `merged-morning/scripts/job.py`, `kilauea/rr-kilauea/scripts/kilauea.py`, `xai.py`, `api_ledger.py`, and the origin `report_generation.py` shim.
+
+GitHub: `Solar-Pacific-RootRecord-Server-Old` `main` moved `55e9c84..85add20`. That commit deletes `reports/sort/report-generation/` only. The repository was not deleted. No force-push. The skills checkout ignores `reports/`, so there was no commit there.
 
 ---
 

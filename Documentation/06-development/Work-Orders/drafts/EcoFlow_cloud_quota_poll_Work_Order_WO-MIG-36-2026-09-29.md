@@ -16,9 +16,7 @@
 
 The old cron at `/home/rootrecord/old ollama/old skills/energy/ecoflow-quota/scripts/ecoflow_quota.py` refreshed a snapshot about every 2 minutes, then called a voice “EcoFlow down” announce and the AC solar gate. That file is not the cloud client. The announce and the gate belong to other functions. Do not port them.
 
-The live system already has the newer client. `Energy/lib/ecoflow_api.py` signs `GET /iot-open/sign/device/quota/all` and maps quota keys into the same field shape as a BLE read. `Energy/lib/read_runner.py` tries BLE first, then calls that client and labels the snapshot `source: api`. Leap-frog (`ecoflow_read_cycle`, every 15s) and the boot read stay the live poll. Keep them.
-
-What is missing is the gate and the label. Cloud HTTP already runs on the BLE failure path, and on the security / B3 path (`prefer_api=1`), with no `RR_ECOFLOW_CLOUD` check. A recent Delta 2 sample (`read-delta2-20260930-003451.json`) is `source: api`. Recent River 2 Pro samples are `source: ble`. Once accepted, this function keeps BLE primary, skips the Open Platform unless the flag is set, and writes a signed-off fallback as `source: cloud` under `Energy/Cloud-Quota/`.
+The live system already has the newer client. `Energy/lib/ecoflow_api.py` signs `GET /iot-open/sign/device/quota/all` and maps quota keys into the same field shape as a BLE read. Leap-frog (`ecoflow_read_cycle`, every 15s) and the boot read stay the live poll. `read_runner.py` still tries BLE first. A cloud call now happens only when `RR_ECOFLOW_CLOUD=1`, and that snapshot is labeled `source: cloud` under `Energy/Cloud-Quota/`. The flag is unset.
 
 ---
 
@@ -40,9 +38,9 @@ Folder name, used in all three paths: **Cloud-Quota**. It is a subfolder of Ener
 | BLE read, keep | `Energy/lib/read_runner.py`, `Energy/scripts/read/leapfrog-read.sh`, `delta2-read.sh`, `river2pro-read.sh`. Delta 2 and River 2 Pro have `prefer_api=0`. Security / B3 has `prefer_api=1` and uses the same client, so the flag covers all three. |
 | Live samples, do not replace | `2 - RootRecord-Database/Energy/samples/`. BLE files stay there. Cloud JSON, when the flag is on, goes under `Energy/Cloud-Quota/`. |
 | Scheduler | `ecoflow_read_cycle` and `ecoflow_read_boot` in `Automations/scripts/jobs.py` stay enabled. `jobs.py` is already modified in the working tree. This draft does not edit it. |
-| Old source read | `/home/rootrecord/old ollama/old skills/energy/ecoflow-quota/scripts/ecoflow_quota.py`. Also `SKILL.md`, `INDEX.md`, `DAILY.md`, `references/migrate.md`. |
-| Shared old files, leave | `scripts/energy.py` (bank math) and `scripts/ecoflow_public.py` (sanitized live file). Not this poll. |
-| Old GitHub tree | `Solar-Pacific-RootRecord-Server-Old/energy/ecoflow-quota` is not on disk under `Old repos deleted and merged`. |
+| Old source | Exclusive files removed from the old skill folder after the archive copy. See the result note. |
+| Shared old files, left | `scripts/energy.py`, `scripts/ecoflow_public.py`, and `desk/scheduler.py` (symlink). Still in the old skill folder. |
+| GitHub | Deletion `50d3b0a6` is on `Solar-Pacific-RootRecord-Server` branch `online-safe-20260920`. Repository was not deleted. |
 
 ### 2.2 Completed so far
 
