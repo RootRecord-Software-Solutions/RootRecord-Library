@@ -193,7 +193,7 @@ Read-only comparison of the G1 `scheduler-clock` `add_job` calls against G3 `job
 
 **Check later**
 - [x] G3 night-sleep gate landed 2026-09-29 (`System/NightSleep`, WO-MIG-01). Default off. `--check` PASS 23:59 HST: `weather_poller` runs and `voice_late_report` skips while `sleeping` is true; both run when the file is absent. Live poller not restarted. `RR_NIGHT_SLEEP=1` still needs sign-off.
-- [ ] The G1 23:30 late-final report was not re-added.
+- [x] The G1 23:30 late-final report was re-added 2026-09-29 as gated `voice_late_final_report` (`RR_VOICE_LATE_FINAL`). Dry-run PASS 23:59 HST: `would-run` (late slot open), no `late_report_current.md`, no WAV.
 
 ## Reviewed, still BLOCKED / OUT
 

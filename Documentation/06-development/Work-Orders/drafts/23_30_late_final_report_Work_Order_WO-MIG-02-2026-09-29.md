@@ -4,7 +4,7 @@
 | --- | --- |
 | **Work Order ID** | WO-MIG-02-2026-09-29 |
 | **Date** | 2026-09-29 (HST) |
-| **Status** | OPEN — draft, not accepted for execution |
+| **Status** | OPEN — built, gated off (`RR_VOICE_LATE_FINAL`). Draft, not on the active index. |
 | **Owner** | RootRecord |
 | **Related** | Agent 02; G1 job `late-final-report`; Pacific `Reports/scripts/report_board.py`; `Media/Voice/scripts/voice_reports.py` `late_report`; Agent 01 Night-sleep scheduler gate |
 
@@ -30,24 +30,24 @@ Folder name: **Late-Final**, a subfolder of the existing Reports domain (same pa
 
 | Item | Location / status |
 | --- | --- |
-| Code | `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Reports/Late-Final/scripts` — not created. Build paused. |
-| Database | `2 - RootRecord-Database/Reports/Late-Final/` — not created. Last-run JSON only, when built. The due ledger stays `2 - RootRecord-Database/Reports/board/daily-reports-due.json`. |
-| Logs | `2 - RootRecord-Database/Logs/Reports/Late-Final/` — not created. |
+| Code | `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Reports/Late-Final/scripts/late_final.py` — landed. |
+| Database | `2 - RootRecord-Database/Reports/Late-Final/last.json` — written by the dry-run. The due ledger stays `2 - RootRecord-Database/Reports/board/daily-reports-due.json`. |
+| Logs | `2 - RootRecord-Database/Logs/Reports/Late-Final/` — created only on a real run. The dry-run did not write a log. |
 | Secrets | None. No `master-key.env` key names. |
 | G1 source | `Solar-Pacific-RootRecord-Server-Old` `scheduler-clock/scripts/scheduler.py` job id `late-final-report` calls `_run("late_report")` at hour 23, minute 30. Same runner as job id `late-report` at 21:00. |
 | Live late roll-up | `voice_late_report` at 21:02 in `Automations/scripts/jobs.py`, gated `RR_VOICE_ROLLUPS`. Template is `voice_reports.py` `_rollup(..., "late")`. |
 | Live board | `Reports/scripts/report_board.py`. Slots: morning 09:02, midday 12:02, late 21:02. Late is optional and is never caught up. |
-| Night-sleep scheduler gate | No Folder on the server. Only the agent brief exists: `5 - RootRecord-Library/Migration Agents/Sent/01-night-sleep-scheduler-gate.md`. |
+| Night-sleep scheduler gate | `1 - Servers/1 - RootRecord-Pacific-Solar-Server/System/NightSleep/scripts/night_sleep.py` is in place. This runner calls `should_run`. It does not implement the gate. A missing module means not sleeping. |
 
 ### 2.2 Completed so far
 
 - [x] Old source read (scheduler job + `late-report` `job.py` skip-if-done). Live board and `voice_late_report` read. Draft written.
-- [ ] Night-sleep scheduler gate Folder — absent. Build paused on this.
-- [ ] `Reports/Late-Final/scripts/late_final.py`
-- [ ] Gated `jobs.py` block `voice_late_final_report` at 23:30 (`RR_VOICE_LATE_FINAL=1`)
-- [ ] `--dry-run` test
-- [ ] Phase 4 archive and GitHub file removal
-- [ ] Phase 5 Library corrections
+- [x] Night-sleep scheduler gate Folder is in place (`System/NightSleep`). This function calls `should_run` and does not own the gate.
+- [x] `Reports/Late-Final/scripts/late_final.py`
+- [x] Gated `jobs.py` block `voice_late_final_report` at 23:30 (`RR_VOICE_LATE_FINAL=1`), left disabled
+- [x] `--dry-run` test, 2026-09-29 23:59 HST: `would-run`, late slot open, no report file, no WAV
+- [x] Phase 4: nothing unique to archive or delete
+- [x] Phase 5 Library corrections
 
 ### 2.3 Known friction
 
@@ -59,12 +59,12 @@ Folder name: **Late-Final**, a subfolder of the existing Reports domain (same pa
 
 ## 3. Tasks
 
-1. Pause. The Night-sleep scheduler gate has no Folder. Name that function and stop. Do not build the gate. Do not add `Reports/Late-Final`. Do not edit `jobs.py`.
-2. When that Folder exists and Alexander says to build: pause again if `Automations/scripts/jobs.py` is already being edited.
-3. Add `Reports/Late-Final/scripts/late_final.py`. Read the existing `late` slot (`report_board.py status` or `Reports/board/daily-reports-due.json`). If status is `done` or `running`, write the last-run JSON and exit. Otherwise run `voice_reports.py late_report --no-voice`. Call the night-sleep gate from Agent 01's Folder; skip the run when it says sleeping. Do not change `_rollup`. Do not add a fifth board slot. Do not play audio.
-4. Add one gated block in `jobs.py`, left disabled: id `voice_late_final_report`, `at_times` `["23:30"]`, `enabled` only when `RR_VOICE_LATE_FINAL=1` at poller start. Command: `nice -n 10 python3` on `late_final.py`. Text only. No delivery.
-5. Prove it with `python3 late_final.py --dry-run`. It prints skip or would-run, writes only the Late-Final last JSON, and does not call Kokoro or the speaker.
-6. After that works: phase 4, then the result note in this same file, then the Library corrections in section 7.
+1. Done. `System/NightSleep` was in place before the dry-run. This function does not build that gate.
+2. Done. `jobs.py` was free long enough to insert one gated block. The 21:02 late job was not changed.
+3. Done. `late_final.py` reads the existing `late` slot from the due JSON and from `late_report_current.md`. If status is `done` or `running`, it writes the last-run JSON and exits. Otherwise it runs `voice_reports.py late_report --no-voice`. It calls `NightSleep` `should_run` when that module is present. `_rollup` was not changed. No fifth board slot. No playback.
+4. Done. Gated block `voice_late_final_report` at 23:30, enabled only when `RR_VOICE_LATE_FINAL=1` at poller start. Text only. No delivery.
+5. Done. Dry-run at 2026-09-29 23:59 HST printed `would-run` (`late_slot_open`). It wrote `Reports/Late-Final/last.json` only. `late_report_current.md` was absent before and after. No WAV.
+6. Done. Phase 4 and the result note below. Library pages corrected.
 
 ---
 
@@ -83,9 +83,9 @@ Folder name: **Late-Final**, a subfolder of the existing Reports domain (same pa
 
 | Path | Role |
 | --- | --- |
-| `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Reports/Late-Final/scripts/late_final.py` | New runner. Not created. Build paused. |
-| `2 - RootRecord-Database/Reports/Late-Final/` | Last-run JSON. Not created. |
-| `2 - RootRecord-Database/Logs/Reports/Late-Final/` | Logs. Not created. |
+| `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Reports/Late-Final/scripts/late_final.py` | Runner. Landed. |
+| `2 - RootRecord-Database/Reports/Late-Final/last.json` | Last-run JSON from the dry-run. |
+| `2 - RootRecord-Database/Logs/Reports/Late-Final/late-final.jsonl` | Real-run log only. Not written by the dry-run. |
 | `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Reports/scripts/report_board.py` | Existing board. Read the `late` slot. Do not add a slot. |
 | `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Media/Voice/scripts/voice_reports.py` | Existing `late_report` template. Call with `--no-voice`. Do not edit. |
 | `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Automations/scripts/jobs.py` | Proposed gated block only, and only after the pause clears. |
@@ -100,10 +100,9 @@ Folder name: **Late-Final**, a subfolder of the existing Reports domain (same pa
 
 **Additional requirements:**
 
-- Build stays paused until the Night-sleep scheduler gate has a Folder. Do not build that function here.
-- `jobs.py` edit waits until that pause clears and the file is not already being edited.
 - Playback, Telegram, OBS, hardware switching, and cloud spend need Alexander's sign-off. They are not part of this function.
-- Phase 4 and phase 5 have not started.
+- Turning on `RR_VOICE_LATE_FINAL` needs a poller start. The flag is unset, so the job stays off.
+- `RR_NIGHT_SLEEP` is Agent 01's flag. This job does not turn it on.
 
 ---
 
@@ -118,12 +117,10 @@ Folder name: **Late-Final**, a subfolder of the existing Reports domain (same pa
 
 ### Result (phase 4–5)
 
-Not started. The Night-sleep scheduler gate Folder is missing, so the runner was not added.
-
-- Landed: this draft only.
-- Archived: nothing.
-- Removed on GitHub: nothing. Shared files left in place.
-- Library pages still say the 23:30 slot was not re-added. Correct these only after the migration works: `Documentation/00-architecture/G1-Scheduler-To-G3-Jobs-Map-2026-09-29.md`, `Documentation/00-architecture/Voice-Reports-G3.md`, `Documentation/00-architecture/Old-Repo-Migration-Matrix.md` (row 15), `Documentation/07-testing/2026-09-29-old-repo-ports-breadth-batch5.md`.
+- Landed: `Reports/Late-Final/scripts/late_final.py` and a disabled `jobs.py` block `voice_late_final_report` at 23:30 (`RR_VOICE_LATE_FINAL`). Dry-run 2026-09-29 23:59 HST: `would-run`, late slot open, no report markdown, no WAV.
+- Archived: nothing unique to archive. Shared old-repo files left in place: `scheduler-clock/scripts/scheduler.py`, `reports/sort/late-report/`, `reports/sort/daily-report-board/`.
+- Removed on GitHub: none. Shared files left. Repository not deleted.
+- Library pages corrected: `G1-Scheduler-To-G3-Jobs-Map-2026-09-29.md`, `Voice-Reports-G3.md`, `Old-Repo-Migration-Matrix.md` row 15, `2026-09-29-old-repo-ports-breadth-batch5.md`.
 
 ---
 

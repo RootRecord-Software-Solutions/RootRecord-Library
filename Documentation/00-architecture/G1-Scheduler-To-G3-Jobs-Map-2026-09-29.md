@@ -36,7 +36,7 @@ States: **LIVE** = enabled in G3 now · **GATED** = in jobs.py, OFF until its fl
 | day-reports-morning / -midday / -evening | 09:10 / 13:00 / 18:00 | G3 roll-ups (text) | GATED `RR_VOICE_ROLLUPS` (slot reports = same roll-ups; evening slot removed in G1) |
 | midday-report | 12:00 | `voice_midday_report` 12:02 | GATED `RR_VOICE_ROLLUPS` |
 | daily-reports-catchup | 14:00 | `Reports/scripts/report_board.py run-due` | PROPOSED `RR_REPORT_BOARD` (text only; play BLOCKED) |
-| late-report / late-final-report | 21:00 / 23:30 | `voice_late_report` 21:02 | GATED `RR_VOICE_ROLLUPS` (23:30 final not re-added) |
+| late-report / late-final-report | 21:00 / 23:30 | `voice_late_report` 21:02 / `voice_late_final_report` 23:30 | GATED `RR_VOICE_ROLLUPS` / `RR_VOICE_LATE_FINAL` (23:30 is a text-only second chance for the same late slot; skips if that slot is done) |
 | merged-morning-summary | 10:20 | covered by `voice_morning_report` | GATED |
 | cursor-fallback | 10:22 16:22 | — | BLOCKED (cloud spend / keys) |
 | governance-daily | 10:23 | — | OUT (Library content) |

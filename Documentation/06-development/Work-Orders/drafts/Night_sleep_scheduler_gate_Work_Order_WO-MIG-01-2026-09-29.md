@@ -8,7 +8,7 @@
 | **Owner** | RootRecord |
 | **Related** | Agent 01, Wave A. Later function that depends on this gate: 2, 23:30 late-final report. Old source: `old ollama/old skills/scheduler-clock/scripts/scheduler.py` (`night_sleeping`, `NIGHT_POLL`). Live map: `Documentation/00-architecture/G1-Scheduler-To-G3-Jobs-Map-2026-09-29.md`. |
 
-**Scope:** Add a night-sleep skip gate on the live Pacific poller, reading a `sleeping` flag and leaving every enabled job running until that gate is explicitly turned on. In scope is the gate module, its Database state and log paths, and one call from `run_job()`. Out of scope is writing the flag, sunrise math, audio mute, hardware switching, a new periodic job, and any other agent's function. This draft is not accepted for execution. Do not promote it onto the active index.
+**Scope:** Add a night-sleep skip gate on the live Pacific poller, reading a `sleeping` flag and leaving every enabled job running until that gate is explicitly turned on. In scope is the gate module, its Database state and log paths, and one call from `run_job()`. Out of scope is writing the flag, sunrise math, audio mute, hardware switching, a new periodic job, and any other agent's function. Built 2026-09-29 with the gate default off. This file stays in drafts. Do not promote it onto the active index.
 
 ---
 
@@ -36,8 +36,8 @@ Folder name: **NightSleep**, under the System domain. One capitalized folder. No
 | Package / module | `NightSleep` |
 | Old skip | `night_sleeping()` and `NIGHT_POLL` inside shared `scheduler.py` |
 | Old flag writer | `write_night_state` / `in_starlink_sleep` in the old EcoFlow BLE poller — not this function |
-| Live poller | `Automations/scripts/rootserver_poller.py` `run_job()` — no night-sleep gate |
-| Live job map | No night-sleep gate. Enabled jobs run around the clock. |
+| Live poller | `Automations/scripts/rootserver_poller.py` `run_job()` calls the gate only when `RR_NIGHT_SLEEP=1` at process start |
+| Live job map | Gate is in code and default off. Enabled jobs still run around the clock until that flag is set. |
 
 ### 2.2 Completed so far
 
