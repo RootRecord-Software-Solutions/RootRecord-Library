@@ -29,7 +29,7 @@ Folder: `MorningBootReplay`, installed under Media. `boot_brief` stays in `Media
 | Path | Role |
 | --- | --- |
 | Code | `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Media/MorningBootReplay/scripts` (package `MorningBootReplay`) |
-| Database | `2 - RootRecord-Database/Media/MorningBootReplay/` (state JSON only; created at runtime, not committed) |
+| Database | `2 - RootRecord-Database/Media/MorningBootReplay/replay-last.json` (active database, `at` field; not committed) |
 | Logs | `2 - RootRecord-Database/Logs/Media/MorningBootReplay/` |
 | Secrets | none. No `master-key.env` keys. |
 
@@ -68,7 +68,7 @@ Folder: `MorningBootReplay`, installed under Media. `boot_brief` stays in `Media
 Build later, in this order. Do not start these until Alexander accepts this draft and says to build.
 
 1. Pause if Report playback has no Folder. Name that function. Do not build the player, Kokoro, OBS, sunrise restore, or readiness audio.
-2. Add `Media/MorningBootReplay/scripts/replay.py` plus package init and a short README. State file `morning-boot-replay.json` under the Database path. Logs only under the Logs path. Do not put a `Logs/` directory on the server.
+2. Add `Media/MorningBootReplay/scripts/replay.py` plus package init and a short README. State file `replay-last.json` under the Database path, with an `at` time like the other active last files. Logs only under the Logs path. Do not put a `Logs/` directory on the server.
 3. `arm`: only when today's `boot_brief` WAV is a morning file (name and mtime are today, HST, and the name is not midday, evening, or late). Set `enabled`, `day`, and `until` capped at noon HST.
 4. `run`: skip if disabled, not :32 (unless `play_once`), past noon, wrong day, or midday board status is `done`. Refuse a stale or non-morning file and disarm. On success, clear `play_once` and record `last_played`.
 5. Hand the WAV to Report playback's player. Do not call `aplay` or any speaker from this folder.
@@ -109,7 +109,7 @@ Build later, in this order. Do not start these until Alexander accepts this draf
 | `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Media/MorningBootReplay/scripts/replay.py` | `arm` and `run` |
 | `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Media/MorningBootReplay/scripts/__init__.py` | Package init |
 | `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Media/MorningBootReplay/README.md` | Short folder note |
-| `2 - RootRecord-Database/Media/MorningBootReplay/morning-boot-replay.json` | Runtime state. Not committed. Not imported from the old repo |
+| `2 - RootRecord-Database/Media/MorningBootReplay/replay-last.json` | Active-database state. `at` plus enabled, day, until, wav. Not committed |
 | `2 - RootRecord-Database/Logs/Media/MorningBootReplay/` | Logs only |
 | `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Media/Voice/scripts/voice_reports.py` | Read-only. `b_boot_brief` stays the text source |
 | `2 - RootRecord-Database/Media/Audio/Voice/boot_brief_current.wav` | Read-only morning WAV to replay |

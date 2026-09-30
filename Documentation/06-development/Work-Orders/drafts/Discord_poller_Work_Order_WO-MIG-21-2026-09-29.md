@@ -8,7 +8,7 @@
 | **Owner** | RootRecord |
 | **Related** | Agent 21. Wave D. One send pipe, then the messages. Later functions depend on this folder: 22 Slack poller; 23 Earthquake Discord post; 24 Kilauea public draft queue; 29 Economy brief. Matrix row 59 (Discord half). WO-COM-002. |
 
-**Scope:** Discord polling is one Communications subfolder. This draft names the folder and the three paths and records the build. No runtime files are edited, no job is enabled, no token is written, no message is sent, and nothing is archived until Alexander accepts this draft and says to build. Slack, earthquake posts, the Kilauea queue, and the economy brief stay with their own agents.
+**Scope:** Discord polling is one Communications subfolder. The script, empty channel list, and disabled job block are landed. Phase 4 (archive and GitHub deletion) is not done. No token was written, no Discord request was made, and no message was sent. Slack, earthquake posts, the Kilauea queue, and the economy brief stay with their own agents.
 
 ---
 
@@ -113,15 +113,15 @@ Do these only after Alexander accepts this draft and says to build. Until then, 
 
 | Path | Role |
 |------|------|
-| `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Communications/Discord/scripts` | Code. Not created in this draft. |
+| `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Communications/Discord/scripts` | Code. Landed. |
 | `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Communications/Discord/scripts/poll.py` | The poller. No token means no Discord HTTP. |
 | `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Communications/Discord/lib/envload.py` | Allowlist `DISCORD_BOT_TOKEN` from `master-key.env`. |
 | `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Communications/Discord/README.md` | Absorbs the lowercase shell README on build. |
-| `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Communications/discord/README.md` | Current lowercase shell. Moved, not left as a twin. |
-| `2 - RootRecord-Database/Communications/Discord/` | Runtime status. Not written in this draft. |
+| `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Communications/discord/` | Lowercase shell removed 2026-09-30. No twin. |
+| `2 - RootRecord-Database/Communications/Discord/` | Runtime status. Gitignored. `status-last.json` written by the no-token test. |
 | `2 - RootRecord-Database/Logs/Communications/Discord/` | Logs only. |
 | `/home/rootrecord/master/master-key.env` | Unchanged. Key name `DISCORD_BOT_TOKEN` is absent. |
-| `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Automations/scripts/jobs.py` | Proposed disabled `discord_poller` block only. Not edited in this draft. |
+| `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Automations/scripts/jobs.py` | Disabled `discord_poller` block only. `enabled: False`. |
 | `1 - Servers/2 - RootRecord-US-Mainland-Server/communications/discord/poll.py` | AWS stub. Leave it. |
 | `/home/rootrecord/old ollama/old skills/communications/discord/scripts/discord.py` | Old REST helper read for this draft. Not the phase 4 GitHub tree. |
 | `Old repos deleted and merged/Solar-Pacific-RootRecord-Server-Old/communications/discord/` | Phase 4 archive path. Not copied in this draft. |
