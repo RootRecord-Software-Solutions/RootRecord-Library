@@ -102,7 +102,7 @@ systemd   rr-rootserver-poller.service active. Poller pid 3096, Pacific Automati
 Energy    River 2 Pro BLE live, ~35% SOC at 01:22, discharging, solar 0 W. Delta 2 dead and not transmitting (operator). WAITING is normal. Last Delta 2 file 00:53 at 1% SOC.
 Cameras   ch1–ch4 grabbed. cam_server cwd is Pacific Security/Cameras. ch4 is a small night frame. Timelapse still waits on the 05–19 HST window.
 Weather   Poller up. County reports regenerated 01:18. Some NOAA pages INVALID or HTTP 500/503/403.
-Tunnel    https://rootserver.rootrecord.cloud HTTP 200. Local site :3001 HTTP 200 from 3 - RootRecord-Website.
+Tunnel    https://rootserver.rootrecord.cloud HTTP 200 (poller :8799). Local website removed 2026-09-30. Do not start next dev on :3001.
 Github    github_sync_all publishing ecosystem, pacific, database, library. skills matched. website and mainland rows still disabled.
 Telegram  Relay up, replies OFF. getUpdates saw timeouts after boot.
 G2        Code kept, including ~/.ollama/skills and the 27 GB old-skills tree. Do not retire without Alexander's sign-off.
