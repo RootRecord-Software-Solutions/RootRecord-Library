@@ -4,7 +4,7 @@
 | --- | --- |
 | **Work Order ID** | WO-DATA-2026-09-27 |
 | **Date** | 2026-09-27 (HST) |
-| **Status** | **IN PROGRESS** — canonical path is in place. Subtree labels recorded 2026-09-29 ~21:41 HST. The short publication map is in Master-Prompt `08-repository-and-file-links.md` (22:20 HST). Users/PII retention and media-master retention are still open, so this order is not closed. |
+| **Status** | **IN PROGRESS** — canonical path is in place and the 01:09 HST boot wrote River samples, system samples, camera frames, and the poller log there. Publication choices (geology last-files, users/PII, timelapse masters, cloudflared binary) are Alexander's. See `Documentation/01-operations/2026-09-30-whats-left-for-alexander.md`. |
 | **Owner** | RootRecord |
 | **Related** | WO-ECO; RootRecord-Weather-Database |
 

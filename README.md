@@ -28,7 +28,7 @@ It gives operators and agents a durable place to find the same architecture, con
 | --- | --- |
 | 🧠 **Agent Context** | Identity, principles, bounds, workflow, infrastructure maps, handoffs |
 | 🏗️ **Architecture** | System design, migration records, decisions, canonical paths |
-| 🛠️ **Operations** | Operator logs, recovery notes, runtime verification, security records |
+| 🛠️ **Operations** | Operator logs, recovery notes, runtime verification, security records. Current remaining-work list: `Documentation/01-operations/2026-09-30-whats-left-for-alexander.md` |
 | 📋 **Work Orders** | Active migration and development work with explicit acceptance criteria |
 | 📚 **Guides** | Standing practices and reusable how-to material |
 

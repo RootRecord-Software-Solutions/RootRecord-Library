@@ -6,6 +6,8 @@ Single entry point for agents and operators working the Pacific server cutover *
 
 **Desk git root (2026-09-29):** this checkout is one repository, [RootRecord-Ecosystem](https://github.com/RootRecord-Software-Solutions/RootRecord-Ecosystem). Library, Pacific, and Database here are directories in that tree. Older notes in this index that assume three nested clones describe the migration as it stood, not the current desk.
 
+**What Alexander still has to decide (2026-09-30 01:29 HST):** [What's left for Alexander](../01-operations/2026-09-30-whats-left-for-alexander.md). The runtime cutover is live. Delta 2 silence is expected. Do not treat the hard stops below as a broken boot.
+
 **Team constitution (standing):** [Local-Multi-Agent-Team-and-Migration-to-Build-2026-09-28.md](./Local-Multi-Agent-Team-and-Migration-to-Build-2026-09-28.md) — Ava → Carly → Bruce; small local models; migrate then build.
 
 ---
@@ -158,3 +160,5 @@ Weather: **enabled and PASS** since 2026-09-29 (Pacific `Weather/`; see WO-SRV).
 *Index updated 2026-09-29 ~13:40 HST — Old-Repo-Migration-Matrix linked; Geology collector + ports batch 1 test records in `07-testing/`. ~14:10 HST — Pending-Job-Registrations linked; breadth batch 4 test record. ~14:40 HST — G1-Scheduler-To-G3-Jobs-Map linked; breadth batch 5 test record (`07-testing/2026-09-29-old-repo-ports-breadth-batch5.md`); matrix now 35 / 22 / 33.*
 
 *Index updated 2026-09-29 ~16:30 HST: new section "2026-09-29 afternoon" links US-Mainland-Server, the AWS trim + cloudflared and static-allowlist records, the AWS fallback rebuild and globe landing overlay proposals, the Root Monitor toggle-buttons record, Control-Panel-GTK and Android-Apps-Inventory. Current state and sign-offs: worklog section "State at pause, 16:25 HST".*
+
+*Index updated 2026-09-30 01:29 HST: operator remaining-work list linked. Desk check after the 01:09 boot: Pacific stack up, River BLE live, Delta 2 dead and not transmitting.*

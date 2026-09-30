@@ -23,7 +23,7 @@ G1 (`rootrecordsoftwaresolutions/Solar-Pacific-RootRecord-Server-Old`) holds tho
 | Item | Status |
 | --- | --- |
 | G3 live | Confirmed (poller on Ecosystem Servers path) |
-| G2 residual jobs | Pacific now runs energy reads, cameras, GitHub sync, plumbing, the Telegram relay, system sampling, reports, the globe, and the weather poller. G2 code stays on disk until Alexander signs off retirement. Energy actuation and timelapse compile are still open on WO-SRV. |
+| G2 residual jobs | Pacific runs River reads, cameras, GitHub sync, plumbing, the Telegram relay, system sampling, reports, the globe, and the weather poller (rechecked 2026-09-30 01:24 HST). Delta 2 no longer transmits; that is expected. G2 code stays on disk until Alexander signs off retirement. River actuation and timelapse compile stay open on WO-SRV. |
 | G1 inventory | Library `Solar-Pacific-Old-Inventory-Map-2026-09-28.md` |
 | G1 path count | ~7286 (largest: `origin/` ~4k) |
 
