@@ -4,6 +4,16 @@ This folder is a teaching desk. Tonight it is mainly for an AI that has to edit 
 
 Nothing in this folder starts a service, sends a message, spends money, or turns a job on.
 
+## How a handbook is filed
+
+Automation looks at **folders** under this directory, the same way Root Monitor is filed. A new operator handbook goes here:
+
+```text
+Guides & Tutorials/<Guide-Name>/<Guide-Name>.md
+```
+
+Do not leave a new handbook as a loose `.md` next to this README. Screenshots and short supporting pages stay inside that folder. Then add one line to **Already written, and kept**.
+
 ## Start here
 
 | If you are | Open |

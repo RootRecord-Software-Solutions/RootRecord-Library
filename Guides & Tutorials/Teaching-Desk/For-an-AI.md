@@ -41,4 +41,6 @@ These are facts, not suggestions.
 | How does he want a messy plan cleaned up? | [One clean plan](../HOW-TO-TURN-MESSY-AI-OUTPUT-INTO-ONE-CLEAN-PLAN.md) |
 | What would a new person learn after this? | [For a new person](./For-a-new-person.md) and the [course map](./Course-map.md) |
 
+A new operator handbook goes in `Guides & Tutorials/<Guide-Name>/<Guide-Name>.md`, not as a loose file next to the Guides README. Automation picks up folders.
+
 After an edit, compile the Python file you touched, or run `bash -n` on the shell script. A comment inside a string or a heredoc is a broken edit, not documentation.
