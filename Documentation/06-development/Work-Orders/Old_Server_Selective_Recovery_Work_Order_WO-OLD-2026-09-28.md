@@ -4,7 +4,7 @@
 | --- | --- |
 | **Work Order ID** | WO-OLD-2026-09-28 |
 | **Date** | 2026-09-28 (HST) |
-| **Status** | OPEN — G3 is running the live jobs. The first new G1 packet is still not recovered. G2 code stays until Alexander signs off retirement. |
+| **Status** | OPEN — G3 is running the live jobs. The first new G1 packet is still not recovered. On 2026-09-30 only byte-identical skills copies were removed. Unique skills files and the 27 GB old-skills tree stay until Alexander names them. |
 | **Owner** | RootRecord |
 | **Related** | WO-SRV; WO-ECO; Migration lineage + Old inventory maps |
 

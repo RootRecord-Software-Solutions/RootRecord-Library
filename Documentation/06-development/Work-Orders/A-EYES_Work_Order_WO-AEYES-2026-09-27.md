@@ -6,7 +6,7 @@
 | **Date**         | 2026-09-27                     |
 | **Status**       | OPEN — Ready for additions     |
 | **Owner**        | RootRecord                     |
-| **Updated**      | 2026-09-30 01:29 HST — grabs still pass after the 01:09 boot (ch1–ch4; ch4 is a small night frame). Interval still 1s. Timelapse still waits on 05:00–19:00 HST. Alexander's call is in `Documentation/01-operations/2026-09-30-whats-left-for-alexander.md`. |
+| **Updated**      | 2026-09-30 02:35 HST — grabs still pass (ch1–ch4; ch4 is a small night frame). Interval still 1s. Timelapse still waits on 05:00–19:00 HST. Alexander's call is in `Documentation/01-operations/2026-09-30-whats-left-for-alexander.md`. |
 
 **Scope:** Reduce A-EYES archive load while producing a clean, human-viewable 1-minute daily timelapse. This document captures the current system, the math, the recommended changes, and leaves room for additional requirements.
 

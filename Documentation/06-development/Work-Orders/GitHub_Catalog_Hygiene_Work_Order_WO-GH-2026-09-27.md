@@ -4,7 +4,7 @@
 | --- | --- |
 | **Work Order ID** | WO-GH-2026-09-27 |
 | **Status** | **IN PROGRESS** — desk publishes `ecosystem` (inplace) and `pacific`, `database`, `library` (mirror). `skills` stays on. `website` and `mainland` stay disabled |
-| **Updated** | 2026-09-30 01:29 HST — sync still publishing the five enabled rows after the 01:09 boot. Website and mainland stay disabled until Alexander says otherwise. See `Documentation/01-operations/2026-09-30-whats-left-for-alexander.md`. |
+| **Updated** | 2026-09-30 02:35 HST — the five enabled rows stay on. Skills HEAD at 02:16 was `6483586`. Website and mainland stay disabled. See `Documentation/01-operations/2026-09-30-whats-left-for-alexander.md`. |
 
 **Scope:** Catalog + auto-sync under Pacific; org remotes for canonical three; retire non-canonical clutter when convenient.
 
