@@ -50,8 +50,8 @@ Folder name, used in all three places: `CouncilQuake` (inside Communications). N
 - [x] `CouncilQuake` dry-run script, README, and gated `jobs.py` block added. Send and WAV stay off.
 - [ ] Alexander has not accepted this draft for execution.
 - [x] Offline `--self-test` passed 2026-09-30: one M2.4 notice, second run zero, no send, live `hawaii-last.json` untouched.
-- [ ] Phase 4 archive and GitHub deletion not done.
-- [ ] Phase 4 archive not done. Phase 5 result note not written. Matrix row 6 not corrected.
+- [x] Phase 4 archive is on disk. Old-repo commit `f05ec568` pushed to `online-safe-20260920`. Shared `notify.py` and `report_cast.py` left in place.
+- [x] Phase 5 result note written. Matrix row 6, the scheduler map, and the Geology ownership page corrected.
 
 ### 2.3 Known friction
 
