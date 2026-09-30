@@ -95,15 +95,25 @@ Click a name. The page builds the first time you visit it, then stays until you 
 
 ### How to read the bars
 
-Battery, CPU, and RAM share one bar. Color is a percentage scale:
+Batteries and the host do not share a color scale.
 
-| Fill | Color | On a battery | On CPU or RAM |
-| --- | --- | --- | --- |
-| under 20% | red | low charge | a quiet CPU is red because the number is small, not because the host is failing |
-| 20% to 50% | amber | mid charge | mid use |
-| over 50% | green | healthy charge | heavier use |
+**Charge** (B1, B2, the laptop): low is bad.
 
-On this capture, CPU at 4.7% is a short red bar. That is a quiet machine. B1 at 18.5% is red because the River is low. B3 at 100% is a full green bar because the laptop is on AC and full.
+| Fill | Color |
+| --- | --- |
+| under 20% | red |
+| 20% to 50% | amber |
+| over 50% | green |
+
+**Use** (CPU, RAM): low is good. Red starts at 80%.
+
+| Fill | Color |
+| --- | --- |
+| under 50% | green |
+| 50% up to 80% | amber |
+| 80% and above | red |
+
+On the 02:48 energy capture, B1 at 18.5% is red because the River is low. B3 at 100% is a full green bar because the laptop is on AC and full. On the later system capture, CPU at 3.6% is a short green bar and RAM at 70% is amber, because 70 is under the 80% red line.
 
 ### On / off controls are buttons
 
@@ -173,22 +183,25 @@ At 02:48 the heartbeat was live: `B2=1% B1=19.8% solar=0 W ac=57 W usbc=0 W`, la
 
 ## Weather
 
-![Weather page, forecast files empty at 02:48](media/02-weather.png)
+![Weather opens on Big Island stations](media/02-weather.png)
 
-Two cards.
+Three cards. The island defaults to **Big Island**.
 
-**Sun** uses the same NOAA solar table as the dashboard SUN row. On this capture: `solar table not available`. When the table is present, this line is the sun state (day, night, twilight) in large type.
+**Sun** uses the same NOAA solar table as the dashboard SUN row. On this capture: `solar table not available`. When the table is present, this line is the sun state in large type.
 
-**Zone forecast** defaults to **Honolulu Metro** (`weather_zone` in `settings.json`). It shows Today, Tonight, advisories in amber, then when the zone forecast (ZFP) was collected and when the state report was generated. On this capture every one of those was a dash. The files it reads are:
+**Stations** is the hourly NWS wind report (`oso_hourly_obs_current.md`). Four buttons sit on the card: **Big Island**, **Maui**, **Oahu**, **Kauai**. The selected one is green. A click saves `weather_zone` immediately, so the next launch stays on that island. Big Island is the file's "Hawaii" group.
 
-- `Weather/Hawai'i/reports/0 Level Processing/zfp_zone_forecast_current.md`
-- the head of `Hawaii_State_Weather_Report_current.md`
+On the 03:05 HST capture the summary read:
 
-The forecast is re-read only when the file's modification time changes. An empty page means those reports were not on disk in a form the parser could use, not that Honolulu had no weather.
+> 63 reporting · 3 silent · Hilo AP 220° 6 kt at 02:00 · Kona Intl AP 60° 6 kt at 02:00
 
-**Open weather reports folder** opens that reports directory with the desktop file manager.
+The list under that is every station for the island, in the order NWS prints them: location, time, direction, speed, gust. A station with no observation says `no report`. Scroll for the rest, including Kona. Maui, Oahu, and Kauai are the same report filtered to that island. The headline station on those islands is Kahului AP, Honolulu AP, and Lihue.
 
-Change the zone name under **Settings → Panel → Weather zone**, then **Save settings**.
+**Zone forecast** is still Today, Tonight, and advisories, when `zfp_zone_forecast_current.md` is on disk. For Big Island it uses the blocks whose titles contain "Big Island" (windward and leeward). That file was not on disk at capture, so the card says so and points you at the station list. The state report's generated time is appended when `Hawaii_State_Weather_Report_current.md` is present.
+
+**Open weather reports folder** opens that reports directory.
+
+The same island name is on **Settings → Panel** as "Weather island". The buttons on this page are the control you use.
 
 ---
 
@@ -198,15 +211,17 @@ Change the zone name under **Settings → Panel → Weather zone**, then **Save 
 
 **Host** reads `System/last/host-last.json`.
 
-| | This capture |
+| | This capture (03:05 HST) |
 | --- | --- |
-| CPU | 4.7% (5-minute average 4.4%). Red bar because 4.7 is under 20. The machine is idle. |
-| RAM | 68.0% used. 4.9 GB available of 15.2 GB. 5-minute average 67.4%. Green bar. |
-| Load | 0.80 / 1.23 / 1.26 |
+| CPU | 3.6% (5-minute average 12.0%). Short **green** bar. Under 50% is quiet. |
+| RAM | 70.1% used. 4.6 GB available of 15.2 GB. 5-minute average 72.3%. **Amber**, because 70 is between 50 and 80. |
+| Load | 0.86 / 0.97 / 1.03 |
 | Host | `rootrecord-software-solutions` |
-| Sampled | 02:48:02 HST, 26 seconds old |
+| Sampled | 03:04:13 HST |
 
-**Poller SYSTEM line** is the latest SYSTEM heartbeat in the automations log. Here: `cpu=5% load=0.80 mem=68% src=sqlite`.
+The line under the bars states the scale: green under 50%, amber from 50%, red at 80% and above. A red CPU or RAM bar means that number is at least 80%.
+
+**Poller SYSTEM line** is the latest SYSTEM heartbeat in the automations log. Here: `cpu=4% load=0.86 mem=70% src=sqlite`.
 
 If the host card and the SYSTEM line disagree by a lot, the host card is the JSON sample and the line is whatever the poller last wrote. Both ages are on screen. Trust the newer one, then look at Poller / services if the log age in the header is large.
 
@@ -708,7 +723,7 @@ This sub-page is not the registry list. It edits Root Monitor's own `settings.js
 | Refresh interval | 5 s (range 2–60) |
 | Mark SOC stale after | 900 s |
 | Poller log lines shown | 40 |
-| Weather zone | Honolulu Metro |
+| Weather island | Big Island (buttons on the Weather page; also Maui, Oahu, Kauai) |
 | Start page | energy. Cameras is refused as a start page. |
 | GTK renderer | `cairo` (lightest). Applies on next start. |
 | Starlink | On, poll 10 s minimum. Does nothing without the helper venv. |
@@ -774,7 +789,7 @@ The poller was PASS, one process, pid 3096, log written within the last minute. 
 
 B1 River 2 Pro was at 18.5% and fresh over BLE, AC out 34 W, USB-C out 17 W, solar 0 W. B2 Delta 2 was at 1% and the sample was 1 hour 55 minutes old, source API, so it was marked STALE. The laptop was full and on AC. The Delta expansion field was absent from the ENERGY line.
 
-The host was idle: CPU about 5%, RAM 68%, load under 1.3. NPU `accel0` present, FLM idle, lock idle. AI log had 11 old NPU requests and none since midnight. Weather reports and the solar table were empty. Wi-Fi `wlo1` was up with a quiet instant rate and hundreds of megabytes since boot. Starlink was a placeholder because the helper venv is not installed. `rr-aws` has a ProxyCommand whose binary is missing; `rr-aws-ip` is the direct host. AWS Fallback was in **write** mode and had not been read yet this session. Cameras had four fresh stills on disk and the viewer was off on disk. Risky actions were off. Sixteen migration placeholders were still open.
+The host was idle: CPU a few percent (green), RAM around 70% (amber, under the 80% red line), load under 1.3. NPU `accel0` present, FLM idle, lock idle. AI log had 11 old NPU requests and none since midnight. Weather opens on Big Island stations from the hourly wind report (Hilo and Kona were both reporting). The zone-forecast file was not on disk, and the solar table was empty. Wi-Fi `wlo1` was up with a quiet instant rate and hundreds of megabytes since boot. Starlink was a placeholder because the helper venv is not installed. `rr-aws` has a ProxyCommand whose binary is missing; `rr-aws-ip` is the direct host. AWS Fallback was in **write** mode and had not been read yet this session. Cameras had four fresh stills on disk and the viewer was off on disk. Risky actions were off. Sixteen migration placeholders were still open.
 
 ---
 
@@ -785,8 +800,10 @@ The host was idle: CPU about 5%, RAM 68%, load under 1.3. NPU `accel0` present, 
 | Header poller **FAIL** | The poller process or its unit is not in the expected state. Open Poller / services. The panel will not restart it. |
 | Log age climbing | `automations_current.log` is not being written. Same page, then the log view. |
 | **STALE** under B1 or B2 | That pack's last JSON is older than `stale_after_sec` (15 minutes). Check BLE on the services page and `ble-owner.py` on Running. |
-| Red CPU bar at a small percent | The bar's red zone is "under 20%". A quiet CPU is red. Read the number. |
-| Weather dashes | The zone forecast file or the state report was missing or unparsed. The button opens the reports folder. |
+| CPU or RAM bar red | That reading is 80% or higher. Under 50% is green. Between 50 and 80 is amber. |
+| Battery bar red | That pack is under 20%. Full charge is green. The battery scale is the opposite of CPU and RAM. |
+| Weather station list empty | `oso_hourly_obs_current.md` is missing. The reports-folder button opens the directory. |
+| Today and Tonight are dashes | The zone forecast file `zfp_zone_forecast_current.md` is not on disk. The station list above it is still the live report. |
 | Starlink: placeholder | `Apps/Control-Panel/Starlink/.venv` is not there. |
 | Starlink: not reachable | Helper ran and the dish at `192.168.100.1:9200` did not answer. |
 | SSH rr-aws FAIL immediately | ProxyCommand binary missing, as the row already says. Try rr-aws-ip. |
