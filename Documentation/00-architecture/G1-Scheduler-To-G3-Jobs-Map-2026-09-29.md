@@ -1,0 +1,70 @@
+# G1 scheduler → G3 jobs map (scheduler-clock verification)
+
+| Field | Value |
+| --- | --- |
+| **Source** | G1 `Solar-Pacific-RootRecord-Server-Old/scheduler-clock/scripts/scheduler.py` (APScheduler). 73 `add_job` calls, 64 unique job ids (parsed 2026-09-29 ~14:33 HST from a read-only shallow clone). G1 KEPT, unchanged |
+| **G3 registry** | Pacific `Automations/scripts/jobs.py` (read at poller start). Proposed-only blocks: [Pending-Job-Registrations-2026-09-29](./Pending-Job-Registrations-2026-09-29.md) |
+| **Purpose** | Matrix row 15 ("Scheduler clock — verify-only"). This is the verification: every G1 job, where it lives in G3 and its gate. |
+
+States: **LIVE** = enabled in G3 now · **GATED** = in jobs.py, OFF until its flag is set at a poller start · **PROPOSED** = script ported, block in the Pending doc (not in jobs.py) · **ON DEMAND** = ported, no job · **BLOCKED** = needs Alexander (reason) · **OUT** = out of Pacific scope.
+
+| G1 job id | G1 trigger (HST) | G3 | State / flag |
+| --- | --- | --- | --- |
+| heartbeat | every 60 s | `heartbeat` builtin | LIVE |
+| rr-noaa | every 60 min | `weather_poller` daemon (Pacific `Weather/`) | LIVE |
+| radar-archive | every 10 min | `weather_poller` (`Weather/fetch/radar.py`, 14-day dated archive) | LIVE |
+| official-weather-media | every 10 min | `Weather/scripts/official_statement.py` (HLS) + `voice_reports.py official_weather` | PROPOSED `RR_OFFICIAL_HLS`, `RR_VOICE_OFFICIAL`; OBS BLOCKED |
+| nws-hawaii-counties | :07 :22 :37 :52 | `voice_nws_weather` | GATED `RR_VOICE_NWS` |
+| rr-kilauea | every 60 min | `geology_collect` (HVO) + `voice_kilauea_report` | GATED `RR_GEOLOGY`, `RR_VOICE_KILAUEA`; Grok draft / Discord BLOCKED |
+| time-chime | :00 :30 | `voice_hourly_chime` | GATED `RR_VOICE_HOURLY_CHIME` |
+| remaining-tasks | :32 | `voice_remaining_tasks` | GATED `RR_VOICE_REMAINING` |
+| morning-boot-replay | :32 | — | BLOCKED (playback) |
+| hourly-clip-reports (+ hourly-clip-prebuild :55) | :02 | `voice_solar_desk` / `voice_security_desk` / `voice_bandwidth_desk` / `voice_kilauea_report` | PROPOSED / GATED; playback BLOCKED |
+| earthquake-hourly | :08 | `voice_earthquake_report` | GATED `RR_VOICE_QUAKE` |
+| earthquake-m2-poll | every 10 min | `geology_collect` (300 s) | GATED `RR_GEOLOGY` |
+| council-quake | every 2 min | — | BLOCKED (Telegram sends) |
+| council-bruce-stats | 07:18 15:18 21:18 | — | BLOCKED (Telegram sends) |
+| hourly-solar-weather | :04 | `voice_solar_desk` + `energy_sun_times` | PROPOSED `RR_VOICE_SOLAR`; GATED `RR_SUN_TIMES` |
+| solar-notes-quarter-hour | every 30 min | Energy BLE poller (G3 Energy db) | LIVE (capability) |
+| hybrid-charge-status | every 30 min | Energy BLE poller | LIVE (capability) |
+| system-performance | :06 | `voice_system_perf` | GATED `RR_VOICE_SYSTEM_PERF` |
+| player-economy-report | every 60 min | — | OUT (RootMC product) |
+| morning-report | 09:00 | `voice_morning_report` 09:02 | GATED `RR_VOICE_ROLLUPS` |
+| report-readiness | every 5 min | `Reports/scripts/report_board.py status` | PROPOSED `RR_REPORT_BOARD`; readiness playback BLOCKED |
+| report-periodic-audio | every 5 min | — | BLOCKED (playback) |
+| morning-report-play / midday-report-play / late-report-play | 09:05 / 12:05 / 21:08 | — | BLOCKED (playback) |
+| day-reports-morning / -midday / -evening | 09:10 / 13:00 / 18:00 | G3 roll-ups (text) | GATED `RR_VOICE_ROLLUPS` (slot reports = same roll-ups; evening slot removed in G1) |
+| midday-report | 12:00 | `voice_midday_report` 12:02 | GATED `RR_VOICE_ROLLUPS` |
+| daily-reports-catchup | 14:00 | `Reports/scripts/report_board.py run-due` | PROPOSED `RR_REPORT_BOARD` (text only; play BLOCKED) |
+| late-report / late-final-report | 21:00 / 23:30 | `voice_late_report` 21:02 | GATED `RR_VOICE_ROLLUPS` (23:30 final not re-added) |
+| merged-morning-summary | 10:20 | covered by `voice_morning_report` | GATED |
+| cursor-fallback | 10:22 16:22 | — | BLOCKED (cloud spend / keys) |
+| governance-daily | 10:23 | — | OUT (Library content) |
+| api-prices | 10:25 | — | BLOCKED (keys / spend) |
+| code-review | 11:20 17:20 | — | BLOCKED (LLM model load) |
+| economy-brief | 15:00 | — | BLOCKED (MySQL creds + Discord) |
+| adsense-eod / admob-eod | 21:00 / 21:05 | — | BLOCKED (ad account secrets) / OUT |
+| overnight-relay | 22:20 | — | BLOCKED (D1 + DMs) |
+| minecraft-live | every 10 min | — | OUT (RootMC) |
+| hurricane-fetch | 05/09/12/16/20 :40 | `weather_poller` (`Weather/hurricanes/`, NHC CurrentStorms) | LIVE; JTWC/RAMMB global board not in G3 (source decision) |
+| hurricane-desk / hurricane-desk-evening | 05/09/12/20 :50, 16:55 | `voice_hurricane_desk` | GATED `RR_VOICE_HURRICANE` |
+| hurricane-radio-am / -mid / -pm | 06:35 / 13:12 / 17:02 | — | BLOCKED (radio playback) |
+| ecoflow-quota | every 2 min | Energy BLE poller (cloud quota not ported) | LIVE via BLE; cloud BLOCKED (keys) |
+| drive-automation | every 30 min | — | BLOCKED (actuation) |
+| panels-cam | every 15 min | Pacific `Security/Cameras/` grab | partial; power session BLOCKED (actuation) |
+| energy-report | every 30 min | `voice_energy_report` :15 :45 | GATED `RR_VOICE_ENERGY` |
+| council-health | every 5 min | — | BLOCKED (bot tokens, chat probe model load, alert sends) |
+| public-health | every 5 min | — | OUT (website) |
+| fs-index | every 15 min | — | BLOCKED (scope: full-disk index of private paths) |
+| host-sample | every 1 min | `System/scripts/host_desks.py net-sample` (300 s) + `System/lib/sample.py` | PROPOSED `RR_NET_SAMPLES` |
+| log-cleanup | 04:20 | — | BLOCKED (deletes files) |
+| user-qrcodes / account-import | every 6 h | — | OUT (identity; personal data) |
+| d1-sync | every 6 h | — | BLOCKED (D1 credentials) |
+| inbox-drain | every 5 min | — | BLOCKED (D1 + DMs) |
+| stripe-poll / ltc-pending / vercel-builds | 30 / 30 / 5 min | — | OUT (website / payments keys) |
+
+Counts over the 64 ids: every id is accounted for above (grouped rows cover several ids). Nothing in G1's scheduler lacks a G3 decision; the remaining gaps are the BLOCKED / OUT rows.
+
+G1 extras not in the table: `AVA_CRON_WAVE` clone guard and night-sleep gating (`Ecoflow/state/night-mode.json sleeping` skipped jobs). G3 has no night-sleep gate; the poller runs every enabled job around the clock. Check later: is a night-sleep gate wanted?
+
+*Created 2026-09-29 ~14:35 HST (old-repo migration, breadth pass 2). Read-only; no job changed.*

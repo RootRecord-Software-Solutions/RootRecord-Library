@@ -54,7 +54,7 @@ curl -sI https://www.rootrecord.cloud/
 | `hawaii.ndjson` | 1,827,611,155 B (inode 291042) | 50,331,325 B (inode 291042); run time 0.53 s; `trimmed 1827611155 -> 50331325 bytes; offset reset`; rc 0 |
 | `df -h /` | 5.2G used, **1.5G free** (78 %) | 3.5G used, **3.2G free** (53 %) |
 | feed-server / connection-history | active / active | active / active; writer still appending (+≈ 42 MB/h) |
-| Auto-trim | none (desk calls exit 127) | `ubuntu` crontab `*/15 … nice -n 10 … \| logger -t maintain-hawaii-feed`. 14:15:02 fire: `feed 55736202 bytes <= 67108864 -- no trim` (see the worklog for the first real trim) |
+| Auto-trim | none (desk calls exit 127) | `ubuntu` crontab `*/15 … nice -n 10 … \| logger -t maintain-hawaii-feed`. 14:15:02 fire: `feed 55736202 bytes <= 67108864 -- no trim` **14:30:03 fire: `trimmed 67465261 -> 50343031 bytes; offset reset`**. This is the first automatic trim on AWS. The inode is unchanged, the writer (pid 222029) is still appending, and all services are active |
 | `www.rootrecord.cloud` | HTTP/2 **530** (1033) | **200** (5346 B, globe `index.html`); `rootrecord.cloud` 301 → `www` |
 | Tunnel `network-globe` 939b16f7 | 0 connections, cloudflared purged 2026-09-26 02:41 HST | 4 connections registered 14:12:13–15 HST |
 | `rr-aws-ip uptime` (desk) | TCP timeout (stale IP) | **PASS** (up 3 days 9:23) |
