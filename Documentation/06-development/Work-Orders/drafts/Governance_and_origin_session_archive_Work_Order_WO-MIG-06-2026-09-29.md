@@ -8,7 +8,7 @@
 | **Owner** | RootRecord |
 | **Related** | [Old-Repo-Migration-Matrix](../../../00-architecture/Old-Repo-Migration-Matrix.md) row 78; [G1-Scheduler-To-G3-Jobs-Map](../../../00-architecture/G1-Scheduler-To-G3-Jobs-Map-2026-09-29.md) (`governance-daily` OUT); [Solar-Pacific-Old-Full-TopLevel-Catalog](../../../00-architecture/Solar-Pacific-Old-Full-TopLevel-Catalog-2026-09-28.md); [Solar-Pacific-Old-Inventory-Map](../../../00-architecture/Solar-Pacific-Old-Inventory-Map-2026-09-28.md); [WO-OLD](../Old_Server_Selective_Recovery_Work_Order_WO-OLD-2026-09-28.md) |
 
-**Scope:** Copy the decisions from the old `governance` packet, `origin-session`, and `ecosystem-history` into the Library. Do not install a Pacific package, do not schedule the old jobs, and do not bulk-import `origin/` or the ecosystem-history dump. This draft is before-documentation. It is not on the active work-order index. Build waits until Alexander accepts this draft and says to build.
+**Scope:** Copy the decisions from the old `governance` packet, `origin-session`, and `ecosystem-history` into the Library. Do not install a Pacific package, do not schedule the old jobs, and do not bulk-import `origin/` or the ecosystem-history dump. Closed 2026-09-30. It is not on the active work-order index.
 
 ---
 
@@ -37,7 +37,7 @@ Folder name used in the Library: **Governance**. There is no Pacific, Database, 
 | Code | None. Do not create `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Governance/`. Live Pacific has no `governance` or `origin_session` code. |
 | Database | None. Do not create `2 - RootRecord-Database/Governance/`. |
 | Logs | None. Do not create `2 - RootRecord-Database/Logs/Governance/`. |
-| Docs (only live destination) | `5 - RootRecord-Library/Documentation/00-architecture/Governance/` — not created yet |
+| Docs (only live destination) | `5 - RootRecord-Library/Documentation/00-architecture/Governance/` — four decision pages |
 | Old `governance/` | `/home/rootrecord/old ollama/old skills/governance` (132K). Three skills: `governance-daily`, `governance-boot`, `governance-self-update`. |
 | Old `origin-session/` | `/home/rootrecord/old ollama/old skills/origin-session` (32K). `scripts/origin_session.py` plus skill notes. |
 | Old `ecosystem-history/` | `/home/rootrecord/old ollama/old skills/ecosystem-history` (4.1M, 398 files). Decisions in `NARRATIVE.md`. |
@@ -139,7 +139,7 @@ Code, database, and logs paths are intentionally empty. See section 2.
 
 ## Archive / location note
 
-This file is a draft. It is not on the active index.
+This file is closed. It is not on the active index.
 
 ```text
 Governance_and_origin_session_archive_Work_Order_WO-MIG-06-2026-09-29.md
@@ -148,7 +148,7 @@ Governance_and_origin_session_archive_Work_Order_WO-MIG-06-2026-09-29.md
 Location:
 
 ```text
-Documentation/06-development/Work-Orders/drafts/
+Documentation/06-development/Work-Orders/Complete/
 ```
 
 See `drafts/README.md` and WO-WOGEN-001. Do not auto-promote.

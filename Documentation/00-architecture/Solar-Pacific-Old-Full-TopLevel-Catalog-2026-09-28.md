@@ -32,11 +32,11 @@
 | advertising | Product | AdMob / AdSense EOD |
 | api | G3-optional | api-prices, ai-external-api (xai, cursor) |
 | boot | Library / Retire | boot-idle-origin, boot-prelims — historical |
-| clients | Product | |
+| clients | Pacific `Products/scripts/Clients/` | Gig index only. nibble.love theme is in `Archive/Website-Themes/`. Public page paused. |
 | cloudflare-workers | G3-optional | Edge workers ≠ poller cloudflared binary |
 | code-review | Review | |
 | communications | G3-core | discord, slack, telegram |
-| companions | Product / Library | |
+| companions | Pacific `Products/scripts/Companions/` | Source copy. Not a running path. |
 | core-ops-install | Review | Install helpers |
 | council | Library / G3-optional | council-telegram, health, quake, bruce-stats |
 | database | Database | d1, data-layout — not G3 git dump |
@@ -48,8 +48,8 @@
 | energy | G3-core | ecoflow-* packets; **after G2 energy** |
 | ensure-ava-runtime | Review | Agent runtime |
 | feature-toggles | Review | |
-| fern-forest | Product / Review | |
-| finance-desk | Product | |
+| fern-forest | Pacific `Products/scripts/FernForest/` | Public TMK facts only. Parcel PDFs stayed in the local archive. |
+| finance-desk | Pacific `Products/scripts/FinanceDesk/` | Source copy. Not a running path. No Stripe call. |
 | fs-index | Review | |
 | git-auto-push | G3-core | Compare to G2 github/scripts |
 | goals | Product | |
@@ -71,7 +71,7 @@
 | load-categories | Review | |
 | local-data-globe | G3-core | Network globe cousin |
 | log-cleanup | G3-optional / Logs | |
-| look | Review | |
+| look | Pacific `Products/scripts/Look/` | `look.py` source only. DVR grabber was not copied into Pacific. |
 | merged-morning | Review | |
 | minecraft | Product | |
 | model-pick | Review | Inference routing |
@@ -89,11 +89,11 @@
 | origin-session | Archive | WO-MIG-06: decision in Library Governance. Helper not restored. `origin/` not imported. Removed from -Old. |
 | overnight-relay | Review | |
 | panels-cam | G3-optional / Security | |
-| pantry | Product | |
+| pantry | Pacific `Products/scripts/Pantry/` | CLI on an empty Database store. `stock.json` was not imported. |
 | people | Review | |
 | persona | Library | Agent persona material |
 | player-economy | Product | RootMC |
-| product-prices | Product | |
+| product-prices | Pacific `Products/scripts/ProductPrices/` | CLI on an empty Database store. Price history was not imported. |
 | public-chat | Product | |
 | public-edge | Product / Website | |
 | public-finance | Product | |

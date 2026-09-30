@@ -4,7 +4,7 @@
 | --- | --- |
 | **Work Order ID** | WO-MIG-14-2026-09-29 |
 | **Date** | 2026-09-29 (HST) |
-| **Status** | OPEN — draft, not accepted for execution |
+| **Status** | OPEN — server code landed; public pages paused; GitHub deletion not pushed |
 | **Owner** | RootRecord |
 | **Related** | Agent 14. Depends on 7. Public website checkout. No later function depends on this one. Template: `Documentation/01-operations/templates/TEMPLATE Work Order.md`. Globe: `Documentation/08-ideas/2026-09-29-globe-landing-overlay.md`. |
 
@@ -53,13 +53,13 @@ These apps do not belong inside Energy, Geology, Weather, Reports, Security, Com
 ### 2.2 Completed so far
 
 - [x] Old source read. Folder name and the three paths chosen.
-- [x] This draft written. Status stays OPEN — draft, not accepted for execution.
-- [ ] Alexander accepts this draft and says to build.
-- [ ] `7. Public website checkout` exists as the one Vercel app in `3 - RootRecord-Website`.
-- [ ] `Products` source, empty Database stores, four public pages, and the theme archive.
-- [ ] Small test: empty pantry and a product-prices lookup that invents nothing.
-- [ ] Phase 4 archive, then deletion of these seven directories in the old clone and on GitHub.
-- [ ] Result note on this work order, and Library pages this function made stale corrected.
+- [x] This draft written.
+- [x] Alexander said to complete the work.
+- [ ] `7. Public website checkout` exists as the one Vercel app in `3 - RootRecord-Website`. Public pages are paused on that function.
+- [x] `Products` source, empty Database stores, and the theme archive. Four public pages are not added.
+- [x] Small test: empty pantry prints `empty on file`. Product-prices lookup of "sour patch" prints `{}` and exits 1.
+- [x] Phase 4 archive is on disk. The seven directories are deleted in the old clone. Deletion commit `3d54403b` is local. GitHub rejected the push.
+- [x] Result note below. Library pages this function made stale are corrected. This file stays in drafts.
 
 ### 2.3 Known friction
 
@@ -157,7 +157,13 @@ These apps do not belong inside Energy, Geology, Weather, Reports, Security, Com
 - Prefer small reversible steps.
 - Sign-off gates: do not send messages, play audio, touch OBS, switch hardware, delete live Ecosystem files, or spend cloud money. Do not start companion processes, call Stripe, or run the DVR grabber. Phase 4 deletes old-repo files only, and only after the archive copy is on disk. If the archive copy fails, do not delete.
 - Small test that proves the new behavior: pantry script on an empty Database store prints an empty pantry; product-prices lookup on an empty store returns no price. No network. No jobs.
-- Phase 4 result (what landed, what was archived, what was removed on GitHub): not yet. Build has not started.
+- Phase 4 result:
+  - Landed: `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Products/` (Pantry, ProductPrices, FernForest, Clients run; Companions, FinanceDesk, and Look are source copies and are not started). Empty stores under `2 - RootRecord-Database/Products/`. Logs directory `2 - RootRecord-Database/Logs/Products/`. Themes in `5 - RootRecord-Library/Archive/Website-Themes/clients/gigs/nibble.love/` and `.../companions/dev-desk/renderer/styles.css`.
+  - Not landed: the four glass-card routes. `3 - RootRecord-Website` is still empty. Missing function: Public website checkout. This work order did not check that site out.
+  - Archived: `/home/rootrecord/RootRecord-Ecosystem/Old repos deleted and merged/Solar-Pacific-RootRecord-Server/{clients,companions,fern-forest,finance-desk,pantry,product-prices,look}/`. File counts matched the old tree before deletion (15, 36, 11, 11, 9, 6, 8).
+  - Removed on this machine: those seven directories in `/home/rootrecord/old ollama/old skills`, commit `3d54403b` on `online-safe-20260920` (94 tracked files). `apps.core` and Ava trees were not in those directories and were left.
+  - Not removed on GitHub: `git push origin HEAD:online-safe-20260920` was rejected. Push protection cited an OpenAI API key in older commit `679fd86c` (`ecosystem-history/references/archives-pull-20260916/august-emergency-txt/chatgpt improvements.txt`). This deletion was not force-pushed, the secret was not allow-listed, and the repository was not deleted.
+  - Runtime files that were not tracked (`pantry/store/stock.json`, `product-prices/store/prices.json`, `product-prices/store/sightings.jsonl`, `look/store/camera-dvr/`) are in the archive and are gone from the old working tree. They were not in the GitHub tree at HEAD, so the deletion commit does not include them. They were not copied into Pacific, Database, or the website.
 
 ---
 

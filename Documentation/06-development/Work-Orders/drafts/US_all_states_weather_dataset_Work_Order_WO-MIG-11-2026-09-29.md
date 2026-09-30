@@ -38,8 +38,8 @@ Folder name in all three places: **US-States**. It sits inside the existing Weat
 
 | Item | Location / status |
 | --- | --- |
-| Old collector | GitHub `rootrecordsoftwaresolutions/old`: `operations/weather/fetch_us_weather.py` and `operations/weather/README.md`. Not in the Ecosystem. |
-| Old hourly wrapper | Same repo: `operations/cronologicals/since-last-fire/every-hour/fetch-us-weather.py`. It only runs the collector. |
+| Old collector | Archived at `Old repos deleted and merged/old/operations/weather/`. Removed from GitHub repo `old` (`91b66eb`). |
+| Old hourly wrapper | Archived at `Old repos deleted and merged/old/operations/cronologicals/since-last-fire/every-hour/fetch-us-weather.py`. Removed from GitHub with the collector. |
 | US places (shared) | `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Geology/config/global-locations.json`. 77 US rows, all 50 states, Hawaiʻi denser (28). Read it. Do not copy or edit it. |
 | Hawaiʻi weather | Live under Pacific `Weather/` and Database `Weather/Hawai'i/`. `jobs.py` id `weather_poller` is enabled. Leave it. |
 | Public website checkout | `3 - RootRecord-Website` exists and is empty. Function 7 is not in place. |
@@ -53,7 +53,7 @@ Folder name in all three places: **US-States**. It sits inside the existing Weat
 - [ ] Public website checkout is in folder 3. Page is staged, not mounted.
 - [x] Collector, store, and gated job. Public page staged under `Weather/US-States/site/`.
 - [x] One-state proof test (Wyoming, Open-Meteo, Cheyenne, 2026-09-29).
-- [x] Phase 4 archive copy is on disk. GitHub deletion of the three files is the ordered next step on repo `old` (branch `cursor/radio-idle-obs-gates`).
+- [x] Phase 4 archive is on disk, and the three files are removed from repo `old` on GitHub (`cursor/radio-idle-obs-gates`, `91b66eb`). No force-push. The repository was not deleted.
 - [x] Phase 5 result note below. Matrix row 43 set to partial.
 
 ### 2.3 Known friction
@@ -150,7 +150,7 @@ Do not start these until Alexander accepts this draft and says to build.
 - Proof: `fetch_us_states.py --state WY --force` PASS. `us-last.json` has Cheyenne, provider `open-meteo`, temp 7.3°C, obs `2026-09-30T04:00`. NWS skipped because `NWS_USER_AGENT` is unset.
 - Public page: staged at `Weather/US-States/site/us-states.html` (glass card, empty until `us-last.json` is readable). Not mounted. `3 - RootRecord-Website` is still empty, so Public website checkout was not built.
 - Archive path: `Old repos deleted and merged/old/operations/weather/fetch_us_weather.py`, `operations/weather/README.md`, and `operations/cronologicals/since-last-fire/every-hour/fetch-us-weather.py`.
-- Removed on GitHub: not yet. Local commit `de957e4` on `/tmp/rr-old-mig11` deletes those three files. Push to `cursor/radio-idle-obs-gates` was rejected because the remote moved; a merge-and-push is still required. No force-push. Repository was not deleted. Shared `config/locations/global-locations.json` was left in repo `old`.
+- Removed on GitHub: yes. Repo `old`, branch `cursor/radio-idle-obs-gates`, push `c5b935a..91b66eb`. `operations/weather/fetch_us_weather.py` returns 404. No force-push. The repository was not deleted. Shared `config/locations/global-locations.json` was left in repo `old`.
 
 ---
 
