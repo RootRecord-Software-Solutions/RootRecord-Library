@@ -4,7 +4,7 @@
 | --- | --- |
 | **Work Order ID** | WO-MIG-22-2026-09-29 |
 | **Date** | 2026-09-30 (HST) |
-| **Status** | OPEN — draft, not accepted for execution |
+| **Status** | LANDED — job gated off, not LIVE. Not promoted to the active index. |
 | **Owner** | RootRecord |
 | **Related** | Agent 22. Wave D. One send pipe, then the messages. Depends on 21 Discord poller. No later function depends on this one. Matrix row 59 (Slack half). |
 
@@ -30,16 +30,16 @@ Folder name, used in all three paths: **Slack**. It is a subfolder of Communicat
 
 | Item | Location / status |
 | --- | --- |
-| Folder | `Slack` under Communications. Not created. This draft only names it. |
+| Folder | `Slack` under Communications. Created 2026-09-30. Lowercase `Communications/slack/` removed (README and `.gitkeep`). |
 | Code | `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Communications/Slack/scripts` |
 | Database | `2 - RootRecord-Database/Communications/Slack/` |
 | Logs | `2 - RootRecord-Database/Logs/Communications/Slack/` |
 | Secrets | `/home/rootrecord/master/master-key.env` only. Allowlist key name: `SLACK_BOT_TOKEN`. That key is not in the file today. No second env file. `SLACK` in the old example is a placeholder status, not a secret, and is not copied in. |
 | Existing shell | `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Communications/slack/README.md` (lowercase). README only. |
-| Old source | `1 - Servers/2 - RootRecord-US-Mainland-Server/communications/slack/poll.py` |
+| Old source | Removed locally after archive. Was `1 - Servers/2 - RootRecord-US-Mainland-Server/communications/slack/poll.py`. |
 | Old job line, shared file | `communications_slack` in `1 - Servers/2 - RootRecord-US-Mainland-Server/automations/scripts/jobs.py`. Leave it. That file also runs Telegram and Discord. |
 | Shared examples, leave them | `communications/README.md`, `communications/.env.example`, and the mainland root `.env.example`. |
-| Dependency | Discord poller (agent 21). Expected folder `Communications/Discord/`. On 2026-09-30 it is not on disk. Only `Communications/discord/README.md` exists. Its work order is still a draft. |
+| Dependency | Discord poller (agent 21). `Communications/Discord/` was absent when this draft was first written, then present (`scripts/poll.py` and `lib/envload.py`) before the Slack build. |
 | Live Telegram | `council_relay` stays the one `getUpdates` owner. Replies stay off. |
 | Matrix | Row 59 is Discord and Slack together, status missing. This draft does not edit that row. The Slack half is corrected only after phase 4, and only if this function made that line wrong. |
 
@@ -48,17 +48,16 @@ Folder name, used in all three paths: **Slack**. It is a subfolder of Communicat
 - [x] Old stub read. Pacific shell confirmed as a README.
 - [x] Folder and the three paths named above.
 - [x] `master-key.env` checked for key names only. No Slack key is present.
-- [ ] Alexander accepts this draft and says to build.
-- [ ] Discord poller folder `Communications/Discord/` is in place. Missing on 2026-09-30. Build pauses here.
-- [ ] `Communications/Slack/` script, env allowlist, README move, and gated-off `jobs.py` block.
-- [ ] No-token test (exit 0, `not_configured`, no Slack request).
-- [ ] Phase 4 archive and GitHub file deletion.
-- [ ] Result note, Pacific `Communications/README.md` slack row, and the absorbed Slack README.
+- [x] Discord poller folder `Communications/Discord/` was in place before the Slack build.
+- [x] `Communications/Slack/` script, env allowlist, README move, and gated-off `jobs.py` block.
+- [x] No-token test (exit 0, `not_configured`, `http_calls` 0) at 2026-09-30 00:35 HST.
+- [x] Phase 4 archive and GitHub file deletion.
+- [x] Result note, Pacific `Communications/README.md` slack row, and the absorbed Slack README.
 
 ### 2.3 Known friction
 
 - Build waits until Alexander accepts this draft.
-- Build also waits on Discord poller. `Communications/Discord/` is not created. Do not build that function here.
+- Discord poller was missing at the first check and present before any Slack runtime file was added. It was not built here.
 - `Communications/slack/` (lowercase) is the current shell. The build moves that README into `Communications/Slack/README.md` in the same change so only one folder remains.
 - `jobs.py` is not edited by this draft. A gated-off block is proposed below. `RR_SLACK` stays unset. If `jobs.py` or `master-key.env` is already being edited at build time, pause.
 - Mainland `automations/scripts/jobs.py` still has an enabled `communications_slack` line. That file is shared. It is named here and not edited.

@@ -143,7 +143,7 @@ These apps do not belong inside Energy, Geology, Weather, Reports, Security, Com
 
 **Additional requirements:**
 
-- Public website checkout must occupy `3 - RootRecord-Website` before the four glass-card routes are added. That function is still missing.
+- The four glass-card routes are on `3 - RootRecord-Website`. They are staged in that repo and not committed.
 - GitHub still has the seven directories. Push of `3d54403b` is blocked by push protection on older commit `679fd86c`. Do not force-push and do not allow-list that secret from this work order.
 - This file stays in drafts until a human promotes it.
 
