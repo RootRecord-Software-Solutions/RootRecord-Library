@@ -4,10 +4,10 @@
 | --- | --- |
 | **Work Order ID** | WO-ECO-2026-09-27 |
 | **Date** | 2026-09-27 (HST) |
-| **Status** | IN PROGRESS — Pacific runtime cut over to Ecosystem Servers path; G3 runtime verification partial (see WO-SRV current status); Master-Prompt links and out-of-scope domain imports still open |
+| **Status** | IN PROGRESS — Pacific runtime is live on the Ecosystem path (confirmed again 2026-09-30 01:24 HST). Remaining work is operator sign-off, not a broken cutover. See `Documentation/01-operations/2026-09-30-whats-left-for-alexander.md`. |
 | **Owner** | RootRecord |
 | **Related** | Library online; WO-SRV; domain wiring 2026-09-28 |
-| **Updated** | 2026-09-29 ~01:37 HST |
+| **Updated** | 2026-09-30 01:29 HST |
 
 **Scope:** Establish clean ownership boundaries between the local `RootRecord-Ecosystem` tree and independent GitHub repositories; migrate durable knowledge and runtime artifacts out of the legacy single-tree model.
 
