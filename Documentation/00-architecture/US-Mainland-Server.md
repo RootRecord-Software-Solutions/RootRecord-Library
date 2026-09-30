@@ -25,7 +25,7 @@
 | `system-monitor/` | `sys-sample.sh` → `system-current.json` + SQLite rolling averages (1 s … 1 y) | AWS |
 | `network-globe/` | Hawaii collector (`collector.js`, `telegram-relay.js`), `maintain-hawaii-feed.sh`, `connection-history.py`, `feed-server.js`, units, `health-check.sh` | collector: desk (Pacific `Communications/network/local-data-globe/` is the live copy); feed + history: AWS |
 | `mirror/network-globe/` | AWS globe web server (`server.js`, `index.html`, port 8090), nested duplicate `network-globe/network-globe/` | AWS (`/home/ubuntu/network-globe/network-globe/`) |
-| `mirror/.cloudflared/config-globe.yml` | tunnel `939b16f7…` → `www.rootrecord.cloud` → `127.0.0.1:8090` (credentials file gitignored) | AWS |
+| `mirror/.cloudflared/config-globe.yml` | tunnel `[redacted tunnel ID]…` → `www.rootrecord.cloud` → `127.0.0.1:8090` (credentials file gitignored) | AWS |
 | `mirror/rootrecord/systemd/` | 13 legacy units: `rr-{audio-recv,chat,cloudflared,dropins,earthquake,hurricane,icecast,noaa,packer,radar,radio,weather,youtube}` | **not running** (bins/venv not in repo) |
 | `weather/` | current-only NWS mirror (config/core/fetch/scheduler) | not running |
 | `scripts/` | desk helpers `aws-sysmon-pull.sh`, `ssh-datapack-pull.sh` (target old `Database/NETWORK/…`), G2 `jobs.py` template (cwd `~/.ollama/skills/us-mainland-server`), a **tracked** `__pycache__/jobs.cpython-314.pyc` | desk (G2 paths — stale) |
@@ -37,8 +37,8 @@ Env vars used by the code (names only) are in the new root `.env.example`.
 
 | Item | Value |
 | --- | --- |
-| Host | `ip-172-31-10-115`, up 3 d 9 h, load 0.32; RAM 908 MB (514 MB available) — t3.micro class, us-east-2 |
-| Public IP | **18.118.30.226** (from the desk collector's `AWS_HOST` default). `rr-aws-ip` still points at the old **3.139.100.162** → TCP 22 timeout (no Elastic IP; IP changed on a stop/start) |
+| Host | `[redacted internal hostname]`, up 3 d 9 h, load 0.32; RAM 908 MB (514 MB available) — t3.micro class, us-east-2 |
+| Public IP | **[redacted public IP]** (from the desk collector's `AWS_HOST` default). `rr-aws-ip` still points at the old **[redacted public IP]** → TCP 22 timeout (no Elastic IP; IP changed on a stop/start) |
 | Disk `/` | 6.7 G, 5.1 G used, **1.6 G free (77 %)** |
 | Running | `rr-rootserver-poller`, `network-globe-feed-server`, `network-globe-connection-history`, `github-poller` (not in repo). **No cloudflared, no rr-* collectors, no radio** — "basically empty" confirmed |
 | Timers | none matching `aws-git-pull` / `rr-*` (the pull is the poller's `github_pull` job) |
@@ -51,10 +51,10 @@ Env vars used by the code (names only) are in the new root `.env.example`.
 | Alias | Before | After this pass | Result |
 | --- | --- | --- | --- |
 | `rr-aws` (`ssh.rootrecord.cloud` via Cloudflare Access) | ProxyCommand `~/.local/bin/cloudflared` (missing) | ProxyCommand → Pacific `Communications/network/cloudflare/bin/cloudflared` (quoted; only that path changed; backup in `ssh/config`) | cloudflared now starts; **`websocket: bad handshake`**, exit 255. `https://ssh.rootrecord.cloud` and `https://www.rootrecord.cloud` both return **HTTP 530 / Cloudflare error 1033** = no tunnel connector → cloudflared is not running on AWS. **FAIL (remote side)** |
-| `rr-aws-ip` (`3.139.100.162`) | unchanged | unchanged | TCP 22 timeout — stale IP. **FAIL** |
-| `rr-aws-ip` **after 14:06 HST** | 3.139.100.162 | `HostName 18.118.30.226`: only that line changed; backup `~/.ssh/config.bak-20260929-140612` | `ssh -o BatchMode=yes -o ConnectTimeout=5 rr-aws-ip uptime` **PASS** |
-| `rr-aws` **after 14:12 HST** | 1033 | tunnel 939b16f7 running on AWS with an `ssh.rootrecord.cloud → ssh://localhost:22` rule | the tunnel works: **PASS** with the AWS host key pinned (`SHA256:Kdsqhy…FbXA`). Plain `ssh rr-aws` FAILs with *host key changed*: the desk `known_hosts` line for `ssh.rootrecord.cloud` holds the pre-rebuild key (same as 3.139.100.162). Not edited; waiting on OK |
-| `rr-aws-ip` with `-o HostName=18.118.30.226` | — | (command-line override only; config not changed) | **PASS**, read-only commands only |
+| `rr-aws-ip` (`[redacted public IP]`) | unchanged | unchanged | TCP 22 timeout — stale IP. **FAIL** |
+| `rr-aws-ip` **after 14:06 HST** | [redacted public IP] | `HostName [redacted public IP]`: only that line changed; backup `~/.ssh/config.bak-20260929-140612` | `ssh -o BatchMode=yes -o ConnectTimeout=5 rr-aws-ip uptime` **PASS** |
+| `rr-aws` **after 14:12 HST** | 1033 | tunnel [redacted tunnel ID] running on AWS with an `ssh.rootrecord.cloud → ssh://localhost:22` rule | the tunnel works: **PASS** with the AWS host key pinned (`[redacted SSH host-key fingerprint]`). Plain `ssh rr-aws` FAILs with *host key changed*: the desk `known_hosts` line for `ssh.rootrecord.cloud` holds the pre-rebuild key (same as [redacted public IP]). Not edited; waiting on OK |
+| `rr-aws-ip` with `-o HostName=[redacted public IP]` | — | (command-line override only; config not changed) | **PASS**, read-only commands only |
 
 ## Desk auto-sync coverage
 
@@ -90,8 +90,8 @@ Not restructured: AWS pulls this repo every minute and its units/docs reference 
 | Auto-trim | `ubuntu` crontab `*/15`, `nice -n 10`, 64 MiB cap / 48 MiB window, syslog tag `maintain-hawaii-feed` | `network-globe/cron/maintain-hawaii-feed.crontab` |
 | Feed size | 1.83 GB → 50.3 MB at 14:07:38 HST; free disk 1.5G → 3.2G | — |
 | Web origin | `network-globe-web.service` (`server.js`, User=ubuntu, :8090) | `network-globe/network-globe-web.service` |
-| Tunnel | cloudflared 2026.9.3 (official .deb), `cloudflared-network-globe.service`, existing tunnel **`network-globe` 939b16f7-7d13-4776-bd4d-80fe8021fc72** (no new tunnel), config `~ubuntu/.cloudflared/config-globe.yml` 0600, creds JSON 0600 (copied from the desk's old aws-sync mirror, never printed) | `network-globe/cloudflared-network-globe.service`, `mirror/.cloudflared/config-globe.yml` (+`ssh.rootrecord.cloud` rule) |
-| DNS | **No DNS record changed.** `www` was already routed to 939b16f7, and `rootrecord.cloud` 301 → `www` is unchanged. Vercel is untouched. Other tunnels on the account: `rootserver` 9adf2231 (its connectors are on the desk; untouched) and `avaivy-local-truth` 0f16a586 (untouched) | — |
+| Tunnel | cloudflared 2026.9.3 (official .deb), `cloudflared-network-globe.service`, existing tunnel **`network-globe` [redacted tunnel ID]** (no new tunnel), config `~ubuntu/.cloudflared/config-globe.yml` 0600, creds JSON 0600 (copied from the desk's old aws-sync mirror, never printed) | `network-globe/cloudflared-network-globe.service`, `mirror/.cloudflared/config-globe.yml` (+`ssh.rootrecord.cloud` rule) |
+| DNS | **No DNS record changed.** `www` was already routed to [redacted tunnel ID], and `rootrecord.cloud` 301 → `www` is unchanged. Vercel is untouched. Other tunnels on the account: `rootserver` [redacted tunnel ID] (its connectors are on the desk; untouched) and `avaivy-local-truth` [redacted tunnel ID] (untouched) | — |
 | Result | `https://www.rootrecord.cloud/` 530/1033 → **200**. MemAvailable 446 MB after (512 MB before) | — |
 
 Why the tunnel was down: cloudflared and its unit were purged on AWS on 2026-09-26 at 02:41 HST (`apt remove --purge`, `rm -rf /etc/cloudflared`). Before that it ran only the token tunnel `rootserver`. The globe tunnel's creds had never been placed on this instance, and the globe web server had no unit.

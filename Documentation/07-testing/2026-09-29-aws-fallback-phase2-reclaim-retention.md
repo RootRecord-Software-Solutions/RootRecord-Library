@@ -4,7 +4,7 @@
 | --- | --- |
 | **Date / time (HST)** | 2026-09-29 15:41–16:16 HST |
 | **Tester** | Grok (executor) for Alexander Storey (AWS changes approved 15:40 HST; t3.micro kept; trimmed profile) |
-| **Change under test** | AWS `rr-aws` (18.118.30.226): legacy pollers stopped, OS services trimmed, apt cache cleaned, journald and logrotate caps, daily backup/release retention. [Proposal Phase 2](../08-ideas/2026-09-29-aws-fallback-rebuild.md) |
+| **Change under test** | AWS `rr-aws` ([redacted public IP]): legacy pollers stopped, OS services trimmed, apt cache cleaned, journald and logrotate caps, daily backup/release retention. [Proposal Phase 2](../08-ideas/2026-09-29-aws-fallback-rebuild.md) |
 | **State** | **PASS**: every change is reversible (units and files kept). RAM stayed ≥ 485 MB (min 497 over 16:03–16:14 HST). **iowait went from 7.4 % to 0.1 %** (Phase 1 peak: 28–44 %) |
 | **Evidence** | AWS `~/rootrecord/bin.bak-fallback-phase2-20260929-154333/`: `unit-states.before.txt`, `unit-states.after-reclaim.txt`, `metrics.before.txt`, `vmstat.before.txt`, `metrics.after.txt`, unit files, scripts, crontab, `journald.conf`, sha256 |
 | **Commits** | Library: desk auto-sync (see the worklog) |

@@ -13,7 +13,7 @@
 
 - AWS is almost empty: only `rr-rootserver-poller` (1 s system monitor + comms polls + git pull), the Network Globe feed/history services and `github-poller` run. No cloudflared → `ssh.rootrecord.cloud` / `www.rootrecord.cloud` return Cloudflare **1033**; the 13 legacy `rr-*` hazard/radio/packer units are not running.
 - `hawaii.ndjson` is **1.82 GB and growing ≈ 39 MB/h**; 1.6 GB free on a 6.7 GB root → **full in ≈ 40 h** because the trim script is missing on AWS.
-- Public IP changed (3.139.100.162 → 18.118.30.226); `rr-aws-ip` is stale and `rr-aws` depends on the missing tunnel.
+- Public IP changed ([redacted public IP] → [redacted public IP]); `rr-aws-ip` is stale and `rr-aws` depends on the missing tunnel.
 - t3.micro: 908 MB RAM, 514 MB available.
 
 ## Proposal (priority order)
@@ -23,9 +23,9 @@
 1. **LANDED / PASS (2026-09-29 14:07 HST)**. The script was deployed to `…/network-globe/network-globe/scripts/maintain-hawaii-feed.sh` and run once at `nice 10`: `hawaii.ndjson` 1,827,611,155 → 50,331,325 B (same inode), free disk 1.5G → 3.2G. Auto-trim now runs on AWS from the **`ubuntu` crontab `*/15`** (line mirrored in Mainland `network-globe/cron/maintain-hawaii-feed.crontab`, log `journalctl -t maintain-hawaii-feed`). Backup: AWS `~/rootrecord/bin.bak-hawaii-trim-20260929-140641/` (includes the last 64 MiB of the feed). [Test record](../07-testing/2026-09-29-aws-hawaii-trim-and-cloudflared.md). Original plan:
    Deploy the repo's own bounded-feed script where the desk collector already calls it, then run it once:
    ```bash
-   H="-o BatchMode=yes -o ConnectTimeout=5 -o HostName=18.118.30.226 rr-aws-ip"
+   H="-o BatchMode=yes -o ConnectTimeout=5 -o HostName=[redacted public IP] rr-aws-ip"
    ssh $H 'mkdir -p /home/ubuntu/network-globe/network-globe/scripts && df -h /'
-   scp -o HostName=18.118.30.226 "/home/rootrecord/RootRecord-Ecosystem/1 - Servers/2 - RootRecord-US-Mainland-Server/network-globe/maintain-hawaii-feed.sh" rr-aws-ip:/home/ubuntu/network-globe/network-globe/scripts/
+   scp -o HostName=[redacted public IP] "/home/rootrecord/RootRecord-Ecosystem/1 - Servers/2 - RootRecord-US-Mainland-Server/network-globe/maintain-hawaii-feed.sh" rr-aws-ip:/home/ubuntu/network-globe/network-globe/scripts/
    ssh $H 'chmod 755 /home/ubuntu/network-globe/network-globe/scripts/maintain-hawaii-feed.sh && bash /home/ubuntu/network-globe/network-globe/scripts/maintain-hawaii-feed.sh && df -h /'
    ```
    Expected: `trimmed 18xxxxxxxx -> ~50331648 bytes; offset reset`, ~1.7 GB freed. The desk collector then keeps it ≤ 64 MB every 15 min. (Optional first: copy the last 48 MB aside if the history matters — the design says AWS is a live mirror, not a store.)
@@ -34,8 +34,8 @@
 ### P0 — stable, documented access
 
 3. Allocate an **Elastic IP** (free while attached to a running instance) so the address stops changing; update local `~/.ssh/config` `rr-aws-ip` HostName and the collector `AWS_HOST` default together.
-4. **LANDED / PASS for `www` (2026-09-29 14:12 HST)**. cloudflared 2026.9.3 (official .deb) now runs as `cloudflared-network-globe.service` (User=ubuntu, `--no-autoupdate`) on the existing tunnel `network-globe` **939b16f7** (credentials JSON from the desk's old aws-sync mirror, 0600; no tunnel created, no DNS change). The origin is `network-globe-web.service` (`server.js` :8090). `https://www.rootrecord.cloud/` went from 530/1033 to **200**. An `ssh.rootrecord.cloud → ssh://localhost:22` rule was added: the tunnel carries SSH and passes with the verified AWS host key, but the desk `known_hosts` still holds the old instance key for `ssh.rootrecord.cloud`, so `ssh rr-aws uptime` stays FAIL until that entry is replaced (needs OK). `rr-aws-ip` HostName is now 18.118.30.226 (PASS). Backup: AWS `~/rootrecord/bin.bak-cloudflared-20260929-141048/`. Original plan:
-   Restore **cloudflared** on AWS as a systemd unit with two ingress rules: `www.rootrecord.cloud → 127.0.0.1:8090` (existing `config-globe.yml`, tunnel `939b16f7…`) and `ssh.rootrecord.cloud → ssh://localhost:22`. Then `ssh rr-aws uptime` (desk ProxyCommand already fixed) becomes the primary path.
+4. **LANDED / PASS for `www` (2026-09-29 14:12 HST)**. cloudflared 2026.9.3 (official .deb) now runs as `cloudflared-network-globe.service` (User=ubuntu, `--no-autoupdate`) on the existing tunnel `network-globe` **[redacted tunnel ID]** (credentials JSON from the desk's old aws-sync mirror, 0600; no tunnel created, no DNS change). The origin is `network-globe-web.service` (`server.js` :8090). `https://www.rootrecord.cloud/` went from 530/1033 to **200**. An `ssh.rootrecord.cloud → ssh://localhost:22` rule was added: the tunnel carries SSH and passes with the verified AWS host key, but the desk `known_hosts` still holds the old instance key for `ssh.rootrecord.cloud`, so `ssh rr-aws uptime` stays FAIL until that entry is replaced (needs OK). `rr-aws-ip` HostName is now [redacted public IP] (PASS). Backup: AWS `~/rootrecord/bin.bak-cloudflared-20260929-141048/`. Original plan:
+   Restore **cloudflared** on AWS as a systemd unit with two ingress rules: `www.rootrecord.cloud → 127.0.0.1:8090` (existing `config-globe.yml`, tunnel `[redacted tunnel ID]…`) and `ssh.rootrecord.cloud → ssh://localhost:22`. Then `ssh rr-aws uptime` (desk ProxyCommand already fixed) becomes the primary path.
 
 ### P1 — health endpoint (what "continuity node" should expose first)
 

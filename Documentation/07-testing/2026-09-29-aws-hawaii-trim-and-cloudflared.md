@@ -26,7 +26,7 @@
 ## How (exact commands / procedure)
 
 ```bash
-# desk ~/.ssh/config: only rr-aws-ip HostName 3.139.100.162 -> 18.118.30.226 (backup config.bak-20260929-140612)
+# desk ~/.ssh/config: only rr-aws-ip HostName [redacted public IP] -> [redacted public IP] (backup config.bak-20260929-140612)
 ssh -o BatchMode=yes -o ConnectTimeout=5 rr-aws-ip uptime
 # AWS backup: existing maintain-hawaii-feed.sh (repo copy in network-globe/ root), feed/history units,
 # crontab (none), timers, stat/df, last 64 MiB of hawaii.ndjson
@@ -34,7 +34,7 @@ scp .../network-globe/maintain-hawaii-feed.sh rr-aws-ip:/home/ubuntu/network-glo
 ssh rr-aws-ip 'chmod +x …/scripts/maintain-hawaii-feed.sh && bash -n …/scripts/maintain-hawaii-feed.sh'
 ssh rr-aws-ip 'nice -n 10 bash …/scripts/maintain-hawaii-feed.sh 67108864 50331648'   # via nohup, log in backup dir
 ssh rr-aws-ip crontab -    # line = Mainland network-globe/cron/maintain-hawaii-feed.crontab
-# cloudflared: official .deb 2026.9.3; tunnel 939b16f7 creds JSON from desk (old aws-sync mirror, sha prefix f62c19ac) -> ~ubuntu/.cloudflared/ 0600
+# cloudflared: official .deb 2026.9.3; tunnel [redacted tunnel ID] creds JSON from desk (old aws-sync mirror, sha prefix f62c19ac) -> ~ubuntu/.cloudflared/ 0600
 # units network-globe-web.service (server.js :8090) + cloudflared-network-globe.service (--no-autoupdate, User=ubuntu)
 curl -sI https://www.rootrecord.cloud/
 ```
@@ -56,9 +56,9 @@ curl -sI https://www.rootrecord.cloud/
 | feed-server / connection-history | active / active | active / active; writer still appending (+≈ 42 MB/h) |
 | Auto-trim | none (desk calls exit 127) | `ubuntu` crontab `*/15 … nice -n 10 … \| logger -t maintain-hawaii-feed`. 14:15:02 fire: `feed 55736202 bytes <= 67108864 -- no trim` **14:30:03 fire: `trimmed 67465261 -> 50343031 bytes; offset reset`**. This is the first automatic trim on AWS. The inode is unchanged, the writer (pid 222029) is still appending, and all services are active |
 | `www.rootrecord.cloud` | HTTP/2 **530** (1033) | **200** (5346 B, globe `index.html`); `rootrecord.cloud` 301 → `www` |
-| Tunnel `network-globe` 939b16f7 | 0 connections, cloudflared purged 2026-09-26 02:41 HST | 4 connections registered 14:12:13–15 HST |
+| Tunnel `network-globe` [redacted tunnel ID] | 0 connections, cloudflared purged 2026-09-26 02:41 HST | 4 connections registered 14:12:13–15 HST |
 | `rr-aws-ip uptime` (desk) | TCP timeout (stale IP) | **PASS** (up 3 days 9:23) |
-| `rr-aws uptime` (tunnel) | 1033 / bad handshake | the tunnel carries SSH (the ingress rule `ssh.rootrecord.cloud → ssh://localhost:22` was added); host key `SHA256:Kdsqhy…FbXA` = the AWS `/etc/ssh/ssh_host_ed25519_key.pub`. With that verified key: **PASS**. With the desk `known_hosts`: FAIL, because line 11 holds the old instance's key (`SHA256:rsiA1b…9zk`, same as 3.139.100.162) |
+| `rr-aws uptime` (tunnel) | 1033 / bad handshake | the tunnel carries SSH (the ingress rule `ssh.rootrecord.cloud → ssh://localhost:22` was added); host key `[redacted SSH host-key fingerprint]` = the AWS `/etc/ssh/ssh_host_ed25519_key.pub`. With that verified key: **PASS**. With the desk `known_hosts`: FAIL, because line 11 holds the old instance's key (`[redacted SSH host-key fingerprint]`, same as [redacted public IP]) |
 
 ## Resource impact
 
@@ -76,7 +76,7 @@ curl -sI https://www.rootrecord.cloud/
 
 ## Open items / caveats
 
-- The desk `~/.ssh/known_hosts` line 11 (`ssh.rootrecord.cloud`) is the pre-rebuild host key. It was not changed. Fix, after Alexander OKs it: `ssh-keygen -R ssh.rootrecord.cloud`, then add the verified key (`SHA256:KdsqhyZ0zGl+ezS07KKNUh9U5kO2WPgJt37VgewFbXA`).
-- Still untouched: the poller, the Elastic IP (P0-3), Cloudflare DNS/tunnels (none created, none re-routed), Vercel, the `rootserver` tunnel 9adf2231 (connectors are on the desk), and the leftover `cloudflared-update.{service,timer}` (disabled).
+- The desk `~/.ssh/known_hosts` line 11 (`ssh.rootrecord.cloud`) is the pre-rebuild host key. It was not changed. Fix, after Alexander OKs it: `ssh-keygen -R ssh.rootrecord.cloud`, then add the verified key (`[redacted SSH host-key fingerprint]`).
+- Still untouched: the poller, the Elastic IP (P0-3), Cloudflare DNS/tunnels (none created, none re-routed), Vercel, the `rootserver` tunnel [redacted tunnel ID] (connectors are on the desk), and the leftover `cloudflared-update.{service,timer}` (disabled).
 - The Mainland repo mirror files are uncommitted: `network-globe/cron/`, `network-globe/*.service`, `mirror/.cloudflared/config-globe.yml` (+ssh rule), and the README section.
 - Double-count after each trim in `hawaii-connections.sqlite3` (see the safety review). A fix belongs in `connection-history.py` (track the inode and a post-trim resume point) and is proposed, not done.

@@ -17,7 +17,7 @@
 3. `.env.example` contains names only; `.env` ignored.
 4. `rr-aws` after the ProxyCommand path fix — exactly one `ssh -o BatchMode=yes -o ConnectTimeout=5 rr-aws uptime`.
 5. Read-only diagnosis of why (DNS, HTTPS status of the tunnel hostnames, TCP 22 on the `rr-aws-ip` address).
-6. One read-only SSH session to the address the desk globe collector actually uses (18.118.30.226).
+6. One read-only SSH session to the address the desk globe collector actually uses ([redacted public IP]).
 
 ## How (exact commands / procedure)
 
@@ -31,8 +31,8 @@ git status --short      # clean, HEAD b61d63c
 # ssh config: one line changed (backup first)
 ssh -o BatchMode=yes -o ConnectTimeout=5 rr-aws uptime          # wrapped in timeout 40
 getent hosts ssh.rootrecord.cloud; curl -s -o /dev/null -w '%{http_code}' https://ssh.rootrecord.cloud
-python3 -c 'socket connect 3.139.100.162:22, 6 s'
-ssh -o BatchMode=yes -o ConnectTimeout=5 -o HostName=18.118.30.226 rr-aws-ip '<read-only: hostname, uptime, df, free, systemctl list-units, ls, du, git log -1>'
+python3 -c 'socket connect [redacted public IP]:22, 6 s'
+ssh -o BatchMode=yes -o ConnectTimeout=5 -o HostName=[redacted public IP] rr-aws-ip '<read-only: hostname, uptime, df, free, systemctl list-units, ls, du, git log -1>'
 ```
 
 ## Pass criteria (written before running)
@@ -49,8 +49,8 @@ ssh -o BatchMode=yes -o ConnectTimeout=5 -o HostName=18.118.30.226 rr-aws-ip '<r
 | 2 | 57 variable names, 0 values; `.env`, `.env.local` ignored, `.env.example` tracked via existing `!.env.example` rule | **PASS** |
 | 3a | `rr-aws`: cloudflared starts from the new path, then `websocket: bad handshake` / `Connection closed by UNKNOWN port 65535`, exit 255 (0.7 s) | **FAIL** (remote side) |
 | 3b | `ssh.rootrecord.cloud` + `www.rootrecord.cloud` resolve to Cloudflare, HTTPS **530 / error code 1033** (no tunnel connector) | cause found |
-| 3c | `3.139.100.162:22` connect timeout (errno 11) | **FAIL** (stale IP) |
-| 3d | 18.118.30.226: `ip-172-31-10-115`, up 3 d 9 h, load 0.32, disk 5.1/6.7 G (77 %), 514 MB RAM avail; running `rr-rootserver-poller`, `network-globe-feed-server`, `network-globe-connection-history`, `github-poller`; no cloudflared; `hawaii.ndjson` 1,815,325,001 B; repo HEAD `b61d63c` | **PASS** (read-only) |
+| 3c | `[redacted public IP]:22` connect timeout (errno 11) | **FAIL** (stale IP) |
+| 3d | [redacted public IP]: `[redacted internal hostname]`, up 3 d 9 h, load 0.32, disk 5.1/6.7 G (77 %), 514 MB RAM avail; running `rr-rootserver-poller`, `network-globe-feed-server`, `network-globe-connection-history`, `github-poller`; no cloudflared; `hawaii.ndjson` 1,815,325,001 B; repo HEAD `b61d63c` | **PASS** (read-only) |
 
 **Finding:** Hawaii feed grows ≈ 39 MB/h and the AWS trim script is missing (desk journal: `maintain-hawaii-feed.sh: No such file or directory`, exit 127 every 15 min) → root disk full in ≈ 40 h. Escalated as P0 in the [plan](../08-ideas/2026-09-29-aws-mainland-improvement-plan.md).
 

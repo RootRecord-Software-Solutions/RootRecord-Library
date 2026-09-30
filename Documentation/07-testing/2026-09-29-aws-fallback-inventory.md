@@ -4,7 +4,7 @@
 | --- | --- |
 | **Date / time (HST)** | 2026-09-29 14:57–15:05 HST |
 | **Tester** | Grok (executor) for Alexander Storey |
-| **Change under test** | None. This was a read-only inventory of AWS `rr-aws` (18.118.30.226) for the [AWS fallback rebuild proposal](../08-ideas/2026-09-29-aws-fallback-rebuild.md). WO-SRV |
+| **Change under test** | None. This was a read-only inventory of AWS `rr-aws` ([redacted public IP]) for the [AWS fallback rebuild proposal](../08-ideas/2026-09-29-aws-fallback-rebuild.md). WO-SRV |
 | **State** | **PASS**: all reads done and **0 changes on AWS**. **Findings:** the instance has **908 MB RAM, not 2 GB**, and only ~445 MB is available; there is 28–44 % iowait; two legacy pollers waste CPU; `:8787` is still public (listed, not changed) |
 | **Evidence** | the command outputs summarised below; the catalog `Pacific Apps/Control-Panel/Lib/rr_aws_fallback.json` carries the per-function measurements |
 | **Commits** | Library: desk auto-sync (see the worklog) |

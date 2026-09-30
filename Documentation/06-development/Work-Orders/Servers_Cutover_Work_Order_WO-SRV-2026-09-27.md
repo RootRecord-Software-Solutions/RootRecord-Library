@@ -467,7 +467,7 @@ Second server folder now populated: `1 - Servers/2 - RootRecord-US-Mainland-Serv
 | `.env.example` (names only) + README layout + `.gitignore` bytecode rule | LANDED (uncommitted) |
 | Auto-sync (`repos.conf` `mainland` row disabled, stale G2 path) | **BLOCKED** — sign-off to repoint + enable |
 | `rr-aws` ProxyCommand path fixed locally | LANDED; SSH **FAIL** (no cloudflared connector on AWS, Cloudflare 1033) |
-| `rr-aws-ip` 3.139.100.162 | **FAIL** — AWS IP is now 18.118.30.226 (read-only SSH PASS) |
+| `rr-aws-ip` [redacted public IP] | **FAIL** — AWS IP is now [redacted public IP] (read-only SSH PASS) |
 | AWS disk (`hawaii.ndjson` 1.82 GB, +39 MB/h, trim script missing) | **FAIL** risk — full ≈ 40 h; P0 fix PROPOSED |
 | Title-case restructure of the Mainland repo | PROPOSED (coordinated with AWS paths) |
 
@@ -476,8 +476,8 @@ Note: the Smart-Devices pass earlier today (13:31 HST, before the 13:45 standing
 ### Addendum 14:05–14:35 HST — AWS P0 fixes (approved)
 
 - `hawaii.ndjson` trimmed 1.83 GB → 50.3 MB, and free disk went 1.5G → 3.2G: **PASS**. Auto-trim runs from the `ubuntu` crontab `*/15` on AWS: **LANDED**, fired 14:15.
-- `www.rootrecord.cloud` 530/1033 → **200**: cloudflared reinstalled and the existing tunnel 939b16f7 plus a `server.js` :8090 unit brought up, with no DNS change: **PASS**.
-- `rr-aws-ip` HostName → 18.118.30.226: **PASS**. `rr-aws` works through the tunnel with the pinned key, but the desk `known_hosts` is stale (needs OK).
+- `www.rootrecord.cloud` 530/1033 → **200**: cloudflared reinstalled and the existing tunnel [redacted tunnel ID] plus a `server.js` :8090 unit brought up, with no DNS change: **PASS**.
+- `rr-aws-ip` HostName → [redacted public IP]: **PASS**. `rr-aws` works through the tunnel with the pinned key, but the desk `known_hosts` is stale (needs OK).
 - Details: [test record](../../07-testing/2026-09-29-aws-hawaii-trim-and-cloudflared.md) and [architecture change log](../../00-architecture/US-Mainland-Server.md).
 
 

@@ -57,7 +57,7 @@ After the change, the listener is `127.0.0.1:8090` (before it was `*:8090`; the 
 
 ## Separate finding (not changed; needs a decision)
 
-- **`network-globe-feed-server` (`feed-server.js`) listens on `0.0.0.0:8787`, and `http://18.118.30.226:8787/hawaii.ndjson` is publicly reachable** (a HEAD returned 200 with `X-Feed-Size: 60981903`). It serves up to 2 MB per request from `?from=`, so the whole feed can be read in chunks.
+- **`network-globe-feed-server` (`feed-server.js`) listens on `0.0.0.0:8787`, and `http://[redacted public IP]:8787/hawaii.ndjson` is publicly reachable** (a HEAD returned 200 with `X-Feed-Size: 60981903`). It serves up to 2 MB per request from `?from=`, so the whole feed can be read in chunks.
 - This existed before today (the process has been up since 2026-09-26 05:34 HST). Its `wchar` since then is only **5.5 KB**, so essentially nothing has been served from it.
 - Fix options: set `Environment=GLOBE_BIND=127.0.0.1` in its unit, or close TCP 8787 in the EC2 security group, once it's confirmed that nothing external uses it.
 
