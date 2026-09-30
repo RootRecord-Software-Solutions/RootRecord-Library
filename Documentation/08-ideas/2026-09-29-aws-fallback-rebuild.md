@@ -4,8 +4,8 @@
 | --- | --- |
 | **Date (HST)** | 2026-09-29 (Phase 1: plan + read-only inventory, 14:57–15:20 HST) |
 | **Proposed by** | Grok (executor) for Alexander Storey |
-| **State** | PROPOSED. Phase 1 inventory **PASS** (read-only). Root Monitor "AWS Fallback" page **LANDED in dry-run** (no AWS writes) |
-| **Grounding** | [inventory test record](../07-testing/2026-09-29-aws-fallback-inventory.md) · [Root Monitor page test record](../07-testing/2026-09-29-root-monitor-aws-fallback-page.md) · [US-Mainland-Server](../00-architecture/US-Mainland-Server.md) · [AWS plan](./2026-09-29-aws-mainland-improvement-plan.md) · catalog `Pacific Apps/Control-Panel/Lib/rr_aws_fallback.json` |
+| **State** | **Phase 2 LANDED (trimmed-micro profile, 16:03 HST)**: Alexander kept the t3.micro and chose the trimmed 7-function profile at 15:40 HST, and AWS changes are approved. Phase 1 inventory PASS. Root Monitor page in **write mode**. Items still pending sign-off are listed in [Phase 2](#phase-2-trimmed-micro-deployed-2026-09-29-15401625-hst) |
+| **Grounding** | [Phase 2 reclaim + retention](../07-testing/2026-09-29-aws-fallback-phase2-reclaim-retention.md) · [Phase 2 history batching](../07-testing/2026-09-29-aws-globe-history-batched-commits.md) · [Phase 2 runtime deploy + Root Monitor write](../07-testing/2026-09-29-aws-fallback-phase2-runtime-deploy.md) · [inventory test record](../07-testing/2026-09-29-aws-fallback-inventory.md) · [Root Monitor page test record](../07-testing/2026-09-29-root-monitor-aws-fallback-page.md) · [US-Mainland-Server](../00-architecture/US-Mainland-Server.md) · [AWS plan](./2026-09-29-aws-mainland-improvement-plan.md) · catalog `Pacific Apps/Control-Panel/Lib/rr_aws_fallback.json` |
 | **Needs sign-off from** | Alexander (instance size, each AWS change, desk jobs, Telegram ownership, write mode) |
 | **Related WO** | WO-SRV (Servers cutover) |
 
@@ -202,3 +202,27 @@ units: rr-fallback-runner.service (ubuntu, stdlib python, ~15 MB, MemoryMax=300M
 - Should the `status_health` JSON be public (through the tunnel as `/api/status`), or only reachable through Access?
 - Which bot and chat should AWS basic replies use, and what's the canned set?
 - Keep `globe_history`'s daily datapack on AWS, or move it to the desk?
+
+## Phase 2: trimmed-micro deployed (2026-09-29 15:40–16:25 HST)
+
+**Decision (Alexander, 15:40 HST):** keep the t3.micro and use the trimmed 7-function profile. AWS changes are approved. Everything was reversible, with a backup first on AWS (`~/rootrecord/bin.bak-fallback-phase2-20260929-154333/`, plus one per deploy and one per flag write) and on the desk (`/home/rootrecord/Database/GITHUB/aws-fallback-phase2.bak-20260929-154400/`).
+
+| Step | Landed | Record |
+| --- | --- | --- |
+| Reclaim | `github-poller` + `rr-rootserver-poller` **stopped and disabled** (files and units kept). OS trims: ModemManager (masked), fwupd (masked) + `fwupd-refresh.timer`, udisks2 (masked), multipathd (+ socket; no dm maps, root is plain NVMe), networkd-dispatcher (only the chrony on/off hooks), the unattended-upgrades **shutdown helper** (daily `apt-daily-upgrade.timer` security upgrades still run); `apt-get clean` (−105 MB). snapd and ssm-agent kept | [reclaim + retention](../07-testing/2026-09-29-aws-fallback-phase2-reclaim-retention.md) |
+| History fix | `connection-history.py`: commit every 5 s, only whole lines, cursor persisted (inode + offset). An in-place trim no longer re-counts the retained window, and a restart no longer re-ingests the feed. Writes went from 43.9 MB/min to 1.6 MB/min | [history batching](../07-testing/2026-09-29-aws-globe-history-batched-commits.md) |
+| Runtime | `~/rootrecord/fallback/` from the desk `deploy-aws-fallback.sh` (Mainland checkout `fallback/`): 30 s oneshot tick (0 MB resident), root `rr-fallback-apply` (hard-coded map, path unit + 15-min reconcile), flags, RAM/disk guard (floor **485 MB** / 1536 MB). Rollback was tested three times (see the record) | [runtime deploy](../07-testing/2026-09-29-aws-fallback-phase2-runtime-deploy.md) |
+| Retention | journald drop-in `SystemMaxUse=100M`, `SystemKeepFree=1G`, `SystemMaxFileSize=16M`, `MaxRetentionSec=14day`. logrotate `fallback/logs/*.log` 5 MB × 7. Daily tick retention: `bin.bak-*` older than 14 days are deleted, except the newest per kind; releases keep 5. The spool is capped at 256 MB. The feed trim cron is unchanged | reclaim + retention |
+| Root Monitor | desk `settings.json` `aws_fallback_mode` = `write`; catalog updated to trimmed-micro (+ `relay_send` row). A `system_monitor` 0 → 1 → 0 round-trip passed, with a dated backup per write | runtime deploy |
+
+**Flags on AWS now.**
+- ON: `tunnel` (locked), `globe_ingest` (locked, cron), `globe_web`, `globe_history`, `desk_watch`, `relay_buffer`, and `globe_feed_8787` (unchanged, **unmanaged**, public :8787).
+- OFF: `telegram_hold` (the 7th trimmed function, kept OFF as instructed), `relay_send`, `basic_replies`, `status_health`, `system_monitor`, `geology_current`, `nws_current`, `public_ip_notify` (the boot-time `ip-notify.service` is unchanged), `hawaii_news`, `github_poller`, `legacy_poller`, `weather_scheduler`.
+
+**Still pending sign-off (unchanged):**
+1. `:8787` feed server (public)
+2. `telegram_hold` + `basic_replies` (OFF)
+3. `relay_send` (the first real Data Relay send needs one approved test send)
+4. AWS `.env` trim (23 keys)
+5. The desk jobs `aws_heartbeat_push` + `aws_catchup`: proposed blocks only, in [Pending-Job-Registrations §C](../00-architecture/Pending-Job-Registrations-2026-09-29.md)
+6. Globe `/api/state` poll at 5 s + gzip

@@ -171,6 +171,44 @@ Commands run through `bash -lc` in the poller (`rootserver_poller.py`), so the `
     },
 ```
 
+## C. AWS fallback desk jobs: proposed blocks only (added 2026-09-29 16:15 HST, sign-off)
+
+These come from the [AWS fallback rebuild](../08-ideas/2026-09-29-aws-fallback-rebuild.md) Phase 2. **Neither the job nor its script exists yet.** The AWS side is deployed and works without them: `desk_watch` uses the `hawaii.ndjson` mtime, and the desk can pull the spool by hand.
+
+| Job id | List | Schedule | Flag | What it does |
+| --- | --- | --- | --- | --- |
+| `aws_heartbeat_push` | EVERY_SECONDS | 60 s | `RR_AWS_HEARTBEAT` | `ssh rr-aws-ip 'touch ~/rootrecord/fallback/state/desk-heartbeat'`, a second desk-online signal beside the feed mtime |
+| `aws_catchup` | EVERY_SECONDS | 600 s | `RR_AWS_CATCHUP` | rsync-pull `spool/outbox/*.zip`, verify the manifest sha256, ingest idempotently (ledger `Database/Logs/Mainland/aws-ingest-ledger.jsonl`), then write `state/desk-ack.json {"pack_seq": N}` |
+
+```python
+    {
+        "id": "aws_heartbeat_push",
+        "enabled": os.environ.get("RR_AWS_HEARTBEAT", "0") == "1",
+        "description": "Desk-online heartbeat for the AWS fallback desk_watch (touch state/desk-heartbeat).",
+        "interval_sec": 60,
+        "builtin": "",
+        "command": "timeout 15 ssh -o BatchMode=yes -o ConnectTimeout=8 rr-aws-ip 'touch /home/ubuntu/rootrecord/fallback/state/desk-heartbeat'",
+        "timeout_sec": 20,
+        "needs_internet": True,
+        "cwd": PACIFIC,
+        "env": {},
+    },
+    {
+        "id": "aws_catchup",
+        "enabled": os.environ.get("RR_AWS_CATCHUP", "0") == "1",
+        "description": "Pull + verify + ingest AWS fallback relay packets, then ack (desk catch-up; idempotent).",
+        "interval_sec": 600,
+        "builtin": "",
+        "command": 'nice -n 10 python3 "/home/rootrecord/RootRecord-Ecosystem/1 - Servers/2 - RootRecord-US-Mainland-Server/fallback/desk/aws_catchup.py"',
+        "timeout_sec": 300,
+        "needs_internet": True,
+        "cwd": PACIFIC,
+        "env": {},
+    },
+```
+
+`fallback/desk/aws_catchup.py` is **not written yet** (Phase 3, sign-off). Its test must show that a second ingest adds 0 records and that the ack prunes the outbox.
+
 ## On-demand ports (no job needed)
 
 `Geology/scripts/earthquakes_backfill.py`, `Media/Video/scripts/mp4_converter.py`, `Communications/web-facts/scripts/web_facts.py`, `Communications/live-wx/scripts/live_wx.py`, `Energy/scripts/load_categories.py`, `System/scripts/host_hw.py`, `Media/Voice/scripts/speech_scrub.py` (library), `Reports/scripts/report_board.py status`, `System/scripts/host_desks.py security|net-usage`.
