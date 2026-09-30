@@ -48,7 +48,7 @@ Folder: `MorningBootReplay`. It belongs in Media. `boot_brief` already lives in 
 ### 2.2 Completed so far
 
 - [x] Draft work order written (this file). Status stays OPEN — draft, not accepted for execution
-- [ ] Alexander accepts this draft and says to build
+- [x] Build requested. Paused 2026-09-29: Report playback (agent 15) has no Folder. That function was not built.
 - [ ] Report playback Folder is in place
 - [ ] `MorningBootReplay` code, state, and dry-run test
 - [ ] Phase 4 archive and old-repo deletion
@@ -56,7 +56,7 @@ Folder: `MorningBootReplay`. It belongs in Media. `boot_brief` already lives in 
 
 ### 2.3 Known friction
 
-- Report playback (agent 15) has no Folder yet. This function queues onto that player and does not build it.
+- Report playback (agent 15) has no Folder yet. Checked 2026-09-29 under Pacific `Media` (`Voice`, `Video` only) and the server top level. This function queues onto that player and does not build it. Build stays paused until that Folder exists.
 - `jobs.py`, the Vercel app shell, and `master-key.env` are shared. Leave them alone. If one of them is already being edited when build starts, pause.
 - `voice_reports.py` is shared by the other spoken reports. Prefer not to edit it.
 - Speaker playback, sends, OBS, hardware switching, and cloud spend need Alexander's sign-off.
@@ -122,8 +122,8 @@ Build later, in this order. Do not start these until Alexander accepts this draf
 
 **Additional requirements:**
 
-- Alexander accepts this draft and says to build before any runtime edit.
-- Report playback (agent 15) Folder must exist before build. If it is missing, pause and name that function. Do not build it.
+- Build was requested. It is paused. Missing function: **Report playback** (agent 15). No Folder is in place. Do not build that player here.
+- Report playback (agent 15) Folder must exist before the Morning boot replay build continues.
 - Speaker playback stays off until Alexander signs off, even if `RR_MORNING_BOOT_REPLAY` is later set to `1`.
 - Phase 4 and phase 5 below are not done. This file has no result note yet.
 

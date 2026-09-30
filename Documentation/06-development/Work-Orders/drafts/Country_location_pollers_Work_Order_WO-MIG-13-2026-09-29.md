@@ -4,7 +4,7 @@
 | --- | --- |
 | **Work Order ID** | WO-MIG-13-2026-09-29 |
 | **Date** | 2026-09-29 (HST) |
-| **Status** | OPEN — draft, not accepted for execution |
+| **Status** | OPEN — build paused. Dependency Folders are missing. Not promoted. |
 | **Owner** | RootRecord |
 | **Related** | Agent 13. Wave B. Depends on the Folders for public website checkout, the US all-states weather dataset, and the state and global news builders being in place before any build. No later function depends on this one. Matrix row 81. |
 
@@ -47,14 +47,20 @@ Folder name, used in all three paths: **CountryLocations**. It is a subfolder of
 - [x] Old tree read: 306 identical pollers, no themes, no `database/` on GitHub.
 - [x] Live site routes checked: none are country or city pages.
 - [x] Folder and the three paths named above.
-- [ ] Draft accepted by Alexander.
-- [ ] Build (paused until the dependency Folders exist, and until this draft is accepted).
+- [x] Asked to complete the remaining work (2026-09-29). Build stopped at task 1.
+- [ ] Public website checkout has a Folder (the Vercel app is checked out).
+- [ ] US all-states weather dataset has a Folder.
+- [ ] State and global news builders have a Folder.
+- [ ] Build of `CountryLocations`.
 - [ ] Phase 4 archive and GitHub file deletion.
 - [ ] Result note and matrix row 81 correction.
 
 ### 2.3 Known friction
 
-- Public website checkout, the US all-states weather dataset, and the state and global news builders have no Folders yet. The website directory exists and is empty. Build pauses until those three functions have Folders. Do not build them here.
+- Build paused 2026-09-29. These functions have no Folder. This work order does not build them.
+  - **Public website checkout.** `3 - RootRecord-Website/` exists and is empty. No `src/`.
+  - **US all-states weather dataset.** `Weather/US-States` is not on disk.
+  - **State and global news builders.** No Folder. `Reports/News/` is the Hawaiʻi collector only.
 - `jobs.py` is shared. This draft does not edit it. A later accepted build may insert only the disabled block in section 3.
 - Phase 4 needs a local checkout of `old`. None was present when this draft was written. If it is still missing at phase 4, pause and name that checkout. Do not clone it during this draft.
 

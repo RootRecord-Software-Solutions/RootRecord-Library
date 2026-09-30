@@ -1,0 +1,192 @@
+# WORK ORDER — Report playback
+
+| Field | Value |
+| --- | --- |
+| **Work Order ID** | WO-MIG-15-2026-09-29 |
+| **Date** | 2026-09-29 (HST) |
+| **Status** | OPEN — draft, not accepted for execution |
+| **Owner** | RootRecord |
+| **Related** | Agent 15. Later callers (do not build them here): 16 Morning boot replay, 17 Sunrise restore, 18 Report readiness audio, 19 Hurricane radio, 33 Cloud TTS routing. Kokoro stays in Media/Voice. |
+
+**Scope:** Add one gated player that plays existing Kokoro WAV clips. In scope after this draft is accepted: `Media/Playback/scripts/play.py`, its Database state and logs, a dry-run proof, then archive and local removal of the old play-job folders. Out of scope until a separate sign-off: opening a speaker, editing `jobs.py`, restoring the old morning / midday / late / evening / periodic play crons, and any of the later caller functions.
+
+This file stays in `Work-Orders/drafts/`. Do not add it to the active work-order index.
+
+---
+
+## 1. Intent
+
+The old function queued an existing morning, midday, or late report WAV (evening play was already a no-op) through `voice_events.play_report_mp3` into the Windows stream director. `report-periodic-audio` replayed the active slot on a timer (about every 10 minutes). Those jobs are why report playback is absent: speaker playback was left off on purpose.
+
+The live system already renders Kokoro clips and report WAVs under Database `Media/Audio/Voice` and refuses delivery. That renderer, the personas, and the clip catalog stay. This function plays those new clips. It does not restore the old play jobs.
+
+---
+
+## 2. Current reality
+
+Folder name: **Playback**, a subfolder of the existing Media domain. Package name: `Playback`. No second top-level domain, no lowercase twin, no symlink.
+
+| Path | Role |
+| --- | --- |
+| `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Media/Playback/scripts` | Server code |
+| `2 - RootRecord-Database/Media/Playback` | Database data (last-play state only) |
+| `2 - RootRecord-Database/Logs/Media/Playback` | Database logs |
+
+WAV clips stay in `2 - RootRecord-Database/Media/Audio/Voice`. No `config/`. No `Logs/` directory on the server. No `master-key.env` keys. The gate flag is `RR_PLAYBACK` (not a secret).
+
+### 2.1 What exists
+
+| Item | Location / status |
+| --- | --- |
+| Playback folder | Not installed |
+| Kokoro renderer, personas, clip catalog | Pacific `Media/Voice/scripts/` — live. Do not replace |
+| Report and phrase WAVs | Database `Media/Audio/Voice/<report>_current.wav` and `Clips/<Persona>/<slug>.wav`. Delivery is off |
+| Old play jobs | `/home/rootrecord/old ollama/old skills/reports/sort/` — morning, midday, late, and evening play, evening-report-audio, report-periodic-audio. Checkout branch `online-safe-20260920`, remote `Solar-Pacific-RootRecord-Server`. `reports/` is gitignored |
+| Shared old player pieces | `media/voice/scripts/director.py` and `voice-events/scripts/voice_events.py` — leave in place |
+| `jobs.py` | Unchanged. No playback job is proposed |
+
+### 2.2 Completed so far
+
+- [x] Draft written (this file). Status stays OPEN — draft, not accepted for execution
+- [ ] Alexander accepts this draft and says to build
+- [ ] `play.py` landed
+- [ ] Dry-run proof recorded
+- [ ] Old play-job folders archived, then removed locally
+- [ ] GitHub check recorded (no empty deletion commit)
+- [ ] Result note and the three Library corrections
+
+### 2.3 Known friction
+
+- `aplay` is on this host. Live play still needs Alexander's sign-off. This draft does not open a device.
+- `reports/` is gitignored in the old repo, so those play folders may never have been on GitHub.
+- Media/Voice already exists, so there is no missing dependency folder to pause on. Agents 16, 17, 18, 19, and 33 depend on this player. They are not built here.
+
+---
+
+## 3. Tasks
+
+Do these only after Alexander accepts this draft and says to build. Until then, do not edit runtime files, restart services, send messages, actuate hardware, or spend cloud money.
+
+1. Confirm `Media/Voice` is still the Kokoro home. It is present, so do not pause for a missing dependency. If it is gone when the build starts, pause and name Kokoro. Do not rebuild it.
+2. Add `Media/Playback/scripts/play.py` only. Do not edit `jobs.py`. Do not register a periodic job.
+3. Resolve audio only under Database `Media/Audio/Voice`. `--report <name>` maps to `<name>_current.wav`. `--clip <Persona>/<slug>` maps to `Clips/<Persona>/<slug>.wav`. Refuse any other path.
+4. Default `--dry-run`: write `2 - RootRecord-Database/Media/Playback/last-play.json` with `played: false`. Do not open a device.
+5. Live play requires both `RR_PLAYBACK=1` and `--play`. Otherwise exit with `playback_gated`. The player is `aplay`. No `ffplay` window, no music bed, no OBS.
+6. One file at a time. Take a lock in the Database Playback folder. A second caller gets `busy` and does not overlap.
+7. Quiet hours 22:00–06:00 HST skip unless `--force`. `--force` is still behind the same gate. Do not read `~/.ollama` night-mode.
+8. Logs go only to `2 - RootRecord-Database/Logs/Media/Playback`. Runtime output stays out of Pacific, the website, and git.
+9. Prove it with speakers still off (section 7). A live `aplay` run is a separate sign-off. Do not do it in this build.
+10. Phase 4, only after that dry-run works: copy the six old play-job directories into `Old repos deleted and merged/Solar-Pacific-RootRecord-Server/`, keeping the path each had inside the old repo. Generated data that lived beside that source goes into the archive too, and still does not go into the live Folders. If the archive copy fails, do not delete. After the copy is on disk, delete those same directories from `/home/rootrecord/old ollama/old skills`. Run `git log` for those paths. If they were never tracked, record that and do not push an empty deletion. If they were tracked, commit that deletion and push it. Do not force-push. Do not delete the GitHub repository.
+11. Phase 5: add the result note to this work order (section 8). Correct only the Library lines this function makes stale: matrix row 46, the `report-periodic-audio` scheduler row, and the speaker bullet in Voice-Reports-G3 section 6.
+
+---
+
+## 4. Non-goals
+
+- Do not overwrite `Media/Voice` (`voice_generate.py`, `speakers.py`, `voice_reports.py`, `clip_catalog.py`, Kokoro model, or the venv).
+- Do not restore the old play jobs or the 10-minute replay.
+- Do not edit `jobs.py`.
+- Do not build Morning boot replay, Sunrise restore, Report readiness audio, Hurricane radio, or Cloud TTS routing.
+- Leave these shared old files: `media/voice/scripts/director.py`, `voice-events/scripts/voice_events.py`, `reports/sort/evening-report/`, `reports/sort/day-reports-evening/`.
+- Do not restore files under `~/.ollama/skills/energy`, automations, or `coms/ssh/local-data-globe`.
+- Do not send, play speakers, switch hardware, delete live Ecosystem files, or spend cloud money. Phase 4 deletes only the six old play-job directories, and only after the archive copy is on disk.
+- Do not promote this draft onto the active work-order index.
+
+---
+
+## 5. Key file / path reference
+
+| Path | Role |
+|------|------|
+| `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Media/Playback/scripts/play.py` | Add. The only new source file |
+| `2 - RootRecord-Database/Media/Playback/last-play.json` | Runtime state written by the player. Not source |
+| `2 - RootRecord-Database/Media/Playback/` lock file | Single-flight lock. Runtime |
+| `2 - RootRecord-Database/Logs/Media/Playback/` | Player logs. Runtime |
+| `2 - RootRecord-Database/Media/Audio/Voice/` | Existing Kokoro WAVs. Read only |
+| `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Media/Voice/` | Existing Kokoro. Do not edit |
+| `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Automations/scripts/jobs.py` | Do not edit |
+| `/home/rootrecord/master/master-key.env` | No keys for this function |
+| `Old repos deleted and merged/Solar-Pacific-RootRecord-Server/reports/sort/morning-report-play/` | Phase 4 archive |
+| `Old repos deleted and merged/Solar-Pacific-RootRecord-Server/reports/sort/midday-report-play/` | Phase 4 archive |
+| `Old repos deleted and merged/Solar-Pacific-RootRecord-Server/reports/sort/late-report-play/` | Phase 4 archive |
+| `Old repos deleted and merged/Solar-Pacific-RootRecord-Server/reports/sort/evening-report-play/` | Phase 4 archive |
+| `Old repos deleted and merged/Solar-Pacific-RootRecord-Server/reports/sort/evening-report-audio/` | Phase 4 archive |
+| `Old repos deleted and merged/Solar-Pacific-RootRecord-Server/reports/sort/report-periodic-audio/` | Phase 4 archive |
+| `5 - RootRecord-Library/Documentation/00-architecture/Old-Repo-Migration-Matrix.md` | Phase 5. Row 46 only |
+| `5 - RootRecord-Library/Documentation/00-architecture/G1-Scheduler-To-G3-Jobs-Map-2026-09-29.md` | Phase 5. `report-periodic-audio` row only |
+| `5 - RootRecord-Library/Documentation/00-architecture/Voice-Reports-G3.md` | Phase 5. Speaker bullet in section 6 only |
+
+---
+
+## 6. Open items
+
+**Additional requirements:**
+
+- Alexander accepts this draft and says to build before any runtime edit.
+- Speaker playback stays gated. Live `aplay` needs a separate sign-off even after `RR_PLAYBACK=1` exists in the script. The build test does not play audio.
+- Phase 4 GitHub deletion is conditional on `git log` showing those paths were tracked. Untracked, gitignored `reports/` means record "not on GitHub" and skip the push.
+- This draft is not on the active index.
+
+---
+
+## 7. Notes & constraints
+
+- No force-push.
+- Secrets stay out of git. This function has no `master-key.env` keys.
+- Prefer small reversible steps.
+- Sends, speaker playback, OBS, hardware switching, deletion of live Ecosystem files, and cloud spend need Alexander's sign-off. Do not do those things while executing the build. Phase 4 is the ordered exception for the six old play-job directories only, and only after they are in `Old repos deleted and merged`.
+- New periodic jobs stay off. Do not edit `jobs.py`.
+- EcoFlow BLE, the poller, Hawaiʻi weather, the globe collector, camera grabs, Kokoro, and `geology_collect.py` stay as they are.
+
+**Sign-off gate.** `--play` without `RR_PLAYBACK=1` returns `playback_gated` and does not spawn `aplay`. Both the flag and `--play` are required before a device opens. Quiet hours still apply unless `--force`, and `--force` does not bypass the flag.
+
+**Small test (speakers stay off).** From the Playback scripts directory:
+
+```text
+python3 play.py --clip Ava/boot_all_systems_running --dry-run
+python3 play.py --clip Ava/boot_all_systems_running --play
+```
+
+The first prints `dry_run` or `audio_missing` and does not open a device. The second, with `RR_PLAYBACK` unset, returns `playback_gated`. A live `aplay` run is not part of this test.
+
+---
+
+## 8. Result note
+
+Not written. Phase 4 and phase 5 have not run. After they do, record here what landed, the archive path, and what was removed on GitHub (or that the play folders were never tracked).
+
+---
+
+*Work order prepared 2026-09-29 HST. Update status when closed.*
+
+---
+
+## Archive / location note
+
+**Active / accepted WOs** — filename when saved:
+
+```text
+Report_playback_Work_Order_WO-MIG-15-2026-09-29.md
+```
+
+Location after promotion (not now):
+
+```text
+Documentation/06-development/Work-Orders/
+```
+
+**Drafts (not on active index)** — this file:
+
+```text
+Documentation/06-development/Work-Orders/drafts/Report_playback_Work_Order_WO-MIG-15-2026-09-29.md
+```
+
+See `drafts/README.md` and WO-WOGEN-001. Do not auto-promote.
+
+**Closed WOs:** set Status → COMPLETE/CLOSED → `git mv` into:
+
+```text
+Documentation/06-development/Work-Orders/Complete/
+```
+
+Human session logs archive under `Documentation/01-operations/archive/YYYY-Www/` (WO-ARCH) — separate from closed work orders.
