@@ -15,14 +15,14 @@
 
 | Rows | migrated | partial | missing | touched this pass |
 |---|---|---|---|---|
-| 90 | 35 | 22 | 33 | 27 |
+| 90 | 35 | 23 | 32 | 28 |
 
 | Bucket | migrated | partial | missing |
 |---|---|---|---|
 | geology | 8 | 1 | 0 |
 | core | 27 | 20 | 14 |
 | library | 0 | 0 | 3 |
-| product | 0 | 0 | 12 |
+| product | 0 | 1 | 11 |
 | archive | 0 | 1 | 4 |
 
 Counts recomputed 14:40 HST from the row table (rows matching `| n |` with a status word). Buckets are now listed explicitly: **geology** rows 1–5, 8–11 · **library** 69, 85, 90 · **archive** 27, 77, 78, 86, 87 · **product** 7, 43, 52, 62, 70, 71, 73, 74, 75, 80, 81, 89 · **core** everything else. (The 13:50 table came from a generator whose lists were not kept, so library/archive/product counts differ slightly from it.) Changes since 13:50: breadth pass 1 — rows 39, 48, 76 → migrated, 79 → partial; breadth pass 2 (14:16–14:40) — rows 5, 8, 15, 17, 35, 40, 42, 79 → migrated, 25, 50 → partial (57 stays partial).

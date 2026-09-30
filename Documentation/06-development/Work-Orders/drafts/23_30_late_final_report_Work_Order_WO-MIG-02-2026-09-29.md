@@ -53,7 +53,7 @@ Folder name: **Late-Final**, a subfolder of the existing Reports domain (same pa
 
 - The 23:30 cron and the 21:00 cron share one G1 script. A separate "final report" template would not match the old function.
 - G1 played the report. G3 delivery is off. This slot writes text only.
-- Night sleep is a real dependency. G1 skipped this cron while `night-mode.json` said `sleeping`. That gate is Agent 01's function. It has no Folder yet.
+- Night sleep is Agent 01's gate (`System/NightSleep`). This runner calls `should_run` and does not write the flag. The gate stays off unless `RR_NIGHT_SLEEP=1`.
 
 ---
 
@@ -88,7 +88,7 @@ Folder name: **Late-Final**, a subfolder of the existing Reports domain (same pa
 | `2 - RootRecord-Database/Logs/Reports/Late-Final/late-final.jsonl` | Real-run log only. Not written by the dry-run. |
 | `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Reports/scripts/report_board.py` | Existing board. Read the `late` slot. Do not add a slot. |
 | `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Media/Voice/scripts/voice_reports.py` | Existing `late_report` template. Call with `--no-voice`. Do not edit. |
-| `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Automations/scripts/jobs.py` | Proposed gated block only, and only after the pause clears. |
+| `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Automations/scripts/jobs.py` | Gated block `voice_late_final_report` at 23:30. Left disabled. |
 | `2 - RootRecord-Database/Reports/board/daily-reports-due.json` | Existing due ledger. |
 | G1 `scheduler-clock/scripts/scheduler.py` | Shared with every G1 cron. Leave it. |
 | G1 `reports/sort/late-report/` | Shared with the 21:00 late report, already ported. Leave it. |
