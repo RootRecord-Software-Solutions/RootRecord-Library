@@ -4,7 +4,7 @@
 | --- | --- |
 | **Work Order ID** | WO-MIG-07-2026-09-29 |
 | **Date** | 2026-09-30 (HST) |
-| **Status** | IN PROGRESS — checkout landed in folder 3. Communications snapshot removed 2026-09-30. Not on the active index. |
+| **Status** | BUILT — checkout landed in folder 3. Not on the active index. |
 | **Owner** | RootRecord |
 | **Related** | Agent 07. Later: 8 Site Cloudflare config and thumbnails; 9 Cloudflare workers; 10 Stripe, Vercel, and live-data pages; 11 US all-states weather dataset; 12 State and global news builders; 13 Country location pollers; 14 Desk product apps not imported; 38 AdSense and AdMob end-of-day. [Website-RootRecord-Cloud-Staging.md](../../../00-architecture/Website-RootRecord-Cloud-Staging.md). [2026-09-29-globe-landing-overlay.md](../../../08-ideas/2026-09-29-globe-landing-overlay.md). |
 
@@ -63,7 +63,7 @@ Folder name: **Website**. This function is the one Vercel app. It does not get a
 - [x] Unchanged copy of `site-backgrounds` into `Archive/Website-Themes/` and `Old repos deleted and merged/Solar-Pacific-RootRecord-Server/site-backgrounds/`
 - [x] Proof test (git remote, HEAD, old pages absent, ecosystem ignore)
 - [x] Local removal of `site-backgrounds` committed on `online-safe-20260920` as `00505833`
-- [ ] GitHub push of that branch (blocked; `main` already has no `site-backgrounds`)
+- [x] GitHub check: `main` (`1dcee662`) and `fix/weather-change-detection` (`ed967aed`) have no `site-backgrounds`. The local branch was not published. Push protection rejected it because commit `679fd86c` contains a secret. That protection was not bypassed.
 - [x] Removal of the Communications snapshot (signed off 2026-09-30)
 - [x] Result note below. Library pages that named the Communications tree as the checkout are corrected.
 
@@ -155,7 +155,7 @@ Build only after Alexander accepts this draft and says to build. No earlier Fold
 
 **Result (2026-09-30).** Folder 3 is a checkout of `rootrecordsoftwaresolutions/RootRecord-Cloud` at `84dec4a` (`84dec4ad3ecf96962dbf6e6c83ebd08c7ea78932`). `origin` is `https://github.com/rootrecordsoftwaresolutions/RootRecord-Cloud.git` with no token. `src/app/energy` and `src/app/home` are absent. The ecosystem repo ignores the checkout (`!! 3 - RootRecord-Website/`).
 
-`site-backgrounds` (5 files) was copied unchanged to `5 - RootRecord-Library/Archive/Website-Themes/site-backgrounds/` and to `Old repos deleted and merged/Solar-Pacific-RootRecord-Server/site-backgrounds/`. Both copies matched the source (`diff -rq`). The local old repo `online-safe-20260920` commit `00505833` deletes those files. GitHub `main` of `Solar-Pacific-RootRecord-Server` (`1dcee662`) does not contain `site-backgrounds`, so there was nothing to delete on `main`. Push of `online-safe-20260920` was rejected by GitHub push protection because an older commit on that branch (`679fd86c`) contains a secret. That protection was not bypassed, and history was not rewritten. No force-push.
+`site-backgrounds` (5 files) was copied unchanged to `5 - RootRecord-Library/Archive/Website-Themes/site-backgrounds/` and to `Old repos deleted and merged/Solar-Pacific-RootRecord-Server/site-backgrounds/`. Both copies matched the source (`diff -rq`). The local old repo `online-safe-20260920` commit `00505833` deletes those files. GitHub `main` of `Solar-Pacific-RootRecord-Server` (`1dcee662`) does not contain `site-backgrounds`, so there was nothing to delete on `main`. Neither GitHub branch contains `site-backgrounds`, so there is nothing to delete on GitHub. Push of `online-safe-20260920` was rejected by GitHub push protection because an older commit on that branch (`679fd86c`) contains a secret. That protection was not bypassed, and history was not rewritten. No force-push.
 
 Left in place and named: `~/.ollama/skills/website/site` (`RootRecord-Website`), `public-chat`, `public-edge`, `public-finance`, `public-health`, and `websites` (agents 8, 9, and 10). The Communications `RootRecord-Cloud/` tree was removed 2026-09-30 after sign-off. Folder 3 at `84dec4a` was checked first and was left in place.
 
