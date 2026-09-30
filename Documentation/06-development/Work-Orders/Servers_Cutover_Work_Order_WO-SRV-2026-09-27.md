@@ -480,3 +480,21 @@ Note: the Smart-Devices pass earlier today (13:31 HST, before the 13:45 standing
 - `rr-aws-ip` HostName → 18.118.30.226: **PASS**. `rr-aws` works through the tunnel with the pinned key, but the desk `known_hosts` is stale (needs OK).
 - Details: [test record](../../07-testing/2026-09-29-aws-hawaii-trim-and-cloudflared.md) and [architecture change log](../../00-architecture/US-Mainland-Server.md).
 
+
+## State at pause — 2026-09-29 16:25 HST
+
+Docs-only refresh (no runtime change). The consolidated sign-off list is in the [worklog "State at pause, 16:25 HST"](../../01-operations/0%20-%20Human%20Operator%20Work%20Logs/2026-09-29%20System%20Operator%20Worklog%20%E2%80%94%20Overnight.md#state-at-pause-1625-hst-2026-09-29).
+
+| Surface | State | Record |
+| --- | --- | --- |
+| 04:00 approved landings: `service_supervisor` job, relay quiet-mode inbox, Pacific `npu-status.sh`, weather retention (dry run, job disabled) | LANDED / VERIFY PENDING (next poller start). Closes the worklog note "WO-SRV open items need updating" | [supervisor](../../07-testing/2026-09-29-service-supervisor-dry-run.md) · [relay inbox](../../07-testing/2026-09-29-relay-quiet-inbox-parse.md) · [npu-status](../../07-testing/2026-09-29-npu-status-pacific-copy.md) · [retention](../../07-testing/2026-09-29-weather-retention-dry-run.md) |
+| AWS Hawaii feed trim + `*/15` auto-trim cron | **PASS** | [trim + cloudflared](../../07-testing/2026-09-29-aws-hawaii-trim-and-cloudflared.md) |
+| AWS tunnel, `www.rootrecord.cloud` 200 | **PASS** | same record |
+| Globe `server.js` static allowlist (P0) | **PASS** | [allowlist](../../07-testing/2026-09-29-aws-globe-static-allowlist.md) |
+| Globe overlay v2 + AWS Ohio node on AWS | LANDED · real browser VERIFY PENDING | [AWS deploy](../../07-testing/2026-09-29-globe-overlay-aws-deploy.md) |
+| AWS fallback Phase 2 (trimmed-micro, t3.micro 908 MB), Root Monitor write mode | **PASS** · real fallback VERIFY PENDING · relay send VERIFY PENDING | [deploy](../../07-testing/2026-09-29-aws-fallback-phase2-runtime-deploy.md) · [reclaim](../../07-testing/2026-09-29-aws-fallback-phase2-reclaim-retention.md) · [history](../../07-testing/2026-09-29-aws-globe-history-batched-commits.md) |
+| Root Monitor toggle buttons + camera viewer button; desktop launcher | **PASS** / LANDED | [toggle buttons](../../07-testing/2026-09-29-root-monitor-toggle-buttons.md) |
+| Android apps import (outside Pacific) | copy **PASS** · build VERIFY PENDING | [Android import](../../07-testing/2026-09-29-android-apps-import.md) |
+| Old-repo matrix | 35 / 22 / 33 (unchanged since 14:40) | [matrix](../../00-architecture/Old-Repo-Migration-Matrix.md) |
+| AWS feed server `:8787` | open finding, public (sign-off) | [US-Mainland-Server](../../00-architecture/US-Mainland-Server.md) |
+| G2 / G1 / G0 legacy sources | KEPT | — |

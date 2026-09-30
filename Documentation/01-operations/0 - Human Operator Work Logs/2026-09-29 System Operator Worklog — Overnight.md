@@ -550,3 +550,56 @@ Backups: AWS `~/rootrecord/bin.bak-fallback-phase2-20260929-154333/` (before any
 - Not exercised: a real FALLBACK on AWS and any Data Relay send.
 - Still pending sign-off: `:8787` · `telegram_hold` + `basic_replies` (OFF) · `relay_send` (OFF) · AWS `.env` trim · the desk jobs `aws_heartbeat_push` + `aws_catchup` (blocks only, in [Pending-Job-Registrations §C](../../00-architecture/Pending-Job-Registrations-2026-09-29.md); `aws_catchup.py` not written) · globe poll at 5 s + gzip.
 - The Mainland checkout `fallback/` is uncommitted (not in auto-sync).
+
+## State at pause, 16:25 HST (2026-09-29)
+
+Docs-only consolidation, 16:24–16:35 HST: no system changes, no git writes by hand, no sudo or restarts, `jobs.py` untouched. Backup of every Library file edited: `/home/rootrecord/Database/GITHUB/library-state-at-pause.bak-20260929-162640/`. Every state below comes from the test records and the sections above.
+
+### LANDED today (afternoon)
+
+| Item | State | Record |
+| --- | --- | --- |
+| AWS Hawaii feed trim (1.83 GB → 50.3 MB) + `ubuntu` crontab `*/15` auto-trim (first automatic trim 14:30; runs seen at 16:00 and 16:15) | LANDED · **PASS** | [trim + cloudflared](../../07-testing/2026-09-29-aws-hawaii-trim-and-cloudflared.md) |
+| cloudflared tunnel restored on AWS (existing globe tunnel, no DNS change); `www.rootrecord.cloud` 530 → **200** | LANDED · **PASS** | same record |
+| P0 fix: globe `server.js` static allowlist (source, feed, sqlite, scripts → 404) | LANDED · **PASS** | [static allowlist](../../07-testing/2026-09-29-aws-globe-static-allowlist.md) |
+| Globe overlay v2 deployed to AWS (Stop/Resume spin, click-info card, hover highlight, stable meshes) + AWS Ohio node and desk → AWS link | LANDED 16:10 / 16:16 · jsdom 18/18 **PASS** · real browser VERIFY PENDING | [AWS deploy](../../07-testing/2026-09-29-globe-overlay-aws-deploy.md) · [v2](../../07-testing/2026-09-29-globe-overlay-v2-spin-click-info.md) |
+| AWS fallback Phase 2 on the trimmed-micro profile (t3.micro, 908 MB RAM): legacy pollers disabled (reversible), history batching fix (writes 43.9 → 1.6 MB/min), release `20260929-160245-5ee01b1e`, Root Monitor write mode (`system_monitor` 0→1→0 round-trip) | LANDED · **PASS** (MemAvailable min 497 MB, iowait 0.1 %) | [reclaim](../../07-testing/2026-09-29-aws-fallback-phase2-reclaim-retention.md) · [history](../../07-testing/2026-09-29-aws-globe-history-batched-commits.md) · [deploy](../../07-testing/2026-09-29-aws-fallback-phase2-runtime-deploy.md) |
+| Root Monitor: switches → labelled toggle buttons; visible camera viewer button | LANDED · **PASS** (toggle tests 30/30); the open window runs the pre-16:10 code until it is reopened | [toggle buttons](../../07-testing/2026-09-29-root-monitor-toggle-buttons.md) |
+| Desktop launcher `~/Desktop/Root-Monitor.desktop` | LANDED 16:04 (desktop-file-validate clean) | 16:04 line above |
+| 9 Android apps imported into `6 - Android Development` (80.7 MB, 1,033 files) | LANDED · copy **PASS**; build VERIFY PENDING (no SDK/Java on the desk) | [Android import](../../07-testing/2026-09-29-android-apps-import.md) · [inventory](../../00-architecture/Android-Apps-Inventory.md) |
+| Old-repo migration pass 2: matrix **35 migrated / 22 partial / 33 missing** (90 rows) | LANDED (ports gated OFF; jobs PROPOSED) | [breadth batch 5](../../07-testing/2026-09-29-old-repo-ports-breadth-batch5.md) · [matrix](../../00-architecture/Old-Repo-Migration-Matrix.md) |
+
+### VERIFY PENDING
+
+- **Globe in a real browser:** drag/zoom, click info, hover and the Ohio node over WebGL (headless paints no WebGL; browsers may cache `overlay.js` for up to 4 h).
+- **A real fallback on AWS:** desk offline → AWS functions take over → desk catch-up. Not exercised.
+- **Relay send:** no Data Relay send has been exercised (`relay_send` is OFF on AWS; desk `relay-inbox-replay.py --send` has not been run).
+
+### Pending sign-offs (consolidated, 16:25 HST)
+
+One list of everything still waiting on Alexander. The earlier "Needs Alexander" lists in this worklog stay as history; this is the current view.
+
+- [ ] **`:8787` feed server** on AWS is still publicly reachable: bind it to localhost or close the port in the security group.
+- [ ] **Telegram:** `telegram_hold` and `basic_replies` on AWS (both OFF), and a Telegram bot for the hold.
+- [ ] **Relay test send:** one approved Data Relay send (`relay_send`, OFF) and/or `relay-inbox-replay.py --send` with `RR_RELAY_REPLIES=1`.
+- [ ] **AWS `.env` trim** down to the keys the fallback profile needs (names only are in the inventory record).
+- [ ] **Desk jobs `aws_heartbeat_push` + `aws_catchup`:** blocks in [Pending-Job-Registrations §C](../../00-architecture/Pending-Job-Registrations-2026-09-29.md); `aws_catchup.py` is not written yet.
+- [ ] **Globe `/api/state` poll 1 s → 5 s + gzip** before the Vercel background launch.
+- [ ] **AWS own-connections collector** (a small `ss` timer; needs a `server.js` change and a restart): PROPOSED.
+- [ ] **Android signing material** in GitHub repos that aren't private, and a **recovery-codes file** inside an app project folder (now 0600 and git-ignored): make private / rotate, and move the codes to a password manager. Details stay in the operator report, not in this public page.
+- [ ] **`rr-aws` known_hosts:** replace the stale desk entry for the tunnel SSH host with the verified AWS host key (see the 14:05 AWS section).
+- [ ] **Mainland auto-sync** (repoint + enable the `mainland` row in `repos.conf`) or a hand commit: the Mainland checkout (units, crontab, overlay, `fallback/`) is uncommitted.
+- [ ] **The 10 PROPOSED job blocks** in [Pending-Job-Registrations §B](../../00-architecture/Pending-Job-Registrations-2026-09-29.md), plus keep/remove for the 7 gated blocks already in `jobs.py` (§A).
+- [ ] **Hawaiʻi news seeds:** review the 16 seed feeds before `RR_HAWAII_NEWS` is registered.
+- [ ] **Report board file in git:** keep `Reports/board/daily-reports-due.json` tracked, or ignore it.
+- [ ] **Root Monitor:** default-viewer swap (`Packaging/swap-default-viewer.sh apply`, reversible), start Conky, and create the `rr-flags.conf` poller drop-in (needed before any RR_* flag edit).
+- [ ] **`git rm --cached` of generated reports** (Database `Reports/Generated/`, `Logs/AI/Reports/`, the voice report copies and sidecars) plus `.gitignore` rules.
+- [ ] **`OLLAMA_KEEP_ALIVE=0`** in `ollama.service` (sudo).
+- [ ] **Pronunciation approvals:** the 4 PROPOSED candidates (Kalākaua, Liliʻuokalani, Nuʻuanu, Māhele) and the by-ear checks.
+- [ ] **Retention rules:** Weather retention apply (enable `weather_retention` and switch it to `--apply`; open question: should zipped imagery follow the 14-day rule?).
+- [ ] **PAT rotation and the other security items:** rotate the GitHub PAT; camera stills in the public Database repo; `CONNECTION.json` in Pacific history; G2 tracking `a-eyes/store/CONNECTION.json`; the 7 security items from the root-monitor pass.
+- [ ] **B1 battery physical check** (River 2 Pro; both batteries were low overnight).
+
+Still open from the overnight list above, unchanged: the poller restart (activates the next-start fixes and any flags), the Energy hardware tests, the external-drive decision, G2 retirement (everything KEPT) and the Weather repo decision.
+
+**Where things stopped:** nothing is in progress on AWS or on the desk. Library docs refreshed in this pass: MIGRATION-DOCS-INDEX (new-docs section), the Library README ("Where things stand"), WO-SRV / WO-ECO / WO-GH, the G3 runtime checklist, US-Mainland-Server (current AWS state table), the retirement table, the migration matrix, Pending-Job-Registrations, the 08-ideas README and the globe design doc state.

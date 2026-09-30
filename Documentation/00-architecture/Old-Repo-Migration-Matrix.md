@@ -191,3 +191,5 @@ As of 14:40 HST no clean candidates remain: every row that is still partial or m
 *Created 2026-09-29 (migration pass). Update this file and the [G1 README](https://github.com/rootrecordsoftwaresolutions/Solar-Pacific-RootRecord-Server-Old/blob/main/README.md) status tables together — the G1 README was **not** edited in this pass (no writes to old repos).*
 
 *Breadth pass 2 update 2026-09-29 ~14:40 HST: counts 35 / 22 / 33; test record [breadth batch 5](../07-testing/2026-09-29-old-repo-ports-breadth-batch5.md).*
+
+*Status at pause 2026-09-29 16:25 HST: counts unchanged since 14:40 (35 / 22 / 33). The afternoon AWS, globe, Root Monitor and Android work changed no row here.*

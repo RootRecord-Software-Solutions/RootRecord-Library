@@ -207,3 +207,12 @@ The operator installed the documented AMD XDNA2/XRT prerequisite stack on the Pa
   - Matrix **35 / 22 / 33**; nothing clean left to port.
   - [Record](../../07-testing/2026-09-29-old-repo-ports-breadth-batch5.md).
 - Legacy sources **KEPT** (standing rule). Backups: `/home/rootrecord/Database/GITHUB/migration-hurricane-desk.bak-20260929-133959/`, `/home/rootrecord/Database/GITHUB/migration-geology.bak-20260929-131652/`, `/home/rootrecord/Database/GITHUB/migration-old-repos.bak-20260929-133118/`. Breadth backup: `/home/rootrecord/Database/GITHUB/migration-breadth.bak-20260929-135720/`.
+
+## State at pause — 2026-09-29 16:25 HST
+
+- **§4.2 Runtime:** the old-repo matrix is now **35 migrated / 22 partial / 33 missing** (supersedes the 27 / 27 / 36 note in §4.2). All ports are gated OFF; their jobs are PROPOSED in [Pending-Job-Registrations](../../00-architecture/Pending-Job-Registrations-2026-09-29.md).
+- **§4.3 Node (US-Mainland / AWS):** no longer only a placeholder. Desk checkout imported (**PASS**). AWS feed trim + cron, tunnel (`www` 200) and the static allowlist: **PASS**. AWS fallback Phase 2 LANDED on the trimmed-micro t3.micro profile (908 MB RAM), with Root Monitor write mode: **PASS**. A real fallback and a relay send are VERIFY PENDING. Details: [US-Mainland-Server](../../00-architecture/US-Mainland-Server.md).
+- **§4.3 Website:** `www.rootrecord.cloud` serves the AWS globe (200) with landing overlay v2 (LANDED 16:10 HST; real-browser check VERIFY PENDING). Vercel untouched. The RootRecord-Cloud staging build passed on the desk; no deploy.
+- **New ecosystem folder:** `6 - Android Development` (9 apps, 80.7 MB). Not a git repo, not in `repos.conf`. Build VERIFY PENDING. [Inventory](../../00-architecture/Android-Apps-Inventory.md).
+- **§5 sync table:** the `mainland` row is still disabled (sign-off to repoint + enable); the Mainland checkout is uncommitted.
+- Sign-offs: [worklog "State at pause, 16:25 HST"](../../01-operations/0%20-%20Human%20Operator%20Work%20Logs/2026-09-29%20System%20Operator%20Worklog%20%E2%80%94%20Overnight.md#state-at-pause-1625-hst-2026-09-29).

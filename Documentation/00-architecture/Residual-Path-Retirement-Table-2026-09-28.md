@@ -130,3 +130,8 @@ Record any post-check confirmation in WO-SRV notes if useful; do not re-open clo
 | Speech scrub | G1 `persona/scripts/speech_scrub.py` | `Media/Voice/scripts/speech_scrub.py` | yes | manual PASS (on demand; not wired) | **KEPT** |
 
 All legacy sources stay in place; the **Retired** column changes only with Alexander's explicit sign-off. Full matrix: [Old-Repo-Migration-Matrix](./Old-Repo-Migration-Matrix.md).
+
+## Status at pause — 2026-09-29 16:25 HST
+
+- Nothing was RETIRED today. Every G2 / G1 / G0 source in this table stays **KEPT**.
+- AWS (outside this table): `github-poller` and `rr-rootserver-poller` were **disabled, not retired**; their files and units are kept, and the re-enable steps are in the [Phase 2 reclaim record](../07-testing/2026-09-29-aws-fallback-phase2-reclaim-retention.md).

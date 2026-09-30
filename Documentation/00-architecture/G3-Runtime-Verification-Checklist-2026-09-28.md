@@ -194,3 +194,21 @@ Addendum ~13:46 HST: `voice_reports.py hurricane_desk` (`RR_VOICE_HURRICANE`) an
 Addendum ~14:10 HST (breadth batch 4, [record](../07-testing/2026-09-29-old-repo-ports-breadth-batch4.md)): `web_facts.py` + `live_wx.py` on demand **PASS**; `host_desks.py` net + security **PASS** (temp root); `voice_reports.py solar_desk` / `security_desk` / `bandwidth_desk` text **PASS**, WAV **VERIFY PENDING**; `hawaii_news.py` rc 0 but **FAIL on content** (0 posts). Their jobs are **PROPOSED only** (not in jobs.py): [Pending-Job-Registrations-2026-09-29.md](./Pending-Job-Registrations-2026-09-29.md). After registration + next poller start: check `System/network/net-last.json` advances every ~5 min and each voice `_current.md` appears at :04 / :11 / :12.
 
 Addendum ~14:40 HST (breadth batch 5, [record](../07-testing/2026-09-29-old-repo-ports-breadth-batch5.md)): voice text fixes (clock "oh N", watts words, spoken sun times) **PASS**; `hawaii_news.py` with 16 seed feeds **PASS** (278 posts, temp root); `official_statement.py` (HLS) **PASS** (one real run, git-ignored path); `voice_reports.py official_weather` / `boot_brief` text **PASS**, WAV **VERIFY PENDING**; `report_board.py` **PASS** (temp root); `load_categories.py`, `global_board.py` (temp root), `host_hw.py`, `speech_scrub.py` **PASS**. New jobs **PROPOSED, not in jobs.py**: `weather_official_hls` (`RR_OFFICIAL_HLS`), `voice_official_weather` (`RR_VOICE_OFFICIAL`), `voice_boot_brief` (`RR_VOICE_BOOT`, ON_BOOT), `reports_board_catchup` (`RR_REPORT_BOARD`), `weather_hurricane_global` (`RR_HURRICANE_GLOBAL`). Correction: the weather poller already collects HWO; only HLS was missing.
+
+## Status at pause — 2026-09-29 16:25 HST
+
+Rows B–D: no new runtime evidence since the ~03:45 block, so those states stand. New rows from today's afternoon work (docs-only refresh):
+
+| Row | State | Evidence |
+| --- | --- | --- |
+| A. Telegram / council_relay (desk) | quiet mode default; replies OFF until Alexander opts in (`*-telegram` models rebuilt 04:12, see the worklog g3-specialists pass) | worklog |
+| A2. AWS `telegram_hold` / `basic_replies` | OFF (sign-off) | [fallback proposal](../08-ideas/2026-09-29-aws-fallback-rebuild.md) |
+| AWS Hawaii feed trim + `*/15` cron | **PASS** | [record](../07-testing/2026-09-29-aws-hawaii-trim-and-cloudflared.md) |
+| AWS tunnel / `www` 200 | **PASS** | same record |
+| AWS globe static allowlist (P0) | **PASS** | [record](../07-testing/2026-09-29-aws-globe-static-allowlist.md) |
+| Globe overlay v2 + AWS Ohio node | LANDED · real-browser check **VERIFY PENDING** | [record](../07-testing/2026-09-29-globe-overlay-aws-deploy.md) |
+| AWS fallback Phase 2 (trimmed-micro) | **PASS** (deploy, rollback, write round-trip) · real fallback **VERIFY PENDING** · relay send **VERIFY PENDING** | [record](../07-testing/2026-09-29-aws-fallback-phase2-runtime-deploy.md) |
+| Root Monitor toggle buttons + camera button | **PASS** | [record](../07-testing/2026-09-29-root-monitor-toggle-buttons.md) |
+| Geology / old-repo port rows above | unchanged: manual PASS; poller cycle VERIFY PENDING (flags + poller restart are sign-off items) | — |
+
+Sign-offs: worklog section "State at pause, 16:25 HST".

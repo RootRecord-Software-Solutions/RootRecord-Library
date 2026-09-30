@@ -34,6 +34,19 @@ Single entry point for agents and operators working the Pacific server cutover *
 | [AI-Processing-Logs-and-Reports.md](./AI-Processing-Logs-and-Reports.md) | **AI processing (2026-09-29)**: run-infer JSONL fields, rotation, report, `RR_AI_REPORT` gate, FLM log redaction |
 | Ops worklog `2026-09-29 System Operator Worklog — Overnight.md` | Overnight docs pass steps (HST) + **Needs Alexander sign-off** list |
 
+## 2026-09-29 afternoon: AWS Mainland node, globe landing, Root Monitor, Android
+
+| Doc | Purpose |
+| --- | --- |
+| [US-Mainland-Server.md](./US-Mainland-Server.md) | **AWS continuity node**: desk checkout, change log, and the current AWS state table (at pause, 16:25 HST) |
+| [07-testing/2026-09-29-aws-hawaii-trim-and-cloudflared.md](../07-testing/2026-09-29-aws-hawaii-trim-and-cloudflared.md) | **AWS Hawaii feed trim + `*/15` auto-trim cron; cloudflared tunnel restored** (`www` 530 → 200): PASS |
+| [07-testing/2026-09-29-aws-globe-static-allowlist.md](../07-testing/2026-09-29-aws-globe-static-allowlist.md) | **AWS static allowlist** (P0: globe `server.js` no longer serves its folder; sensitive paths 404): PASS |
+| [08-ideas/2026-09-29-aws-fallback-rebuild.md](../08-ideas/2026-09-29-aws-fallback-rebuild.md) | **AWS fallback rebuild**: small fallback node with per-function toggles; Phase 2 LANDED on the trimmed t3.micro profile (908 MB RAM); real fallback VERIFY PENDING |
+| [08-ideas/2026-09-29-globe-landing-overlay.md](../08-ideas/2026-09-29-globe-landing-overlay.md) | **Globe landing overlay** for `www.rootrecord.cloud` (glass cards; v2 spin / click info; AWS Ohio node): AWS deploy LANDED 16:10 HST; real-browser check VERIFY PENDING. Records: [preview](../07-testing/2026-09-29-globe-landing-overlay-preview.md), [v2](../07-testing/2026-09-29-globe-overlay-v2-spin-click-info.md), [AWS deploy](../07-testing/2026-09-29-globe-overlay-aws-deploy.md) |
+| [07-testing/2026-09-29-root-monitor-toggle-buttons.md](../07-testing/2026-09-29-root-monitor-toggle-buttons.md) | **Control Panel (Root Monitor) toggle buttons**: switches → labelled buttons, visible camera viewer button: PASS |
+| [Control-Panel-GTK.md](./Control-Panel-GTK.md) | Root Monitor (GTK4 Control Panel): pages, settings, AWS Fallback page, sign-off items |
+| [Android-Apps-Inventory.md](./Android-Apps-Inventory.md) | **Android apps inventory**: 9 apps imported into `6 - Android Development` (80.7 MB); build VERIFY PENDING. [Test record](../07-testing/2026-09-29-android-apps-import.md) |
+
 ## Product & archive inventory (Minecraft, apps, mirrors)
 
 | Doc | Purpose |
@@ -141,3 +154,5 @@ Weather: **enabled and PASS** since 2026-09-29 (Pacific `Weather/`; see WO-SRV).
 *Index updated 2026-09-29 ~03:45 HST — Testing folder (`Documentation/07-testing/`) and the full 2026-09-29 evidence list added.*
 
 *Index updated 2026-09-29 ~13:40 HST — Old-Repo-Migration-Matrix linked; Geology collector + ports batch 1 test records in `07-testing/`. ~14:10 HST — Pending-Job-Registrations linked; breadth batch 4 test record. ~14:40 HST — G1-Scheduler-To-G3-Jobs-Map linked; breadth batch 5 test record (`07-testing/2026-09-29-old-repo-ports-breadth-batch5.md`); matrix now 35 / 22 / 33.*
+
+*Index updated 2026-09-29 ~16:30 HST: new section "2026-09-29 afternoon" links US-Mainland-Server, the AWS trim + cloudflared and static-allowlist records, the AWS fallback rebuild and globe landing overlay proposals, the Root Monitor toggle-buttons record, Control-Panel-GTK and Android-Apps-Inventory. Current state and sign-offs: worklog section "State at pause, 16:25 HST".*

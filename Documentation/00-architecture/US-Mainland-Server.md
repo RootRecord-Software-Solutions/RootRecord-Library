@@ -12,6 +12,8 @@
 | **Plan** | [08-ideas/2026-09-29-aws-mainland-improvement-plan.md](../08-ideas/2026-09-29-aws-mainland-improvement-plan.md) |
 | **Backup** | `/home/rootrecord/Database/GITHUB/us-mainland-import.bak-20260929-134629/` |
 
+> **At pause (16:25 HST):** the State row above describes 13:45–14:05. For the current state see [Current AWS state](#current-aws-state-at-pause-2026-09-29-1625-hst).
+
 ## What the repo is
 
 "Secondary infrastructure node providing service continuity, synchronization, and recovery … when the Solar Pacific Root Server is unavailable." 112 tracked files (~0.85 MB working tree; GitHub reports 195 KB packed). README banner (2026-09-28): continuity node; the **org** `RootRecord-Software-Solutions` is authority (the repo itself still lives on the `rootrecordsoftwaresolutions` user account; no org copy exists).
@@ -115,3 +117,28 @@ Why the tunnel was down: cloudflared and its unit were purged on AWS on 2026-09-
 - **New:** `~/rootrecord/fallback/` (tick timer, root `rr-fallback-apply` + path unit, flags, spool), from the desk `fallback/deploy-aws-fallback.sh`; journald and logrotate caps.
 - **Result:** MemAvailable ≥ 497 MB, iowait 7.4 % → 0.1 %.
 - **Unchanged:** `:8787` is still public. Records: [reclaim](../07-testing/2026-09-29-aws-fallback-phase2-reclaim-retention.md) · [history](../07-testing/2026-09-29-aws-globe-history-batched-commits.md) · [deploy](../07-testing/2026-09-29-aws-fallback-phase2-runtime-deploy.md).
+
+## Current AWS state (at pause, 2026-09-29 16:25 HST)
+
+Rolled up from the change logs above and the Phase 2 records. Measured values are from the 16:13–16:16 HST verify unless noted.
+
+| Item | State |
+| --- | --- |
+| Instance | t3.micro, **908 MB RAM**, no swap; kept (no resize). Profile: **trimmed-micro** (7 functions) |
+| Memory / I/O / disk | MemAvailable min **497 MB** (floor 485), iowait **0.1 %**, disk free **3,278 MB** (floor 1.5 GB): **PASS** |
+| Hawaii feed | trimmed and capped (64 MiB cap, `*/15` cron as `ubuntu`); the cron ran at 16:00 and 16:15: **PASS** |
+| Tunnel + `www` | cloudflared 2026.9.3 on the existing globe tunnel; `www` `/`, `/health`, `/api/state` **200**: **PASS** |
+| Globe web server | static allowlist, bound to localhost :8090: **PASS** |
+| Globe overlay | v2 + AWS Ohio node LANDED 16:10 / 16:16; real-browser check **VERIFY PENDING** |
+| Connection history | batched commits + persisted cursor: **PASS** |
+| `github-poller`, `rr-rootserver-poller` | disabled, files and units kept (reversible): **KEPT** |
+| Fallback runtime | `~/rootrecord/fallback/`, release `20260929-160245-5ee01b1e`, rollback proven: **PASS**. A real fallback is **VERIFY PENDING** |
+| Root Monitor AWS Fallback page | write mode, alias `rr-aws-ip`; `system_monitor` 0→1→0 round-trip: **PASS** |
+| `telegram_hold`, `basic_replies`, `relay_send` | OFF (sign-off); relay send **VERIFY PENDING** |
+| Feed server `:8787` | still public: open finding (sign-off) |
+| AWS `.env` | 23 keys; trim pending (sign-off) |
+| Desk jobs `aws_heartbeat_push`, `aws_catchup` | not registered; `aws_catchup.py` not written (sign-off) |
+| SSH | `rr-aws-ip` **PASS**; `rr-aws` PASS with the pinned host key, FAIL with the stale desk `known_hosts` (sign-off) |
+| Mainland checkout | uncommitted; the `mainland` auto-sync row is disabled (sign-off) |
+
+Sign-offs: worklog section "State at pause, 16:25 HST".

@@ -214,3 +214,5 @@ These come from the [AWS fallback rebuild](../08-ideas/2026-09-29-aws-fallback-r
 `Geology/scripts/earthquakes_backfill.py`, `Media/Video/scripts/mp4_converter.py`, `Communications/web-facts/scripts/web_facts.py`, `Communications/live-wx/scripts/live_wx.py`, `Energy/scripts/load_categories.py`, `System/scripts/host_hw.py`, `Media/Voice/scripts/speech_scrub.py` (library), `Reports/scripts/report_board.py status`, `System/scripts/host_desks.py security|net-usage`.
 
 *Created 2026-09-29 ~14:08 HST (old-repo migration, breadth pass). Updated ~14:25 HST: `reports_hawaii_news` now seeded (278 posts in a temp-root run), env `RR_NEWS_SEEDS_ONLY=1`, timeout 300 s. Updated ~14:42 HST (breadth pass 2): + `weather_official_hls`, `voice_official_weather`, `weather_hurricane_global`, `reports_board_catchup`, `voice_boot_brief`.*
+
+*Status at pause 2026-09-29 16:25 HST: nothing registered since. §A: 7 blocks in `jobs.py`, all OFF (keep/remove is a sign-off). §B: 10 PROPOSED blocks. §C: 2 PROPOSED AWS desk jobs (`aws_catchup.py` not written). All are sign-off items.*
