@@ -37,7 +37,7 @@ Folder name, used in all three paths: **CountryLocations**. It is a subfolder of
 | Secrets | None. No new key names in `/home/rootrecord/master/master-key.env`. Open-Meteo is a public API. |
 | Old source | `rootrecordsoftwaresolutions/old` `operations/locations/**` — 306 `poller.py` (one blob) and 306 `location.json`. No theme files in that tree. |
 | Shared file, leave it | `old/config/locations/global-locations.json` — already copied to `Geology/config/global-locations.json`. Not part of this deletion. |
-| Live Vercel checkout | `3 - RootRecord-Website/src/app/` as of 2026-09-30 00:39 HST. Pages include `/us-states` (WO-MIG-11, not this allowlist). No country or city route. |
+| Live Vercel checkout | `3 - RootRecord-Website/src/app/` as of 2026-09-30 00:52 HST. Pages include `/us-states` (WO-MIG-11) and `/data/weather` (Hawaiʻi report), `/data/power`, `/data/kilauea`. No country or city route. |
 | Hawaiʻi weather | Live. `Weather/scripts/run_poller.py`. Do not replace. |
 | Local checkout of `old` | Used `/tmp/rr-old-wo13` for the deletion commit. Not kept. |
 
@@ -148,6 +148,7 @@ Do these only after Alexander accepts this draft and says to build. Until then, 
 - Small test, 2026-09-30 00:02 HST: `poll_locations.py` with an empty allowlist exited 0, wrote `status-last.json` with `locations` 0 and `http_calls` 0.
 - Result note (2026-09-30 00:08 HST): Landed `Weather/CountryLocations/` with an empty allowlist and disabled job `country_location_pollers`. Empty run: exit 0, `http_calls` 0. Archived 612 files at `Old repos deleted and merged/old/operations/locations/`. Removed those files on GitHub `rootrecordsoftwaresolutions/old` commit `fe6661a` (default branch `cursor/radio-idle-obs-gates`). `main` already had no poller at its tip. `config/locations/global-locations.json` was left. The repository was not deleted.
 - Recheck (2026-09-30 00:39 HST): website checkout, US-States, and state/global news are now on disk. No country or city page, so the allowlist stayed `[]`. Second empty run: exit 0, `http_calls` 0. `Weather/README.md` now names this subfolder beside `US-States`.
+- Recheck (2026-09-30 00:52 HST): new pages `/data`, `/data/weather` (Hawaiʻi report), `/data/power`, and `/data/kilauea` are not country routes. Allowlist stayed `[]`. Job stayed `enabled: False`. Archive still 306 `poller.py` and 306 `location.json`.
 
 ---
 

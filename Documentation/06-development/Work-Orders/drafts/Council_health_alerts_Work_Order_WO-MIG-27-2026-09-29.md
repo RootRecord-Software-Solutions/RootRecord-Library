@@ -51,7 +51,7 @@ Folder name, used in all three places: `CouncilHealth` (inside Communications). 
 
 ### 2.3 Known friction
 
-- Council persona prompts (agent 03) and Council quake Telegram posts (agent 25) have no Folders yet. When told to build, pause and name those two functions. Do not build them.
+- Council persona prompts and Council quake Telegram posts have shell folders only (`CouncilPersona`, `CouncilQuake`). The functions were not built.
 - `jobs.py`, the Vercel app shell, and `master-key.env` are shared. If any of them is already being edited at build time, pause and name the file.
 - Old checks for `apps.council`, origin `:8787`, `recycle-origin`, and `~/.ollama/skills` logs do not match the live relay. Do not restore those paths.
 - A model probe through `run-infer.sh` loads a model. It stays off unless `RR_COUNCIL_HEALTH_PROBE=1` and `--probe`.

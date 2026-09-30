@@ -143,7 +143,7 @@ These apps do not belong inside Energy, Geology, Weather, Reports, Security, Com
 
 **Additional requirements:**
 
-- The four glass-card routes are on `3 - RootRecord-Website`. They are staged in that repo and not committed.
+- The four glass-card routes are committed on the website repo as `74df825`. That commit is not pushed.
 - The first push of `3d54403b` was rejected by push protection on older commit `679fd86c`. Do not force-push and do not allow-list that secret. The remote-tracking branch `origin/online-safe-20260920` is now `0e3ebe2b`, which contains that deletion and does not contain the seven directories.
 - This file stays in drafts until a human promotes it.
 

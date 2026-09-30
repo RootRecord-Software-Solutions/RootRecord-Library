@@ -124,7 +124,6 @@ Do these only after Alexander accepts this draft and says to build. Until then, 
 **Additional requirements:**
 
 - Speaker playback stays gated. Live `aplay` needs a separate sign-off. The build test did not play audio.
-- Local branches `main` and `solar-battery-offline-recovery` in the old checkout still contain the old trees. They were not rewritten. GitHub `skills-rebuild` is `7416bf2f`.
 - This file stays in drafts. It is not on the active index.
 
 ---
@@ -160,7 +159,8 @@ Landed 2026-09-30 ~00:01 HST.
 - Runtime state and the player log are under Database `Media/Playback/` and `Logs/Media/Playback/`, gitignored.
 - Archive: `Old repos deleted and merged/Solar-Pacific-RootRecord-Server/reports/sort/` holds `morning-report-play`, `midday-report-play`, `late-report-play`, `evening-report-play`, `evening-report-audio`, and `report-periodic-audio`. File counts matched the source before delete.
 - Removed from the working tree of `/home/rootrecord/old ollama/old skills` (branch `online-safe-20260920`). Left in place: `evening-report/`, `day-reports-evening/`, `media/voice/scripts/director.py`, `voice-events/scripts/voice_events.py`.
-- GitHub: `origin/main` and `origin/online-safe-20260920` already had none of those paths. Commit `7416bf2f` (`Remove retired report play jobs.`, full `7416bf2f1ed3e006fae24be7ce770e61d5845011`) is now `skills-rebuild`. Those play paths are absent from that tip. Local branches `main` and `solar-battery-offline-recovery` in the old checkout still contain the old trees and were not rewritten. The repository was not deleted. No force-push.
+- GitHub: `origin/main` and `origin/online-safe-20260920` already had none of those paths. Commit `7416bf2f` (`Remove retired report play jobs.`, full `7416bf2f1ed3e006fae24be7ce770e61d5845011`) is `skills-rebuild`. Those play paths are absent from that tip. The repository was not deleted. No force-push.
+- Local tips in `/home/rootrecord/old ollama/old skills`, same message, not pushed: `main` `9207a29c` (was `cfb4f335`), `solar-battery-offline-recovery` `21205485` (was `322421fa`). Both tips now have zero of those play paths. `origin/solar-battery-offline-recovery` does not exist, so that branch was not pushed. Local `main` was not pushed to `origin/main`. `~/.ollama/skills` is a separate clone on `origin/main` and did not have the directories on disk.
 
 This file stays in `Work-Orders/drafts/`. It is not on the active index. Live `aplay` still needs a separate sign-off.
 

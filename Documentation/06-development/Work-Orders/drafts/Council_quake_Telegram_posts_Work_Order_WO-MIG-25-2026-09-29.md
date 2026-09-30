@@ -165,4 +165,8 @@ Human session logs archive under `Documentation/01-operations/archive/YYYY-Www/`
 
 ### Phase 4 / phase 5 result
 
-Not written. Fill this subsection after the build works and the archive copies are on disk.
+Landed 2026-09-30: `Communications/CouncilQuake/scripts/quake_posts.py` reads `hawaii-last.json`, seeds on the live path, and stays dry. Job `council_quake_telegram` is gated `RR_COUNCIL_QUAKE=1` (off) and is on the night-sleep allow list. `--self-test` PASS: one M2.4 notice, second run zero, no Telegram, live quake file untouched.
+
+Archived to `Old repos deleted and merged/Solar-Pacific-RootRecord-Server/council/council-quake/` (source plus `__pycache__`). Removed those tracked paths from `/home/rootrecord/old ollama/old skills` and from GitHub `rootrecordsoftwaresolutions/Solar-Pacific-RootRecord-Server` branch `online-safe-20260920`, commit `f05ec568`. The repository was not deleted. Shared files left in the old repo: `council/council-telegram/scripts/notify.py`, `council/council-telegram/scripts/report_cast.py`.
+
+Library corrections: matrix row 6, the `council-quake` scheduler row, and the Geology ownership “not imported” line. Send and WAV remain off.
