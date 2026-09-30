@@ -56,7 +56,7 @@ Folder name: **HurricaneRadio**, under the Media domain. One capitalized folder.
 
 - Report playback (agent 15) is the shared Kokoro player. This function pauses if that Folder is missing and does not build the player.
 - `hurricane_desk_current.wav` is not on disk. A run with no WAV records `no_wav` or `audio_missing` and exits 0. This function does not render speech.
-- `jobs.py` was already being edited at build, so the gated block was not inserted. It is staged in `proposed-job-block.txt`. Default stays off.
+- `jobs.py` now has `media_hurricane_radio`, gated on `RR_HURRICANE_RADIO` (default off). `proposed-job-block.txt` is a copy. Do not paste it again.
 - Speaker playback and AWS radio need Alexander's sign-off. This folder never passes `--play` and never calls `aplay`.
 - `play_on_radio` lives in old `hurricane-desk`. That file is shared with the already-migrated desk. Leave it.
 
@@ -105,12 +105,12 @@ Build only after Alexander accepts this draft and says to build. Until then, do 
 | `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Media/HurricaneRadio/__init__.py` | Package marker, added at build |
 | `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Media/HurricaneRadio/scripts/radio.py` | Dry-run handoff. Never passes `--play`. Never calls `aplay` |
 | `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Media/HurricaneRadio/README.md` | Desk note, added at build |
-| `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Media/HurricaneRadio/proposed-job-block.txt` | Staged only if `jobs.py` is already being edited |
+| `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Media/HurricaneRadio/proposed-job-block.txt` | Copy of the inserted block. Do not paste again |
 | `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Media/Playback/scripts/play.py` | Shared player. Do not edit |
 | `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Media/Voice/scripts/voice_reports.py` | Existing `hurricane_desk`. Do not edit |
 | `2 - RootRecord-Database/Media/Audio/Voice/hurricane_desk_current.wav` | Desk WAV the player reads. Not on disk yet. Do not synthesize it here |
 | `1 - Servers/1 - RootRecord-Pacific-Solar-Server/System/NightSleep/scripts/night_sleep.py` | Read `sleeping` only. Do not edit |
-| `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Automations/scripts/jobs.py` | One gated block at build, only if the file is free. Not edited in this draft |
+| `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Automations/scripts/jobs.py` | `media_hurricane_radio` inserted, gated `RR_HURRICANE_RADIO` (off) |
 | `old ollama/old skills/weather/hurricane-radio/` | Old function files to archive in phase 4, then remove from the old repo and GitHub |
 | `old ollama/old skills/weather/hurricane-desk/` | Shared `play_on_radio`. Leave |
 | `5 - RootRecord-Library/Documentation/00-architecture/Old-Repo-Migration-Matrix.md` | Correct the radio half of row 41 after phase 4 only |
@@ -123,8 +123,8 @@ Build only after Alexander accepts this draft and says to build. Until then, do 
 **Additional requirements:**
 
 - Speaker playback, AWS radio, sends, hardware switching, and cloud spend need a separate sign-off. This build did none of those.
-- `RR_HURRICANE_RADIO=1` on the live poller needs a separate sign-off. The block is staged, not inserted. The default stays off.
-- Paste `proposed-job-block.txt` into `jobs.py` only when that file is free. Leave it disabled.
+- `RR_HURRICANE_RADIO=1` on the live poller needs a separate sign-off. The job is in `jobs.py` and stays off.
+- Do not paste `proposed-job-block.txt` again.
 
 ---
 
@@ -136,7 +136,7 @@ Build only after Alexander accepts this draft and says to build. Until then, do 
 - Sends, speaker playback, OBS, hardware switching, deletion of live Ecosystem files, and cloud spend need Alexander's sign-off. This draft does none of those.
 - Sign-off gate: live `aplay` (`RR_PLAYBACK=1` and `--play` on the player), AWS radio, and turning `RR_HURRICANE_RADIO` on. This folder's dry-run sets `played: false`.
 - Test, after a build accept only: `python3 scripts/radio.py run` prints one JSON line with `played: false` and does not spawn `aplay`. With no WAV, detail is `no_wav` or `audio_missing`.
-- New periodic jobs stay gated off. The `jobs.py` block is proposed only, default off.
+- New periodic jobs stay gated off. `media_hurricane_radio` is in `jobs.py` and stays off until `RR_HURRICANE_RADIO=1`.
 - Phase 4 result: see section 8. Archive copy is on disk. Local deletion and GitHub push are commit `28d9c3e1`.
 
 ---
@@ -145,7 +145,7 @@ Build only after Alexander accepts this draft and says to build. Until then, do 
 
 Landed 2026-09-30: `Media/HurricaneRadio` (`__init__.py`, `README.md`, `scripts/radio.py`). `python3 scripts/radio.py run` with a temporary database root printed `played: false` and `detail: audio_missing` (no `hurricane_desk_current.wav`). A fake `aplay` on `PATH` was not called.
 
-`jobs.py` was already being edited, so the gated `media_hurricane_radio` / `RR_HURRICANE_RADIO` block was not inserted. It is staged in `Media/HurricaneRadio/proposed-job-block.txt`.
+`jobs.py` now contains `media_hurricane_radio`, gated on `RR_HURRICANE_RADIO` (default off) at 06:35, 13:12, and 17:02. `proposed-job-block.txt` is the same block. Do not paste it again.
 
 Archive path: `Old repos deleted and merged/Solar-Pacific-RootRecord-Server/weather/hurricane-radio/` (the six old files, copy matched the source, plus the untracked `scripts/__pycache__` that sat beside `job.py`). Left in place: `weather/hurricane-desk/` (`play_on_radio`).
 

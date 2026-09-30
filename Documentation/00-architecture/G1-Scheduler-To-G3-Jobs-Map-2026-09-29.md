@@ -48,7 +48,7 @@ States: **LIVE** = enabled in G3 now · **GATED** = in jobs.py, OFF until its fl
 | minecraft-live | every 10 min | — | OUT (RootMC) |
 | hurricane-fetch | 05/09/12/16/20 :40 | `weather_poller` (`Weather/hurricanes/`, NHC CurrentStorms) | LIVE; JTWC/RAMMB global board not in G3 (source decision) |
 | hurricane-desk / hurricane-desk-evening | 05/09/12/20 :50, 16:55 | `voice_hurricane_desk` | GATED `RR_VOICE_HURRICANE` |
-| hurricane-radio-am / -mid / -pm | 06:35 / 13:12 / 17:02 | `media_hurricane_radio` (proposed, not in jobs.py) | GATED `RR_HURRICANE_RADIO`. Dry-run handoff to Playback. Speaker and AWS radio off. |
+| hurricane-radio-am / -mid / -pm | 06:35 / 13:12 / 17:02 | `media_hurricane_radio` | GATED `RR_HURRICANE_RADIO` (in jobs.py, off). Dry-run handoff to Playback. Speaker and AWS radio off. |
 | ecoflow-quota | every 2 min | Energy BLE poller (cloud quota not ported) | LIVE via BLE; cloud BLOCKED (keys) |
 | drive-automation | every 30 min | — | BLOCKED (actuation) |
 | panels-cam | every 15 min | Pacific `Security/Cameras/` grab | partial; power session BLOCKED (actuation) |
