@@ -4,7 +4,7 @@
 | --- | --- |
 | **Work Order ID** | WO-MIG-42-2026-09-29 |
 | **Date** | 2026-09-30 (HST) |
-| **Status** | OPEN — draft, not accepted for execution |
+| **Status** | COMPLETE — PathIndex built 2026-09-30; `path_index` stays off |
 | **Owner** | RootRecord |
 | **Related** | Agent 42, Wave G. Cleanup and hold-backs. Old home `fs-index` and topic desk `live-directories` in `Solar-Pacific-RootRecord-Server` (`online-safe-20260920`). Migration matrix row 26. |
 
@@ -42,19 +42,19 @@ Folder name: `PathIndex`. Same name in all three places. Domain is System. No lo
 | Live host tools | `System/scripts/sys-sample.sh`, `uptime_log.py`, `host_desks.py`, `host_hw.py`. Do not edit |
 | Old source | `/home/rootrecord/old ollama/old skills/fs-index/` and `live-directories/`. Remote `git@github.com:rootrecordsoftwaresolutions/Solar-Pacific-RootRecord-Server.git`, branch `online-safe-20260920` |
 | Old index file | `paths.txt` is not on disk and is not tracked. `fs-index/state/` is gitignored and empty. `CURRENT.md` is tracked and is the last stats snapshot |
-| Shared file at build time | `Automations/scripts/jobs.py`. If it is still dirty from another agent when the build is ordered, pause and do not edit it |
+| Shared file at build time | `Automations/scripts/jobs.py` was free at build time. Gated block `path_index` is in the job list, `enabled: False` |
 | Shared old file | `origin/ns/apps/core/scheduler.py` is the target of `fs-index/desk/scheduler.py`. Leave the target. Phase 4 removes the symlink entry only |
 
 ### 2.2 Completed so far
 
 - [x] Old source read. Full-machine walk identified. Folder and three paths named. Scope limited to four source trees.
-- [x] Draft work order written (this file). Status stays OPEN — draft, not accepted for execution.
-- [ ] Alexander accepts this draft and says to build.
-- [ ] `System/PathIndex` package and `scripts/path_index.py` added.
-- [ ] Gated `path_index` block in `jobs.py` (`enabled: False`, 15 min), only if that file is free to edit.
-- [ ] Fixture test (no file contents, `/etc` refused) and one allowlisted walk.
-- [ ] Phase 4 archive, old-repo deletion, and GitHub commit/push.
-- [ ] Result note on this work order, and the stale Library rows corrected.
+- [x] Draft work order written (this file).
+- [x] Alexander accepted this draft and said to build (2026-09-30).
+- [x] `System/PathIndex` package and `scripts/path_index.py` added.
+- [x] Gated `path_index` block in `jobs.py` (`enabled: False`, 900 s).
+- [x] Fixture test (no file contents, `/etc` refused) and one allowlisted walk.
+- [x] Phase 4 archive, old-repo deletion, and GitHub commit/push.
+- [x] Result note on this work order, and the stale Library rows corrected.
 
 ### 2.3 Known friction
 
@@ -147,7 +147,13 @@ Phase 4 file list, from checkout `/home/rootrecord/old ollama/old skills` (remot
 - Sign-off gates: no sends, speaker playback, OBS, hardware switching, deletion of live Ecosystem files, or cloud spend. Phase 4 deletion is limited to the old function’s files after the archive copy succeeds. Enabling the 15-minute job stays off until Alexander says so.
 - Small test that proves the new behavior: temp tree with a `.env` and `node_modules` shows the path, hides the contents, and stubs `node_modules`; a run pointed at `/etc` writes no `/etc` lines; then one allowlisted walk writes `paths.txt` under Database `System/PathIndex`. No service restart.
 - New code wins. There is no live indexer to enhance. Do not copy `incremental_fs_index.py` over a Pacific file.
-- Result note: add it here after phase 4 (what landed, the archive path, what was removed on this machine, what was removed on GitHub, what was left because it is shared). Do not fill that note in this draft.
+- Result note (2026-09-30 01:20 HST):
+  - Landed: `System/PathIndex/scripts/path_index.py`. Allowlist is Pacific server, Website, Library, and Android. Output `2 - RootRecord-Database/System/PathIndex/paths.txt` (3145 paths) and `dir-mtimes.json`. Counts log `2 - RootRecord-Database/Logs/System/PathIndex/current.md` (rewalks 845, stubs 66, errors 0). `jobs.py` id `path_index`, `enabled: False`, `interval_sec: 900`. Poller was not restarted.
+  - Test: a temp tree listed `.env` as `file` and `node_modules` as `dir-stub`. The text `SECRET=hunter2` was absent. `--root /etc` exited 2 and left the sentinel `paths.txt` unchanged. The allowlisted walk wrote no `/etc` lines and no `master-key.env` path.
+  - Archived: `Old repos deleted and merged/Solar-Pacific-RootRecord-Server/fs-index/` and `live-directories/`, including `__pycache__` and the two symlink entries. `origin/ns/apps/core/scheduler.py` was not copied.
+  - Removed on this machine: `/home/rootrecord/old ollama/old skills/fs-index/` and `live-directories/`. Local commit `46cda95a` on branch `online-safe-20260920`.
+  - Removed on GitHub: `Solar-Pacific-RootRecord-Server` branch `online-safe-20260920` commit `46cda95a` (`7763b4e8..46cda95a`). `Solar-Pacific-RootRecord-Server-Old` `main` commit `4c7ff83` (`91503c3..4c7ff83`). Both `fs-index` and `live-directories` return 404 on those branches. Neither repository was deleted. No force-push.
+  - Left in place: `origin/ns/apps/core/scheduler.py`, and the snapshots under `/home/rootrecord/old ollama/github-history/` that contain `fs-index` or `live-directories`.
 
 ---
 

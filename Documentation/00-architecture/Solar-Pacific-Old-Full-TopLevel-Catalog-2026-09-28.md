@@ -50,7 +50,7 @@
 | feature-toggles | Review | |
 | fern-forest | Pacific `Products/scripts/FernForest/` | Public TMK facts only. Parcel PDFs stayed in the local archive. |
 | finance-desk | Pacific `Products/scripts/FinanceDesk/` | Source copy. Not a running path. No Stripe call. |
-| fs-index | Review | |
+| fs-index | Pacific `System/PathIndex/` | WO-MIG-42 scoped index. Job off |
 | git-auto-push | G3-core | Compare to G2 github/scripts |
 | goals | Product | |
 | governance | Library | WO-MIG-06: decisions in `Documentation/00-architecture/Governance/`. Packet removed from -Old. Not a Pacific job. |
@@ -67,7 +67,7 @@
 | kokoro | Review | TTS? |
 | launch | Review | |
 | live-data-pages | Product / Website | |
-| live-directories | Review | |
+| live-directories | Archive | Topic desk archived with fs-index. WO-MIG-42 |
 | load-categories | Review | |
 | local-data-globe | G3-core | Network globe cousin |
 | log-cleanup | G3-optional / Logs | |
