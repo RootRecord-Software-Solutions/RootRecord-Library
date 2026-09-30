@@ -422,10 +422,26 @@ Backup: `/home/rootrecord/Database/GITHUB/android-import.bak-20260929-143931/` (
 | 14:38 | Capacitor web sources (`Web/apps/<app>-web`, no `node_modules/` or `build/`) added as `<App>/Web-Source/` for the 6 Capacitor apps. Checksum compare 0 diffs. Total **80.7 MB**, 1,033 files | **PASS** |
 | 14:37–14:50 | `6 - Android Development/README.md`, Library inventory, test record, 07 README row, this section | LANDED |
 
-Android SDK / Studio / Java: **none on the desk**, so no build (VERIFY PENDING). No sudo, remounts, fsck/chkdsk/ntfsfix, drive writes, git writes in any existing repo, restarts, sends or models. `Desktop/old txt` and `I'll sort these models tomorrow` were pruned from every search.
+Android SDK / Studio / Java: **none on the desk**, so no build (VERIFY PENDING). Library commits (auto desk sync): `1e85c1e` (inventory, test record, 07 row), `7ab947f` (this section). No sudo, remounts, fsck/chkdsk/ntfsfix, drive writes, git writes in any existing repo, restarts, sends or models. `Desktop/old txt` and `I'll sort these models tomorrow` were pruned from every search.
 
 **Needs Alexander:**
 - **Security:** some Android signing material is in GitHub repos that aren't private (details in the operator report, not repeated in this public page). Decide on making them private and rotating keys, or accept the risk.
 - The Kilauea project folder contains a `github-recovery-codes.txt` (now 0600, ignored). Move it to a password manager.
 - Install JDK 17 + Android SDK (+ Studio if wanted) before the first build; fix `sdk.dir` in 3 `local.properties` and Capacitor `webDir`.
 - Optional: remount the 2 TB drive `ro` (needs you) or unplug it. Remove the staging clones (`~/.cache/rr-android-import-20260929/`, `/tmp/android-inv/`) when satisfied.
+
+## AWS globe `server.js` static allowlist: closed the file exposure on www.rootrecord.cloud (14:39–14:50 HST)
+
+This was a P0 follow-up under Alexander's AWS approval. Once the tunnel came back at 14:12, the globe server's `express.static(__dirname)` made its whole folder public. Record: [test record](../../07-testing/2026-09-29-aws-globe-static-allowlist.md). Backups: AWS `/home/ubuntu/rootrecord/bin.bak-globe-static-allowlist-20260929-144149/` (server.js, index.html, unit, sha256, access-evidence snapshot); desk `/home/rootrecord/Database/GITHUB/globe-static-allowlist.bak-20260929-144459/`.
+
+| Time (HST) | What | State |
+| --- | --- | --- |
+| 14:40 | Before probe (1-byte range, body discarded) of 29 paths via www: 22 real files returned **206/416**, including `server.js`, `package*.json`, `README.md`, `collector.js`, `telegram-relay.js`, the scripts, `data/hawaii.ndjson`, `data/hawaii-connections.sqlite3`, `data/geo-cache.json` and `node_modules/**`. `/.env`, `/.git/config`, `/.cloudflared/…` and unknown paths got the catch-all `index.html` (no such files, and dotfiles are ignored, so they didn't leak) | FAIL (exposure confirmed) |
+| 14:41 | Read the AWS `index.html` (not the repo copy): it has no local assets, only unpkg `globe.gl` plus the earth texture, and polls `/api/state` every 1 s with no WS/SSE. Backup taken, along with cloudflared counters and the web and feed-server `/proc/io` | done |
+| 14:42 | Patch: removed the root static serve; allowlisted `/`, `/index.html`, `/overlay/{overlay.js,overlay.css,overlay-config.json}` (served from `./overlay/` when present), `/health` and `/api/state`; catch-all now 404; `x-powered-by` off; bind `127.0.0.1`. `node --check` passed, then the patch was tested as a throwaway copy on 127.0.0.1:8099 (traversal probes returned 404), then swapped in atomically | **PASS** |
+| 14:43:29 | `systemctl restart network-globe-web`: listening on 127.0.0.1:8090 and bootstrapped the feed | **PASS** |
+| 14:43–14:44 | After probe: every sensitive path **404**. `/`, `/index.html`, `/?embed=1` **200**; `/health` JSON; `/api/state` flows 119 → 123 (streaming); unpkg assets reachable. Web, cloudflared, feed-server, history and poller all active; MemAvailable 467 MB | **PASS** |
+| 14:44 | Outside-access check: no per-request logs exist anywhere. The tunnel counted 55 requests in total from 14:12 to 14:41, and at least 33 were my own checks. The web process's socket-write total over the whole exposure was 4.6 MB, so the 50–66 MB feed was **not** downloaded in full; small files can't be ruled out. **Finding:** `feed-server.js` is public at `http://18.118.30.226:8787/hawaii.ndjson` (pre-existing since 09-26; only 5.5 KB served in total). Not changed | done · finding |
+| 14:45–14:50 | Mainland mirror (backed up first; the repo `server.js`/`index.html`, which are the overlay work, were not touched): added `mirror/network-globe/network-globe/server.aws-live-2026-09-29-allowlist.js` (the AWS copy, sha256 `4ba42236…`) and `AWS-LIVE-SERVER.md` (why, what, diff). Library: test record, 07 README row, this section, and a US-Mainland-Server change-log entry | LANDED |
+
+**Needs Alexander:** close the public feed-server on `:8787`, either with `Environment=GLOBE_BIND=127.0.0.1` in `network-globe-feed-server.service` or by closing TCP 8787 in the security group, once it's confirmed nothing external reads it.

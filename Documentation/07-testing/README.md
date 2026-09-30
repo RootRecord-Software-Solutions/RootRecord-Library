@@ -81,6 +81,7 @@ Each test gets one file, `YYYY-MM-DD-<slug>.md`, created from [TEMPLATE.md](./TE
 | 2026-09-29 14:36 | [Breadth batch 5 · speech scrub (`speech_scrub.py`)](./2026-09-29-old-repo-ports-breadth-batch5.md#speech-scrub) | PASS; on demand; not wired |
 | 2026-09-29 14:37 | [Breadth batch 5 · G1 scheduler → G3 jobs map (verification)](./2026-09-29-old-repo-ports-breadth-batch5.md#scheduler-map-verification) | PASS (64 G1 job ids mapped); no G3 night-sleep gate (check-later) |
 | 2026-09-29 14:19 | [Android apps import into `6 - Android Development` (9 apps, 2 TB drive read-only)](./2026-09-29-android-apps-import.md) | PASS (9/9 copies 0 checksum diffs, 80.7 MB; 17 secrets 0600, 24/24 git-ignored; drive 0 I/O errors); build VERIFY PENDING (no SDK/Java on desk) |
+| 2026-09-29 14:40 | [AWS globe `server.js`: static allowlist (close file exposure on www.rootrecord.cloud)](./2026-09-29-aws-globe-static-allowlist.md) | PASS: 22 real files exposed (206/416) + catch-all paths → 404 (source, `data/hawaii.ndjson`, sqlite, scripts, node_modules); `/` `/health` `/api/state` 200, data streaming; bind 127.0.0.1. No sign of a full feed download (web `wchar` 4.6 MB total). **Finding:** feed-server `:8787` still public (not changed) |
 
 Related: [MIGRATION-DOCS-INDEX](../00-architecture/MIGRATION-DOCS-INDEX-2026-09-28.md) · [WO-SRV](../06-development/Work-Orders/Servers_Cutover_Work_Order_WO-SRV-2026-09-27.md) · [G3 Runtime Verification Checklist](../00-architecture/G3-Runtime-Verification-Checklist-2026-09-28.md)
 

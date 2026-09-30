@@ -94,3 +94,10 @@ Not restructured: AWS pulls this repo every minute and its units/docs reference 
 
 Why the tunnel was down: cloudflared and its unit were purged on AWS on 2026-09-26 at 02:41 HST (`apt remove --purge`, `rm -rf /etc/cloudflared`). Before that it ran only the token tunnel `rootserver`. The globe tunnel's creds had never been placed on this instance, and the globe web server had no unit.
 
+### Change log: 2026-09-29 14:43 HST, globe `server.js` static allowlist
+
+- **Problem:** with the tunnel back up (14:12), AWS `server.js`'s `express.static(__dirname)` made the whole globe folder public on `www`. That included source, scripts, `data/hawaii.ndjson`, the sqlite history, `geo-cache.json` and `node_modules`, and unknown paths returned `index.html` with a 200.
+- **Fix:** an explicit allowlist: `/`, `/index.html`, `/overlay/{overlay.js,overlay.css,overlay-config.json}` (from `./overlay/` when present), `/health`, `/api/state`. Everything else returns 404, and the server binds to `127.0.0.1:8090`. AWS sha256 is now `4ba42236…e0e9fc`. Backup: AWS `~/rootrecord/bin.bak-globe-static-allowlist-20260929-144149/`. Mirror: `mirror/network-globe/network-globe/server.aws-live-2026-09-29-allowlist.js` + `AWS-LIVE-SERVER.md` (the repo `server.js` is untouched). [Test record](../07-testing/2026-09-29-aws-globe-static-allowlist.md).
+- **Outside access:** there are no per-request logs. The tunnel counted 55 requests in total during the exposure, mostly desk checks. The web socket-write total was 4.6 MB, so there was no full feed download.
+- **Open finding:** `network-globe-feed-server` listens on `0.0.0.0:8787` and is **publicly reachable** at the EC2 IP (`/hawaii.ndjson`). It has been up since 09-26 and has served only 5.5 KB. Decide between binding it to localhost and closing it in the security group.
+

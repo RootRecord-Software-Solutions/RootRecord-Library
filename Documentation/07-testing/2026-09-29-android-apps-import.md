@@ -7,7 +7,7 @@
 | **Change under test** | Copy the latest source, signing files and newest release artifact of every RootRecord Android app into `6 - Android Development/<App>/`, with the fragile 2 TB drive read-only. [Inventory](../00-architecture/Android-Apps-Inventory.md) |
 | **State** | **PASS** (copy integrity, secrets 0600 + ignored, drive clean) · build **VERIFY PENDING** (not attempted: no SDK/Java on the desk) |
 | **Evidence** | This record + [Android-Apps-Inventory](../00-architecture/Android-Apps-Inventory.md). Scratch listings in `/tmp/android-inv/` (tmpfs, not kept) |
-| **Commits** | Library: picked up by the Library auto-sync (`desk sync`). SHA recorded in the worklog section once `git log` shows it. No manual git writes |
+| **Commits** | Library `1e85c1e` (inventory, this record, 07 README row; auto `desk sync` 14:41 HST) · Library `7ab947f` (worklog section; auto `desk sync` 14:45 HST). Both checked with `git log`. No manual git writes. Target folder has no repo |
 | **Backup** | `/home/rootrecord/Database/GITHUB/android-import.bak-20260929-143931/` (07 README + overnight worklog before edit). Target was empty before the copy (created 14:12, 0 entries) |
 
 ## What was tested
