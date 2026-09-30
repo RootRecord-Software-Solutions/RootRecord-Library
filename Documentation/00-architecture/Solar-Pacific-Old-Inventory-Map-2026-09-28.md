@@ -41,7 +41,7 @@ Largest tops by path count (approx.):
 | ~47 | `companions/`, `public-edge/` |
 | … | many smaller skill packets |
 
-**Do not** import `origin/` or `ecosystem-history/` into G3 runtime git without an explicit archive decision (prefer Library archive or external storage).
+**Do not** import `origin/` or `ecosystem-history/` into G3 runtime git. WO-MIG-06 copied the decisions into Library `Documentation/00-architecture/Governance/` and archived the full `ecosystem-history/` tree outside G3. `origin/` was not imported.
 
 ---
 
@@ -151,8 +151,8 @@ These were G1 scheduler functionality, not a model for future AI skill design. A
 
 | G1 tops | Prefer |
 | --- | --- |
-| `origin/` (~4k paths) | External archive or Library `Documentation/archive/` decision |
-| `ecosystem-history/` | Library archive |
+| `origin/` (~4k paths) | Still on -Old. WO-MIG-06 did not import it. |
+| `ecosystem-history/` | Decisions in Library `Documentation/00-architecture/Governance/ecosystem-history-decisions.md`. Full tree in `Old repos deleted and merged/Solar-Pacific-RootRecord-Server-Old/ecosystem-history/`. Removed from -Old. Not in G3 runtime. |
 | `history/`, `holding/`, `remaining-tasks/` | Ops archive |
 
 ---

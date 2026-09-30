@@ -4,7 +4,7 @@
 | --- | --- |
 | **Work Order ID** | WO-MIG-16-2026-09-29 |
 | **Date** | 2026-09-29 (HST) |
-| **Status** | OPEN — draft, not accepted for execution |
+| **Status** | BUILT — dry-run replay landed; speakers off; old files archived and removed locally and on GitHub. Not promoted to the active index. |
 | **Owner** | RootRecord |
 | **Related** | Agent 16. Depends on Report playback (agent 15) before any build. `voice_reports.py boot_brief` stays the text and WAV source. |
 
@@ -48,15 +48,15 @@ Folder: `MorningBootReplay`. It belongs in Media. `boot_brief` already lives in 
 ### 2.2 Completed so far
 
 - [x] Draft work order written (this file). Status stays OPEN — draft, not accepted for execution
-- [x] Build requested. Paused 2026-09-29: Report playback (agent 15) has no Folder. That function was not built.
-- [ ] Report playback Folder is in place
-- [ ] `MorningBootReplay` code, state, and dry-run test
-- [ ] Phase 4 archive and old-repo deletion
-- [ ] Phase 5 result note and Library corrections
+- [x] Build requested. Report playback is `Media/Playback`. This function was built. The player was not rebuilt here.
+- [x] `MorningBootReplay` code and dry-run test (played + last_played; midday done disarms). Speakers stayed off.
+- [x] Phase 4 archive copy, then local deletion and commit `fb3b6149` on `online-safe-20260920`
+- [x] GitHub: `Solar-Pacific-RootRecord-Server-Old` `main` `9231029` removed the packet. Repository kept. No force-push.
+- [x] Phase 5 result note and the Library pages this function made stale
 
 ### 2.3 Known friction
 
-- Report playback (agent 15) has no Folder yet. Checked 2026-09-29 under Pacific `Media` (`Voice`, `Video` only) and the server top level. This function queues onto that player and does not build it. Build stays paused until that Folder exists.
+- Report playback is `Media/Playback`. This function calls `play.py --dry-run` only. It does not open a speaker.
 - `jobs.py`, the Vercel app shell, and `master-key.env` are shared. Leave them alone. If one of them is already being edited when build starts, pause.
 - `voice_reports.py` is shared by the other spoken reports. Prefer not to edit it.
 - Speaker playback, sends, OBS, hardware switching, and cloud spend need Alexander's sign-off.
@@ -114,7 +114,7 @@ Build later, in this order. Do not start these until Alexander accepts this draf
 | `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Media/Voice/scripts/voice_reports.py` | Read-only. `b_boot_brief` stays the text source |
 | `2 - RootRecord-Database/Media/Audio/Voice/boot_brief_current.wav` | Read-only morning WAV to replay |
 | `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Reports/scripts/report_board.py` | Read-only midday `done` disarm |
-| `/home/rootrecord/old ollama/old skills/morning-boot-replay/scripts/job.py` | Old source. Read-only until phase 4 |
+| `Old repos deleted and merged/Solar-Pacific-RootRecord-Server-Old/morning-boot-replay/scripts/job.py` | Archived old source. Removed from the local old repo |
 
 ---
 
@@ -122,10 +122,7 @@ Build later, in this order. Do not start these until Alexander accepts this draf
 
 **Additional requirements:**
 
-- Build was requested. It is paused. Missing function: **Report playback** (agent 15). No Folder is in place. Do not build that player here.
-- Report playback (agent 15) Folder must exist before the Morning boot replay build continues.
-- Speaker playback stays off until Alexander signs off, even if `RR_MORNING_BOOT_REPLAY` is later set to `1`.
-- Phase 4 and phase 5 below are not done. This file has no result note yet.
+- Speaker playback stays off until Alexander signs off. `RR_MORNING_BOOT_REPLAY` is not in `jobs.py`.
 
 ---
 
@@ -161,7 +158,11 @@ Do not rewrite unrelated work orders.
 
 ### Result note
 
-Not written. Phase 4 has not run.
+Landed 2026-09-30: `Media/MorningBootReplay/scripts/replay.py`. It replays today's morning `boot_brief_current.wav` until noon HST and hands it to `Media/Playback/scripts/play.py --report boot_brief --dry-run`. This folder never calls `aplay`. Proof on a temp database root: `play_once` returned `played` and wrote `last_played`; a midday `done` board returned `disarmed`. `jobs.py` was not edited. Gate `RR_MORNING_BOOT_REPLAY` stays off.
+
+Archived to `Old repos deleted and merged/Solar-Pacific-RootRecord-Server-Old/morning-boot-replay/` and `.../origin/ns/apps/core/crons/since_last_fire/morning_boot_replay.py`. Removed those paths from the local old repo (`/home/rootrecord/old ollama/old skills`, commit `fb3b6149`). Shared files left in place: `scheduler-clock/scripts/scheduler.py`, `scheduler-clock/CURRENT.md`, `ecosystem-index/`, `companions/dev-desk/lib/deskState.mjs`, `ecosystem-history/scripts/one_shot_morning_boot_tts.py`, `origin/scripts/routes/desktop.py`.
+
+GitHub: `Solar-Pacific-RootRecord-Server-Old` `main` moved `fd0a9c0..9231029`. That commit deletes `morning-boot-replay/` and `origin/ns/apps/core/crons/since_last_fire/morning_boot_replay.py` only. The repository was not deleted. No force-push.
 
 ---
 

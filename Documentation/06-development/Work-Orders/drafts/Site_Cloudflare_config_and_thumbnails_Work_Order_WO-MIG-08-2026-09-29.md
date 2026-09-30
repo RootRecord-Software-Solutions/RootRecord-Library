@@ -4,7 +4,7 @@
 | --- | --- |
 | **Work Order ID** | WO-MIG-08-2026-09-29 |
 | **Date** | 2026-09-29 (HST) |
-| **Status** | OPEN — draft, not accepted for execution |
+| **Status** | BUILT — manifest, checker, and archive landed. DNS not changed. Not on the active index. |
 | **Owner** | RootRecord |
 | **Related** | Agent 08. Depends on 7. Public website checkout. Later: 9. Cloudflare workers. Template: `Documentation/01-operations/templates/TEMPLATE Work Order.md`. Globe: `Documentation/08-ideas/2026-09-29-globe-landing-overlay.md`. Staging: `Documentation/00-architecture/Website-RootRecord-Cloud-Staging.md`. |
 
@@ -57,15 +57,15 @@ Secrets: `/home/rootrecord/master/master-key.env` only. This function's allowlis
 
 ### 2.2 Completed so far
 
-- [x] Old source read (Cloudflare YAML, skin file list, thumbnail file list). No files copied.
+- [x] Old source read (Cloudflare YAML, skin file list, thumbnail file list).
 - [x] Folder name and the three paths written in this draft.
-- [ ] Route manifest, checker, and theme archive — wait until this draft is accepted and a build is ordered.
-- [ ] Phase 4 archive and GitHub deletion — not started.
-- [ ] Phase 5 result note — not started.
+- [x] Route manifest, checker, and theme archive. Checker PASS 2026-09-30 00:05 HST.
+- [x] Phase 4 archive and GitHub deletion of this function's files. Commit `c5b935a` on `cursor/radio-idle-obs-gates`. Token dump left.
+- [x] Phase 5 result note. Staging page left unchanged because DNS did not change.
 
 ### 2.3 Known friction
 
-- `3 - RootRecord-Website` is empty. Build pauses until Public website checkout (agent 07) puts the one Vercel app there. Do not check the site out from this work order.
+- `3 - RootRecord-Website` is still empty. Public website checkout is not done. This build staged the Site files and did not check the site out.
 - Apex `rootrecord.cloud` redirects to `www`, which is the globe. The Home card stays off until a DNS change is signed off. This draft does not make that change.
 - `web/cloudflare/cloudflare.txt` contains token previews. It is excluded from any tracked or archived path until a secrets-safe handling is signed off. It is not deleted from GitHub in the meantime.
 - A push to `RootRecord-Cloud` `main` deploys production. This function does not push.
@@ -142,11 +142,16 @@ Build order, after Alexander accepts this draft and says to build. Do not start 
 - New periodic jobs stay gated off. Do not edit `jobs.py`.
 - Do not delete the GitHub repository `old`. Phase 4 removes only this function's old files, and only after they are in `Old repos deleted and merged`.
 - Shared files left in place: generated trees `earthquakes/`, `news/`, `weather/`, `states/`; `web/web-media/`; `web/AGENTS.md`; `web/sites/README.txt`.
-- Phase 4 result note: not written. This draft stops before build. When the build is done, add what landed, the archive path, and the GitHub paths removed, and correct only the Library pages that are then wrong.
+- Phase 4 result (2026-09-30 00:06 HST): Manifest `Communications/Site/config/routes.yml` and checker `Communications/Site/scripts/site_check.py` landed. `nice -n 10 python3 scripts/site_check.py` exited 0 (`home_card` off, `www` globe). A fixture with `token` and a fixture with `credentials-file` each exited 2. Globe ingress, `cf-status.json`, and `cf-blocker.json` were unchanged. `cloudflared` stayed at one process. Folder 3 stayed empty.
+- Skin copied unchanged to `5 - RootRecord-Library/Archive/Website-Themes/avaivy.cloud/` and to `Old repos deleted and merged/old/web/sites/avaivy.cloud/` (css, directory.css, shell index.html). Not applied to the Vercel app.
+- Cloudflare YAML and the avaivy tunnel notes, plus 24 thumbnail files, are in `Old repos deleted and merged/old/` under their old paths. Thumbnail images stay out of git. `web/cloudflare/cloudflare.txt` was not copied and was not deleted.
+- Removed from GitHub `rootrecordsoftwaresolutions/old` branch `cursor/radio-idle-obs-gates` in `c5b935a` (49 files). No force-push. The repository was not deleted. The local clone is `/tmp/rr-old-mig08`.
+- Left in that repo and named here: `web/cloudflare/cloudflare.txt`; `web/sites/avaivy.cloud/{earthquakes,news,weather,states}/`; `web/sites/avaivy.cloud/js/` and `directory/directory.js`; `web/web-media/`; `web/AGENTS.md`; `web/sites/README.txt`.
+- Library page corrected: migration matrix row 89, missing → partial. `Website-RootRecord-Cloud-Staging.md` was not changed. The public domain still does not reach Vercel.
 
 ---
 
-*Work order prepared 2026-09-29 HST. Status stays OPEN — draft, not accepted for execution. Update status when closed.*
+*Work order prepared 2026-09-29 HST. Built 2026-09-30 HST. Not promoted to the active index.*
 
 ---
 

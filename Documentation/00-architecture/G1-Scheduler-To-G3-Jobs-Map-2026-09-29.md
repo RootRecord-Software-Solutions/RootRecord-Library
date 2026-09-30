@@ -61,10 +61,12 @@ States: **LIVE** = enabled in G3 now · **GATED** = in jobs.py, OFF until its fl
 | user-qrcodes / account-import | every 6 h | — | OUT (identity; personal data) |
 | d1-sync | every 6 h | — | BLOCKED (D1 credentials) |
 | inbox-drain | every 5 min | — | BLOCKED (D1 + DMs) |
-| stripe-poll / ltc-pending / vercel-builds | 30 / 30 / 5 min | — | OUT (website / payments keys) |
+| stripe-poll | 30 min | `stripe_poll` 1800 s | GATED `RR_STRIPE` (WO-MIG-10). No key writes `not_configured` and does not call Stripe |
+| ltc-pending | 30 min | — | OUT (payments; not WO-MIG-10) |
+| vercel-builds | 5 min | `vercel_builds` 300 s | GATED `RR_VERCEL_BUILDS` (WO-MIG-10). No token writes nothing and does not call Vercel |
 
 Counts over the 64 ids: every id is accounted for above (grouped rows cover several ids). Nothing in G1's scheduler lacks a G3 decision; the remaining gaps are the BLOCKED / OUT rows.
 
 G1 extras not in the table: `AVA_CRON_WAVE` clone guard and night-sleep gating (`Ecoflow/state/night-mode.json sleeping` skipped jobs). G3 night-sleep gate is armed on the live poller as of 2026-09-30 00:02 HST (`RR_NIGHT_SLEEP=1` in `run-poller.sh`, WO-MIG-01). There is no `night-mode.json`, so jobs are not skipped.
 
-*Created 2026-09-29 ~14:35 HST (old-repo migration, breadth pass 2). Read-only; no job changed.*
+*Created 2026-09-29 ~14:35 HST (old-repo migration, breadth pass 2). 2026-09-30 WO-MIG-10: stripe-poll and vercel-builds rows now match the gated jobs. ltc-pending stays OUT.*

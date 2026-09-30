@@ -51,12 +51,12 @@ Secrets: none. Public official pages only. No `master-key.env` keys.
 ### 2.2 Completed so far
 
 - [x] Hawaiʻi collector and shared `_collector.py` ported (2026-09-29). Seed-feed retest: 278 posts, temp root.
-- [x] This draft work order written. Status stays OPEN — draft. Not on the active index.
-- [ ] `state_portals.json`, `state_news.py`, `build_state_news.py`, `build_global_news.py` in Pacific `Reports/News/`.
-- [ ] Temp-root smoke test (one state, then the global index).
-- [ ] Public news page on the Vercel app (blocked on agent 07 while folder 3 is empty).
-- [ ] Phase 4 archive and old-repo deletion.
-- [ ] Phase 5 result note and Library corrections.
+- [x] This draft work order written. Not promoted to the active index.
+- [x] `state_portals.json`, `state_event_sources.json`, `state_news.py`, `build_state_news.py`, `build_global_news.py` in Pacific `Reports/News/`.
+- [x] Temp-root smoke test (Wyoming, then the global index). PASS.
+- [ ] Public news page on the Vercel app. Paused: `3 - RootRecord-Website` is empty. Named dependency: Public website checkout (agent 07).
+- [x] Phase 4 archive and old-repo deletion (`ec11eca`).
+- [x] Phase 5 result note and Library corrections (matrix row 80, News README).
 
 ### 2.3 Known friction
 
@@ -215,7 +215,17 @@ Leave, and keep named here:
 
 ### Phase 4 result
 
-Not run. This draft is before-documentation. After the archive and the GitHub deletion, add here: what landed, the archive path, and the GitHub commit. Then correct only matrix row 80 in `Documentation/00-architecture/Old-Repo-Migration-Matrix.md` and the "other 49 states" note in Pacific `Reports/News/README.md`.
+Built 2026-09-29. Landed in Pacific `Reports/News/`: `config/state_portals.json`, `config/state_event_sources.json`, `scripts/state_news.py`, `scripts/build_state_news.py`, `scripts/build_global_news.py`. Hawaiʻi collector unchanged. `jobs.py` not edited. Public page not built: folder 3 is empty (Public website checkout).
+
+Smoke PASS, temp root `/tmp/rr-mig-12`, caps 3/2/1/5: `state_news.py --state wyoming` rc 0 (0 posts, source health 2 empty / 3 error), `build_global_news.py` rc 0 (50 health rows, Wyoming `empty`, `locations` []). Live Database `Reports/News/` was not created.
+
+Archive: `/home/rootrecord/RootRecord-Ecosystem/Old repos deleted and merged/old/` (109 files, old-repo paths kept). That set includes `operations/cronologicals/since-last-fire/every-10-minutes/README.md` because it only documented these news launchers. No generated SQLite lived in the old repo.
+
+GitHub deletion: `rootrecordsoftwaresolutions/old` branch `cursor/radio-idle-obs-gates`, commit `ec11ecadaae83b67a33638f653879f6353712a4b` (`0c2bfdb..ec11eca`). Repository not deleted. No force-push. Confirmed `build_state_news.py` is 404 and `operations/news/hawaii/news.py` plus `_collector.py` remain.
+
+Left in the old repo: `operations/news/_collector.py`, `hawaii/news.py`, `collect_hawaii_news.py`, `README.md`; `operations/cronologicals/on-time/10:00/hawaii-news.py`; `operations/cronologicals/archive/legacy-news/`; `web/sites/avaivy.cloud/` (including `css/news.css`); `origin/.../geography/news/`; `config/locations/`.
+
+Library: matrix row 80 set to migrated, and the product/missing counts on that page adjusted by one. Pacific `Reports/News/README.md` check-later item 3 now records the port.
 
 ---
 

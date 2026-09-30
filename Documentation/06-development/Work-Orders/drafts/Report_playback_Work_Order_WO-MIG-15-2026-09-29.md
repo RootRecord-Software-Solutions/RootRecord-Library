@@ -57,9 +57,9 @@ WAV clips stay in `2 - RootRecord-Database/Media/Audio/Voice`. No `config/`. No 
 
 ### 2.3 Known friction
 
-- `aplay` is on this host. Live play still needs Alexander's sign-off. This draft does not open a device.
-- `reports/` is gitignored in the old repo, so those play folders may never have been on GitHub.
-- Media/Voice already exists, so there is no missing dependency folder to pause on. Agents 16, 17, 18, 19, and 33 depend on this player. They are not built here.
+- `aplay` is on this host. The dry-run passed. A live play still needs Alexander's sign-off.
+- `origin/main` and `origin/online-safe-20260920` already omitted the play jobs. `skills-rebuild` still had them. Commit `7416bf2f` deletes those 37 files. The push to `refs/heads/skills-rebuild` is the open step.
+- Media/Voice already exists. Agents 16, 17, 18, 19, and 33 depend on this player. They are not built here.
 
 ---
 
@@ -122,10 +122,9 @@ Do these only after Alexander accepts this draft and says to build. Until then, 
 
 **Additional requirements:**
 
-- Alexander accepts this draft and says to build before any runtime edit.
-- Speaker playback stays gated. Live `aplay` needs a separate sign-off even after `RR_PLAYBACK=1` exists in the script. The build test does not play audio.
-- Phase 4 GitHub deletion is conditional on `git log` showing those paths were tracked. Untracked, gitignored `reports/` means record "not on GitHub" and skip the push.
-- This draft is not on the active index.
+- Speaker playback stays gated. Live `aplay` needs a separate sign-off. The build test did not play audio.
+- Push `7416bf2f` to `refs/heads/skills-rebuild` on `Solar-Pacific-RootRecord-Server`. Do not force-push. Do not delete the repository. Local branches `main` and `solar-battery-offline-recovery` in that checkout still contain the old trees and were not rewritten.
+- This file stays in drafts. It is not on the active index.
 
 ---
 

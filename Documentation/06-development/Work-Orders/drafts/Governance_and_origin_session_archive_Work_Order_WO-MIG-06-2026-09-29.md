@@ -4,7 +4,7 @@
 | --- | --- |
 | **Work Order ID** | WO-MIG-06-2026-09-29 |
 | **Date** | 2026-09-29 (HST) |
-| **Status** | OPEN — draft, not accepted for execution |
+| **Status** | COMPLETE |
 | **Owner** | RootRecord |
 | **Related** | [Old-Repo-Migration-Matrix](../../../00-architecture/Old-Repo-Migration-Matrix.md) row 78; [G1-Scheduler-To-G3-Jobs-Map](../../../00-architecture/G1-Scheduler-To-G3-Jobs-Map-2026-09-29.md) (`governance-daily` OUT); [Solar-Pacific-Old-Full-TopLevel-Catalog](../../../00-architecture/Solar-Pacific-Old-Full-TopLevel-Catalog-2026-09-28.md); [Solar-Pacific-Old-Inventory-Map](../../../00-architecture/Solar-Pacific-Old-Inventory-Map-2026-09-28.md); [WO-OLD](../Old_Server_Selective_Recovery_Work_Order_WO-OLD-2026-09-28.md) |
 
@@ -48,11 +48,11 @@ Folder name used in the Library: **Governance**. There is no Pacific, Database, 
 ### 2.2 Completed so far
 
 - [x] Old source read. Decisions identified. Runtime dump and `origin/` excluded.
-- [x] This draft written under `Work-Orders/drafts/`. Not promoted.
-- [ ] Alexander accepts this draft and says to build.
-- [ ] Four Library decision pages written.
-- [ ] Phase 4 archive copy, then deletion from the old repo locally and on GitHub.
-- [ ] This work order updated with the result, and the stale Library rows corrected.
+- [x] This draft written under `Work-Orders/drafts/`. Not promoted onto the active index.
+- [x] Alexander said to complete the work.
+- [x] Four Library decision pages written.
+- [x] Phase 4 archive copy, then deletion from the old repo locally and on GitHub.
+- [x] This work order updated with the result, and the stale Library rows corrected.
 
 ### 2.3 Known friction
 
@@ -165,4 +165,18 @@ Human session logs archive under `Documentation/01-operations/archive/YYYY-Www/`
 
 ## Result note
 
-Not written. Phase 4 has not run. No archive path, no GitHub deletion, and no Library decision pages yet.
+Landed 2026-09-30 HST.
+
+**Library.** `Documentation/00-architecture/Governance/` now has `README.md`, `community-governance-decisions.md`, `origin-session-decision.md`, and `ecosystem-history-decisions.md`. No Pacific package, no Database folder, no Logs folder, no `jobs.py` edit, no `master-key.env` keys. `jobs.py` has no governance job id. `origin/` was not imported (still HTTP 200 on -Old).
+
+**Archive.** 419 files, `__pycache__` excluded, at `Old repos deleted and merged/Solar-Pacific-RootRecord-Server-Old/` under `governance/`, `origin-session/`, and `ecosystem-history/`. The copy matched the on-machine trees before deletion. `main` and `skills-rebuild` had no files beyond that archive.
+
+**Removed.** The three trees are gone from the machine (`/home/rootrecord/old ollama/old skills`) and from `Solar-Pacific-RootRecord-Server-Old` (GitHub contents HTTP 404):
+
+- `online-safe-20260920` `4fe7f7c4`
+- `main` `fd0a9c0`
+- `skills-rebuild` `c864821`
+
+The repository was not deleted. No force-push. Nothing was pushed to `Solar-Pacific-RootRecord-Server` (that remote never had these paths). The `online-safe-20260920` push also published two commits already on the local branch and not yet on GitHub: radar-archive (`8c9437d0`) and RAMMB sources (`e8c37881`).
+
+**Library rows corrected.** Matrix row 78, the catalog lines for `governance`, `ecosystem-history`, and `origin-session`, and the inventory archive-only lines. Matrix row 69 was left unchanged.

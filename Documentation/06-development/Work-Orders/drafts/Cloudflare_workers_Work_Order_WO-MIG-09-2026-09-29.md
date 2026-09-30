@@ -45,12 +45,12 @@ Folder name, used in all three places: **Cloudflare-Workers**. Domain: Communica
 - [x] Worker source landed under `Communications/Cloudflare-Workers/`.
 - [x] Local typecheck and path check passed, with no deploy.
 - [x] Phase 5 result note and the two Library corrections below.
-- [ ] Dependency folders from agents 07 and 08 are in place. Route stays off until they exist.
-- [ ] Phase 4 archive and old-repo deletion. No old-repo checkout was on this machine.
+- [x] Dependency folders from agents 07 and 08 are on disk. `3 - RootRecord-Website` is the one Vercel app. `Communications/Site/config/routes.yml` keeps `www.rootrecord.cloud` on the globe and `home_card` off. No route is attached until that DNS change is signed off.
+- [ ] Phase 4 archive and old-repo deletion. No `Ava-Core/workers` checkout is on this machine.
 
 ### 2.3 Known friction
 
-- Build pauses until 7. Public website checkout and 8. Site Cloudflare config and thumbnails have folders. Those folders are not here yet. This work order does not build them.
+- 7. Public website checkout and 8. Site Cloudflare config and thumbnails now have folders. This function does not edit them. The Site manifest still has no hostname for the Vercel app.
 - The single public host and its route come from agent 08. Do not invent extra zones.
 - Old wrangler files embed an account id and D1 database ids. The new config reads `CLOUDFLARE_ACCOUNT_ID` from `master-key.env` at deploy time and does not commit those ids.
 - `old ollama/` copies are shared history, not this repo's working tree. Do not delete them in phase 4.
@@ -92,15 +92,15 @@ Folder name, used in all three places: **Cloudflare-Workers**. Domain: Communica
 
 | Path | Role |
 |------|------|
-| `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Communications/Cloudflare-Workers/scripts/` | Worker package to add at build: `package.json`, `tsconfig.json`, `src/worker.ts`, `src/publicPaths.ts`, `src/proxy.ts`. |
-| `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Communications/Cloudflare-Workers/config/` | One wrangler toml. Route from agent 08. No baked account id or D1 ids. |
+| `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Communications/Cloudflare-Workers/scripts/` | Worker package: `package.json`, `tsconfig.json`, `src/worker.ts`, `src/publicPaths.ts`, `src/proxy.ts`. |
+| `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Communications/Cloudflare-Workers/config/` | One wrangler toml. No route, no baked account id, no D1 ids. |
 | `2 - RootRecord-Database/Communications/Cloudflare-Workers/` | Data: samples, last files, stores. |
 | `2 - RootRecord-Database/Logs/Communications/Cloudflare-Workers/` | Logs only. |
 | `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Energy/lib/envload.py` | Pattern for the allowlist loader. Key name: `CLOUDFLARE_ACCOUNT_ID`. |
 | `/home/rootrecord/master/master-key.env` | Only secret file. Do not edit it in this draft. Do not commit it. |
 | `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Communications/network/cloudflare/` | Live tunnel. Do not overwrite. |
 | `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Automations/scripts/jobs.py` | Shared. Do not edit. Pause if another agent is editing it. |
-| `3 - RootRecord-Website` | Agent 07. Empty now. Pause if still empty at build. This function adds no page here. |
+| `3 - RootRecord-Website` | Agent 07. Checked out. This function adds no page here. |
 | `old ollama/github-history/09202026 1830/cloudflare-workers/` | Read-only snapshot of the old function. Not the phase 4 delete target. |
 | `Old repos deleted and merged/<old-repo-name>/` | Phase 4 archive, after the migration works. |
 | `5 - RootRecord-Library/Documentation/00-architecture/Old-Repo-Migration-Matrix.md` | Row 62. Correct in phase 5 only. |
@@ -115,7 +115,7 @@ Folder name, used in all three places: **Cloudflare-Workers**. Domain: Communica
 - Sign-off before `wrangler deploy`, attaching a route, creating D1, changing DNS, or any other Cloudflare spend.
 - Sign-off before sends, speaker playback, OBS, hardware switching, or deletion of live Ecosystem files. Phase 4 deletion is only the old function's files, and only after the archive copy is on disk.
 - Small test that proved the new behavior (2026-09-30 HST): `tsc --noEmit`, then `node dist/check.js`. Private `/ops` is 404 and was not forwarded. `GET /status` was forwarded to `https://root-record-cloud.vercel.app/status`. No `wrangler dev` and no deploy. `wrangler dev` stays off until the route from agent 08 exists.
-- Dependency pause: if 7. Public website checkout or 8. Site Cloudflare config and thumbnails has no folder when build is ordered, stop and name that function.
+- Both dependency folders are on disk. The Site manifest still has no hostname for this worker, so the route stays off.
 
 ---
 
@@ -128,7 +128,7 @@ Folder name, used in all three places: **Cloudflare-Workers**. Domain: Communica
 - One Vercel site. Workers sit in front of it. Data and logs stay on the Database paths in section 2.
 - Phase 4 result (2026-09-30 HST):
   - Landed: `Communications/Cloudflare-Workers/scripts` and `config/wrangler.toml`. Origin is `https://root-record-cloud.vercel.app`. `tsc --noEmit` passed. `node dist/check.js` passed: `/ops` and `/api/finance` are 404 and were not forwarded; `POST /status` is 405; `GET /status` and `GET /api/solar` were forwarded to that origin. `CLOUDFLARE_ACCOUNT_ID` is present. The value was not printed. No `wrangler deploy`.
-  - Not built here: 7. Public website checkout (`3 - RootRecord-Website` still empty) and 8. Site Cloudflare config and thumbnails (`Communications/Site` still absent). The wrangler file has no route because of that.
+  - Route: still unbound. `3 - RootRecord-Website` and `Communications/Site` are on disk. `routes.yml` keeps `www.rootrecord.cloud` on the globe and `home_card` off, so this worker does not take a hostname.
   - Archived: nothing. `Ava-Core/workers` is not checked out on this machine. `Solar-Pacific-RootRecord-Server-Old` is not checked out. The `old ollama/` snapshot was left in place.
   - Removed on GitHub: nothing. No deletion, no push, no force-push. `sql/rootmc-live.sql` was left for RootMC.
 - This file stays in `drafts/`. It is not on the active index.

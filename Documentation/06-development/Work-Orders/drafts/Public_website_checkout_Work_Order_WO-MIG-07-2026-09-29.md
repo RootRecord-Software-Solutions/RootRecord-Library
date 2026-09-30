@@ -4,11 +4,11 @@
 | --- | --- |
 | **Work Order ID** | WO-MIG-07-2026-09-29 |
 | **Date** | 2026-09-30 (HST) |
-| **Status** | OPEN — draft, not accepted for execution |
+| **Status** | IN PROGRESS — checkout landed in folder 3. Communications snapshot removed 2026-09-30. Not on the active index. |
 | **Owner** | RootRecord |
 | **Related** | Agent 07. Later: 8 Site Cloudflare config and thumbnails; 9 Cloudflare workers; 10 Stripe, Vercel, and live-data pages; 11 US all-states weather dataset; 12 State and global news builders; 13 Country location pollers; 14 Desk product apps not imported; 38 AdSense and AdMob end-of-day. [Website-RootRecord-Cloud-Staging.md](../../../00-architecture/Website-RootRecord-Cloud-Staging.md). [2026-09-29-globe-landing-overlay.md](../../../08-ideas/2026-09-29-globe-landing-overlay.md). |
 
-**Scope:** Check the current Vercel app, `rootrecordsoftwaresolutions/RootRecord-Cloud`, into `3 - RootRecord-Website` as the one public site. Do not fill that checkout from the old `RootRecord-Website` skin or from `site-backgrounds`. This draft does not authorize the clone, a deploy, a push, or any deletion.
+**Scope:** Check the current Vercel app, `rootrecordsoftwaresolutions/RootRecord-Cloud`, into `3 - RootRecord-Website` as the one public site. Do not fill that checkout from the old `RootRecord-Website` skin or from `site-backgrounds`. The checkout landed 2026-09-30. No deploy and no push of `RootRecord-Cloud` `main`.
 
 ---
 
@@ -16,11 +16,11 @@
 
 The old public site is `RootRecord-Website` at `~/.ollama/skills/website/site` (`ee3d9c1`, pages `/energy`, `/home`, `/home/status`). That tree is the old skin. It must not become the live app.
 
-The live public app is already RootRecord-Cloud (Next.js 15, package name `rootrecord-online`). Its pages are `/`, `/blog`, `/dev`, `/goals`, `/login`, `/reports`, `/status`, and `/timeline`, plus an allowlisted `/api` proxy. A file tree of that app sits under Pacific `Communications/website/RootRecord-Cloud/` and is gitignored there, but that tree has no `.git`, so it is not a checkout. Folder `3 - RootRecord-Website` is empty.
+The live public app is already RootRecord-Cloud (Next.js 15, package name `rootrecord-online`). Its pages are `/`, `/blog`, `/dev`, `/goals`, `/login`, `/reports`, `/status`, and `/timeline`, plus an allowlisted `/api` proxy. That app is checked out at `3 - RootRecord-Website` @ `84dec4a`. The earlier Communications file tree had no `.git` and was removed 2026-09-30.
 
 New code wins. Folder 3 gets a real checkout of RootRecord-Cloud. The older skills-site tree is not copied over it. The globe overlay is the visual direction for public pages; this function does not restyle anything and does not import old backgrounds.
 
-What must stay as it is until a later, accepted build: the Communications snapshot, the disabled `website` row in `repos.conf`, live EcoFlow, weather, the globe, cameras, and Kokoro.
+What stays as it is: the disabled `website` row in `repos.conf`, live EcoFlow, weather, the globe, cameras, and Kokoro.
 
 ---
 
@@ -47,23 +47,25 @@ Folder name: **Website**. This function is the one Vercel app. It does not get a
 
 | Item | Location / status |
 | --- | --- |
-| Folder 3 | `3 - RootRecord-Website/` is empty (directory only) |
+| Folder 3 | `3 - RootRecord-Website/` checkout of RootRecord-Cloud @ `84dec4a`. Ecosystem root `.gitignore` ignores it. |
 | Newer app, not a checkout | `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Communications/website/RootRecord-Cloud/` — source tree, no `.git`, gitignored by the Pacific `.gitignore` |
 | Staging notes | `Communications/website/README.md` and `.env.example` (names only). Library: `Documentation/00-architecture/Website-RootRecord-Cloud-Staging.md`. Staging SHA noted there: `84dec4a` |
 | Old site | `~/.ollama/skills/website/site` — `RootRecord-Website` @ `ee3d9c1`. `repos.conf` row `website` is disabled (`0`) and still points at this path |
 | Old backgrounds | `/home/rootrecord/old ollama/old skills/site-backgrounds` |
 | Ecosystem ignore | No root `.gitignore`. `.git/info/exclude` is empty. Folder 3 is not ignored |
-| Theme archive | `5 - RootRecord-Library/Archive/Website-Themes/` does not exist yet |
+| Theme archive | `5 - RootRecord-Library/Archive/Website-Themes/site-backgrounds/` — unchanged copy of the five theme files |
 
 ### 2.2 Completed so far
 
-- [x] Draft work order written. Status stays OPEN — draft, not accepted for execution. Not on the active index.
-- [ ] Ignore rule for `3 - RootRecord-Website/` before any clone
-- [ ] Token-free clone of RootRecord-Cloud into folder 3
-- [ ] Unchanged copy of `site-backgrounds` into `Archive/Website-Themes/`
-- [ ] Proof test (git remote, HEAD, old pages absent, ecosystem ignore)
-- [ ] Phase 4 archive, then removal from the old repo locally and on GitHub
-- [ ] Result note on this work order, and correction of Library pages that still say the site lives under `Communications/website/`
+- [x] Draft work order written. Not on the active index.
+- [x] Ignore rule for `3 - RootRecord-Website/` in the ecosystem root `.gitignore` before the clone
+- [x] Token-free clone of RootRecord-Cloud into folder 3 @ `84dec4ad3ecf96962dbf6e6c83ebd08c7ea78932`
+- [x] Unchanged copy of `site-backgrounds` into `Archive/Website-Themes/` and `Old repos deleted and merged/Solar-Pacific-RootRecord-Server/site-backgrounds/`
+- [x] Proof test (git remote, HEAD, old pages absent, ecosystem ignore)
+- [x] Local removal of `site-backgrounds` committed on `online-safe-20260920` as `00505833`
+- [ ] GitHub push of that branch (blocked; `main` already has no `site-backgrounds`)
+- [x] Removal of the Communications snapshot (signed off 2026-09-30)
+- [x] Result note below. Library pages that named the Communications tree as the checkout are corrected.
 
 ### 2.3 Known friction
 
@@ -145,13 +147,19 @@ Build only after Alexander accepts this draft and says to build. No earlier Fold
 - Secrets stay out of git. The skills remote URL is not a template for the new remote.
 - Prefer small reversible steps.
 - No push, no Vercel project-settings change, no production deploy, and no cloud spend without Alexander's sign-off.
-- Sends, speaker playback, OBS, hardware switching, and deletion of live Ecosystem files need Alexander's sign-off. The Communications snapshot is a live Ecosystem tree.
+- Sends, speaker playback, OBS, hardware switching, and deletion of live Ecosystem files need Alexander's sign-off. The Communications snapshot was removed under that sign-off on 2026-09-30.
 - Phase 4 removes only this function's old files, and only after they are under `Old repos deleted and merged/`. If the archive copy fails, do not delete. Do not delete the GitHub repository.
 - New periodic jobs stay gated off. This function adds no job.
 
 **Small test, after a build order.** In `3 - RootRecord-Website`: `git remote` names `RootRecord-Cloud` and the URL contains no token; `HEAD` is a real commit; `src/app/energy` and `src/app/home` are absent; `git check-ignore` shows the ecosystem repo ignores the checkout. That is the proof. Do not run `npm ci` again unless Alexander asks.
 
-**Result (after phase 4).** Not written. Phase 4 has not run. When it has, add a short note here: what landed, the archive path, and what was removed on GitHub. Then correct `Website-RootRecord-Cloud-Staging.md` and `Communications/website/README.md`. Do not rewrite unrelated work orders.
+**Result (2026-09-30).** Folder 3 is a checkout of `rootrecordsoftwaresolutions/RootRecord-Cloud` at `84dec4a` (`84dec4ad3ecf96962dbf6e6c83ebd08c7ea78932`). `origin` is `https://github.com/rootrecordsoftwaresolutions/RootRecord-Cloud.git` with no token. `src/app/energy` and `src/app/home` are absent. The ecosystem repo ignores the checkout (`!! 3 - RootRecord-Website/`).
+
+`site-backgrounds` (5 files) was copied unchanged to `5 - RootRecord-Library/Archive/Website-Themes/site-backgrounds/` and to `Old repos deleted and merged/Solar-Pacific-RootRecord-Server/site-backgrounds/`. Both copies matched the source (`diff -rq`). The local old repo `online-safe-20260920` commit `00505833` deletes those files. GitHub `main` of `Solar-Pacific-RootRecord-Server` (`1dcee662`) does not contain `site-backgrounds`, so there was nothing to delete on `main`. Push of `online-safe-20260920` was blocked; that branch is not `main` and is not a fast-forward onto it. No force-push.
+
+Left in place and named: `~/.ollama/skills/website/site` (`RootRecord-Website`), `public-chat`, `public-edge`, `public-finance`, `public-health`, and `websites` (agents 8, 9, and 10). The Communications `RootRecord-Cloud/` tree was removed 2026-09-30 after sign-off. Folder 3 at `84dec4a` was checked first and was left in place.
+
+Corrected: `Documentation/00-architecture/Website-RootRecord-Cloud-Staging.md`, `Communications/website/README.md`, `Communications/README.md`. No unrelated work orders were rewritten. No Vercel deploy. `repos.conf` `website` row stays disabled. `jobs.py` was not edited.
 
 ---
 

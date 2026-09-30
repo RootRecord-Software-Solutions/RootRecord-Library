@@ -22,6 +22,10 @@ Documentation/06-development/Work-Orders/Complete/
 - Multi-phase WOs stay in the parent folder until the whole WO is closed.
 - Human operator session logs still archive under `Documentation/01-operations/archive/YYYY-Www/` (WO-ARCH) — that path is for logs, not WOs.
 
+## Archived 2026-09-30
+
+- [WO-MIG-06](./Governance_and_origin_session_archive_Work_Order_WO-MIG-06-2026-09-29.md) — governance, origin-session, and ecosystem-history decisions in the Library. Full trees archived, then removed from Solar-Pacific-RootRecord-Server-Old. `origin/` not imported.
+
 ## Archived 2026-09-29 ~21:41 HST
 
 - [WO-MAP-2026-09-27](./MasterPrompt_RepoMap_Work_Order_WO-MAP-2026-09-27.md) — ownership map written and linked.

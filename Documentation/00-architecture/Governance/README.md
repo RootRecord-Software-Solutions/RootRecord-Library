@@ -30,4 +30,10 @@ Full trees, including generated notes and excluding `__pycache__`, were copied t
 
 `Old repos deleted and merged/Solar-Pacific-RootRecord-Server-Old/`
 
-Those three tops were then removed from `Solar-Pacific-RootRecord-Server-Old` (`main`, `online-safe-20260920`, and `skills-rebuild`). The local clone's `origin` remote points at `Solar-Pacific-RootRecord-Server`, which never had these paths. Nothing was pushed there.
+Those three tops were then removed from `Solar-Pacific-RootRecord-Server-Old`:
+
+- `main` `fd0a9c0`
+- `online-safe-20260920` `4fe7f7c4`
+- `skills-rebuild` `c864821`
+
+`origin/` is still on all three branches. The local clone's `origin` remote points at `Solar-Pacific-RootRecord-Server`, which never had these paths. Nothing was pushed there. The `online-safe-20260920` push also published two commits that were already on that local branch and not yet on GitHub: radar-archive (`8c9437d0`) and RAMMB sources (`e8c37881`).

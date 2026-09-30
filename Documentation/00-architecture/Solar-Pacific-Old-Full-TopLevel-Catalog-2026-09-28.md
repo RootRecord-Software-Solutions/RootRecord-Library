@@ -43,7 +43,7 @@
 | day-board-boot | Review | |
 | desk-data-reader | G3-optional | |
 | earthquakes | G3-optional / Geology | |
-| ecosystem-history | Archive | Large |
+| ecosystem-history | Archive | WO-MIG-06: decisions in Library `Documentation/00-architecture/Governance/`. Full tree archived, then removed from -Old. Not in G3 runtime. |
 | ecosystem-index | Library | |
 | energy | G3-core | ecoflow-* packets; **after G2 energy** |
 | ensure-ava-runtime | Review | Agent runtime |
@@ -53,7 +53,7 @@
 | fs-index | Review | |
 | git-auto-push | G3-core | Compare to G2 github/scripts |
 | goals | Product | |
-| governance | Library | |
+| governance | Library | WO-MIG-06: decisions in `Documentation/00-architecture/Governance/`. Packet removed from -Old. Not a Pacific job. |
 | heartbeat | Retire / Review | G3 engine has heartbeat builtin |
 | history | Archive | |
 | holding | Archive | |
@@ -86,7 +86,7 @@
 | ollama-lifecycle | G3-optional | Plumbing |
 | ops-banner | Review | |
 | origin | Archive | **~4342 paths — never bulk into G3** |
-| origin-session | Archive | |
+| origin-session | Archive | WO-MIG-06: decision in Library Governance. Helper not restored. `origin/` not imported. Removed from -Old. |
 | overnight-relay | Review | |
 | panels-cam | G3-optional / Security | |
 | pantry | Product | |

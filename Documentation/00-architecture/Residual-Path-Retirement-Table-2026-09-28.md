@@ -122,7 +122,7 @@ Record any post-check confirmation in WO-SRV notes if useful; do not re-open clo
 | Host net counters + security snapshot | G1 `host-metrics` | `System/scripts/host_desks.py` | yes | manual PASS (temp root); job PROPOSED (`RR_NET_SAMPLES`) | **KEPT** |
 | Solar / security / bandwidth desk voice | G1 `hourly-clip-reports` desks | `Media/Voice/scripts/voice_reports.py solar_desk \| security_desk \| bandwidth_desk` | yes | text PASS; WAV VERIFY PENDING; jobs PROPOSED | **KEPT** |
 | Official statement (HLS) | G1 `weather/official-weather-media` | `Weather/scripts/official_statement.py` + `Media/Voice/scripts/voice_reports.py official_weather` | yes | manual PASS; text PASS, WAV VERIFY PENDING; jobs PROPOSED (`RR_OFFICIAL_HLS`, `RR_VOICE_OFFICIAL`) | **KEPT** |
-| Boot brief | G1 `boot` (boot-prelims) | `voice_reports.py boot_brief` | yes | text PASS, WAV VERIFY PENDING; job PROPOSED (`RR_VOICE_BOOT`) | **KEPT** |
+| Boot brief | G1 `boot` (boot-prelims) | `voice_reports.py boot_brief` | yes | text PASS, WAV VERIFY PENDING; job PROPOSED (`RR_VOICE_BOOT`). Morning replay: `Media/MorningBootReplay` dry-run, speakers off | **KEPT** |
 | Daily report board / catch-up | G1 `reports/sort/daily-report-board`, `daily-reports-catchup` | `Reports/scripts/report_board.py` | yes | manual PASS (temp root); job PROPOSED (`RR_REPORT_BOARD`) | **KEPT** |
 | Load categories | G1 `load-categories` | `Energy/scripts/load_categories.py` | yes | manual PASS (on demand) | **KEPT** |
 | Global hurricane board | G1 `weather/hurricane-tracker` | `Weather/hurricanes/scripts/global_board.py` | yes | manual PASS (temp root); job PROPOSED (`RR_HURRICANE_GLOBAL`) | **KEPT** |

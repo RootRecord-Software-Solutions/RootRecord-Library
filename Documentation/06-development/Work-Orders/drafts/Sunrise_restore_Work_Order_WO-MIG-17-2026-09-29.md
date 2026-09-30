@@ -45,12 +45,13 @@ Folder name: **SunriseRestore**, under the Media domain. One capitalized folder.
 
 - [x] Old `maybe_run` read from `sunrise-restore/scripts/sunrise_restore.py` only
 - [x] Live Kokoro and sun-times desks confirmed; no newer sunrise-restore playback exists to enhance
-- [ ] Draft accepted by Alexander
-- [ ] Report playback Folder present (pause the build if it is missing)
-- [ ] `SunriseRestore` script, Database pending path, and log path
-- [ ] Dry-run test (no speaker, no model load)
-- [ ] Phase 4 archive and GitHub file removal
-- [ ] Library pages corrected
+- [x] Alexander said to build
+- [x] Report playback Folder present at build (`Media/Playback/scripts/play.py`)
+- [x] `SunriseRestore` script, Database pending path, and log path
+- [x] Dry-run test (no speaker, no model load) — 2026-09-30 00:04 HST, temp database root
+- [x] Phase 4 archive copy, and local deletion commit `e4045fed`
+- [ ] GitHub push of that deletion (rejected: older commit on the branch trips push protection)
+- [x] Library pages corrected for the playback request
 
 ### 2.3 Known friction
 
@@ -125,7 +126,7 @@ Build only after Alexander accepts this draft and says to build. Until then, do 
 - Report playback must have a Folder before this build continues. If it does not, pause and name Report playback.
 - Speaker playback, sends, hardware switching, and cloud spend need a separate sign-off. This draft does none of those.
 - `RR_SUNRISE_RESTORE=1` on the live poller needs a separate sign-off. The default stays off.
-- Phase 4 result is still empty: no archive path and no GitHub deletion until the build works and the five `sunrise-restore/` files are copied first.
+- GitHub push of `e4045fed` was rejected. The block is an OpenAI API key in older commit `679fd86c` (`ecosystem-history/references/archives-pull-20260916/august-emergency-txt/chatgpt improvements.txt`). This function did not add that secret and did not rewrite history.
 
 ---
 
@@ -138,11 +139,25 @@ Build only after Alexander accepts this draft and says to build. Until then, do 
 - Sign-off gate: playing the clips on a speaker, and turning `RR_SUNRISE_RESTORE` on. The dry-run requests the clip ids and sets `played: false`.
 - Test, after a build accept only: `python3 sunrise_restore.py --dry-run` with a temporary pending file prints `ran: true`, the two clip ids, and `played: false`, then clears pending. A second run prints `skipped: true`. No model load and no speaker.
 - New periodic jobs stay gated off. The `jobs.py` block is proposed only, default off.
-- Phase 4 result note (not done): what landed, the archive path under `Old repos deleted and merged/Solar-Pacific-RootRecord-Server/sunrise-restore/`, and the GitHub deletion get added here after the archive copy is on disk.
+- Phase 4 result: see section 8. Archive copy is on disk. Local deletion commit is `e4045fed`. GitHub still has the five files because push protection rejected the branch.
 
 ---
 
-*Work order prepared 2026-09-29 HST. Update status when closed.*
+## 8. Result note
+
+Landed 2026-09-30: `Media/SunriseRestore` (`__init__.py`, `README.md`, `scripts/sunrise_restore.py`). `--dry-run` with a temporary pending file printed `ran: true`, clips `battery_reconnect` and `boot_all_systems_running`, and `played: false`, then cleared pending. A second run printed `skipped: true`. A non-dry run called `Media/Playback/scripts/play.py --clip Ava/<slug> --dry-run` and got `audio_missing` for both clips. No `aplay`, no Kokoro load.
+
+`jobs.py` was already being edited, so the gated `media_sunrise_restore` / `RR_SUNRISE_RESTORE` block was not inserted. It is staged in `Media/SunriseRestore/proposed-job-block.txt`.
+
+Archive path: `Old repos deleted and merged/Solar-Pacific-RootRecord-Server/sunrise-restore/` (the five old files, copy matched the source). Left in place: `origin/ns/apps/core/services/sunrise_restore.py`, `origin/scripts/main.py`, `energy/ecoflow-automations/desk/live/sunrise_restore.py`, and the EcoFlow poller.
+
+Local deletion: commit `e4045fed` on `online-safe-20260920` in `/home/rootrecord/old ollama/old skills`. GitHub push was rejected by push protection on older commit `679fd86c` (OpenAI API key in `ecosystem-history/references/archives-pull-20260916/august-emergency-txt/chatgpt improvements.txt`). The repository was not deleted. History was not rewritten.
+
+Library: matrix row 25 and the boot_brief row in `Voice-Reports-G3.md` now say the playback request landed and the speaker stays off.
+
+---
+
+*Work order prepared 2026-09-29 HST. Build recorded 2026-09-30 HST. Not promoted.*
 
 ---
 

@@ -4,7 +4,7 @@
 | --- | --- |
 | **Work Order ID** | WO-MIG-11-2026-09-29 |
 | **Date** | 2026-09-29 (HST) |
-| **Status** | OPEN — draft, not accepted for execution |
+| **Status** | OPEN — collector landed; public page staged; website checkout still missing |
 | **Owner** | RootRecord |
 | **Related** | Agent 11. Depends on 7. Public website checkout. Later: 13. Country location pollers. Matrix row 43. |
 
@@ -48,13 +48,13 @@ Folder name in all three places: **US-States**. It sits inside the existing Weat
 
 ### 2.2 Completed so far
 
-- [x] Draft work order written (this file). Status stays OPEN — draft, not accepted for execution.
-- [ ] Alexander accepts this draft and says to build.
-- [ ] Public website checkout is in folder 3.
-- [ ] Collector, store, gated job, and public page.
-- [ ] One-state proof test.
-- [ ] Phase 4 archive, then deletion from repo `old` locally and on GitHub.
-- [ ] Phase 5 result note on this work order, and matrix row 43 corrected.
+- [x] Draft work order written (this file).
+- [x] Alexander said to build.
+- [ ] Public website checkout is in folder 3. Page is staged, not mounted.
+- [x] Collector, store, and gated job. Public page staged under `Weather/US-States/site/`.
+- [x] One-state proof test (Wyoming, Open-Meteo, Cheyenne, 2026-09-29).
+- [x] Phase 4 archive copy is on disk. GitHub deletion of the three files is the ordered next step on repo `old` (branch `cursor/radio-idle-obs-gates`).
+- [x] Phase 5 result note below. Matrix row 43 set to partial.
 
 ### 2.3 Known friction
 
@@ -144,11 +144,13 @@ Do not start these until Alexander accepts this draft and says to build.
 - New periodic job stays gated off (`RR_US_STATES` unset). Do not restart services to register it.
 - Do not promote this file onto the active Work-Orders index.
 
-### Result note (phase 5 — not yet)
+### Result note (phase 5)
 
-- Landed: not yet.
-- Archive path: not yet.
-- Removed on GitHub: not yet.
+- Landed: `Weather/US-States/scripts/fetch_us_states.py`, `Weather/US-States/lib/envload.py` (allowlist `NWS_USER_AGENT` only), Database `Weather/US-States/weather.db` and `us-last.json`, log under `Logs/Weather/US-States/`. Job `weather_us_states` in `jobs.py`, enabled only when `RR_US_STATES=1`, default off. Poller was not restarted.
+- Proof: `fetch_us_states.py --state WY --force` PASS. `us-last.json` has Cheyenne, provider `open-meteo`, temp 7.3°C, obs `2026-09-30T04:00`. NWS skipped because `NWS_USER_AGENT` is unset.
+- Public page: staged at `Weather/US-States/site/us-states.html` (glass card, empty until `us-last.json` is readable). Not mounted. `3 - RootRecord-Website` is still empty, so Public website checkout was not built.
+- Archive path: `Old repos deleted and merged/old/operations/weather/fetch_us_weather.py`, `operations/weather/README.md`, and `operations/cronologicals/since-last-fire/every-hour/fetch-us-weather.py`.
+- Removed on GitHub: not yet. Local commit `de957e4` on `/tmp/rr-old-mig11` deletes those three files. Push to `cursor/radio-idle-obs-gates` was rejected because the remote moved; a merge-and-push is still required. No force-push. Repository was not deleted. Shared `config/locations/global-locations.json` was left in repo `old`.
 
 ---
 
