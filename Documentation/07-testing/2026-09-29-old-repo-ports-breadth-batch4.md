@@ -1,11 +1,11 @@
-# Test record — Old-repo ports, breadth batch 4 (web facts, Hawaiʻi news, host net/security, solar / security / bandwidth desks)
+# Test record — Old-repo ports, breadth batch 4 (web facts, live-wx, Hawaiʻi news, host net/security, solar / security / bandwidth desks)
 
 | Field | Value |
 | --- | --- |
-| **Date / time (HST)** | 2026-09-29 13:58–14:05 HST |
+| **Date / time (HST)** | 2026-09-29 13:58–14:09 HST |
 | **Tester** | Grok Bot (desk agent, old-repo migration pass; breadth-over-depth steering 13:53) |
-| **Change under test** | G1 `websites/web-facts` → Pacific `Communications/web-facts/scripts/web_facts.py`; G0 `operations/news/{_collector,hawaii/news}.py` → `Reports/News/scripts/{_collector,hawaii_news}.py`; G1 `host-metrics` (net + security parts) → `System/scripts/host_desks.py`; G1 `hourly-clip-reports` solar / security / bandwidth desks → `Media/Voice/scripts/voice_reports.py solar_desk | security_desk | bandwidth_desk`. Database `.gitignore` += `/Reports/News/**/*.db*`, `/System/network/Daily/`. [Matrix](../00-architecture/Old-Repo-Migration-Matrix.md) |
-| **State** | **PASS** web facts, host desks, three voice desks (text) · **FAIL on content** Hawaiʻi news (rc 0, 0 posts) · WAV renders **VERIFY PENDING** (no model load) · jobs **PROPOSED, not registered** (standing rule: no jobs.py edits) — blocks in [Pending-Job-Registrations-2026-09-29](../00-architecture/Pending-Job-Registrations-2026-09-29.md) |
+| **Change under test** | G1 `websites/web-facts` → Pacific `Communications/web-facts/scripts/web_facts.py`; G1 `weather/live-wx` → `Communications/live-wx/scripts/live_wx.py`; G0 `operations/news/{_collector,hawaii/news}.py` → `Reports/News/scripts/{_collector,hawaii_news}.py`; G1 `host-metrics` (net + security parts) → `System/scripts/host_desks.py`; G1 `hourly-clip-reports` solar / security / bandwidth desks → `Media/Voice/scripts/voice_reports.py solar_desk | security_desk | bandwidth_desk`. Database `.gitignore` += `/Reports/News/**/*.db*`, `/System/network/Daily/`. [Matrix](../00-architecture/Old-Repo-Migration-Matrix.md) |
+| **State** | **PASS** web facts, live-wx, host desks, three voice desks (text) · **FAIL on content** Hawaiʻi news (rc 0, 0 posts) · WAV renders **VERIFY PENDING** (no model load) · jobs **PROPOSED, not registered** (standing rule: no jobs.py edits) — blocks in [Pending-Job-Registrations-2026-09-29](../00-architecture/Pending-Job-Registrations-2026-09-29.md) |
 | **Backup** | `/home/rootrecord/Database/GITHUB/migration-breadth.bak-20260929-135720/` |
 | **Commits** | Auto-sync; see worklog / final report |
 
@@ -15,6 +15,7 @@
 cd "/home/rootrecord/RootRecord-Ecosystem/1 - Servers/1 - RootRecord-Pacific-Solar-Server"
 nice -n 10 python3 Communications/web-facts/scripts/web_facts.py https://earthquake.usgs.gov/fdsnws/event/1/version
 nice -n 10 python3 Communications/web-facts/scripts/web_facts.py https://example.com/ ; nice -n 10 python3 Communications/web-facts/scripts/web_facts.py http://api.weather.gov/
+nice -n 10 python3 Communications/live-wx/scripts/live_wx.py --offline ; nice -n 10 python3 Communications/live-wx/scripts/live_wx.py   # read-only, writes nothing
 RR_DATABASE_ROOT=/tmp/rr-migr/newsdb nice -n 10 python3 Reports/News/scripts/hawaii_news.py
 RR_DATABASE_ROOT=/tmp/rr-migr/hostdb nice -n 10 python3 System/scripts/host_desks.py net-sample   # + a simulated older sample for the 1 h window
 RR_DATABASE_ROOT=/tmp/rr-migr/hostdb nice -n 10 python3 System/scripts/host_desks.py net-usage
@@ -29,6 +30,7 @@ RR_VOICE_REPORT_OUT=/tmp/rr-migr/voice-test RR_VOICE_BANDWIDTH_DRY=1 nice -n 10 
 | Item | Result | Observed |
 | --- | --- | --- |
 | `web_facts.py` | **PASS** | USGS FDSN version → `2.7.0`; `example.com` refused (not allowlisted); `http://` refused; no args → rc 2 usage |
+| `live_wx.py` | **PASS** | `--offline` 0.12 s / 26 MB: forecast DOWN (by design), "HI alerts: High Surf Advisory (Big Island in area)", "Hurricane Nolo, 270 nm from Līhuʻe"; live 2.07 s / 29 MB: "This Afternoon, 78F, Isolated Rain Showers, wind 12 mph" + Tonight + Wednesday |
 | `hawaii_news.py` | **FAIL on content** (rc 0) | 12.3 s, ~31 MB RSS; 13 feeds + 12 pages checked, 25 × HTTP 404 (`source_health error 25`), 0 posts / 0 events; `hawaii-news-last.json` + `hawaii_news.db` written to the temp root only. `https://governor.hawaii.gov/feed/` answers 200 (not in the G0 discovery path) |
 | `host_desks.py net-sample / net-usage` | **PASS** | iface `wlo1`; simulated 1 h window 56.7 MB total; files `System/network/net-last.json` + `Daily/net-YYYYMMDD.jsonl` (temp root) |
 | `host_desks.py security` | **PASS** | counts only: failed sign-ins 1 h 0 / 24 h 1, 10 listeners, 15 established, ufw start-on-boot false, ssh active; no IPs / usernames / log lines stored |
@@ -42,6 +44,11 @@ RR_VOICE_REPORT_OUT=/tmp/rr-migr/voice-test RR_VOICE_BANDWIDTH_DRY=1 nice -n 10 
 **web_facts.py**
 - [ ] Decide whether to wire it into council chat (relay replies are BLOCKED on the `*-telegram` models).
 - [ ] Review the allowlist (`HOSTS`, copied from G1: NWS, USGS, Wikipedia, Litecoin docs) and the 8 000-char cap.
+
+**live_wx.py**
+- [ ] The G1 point (19.5429, −155.0372) is kept: is that the right forecast point for the desk?
+- [ ] Hurricane line uses only storms polled within 6 h (`HUR_ACTIVE_H`). The G1 "West of Kauaʻi is Asia/Japan" phrase for storms ≥ 800 nm was dropped: re-add it?
+- [ ] Wire it into council chat once relay replies are unblocked.
 
 **hawaii_news.py / _collector.py**
 - [ ] Pick seed feeds (e.g. `governor.hawaii.gov/feed/`, department feeds). G0 discovery from `www.hawaii.gov` finds only 404s.
@@ -65,6 +72,9 @@ RR_VOICE_REPORT_OUT=/tmp/rr-migr/voice-test RR_VOICE_BANDWIDTH_DRY=1 nice -n 10 
 - [ ] Delivery (speakers / Telegram) stays OFF, pending sign-off.
 
 ## Not done / BLOCKED
+
+- Council health / Bruce stats (G1 `council/council-health`, `council-bruce-stats`): needs the three bot tokens for `getMe`, a live chat probe (model load) and alert sends to the council group. Needs sign-off.
+- Load categories: needs a G1 cloud-quota → G3 last-file field map and a threshold check.
 
 - 49 other state + global news builders: product / website data, out of Pacific scope.
 - G1 host series-reset and wattage helpers; Windows PDH GPU/NPU counters (not applicable on Linux).

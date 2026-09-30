@@ -15,7 +15,7 @@
 
 | Rows | migrated | partial | missing | touched this pass |
 |---|---|---|---|---|
-| 90 | 26 | 28 | 36 | 20 |
+| 90 | 27 | 27 | 36 | 23 |
 
 | Bucket | migrated | partial | missing |
 |---|---|---|---|
@@ -25,7 +25,7 @@
 | product | 0 | 0 | 15 |
 | archive | 0 | 2 | 4 |
 
-Bucket table is as of 13:50 HST; breadth-pass changes since then (all core bucket): rows 48 and 76 → migrated, row 79 → partial; rows 17, 34, 42, 50 reviewed without a status change.
+Bucket table is as of 13:50 HST; breadth-pass changes since then (all core bucket): rows 39, 48 and 76 → migrated, row 79 → partial; rows 17, 34, 35, 42, 50, 60 reviewed without a status change.
 
 Grouped rows: related G1 packets that share one G3 target are one row (e.g. the 11 public-site packets). The 97 G1 tops + the G0 operations tree map onto these 90 rows.
 
@@ -47,8 +47,9 @@ Grouped rows: related G1 packets that share one G3 target are one row (e.g. the 
 | Hawaiʻi news collector (G0 RSS discovery) | `Reports/News/scripts/{_collector,hawaii_news}.py` → Database `Reports/News/hawaii/` | PROPOSED `RR_HAWAII_NEWS=1`, 10:00 (not in jobs.py) | rc 0 but FAIL on content (0 posts) |
 | Host net counters / usage windows / security snapshot | `System/scripts/host_desks.py` → Database `System/{network,security}/` | PROPOSED `RR_NET_SAMPLES=1`, 300 s (not in jobs.py) | PASS |
 | Solar / security / bandwidth desk voice reports | `voice_reports.py solar_desk` (Bruce), `security_desk`, `bandwidth_desk` (Carly) | PROPOSED `RR_VOICE_SOLAR` :04, `RR_VOICE_SECURITY` :11, `RR_VOICE_BANDWIDTH` :12 (not in jobs.py) | PASS (text); WAV VERIFY PENDING |
+| Live weather lines for chat (G1 live-wx) | `Communications/live-wx/scripts/live_wx.py` | on demand (`--offline` = no HTTP) | PASS |
 
-Breadth rows (13:58–14:05 HST): test record [2026-09-29-old-repo-ports-breadth-batch4](../07-testing/2026-09-29-old-repo-ports-breadth-batch4.md); proposed job blocks: [Pending-Job-Registrations-2026-09-29](Pending-Job-Registrations-2026-09-29.md).
+Breadth rows (13:58–14:09 HST): test record [2026-09-29-old-repo-ports-breadth-batch4](../07-testing/2026-09-29-old-repo-ports-breadth-batch4.md); proposed job blocks: [Pending-Job-Registrations-2026-09-29](Pending-Job-Registrations-2026-09-29.md).
 
 ## Matrix
 
@@ -88,11 +89,11 @@ Breadth rows (13:58–14:05 HST): test record [2026-09-29-old-repo-ports-breadth
 | 32 | River car DC drive automation | `Solar-Pacific-RootRecord-Server-Old/energy/ecoflow-river-car` | **missing** | Pacific `Energy/` | Actuates DC power — needs Alexander sign-off. |
 | 33 | Sun times (sunrise/sunset HST) | `Solar-Pacific-RootRecord-Server-Old/reports/sort/hourly-solar-weather/scripts/sun_times.py` | **migrated** | Pacific `Energy/scripts/sun_times.py` → Database `Energy/sun/` | THIS PASS. Job `energy_sun_times` gated `RR_SUN_TIMES=1` (hourly, 1 fetch/day). |
 | 34 | Hourly solar + weather report | `Solar-Pacific-RootRecord-Server-Old/reports/sort/hourly-solar-weather/scripts/job.py` | **partial** | voice `solar_desk` + `energy_report` + `nws_weather`; `Energy/scripts/sun_times.py` | THIS PASS (breadth): `solar_desk` (Bruce, SOC / solar W / AC out + sun times) text smoke PASS, job PROPOSED `RR_VOICE_SOLAR`. Not ported: EcoFlow cloud quota signing, D1 push, SQLite/host history charts (cloud keys; G3 Energy db already covers history). |
-| 35 | Load categories (solar desk labels) | `Solar-Pacific-RootRecord-Server-Old/load-categories/scripts/load_categories.py` | **missing** | Pacific `Energy/` | BLOCKED: keyed to G1 EcoFlow cloud-quota field names (pd.usb1Watts…); G3 BLE last-files use different keys — needs a field map + Alexander check of the Starlink/e-batt thresholds. |
+| 35 | Load categories (solar desk labels) | `Solar-Pacific-RootRecord-Server-Old/load-categories/scripts/load_categories.py` | **missing** | Pacific `Energy/` | BLOCKED: keyed to G1 EcoFlow cloud-quota field names (pd.usb1Watts…); G3 last-files carry only `ac_output_power`, `ac_input_power`, `usbc_output_power`, `solar_input_power`, `charge_source` (THIS PASS review 14:10) — the transfer / e-batt / Starlink / emergency roles need a field map + Alexander check of the thresholds. |
 | 36 | EcoFlow cronologicals (1min…yearly rollups) | `old/operations/cronologicals/since-last-fire/*/ecoflow-*.py` | **partial** | Pacific `Energy/db/aggregate.py`, `condense.py` | Layers exist in G3 Energy db. |
 | 37 | System per-second / per-minute (cronologicals) | `old/operations/cronologicals/since-last-fire/every-second/system.py, every-minute/system-min.py` | **migrated** | Pacific `System/scripts/sys-sample.sh` | LIVE via G2→G3. |
 | 38 | Uptime per-minute (cronologicals) | `old/operations/cronologicals/since-last-fire/every-minute/uptime.py` | **migrated** | Pacific `System/scripts/uptime_log.py` | THIS PASS (same capability as G1 uptime-log). |
-| 39 | NWS Hawaiʻi counties / rr-noaa / live-wx | `Solar-Pacific-RootRecord-Server-Old/weather/nws-hawaii, rr-noaa, live-wx` | **partial** | Pacific `Weather/` (fetch, alerts, county_map, reports) | Weather daemon LIVE; chat helper (live_wx) not ported (council chat BLOCKED). |
+| 39 | NWS Hawaiʻi counties / rr-noaa / live-wx | `Solar-Pacific-RootRecord-Server-Old/weather/nws-hawaii, rr-noaa, live-wx` | **migrated** | Pacific `Weather/` (fetch, alerts, county_map, reports); `Communications/live-wx/scripts/live_wx.py` | Weather daemon LIVE. THIS PASS (breadth, 14:09 HST): live_wx chat helper ported (on demand, `--offline` = no HTTP), smoke PASS; not wired to council chat (BLOCKED). |
 | 40 | Hurricane fetch / tracker / desk | `Solar-Pacific-RootRecord-Server-Old/weather/hurricane-fetch, hurricane-tracker, hurricane-desk` | **partial** | Pacific `Weather/hurricanes/` (fetch/track); desk `Media/Voice/scripts/voice_reports.py hurricane_desk` | THIS PASS (desk). Hawaiʻi block ported from G3 `track.json` + NWS HI alerts; job `voice_hurricane_desk` gated `RR_VOICE_HURRICANE=1` (05:50/09:50/12:50/16:55/20:50). Still missing: G1 global JTWC/RAMMB board (G3 tracks only Hawaiʻi-relevant NHC storms), storm plot. |
 | 41 | Hurricane OBS / radio | `Solar-Pacific-RootRecord-Server-Old/weather/hurricane-obs, hurricane-radio` | **missing** | — | BLOCKED: OBS + radio playback not in G3 (no playback allowed). |
 | 42 | Radar archive / official weather media | `Solar-Pacific-RootRecord-Server-Old/weather/radar-archive, official-weather-media` | **partial** | Pacific `Weather/fetch/radar.py` (HAWAII_loop.gif, `archive/` 14 days), `maps.py` | THIS PASS (review): radar-archive capability already covered by G3 weather (dated archive; G1's all-time zip not ported, disk). official-weather-media **BLOCKED**: G3 weather collects AFD/SFP/CWF/ZFP but not HLS/HWO (adding them = weather poller product-list change, other domain) and its OBS overlay push has no G3 target. |
@@ -113,7 +114,7 @@ Breadth rows (13:58–14:05 HST): test record [2026-09-29-old-repo-ports-breadth
 | 57 | Persona / speech scrub | `Solar-Pacific-RootRecord-Server-Old/persona` | **partial** | `Media/Voice/scripts/speakers.py`; Library Agent Context | Persona docs → Library. |
 | 58 | Telegram helpers / council telegram | `Solar-Pacific-RootRecord-Server-Old/communications/telegram, council/council-telegram` | **partial** | Pacific `Communications/telegram/scripts/council-relay.py` | Replies BLOCKED (models); council skills not ported. |
 | 59 | Discord / Slack pollers | `Solar-Pacific-RootRecord-Server-Old/communications/discord, slack` | **missing** | Pacific `Communications/{discord,slack}/` (README only) | BLOCKED: needs tokens (env) + posting sign-off (WO-COM-002). |
-| 60 | Council health / Bruce stats | `Solar-Pacific-RootRecord-Server-Old/council/council-health, council-bruce-stats` | **missing** | Communications/ | Alerts Telegram group → sign-off. |
+| 60 | Council health / Bruce stats | `Solar-Pacific-RootRecord-Server-Old/council/council-health, council-bruce-stats` | **missing** | Communications/ | THIS PASS (review 14:10): BLOCKED — checks need the three Telegram bot tokens (`getMe`), a live chat probe (model load) and alert sends to the council group; Bruce stats posts to Telegram. A G3 version needs sign-off. |
 | 61 | Network globe / local-data-globe | `Solar-Pacific-RootRecord-Server-Old/network-globe, local-data-globe` | **migrated** | Pacific `Communications/network/local-data-globe/` | LIVE. |
 | 62 | Cloudflare workers | `Solar-Pacific-RootRecord-Server-Old/cloudflare-workers` | **missing** | Website / edge repo | Out of Pacific runtime scope. |
 | 63 | Inbox / inbox-drain / overnight-relay / reply-feedback | `Solar-Pacific-RootRecord-Server-Old/inbox, inbox-drain, overnight-relay, reply-feedback` | **missing** | Communications/ | Cloudflare D1 + DMs → secrets + sign-off. |

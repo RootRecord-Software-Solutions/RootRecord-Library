@@ -117,6 +117,7 @@ Record any post-check confirmation in WO-SRV notes if useful; do not re-open clo
 | Hurricane desk voice | G1 `weather/hurricane-desk` | `Media/Voice/scripts/voice_reports.py hurricane_desk` | yes | text PASS; WAV VERIFY PENDING (`RR_VOICE_HURRICANE`) | **KEPT** |
 | Kīlauea hourly desk voice | G1 `hourly-clip-reports` Kīlauea desk, `persona._kilauea_line` | `Media/Voice/scripts/voice_reports.py kilauea_report` | yes | text PASS; WAV VERIFY PENDING (`RR_VOICE_KILAUEA`) | **KEPT** |
 | Web facts | G1 `websites/web-facts` | `Communications/web-facts/scripts/web_facts.py` | yes | manual PASS (on demand) | **KEPT** |
+| Live weather chat lines | G1 `weather/live-wx` | `Communications/live-wx/scripts/live_wx.py` | yes | manual PASS (on demand) | **KEPT** |
 | Hawaiʻi news collector | G0 `old/operations/news/{_collector.py,hawaii/news.py}` | `Reports/News/scripts/{_collector,hawaii_news}.py` | yes | rc 0, FAIL on content (0 posts); job PROPOSED (`RR_HAWAII_NEWS`) | **KEPT** |
 | Host net counters + security snapshot | G1 `host-metrics` | `System/scripts/host_desks.py` | yes | manual PASS (temp root); job PROPOSED (`RR_NET_SAMPLES`) | **KEPT** |
 | Solar / security / bandwidth desk voice | G1 `hourly-clip-reports` desks | `Media/Voice/scripts/voice_reports.py solar_desk \| security_desk \| bandwidth_desk` | yes | text PASS; WAV VERIFY PENDING; jobs PROPOSED | **KEPT** |

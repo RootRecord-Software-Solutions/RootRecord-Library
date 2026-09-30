@@ -429,9 +429,9 @@ Copy/port only; no poller restart (PID 105444 untouched); no delivery, playback 
 
 ### Addendum ~14:10 HST — breadth batch 4 (steering 13:53: breadth over depth, gated off, light smoke each)
 
-- LANDED + smoke: `Communications/web-facts/scripts/web_facts.py` (on demand, **PASS**); `System/scripts/host_desks.py net-sample|net-usage|security` (**PASS**, temp root); `Media/Voice/scripts/voice_reports.py solar_desk|security_desk|bandwidth_desk` (text **PASS**, WAV VERIFY PENDING); `Reports/News/scripts/{_collector,hawaii_news}.py` (rc 0, **FAIL on content** — 0 posts, 25 × HTTP 404).
+- LANDED + smoke: `Communications/web-facts/scripts/web_facts.py` (on demand, **PASS**); `Communications/live-wx/scripts/live_wx.py` (on demand, **PASS**); `System/scripts/host_desks.py net-sample|net-usage|security` (**PASS**, temp root); `Media/Voice/scripts/voice_reports.py solar_desk|security_desk|bandwidth_desk` (text **PASS**, WAV VERIFY PENDING); `Reports/News/scripts/{_collector,hawaii_news}.py` (rc 0, **FAIL on content** — 0 posts, 25 × HTTP 404).
 - **No jobs.py edit** (standing rule). Their jobs are PROPOSED with exact blocks in [Pending-Job-Registrations-2026-09-29](../../00-architecture/Pending-Job-Registrations-2026-09-29.md): `system_net_sample` (`RR_NET_SAMPLES`), `voice_solar_desk` (`RR_VOICE_SOLAR`), `voice_security_desk` (`RR_VOICE_SECURITY`), `voice_bandwidth_desk` (`RR_VOICE_BANDWIDTH`), `reports_hawaii_news` (`RR_HAWAII_NEWS`).
-- BLOCKED / not ported: official-weather-media (HLS/HWO not collected, OBS), report ledger / catch-up / readiness (playback + report_generation), sunrise-restore (playback), economy brief (MySQL + Discord).
+- BLOCKED / not ported: official-weather-media (HLS/HWO not collected, OBS), report ledger / catch-up / readiness (playback + report_generation), sunrise-restore (playback), economy brief (MySQL + Discord), council health / Bruce stats (bot tokens + chat-probe model load + alert sends), load categories (field map).
 - [Test record with check-later list](../../07-testing/2026-09-29-old-repo-ports-breadth-batch4.md). Backup `/home/rootrecord/Database/GITHUB/migration-breadth.bak-20260929-135720/`.
 
 ## US-Mainland-Server desk checkout — 2026-09-29 ~13:45–14:00 HST
