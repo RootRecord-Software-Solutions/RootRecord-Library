@@ -101,3 +101,8 @@ Why the tunnel was down: cloudflared and its unit were purged on AWS on 2026-09-
 - **Outside access:** there are no per-request logs. The tunnel counted 55 requests in total during the exposure, mostly desk checks. The web socket-write total was 4.6 MB, so there was no full feed download.
 - **Open finding:** `network-globe-feed-server` listens on `0.0.0.0:8787` and is **publicly reachable** at the EC2 IP (`/hawaii.ndjson`). It has been up since 09-26 and has served only 5.5 KB. Decide between binding it to localhost and closing it in the security group.
 
+
+### Change log: 2026-09-29 15:00 HST, fallback rebuild Phase 1 (plan only, **no AWS changes**)
+
+- Alexander's direction: the desk is canonical, and AWS is rebuilt as a **small fallback** (comms hold, status, globe, current-only hazards, buffer-to-Data-Relay while the desk is offline, desk catch-up with dedupe), with per-function toggles in Root Monitor. Plan: [08-ideas AWS fallback rebuild](../08-ideas/2026-09-29-aws-fallback-rebuild.md). Read-only inventory: [test record](../07-testing/2026-09-29-aws-fallback-inventory.md).
+- **Correction to the sizing assumption:** the instance is **t3.micro, 908 MB RAM** (not 2 GB). ~445 MB is available now, and the default fallback set would leave ~279 MB, below the 512 MB floor, so a resize to t3.small is proposed (sign-off). `:8787` is still public (unchanged, listed).

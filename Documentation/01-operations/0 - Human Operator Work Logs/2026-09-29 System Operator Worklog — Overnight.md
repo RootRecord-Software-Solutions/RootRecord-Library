@@ -445,3 +445,31 @@ This was a P0 follow-up under Alexander's AWS approval. Once the tunnel came bac
 | 14:45–14:50 | Mainland mirror (backed up first; the repo `server.js`/`index.html`, which are the overlay work, were not touched): added `mirror/network-globe/network-globe/server.aws-live-2026-09-29-allowlist.js` (the AWS copy, sha256 `4ba42236…`) and `AWS-LIVE-SERVER.md` (why, what, diff). Library: test record, 07 README row, this section, and a US-Mainland-Server change-log entry | LANDED |
 
 **Needs Alexander:** close the public feed-server on `:8787`, either with `Environment=GLOBE_BIND=127.0.0.1` in `network-globe-feed-server.service` or by closing TCP 8787 in the security group, once it's confirmed nothing external reads it.
+
+## AWS fallback rebuild, Phase 1: plan, read-only inventory, Root Monitor "AWS Fallback" page in dry-run (14:57–15:20 HST)
+
+This follows Alexander's new direction. The desk is the main copy, and AWS gets rebuilt as a **small fallback**: comms hold, status, the globe, current-only hazards, and buffer-to-relay when the desk is offline. It is not a full offload. Proposal: [08-ideas AWS fallback rebuild](../../08-ideas/2026-09-29-aws-fallback-rebuild.md). Records: [inventory](../../07-testing/2026-09-29-aws-fallback-inventory.md) · [Root Monitor page](../../07-testing/2026-09-29-root-monitor-aws-fallback-page.md). Desk backup: `/home/rootrecord/Database/GITHUB/aws-fallback-phase1.bak-20260929-150225/`. **No AWS changes in Phase 1.**
+
+| Time (HST) | What | State |
+| --- | --- | --- |
+| 14:57–15:00 | Read-only AWS inventory (`rr-aws-ip`). **t3.micro, 908 MB RAM (not 2 GB)**, no swap, ~445 MB available; 3.1 GB of 6.7 GB disk free; 28–44 % iowait from `connection-history.py` per-record commits; `github-poller` runs `git fetch` every 1 s (14,318 CPU-s); `rr-rootserver-poller` runs 4 dead jobs every 1 s; ports 22 + **8787 public** (feed-server, listed and not changed); only the trim cron; `.env` has 23 keys (names only) | **PASS** (read-only) |
+| 15:00–15:02 | Desk survey (read only, `jobs.py` not edited): council-relay 15.9 MB (quiet hold), geology 28 MB / 2.6 s, live_wx / web_facts / hawaii_news 20–31 MB, weather scheduler 420 MB / 2.9 GB (**doesn't fit**). Built an 18-function catalog with RAM, disk, network, fits and default | done |
+| 15:02–15:05 | Pacific `Apps/Control-Panel`: added `rr_aws_page.py`, `Lib/rr_aws_fallback.{py,json}`; registered the page after SSH in `rr_control_panel.py` (built on visit, released on leave); `rr_settings.py` defaults `aws_fallback_mode=dry-run`, `aws_fallback_alias=rr-aws-ip`; README | LANDED (dry-run) |
+| 15:05–15:10 | Tests: `--check` 14 pages 0 errors 0 leaks; RSS +4.4 MB (80.9 → 85.3); settings 103/103; unit 13/13; live read-only Status (`deployed=0`, avail 439 MB, disk 3170 MB); 3 screenshots in `test-reports/Control-Panel/aws-fallback-20260929/`. The confirm dialog was not confirmed, so nothing was written | **PASS** |
+| 15:10–15:20 | Library: proposal, 2 test records + 07 rows, 08 row, this section, Control-Panel-GTK §2 addendum, US-Mainland-Server change-log pointer | LANDED |
+
+**Proposed default-ON:** tunnel, globe_ingest, globe_web, globe_history, desk_watch, status_health, system_monitor, relay_buffer, telegram_hold (only while the desk is offline), geology_current, nws_current, public_ip_notify. globe_feed_8787 stays as it is until you decide. **OFF:** basic_replies (sign-off), hawaii_news, github_poller + legacy_poller (retire), weather_scheduler (doesn't fit).
+
+**Budget:** with the default set on the current t3.micro, only ~279 MB stays free, **below the 512 MB floor**. On t3.small (2 GB), ~1,419 MB stays free. Disk with the caps: ~4.0 GB used, ~2.7 GB free (floor 1.5 GB).
+
+**Needs Alexander (in order):**
+1. Elastic IP, then resize to t3.small (or accept a trimmed micro profile)
+2. `:8787`
+3. Retire `github-poller` and `rr-rootserver-poller`
+4. Batch the history commits
+5. Phase 2 runtime deploy
+6. Desk jobs `aws_heartbeat_push` + `aws_catchup` (`jobs.py` registration)
+7. Telegram bot for telegram_hold; basic_replies stays OFF
+8. Root Monitor write mode
+9. Cut down the AWS `.env`
+10. Globe `/api/state` at 5 s + gzip before the Vercel background launch
