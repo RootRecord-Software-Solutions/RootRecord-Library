@@ -48,8 +48,8 @@ Folder name: **Economy-Brief**, a subfolder of Reports. One capitalized name in 
 - [ ] Council persona prompts Folder. The brief does not call it. Measured markdown does not wait on that Folder.
 - [x] `economy_brief.py` writes the markdown under Database `Reports/Economy-Brief/`.
 - [x] Fixture dry-run PASS 2026-09-30 00:41 HST. `economy-brief-2026-09-30.md` from a 4-wallet fixture. Gold-never-dollars note present. No `$`. `posted` false. Kīlauea line read `WATCH` / `2.5` from `kilauea-last.json`. No Discord. No MySQL.
-- [ ] Phase 4 archive, then deletion of this function's old files.
-- [ ] Phase 5 result note and the three Library corrections.
+- [x] Phase 4 archive copy is on disk. Local gitignored `reports/sort/economy-brief/` removed after `diff -rq`. Shim still in the old checkout and on GitHub. No push.
+- [ ] Phase 5 result is partial. Library pages not corrected until the GitHub shim deletion is pushed.
 
 ### 2.3 Known friction
 
@@ -184,4 +184,13 @@ Human session logs archive under `Documentation/01-operations/archive/YYYY-Www/`
 
 ## Result note
 
-Not written. Phase 4 has not run. No archive path, no GitHub deletion, and no Library correction yet.
+2026-09-30 00:41 HST. `economy_brief.py` is in place. Fixture dry-run PASS. Discord was not posted. MySQL was not queried.
+
+Archived, same in-repo paths, under `Old repos deleted and merged/Solar-Pacific-RootRecord-Server/`:
+
+- `reports/sort/economy-brief/` (source, `DAILY.md`, and `__pycache__`)
+- `origin/ns/apps/core/crons/on_time/economy_brief.py` (copy of the shim)
+
+The gitignored tree was removed from `/home/rootrecord/old ollama/old skills/reports/sort/economy-brief/` after `diff -rq` matched. The shim is still in that checkout and on GitHub. No commit and no push of that deletion. Shared file left in place: `minecraft/rootmc-economy/scripts/rootmc_economy.py`.
+
+Library corrections (matrix row 51, the scheduler row, Reports README) are not done yet. They wait until the GitHub shim deletion is pushed.

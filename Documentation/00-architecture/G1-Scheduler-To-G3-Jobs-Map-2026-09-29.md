@@ -53,7 +53,7 @@ States: **LIVE** = enabled in G3 now · **GATED** = in jobs.py, OFF until its fl
 | drive-automation | every 30 min | — | BLOCKED (actuation) |
 | panels-cam | every 15 min | Pacific `Security/Cameras/` grab | partial; power session BLOCKED (actuation) |
 | energy-report | every 30 min | `voice_energy_report` :15 :45 | GATED `RR_VOICE_ENERGY` |
-| council-health | every 5 min | — | BLOCKED (bot tokens, chat probe model load, alert sends) |
+| council-health | every 5 min | `council_health` 300 s | GATED `RR_COUNCIL_HEALTH`. Report only. No send, no model probe. |
 | public-health | every 5 min | — | OUT (website) |
 | fs-index | every 15 min | — | BLOCKED (scope: full-disk index of private paths) |
 | host-sample | every 1 min | `System/scripts/host_desks.py net-sample` (300 s) + `System/lib/sample.py` | PROPOSED `RR_NET_SAMPLES` |

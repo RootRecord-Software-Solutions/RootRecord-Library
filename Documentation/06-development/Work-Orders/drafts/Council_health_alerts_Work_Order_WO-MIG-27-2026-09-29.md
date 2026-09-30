@@ -4,7 +4,7 @@
 | --- | --- |
 | **Work Order ID** | WO-MIG-27-2026-09-29 |
 | **Date** | 2026-09-30 (HST) |
-| **Status** | OPEN — draft, not accepted for execution |
+| **Status** | BUILT — gated off. Not promoted to the active index. |
 | **Owner** | RootRecord |
 | **Related** | Agent 27, wave D. No later function depends on this one. Build waits on Folders from agent 03 (Council persona prompts) and agent 25 (Council quake Telegram posts). Matrix row 60. Scheduler map row `council-health`. |
 
@@ -43,12 +43,11 @@ Folder name, used in all three places: `CouncilHealth` (inside Communications). 
 
 - [x] Old `council_health.py`, `job.py`, `SKILL.md`, and `DAILY.md` read from GitHub. Live relay, `relay.conf`, `voices.conf`, and `jobs.py` `council_relay` read.
 - [x] This draft written. Not on the active work-order index.
-- [ ] Alexander has not accepted this draft for execution.
-- [ ] Dependency Folders for Council persona prompts and Council quake Telegram posts are not on the server. Build pauses until they are.
-- [ ] `CouncilHealth` code, Database files, and Logs directory not created.
-- [ ] `jobs.py` gated block not added.
-- [ ] Offline `--no-network` test not run.
-- [ ] Phase 4 archive and GitHub file deletion not done. Phase 5 result note not written. Matrix row 60, the scheduler map, and `Communications/README.md` not corrected.
+- [x] Shell folders staged for Council persona prompts (`Communications/CouncilPersona`) and Council quake Telegram posts (`Communications/CouncilQuake`). Those functions were not built.
+- [x] `CouncilHealth` code, Database README, and Logs directory created.
+- [x] `jobs.py` gated block added. `RR_COUNCIL_HEALTH` stays unset.
+- [x] Offline `--no-network` test passed (exit 0, bots `skipped`, `alerted` false).
+- [x] Phase 4 archive and GitHub deletion `55e9c84` done. Matrix row 60, the scheduler map, and `Communications/README.md` corrected. Bruce stats left missing.
 
 ### 2.3 Known friction
 
@@ -165,4 +164,10 @@ Human session logs archive under `Documentation/01-operations/archive/YYYY-Www/`
 
 ### Phase 4 / phase 5 result
 
-Not written. Fill this subsection after the build works, the archive copy is on disk, and the old-repo deletion is pushed.
+Landed 2026-09-30: `Communications/CouncilHealth/scripts/council_health.py` and `lib/envload.py`. Job `council_health` is in `jobs.py` and stays off. Proof: `--no-alert --no-probe --no-network --json` exited 0, wrote `latest.json` with each bot `skipped` and `alerted` false. One live `council-relay.py` was seen. No send and no model load.
+
+Archive: `/home/rootrecord/RootRecord-Ecosystem/Old repos deleted and merged/Solar-Pacific-RootRecord-Server-Old/council/council-health/` (`SKILL.md`, `DAILY.md`, `scripts/council_health.py`, `scripts/job.py`).
+
+GitHub: `rootrecordsoftwaresolutions/Solar-Pacific-RootRecord-Server-Old` commit `55e9c84` deleted those four files. The repository was not deleted. Shared `scheduler-clock/scripts/scheduler.py` and `origin/scripts/routes/crons.py` were left. `/home/rootrecord/old ollama/old skills` is a different remote (`Solar-Pacific-RootRecord-Server`) and was not pushed.
+
+Shells only, not the functions: `Communications/CouncilPersona` and `Communications/CouncilQuake`.
