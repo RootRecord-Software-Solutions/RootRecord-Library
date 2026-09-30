@@ -514,3 +514,39 @@ Request (Alexander): "make toggles buttons. I can't see the camera toggle."
 | 16:15–16:20 | Docs: 07-testing record + README row, Control-Panel README, `Control-Panel-GTK.md` | LANDED |
 
 No git writes, no sudo, `jobs.py`/`settings.json`/`Lib/rr_aws_fallback*` not edited, nothing written on AWS. Stopped here at Alexander's pause request; the fix is complete. **Needs Alexander:** close and reopen Root Monitor (the open window runs the pre-16:10 code).
+
+
+## 16:09–16:17 HST: globe overlay deployed to AWS + AWS Ohio node
+
+- 16:10 **LANDED**: overlay v2 is on AWS (3 files in `overlay/` plus 1 include line in `index.html`, now md5 `6d9b5af6…`). No restart. Public checks PASS; allowlist 404s hold. AWS backup `/home/ubuntu/backups/globe-landing-20260930-020957/`; desk backup `/home/rootrecord/Database/GITHUB/globe-overlay-deploy.bak-20260929-160933/`.
+- 16:12: investigated "no lines from Ohio". Cause: the live `server.js` renders only the desk (Hawaiʻi) feed and has no AWS point, link or collector. The overlay and hiding rules dropped nothing.
+- 16:16 **LANDED**: overlay adds an AWS Ohio point and a Hawaiʻi desk → AWS link client-side, with no IP. Flag `globe.awsNode`. Tests 18/18. `overlay.js` sha256 `e08a20e2…`. `/api/state` unchanged.
+- **PROPOSED**: a tiny `ss` timer on AWS for AWS's own flows (about 2–5 MB transient, no daemon). Needs a `server.js` change and a restart, so it needs sign-off.
+- Caveat: browsers may cache `overlay.js` for up to 4 h. Real-browser visual check VERIFY PENDING.
+- Record: `07-testing/2026-09-29-globe-overlay-aws-deploy.md`.
+
+## AWS fallback Phase 2: trimmed-micro profile deployed, then paused in a stable, verified state (15:40–16:20 HST)
+
+Alexander kept the t3.micro and chose the trimmed 7-function profile; AWS changes were approved. At 16:13 the parent passed on that he wants to pause soon, so no new phase was started. **AWS is stable: nothing is half-deployed.** Records:
+- [reclaim + retention](../../07-testing/2026-09-29-aws-fallback-phase2-reclaim-retention.md)
+- [history batching](../../07-testing/2026-09-29-aws-globe-history-batched-commits.md)
+- [runtime deploy + Root Monitor write](../../07-testing/2026-09-29-aws-fallback-phase2-runtime-deploy.md)
+- [proposal Phase 2 section](../../08-ideas/2026-09-29-aws-fallback-rebuild.md)
+
+Backups: AWS `~/rootrecord/bin.bak-fallback-phase2-20260929-154333/` (before any change), plus `bin.bak-fallback-deploy-*` for each deploy and `bin.bak-fallback-flags-*` for each flag write. Desk `/home/rootrecord/Database/GITHUB/aws-fallback-phase2.bak-20260929-154400/`.
+
+| Time (HST) | What | State |
+| --- | --- | --- |
+| 15:41–15:44 | Before metrics: MemAvailable 447–464 MB, disk free 3,166 MB, iowait 7.4 %, writes ~2.2 MB/s | done |
+| 15:45 | `github-poller` + `rr-rootserver-poller` disabled (files kept). OS trims: ModemManager / fwupd / udisks2 masked, multipathd + fwupd-refresh.timer disabled | LANDED |
+| 15:45–15:50 | `connection-history.py`: batched commits + persisted cursor. Copy test, synthetic trim/restart test, then live. Writes 43.9 → 1.6 MB/min | **PASS** |
+| 15:55–16:03 | Desk `deploy-aws-fallback.sh`: dry-run, then apply. The first apply failed the tick and **rolled back by itself**. Fixed, then deployed. A forced-failure test found a restore-ownership bug, which I fixed at once (all files root-owned again, contents verified unchanged). Redeployed and re-tested. Live release `20260929-160245-5ee01b1e` | **PASS** |
+| 15:59–16:00 | networkd-dispatcher and the unattended-upgrades shutdown helper disabled (daily upgrades still run); `apt-get clean` −105 MB; journald + logrotate caps | LANDED |
+| 16:04–16:09 | Root Monitor `settings.json` set to `aws_fallback_mode=write`; catalog set to trimmed-micro. `system_monitor` 0→1→0 round-trip with 2 dated backups. The GUI test window was closed from outside (someone at the desk), so no more pop-ups | **PASS** |
+| 16:13–16:16 | Verify: MemAvailable min 497 MB (0 samples < 485), iowait 0.1 %, disk free 3,278 MB, www `/` `/health` `/api/state` 200, feed-trim cron ran at 16:00 and 16:15 | **PASS** |
+
+**Where I stopped / what's left:**
+- Nothing is in progress on AWS.
+- Not exercised: a real FALLBACK on AWS and any Data Relay send.
+- Still pending sign-off: `:8787` · `telegram_hold` + `basic_replies` (OFF) · `relay_send` (OFF) · AWS `.env` trim · the desk jobs `aws_heartbeat_push` + `aws_catchup` (blocks only, in [Pending-Job-Registrations §C](../../00-architecture/Pending-Job-Registrations-2026-09-29.md); `aws_catchup.py` not written) · globe poll at 5 s + gzip.
+- The Mainland checkout `fallback/` is uncommitted (not in auto-sync).

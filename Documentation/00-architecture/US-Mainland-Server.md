@@ -106,3 +106,12 @@ Why the tunnel was down: cloudflared and its unit were purged on AWS on 2026-09-
 
 - Alexander's direction: the desk is canonical, and AWS is rebuilt as a **small fallback** (comms hold, status, globe, current-only hazards, buffer-to-Data-Relay while the desk is offline, desk catch-up with dedupe), with per-function toggles in Root Monitor. Plan: [08-ideas AWS fallback rebuild](../08-ideas/2026-09-29-aws-fallback-rebuild.md). Read-only inventory: [test record](../07-testing/2026-09-29-aws-fallback-inventory.md).
 - **Correction to the sizing assumption:** the instance is **t3.micro, 908 MB RAM** (not 2 GB). ~445 MB is available now, and the default fallback set would leave ~279 MB, below the 512 MB floor, so a resize to t3.small is proposed (sign-off). `:8787` is still public (unchanged, listed).
+
+### Change log: 2026-09-29 15:45–16:16 HST, fallback Phase 2 (trimmed-micro, approved)
+
+- **Instance kept:** t3.micro (908 MB) with the trimmed profile. Floors: 485 MB RAM and 1.5 GB disk.
+- **Disabled, reversible:** `github-poller` and `rr-rootserver-poller` (files and units kept). ModemManager, fwupd and udisks2 masked; multipathd, fwupd-refresh.timer, networkd-dispatcher and the unattended-upgrades shutdown helper disabled.
+- **History:** `connection-history.py` batches its commits.
+- **New:** `~/rootrecord/fallback/` (tick timer, root `rr-fallback-apply` + path unit, flags, spool), from the desk `fallback/deploy-aws-fallback.sh`; journald and logrotate caps.
+- **Result:** MemAvailable ≥ 497 MB, iowait 7.4 % → 0.1 %.
+- **Unchanged:** `:8787` is still public. Records: [reclaim](../07-testing/2026-09-29-aws-fallback-phase2-reclaim-retention.md) · [history](../07-testing/2026-09-29-aws-globe-history-batched-commits.md) · [deploy](../07-testing/2026-09-29-aws-fallback-phase2-runtime-deploy.md).
