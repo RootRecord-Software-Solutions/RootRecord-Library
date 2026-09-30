@@ -8,7 +8,7 @@
 | **Owner** | RootRecord |
 | **Related** | Agent 10. Build pauses on agent 07 (Public website checkout) until `3 - RootRecord-Website` holds the one Vercel app. Agent 38 (AdSense and AdMob end-of-day) depends on this function later. |
 
-**Scope:** Bring Stripe balance snapshots, Vercel failed-build records, and live-data pages that read Energy, Weather, and Geology files already on disk. Public pages land in the one Vercel app after checkout exists, using the US-Mainland globe glass-card direction. Old page skins, including the holding page, stay out of that app. Server code is landed and the public page shell is staged. Deploy, enabled jobs, and old-repo deletion are still waiting.
+**Scope:** Bring Stripe balance snapshots, Vercel failed-build records, and live-data pages that read Energy, Weather, and Geology files already on disk. Public pages land in the one Vercel app after checkout exists, using the US-Mainland globe glass-card direction. Old page skins, including the holding page, stay out of that app. Server code is landed and the public page shell is staged. The old folders are archived and removed locally. Deploy, enabled jobs, and the GitHub push are still waiting.
 
 ---
 
@@ -148,7 +148,7 @@ Build only after Alexander accepts this draft and says to build. Until then, do 
 - Sends, speaker playback, OBS, hardware switching, deletion of live Ecosystem files, and cloud spend need Alexander’s sign-off. Do not do those things in this draft.
 - New periodic jobs stay gated off.
 - Do not import system-generated data into the live Folders.
-- Phase 4 is ordered for after a working build: archive first, then delete the old function’s files locally and on GitHub. It does not run while this status is draft.
+- Phase 4 archive is on disk and the local old-repo commit is `577ad693`. The GitHub push of `online-safe-20260920` was rejected by push protection on an older commit. History was not rewritten.
 
 **Small test, run 2026-09-30 HST with no keys.** Stripe printed `stripe not_configured` and wrote that detail. Vercel printed `vercel missing_vercel_token` and wrote no log. The power page JSON includes only fields present on the Energy last files.
 

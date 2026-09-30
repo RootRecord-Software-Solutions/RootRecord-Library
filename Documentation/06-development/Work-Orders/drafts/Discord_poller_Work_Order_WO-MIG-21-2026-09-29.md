@@ -4,7 +4,7 @@
 | --- | --- |
 | **Work Order ID** | WO-MIG-21-2026-09-29 |
 | **Date** | 2026-09-30 (HST) |
-| **Status** | OPEN — draft, not accepted for execution |
+| **Status** | OPEN — code landed. Phase 4 blocked. Not promoted. |
 | **Owner** | RootRecord |
 | **Related** | Agent 21. Wave D. One send pipe, then the messages. Later functions depend on this folder: 22 Slack poller; 23 Earthquake Discord post; 24 Kilauea public draft queue; 29 Economy brief. Matrix row 59 (Discord half). WO-COM-002. |
 
@@ -30,7 +30,7 @@ Folder name, used in all three paths: **Discord**. It is a subfolder of Communic
 
 | Item | Location / status |
 | --- | --- |
-| Folder | `Discord` under Communications. Not created. This draft only names it. |
+| Folder | `Discord` under Communications. Landed 2026-09-30 00:34 HST. Lowercase `discord/` removed. |
 | Code | `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Communications/Discord/scripts` |
 | Database | `2 - RootRecord-Database/Communications/Discord/` |
 | Logs | `2 - RootRecord-Database/Logs/Communications/Discord/` |
@@ -48,11 +48,10 @@ Folder name, used in all three paths: **Discord**. It is a subfolder of Communic
 - [x] Old helper and the AWS stub read. Pacific shell confirmed as a README.
 - [x] Folder and the three paths named above.
 - [x] `master-key.env` checked for key names only. No Discord key is present.
-- [ ] Alexander accepts this draft and says to build.
-- [ ] `Communications/Discord/` script, env allowlist, README move, and disabled `jobs.py` block.
-- [ ] No-token test (exit 0, `http_calls` 0, no Discord request).
+- [x] `Communications/Discord/` script, env allowlist, README move, and disabled `jobs.py` block.
+- [x] No-token test 2026-09-30 00:34 HST: exit 0, `token` absent, `channels` 0, `http_calls` 0. `post_message` returned None.
 - [ ] Phase 4 archive and GitHub file deletion (blocked: no local checkout of `Solar-Pacific-RootRecord-Server-Old/communications/discord`).
-- [ ] Result note and matrix row 59 Discord half.
+- [x] Result note below. Matrix row 59 Discord half set to partial. Slack half left missing.
 
 ### 2.3 Known friction
 
@@ -150,8 +149,8 @@ Do these only after Alexander accepts this draft and says to build. Until then, 
 - Secrets stay out of git. The allowlist name is `DISCORD_BOT_TOKEN`. Do not print the value. Do not load `AVA_DISCORD_BOT_TOKEN`, `SEXI_DISCORD_BOT_TOKEN`, or `DISCORD_ROOTMC_BOT_TOKEN`.
 - Prefer small reversible steps.
 - Sign-off before any send, speaker playback, OBS, hardware switch, deletion of live Ecosystem files, or cloud spend. The lowercase README move is this function's own shell, done in the same change as `Communications/Discord/`. Phase 4 deletion is limited to this function's old files, and only after they are in `Old repos deleted and merged`. Do not delete the GitHub repository.
-- Small test, at build time: run `poll.py` with no `DISCORD_BOT_TOKEN`. Expect exit 0, a status file with `http_calls` 0, and a log under `2 - RootRecord-Database/Logs/Communications/Discord/`. No Discord request. Not run for this draft.
-- Result note: add it after phase 4 (what landed, what was archived, what was removed on GitHub). Not written yet.
+- Small test, 2026-09-30 00:34 HST: `poll.py` with no `DISCORD_BOT_TOKEN` exited 0, wrote `status-last.json` with `token` absent, `channels` 0, `http_calls` 0, `posted` false. `post_message` with the gate unset returned None. No Discord request.
+- Result note (2026-09-30 00:34 HST): Landed `Communications/Discord/` (`scripts/poll.py`, `lib/envload.py` allowlist `DISCORD_BOT_TOKEN`, `lib/api.py` `post_message` refuses HTTP unless `RR_DISCORD_POST=1`, `config/channels.json` = `[]`, README, package `Discord`). Lowercase `Communications/discord/` removed. Disabled job `discord_poller` is in `jobs.py` (`enabled: False`). Nothing archived. Nothing removed on GitHub. Phase 4 stays blocked until a local checkout of `Solar-Pacific-RootRecord-Server-Old/communications/discord` exists. Token still absent; add `DISCORD_BOT_TOKEN` to `master-key.env` later. Empty `channels.json` still does not call Discord after that key exists.
 
 ---
 

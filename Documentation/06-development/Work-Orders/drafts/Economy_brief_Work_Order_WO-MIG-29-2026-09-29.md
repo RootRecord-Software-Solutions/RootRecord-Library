@@ -44,7 +44,8 @@ Folder name: **Economy-Brief**, a subfolder of Reports. One capitalized name in 
 - [x] Draft work order written (this file). Status stays OPEN — draft, not accepted for execution.
 - [x] Economy-Brief code, Database, and Logs folders created and staged. Runtime files stay gitignored.
 - [ ] Alexander accepts this draft and says to build.
-- [ ] Dependency Folders exist: Council persona prompts, Discord poller, MySQL desk facts.
+- [x] Discord poller Folder `Communications/Discord/` and MySQL desk facts Folder `System/MysqlDesk/` are in place.
+- [ ] Council persona prompts Folder. Script stays paused until it exists.
 - [ ] `economy_brief.py` writes the markdown under Database `Reports/Economy-Brief/`.
 - [ ] Fixture dry-run passes (no network, no Discord).
 - [ ] Phase 4 archive, then deletion of this function's old files.
