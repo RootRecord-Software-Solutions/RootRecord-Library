@@ -475,3 +475,27 @@ This follows Alexander's new direction. The desk is the main copy, and AWS gets 
 10. Globe `/api/state` at 5 s + gzip before the Vercel background launch
 
 Commits (auto desk sync). Library: `cc396fc` (proposal, 2 test records, 07 and 08 rows), `fe48f49` (this section, Control-Panel-GTK addendum, US-Mainland-Server change log). Pacific: `890a799` (page, lib, catalog, `rr_control_panel.py`, `rr_settings.py`), `f0836d0` (Control-Panel README). No desk git writes, sudo or restarts; nothing changed on AWS; `jobs.py` untouched.
+
+## globe-overlay v2 pass: Stop/Resume spin, click-info card, hover highlight, fix for the 1 s mesh re-creation (15:43–16:06 HST)
+
+Follow-up to the globe-landing pass. Everything stays inside `overlay.js`, `overlay.css` and `overlay-config.json`: no new server route, and the AWS `index.html` still gets only the one include line. Backup: `/home/rootrecord/Database/GITHUB/globe-overlay-v2.bak-20260929-154351/`. Design: [08-ideas/2026-09-29-globe-landing-overlay §v2](../../08-ideas/2026-09-29-globe-landing-overlay.md). Record: [07-testing/2026-09-29-globe-overlay-v2-spin-click-info](../../07-testing/2026-09-29-globe-overlay-v2-spin-click-info.md).
+
+| Time (HST) | What | State |
+| --- | --- | --- |
+| 15:43 | Backup of the overlay, mirror `index.html`/`server.js`, `AWS-LIVE-SERVER.md`, the Library docs and the worklog | done |
+| 15:44–15:47 | Read-only AWS check. `index.html` md5 is still `f3d03774…`; `server.js` sha256 is `4ba42236…` (allowlist); no `overlay/` on AWS yet; public `/overlay/overlay.js`, `/server.js` and `/data/hawaii.ndjson` return 404. The live page source has `const globe` as a global lexical binding and **no** click or hover handlers. Live `/api/state` key names were recorded (no values) | done |
+| 15:48–15:55 | `overlay.js` v2: `findGlobe()` (TDZ-safe); the `⏸ Stop spin / ▶ Resume spin` pill stored as `rr-globe-overlay:v1:spin`; the click-info card (chained `onArcClick`/`onPointClick`/`onGlobeClick`, Esc/× close, 2 s refresh, HST last-seen); hover highlight keyed by flow; escaped tooltips; strict visibility rules (public IPs only, desk-link IP, origin coordinates and process names hidden). New `globe.*` flags in the config | LANDED (uncommitted; Mainland not in auto-sync) |
+| 15:55 | Cause of the flaky interaction, found in the globe.gl 2.46.2 / three-globe 2.45.2 source. The page's 1 s `arcsData()`/`pointsData()` refresh uses fresh objects, three-globe joins by object identity, and transitions last 1000 ms, so every mesh was re-created and re-animated every second. Fixed via the overlay (`globe.stableData`: reuse the same object per flow key) | LANDED |
+| 15:56–16:01 | jsdom tests (agent box scratch dir, not the desk): **16/16 PASS**. File `overlay/test/overlay.test.js`; log `test-reports/Globe-Landing/v2-unit-test-run.log` | PASS |
+| 15:58–15:59 | Desk preview on 127.0.0.1:8794, with the live AWS page copy + allowlist schema and the mirror page. A preview-only probe called the handlers registered on the **real** globe.gl and reported `wired=true · arcClick/pointClick=function · stableId=true`. 8 `v2-*.png` screenshots. On the phone the info card overlapped the stack, so the stack now hides while the card is open; re-shot | PASS |
+| 16:00 | Cleanup: 0 processes (PID-based stop), port closed, temp tarballs removed; min MemAvailable 6.08 GB | PASS |
+| 16:01–16:06 | `overlay/README.md` (flags, v2 notes, deploy steps for the allowlist server), design doc (§v2, new deploy section, finding 1 marked FIXED, findings 7 and 8), v2 test record + 07 README row, a follow-up note in the v1 record | LANDED |
+
+Real-browser mouse interaction (drag/zoom, click, hover over WebGL) is **VERIFY PENDING**, because headless Firefox paints no WebGL. `index.html` and `server.js` are unchanged in v2. Not touched: AWS (read-only only), `jobs.py`, `Control-Panel`, the poller, DNS, Vercel. There were no git writes, sudo or restarts.
+
+**Needs Alexander:**
+- **Deploy (PROPOSED).** Take a host backup, scp `overlay.js`, `overlay.css` and `overlay-config.json` into AWS `…/network-globe/network-globe/overlay/`, and add 1 include line to the AWS `index.html`. No restart. Then do a hand check in a real browser.
+- Pin `globe.gl` in `index.html` (unpinned unpkg, 2.46.2 today). The proper tooltip fix also belongs in `index.html`.
+- Optional: have the server send a per-flow `lastSeen` on arcs, so the card's "Last seen" is exact instead of the overlay's observed time.
+
+- 16:04 HST — Added desktop launcher `~/Desktop/Root-Monitor.desktop` (copy of `~/.local/share/applications/rootrecord-control-panel.desktop`, chmod +x, gio trusted, desktop-file-validate clean). Opens Root Monitor; revert by deleting the file.

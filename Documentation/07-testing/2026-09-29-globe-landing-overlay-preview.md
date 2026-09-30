@@ -90,3 +90,5 @@ The real `server.js` was **not** run on the desk (it does packet capture, geo lo
 - The AWS deploy is PROPOSED; the steps are in the design doc and in `overlay/README.md`.
 - The mirror and the AWS runtime `index.html` / `server.js` differ; they need reconciling.
 - The Home card stays off until `/home` routes to Vercel. The sign-up card stays a placeholder until the goals auth API is back.
+
+- **Follow-up (16:03 HST):** the P0 static-exposure finding was fixed by the AWS agent at 14:43 HST (allowlist `server.js`); re-checked at 15:46 HST, `/server.js` and `/data/hawaii.ndjson` now return 404. v2 (spin/click-info/hover) is in [2026-09-29-globe-overlay-v2-spin-click-info](./2026-09-29-globe-overlay-v2-spin-click-info.md).

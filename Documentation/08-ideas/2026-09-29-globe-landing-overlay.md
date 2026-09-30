@@ -2,14 +2,14 @@
 
 | Field | Value |
 | --- | --- |
-| **Date (HST)** | 2026-09-29, 14:19–14:40 HST |
+| **Date (HST)** | 2026-09-29, 14:19–14:40 HST (v1), 15:44–16:06 HST (v2: spin toggle, click info, hover, interaction fix) |
 | **Requested by** | Alexander (design brief, relayed by the parent agent) |
 | **Built by** | Grok (executor, globe-landing pass) |
-| **State** | **LANDED (desk checkout, uncommitted) / preview PASS / AWS deploy PROPOSED, needs sign-off.** Interactive drag/zoom is VERIFY PENDING in a real browser (headless Firefox shows no WebGL canvas) |
+| **State** | **v1 + v2 LANDED (desk checkout, uncommitted) / preview PASS / unit tests 16/16 PASS / AWS deploy PROPOSED, needs sign-off.** Real-browser mouse interaction (drag/zoom, click, hover over WebGL) is VERIFY PENDING, because headless Firefox paints no WebGL |
 | **Code** | Mainland checkout `1 - Servers/2 - RootRecord-US-Mainland-Server/mirror/network-globe/network-globe/overlay/` plus one line in `index.html` and one allowlisted route block in the mirror `server.js` |
-| **Test record** | [2026-09-29-globe-landing-overlay-preview](../07-testing/2026-09-29-globe-landing-overlay-preview.md) |
-| **Screenshots** | `/home/rootrecord/RootRecord-Ecosystem/test-reports/Globe-Landing/` (11 PNGs) |
-| **Backup** | `/home/rootrecord/Database/GITHUB/globe-landing.bak-20260929-141948/` (`mainland/` originals, `library/` README and worklog copies, `aws-runtime-readonly/` read-only copies of the live AWS `index.html` + `server.js`) |
+| **Test records** | v1: [2026-09-29-globe-landing-overlay-preview](../07-testing/2026-09-29-globe-landing-overlay-preview.md) · v2: [2026-09-29-globe-overlay-v2-spin-click-info](../07-testing/2026-09-29-globe-overlay-v2-spin-click-info.md) |
+| **Screenshots** | `/home/rootrecord/RootRecord-Ecosystem/test-reports/Globe-Landing/`: 11 v1 PNGs, 8 `v2-*.png`, and `v2-unit-test-run.log` |
+| **Backup** | `/home/rootrecord/Database/GITHUB/globe-landing.bak-20260929-141948/` (`mainland/` originals, `library/` README and worklog copies, `aws-runtime-readonly/` read-only copies of the live AWS `index.html` + `server.js`) · v2: `/home/rootrecord/Database/GITHUB/globe-overlay-v2.bak-20260929-154351/` (`mainland/` overlay + index/server + `AWS-LIVE-SERVER.md`; `library/` these docs + README + worklog; `aws-runtime-readonly/index.public.html` = live page, md5 `f3d03774…`) |
 | **Related** | [US-Mainland-Server](../00-architecture/US-Mainland-Server.md) · [AWS Mainland plan](./2026-09-29-aws-mainland-improvement-plan.md) · [website staging record](../07-testing/2026-09-29-website-rootrecord-cloud-staging.md) |
 
 ## Brief
@@ -71,6 +71,9 @@ Desktop (≥ 641 px)                                   Mobile (≤ 640 px)
 | `cards.signup.enabled` / `.mode` / `.url` | `true` / `placeholder` / Vercel `/login?next=/` | Switch `mode` to `link` when the goals auth API answers |
 | `cards.home.enabled` / `.url` | **`false`** / `https://rootrecord.cloud/home` | Turn on when Alexander says Vercel `/home` is routed |
 | `cards.status.enabled` / `.pollSec` / `.healthUrls` / `.stateUrl` / `.deskHealthUrl` / `.staleSec` | `true` / 15 / `["/healthz","/health"]` / `/api/state` / `null` / 90 | The first health URL that returns JSON wins, so it works with both server shapes |
+| `globe.spinToggle` / `.spinDefault` / `.pauseSpinWhileInfoOpen` (v2) | `true` / `on` / `true` | Stop/Resume spin pill, remembered in `localStorage` (`rr-globe-overlay:v1:spin`); `auto` = off when the OS asks for reduced motion |
+| `globe.clickInfo` / `.hover` / `.showIp` / `.showProcess` (v2) | `true` / `true` / `true` (public IPs only) / `false` | Click-info card and hover highlight; the visibility rules are in the v2 section |
+| `globe.stableData` / `.hardenTooltips` (v2) | `true` / `true` | Fix for the 1 s mesh re-creation, and escaped tooltips |
 
 Runtime switches: `?overlay=0` turns the overlay off for one load, and `?embed=1` (existing) also keeps it off.
 
@@ -82,37 +85,85 @@ Runtime switches: `?overlay=0` turns the overlay off for one load, and `?embed=1
 | `overlay/overlay.css` | new |
 | `overlay/overlay-config.json` | new: flags |
 | `overlay/README.md` | new: flags, preview, deploy, revert |
-| `overlay/preview-server.js`, `overlay/sample-state.json` | new, **desk preview only (not deployed)** |
+| `overlay/preview-server.js`, `overlay/sample-state.json`, `overlay/test/overlay.test.js` | new, **desk preview/test only (not deployed)**. v2 added preview probe queries, a load-delay image, the allowlist-server schema, richer synthetic data (RFC 5737 IPs) and 16 jsdom tests |
 | `index.html` | +1 line: `<script src="/overlay/overlay.js" defer></script>` |
 | `server.js` (mirror) | +17 lines: `OVERLAY_FILES` allowlist (3 exact paths, `no-store`, `nosniff`) before the 404 |
 
 **Revert:** delete the one line in `index.html` and the `OVERLAY_FILES` block, then `rm -r overlay/`. The originals are in the backup `mainland/`.
 
-## Deploy to AWS: PROPOSED, needs sign-off, not run
+## Deploy to AWS: PROPOSED, needs sign-off, not run (updated 16:03 HST for v2 and the allowlist server)
 
-The brief said not to deploy while the tunnel task was running. That task finished at 14:12–14:30 (`www` returns 200, served by the Express runtime).
+The live AWS `server.js` has been the **allowlist version** since 14:43 HST (the other agent's fix; see Mainland `mirror/network-globe/network-globe/AWS-LIVE-SERVER.md`, sha256 `4ba42236…`). It serves only `/`, `/index.html`, `/health`, `/api/state` and `/overlay/overlay.js|overlay.css|overlay-config.json`; everything else returns 404.
 
-**Do not copy the mirror `server.js` / `index.html` over the runtime; they are different implementations.** The runtime needs no server change, because `express.static(__dirname)` already serves `overlay/`.
+v2 stays inside those three overlay files, so **no server change, no new route and no restart** are needed. The AWS `index.html` gets only the one include line. Re-checked read-only at 15:46 HST: AWS `index.html` md5 is still `f3d0377428a3ac467941c99a075b9d24`, `overlay/` doesn't exist yet, and `/overlay/overlay.js` returns 404.
+
+**Do not copy the mirror `server.js`/`index.html` to AWS.**
 
 1. `ssh rr-aws-ip "md5sum /home/ubuntu/network-globe/network-globe/index.html"` should return `f3d0377428a3ac467941c99a075b9d24`. Stop if it doesn't.
 2. Take a dated backup on the host: `ssh rr-aws-ip 'B=$HOME/backups/globe-landing-$(date +%Y%m%d-%H%M%S) && mkdir -p $B && cp -a /home/ubuntu/network-globe/network-globe/index.html $B/ && echo $B'`
-3. `ssh rr-aws-ip "mkdir -p /home/ubuntu/network-globe/network-globe/overlay"`, then scp **only** `overlay.js`, `overlay.css` and `overlay-config.json` into it.
+3. `ssh rr-aws-ip "mkdir -p /home/ubuntu/network-globe/network-globe/overlay"`, then scp **only** `overlay.js`, `overlay.css` and `overlay-config.json`. Not `preview-server.js`, `sample-state.json`, `test/` or `README.md`, which the allowlist wouldn't serve anyway.
 4. Add the include line idempotently: `ssh rr-aws-ip "grep -q /overlay/overlay.js …/index.html || sed -i 's#</body>#  <script src=\"/overlay/overlay.js\" defer></script>\n</body>#' …/index.html"`
-5. No restart needed.
-6. Verify:
-   - `curl -sI https://www.rootrecord.cloud/overlay/overlay.js` shows a javascript content type (text/html means the file is missing).
-   - `curl -s https://www.rootrecord.cloud/ | grep -c /overlay/overlay.js` returns 1.
-   - The config JSON parses, and `/health` returns JSON.
-   - Hand check on a desktop and a phone: drag and zoom outside the cards; close, reload and restore.
-7. Revert: set `"enabled": false` in the config (instant), or `sed -i '\#/overlay/overlay.js#d' index.html`, or restore the backup and `rm -r overlay`.
+5. No restart is needed (files are read from disk per request).
+6. Verify with curl:
+   - `/overlay/overlay.js` gives 200 with a javascript content type.
+   - `/` contains the include once.
+   - The config parses as JSON.
+   - `/health` returns JSON.
+   - `/overlay/preview-server.js` returns 404.
+7. Verify by hand in a real browser, desktop and phone:
+   - Stop spin, reload: rotation stays stopped. Resume spin works.
+   - Clicking an arc or a point opens the info card, with no private IPs and no process names.
+   - Hover highlights the item.
+   - Drag and zoom work outside the cards.
+   - Esc, × and a click on empty globe close the card.
+   - Cards close and restore.
+8. Revert: set `enabled: false` in the config (instant). To disable only v2, set `globe.clickInfo`, `hover`, `spinToggle`, `stableData` and `hardenTooltips` to `false`. Or delete the include line, or restore the backup and `rm -r overlay`.
 
 The exact commands are in the checkout's `overlay/README.md`.
 
 ## Findings and sign-off items
 
-1. **P0 security: the live `www.rootrecord.cloud` serves its app directory publicly.** The runtime has `app.use(express.static(__dirname))`. At 14:29 HST, 1-byte range requests (206) succeeded for `/server.js`, `/package.json`, `/README.md` and **`/data/hawaii.ndjson`** (the desk's network-flow feed); contents were not read beyond 1 byte. Proposed fix: replace the line with `app.use('/overlay', express.static(path.join(__dirname, 'overlay')))`, which keeps the index fallback, then restart `network-globe-web.service`. **Needs sign-off: AWS change + restart.** Not done.
+1. **[FIXED 14:43 HST by the AWS agent, re-checked 15:46 HST: 404s]** **P0 security: the live `www.rootrecord.cloud` served its app directory publicly.** The runtime has `app.use(express.static(__dirname))`. At 14:29 HST, 1-byte range requests (206) succeeded for `/server.js`, `/package.json`, `/README.md` and **`/data/hawaii.ndjson`** (the desk's network-flow feed); contents were not read beyond 1 byte. Proposed fix: replace the line with `app.use('/overlay', express.static(path.join(__dirname, 'overlay')))`, which keeps the index fallback, then restart `network-globe-web.service`. **Needs sign-off: AWS change + restart.** Not done by this pass; the other agent landed an allowlist equivalent.
 2. **Repo mirror ≠ AWS runtime** (`index.html` and `server.js`). Decide which is canonical and sync them. The mirror's HUD also prints the AWS **account id** (`acct …`); the runtime currently shows "No AWS telemetry connected".
 3. **Sign-up backend down** (`api-goals.rootrecord.info` unreachable, `api.rootrecord.info` 503), so the card stays a placeholder.
 4. **`/home` routing.** `rootrecord.cloud/*` 301s to `www` (the globe). A Cloudflare rule or Worker for `/home*` → Vercel is needed before `cards.home.enabled: true`.
 5. **Mainland checkout isn't auto-synced.** The overlay files are uncommitted there, alongside another agent's uncommitted unit/cron/README edits. This needs the `repos.conf` / manual-commit sign-off.
 6. Nice-to-have: the mirror `/healthz` exposes `origin` (lat/lng label). The overlay never shows it, but the endpoint is public.
+7. **(v2) Unpinned `https://unpkg.com/globe.gl`.** Both pages load whatever the latest globe.gl is; it was 2.46.2 at 16:00 HST. A major release could break the page and the overlay hooks. Pin it, e.g. `globe.gl@2.46.2`. That changes `index.html` beyond the one include line, so it needs sign-off.
+8. **(v2) The page's own tooltip leaked the desk process name and used unescaped HTML** (`arcLabel`/`pointLabel` template strings). Overlay flag `globe.hardenTooltips` fixes it at runtime. The proper fix is in `index.html`.
+
+## v2 (2026-09-29 15:44–16:06 HST): spin toggle, click info, hover highlight, interaction fix
+
+All of v2 is inside `overlay.js`, `overlay.css` and `overlay-config.json`. It adds no server route and no second include.
+
+**Finding the globe instance.** The AWS page (and the mirror page) declare `const globe = Globe()(document.getElementById('globe'))…` at the top level of a classic `<script>`, then set `globe.controls().autoRotate = true`. A top-level `const` is a global lexical binding: it is not `window.globe`, but other classic scripts can use it by name. The overlay is a classic deferred script that starts after the config fetch, so it can use `globe` directly. `findGlobe()` wraps the lookup in try/catch because the binding stays in TDZ if the globe.gl CDN fails. It retries every 250 ms for 10 s.
+
+**Spin.** A `⏸ Stop spin` / `▶ Resume spin` pill leads the restore dock (bottom-right on desktop, the bottom row on phones), with a `↻ Spin on/off` rail item when the rail is on. It sets `globe.controls().autoRotate` and stores `rr-globe-overlay:v1:spin` = `on` or `off`. After a reload, the stored value overrides the page's `autoRotate = true`. Options: `spinDefault: on | off | auto` (auto means off when the OS asks for reduced motion). While an info card is open, rotation pauses without changing the stored choice (`pauseSpinWhileInfoOpen`).
+
+**Click info.** The overlay chains onto any existing handler: `globe.onArcClick`, `onPointClick` (and `onGlobeClick` to close). A glass card appears bottom-left, beside the rail if there is one; on phones it replaces the bottom card stack until closed. It re-reads the live data every 2 s by flow key, and shows "No longer in the live snapshot" when the flow disappears.
+
+| Field | Arc (connection) | Point |
+| --- | --- | --- |
+| Location | `city, country` (desk link → "Hawaiʻi ↔ Mainland") | label; coordinates rounded to 0.1°, **hidden for the origin** |
+| Network / ASN | `org`, `asn` (mirror only) | up to 3 networks of flows at that point |
+| IP | **public** remote IP only; private/reserved → "private (hidden)"; desk link → "hidden (desk link)"; flag `showIp` | none |
+| Protocol / ports | `TCP · port 443` | up to 4 `proto port` |
+| Traffic | `bytesPerSec`, `bytes`, `packets` when present (mirror schema) | sum of `bytesPerSec` |
+| Flows | flows ending at the same place | flows touching the point |
+| Last seen | when the overlay last saw the flow in `/api/state` (`now · HH:MM:SS HST` / `N s ago`). Neither server sends a per-flow timestamp | same |
+| Never shown | process name (unless `showProcess`), `sourceNode`/`sourceRegion`, hostname, account, origin coordinates, paths. Free text is scrubbed of private IPs and path-like tokens, and all values use `textContent` | same |
+
+**Hover.** `onArcHover` / `onPointHover` turn the item amber (arc stroke ×1.9, point radius ×1.7), matched by flow key. Pointer cursor: globe.gl adds `.clickable` once click handlers exist.
+
+**Existing click handlers: none were broken, because none existed.** The real defect behind flaky hover, tooltips and clicks:
+
+- `poll()` replaces `arcsData` and `pointsData` with freshly parsed objects **every 1 s**.
+- three-globe's data-bind-mapper joins by **object identity**, and arcs and points have 1000 ms transitions by default.
+- So every mesh was torn down and re-created each second and re-played its grow-in animation.
+
+The overlay fixes it without touching `index.html`. `stableData` wraps `globe.arcsData` / `globe.pointsData` on the instance: for each incoming item with a known flow key it copies the new values onto the *previous* object, so identity is kept and three-globe updates the mesh in place. New flows still animate in, and vanished flows are removed. This was verified against the globe.gl 2.46.2 / three-globe 2.45.2 / data-bind-mapper source and in the unit tests (`stableId=true` in the real-library preview probe).
+
+**Tooltip hardening** (`hardenTooltips`) is described in finding 8.
+
+**Tests.** `overlay/test/overlay.test.js`: jsdom plus a kapsule-style globe stub, **16/16 pass**. Real globe.gl in headless Firefox was checked through the preview probe. Record: [v2 test record](../07-testing/2026-09-29-globe-overlay-v2-spin-click-info.md).
+
