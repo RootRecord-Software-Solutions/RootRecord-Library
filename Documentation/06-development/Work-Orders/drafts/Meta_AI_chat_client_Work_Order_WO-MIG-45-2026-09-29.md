@@ -30,22 +30,22 @@ Folder name: `MetaAI`. Same name in all three places. No lowercase twin and no s
 
 | Item | Location / status |
 | --- | --- |
-| Server code | `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Communications/MetaAI/scripts` — not installed |
-| Database data | `2 - RootRecord-Database/Communications/MetaAI` — not installed; last transcript JSON only after a signed-off send, not imported into git |
-| Database logs | `2 - RootRecord-Database/Logs/Communications/MetaAI` — not installed |
-| master-key.env | No key names. The old client used none. Do not add any. |
+| Server code | `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Communications/MetaAI/scripts/meta.py` — installed |
+| Database data | `2 - RootRecord-Database/Communications/MetaAI` — README tracked; `last.json` only after a signed-off send, not in git |
+| Database logs | `2 - RootRecord-Database/Logs/Communications/MetaAI` — `.gitkeep` tracked; run log not in git |
+| master-key.env | No key names. The old client used none. None added. |
 | Live callers | None. Nothing in Pacific imports this client. |
-| Old source | `operations/meta/meta.py` in `rootrecordsoftwaresolutions/old` (only file in that directory). Local scratch clone `/tmp/rr-old-mig12` on branch `cursor/radio-idle-obs-gates`. |
+| Old source | Archived, then removed. GitHub `old` commit `1315506` on `cursor/radio-idle-obs-gates`. |
 | Dependency | `Communications` exists. No pause. |
 
 ### 2.2 Completed so far
 
-- [x] Draft work order written (this file). Status stays OPEN — draft, not accepted for execution.
-- [ ] Alexander accepts this draft and says to build.
-- [ ] `MetaAI` package and `scripts/meta.py` added.
-- [ ] `--check` test passed (no `prompt`, no pip install).
-- [ ] Phase 4 archive, old-repo deletion, and GitHub commit/push.
-- [ ] Result note on this work order, and matrix row 86 corrected.
+- [x] Draft work order written (this file).
+- [x] Alexander accepted this draft and said to build.
+- [x] `MetaAI` package and `scripts/meta.py` added.
+- [x] `--check` test passed (no `prompt`, no pip install). Exit 2 because `meta-ai-api` is not installed.
+- [x] Phase 4 archive, old-repo deletion, and GitHub commit/push.
+- [x] Result note on this work order, and matrix row 86 corrected.
 
 ### 2.3 Known friction
 
@@ -161,4 +161,9 @@ Human session logs archive under `Documentation/01-operations/archive/YYYY-Www/`
 
 ## Result note
 
-Not written. Phase 4 has not run. Fill this after the archive and the GitHub deletion: what landed, the archive path, and what was removed on GitHub.
+Built 2026-09-30 (HST).
+
+- Landed: `Communications/MetaAI` (`__init__.py`, `scripts/meta.py`, `README.md`). Database README at `2 - RootRecord-Database/Communications/MetaAI/README.md`. Log marker at `2 - RootRecord-Database/Logs/Communications/MetaAI/.gitkeep`. Ignore lines in `2 - RootRecord-Database/.gitignore`. `jobs.py` was already modified by another agent and was not edited.
+- Test: `python3 meta.py --check` printed JSON with `"send": false` and `"package": "meta-ai-api"`, exit 2, because the package is not installed. No pip install. A follow-up with a stand-in `meta_ai_api` confirmed no-args, `--check`, and a bare message do not call `prompt`. `--send` was not run.
+- Archived: `Old repos deleted and merged/old/operations/meta/meta.py` (87 lines, checksum matched the old file).
+- Removed on GitHub: `rootrecordsoftwaresolutions/old` commit `1315506` on `cursor/radio-idle-obs-gates`. Message: "Remove the Meta AI chat client now archived in the Ecosystem." No force-push. Repository not deleted. No shared file left.
