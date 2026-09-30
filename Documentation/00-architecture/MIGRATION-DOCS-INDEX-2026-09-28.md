@@ -50,6 +50,7 @@ Single entry point for agents and operators working the Pacific server cutover *
 | [Solar-Pacific-Old-Inventory-Map-2026-09-28.md](./Solar-Pacific-Old-Inventory-Map-2026-09-28.md) | High-value packet → G3 mapping (Library side) |
 | [Solar-Pacific-Old-Full-TopLevel-Catalog-2026-09-28.md](./Solar-Pacific-Old-Full-TopLevel-Catalog-2026-09-28.md) | All **95** G1 tops classified |
 | **[Old-Repo-Migration-Matrix.md](./Old-Repo-Migration-Matrix.md)** | G1 + G0 → G3 matrix (90 rows: migrated / partial / missing, target, blockers), 2026-09-29 pass |
+| **[Pending-Job-Registrations-2026-09-29.md](./Pending-Job-Registrations-2026-09-29.md)** | Job registrations: 7 gated blocks already in jobs.py (sign-off) + 5 PROPOSED blocks not in jobs.py (net sampler, solar / security / bandwidth desks, Hawaiʻi news) |
 
 ### G1 scheduler skills — retired (2026-09-28)
 
@@ -138,4 +139,4 @@ Weather: **enabled and PASS** since 2026-09-29 (Pacific `Weather/`; see WO-SRV).
 
 *Index updated 2026-09-29 ~03:45 HST — Testing folder (`Documentation/07-testing/`) and the full 2026-09-29 evidence list added.*
 
-*Index updated 2026-09-29 ~13:40 HST — Old-Repo-Migration-Matrix linked; Geology collector + ports batch 1 test records in `07-testing/`.*
+*Index updated 2026-09-29 ~13:40 HST — Old-Repo-Migration-Matrix linked; Geology collector + ports batch 1 test records in `07-testing/`. ~14:10 HST — Pending-Job-Registrations linked; breadth batch 4 test record.*

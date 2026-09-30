@@ -265,7 +265,7 @@ Commits (auto-sync, verified with `git log`): Pacific `cd48536` (13:29, .gitigno
 - Optional: `sudo ufw allow in on wlo1 proto udp from 192.168.1.0/24 to any port 6666:6667` for passive Tuya discovery.
 - Enable the collector: `RR_SMART_DEVICES=1` in the poller environment at the next ordinary stack reload.
 
-## migration-geology + old-repo ports pass, 13:12–13:50 HST
+## migration-geology + old-repo ports pass, 13:12–14:15 HST
 
 Backups: `/home/rootrecord/Database/GITHUB/migration-geology.bak-20260929-131652/` (Pacific `jobs.py`, Geology + Voice READMEs, `voice_reports.py`; Library WOs, checklist, runbook, retirement table, Voice/Geology/Index docs, 07 README, this worklog; Database README + `.gitignore`) and `/home/rootrecord/Database/GITHUB/migration-old-repos.bak-20260929-133118/` (Energy + System READMEs, `jobs.py` after the geology edits). Old repos read from shallow `/tmp/rr-migr` clones (deleted at the end). Poller 105444 **not** restarted; nothing sent, played or loaded.
 
@@ -285,8 +285,17 @@ Backups: `/home/rootrecord/Database/GITHUB/migration-geology.bak-20260929-131652
 | 13:45 | **Standing rule received:** no jobs.py edits unless Alexander asks or a WO requires it. The 7 blocks already added are left in place (not reverted), all OFF; exact blocks in Database `Logs/Migration/migration-jobs-py-additions-20260929.md`. No jobs.py edits after this | KEPT (sign-off item) |
 | 13:46–13:50 | Docs: Voice README, Voice-Reports-G3, matrix (13 rows touched; sign-off list), WO-SRV addendum, checklist, retirement table (KEPT) | LANDED |
 | 13:49 | Backup 4 `/home/rootrecord/Database/GITHUB/migration-quake-locations.bak-20260929-134920/`; G0 nearest-location tag ported into `geology_collect.py` + dataset `Geology/config/global-locations.json` (verbatim G0 copy). Temp + one real `quakes` run: Hawaiʻi 9/9, global 14/34 tagged; matrix now 24 / 28 / 38 | **PASS** |
+| 13:53 | **Steering received:** breadth over depth. Port every remaining item that can be done cleanly, gated off, with a light smoke test each; record BLOCKED items and move on | noted |
+| 13:57 | Backup 5 `/home/rootrecord/Database/GITHUB/migration-breadth.bak-20260929-135720/` (voice_reports.py, domain READMEs, Database `.gitignore` + README, Library docs) | done |
+| 13:58 | `Communications/web-facts/scripts/web_facts.py` (G1, logic unchanged): USGS version `2.7.0`; non-allowlisted host + http refused | **PASS** |
+| 13:59 | `Reports/News/scripts/{_collector,hawaii_news}.py` (G0), temp root: rc 0, 12.3 s, 31 MB; 25 × HTTP 404, 0 posts | **FAIL** (content) |
+| 14:00 | `System/scripts/host_desks.py` net-sample / net-usage / security (G1 host-metrics), temp root: wlo1, 56.7 MB/h simulated; counts-only security snapshot | **PASS** |
+| 14:01 | `voice_reports.py solar_desk` (Bruce) / `security_desk` / `bandwidth_desk` (Carly), `--no-voice`, temp output | **PASS** (text); WAV VERIFY PENDING |
+| 14:02–14:05 | Database `.gitignore` (+ News `*.db*`, `System/network/Daily/`); System / Communications / Reports / Voice / Geology READMEs; new [Pending-Job-Registrations-2026-09-29](../../00-architecture/Pending-Job-Registrations-2026-09-29.md) (5 PROPOSED blocks; **no jobs.py edit**) | LANDED |
+| 14:06–14:12 | Matrix rows 17 / 34 / 42 / 48 / 50 / 76 / 79 (now **26 / 28 / 36**, 20 touched); [breadth test record](../../07-testing/2026-09-29-old-repo-ports-breadth-batch4.md) with a check-later list; Voice-Reports-G3, checklist, retirement table (KEPT), index, WO-SRV / ECO / GH addenda | LANDED |
+| 14:05 | Reviewed, BLOCKED: official-weather-media (HLS/HWO not collected + OBS), report ledger / catch-up / readiness (playback + report_generation), sunrise-restore (playback), economy brief (MySQL + Discord) | BLOCKED |
 
-**Needs Alexander:** keep or remove the 7 jobs.py registrations (sign-off item; standing rule), then set `RR_GEOLOGY=1`, `RR_KILAUEA_CAMS=1`, `RR_VOICE_QUAKE=1`, `RR_VOICE_KILAUEA=1`, `RR_VOICE_HURRICANE=1`, `RR_SUN_TIMES=1`, `RR_UPTIME_LOG=1` at the next poller start; approve deliveries (council-quake Telegram, Discord, speakers — BLOCKED); approve a full-range quake backfill; accept Geology last-json commit churn; retirement of G1/G0 sources stays KEPT until you sign off.
+**Needs Alexander:** keep or remove the 7 jobs.py registrations (sign-off item; standing rule), then set `RR_GEOLOGY=1`, `RR_KILAUEA_CAMS=1`, `RR_VOICE_QUAKE=1`, `RR_VOICE_KILAUEA=1`, `RR_VOICE_HURRICANE=1`, `RR_SUN_TIMES=1`, `RR_UPTIME_LOG=1` at the next poller start; approve deliveries (council-quake Telegram, Discord, speakers — BLOCKED); approve a full-range quake backfill; accept Geology last-json commit churn; retirement of G1/G0 sources stays KEPT until you sign off. Breadth batch: register (or not) the 5 PROPOSED jobs in [Pending-Job-Registrations-2026-09-29](../../00-architecture/Pending-Job-Registrations-2026-09-29.md); pick Hawaiʻi news seed feeds; work the check-later list in the [breadth test record](../../07-testing/2026-09-29-old-repo-ports-breadth-batch4.md).
 
 ## us-mainland-import pass (US-Mainland-Server desk checkout + AWS read-only check), 13:45–14:00 HST
 
@@ -307,3 +316,25 @@ Backup: `/home/rootrecord/Database/GITHUB/us-mainland-import.bak-20260929-134629
 - Enable auto-sync: replace the `mainland` row in Pacific `Github/scripts/repos.conf` with the line in the architecture doc (3 pending files then push and reach AWS in ~60 s).
 - Elastic IP (or accept dynamic IP) and update `rr-aws-ip` HostName to 18.118.30.226; restore cloudflared on AWS for `rr-aws` / `www.rootrecord.cloud`.
 - Decide: Title-case rename (coordinated with AWS paths), repo public vs private, root git pull on AWS, `github-poller`/`ip-notify.sh` not in repo.
+
+## website-staging pass (RootRecord-Cloud Vercel site → Pacific `Communications/website/`), 14:01–14:15 HST
+
+Backup: `/home/rootrecord/Database/GITHUB/website-staging.bak-20260929-140240/` (empty-folder listing, Pacific `.gitignore`, `Communications/README.md`, Library 07 README + this worklog, plus pre-edit copies taken after concurrent edits).
+
+| Time (HST) | What | State |
+| --- | --- | --- |
+| 14:01–14:02 | Inspect (read-only): target `Communications/website/` **empty** (created 13:28); repo PUBLIC, Next.js 15 App Router, `vercel.json` `{"framework":"nextjs"}`, Vercel Git integration (vercel[bot] Production deploy of `84dec4a` success); `scripts/auto-push.py` commits + pushes (never run) | done |
+| 14:02 | Decision **Option B**: own clone in a Pacific-gitignored subfolder (Vercel deploys from that repo; Pacific ignores `*.jpg`; avoids a second source of truth). `.gitignore` entry added and `git check-ignore` verified **before** the clone so auto-sync cannot record a gitlink | LANDED |
+| 14:03 | `git clone` → `Communications/website/RootRecord-Cloud/` @ `84dec4a` (50 files, 1.2 MB); Pacific shows it only as `!!` | **PASS** |
+| 14:03 | `npm ci --ignore-scripts` at nice 10 under a 2 GB memory watch: 30 packages, 8 s, min 6.5 GB avail | **PASS** |
+| 14:04 | `npm run build`: Next.js 15.5.23, 293 static pages, 33 s, min 5.7 GB avail, peak RSS 505 MB | **PASS** |
+| 14:05 | `next start` 127.0.0.1:3099 ~5 s: `/`, `/blog`, `/status` 200; `/api/not-allowed` 404; `/api/health` 530 from `origin.avaivy.cloud`. Stopped; port closed | **PASS** · origin **FAIL** |
+| 14:05–14:12 | Pacific `Communications/website/{README.md,.env.example}` (6 env names, no values) + `Communications/README.md` row; Library [architecture](../../00-architecture/Website-RootRecord-Cloud-Staging.md) + [test record](../../07-testing/2026-09-29-website-rootrecord-cloud-staging.md). Read-only live checks: vercel.app 200; `rootrecord.cloud` → `www` → 530 (AWS globe tunnel down) | LANDED |
+
+No deploy, push, Vercel settings, jobs.py, Control-Panel, AWS, sudo, restarts, sends or models.
+
+**Needs Alexander:**
+- Decide what serves `www.rootrecord.cloud` (Vercel site vs AWS globe tunnel) — today the apex redirects to a dead tunnel.
+- Pick a live-data origin for the site (`origin.avaivy.cloud` is down; `rootserver.rootrecord.cloud` has no `/api/*` contract), then set `AVA_ORIGIN_URL` in Vercel.
+- Optional `repos.conf` row `cloud` (line in the architecture doc) — keep **disabled**: enabling = auto-deploy on every desk edit, and `is_runtime_code_tree` would arm Pacific stack reloads for pulls into this path.
+- Retire/guard `scripts/auto-push.py` upstream (requires a push = deploy).
