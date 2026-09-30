@@ -4,7 +4,7 @@
 | --- | --- |
 | **Work Order ID** | WO-MIG-11-2026-09-29 |
 | **Date** | 2026-09-29 (HST) |
-| **Status** | OPEN — collector landed; public page staged; website checkout still missing |
+| **Status** | OPEN — collector landed; `/us-states` mounted in the Vercel app; deploy not run |
 | **Owner** | RootRecord |
 | **Related** | Agent 11. Depends on 7. Public website checkout. Later: 13. Country location pollers. Matrix row 43. |
 
@@ -42,7 +42,7 @@ Folder name in all three places: **US-States**. It sits inside the existing Weat
 | Old hourly wrapper | Archived at `Old repos deleted and merged/old/operations/cronologicals/since-last-fire/every-hour/fetch-us-weather.py`. Removed from GitHub with the collector. |
 | US places (shared) | `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Geology/config/global-locations.json`. 77 US rows, all 50 states, Hawaiʻi denser (28). Read it. Do not copy or edit it. |
 | Hawaiʻi weather | Live under Pacific `Weather/` and Database `Weather/Hawai'i/`. `jobs.py` id `weather_poller` is enabled. Leave it. |
-| Public website checkout | `3 - RootRecord-Website` exists and is empty. Function 7 is not in place. |
+| Public website checkout | `3 - RootRecord-Website` is the one Vercel app. `/us-states` is mounted there. Deploy was not run. |
 | Secrets | `/home/rootrecord/master/master-key.env` has no `NWS_USER_AGENT` and no other weather key for this function. |
 | Database Weather tree | `2 - RootRecord-Database/.gitignore` ignores `/Weather/`, so a store written there stays out of git. |
 
@@ -50,8 +50,8 @@ Folder name in all three places: **US-States**. It sits inside the existing Weat
 
 - [x] Draft work order written (this file).
 - [x] Alexander said to build.
-- [ ] Public website checkout is in folder 3. Page is staged, not mounted.
-- [x] Collector, store, and gated job. Public page staged under `Weather/US-States/site/`.
+- [x] Public website checkout is in folder 3. `/us-states` is mounted. Deploy was not run.
+- [x] Collector, store, and gated job. `/us-states` is in the Vercel app. The earlier HTML file remains under `Weather/US-States/site/`.
 - [x] One-state proof test (Wyoming, Open-Meteo, Cheyenne, 2026-09-29).
 - [x] Phase 4 archive is on disk, and the three files are removed from repo `old` on GitHub (`cursor/radio-idle-obs-gates`, `91b66eb`). No force-push. The repository was not deleted.
 - [x] Phase 5 result note below. Matrix row 43 set to partial.
@@ -148,7 +148,7 @@ Do not start these until Alexander accepts this draft and says to build.
 
 - Landed: `Weather/US-States/scripts/fetch_us_states.py`, `Weather/US-States/lib/envload.py` (allowlist `NWS_USER_AGENT` only), Database `Weather/US-States/weather.db` and `us-last.json`, log under `Logs/Weather/US-States/`. Job `weather_us_states` in `jobs.py`, enabled only when `RR_US_STATES=1`, default off. Poller was not restarted.
 - Proof: `fetch_us_states.py --state WY --force` PASS. `us-last.json` has Cheyenne, provider `open-meteo`, temp 7.3°C, obs `2026-09-30T04:00`. NWS skipped because `NWS_USER_AGENT` is unset.
-- Public page: staged at `Weather/US-States/site/us-states.html` (glass card, empty until `us-last.json` is readable). Not mounted. `3 - RootRecord-Website` is still empty, so Public website checkout was not built.
+- Public page: mounted at `3 - RootRecord-Website/src/app/us-states/page.tsx` (glass card). It reads Database `Weather/US-States/us-last.json` on this host and shows an empty state when that file is absent. The snapshot is not committed into the website repo. Vercel deploy was not run.
 - Archive path: `Old repos deleted and merged/old/operations/weather/fetch_us_weather.py`, `operations/weather/README.md`, and `operations/cronologicals/since-last-fire/every-hour/fetch-us-weather.py`.
 - Removed on GitHub: yes. Repo `old`, branch `cursor/radio-idle-obs-gates`, push `c5b935a..91b66eb`. `operations/weather/fetch_us_weather.py` returns 404. No force-push. The repository was not deleted. Shared `config/locations/global-locations.json` was left in repo `old`.
 
