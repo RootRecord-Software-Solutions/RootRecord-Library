@@ -24,5 +24,6 @@ Items Alexander approved show their current state in the index. Four were approv
 | 2026-09-29 | [Smart-plug load shedding and light dimming on low battery SOC](./2026-09-29-smart-plug-load-shedding.md) | PROPOSED | Smart-Devices foundation (plugs BLOCKED on `local_key`) |
 | 2026-09-29 | [AWS US-Mainland node: stabilise, then health + hazard continuity mirror](./2026-09-29-aws-mainland-improvement-plan.md) | PROPOSED (P0 disk fix urgent) | read-only SSH 13:49 HST: `hawaii.ndjson` 1.82 GB, 1.6 GB free, trim script missing |
 | 2026-09-29 | [Globe landing overlay for www.rootrecord.cloud (sign-up / home / status glass cards, rail)](./2026-09-29-globe-landing-overlay.md) | LANDED in Mainland checkout (uncommitted) · preview PASS · AWS deploy PROPOSED (sign-off) | design brief from Alexander; [test record](../07-testing/2026-09-29-globe-landing-overlay-preview.md) |
+| 2026-09-29 | [AWS as a small fallback node: rebuild, per-function toggles, buffer-to-relay catch-up](./2026-09-29-aws-fallback-rebuild.md) | PROPOSED · Phase 1 inventory PASS · Root Monitor page LANDED (dry-run) | Alexander's direction 14:57 HST; [inventory](../07-testing/2026-09-29-aws-fallback-inventory.md) (908 MB RAM, not 2 GB) |
 
 *Folder created 2026-09-29 ~03:48 HST (docs only).*
