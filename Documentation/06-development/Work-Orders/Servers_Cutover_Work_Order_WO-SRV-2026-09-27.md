@@ -449,3 +449,11 @@ Second server folder now populated: `1 - Servers/2 - RootRecord-US-Mainland-Serv
 | Title-case restructure of the Mainland repo | PROPOSED (coordinated with AWS paths) |
 
 Note: the Smart-Devices pass earlier today (13:31 HST, before the 13:45 standing rule) added one gated block `smart_devices_collect` (`RR_SMART_DEVICES=1`, OFF) to Pacific `jobs.py` at Alexander's request; it is not in the 7-block list above.
+
+### Addendum 14:05–14:35 HST — AWS P0 fixes (approved)
+
+- `hawaii.ndjson` trimmed 1.83 GB → 50.3 MB, and free disk went 1.5G → 3.2G: **PASS**. Auto-trim runs from the `ubuntu` crontab `*/15` on AWS: **LANDED**, fired 14:15.
+- `www.rootrecord.cloud` 530/1033 → **200**: cloudflared reinstalled and the existing tunnel 939b16f7 plus a `server.js` :8090 unit brought up, with no DNS change: **PASS**.
+- `rr-aws-ip` HostName → 18.118.30.226: **PASS**. `rr-aws` works through the tunnel with the pinned key, but the desk `known_hosts` is stale (needs OK).
+- Details: [test record](../../07-testing/2026-09-29-aws-hawaii-trim-and-cloudflared.md) and [architecture change log](../../00-architecture/US-Mainland-Server.md).
+

@@ -50,6 +50,8 @@ Env vars used by the code (names only) are in the new root `.env.example`.
 | --- | --- | --- | --- |
 | `rr-aws` (`ssh.rootrecord.cloud` via Cloudflare Access) | ProxyCommand `~/.local/bin/cloudflared` (missing) | ProxyCommand → Pacific `Communications/network/cloudflare/bin/cloudflared` (quoted; only that path changed; backup in `ssh/config`) | cloudflared now starts; **`websocket: bad handshake`**, exit 255. `https://ssh.rootrecord.cloud` and `https://www.rootrecord.cloud` both return **HTTP 530 / Cloudflare error 1033** = no tunnel connector → cloudflared is not running on AWS. **FAIL (remote side)** |
 | `rr-aws-ip` (`3.139.100.162`) | unchanged | unchanged | TCP 22 timeout — stale IP. **FAIL** |
+| `rr-aws-ip` **after 14:06 HST** | 3.139.100.162 | `HostName 18.118.30.226`: only that line changed; backup `~/.ssh/config.bak-20260929-140612` | `ssh -o BatchMode=yes -o ConnectTimeout=5 rr-aws-ip uptime` **PASS** |
+| `rr-aws` **after 14:12 HST** | 1033 | tunnel 939b16f7 running on AWS with an `ssh.rootrecord.cloud → ssh://localhost:22` rule | the tunnel works: **PASS** with the AWS host key pinned (`SHA256:Kdsqhy…FbXA`). Plain `ssh rr-aws` FAILs with *host key changed*: the desk `known_hosts` line for `ssh.rootrecord.cloud` holds the pre-rebuild key (same as 3.139.100.162). Not edited; waiting on OK |
 | `rr-aws-ip` with `-o HostName=18.118.30.226` | — | (command-line override only; config not changed) | **PASS**, read-only commands only |
 
 ## Desk auto-sync coverage
@@ -75,3 +77,20 @@ Not restructured: AWS pulls this repo every minute and its units/docs reference 
 3. `communications_telegram` calls `getUpdates` every 1 s; if its token is shared with the desk relay bot this causes Telegram 409 conflicts (the G2 notes used two tokens for this reason) — confirm.
 
 *US-Mainland import, 2026-09-29 HST.*
+
+## Change log — 2026-09-29 14:05–14:35 HST (approved AWS changes)
+
+[Test record](../07-testing/2026-09-29-aws-hawaii-trim-and-cloudflared.md) · plan [P0-1 / P0-4](../08-ideas/2026-09-29-aws-mainland-improvement-plan.md). AWS backups: `/home/ubuntu/rootrecord/bin.bak-hawaii-trim-20260929-140641/` and `/home/ubuntu/rootrecord/bin.bak-cloudflared-20260929-141048/`. Desk backups: `~/.ssh/config.bak-20260929-140612` and `/home/rootrecord/Database/GITHUB/aws-hawaii-trim-cloudflared.bak-20260929-141557/`.
+
+| Area | Now on AWS | Mirror in the Mainland checkout (uncommitted) |
+| --- | --- | --- |
+| Feed trim script | `/home/ubuntu/network-globe/network-globe/scripts/maintain-hawaii-feed.sh` (= repo, sha256 `d9447d84…`) | `network-globe/maintain-hawaii-feed.sh` |
+| Auto-trim | `ubuntu` crontab `*/15`, `nice -n 10`, 64 MiB cap / 48 MiB window, syslog tag `maintain-hawaii-feed` | `network-globe/cron/maintain-hawaii-feed.crontab` |
+| Feed size | 1.83 GB → 50.3 MB at 14:07:38 HST; free disk 1.5G → 3.2G | — |
+| Web origin | `network-globe-web.service` (`server.js`, User=ubuntu, :8090) | `network-globe/network-globe-web.service` |
+| Tunnel | cloudflared 2026.9.3 (official .deb), `cloudflared-network-globe.service`, existing tunnel **`network-globe` 939b16f7-7d13-4776-bd4d-80fe8021fc72** (no new tunnel), config `~ubuntu/.cloudflared/config-globe.yml` 0600, creds JSON 0600 (copied from the desk's old aws-sync mirror, never printed) | `network-globe/cloudflared-network-globe.service`, `mirror/.cloudflared/config-globe.yml` (+`ssh.rootrecord.cloud` rule) |
+| DNS | **No DNS record changed.** `www` was already routed to 939b16f7, and `rootrecord.cloud` 301 → `www` is unchanged. Vercel is untouched. Other tunnels on the account: `rootserver` 9adf2231 (its connectors are on the desk; untouched) and `avaivy-local-truth` 0f16a586 (untouched) | — |
+| Result | `https://www.rootrecord.cloud/` 530/1033 → **200**. MemAvailable 446 MB after (512 MB before) | — |
+
+Why the tunnel was down: cloudflared and its unit were purged on AWS on 2026-09-26 at 02:41 HST (`apt remove --purge`, `rm -rf /etc/cloudflared`). Before that it ran only the token tunnel `rootserver`. The globe tunnel's creds had never been placed on this instance, and the globe web server had no unit.
+
