@@ -30,7 +30,7 @@ New code wins. Add an optional cloud pass that reads those template texts. Do no
 
 ## 2. Current reality
 
-Folder: `CloudNarrative`, not installed yet. It belongs in Reports. One capitalized folder, same name in all three places. No lowercase twin, no symlink, no `Logs/` on the server.
+Folder: `CloudNarrative`, installed under Reports. One capitalized folder, same name in all three places. No lowercase twin, no symlink, no `Logs/` on the server.
 
 | Path | Role |
 | --- | --- |
@@ -49,7 +49,7 @@ Folder: `CloudNarrative`, not installed yet. It belongs in Reports. One capitali
 | Optional local one-line summary | `RR_VOICE_ROLLUP_LLM=1` via `run-infer.sh`. Stays. This function does not replace it |
 | Old cloud engine | Archived. Removed from the local skills tree and from GitHub `main` `85add20` |
 | `XAI_API_KEY` | Not in `master-key.env`. A live call cannot run until Alexander adds that name there |
-| GitHub `Solar-Pacific-RootRecord-Server-Old` | Not in the org (404). Remaining repos: Library, Database, Pacific, Ecosystem, `.github` |
+| GitHub `Solar-Pacific-RootRecord-Server-Old` | `reports/sort/report-generation/` removed on `main` `85add20`. Repository kept |
 
 ### 2.2 Completed so far
 

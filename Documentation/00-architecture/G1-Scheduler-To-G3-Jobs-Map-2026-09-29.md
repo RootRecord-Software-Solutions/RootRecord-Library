@@ -43,7 +43,7 @@ States: **LIVE** = enabled in G3 now · **GATED** = in jobs.py, OFF until its fl
 | api-prices | 10:25 | — | BLOCKED (keys / spend) |
 | code-review | 11:20 17:20 | — | BLOCKED (LLM model load) |
 | economy-brief | 15:00 | `Reports/Economy-Brief/scripts/economy_brief.py` on demand | PROPOSED `RR_ECONOMY_BRIEF` (not in jobs.py). Discord send not signed off. |
-| adsense-eod / admob-eod | 21:00 / 21:05 | — | BLOCKED (ad account secrets) / OUT |
+| adsense-eod / admob-eod | 21:00 / 21:05 | `adsense_eod` / `admob_eod` | GATED `RR_ADSENSE` / `RR_ADMOB` (WO-MIG-38). No key writes `not_configured` and does not call Google |
 | overnight-relay | 22:20 | — | BLOCKED (D1 + DMs) |
 | minecraft-live | every 10 min | — | OUT (RootMC) |
 | hurricane-fetch | 05/09/12/16/20 :40 | `weather_poller` (`Weather/hurricanes/`, NHC CurrentStorms) | LIVE; JTWC/RAMMB global board not in G3 (source decision) |

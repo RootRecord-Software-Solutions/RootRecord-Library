@@ -4,11 +4,11 @@
 | --- | --- |
 | **Work Order ID** | WO-MIG-38-2026-09-29 |
 | **Date** | 2026-09-30 (HST) |
-| **Status** | OPEN — draft, not accepted for execution |
+| **Status** | OPEN — code landed; jobs gated off; page not deployed; old files removed on GitHub |
 | **Owner** | RootRecord |
 | **Related** | Agent 38. Depends on Public website checkout (agent 07) and Stripe, Vercel, and live-data pages (agent 10). Both destination folders are already in place. No later function depends on this one. |
 
-**Scope:** Bring the AdSense and AdMob end-of-day snapshots onto the live system as gated Pacific jobs and one status card on the existing Vercel app. This draft is the before-documentation. It does not build code, edit `jobs.py`, write secrets, send messages, call Google, archive the old repo, or update Library pages.
+**Scope:** Bring the AdSense and AdMob end-of-day snapshots onto the live system as gated Pacific jobs and one status card on the existing Vercel app. The code, gated jobs, status card, archive, and GitHub deletion on `online-safe-20260920` have landed. Live Google calls, job enablement, sends, and deploy still need sign-off. This file stays in drafts.
 
 ---
 
@@ -52,10 +52,10 @@ Public UI, when built: `3 - RootRecord-Website`. Data and logs stay on the Datab
 ### 2.2 Completed so far
 
 - [x] Draft work order written. Not on the active index.
-- [ ] Advertising code, no-key snapshots, and gated-off jobs.
-- [ ] Status card on the one Vercel app.
-- [ ] Old files archived, then removed from the old repo locally and on GitHub.
-- [ ] Library rows corrected after phase 4.
+- [x] Advertising code, no-key snapshots, and gated-off jobs.
+- [x] Status card on the one Vercel app. Not deployed.
+- [x] Old files archived, then removed from the old repo locally and on GitHub `online-safe-20260920` (`cf46347f`).
+- [x] Library rows corrected after phase 4.
 
 ### 2.3 Known friction
 

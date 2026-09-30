@@ -164,6 +164,8 @@ Landed 2026-09-30 ~00:01 HST.
 
 Re-checked 2026-09-30 00:57 HST. A busy caller no longer overwrites `last-play.json`. `--report boot_brief`, `--report hurricane_desk`, `--clip Ava/boot_all_systems_running`, and `--clip Ava/battery_reconnect` each returned `audio_missing` because those WAVs are not on disk. `--play` without `RR_PLAYBACK` returned `playback_gated`. No `aplay`. It was quiet hours, so a live run was not forced.
 
+01:02–01:11 HST: the Voice `.venv` was missing, so it was rebuilt (torch CPU, kokoro 0.9.4, misaki, soundfile). `kokoro-v1_0.pth` (313 MB) was copied from the old Kokoro store into Database `AI/Kokoro/Kokoro-82M/` because that file was absent. The clip render did not finish: the first attempt found no weights, the second stopped with `No virtual environment found` before the model loaded. No speaker. Kokoro inference was not started again after that.
+
 This file stays in `Work-Orders/drafts/`. It is not on the active index. Live `aplay` still needs a separate sign-off.
 
 ---
