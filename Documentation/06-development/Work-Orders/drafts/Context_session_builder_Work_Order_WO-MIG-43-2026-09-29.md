@@ -4,7 +4,7 @@
 | --- | --- |
 | **Work Order ID** | WO-MIG-43-2026-09-29 |
 | **Date** | 2026-09-30 (HST) |
-| **Status** | OPEN — draft, not accepted for execution |
+| **Status** | BUILT — temp-root smoke PASS 2026-09-30 00:48 HST. Listener not started. Not on the active index. |
 | **Owner** | RootRecord |
 | **Related** | Agent 43, Wave G. No other function has to exist before this build. No later function in the agent list depends on this one. Old home: `operations/context_session_builder` in GitHub `rootrecordsoftwaresolutions/old` (default branch `cursor/radio-idle-obs-gates`). Matrix row 85. |
 
@@ -40,11 +40,11 @@ Folder name: **ContextSession**. It does not belong inside Energy, Geology, Weat
 ### 2.2 Completed so far
 
 - [x] Old source read (`store.py`, `api.py`, `__init__.py`, both placeholder READMEs) and Geology / Energy layout checked
-- [ ] `ContextSession` package and CLI
-- [ ] Empty Database and Logs READMEs
-- [ ] Temp-root smoke test
-- [ ] Old files archived, then removed from the old repo and GitHub
-- [ ] Library row 85 and the context-session blocker sentence corrected
+- [x] `ContextSession` package and CLI
+- [x] Empty Database and Logs READMEs
+- [x] Temp-root smoke test (2026-09-30 00:48 HST)
+- [x] Old files archived, then removed from the old repo and GitHub
+- [x] Library row 85 and the context-session blocker sentence corrected
 
 ### 2.3 Known friction
 
@@ -116,7 +116,21 @@ Folder name: **ContextSession**. It does not belong inside Energy, Geology, Weat
 - Sign-off gates: FastAPI listener / uvicorn, sends, speaker playback, OBS, hardware switching, deletion of live Ecosystem files, and cloud spend. Phase 4 archive-then-delete of this function's old files is already ordered, and only after the archive copy succeeds.
 - Proof, and the only test to run: CLI create, append, list, and current against a temp root under `/tmp`. Expect one session, one user event after the system `session_created` event, a refused unsafe user id, and no listening socket. Do not write that sqlite into `2 - RootRecord-Database/ContextSession/`.
 
-The result note (what landed, archive path, GitHub deletion) is added to this file after phase 4. It is not written yet.
+The result note is below.
+
+---
+
+## Result
+
+Landed 2026-09-30. Package `ContextSession` at `1 - Servers/1 - RootRecord-Pacific-Solar-Server/ContextSession/scripts/ContextSession/` with CLI `scripts/context_session.py`. No `serve` command. `jobs.py` and `master-key.env` were not edited. Import does not load FastAPI.
+
+Smoke test, temp root `/tmp/rr-mig43-context`: create, append, list, and current returned one session. Events were `session_created` then the user `note`. `list 'bad id'` exited 1 with `invalid user_id`. Listening sockets were unchanged. No sqlite was written under `2 - RootRecord-Database/ContextSession/`.
+
+Archive (checksums matched the old tree before deletion):
+
+- `Old repos deleted and merged/old/operations/context_session_builder/` (5 files)
+
+Removed on GitHub `rootrecordsoftwaresolutions/old` branch `cursor/radio-idle-obs-gates` commit `3c67f7a`. The repository was not deleted. No shared file was left behind.
 
 ---
 

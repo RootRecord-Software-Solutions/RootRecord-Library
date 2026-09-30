@@ -4,7 +4,7 @@
 | --- | --- |
 | **Work Order ID** | WO-MIG-44-2026-09-29 |
 | **Date** | 2026-09-30 (HST) |
-| **Status** | OPEN — draft, not accepted for execution |
+| **Status** | OPEN — landed. Phase 4 archive and GitHub deletion done. Not promoted. |
 | **Owner** | RootRecord |
 | **Related** | Agent 44, Wave G. No other function has to exist before this build. No later function in the agent list depends on this one. Old home: directory printer, uploader, mapper, create_migration, plus the same matrix row's sync, visual CLI, database-root-migrate, and route builder. GitHub `rootrecordsoftwaresolutions/old`, branch `cursor/radio-idle-obs-gates`. Matrix row 87. |
 
@@ -48,10 +48,10 @@ No new Folder. The function is not installed. Same answer in all three places: n
 
 - [x] Old source read on GitHub (uploader, mapper, create_migration, route builder, database-root-migrate, directory printer, both sync scripts, visual CLI readme)
 - [x] Confirmed no local checkout contains these files
-- [ ] Archive copy under `Old repos deleted and merged/old/`
-- [ ] Those files removed on GitHub `old` (commit and push, no force-push)
-- [ ] This work order updated with the archive path and the GitHub commit
-- [ ] Matrix row 87 corrected from missing to archived
+- [x] Archive copy under `Old repos deleted and merged/old/` (28 files, checksums match)
+- [x] Those files removed on GitHub `old` commit `97a2557` (no force-push)
+- [x] This work order updated with the archive path and the GitHub commit
+- [x] Matrix row 87 corrected from missing to archived
 
 ### 2.3 Known friction
 
@@ -143,9 +143,8 @@ No new Folder. The function is not installed. Same answer in all three places: n
 - Secrets stay out of git. This function has no key names. Do not copy `/home/ava-core/Credentials`.
 - Prefer small reversible steps. New periodic jobs stay off. Do not edit `jobs.py`.
 - Sign-off gates: running any of these CLIs, rsync, moving databases, pushing `Ava-Core-Dev/ava-core`, writing route pages, speaker playback, sends, OBS, hardware switching, deletion of live Ecosystem files, and cloud spend. Phase 4 archive-then-delete of this function's old files is already ordered, and only after the archive copy succeeds.
-- Proof, after the archive exists: the copied files are under `Old repos deleted and merged/old/` at the old paths, none of those paths were added under Pacific or Database, and `jobs.py` is unchanged. Do not run the CLIs as the test.
-
-The result note (what landed, archive path, GitHub deletion) is added to this file after phase 4. It is not written yet.
+- Proof, 2026-09-30 00:52 HST: 28 archived files match the GitHub blobs by sha256. No copy of these scripts was added under Pacific or Database. `jobs.py` was not edited. The CLIs were not run.
+- Result note (2026-09-30 00:52 HST): No Folder landed. Archived 28 files under `Old repos deleted and merged/old/` at the old paths (`core_uploader.py`, `file_mapper.py`, `create_migration.py`, `tools/build-global-routes.py`, `operations/system-tools/database-root-migrate.py`, `operations/system-tools/sync-ava-directory.sh`, `directory-printer/`, `directory-sync/`, `desk/` including `ava_directory_feature.zip`, and `desk-backup-20260823-193454.tar.gz`). `tools/` held only `build-global-routes.py`, so that directory is gone from git. Removed those 28 files on GitHub `rootrecordsoftwaresolutions/old` commit `97a2557` (default branch `cursor/radio-idle-obs-gates`). Left `github-auto-push.py`, `GITHUB-AUTO-PUSH.txt`, `ai_usage.py`, `ai_usage_report.py`, `new 1.txt`, `AGENTS.md`, `screenshot.sh.disabled`, and `operations/broadcast.py`. The repository was not deleted. There was no local checkout to delete from. WO-MIG-37 still lists some of these paths as leftovers to leave; that work order was not rewritten.
 
 ---
 
