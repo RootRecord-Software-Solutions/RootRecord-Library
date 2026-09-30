@@ -75,7 +75,7 @@
 | merged-morning | Review | |
 | minecraft | Product | |
 | model-pick | Review | Inference routing |
-| morning-boot-replay | Review | |
+| morning-boot-replay | Pacific `Media/MorningBootReplay` | Dry-run replay of `boot_brief`. Speakers off. Archived 2026-09-30 |
 | mp4-converter | Review | Media |
 | mysql | Database | |
 | net-gate | G3-optional | Internet gate cousin |

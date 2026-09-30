@@ -24,7 +24,7 @@ The old function is seven skill folders at the root of `/home/rootrecord/old oll
 - **Product prices** stores shelf prices in `store/prices.json` and appends `store/sightings.jsonl`. It does not invent prices.
 - **Look** captions USGS and NHC stills with Moondream, and includes a Night Owl DVR grabber.
 
-The live system already runs EcoFlow BLE, the poller, Hawaiʻi weather, the globe collector, camera grabs, Kokoro, and `geology_collect.py`. Those stay as they are. This work order does not replace them. Nothing by these seven names exists under Pacific, Database, Android, or the website, so there is no newer copy to enhance.
+The live system already runs EcoFlow BLE, the poller, Hawaiʻi weather, the globe collector, camera grabs, Kokoro, and `geology_collect.py`. Those stay as they are. This work order does not replace them.
 
 Public pages, when the build is allowed, use the US-Mainland globe direction: full-screen dark globe, glass cards, one viewport. Each app’s old theme stays out of the Vercel app.
 
@@ -36,16 +36,16 @@ Public pages, when the build is allowed, use the US-Mainland globe direction: fu
 
 | Item | Location / status |
 | --- | --- |
-| Folder | **Products**. Not installed. One capitalized folder. Python package name `Products`. No lowercase twin and no symlink. |
-| Server code | `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Products/scripts/` — not created |
-| Database data | `2 - RootRecord-Database/Products/` — not created |
-| Database logs | `2 - RootRecord-Database/Logs/Products/` — not created |
+| Folder | **Products**. Installed. One capitalized folder. Python package name `Products`. No lowercase twin and no symlink. |
+| Server code | `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Products/scripts/` — landed |
+| Database data | `2 - RootRecord-Database/Products/` — empty stores landed |
+| Database logs | `2 - RootRecord-Database/Logs/Products/` — directory only |
 | Subfolders (same name in all three places) | `Clients`, `Companions`, `FernForest`, `FinanceDesk`, `Pantry`, `ProductPrices`, `Look` |
 | `master-key.env` | No keys for this function. Do not add an allowlist entry. Do not read values. Store paths are constants under the Database folder. |
 | Keys that stay out | `PANTRY_STORE`, `PRODUCT_PRICES_DIR`, `DVR_IP`, `DVR_USER`, `DVR_PASS`, `DVR_CHANNELS`, `DVR_STREAM`, and every `AVA_*` / Discord / Slack / Telegram token used by the old companion scripts |
-| Old source | `/home/rootrecord/old ollama/old skills/{clients,companions,fern-forest,finance-desk,pantry,product-prices,look}` |
+| Old source | Removed from `/home/rootrecord/old ollama/old skills`. Archive copy is under `Old repos deleted and merged/Solar-Pacific-RootRecord-Server/`. |
 | Public website checkout | `3 - RootRecord-Website` is empty. Agent 07 has not put the one Vercel app there. |
-| Theme archive | `5 - RootRecord-Library/Archive/Website-Themes/` does not exist yet |
+| Theme archive | `5 - RootRecord-Library/Archive/Website-Themes/clients/gigs/nibble.love/` and `companions/dev-desk/renderer/styles.css` |
 | `jobs.py` | Live. This function does not edit it and does not add a job. |
 
 These apps do not belong inside Energy, Geology, Weather, Reports, Security, Communications, System, or Media.
@@ -143,10 +143,9 @@ These apps do not belong inside Energy, Geology, Weather, Reports, Security, Com
 
 **Additional requirements:**
 
-- Alexander accepts this draft before any build.
-- Public website checkout must already occupy `3 - RootRecord-Website`. If it does not, stop and name that function.
-- Phase 4 result note is not written yet. It is added only after the archive copy is on disk and the old-repo deletion is pushed.
-- Library pages made stale by this function are corrected only after phase 4, and only those pages.
+- Public website checkout must occupy `3 - RootRecord-Website` before the four glass-card routes are added. That function is still missing.
+- GitHub still has the seven directories. Push of `3d54403b` is blocked by push protection on older commit `679fd86c`. Do not force-push and do not allow-list that secret from this work order.
+- This file stays in drafts until a human promotes it.
 
 ---
 

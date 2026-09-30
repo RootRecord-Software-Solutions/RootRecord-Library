@@ -8,7 +8,7 @@
 | **Owner** | RootRecord |
 | **Related** | Agent 16. Depends on Report playback (agent 15) before any build. `voice_reports.py boot_brief` stays the text and WAV source. |
 
-**Scope:** Add same-day morning replay onto the live `boot_brief` Kokoro WAV. This draft is the before-documentation only. Building, speaker playback, `jobs.py`, `master-key.env`, and Library corrections wait until Alexander accepts this draft and says to build. Sunrise restore, readiness audio, hurricane radio, and the shared player are out of scope.
+**Scope:** Same-day morning replay of the live `boot_brief` Kokoro WAV. That replay landed 2026-09-30 as a dry-run handoff to `Media/Playback`. Speaker playback and `jobs.py` stay off. Sunrise restore, readiness audio, and hurricane radio stay out of scope.
 
 ---
 
@@ -24,7 +24,7 @@ New code wins. Replay the Kokoro WAV `boot_brief_current.wav` (default `2 - Root
 
 ## 2. Current reality
 
-Folder: `MorningBootReplay`. It belongs in Media. `boot_brief` already lives in `Media/Voice`. Morning boot replay is not installed. One capitalized folder, same name in all three places. No lowercase twin, no symlink, no `Logs/` on the server, no `config/` (no secrets).
+Folder: `MorningBootReplay`, installed under Media. `boot_brief` stays in `Media/Voice`. One capitalized folder, same name in all three places. No lowercase twin, no symlink, no `Logs/` on the server, no `config/` (no secrets).
 
 | Path | Role |
 | --- | --- |
@@ -37,13 +37,13 @@ Folder: `MorningBootReplay`. It belongs in Media. `boot_brief` already lives in 
 
 | Item | Location / status |
 | --- | --- |
-| Folder `MorningBootReplay` | Not installed |
+| Folder `MorningBootReplay` | Installed. `scripts/replay.py` arms and runs. Speakers stay off |
 | `boot_brief` text and WAV path | `Media/Voice/scripts/voice_reports.py` (`b_boot_brief`). WAV default `2 - RootRecord-Database/Media/Audio/Voice/boot_brief_current.wav` |
-| Speaker playback | Absent. `speakers.py` and `voice-render.sh` say no delivery |
+| Speaker playback | Off. Replay calls `Media/Playback/scripts/play.py --dry-run` only |
 | ON_BOOT `voice_boot_brief` (`RR_VOICE_BOOT`) | Proposed in documentation only. Not in `jobs.py` |
-| Report playback (agent 15) | No Folder yet. Build pauses until that Folder exists |
+| Report playback | `Media/Playback`. This function does not replace it |
 | Midday board | `Reports/scripts/report_board.py`. `status == done` disarms replay |
-| Old replay job | `/home/rootrecord/old ollama/old skills/morning-boot-replay/scripts/job.py` (read-only until phase 4) |
+| Old replay job | Archived. Removed locally (`fb3b6149`) and on GitHub (`9231029`) |
 
 ### 2.2 Completed so far
 

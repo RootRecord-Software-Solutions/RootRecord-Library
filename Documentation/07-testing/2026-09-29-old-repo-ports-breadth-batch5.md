@@ -101,7 +101,7 @@ RR_VOICE_REPORT_OUT=/tmp/rr-migr2/voice nice -n 10 python3 Media/Voice/scripts/v
 
 **Check later**
 - [ ] Wording of "about N hours ago" / minutes.
-- [ ] Register ON_BOOT `voice_boot_brief` (`RR_VOICE_BOOT`). The command runs `geology_collect.py` first so Kīlauea data is fresh. WAV VERIFY PENDING. The morning replay stays BLOCKED (playback).
+- [ ] Register ON_BOOT `voice_boot_brief` (`RR_VOICE_BOOT`). The command runs `geology_collect.py` first so Kīlauea data is fresh. WAV VERIFY PENDING. Morning replay landed 2026-09-30 as `Media/MorningBootReplay` (dry-run only; speakers off).
 
 ## Report board and catch-up ledger
 
