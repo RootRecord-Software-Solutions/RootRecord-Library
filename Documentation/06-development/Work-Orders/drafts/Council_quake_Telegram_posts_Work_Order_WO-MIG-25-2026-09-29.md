@@ -37,7 +37,8 @@ Folder name, used in all three places: `CouncilQuake` (inside Communications). N
 | Live voice map (keep) | `Media/Voice/scripts/speakers.py` — `earthquake` → Carly (`af_nova`). Do not replace Kokoro. |
 | Live hourly rollup (keep) | `Media/Voice/scripts/voice_reports.py earthquake_report`. No delivery. Different function. |
 | Live relay (keep) | `Communications/telegram/scripts/council-relay.py`. Quiet unless `RR_RELAY_REPLIES=1`. Chat id key: `COUNCIL_CHAT_ID` in `Communications/telegram/config/relay.conf`. |
-| Persona Folder (dependency) | `Communications/CouncilPersona/` — not created yet. Agent 03’s draft names it. Pause at build if it is still missing. Do not build it here. |
+| Persona homes (already on disk) | Library `Agent Context/{Ava,Bruce,Carly}-Agent-Context/` (canonical packs, WO-AGENT). Telegram models: `2 - RootRecord-Database/AI/Ollama/Modelfiles/Production/{ava,bruce,carly}-telegram.Modelfile`. Council specialists: `Modelfiles/Specialists/rr-council-{ava,bruce,carly}.Modelfile`. Documented in `AI-Specialist-Models-and-Routing.md` and `Documentation/02-agents/README.md`. This notice does not copy them. |
+| Unbuilt copy | `Communications/CouncilPersona/` is agent 03’s planned copy. It is not the persona home. This function does not create it. |
 | Old source | `/home/rootrecord/old ollama/old skills/council/council-quake/` — tracked in `rootrecordsoftwaresolutions/Solar-Pacific-RootRecord-Server` |
 | `master-key.env` keys | `TELEGRAM_CARLY_TOKEN` only, allowlisted the way `Energy/lib/envload.py` allowlists EcoFlow keys. Never print the value. No second env file. Dry-run does not load the key. |
 
@@ -45,16 +46,16 @@ Folder name, used in all three places: `CouncilQuake` (inside Communications). N
 
 - [x] Old `quake_watch.py` and `job.py` read. Live `hawaii-last.json`, collector, speakers map, and relay read.
 - [x] This draft written. Not on the active work-order index.
+- [x] Persona homes confirmed in Library Agent Context and Database Production Modelfiles. `Communications/CouncilPersona` is not required for this notice.
+- [x] `CouncilQuake` dry-run script, README, and gated `jobs.py` block added. Send and WAV stay off.
 - [ ] Alexander has not accepted this draft for execution.
-- [ ] `CouncilQuake` code, Database seen store, and Logs line not created.
-- [ ] Gated `jobs.py` block not added.
-- [ ] Offline dry-run test not run.
+- [ ] Offline dry-run test result not yet recorded in the phase 5 note.
 - [ ] Phase 4 archive not done. Phase 5 result note not written. Matrix row 6 not corrected.
 
 ### 2.3 Known friction
 
 - `new_local_m2_ids` is only the collector’s latest run. A post job that watches that field alone drops events between polls. Candidates are events in `hawaii-last.json` with mag ≥ 2.0, deduped against this function’s own seen list.
-- `Communications/CouncilPersona` is not on disk. The quake body stays the fixed template and does not call `run-infer`. The build still pauses if that Folder is missing, and names Council persona prompts.
+- Council chat personas already live in Library `Agent Context/` and in the Production `*-telegram` Modelfiles. `Communications/CouncilPersona` is agent 03’s unbuilt copy, not the home this function waits on. The quake body stays the fixed template and does not call `run-infer`.
 - Discord, Slack, and Telegram share a pipe owned across wave D. This function is the Telegram leg only. If a shared Communications send module exists when the build starts, call it. If not, a gated `sendMessage` in `CouncilQuake` is enough. Do not add Discord or Slack.
 - Old `quake_watch.py` imports shared files (`council-telegram/scripts/notify.py`, `report_cast.py`, plus speakers and the OBS quake fetch). Those stay in the old repo. Phase 4 removes only `council/council-quake/`.
 - If `jobs.py`, `council-relay.py`, or `master-key.env` is already being edited when the build starts, pause and name the file.
@@ -65,7 +66,7 @@ Folder name, used in all three places: `CouncilQuake` (inside Communications). N
 
 Do not start these until Alexander accepts this draft and says to build.
 
-1. Pause if `Communications/CouncilPersona` is missing. Name Council persona prompts. Do not build it. Pause if `jobs.py`, `council-relay.py`, or `master-key.env` is already being edited.
+1. Persona homes are already on disk (Library Agent Context packs and Production `*-telegram` Modelfiles). Do not build `Communications/CouncilPersona`. Pause if `jobs.py`, `council-relay.py`, or `master-key.env` is already being edited.
 2. Add `Communications/CouncilQuake/scripts/quake_posts.py`. Read `hawaii-last.json`. Candidates are events with mag ≥ 2.0. First run seeds the seen list and posts nothing. Later runs post at most 4 new ids. Seen list lives under `2 - RootRecord-Database/Communications/CouncilQuake/`, not on the server.
 3. Add `Communications/CouncilQuake/scripts/envload.py` with allowlist `TELEGRAM_CARLY_TOKEN` only. Dry-run does not load it.
 4. Add `Communications/CouncilQuake/README.md` naming the Folder and the three paths.
@@ -123,7 +124,7 @@ Do not start these until Alexander accepts this draft and says to build.
 **Additional requirements:**
 
 - Alexander accepts this draft and says to build before any file outside this draft is written.
-- If `Communications/CouncilPersona` is missing at build time, pause and name Council persona prompts. Do not build that Folder.
+- Do not build `Communications/CouncilPersona`. Persona homes are Library `Agent Context/` and the Production `*-telegram` Modelfiles.
 - If `jobs.py`, `council-relay.py`, or `master-key.env` is already being edited at build time, pause and name the file.
 - `RR_COUNCIL_QUAKE_SEND=1` and `RR_COUNCIL_QUAKE_WAV=1` stay off until a separate sign-off. Enabling the dry-run job is not a send.
 - Phase 4 deletes only `council/council-quake/` after the archive copy is on disk. Shared imports stay. If the archive copy fails, do not delete.

@@ -4,11 +4,11 @@
 | --- | --- |
 | **Work Order ID** | WO-MIG-23-2026-09-29 |
 | **Date** | 2026-09-30 (HST) |
-| **Status** | OPEN — draft, not accepted for execution |
+| **Status** | OPEN — dry-run landed, live send not signed off |
 | **Owner** | RootRecord |
 | **Related** | Agent 23. Wave D. One send pipe, then the messages. Depends on 21 Discord poller. No later function in this list depends on this one. Matrix row 1 (Discord half only). WO-COM-002. |
 
-**Scope:** Earthquake Discord post is one Geology subfolder. This draft names the folder and the three paths and records the build. No runtime files are edited, no job is enabled, no token is written, no message is sent, and nothing is archived until Alexander accepts this draft and says to build. The collector, the voice report, the Discord poller, Slack, the Kilauea queue, and the economy brief stay with their own owners.
+**Scope:** Earthquake Discord post is one Geology subfolder. The dry-run script and the three paths are on disk. The job stays off. No token was written, no message was sent, and nothing was archived. Live send still needs a separate sign-off. The collector, the voice report, the Discord poller, Slack, the Kilauea queue, and the economy brief stay with their own owners.
 
 ---
 
@@ -30,7 +30,7 @@ Folder name, used in all three paths: **Earthquake-Discord**. It is a subfolder 
 
 | Item | Location / status |
 | --- | --- |
-| Folder | `Earthquake-Discord` under Geology. Not created. This draft only names it. |
+| Folder | `Earthquake-Discord` under Geology. Staged 2026-09-30. |
 | Code | `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Geology/Earthquake-Discord/scripts` |
 | Database | `2 - RootRecord-Database/Geology/Earthquake-Discord/` (posted digest only; USGS samples stay in `Geology/Earthquakes/`) |
 | Logs | `2 - RootRecord-Database/Logs/Geology/Earthquake-Discord/` |
@@ -38,7 +38,7 @@ Folder name, used in all three paths: **Earthquake-Discord**. It is a subfolder 
 | Bot token | `DISCORD_BOT_TOKEN` belongs to the Discord poller and WO-COM-002. This function does not load it and does not open a second Discord client. |
 | Collector, keep | `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Geology/scripts/geology_collect.py` → `2 - RootRecord-Database/Geology/Earthquakes/{hawaii,global}-last.json`. Live. Do not replace. |
 | Voice, keep | `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Media/Voice/scripts/voice_reports.py` `b_earthquake_report`. No delivery. Do not replace. |
-| Send pipe | Agent 21 names `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Communications/Discord/scripts`. Not created. The lowercase shell `Communications/discord/README.md` is a README only. |
+| Send pipe | `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Communications/Discord/scripts` is in place (agent 21). This function calls it only with `--send`. Default dry-run does not. |
 | Old source read | `/home/rootrecord/old ollama/old skills/earthquakes/earthquake-hourly/scripts/earthquake_hourly.py`. Shared with the collector and the voice report. Leave it. |
 | Old GitHub tree | `Solar-Pacific-RootRecord-Server-Old/earthquakes/earthquake-hourly/` is not on disk. No exclusive file to archive. |
 
@@ -47,12 +47,12 @@ Folder name, used in all three paths: **Earthquake-Discord**. It is a subfolder 
 - [x] Old Discord block read. Collector and voice report confirmed as the live data path.
 - [x] Folder `Earthquake-Discord` and the three paths named above.
 - [x] `master-key.env` checked for key names only. No `DISCORD_*` key is present.
-- [ ] Alexander accepts this draft and says to build.
-- [ ] Pause check: Discord poller folder `Communications/Discord` must exist before this build continues.
-- [ ] `Geology/Earthquake-Discord/scripts/earthquake_discord_post.py` and a dry-run against the files already on disk.
-- [ ] Proposed gated `jobs.py` block, left off.
-- [ ] Phase 4: nothing exclusive to archive. Shared `earthquake_hourly.py` stays.
-- [ ] Result note and the Library lines that still say this post was not ported.
+- [x] Alexander said to keep working and stage missing folders.
+- [x] Discord poller folder `Communications/Discord/scripts` was already in place. Not built here.
+- [x] `Geology/Earthquake-Discord/scripts/earthquake_discord_post.py` dry-run against the files already on disk. Exit 0. Printed Hawaii 9 and Global 34. No `posted-last.json`.
+- [x] Gated `jobs.py` block `earthquake_discord_post`, left off unless `RR_EARTHQUAKE_DISCORD=1`.
+- [x] Phase 4: nothing exclusive to archive. Shared `earthquake_hourly.py` stays. No GitHub deletion.
+- [x] Result note below. Library lines for this post corrected. Live send still unsigned.
 
 ### 2.3 Known friction
 
@@ -158,7 +158,7 @@ Do these only after Alexander accepts this draft and says to build. Until then, 
 - Prefer small reversible steps.
 - Sign-off before any send, speaker playback, OBS, hardware switch, deletion of live Ecosystem files, or cloud spend. Phase 4 deletion is limited to this function’s exclusive old files, and only after they are in `Old repos deleted and merged`. Do not delete the GitHub repository. The shared hourly script stays.
 - Small test, at build time: run `earthquake_discord_post.py` as a dry-run against the current `hawaii-last.json` and `global-last.json`. Expect one printed message, no `posted-last.json`, and no Discord request. Not run for this draft.
-- Result note: add it after phase 4 (what landed, what was archived, what was removed on GitHub). Not written yet. Archive path: none. `earthquake_hourly.py` is shared and stays. GitHub deletion: none for this function.
+- Result note (2026-09-30): Landed `Geology/Earthquake-Discord/scripts/earthquake_discord_post.py` and the three folders (code, Database `Geology/Earthquake-Discord/`, Logs `Logs/Geology/Earthquake-Discord/`). Dry-run printed the collector message and did not write `posted-last.json` or call Discord. Job `earthquake_discord_post` is in `jobs.py` and stays off. Archived: none. Removed on GitHub: none. `earthquake_hourly.py` is shared and stays.
 
 ---
 

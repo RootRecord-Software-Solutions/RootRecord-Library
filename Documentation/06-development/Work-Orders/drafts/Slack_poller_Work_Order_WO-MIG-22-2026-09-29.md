@@ -8,7 +8,7 @@
 | **Owner** | RootRecord |
 | **Related** | Agent 22. Wave D. One send pipe, then the messages. Depends on 21 Discord poller. No later function depends on this one. Matrix row 59 (Slack half). |
 
-**Scope:** Slack polling is one Communications subfolder. This draft names the folder and the three paths and records the build. No runtime files are edited, no job is enabled, no token is written, no message is sent, and nothing is archived until Alexander accepts this draft and says to build, and until `Communications/Discord/` exists. Discord poller, Telegram relay, and every other agent's function stay with their own agents.
+**Scope:** Slack polling is one Communications subfolder. The poller is landed and gated off. No token was written, no message was sent, and `RR_SLACK` stays unset. Discord poller, Telegram relay, and every other agent's function stay with their own agents.
 
 ---
 
@@ -35,13 +35,13 @@ Folder name, used in all three paths: **Slack**. It is a subfolder of Communicat
 | Database | `2 - RootRecord-Database/Communications/Slack/` |
 | Logs | `2 - RootRecord-Database/Logs/Communications/Slack/` |
 | Secrets | `/home/rootrecord/master/master-key.env` only. Allowlist key name: `SLACK_BOT_TOKEN`. That key is not in the file today. No second env file. `SLACK` in the old example is a placeholder status, not a secret, and is not copied in. |
-| Existing shell | `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Communications/slack/README.md` (lowercase). README only. |
+| Existing shell | Lowercase `Communications/slack/` removed. Text now lives in `Communications/Slack/README.md`. |
 | Old source | Removed locally after archive. Was `1 - Servers/2 - RootRecord-US-Mainland-Server/communications/slack/poll.py`. |
 | Old job line, shared file | `communications_slack` in `1 - Servers/2 - RootRecord-US-Mainland-Server/automations/scripts/jobs.py`. Leave it. That file also runs Telegram and Discord. |
 | Shared examples, leave them | `communications/README.md`, `communications/.env.example`, and the mainland root `.env.example`. |
 | Dependency | Discord poller (agent 21). `Communications/Discord/` was absent when this draft was first written, then present (`scripts/poll.py` and `lib/envload.py`) before the Slack build. |
 | Live Telegram | `council_relay` stays the one `getUpdates` owner. Replies stay off. |
-| Matrix | Row 59 is Discord and Slack together, status missing. This draft does not edit that row. The Slack half is corrected only after phase 4, and only if this function made that line wrong. |
+| Matrix | Row 59 is one Discord/Slack line. Left unchanged so the Discord half is not rewritten. |
 
 ### 2.2 Completed so far
 
@@ -56,10 +56,9 @@ Folder name, used in all three paths: **Slack**. It is a subfolder of Communicat
 
 ### 2.3 Known friction
 
-- Build waits until Alexander accepts this draft.
 - Discord poller was missing at the first check and present before any Slack runtime file was added. It was not built here.
-- `Communications/slack/` (lowercase) is the current shell. The build moves that README into `Communications/Slack/README.md` in the same change so only one folder remains.
-- `jobs.py` is not edited by this draft. A gated-off block is proposed below. `RR_SLACK` stays unset. If `jobs.py` or `master-key.env` is already being edited at build time, pause.
+- Lowercase `Communications/slack/` was removed in the same change as `Communications/Slack/`.
+- Pacific `jobs.py` has the gated block. `RR_SLACK` stays unset. The poller was not restarted.
 - Mainland `automations/scripts/jobs.py` still has an enabled `communications_slack` line. That file is shared. It is named here and not edited.
 
 ---
@@ -116,24 +115,24 @@ Do these only after Alexander accepts this draft and says to build. Until then, 
 
 | Path | Role |
 |------|------|
-| `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Communications/Slack/scripts` | Code. Not created in this draft. |
+| `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Communications/Slack/scripts` | Code. Landed. |
 | `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Communications/Slack/scripts/poll.py` | The poller. No token means no Slack HTTP. |
 | `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Communications/Slack/lib/envload.py` | Allowlist `SLACK_BOT_TOKEN` from `master-key.env`. |
 | `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Communications/Slack/README.md` | Absorbs the lowercase shell README on build. |
-| `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Communications/slack/README.md` | Current lowercase shell. Moved, not left as a twin. |
-| `2 - RootRecord-Database/Communications/Slack/` | `slack-last.json`. Not written in this draft. |
+| `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Communications/slack/` | Removed. No lowercase twin. |
+| `2 - RootRecord-Database/Communications/Slack/` | `slack-last.json` from the no-token smoke test. |
 | `2 - RootRecord-Database/Logs/Communications/Slack/` | Logs only. |
 | `/home/rootrecord/master/master-key.env` | Unchanged. Key name `SLACK_BOT_TOKEN` is absent. |
 | `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Energy/lib/envload.py` | Pattern for the allowlist loader. Not edited. |
-| `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Automations/scripts/jobs.py` | Proposed gated-off `communications_slack` block only. Not edited in this draft. |
-| `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Communications/README.md` | Slack row corrected only after phase 4. |
+| `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Automations/scripts/jobs.py` | Gated-off `communications_slack` block only. `RR_SLACK` unset. |
+| `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Communications/README.md` | Slack row updated. Email stays a shell. |
 | `1 - Servers/2 - RootRecord-US-Mainland-Server/communications/slack/poll.py` | Old stub. Archived in phase 4, then removed locally and on GitHub. |
 | `1 - Servers/2 - RootRecord-US-Mainland-Server/automations/scripts/jobs.py` | Shared. `communications_slack` line left in place. |
 | `1 - Servers/2 - RootRecord-US-Mainland-Server/communications/README.md` | Shared. Left in place. |
 | `1 - Servers/2 - RootRecord-US-Mainland-Server/communications/.env.example` | Shared. Left in place. `SLACK=notsetupyet` is not copied. |
 | `1 - Servers/2 - RootRecord-US-Mainland-Server/.env.example` | Shared. Left in place. Name `SLACK_BOT_TOKEN` only. |
-| `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Communications/Discord/` | Dependency folder. Missing on 2026-09-30. |
-| `Old repos deleted and merged/US-Mainland-Server/communications/slack/poll.py` | Phase 4 archive path. Not copied in this draft. |
+| `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Communications/Discord/` | Dependency folder. Present before the Slack build. |
+| `Old repos deleted and merged/US-Mainland-Server/communications/slack/poll.py` | Archive of the stub. On disk. |
 | `5 - RootRecord-Library/Documentation/00-architecture/Old-Repo-Migration-Matrix.md` | Row 59 Slack half, after phase 4 only, and only that half. |
 
 ---
@@ -142,9 +141,7 @@ Do these only after Alexander accepts this draft and says to build. Until then, 
 
 **Additional requirements:**
 
-- Alexander accepts this draft before any build.
-- Discord poller folder `Communications/Discord/` must exist before this build. It did not on 2026-09-30. Named function: Discord poller (agent 21). Do not build it here.
-- `SLACK_BOT_TOKEN` in `master-key.env` is required before any Slack HTTP call. This draft does not add that key. Even with a token, posting needs a separate sign-off.
+- `SLACK_BOT_TOKEN` in `master-key.env` is required before any Slack HTTP call. This work did not add that key. Even with a token, posting needs a separate sign-off.
 - Enabling the Pacific job or setting `RR_SLACK` needs a separate sign-off.
 - Phase 4 pauses if the archive copy fails.
 - If `jobs.py` or `master-key.env` is already being edited at build time, pause.
@@ -158,9 +155,22 @@ Do these only after Alexander accepts this draft and says to build. Until then, 
 - Secrets stay out of git. The allowlist name is `SLACK_BOT_TOKEN`. Do not print the value.
 - Prefer small reversible steps.
 - Sign-off before any send (`chat.postMessage` included), speaker playback, OBS, hardware switch, deletion of live Ecosystem files, or cloud spend. The lowercase README move is this function's own shell, done in the same change as `Communications/Slack/`. Phase 4 deletion is limited to `communications/slack/poll.py`, and only after it is in `Old repos deleted and merged`. Do not delete the GitHub repository `rootrecordsoftwaresolutions/US-Mainland-Server`.
-- Small test, at build time: run `python3 Communications/Slack/scripts/poll.py` with no `SLACK_BOT_TOKEN`. Expect exit 0, `slack-last.json` status `not_configured`, a log under `2 - RootRecord-Database/Logs/Communications/Slack/`, and no network. Not run for this draft.
-- Result note: add it after phase 4 (what landed, what was archived, what was removed on GitHub). Not written yet.
-- Build check 2026-09-30 00:22 HST: `Communications/Discord/` is absent. This draft stops before any runtime edit.
+- Small test, run 2026-09-30 00:35 HST: `python3 Communications/Slack/scripts/poll.py` with no `SLACK_BOT_TOKEN`. Exit 0. `slack-last.json` status `not_configured`, token `absent`, `http_calls` 0, `posted` false. Log line in `2 - RootRecord-Database/Logs/Communications/Slack/poll.log`. The script has no HTTP client.
+- `RR_SLACK` was unset, so the `communications_slack` job stays off. The poller was not restarted.
+
+## Result (2026-09-30 HST)
+
+Landed `Communications/Slack/` (`scripts/poll.py`, `lib/envload.py` allowlist `SLACK_BOT_TOKEN` only, package `Slack`). No token writes `not_configured` and does not call Slack. A present token still does not call Slack and does not post. Pacific `jobs.py` has one gated block, id `communications_slack`, enabled only when `RR_SLACK=1`. That flag is unset.
+
+Archived to `Old repos deleted and merged/US-Mainland-Server/communications/slack/poll.py` (141 bytes, matched the stub before delete).
+
+Removed `communications/slack/poll.py` from the mainland checkout. Ecosystem `HEAD` `3d04da9` (desk sync, already on `origin/main`) records that local deletion. Shared mainland files left in place: `automations/scripts/jobs.py` (enabled `communications_slack` line), `communications/README.md`, `communications/.env.example`, and the root `.env.example`.
+
+Removed the same file on GitHub repo `rootrecordsoftwaresolutions/US-Mainland-Server`, branch `main`, commit `7d63359934a92a3872b390735a691ea984fd4871`. The contents API then returns 404. The repository was not deleted. No force-push.
+
+Matrix row 59 is one shared Discord/Slack line. It was left unchanged so the Discord half is not rewritten.
+
+This file stays in `drafts/`. It is not on the active index.
 
 ---
 

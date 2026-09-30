@@ -65,7 +65,7 @@ Folder: `MorningBootReplay`, installed under Media. `boot_brief` stays in `Media
 
 ## 3. Tasks
 
-Build later, in this order. Do not start these until Alexander accepts this draft and says to build.
+Done, in this order. Speaker playback and `jobs.py` stayed off.
 
 1. Pause if Report playback has no Folder. Name that function. Do not build the player, Kokoro, OBS, sunrise restore, or readiness audio.
 2. Add `Media/MorningBootReplay/scripts/replay.py` plus package init and a short README. State file `replay-last.json` under the Database path, with an `at` time like the other active last files. Logs only under the Logs path. Do not put a `Logs/` directory on the server.
