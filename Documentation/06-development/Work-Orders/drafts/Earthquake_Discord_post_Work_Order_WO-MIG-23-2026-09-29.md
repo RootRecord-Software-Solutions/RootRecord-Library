@@ -68,8 +68,8 @@ Done 2026-09-30. Recorded here so the order of work stays visible. Live send was
 
 1. `Communications/Discord/scripts` was already in place. The Discord poller was not built here.
 2. `jobs.py` received only the gated block below. `RR_EARTHQUAKE_DISCORD` stays unset, so `enabled` is false at poller start.
-3. Add `Geology/Earthquake-Discord/scripts/earthquake_discord_post.py`. Read `2 - RootRecord-Database/Geology/Earthquakes/hawaii-last.json` and `global-last.json`. Format a short message: new events since the local digest, plus 24-hour counts. Compare a digest to `2 - RootRecord-Database/Geology/Earthquake-Discord/posted-last.json`. If unchanged, skip. If the pipe exists, hand it the text. Default is dry-run: print the message, do not call Discord, do not write `posted-last.json`.
-4. Do not edit `jobs.py` unless this accepted build inserts only the gated block below. Do not enable the job. `RR_EARTHQUAKE_DISCORD` stays unset, so `enabled` is false at poller start.
+3. Done. `earthquake_discord_post.py` reads the two last files, formats new events plus 24-hour counts, and skips when `posted-last.json` has the same collector digest. Default is dry-run.
+4. Done. Only the gated block below was inserted. The job stays off.
 
 ```python
 {
@@ -88,9 +88,9 @@ Done 2026-09-30. Recorded here so the order of work stays visible. Live send was
 }
 ```
 
-5. One dry-run test against the files already on disk. Expect a printed message, no `posted-last.json` write, and no Discord request. A live send waits for a separate sign-off.
-6. After the migration works, and before the Library update: `earthquake_hourly.py` is shared with the collector and the voice report. Leave it. `Solar-Pacific-RootRecord-Server-Old/earthquakes/earthquake-hourly/` is already absent, so there is no exclusive old-repo file to copy or delete. Do not delete `communications/discord`. Do not delete the GitHub repository. Do not force-push. If a later checkout shows an exclusive file for this post, copy it into `Old repos deleted and merged/<old-repo-name>/` keeping its old path, and delete it from the old repo locally and on GitHub only after that copy is on disk. If the archive copy fails, do not delete.
-7. Update this work order with the result note (what landed, what was archived, what was removed on GitHub) and set the new status. Correct only the Library lines this function made stale: Pacific `Geology/README.md` “Not ported” Discord clause, Database `Geology/README.md` “no delivery”, the earthquake-hourly row in `Old-Repo-Migration-Matrix.md`, and the Voice-Reports line that this Discord post stays blocked. Do not rewrite unrelated work orders.
+5. Done. Dry-run against the files on disk printed Hawaii 9 and Global 34, wrote no `posted-last.json`, and made no Discord request. A second check with a matching digest in a temporary database printed `unchanged`. `--send` with no channel id printed `channel-absent` and wrote nothing. A live send still waits for a separate sign-off.
+6. Done. `earthquake_hourly.py` is shared and stays. `Solar-Pacific-RootRecord-Server-Old/earthquakes/earthquake-hourly/` is absent. Nothing was copied, deleted, or pushed.
+7. Done. Result note is in section 7. Library lines for this post now say the dry-run landed and the live send is still unsigned.
 
 ---
 

@@ -63,7 +63,7 @@ These apps do not belong inside Energy, Geology, Weather, Reports, Security, Com
 
 ### 2.3 Known friction
 
-- Build pauses until Public website checkout (agent 07) fills `3 - RootRecord-Website`. This work order does not check the site out and does not edit the gitignored RootRecord-Cloud clone under Communications.
+- Public website checkout now fills `3 - RootRecord-Website`. This work order did not check that site out and did not edit the gitignored RootRecord-Cloud clone under Communications.
 - `finance_desk.py` and `look.py` import `apps.core`, which is outside these seven directories. That tree stays. Finance and Look source is copied for archive, and is not wired into a running path.
 - Fern Forest PDFs and text extracts contain owner names and mailing addresses. The public card does not show them.
 - `clients/references/gigs.md` names a person on the nibble.love about page. The public clients card lists the gig domain and page names only.

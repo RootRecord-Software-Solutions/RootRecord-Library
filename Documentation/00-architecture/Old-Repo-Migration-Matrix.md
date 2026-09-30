@@ -158,7 +158,7 @@ Breadth rows (13:58–14:09 HST): test record [2026-09-29-old-repo-ports-breadth
 
 ## Blockers (BLOCKED — need Alexander)
 
-1. **Delivery / posting:** council-quake Telegram posts, earthquake Discord post, rr-kilauea public draft queue, council health alerts, Discord/Slack pollers, economy brief — sends need explicit sign-off (and relay replies are BLOCKED on missing `*-telegram` models).
+1. **Delivery / posting:** council-quake Telegram posts, earthquake Discord live send (dry-run landed 2026-09-30 as `Geology/Earthquake-Discord`; job gated `RR_EARTHQUAKE_DISCORD`), rr-kilauea public draft queue, council health alerts, Discord/Slack pollers, economy brief — sends need explicit sign-off (and relay replies are BLOCKED on missing `*-telegram` models).
 2. **Playback:** report play jobs, hurricane radio, morning boot replay, sunrise-restore, report readiness — speaker playback not allowed.
 3. **OBS:** kilauea-cams OBS push + YouTube live-id embeds, hurricane OBS, official-weather overlay, obs-studio — no OBS in G3.
 4. **Destructive / data-moving:** log-cleanup deletes files; host `reset_series.py` moves live history files aside — conflicts with never-delete; needs a retention design like `weather_retention` (dry run first).
