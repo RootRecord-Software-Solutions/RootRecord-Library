@@ -36,7 +36,7 @@ Public UI, when built: `3 - RootRecord-Website`. Data and logs stay on the Datab
 
 | Item | Location / status |
 | --- | --- |
-| Folder `Advertising` (code, data, logs) | Not installed |
+| Folder `Advertising` (code, data, logs) | Landed. Jobs `adsense_eod` and `admob_eod` are in `ON_AT`, gated off |
 | Public website checkout | `3 - RootRecord-Website` is in place, including `/data` |
 | Stripe, Vercel, and live-data pages | Pacific `Website/` is in place (`stripe_poll.py`, `vercel_builds.py`, `live_data_pages.py`). Build does not pause for agents 07 or 10 |
 | Visual direction | US-Mainland globe, full-screen dark globe and glass cards. `1 - Servers/2 - RootRecord-US-Mainland-Server/mirror/network-globe/network-globe/` and `Documentation/08-ideas/2026-09-29-globe-landing-overlay.md` |
@@ -46,8 +46,8 @@ Public UI, when built: `3 - RootRecord-Website`. Data and logs stay on the Datab
 | Old git repo | `rootrecordsoftwaresolutions/Solar-Pacific-RootRecord-Server`, local checkout `/home/rootrecord/old ollama/old skills`, branch `online-safe-20260920`. Twelve tracked files under `advertising/`. `main` does not contain `advertising/` |
 | Shared helper to leave | `apps.core` (imported by the old jobs). Leave it |
 | `master-key.env` | `/home/rootrecord/master/master-key.env`. None of these names are present: `GOOGLE_ADSENSE_CLIENT_ID`, `GOOGLE_ADSENSE_CLIENT_SECRET`, `GOOGLE_ADSENSE_REFRESH_TOKEN`, `GOOGLE_ADSENSE_ACCOUNT_NAME`, `GOOGLE_ADSENSE_CURRENCY`, `GOOGLE_ADMOB_CLIENT_ID`, `GOOGLE_ADMOB_CLIENT_SECRET`, `GOOGLE_ADMOB_REFRESH_TOKEN`, `GOOGLE_ADMOB_ACCOUNT_NAME` |
-| Scheduler map | `adsense-eod / admob-eod` at 21:00 / 21:05 is BLOCKED (ad account secrets) / OUT |
-| Migration matrix | Row 71, Advertising (AdMob/AdSense EOD), status **missing** |
+| Scheduler map | `adsense-eod / admob-eod` at 21:00 / 21:05 is GATED `RR_ADSENSE` / `RR_ADMOB` |
+| Migration matrix | Row 71, Advertising (AdMob/AdSense EOD), status **partial** |
 
 ### 2.2 Completed so far
 
@@ -145,11 +145,19 @@ Build only after Alexander accepts this draft and says to build. Until then, do 
 - New periodic jobs stay gated off.
 - Do not import system-generated data into the live Folders.
 
-**Small test, after the build, with no keys.** Run each script once. Exit 0. Snapshot `detail` is `not_configured`. No request to `adsense.googleapis.com` or `admob.googleapis.com`.
+**Small test, run 2026-09-30 HST with no keys.** Each script exited 0, wrote `detail: not_configured`, and made no HTTP call. With dummy AdSense client keys and the network blocked, AdSense attempted one token request and wrote nothing secret. AdMob stayed `not_configured` because its refresh token does not fall back. The final files are the no-key snapshots.
 
 ### Result note
 
-Not written. Phase 4 has not run. After the archive and the GitHub deletion, add what landed, the archive path, and what was removed on GitHub.
+Landed 2026-09-30 HST. Jobs stay off. The page is not deployed.
+
+- Server code: `Advertising/lib/envload.py`, `Advertising/scripts/adsense_eod.py`, `Advertising/scripts/admob_eod.py`.
+- No-key test: `Database/Advertising/adsense-last.json` and `admob-last.json` are `ok: false`, `detail: not_configured`, generated `2026-09-30T01:02:25-10:00`. No Google call.
+- Jobs: `adsense_eod` at 21:00 behind `RR_ADSENSE=1`, `admob_eod` at 21:05 behind `RR_ADMOB=1`, both off. Neighboring uncommitted jobs in `jobs.py` were left in place.
+- Public card: `3 - RootRecord-Website/src/app/data/advertising/page.tsx`, linked from `/data`. Checked in the browser at `http://localhost:3001/data/advertising`. AdSense and AdMob both read “Not configured · 2026-09-30”. No earnings. Not pushed, so Vercel production is unchanged.
+- Archive: `Old repos deleted and merged/Solar-Pacific-RootRecord-Server/advertising/` (12 files) and `state/store/adsense-report.json`, `state/store/admob-report.json`.
+- Local deletion and GitHub: `online-safe-20260920` `cf46347f` on `rootrecordsoftwaresolutions/Solar-Pacific-RootRecord-Server`. The two report JSON files were gitignored (`**/store/`), removed from the working tree, and were not on GitHub. `apps.core` was not edited. `origin/skills-rebuild` still contains `advertising/` (12 files). `main` does not.
+- Library: migration matrix row 71 and the scheduler map row for adsense-eod / admob-eod.
 
 ---
 

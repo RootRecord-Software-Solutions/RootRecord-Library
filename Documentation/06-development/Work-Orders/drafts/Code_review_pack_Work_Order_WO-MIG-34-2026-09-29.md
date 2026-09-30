@@ -4,7 +4,7 @@
 | --- | --- |
 | **Work Order ID** | WO-MIG-34-2026-09-29 |
 | **Date** | 2026-09-30 (HST) |
-| **Status** | OPEN — draft, not accepted for execution |
+| **Status** | OPEN — pack landed. jobs.py block paused. Not promoted. |
 | **Owner** | RootRecord |
 | **Related** | Agent 34. Wave E. Cloud and keys, after the local path. No later function depends on this one. Matrix row 67. Scheduler map row `code-review`. |
 
@@ -32,7 +32,7 @@ Folder name, used in all three paths: **CodeReview**. It is its own capitalized 
 
 | Item | Location / status |
 | --- | --- |
-| Folder | `CodeReview`. Not installed yet. |
+| Folder | `CodeReview`. Landed 2026-09-30 01:06 HST. |
 | Code | `1 - Servers/1 - RootRecord-Pacific-Solar-Server/CodeReview/scripts` |
 | Database | `2 - RootRecord-Database/CodeReview/` (packs: `CURRENT.md` and dated files) |
 | Logs | `2 - RootRecord-Database/Logs/CodeReview/` |
@@ -51,12 +51,12 @@ Folder name, used in all three paths: **CodeReview**. It is its own capitalized 
 - [x] Old pack read. It writes markdown and never patches source.
 - [x] Folder and the three paths named above.
 - [x] `master-key.env` checked for key names only. No key belongs to this function.
-- [ ] `CodeReview/scripts/code_review.py` and `CodeReview/README.md`.
-- [ ] Gated `code_review_pack` block in `jobs.py`.
-- [ ] `/CodeReview/` line in `2 - RootRecord-Database/.gitignore`.
-- [ ] Smoke test under `/tmp/rr-mig-34`.
-- [ ] Phase 4 archive and GitHub file deletion.
-- [ ] Result note, and the two Library rows named in task 8.
+- [x] `CodeReview/scripts/code_review.py` and `CodeReview/README.md`.
+- [ ] Gated `code_review_pack` block in `jobs.py`. Paused: that file was already being edited.
+- [x] `/CodeReview/` and `/Logs/CodeReview/` in `2 - RootRecord-Database/.gitignore`.
+- [x] Smoke test under `/tmp/rr-mig-34` (2026-09-30 01:06 HST).
+- [x] Phase 4 archive and GitHub file deletion.
+- [x] Result note, and the two Library rows named in task 8.
 
 ### 2.3 Known friction
 
@@ -119,16 +119,16 @@ Do these only after Alexander accepts this draft and says to build. Until then, 
 
 | Path | Role |
 |------|------|
-| `1 - Servers/1 - RootRecord-Pacific-Solar-Server/CodeReview/scripts` | Code. Not created in this draft. |
+| `1 - Servers/1 - RootRecord-Pacific-Solar-Server/CodeReview/scripts` | Code. Landed. |
 | `1 - Servers/1 - RootRecord-Pacific-Solar-Server/CodeReview/scripts/code_review.py` | Evidence pack writer. Markdown only. |
 | `1 - Servers/1 - RootRecord-Pacific-Solar-Server/CodeReview/README.md` | Short folder note. |
 | `2 - RootRecord-Database/CodeReview/` | Packs (`CURRENT.md`, dated files). Gitignored on build. |
 | `2 - RootRecord-Database/Logs/CodeReview/` | Logs only. |
-| `2 - RootRecord-Database/.gitignore` | Add `/CodeReview/` during the build, if the file is free. |
+| `2 - RootRecord-Database/.gitignore` | `/CodeReview/` and `/Logs/CodeReview/` added. |
 | `/home/rootrecord/master/master-key.env` | Unchanged. No key name for this function. |
-| `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Automations/scripts/jobs.py` | Gated `code_review_pack` block only, during the build, if the file is free. |
+| `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Automations/scripts/jobs.py` | Left unchanged. The file was already being edited, so the gated block was not inserted. |
 | `/home/rootrecord/old ollama/old skills/code-review/` | Old source read for this draft. Phase 4 archive source. |
-| `Old repos deleted and merged/Solar-Pacific-RootRecord-Server/code-review/` | Phase 4 archive path. Not copied in this draft. |
+| `Old repos deleted and merged/Solar-Pacific-RootRecord-Server/code-review/` | Phase 4 archive. 24 files copied. |
 | `5 - RootRecord-Library/Documentation/00-architecture/Old-Repo-Migration-Matrix.md` | Row 67, after phase 4 only. |
 | `5 - RootRecord-Library/Documentation/00-architecture/G1-Scheduler-To-G3-Jobs-Map-2026-09-29.md` | `code-review` row, after phase 4 only. |
 
@@ -152,7 +152,8 @@ Do these only after Alexander accepts this draft and says to build. Until then, 
 - Secrets stay out of git. This function has no `master-key.env` key names.
 - Prefer small reversible steps.
 - Sign-off before any send, speaker playback, OBS, hardware switch, deletion of live Ecosystem files, model load, or cloud spend. Phase 4 deletion is limited to this function's old files, and only after they are in `Old repos deleted and merged`. Do not delete the GitHub repository.
-- Small test, to run on the accepted build: `python3` `CodeReview/scripts/code_review.py` with output rooted at `/tmp/rr-mig-34`. Pass is exit 0, a `CURRENT.md` plus one dated file, a coder section that says off, and no inference process. The live Database path stays unwritten by that test.
+- Small test, 2026-09-30 01:06 HST: `python3` `CodeReview/scripts/code_review.py --root /tmp/rr-mig-34` exited 0. Wrote `CURRENT.md` and `2026-09-30-0106.md`. Coder line `_Coder off._`. Log line `coder=off`. Live `2 - RootRecord-Database/CodeReview/` was not created.
+- Result note (2026-09-30 01:15 HST): Landed `CodeReview/` (`scripts/code_review.py`, `README.md`, package `CodeReview`). Packs and the run log are gitignored. `jobs.py` was already modified, so the gated `code_review_pack` block was not inserted. `RR_CODE_REVIEW` and `RR_CODE_REVIEW_CODER` stay unset. Archived 24 files at `Old repos deleted and merged/Solar-Pacific-RootRecord-Server/code-review/`. Removed the six tracked files from `old ollama/old skills` and from GitHub `Solar-Pacific-RootRecord-Server` branch `online-safe-20260920` commit `8e6be6f2`. `store/` was gitignored, so it is in the archive and was not a GitHub file. Left `github-history` snapshots, `apps.core`, and `~/.ollama/skills`.
 
 ---
 

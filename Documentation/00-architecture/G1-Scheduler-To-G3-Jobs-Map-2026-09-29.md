@@ -38,13 +38,13 @@ States: **LIVE** = enabled in G3 now · **GATED** = in jobs.py, OFF until its fl
 | daily-reports-catchup | 14:00 | `Reports/scripts/report_board.py run-due` | PROPOSED `RR_REPORT_BOARD` (text only; play BLOCKED) |
 | late-report / late-final-report | 21:00 / 23:30 | `voice_late_report` 21:02 / `voice_late_final_report` 23:30 | GATED `RR_VOICE_ROLLUPS` / `RR_VOICE_LATE_FINAL` (23:30 is a text-only second chance for the same late slot; skips if that slot is done) |
 | merged-morning-summary | 10:20 | covered by `voice_morning_report` | GATED |
-| cursor-fallback | 10:22 16:22 | — | BLOCKED (cloud spend / keys) |
+| cursor-fallback | 10:22 16:22 | `System/ApiPrices/scripts/job.py cursor-drain` | GATED `enabled: False` (WO-MIG-35). No agent unless `RR_API_SPEND=1`. No report write. |
 | governance-daily | 10:23 | — | OUT (Library content) |
-| api-prices | 10:25 | — | BLOCKED (keys / spend) |
-| code-review | 11:20 17:20 | — | BLOCKED (LLM model load) |
+| api-prices | 10:25 | `System/ApiPrices/scripts/job.py refresh` | GATED `enabled: False` (WO-MIG-35). No HTTP unless `RR_API_PRICES=1`. |
+| code-review | 11:20 17:20 | `CodeReview/scripts/code_review.py` on demand | WO-MIG-34. Evidence only. `RR_CODE_REVIEW_CODER` unset. Gated `code_review_pack` not in jobs.py (file already being edited). Old clock not restored. |
 | economy-brief | 15:00 | `Reports/Economy-Brief/scripts/economy_brief.py` on demand | PROPOSED `RR_ECONOMY_BRIEF` (not in jobs.py). Discord send not signed off. |
 | adsense-eod / admob-eod | 21:00 / 21:05 | `adsense_eod` / `admob_eod` | GATED `RR_ADSENSE` / `RR_ADMOB` (WO-MIG-38). No key writes `not_configured` and does not call Google |
-| overnight-relay | 22:20 | — | BLOCKED (D1 + DMs) |
+| overnight-relay | 22:20 | `Communications/Inbox/scripts/inbox.py overnight` | GATED `RR_OVERNIGHT_RELAY` (WO-MIG-31). File write only. No Discord post. |
 | minecraft-live | every 10 min | — | OUT (RootMC) |
 | hurricane-fetch | 05/09/12/16/20 :40 | `weather_poller` (`Weather/hurricanes/`, NHC CurrentStorms) | LIVE; JTWC/RAMMB global board not in G3 (source decision) |
 | hurricane-desk / hurricane-desk-evening | 05/09/12/20 :50, 16:55 | `voice_hurricane_desk` | GATED `RR_VOICE_HURRICANE` |
@@ -60,7 +60,7 @@ States: **LIVE** = enabled in G3 now · **GATED** = in jobs.py, OFF until its fl
 | log-cleanup | 04:20 | — | BLOCKED (deletes files) |
 | user-qrcodes / account-import | every 6 h | — | OUT (identity; personal data) |
 | d1-sync | every 6 h | — | BLOCKED (D1 credentials) |
-| inbox-drain | every 5 min | — | BLOCKED (D1 + DMs) |
+| inbox-drain | every 5 min | `inbox_drain` 300 s | GATED `RR_INBOX_DRAIN` (WO-MIG-31). Local copy of Relay-Inbox. No D1. No send. |
 | stripe-poll | 30 min | `stripe_poll` 1800 s | GATED `RR_STRIPE` (WO-MIG-10). No key writes `not_configured` and does not call Stripe |
 | ltc-pending | 30 min | — | OUT (payments; not WO-MIG-10) |
 | vercel-builds | 5 min | `vercel_builds` 300 s | GATED `RR_VERCEL_BUILDS` (WO-MIG-10). No token writes nothing and does not call Vercel |
@@ -69,4 +69,4 @@ Counts over the 64 ids: every id is accounted for above (grouped rows cover seve
 
 G1 extras not in the table: `AVA_CRON_WAVE` clone guard and night-sleep gating (`Ecoflow/state/night-mode.json sleeping` skipped jobs). G3 night-sleep gate is armed on the live poller as of 2026-09-30 00:02 HST (`RR_NIGHT_SLEEP=1` in `run-poller.sh`, WO-MIG-01). There is no `night-mode.json`, so jobs are not skipped.
 
-*Created 2026-09-29 ~14:35 HST (old-repo migration, breadth pass 2). 2026-09-30 WO-MIG-10: stripe-poll and vercel-builds rows now match the gated jobs. ltc-pending stays OUT.*
+*Created 2026-09-29 ~14:35 HST (old-repo migration, breadth pass 2). 2026-09-30 WO-MIG-10: stripe-poll and vercel-builds rows now match the gated jobs. ltc-pending stays OUT. 2026-09-30 WO-MIG-31: inbox-drain and overnight-relay are gated file writers. The Cloudflare drain stays paused.*

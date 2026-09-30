@@ -4,7 +4,7 @@
 | --- | --- |
 | **Work Order ID** | WO-MIG-31-2026-09-29 |
 | **Date** | 2026-09-30 (HST) |
-| **Status** | OPEN — draft, not accepted for execution |
+| **Status** | BUILT — local inbox landed 2026-09-30. Cloudflare drain paused (D1 sync has no Folder). Not promoted to the active index. |
 | **Owner** | RootRecord |
 | **Related** | Agent 31, wave D. One send pipe, then the messages. No later function depends on this one. Cloudflare drain waits on agent 30 (D1 sync). Matrix row 63. Scheduler map rows `inbox-drain` and `overnight-relay`. |
 
@@ -42,12 +42,12 @@ Folder name, used in all three places: `Inbox` (inside Communications). No lower
 
 - [x] Old `inbox.py`, `offline_inbox.py`, `job.py` (drain and overnight), `reply_feedback.py`, and `feedback_store.py` read. Live `council-relay.py` hold and `relay-inbox-replay.py` read.
 - [x] This draft written. Not on the active work-order index.
-- [ ] Alexander has not accepted this draft for execution.
-- [ ] D1 sync has no Folder. The Cloudflare half stays paused.
-- [ ] `Inbox` code, Database files, and Logs directory not created.
-- [ ] `jobs.py` gated blocks not added.
-- [ ] Temp-dir proof test not run.
-- [ ] Phase 4 archive and GitHub file deletion not done. Phase 5 result note not written. Matrix row 63 and the scheduler map rows not corrected.
+- [x] Alexander accepted this draft and said to build.
+- [x] D1 sync has no Folder. The Cloudflare half stayed paused. D1 sync was not built.
+- [x] `Inbox` code, Database READMEs, and Logs README created. Message-text files stay git-ignored.
+- [x] `jobs.py` gated blocks added, both default off.
+- [x] Temp-dir proof test passed (subscribe, drain, overnight fixture, replay `--send` exit 3).
+- [x] Phase 4 archive and GitHub deletion done. Phase 5 result note written. Matrix row 63 and the scheduler map rows corrected.
 
 ### 2.3 Known friction
 
@@ -161,4 +161,8 @@ Human session logs archive under `Documentation/01-operations/archive/YYYY-Www/`
 
 ### Phase 4 / phase 5 result
 
-Not written. Fill this subsection after the build works, the archive copy is on disk, and the old-repo deletion is pushed.
+Landed 2026-09-30: `Communications/Inbox/scripts/inbox.py` reads the quiet-mode hold and writes local files only. Jobs `inbox_drain` (`RR_INBOX_DRAIN`, 300s) and `overnight_relay` (`RR_OVERNIGHT_RELAY`, 22:20 HST) are in `jobs.py` and default off. Proof on `/tmp/rr-inbox-mig31.*`: one subscriber, one feedback line, overnight file contained `fixture`, `relay-inbox-replay.py --send` exited 3 with `RR_RELAY_REPLIES` unset. Temp dir removed. Live Relay-Inbox was not read. No send, no relay restart, no Cloudflare call.
+
+Cloudflare `SELECT` / `DELETE` and the `ava_ecoflow` clear did not run. **D1 sync** has no Folder. That function was not built.
+
+Archive: `/home/rootrecord/RootRecord-Ecosystem/Old repos deleted and merged/Solar-Pacific-RootRecord-Server/` paths `inbox/`, `inbox-drain/`, `overnight-relay/`, `reply-feedback/` (31 files, copy matched before delete). GitHub `rootrecordsoftwaresolutions/Solar-Pacific-RootRecord-Server` branch `online-safe-20260920` commit `7763b4e8` deleted the 22 tracked files. `reply-feedback/store/` was gitignored; it was archived and removed on this machine only. No shared file inside those four trees was left behind. `apps.core` was not part of these trees and was not deleted. The GitHub repository was not deleted. No force-push.

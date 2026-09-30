@@ -30,7 +30,7 @@
 | --- | --- | --- |
 | account-import | Review | Business ops skill |
 | advertising | Product | AdMob / AdSense EOD |
-| api | G3-optional | api-prices, ai-external-api (xai, cursor) |
+| api | Pacific `System/ApiPrices` | WO-MIG-35. Price catalog plus xAI and Cursor clients. Spend off. |
 | boot | Library / Retire | boot-idle-origin, boot-prelims — historical |
 | clients | Pacific `Products/scripts/Clients/` | Gig index only. nibble.love theme is in `Archive/Website-Themes/`. Public page paused. |
 | cloudflare-workers | G3-optional | Edge workers ≠ poller cloudflared binary |

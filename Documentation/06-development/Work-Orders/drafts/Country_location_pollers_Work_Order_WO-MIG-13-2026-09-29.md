@@ -149,6 +149,7 @@ Do these only after Alexander accepts this draft and says to build. Until then, 
 - Result note (2026-09-30 00:08 HST): Landed `Weather/CountryLocations/` with an empty allowlist and disabled job `country_location_pollers`. Empty run: exit 0, `http_calls` 0. Archived 612 files at `Old repos deleted and merged/old/operations/locations/`. Removed those files on GitHub `rootrecordsoftwaresolutions/old` commit `fe6661a` (default branch `cursor/radio-idle-obs-gates`). `main` already had no poller at its tip. `config/locations/global-locations.json` was left. The repository was not deleted.
 - Recheck (2026-09-30 00:39 HST): website checkout, US-States, and state/global news are now on disk. No country or city page, so the allowlist stayed `[]`. Second empty run: exit 0, `http_calls` 0. `Weather/README.md` now names this subfolder beside `US-States`.
 - Recheck (2026-09-30 00:52 HST): new pages `/data`, `/data/weather` (Hawaiʻi report), `/data/power`, and `/data/kilauea` are not country routes. Allowlist stayed `[]`. Job stayed `enabled: False`. Archive still 306 `poller.py` and 306 `location.json`.
+- Page `/locations` added 2026-09-30 01:13 HST. One current fetch at 01:07 HST wrote 229 non-US rows to `locations-last.json`. A later run inside 55 minutes does not call Open-Meteo. The job stays off.
 
 ---
 
