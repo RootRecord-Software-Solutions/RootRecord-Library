@@ -26,7 +26,7 @@ The line under the title is the one to read first. On the night this picture was
 
 The rest of the Energy page is watts and the latest status line the poller wrote. Numbers move. The names do not.
 
-The full page-by-page tour, with a picture of every screen, is the [operator's handbook](../Root-Monitor-Operators-Handbook/Root-Monitor-Operators-Handbook.md).
+The full page-by-page tour, with a picture of every screen, is the [operator's handbook](../Root-Monitor-Operators-Handbook/Root-Monitor-Operators-Handbook.md). The folder that holds the readings and logs is Database; [how those logs and reports are kept](../Database-Logs-and-Reports-Maintenance.md) is a separate handbook.
 
 ## Three things that look like buttons and are not yours yet
 
