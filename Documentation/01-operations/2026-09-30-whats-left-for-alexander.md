@@ -13,8 +13,7 @@ The 40-agent pass across ecosystem, pacific, database, and library held. The des
 | Surface | State |
 | --- | --- |
 | Poller | `rr-rootserver-poller.service` active, Pacific `Automations/` |
-| Tunnel | `https://rootserver.rootrecord.cloud` HTTP 200 |
-| Local site | `3 - RootRecord-Website` on `:3001`, HTTP 200 |
+| Tunnel | `https://rootserver.rootrecord.cloud` HTTP 200. That hostname is the poller on `:8799`, not a website |
 | River 2 Pro | BLE live. About 35% SOC at 01:22, discharging, solar 0 W (night) |
 | Delta 2 | Dead. It does not transmit. `WAITING` and the 00:53 snapshot at 1% SOC are normal |
 | Cameras | ch1–ch4 grabbing. ch4 is a small night frame |
