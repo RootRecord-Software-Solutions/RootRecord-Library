@@ -192,7 +192,7 @@ Read-only comparison of the G1 `scheduler-clock` `add_job` calls against G3 `job
 | Coverage | **PASS** | All 64 unique G1 job ids (73 `add_job` calls) are mapped to LIVE / GATED / PROPOSED / ON DEMAND / BLOCKED / OUT. |
 
 **Check later**
-- [ ] G3 has no night-sleep gate. G1 skipped Ava jobs while `night-mode.json` said `sleeping`.
+- [x] G3 night-sleep gate landed 2026-09-29 (`System/NightSleep`, WO-MIG-01). Default off. `--check` PASS 23:59 HST: `weather_poller` runs and `voice_late_report` skips while `sleeping` is true; both run when the file is absent. Live poller not restarted. `RR_NIGHT_SLEEP=1` still needs sign-off.
 - [ ] The G1 23:30 late-final report was not re-added.
 
 ## Reviewed, still BLOCKED / OUT

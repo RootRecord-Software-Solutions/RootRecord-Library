@@ -65,6 +65,6 @@ States: **LIVE** = enabled in G3 now · **GATED** = in jobs.py, OFF until its fl
 
 Counts over the 64 ids: every id is accounted for above (grouped rows cover several ids). Nothing in G1's scheduler lacks a G3 decision; the remaining gaps are the BLOCKED / OUT rows.
 
-G1 extras not in the table: `AVA_CRON_WAVE` clone guard and night-sleep gating (`Ecoflow/state/night-mode.json sleeping` skipped jobs). G3 has no night-sleep gate; the poller runs every enabled job around the clock. Check later: is a night-sleep gate wanted?
+G1 extras not in the table: `AVA_CRON_WAVE` clone guard and night-sleep gating (`Ecoflow/state/night-mode.json sleeping` skipped jobs). G3 night-sleep gate landed 2026-09-29 in `System/NightSleep` (WO-MIG-01). It is default off (`RR_NIGHT_SLEEP` unset). With the gate off, the poller still runs every enabled job around the clock. Turning it on needs sign-off. The 23:30 late-final report is still not re-added.
 
 *Created 2026-09-29 ~14:35 HST (old-repo migration, breadth pass 2). Read-only; no job changed.*
