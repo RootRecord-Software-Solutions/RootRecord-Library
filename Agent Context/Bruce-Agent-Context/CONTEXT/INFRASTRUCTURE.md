@@ -3,7 +3,8 @@
 ## RootRecord Pacific Solar Server
 Primary operational environment (Hawaiʻi desk).
 
-**GitHub:** `RootRecord-Software-Solutions/RootRecord-Pacific-Solar-Server`  
+**Git root for this path:** `RootRecord-Software-Solutions/RootRecord-Ecosystem` (`/home/rootrecord/RootRecord-Ecosystem`). This directory is not its own clone.  
+**Domain repository:** `RootRecord-Software-Solutions/RootRecord-Pacific-Solar-Server`  
 **Live local path:**
 
 ```text

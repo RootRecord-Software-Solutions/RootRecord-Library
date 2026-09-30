@@ -4,10 +4,10 @@
 | --- | --- |
 | **Work Order ID** | WO-MAP-2026-09-27 |
 | **Date** | 2026-09-27 (HST) |
-| **Status** | OPEN — Unblocked for Pacific name; write map when ready |
+| **Status** | COMPLETE — signed off 2026-09-29 ~21:41 HST. Short map and Library ownership note are in place. |
 | **Owner** | RootRecord |
 | **Related** | WO-ECO; WO-SRV; `0 - Master-Prompt/prompts/08-repository-and-file-links.md` |
-| **Updated** | 2026-09-28 (HST) |
+| **Updated** | 2026-09-29 (HST) |
 
 **Scope:** Add a short canonical ownership contract to the Master-Prompt boot path so agents answer *where does this go?* without loading full Library history. Do not paste the entire ecosystem tree into boot prompts.
 
@@ -38,8 +38,10 @@ Master-Prompt is the first thing agents load. Library holds deep *why* and histo
 - [x] Dual-layer principle agreed (Master-Prompt = where; Library = why/history)
 - [x] Working draft boundaries in WO-ECO
 - [x] Pacific server name + org + live path confirmed (WO-SRV)
-- [ ] Expand `08-repository-and-file-links.md`
-- [ ] Optional deep doc in Library architecture
+- [x] Expand `08-repository-and-file-links.md` (ownership contract, 2026-09-29)
+- [x] Optional deep doc: `Documentation/00-architecture/Repository-Ownership-Model.md`
+- [x] `prompts.yaml` already loads `08-repository-and-file-links.md` as required
+- [x] One-line link added from Ava, Bruce, and Carly `CONTEXT/REPOS.md`
 
 ### 2.3 Known friction
 

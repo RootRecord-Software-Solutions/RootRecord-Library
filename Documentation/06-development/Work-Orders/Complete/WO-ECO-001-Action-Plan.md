@@ -2,9 +2,9 @@
 
 | Field | Value |
 |-------|--------|
-| **Parent WO** | [WO-ECO-001](WO-ECO-001-Energy-Domain-Import.md) |
+| **Parent WO** | [WO-ECO-001](../WO-ECO-001-Energy-Domain-Import.md) |
 | **Phase** | 1 of N |
-| **Status** | **COMPLETE (LIVE + soak)** — 2026-09-28 ~16:40 HST |
+| **Status** | **COMPLETE** — signed off 2026-09-29 ~21:30 HST (live reads) and archived 21:41 HST. Phase 2 stays on the parent order. |
 | **Target repo** | `RootRecord-Software-Solutions/RootRecord-Pacific-Solar-Server` |
 
 ## Acceptance (all met)
@@ -34,6 +34,17 @@
 - Symlink `energy` → `Energy` on each checkout
 - Phase 2: actions/, hybrid, org lib commit optional
 
+## Re-verification — 2026-09-29 ~21:30 HST
+
+Alexander sign-off for Phase 1 reads only. Tested on the live desk:
+
+- Poller PID 105444, Pacific `rootserver_poller.py`, up since 03:13 HST.
+- `delta2-last.json` age about 5 min, `soc` 7.0, `source` api.
+- `river2pro-last.json` age about 2 min, `soc` 100.0, `source` api.
+- Jobs call `Energy/` directly. The old `energy` → `Energy` symlink is absent and is not required by current `jobs.py`.
+
+Phase 2 (actuating actions, hybrid reports) stays open on the parent work order. This phase plan is archived because its own acceptance list is met.
+
 ## Next
 
-**WO-SRV** — System domain (sys-stats) import.
+**WO-SRV** — System domain (sys-stats) import. Parent phase 2 remains open.

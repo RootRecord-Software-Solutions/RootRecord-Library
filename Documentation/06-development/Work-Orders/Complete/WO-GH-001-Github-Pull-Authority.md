@@ -3,7 +3,7 @@
 | Field | Value |
 |-------|--------|
 | **Priority** | P2 |
-| **Status** | Draft |
+| **Status** | **COMPLETE** — Option B, Alexander, 2026-09-29 ~22:00 HST. Pacific `github_sync_all` is the only automatic pull. |
 | **Target** | Policy between Core-Processor auto-pull and Pacific `Github/` |
 | **Depends on** | Private-Repos-Feature-Map § Core-Processor; operator preference |
 | **Related** | Migration priority P2 System/Github pull timer |
@@ -33,12 +33,22 @@ Decide and document **one authority** for automatic repository pulls so Pacific 
 - Force-push / rewrite history automation
 - CI/CD beyond pull-to-disk
 
+## Decision
+
+**Option B — Pacific owns automatic pull.** Operator: Alexander. Date: 2026-09-29.
+
+| Path | Role |
+| --- | --- |
+| `github_sync_all` every 5 s | Automatic authority. Enabled rows: `ecosystem`, `skills`. |
+| Core-Processor timer | Not present. User timers on this desk at 21:58 HST were firmware-notifier, launchpadlib-cache-clean, and ubuntu-insights only. |
+| `Pull.sh` / `Push.sh` | Manual scripts. Headers say they are not timers. They are not scheduled. |
+
 ## Acceptance criteria
 
-1. Single written authority choice (A/B/C) with date and operator name
-2. Non-authority path disabled or clearly marked inactive
-3. Agent context / REPOS docs updated so agents do not suggest dual timers
-4. No surprise pulls after the decision for at least one observed cycle window
+1. [x] Single written authority choice (B) with date and operator name
+2. [x] Non-authority path marked inactive as a timer (`Pull.sh`, `Push.sh` headers). No Core-Processor unit to disable.
+3. [x] Ava, Bruce, and Carly `CONTEXT/REPOS.md` say not to suggest a second pull timer. Pacific `Github/README.md` states the same.
+4. [x] One observed cycle after this decision: 2026-09-29 22:01:03 HST. `github_sync_all` committed and pushed `ecosystem`, fetched `skills`, and no new file appeared under `Logs/Github/Manual/`.
 
 ## Risks
 
@@ -55,4 +65,4 @@ Default recommendation if operator is undecided: **Option A** until Pacific Ener
 - **Automated:** Pacific `github_sync_all` (`Github/scripts/sync-all.sh` → `push-repo-once.sh`, `interval_sec=5`) fetches, merges and pushes pacific, database, library and skills.
 - **Manual:** `/home/rootrecord/RootRecord-Ecosystem/Pull.sh` ("RootRecord Ecosystem Smart Pull") fetches and merges Pacific, Database and Library, logging to `2 - RootRecord-Database/Logs/Github/Manual/` (latest `pull-20260928-232443.log`). A matching manual `Push.sh` logs `push-*.log` there too.
 - Both act on the same three checkouts, so the manual run is a second pull authority competing with the 5 s auto-sync. No Core-Processor pull timer or unit was found on the desk (2026-09-29 check of systemd user and system unit files and timers), so today the conflict is Pacific auto-sync vs manual Smart Pull, not Core-Processor.
-- Open: pick the authority (options above) and mark the other path inactive. No script was changed.
+- Resolved 2026-09-29: Option B. The 21:57:31 HST cycle fetched and pushed `ecosystem` and fetched `skills` with no second puller in that window.

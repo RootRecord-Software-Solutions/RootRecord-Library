@@ -4,6 +4,8 @@ Single entry point for agents and operators working the Pacific server cutover *
 
 **Authority:** [RootRecord-Software-Solutions](https://github.com/RootRecord-Software-Solutions) — Library, Pacific, Database.
 
+**Desk git root (2026-09-29):** this checkout is one repository, [RootRecord-Ecosystem](https://github.com/RootRecord-Software-Solutions/RootRecord-Ecosystem). Library, Pacific, and Database here are directories in that tree. Older notes in this index that assume three nested clones describe the migration as it stood, not the current desk.
+
 **Team constitution (standing):** [Local-Multi-Agent-Team-and-Migration-to-Build-2026-09-28.md](./Local-Multi-Agent-Team-and-Migration-to-Build-2026-09-28.md) — Ava → Carly → Bruce; small local models; migrate then build.
 
 ---

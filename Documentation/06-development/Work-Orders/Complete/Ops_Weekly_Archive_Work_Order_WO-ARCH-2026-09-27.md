@@ -4,7 +4,7 @@
 | --- | --- |
 | **Work Order ID** | WO-ARCH-2026-09-27 |
 | **Date** | 2026-09-27 (HST) |
-| **Status** | OPEN — Spec ready; **implementation owned by WO-RPT-001 Phase D** |
+| **Status** | **COMPLETE** — signed off 2026-09-29 ~21:49 HST. First week `2026-W40`, cutoff `2026-09-28` (Monday of the current HST week). Moved 5 logs dated 2026-09-26 and 2026-09-27 into `Documentation/01-operations/archive/2026-W40/`. Seven current-week logs stayed active. |
 | **Owner** | RootRecord |
 | **Related** | `Documentation/01-operations/templates/README.md`; [WO-RPT-001](./WO-RPT-001-Reports-Worklog-Domain-Import.md); [Complete/](./Complete/) |
 
@@ -41,9 +41,9 @@ Operator logs will grow daily. Templates and naming are standing. Archive weekly
 - [x] Archive rules written in templates README
 - [x] Linked to WO-RPT-001 Phase D
 - [x] `Work-Orders/Complete/` standing home for closed WOs
-- [ ] Create `01-operations/archive/` folder structure
-- [ ] Automation or scripted weekly job for **logs**
-- [ ] First successful log-archive week
+- [x] Create `01-operations/archive/` folder structure (`archive/2026-W40/`, 2026-09-29)
+- [x] Automation or scripted weekly job for **logs** (`reports_weekly_archive` at 19:00 HST)
+- [x] First successful log-archive week (2026-09-29: 5 files, cutoff 2026-09-28)
 
 ### 2.3 Known friction
 

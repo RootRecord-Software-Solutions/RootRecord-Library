@@ -3,7 +3,7 @@
 | Field | Value |
 |-------|--------|
 | **Priority** | P0 |
-| **Status** | Draft — blocked on WO-ECO-001 (and later domain imports) |
+| **Status** | Draft — path check 2026-09-29 22:24 HST: `jobs.py` has no `~/.ollama/skills/` job path, and all 30 script paths in that file exist on disk. Not closed. The old→new session log is not assembled, and this draft is not the place to edit `jobs.py`. Energy actuation stays on WO-ECO-001. |
 | **Target** | `RootRecord-Pacific-Solar-Server/Automations/scripts/jobs.py` |
 | **Depends on** | Energy source first; then Geology/Weather/Github as imported |
 | **Related** | Pacific-Jobs-Path-Inventory; Private-Repos-Feature-Map |

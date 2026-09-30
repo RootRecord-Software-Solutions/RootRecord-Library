@@ -38,6 +38,7 @@ It gives operators and agents a durable place to find the same architecture, con
 
 | Repository | Role |
 | --- | --- |
+| **[RootRecord-Ecosystem](https://github.com/RootRecord-Software-Solutions/RootRecord-Ecosystem)** | Public umbrella and this desk's git root |
 | **[RootRecord-Library](https://github.com/RootRecord-Software-Solutions/RootRecord-Library)** | Durable docs, agent context & work orders |
 | **[RootRecord-Pacific-Solar-Server](https://github.com/RootRecord-Software-Solutions/RootRecord-Pacific-Solar-Server)** | Primary Pacific runtime |
 | **[RootRecord-Database](https://github.com/RootRecord-Software-Solutions/RootRecord-Database)** | Data, media & log layout |
@@ -114,7 +115,7 @@ G2 → G3 migration: the Pacific runtime is on the new Database root (`2 - RootR
 
 ## 🔄 How the ecosystem stays in sync
 
-The Library is authored on the Solar Pacific desk and published through the RootRecord Git synchronization workflow.
+The Library is authored on the Solar Pacific desk. This desk publishes through the umbrella `ecosystem` sync row. The Library directory in this checkout is not its own git repository.
 
 ```text
 Desk edit
@@ -152,6 +153,7 @@ GitHub commits therefore act as durable checkpoints between sessions. **A pushed
 | Resource | Link |
 | --- | --- |
 | GitHub organization | https://github.com/RootRecord-Software-Solutions |
+| Public umbrella | https://github.com/RootRecord-Software-Solutions/RootRecord-Ecosystem |
 | Pacific runtime | https://github.com/RootRecord-Software-Solutions/RootRecord-Pacific-Solar-Server |
 | Database | https://github.com/RootRecord-Software-Solutions/RootRecord-Database |
 | Work orders | [Documentation/06-development/Work-Orders/](./Documentation/06-development/Work-Orders/) |

@@ -4,7 +4,7 @@
 | --- | --- |
 | **Work Order ID** | WO-OLD-2026-09-28 |
 | **Date** | 2026-09-28 (HST) |
-| **Status** | OPEN — Blocked until G2 residual domains land in G3 |
+| **Status** | OPEN — G3 is running the live jobs. The first new G1 packet is still not recovered. G2 code stays until Alexander signs off retirement. |
 | **Owner** | RootRecord |
 | **Related** | WO-SRV; WO-ECO; Migration lineage + Old inventory maps |
 
@@ -23,7 +23,7 @@ G1 (`rootrecordsoftwaresolutions/Solar-Pacific-RootRecord-Server-Old`) holds tho
 | Item | Status |
 | --- | --- |
 | G3 live | Confirmed (poller on Ecosystem Servers path) |
-| G2 residual jobs | energy, a-eyes, github, plumbing, telegram, system-stats, reports |
+| G2 residual jobs | Pacific now runs energy reads, cameras, GitHub sync, plumbing, the Telegram relay, system sampling, reports, the globe, and the weather poller. G2 code stays on disk until Alexander signs off retirement. Energy actuation and timelapse compile are still open on WO-SRV. |
 | G1 inventory | Library `Solar-Pacific-Old-Inventory-Map-2026-09-28.md` |
 | G1 path count | ~7286 (largest: `origin/` ~4k) |
 

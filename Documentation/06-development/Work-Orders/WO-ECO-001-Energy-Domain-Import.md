@@ -3,9 +3,9 @@
 | Field | Value |
 |-------|--------|
 | **Priority** | P0 |
-| **Status** | **Phase 1 COMPLETE / LIVE** — soak confirmed 2026-09-28 ~16:39–16:40 HST |
+| **Status** | **IN PROGRESS** — Phase 1 reads signed off and archived 2026-09-29 ~21:41 HST. Phase 2 actuating actions remain open. |
 | **Target repo** | `RootRecord-Software-Solutions/RootRecord-Pacific-Solar-Server` (`Energy/`) |
-| **Action plan** | [WO-ECO-001-Action-Plan.md](WO-ECO-001-Action-Plan.md) |
+| **Action plan** | [WO-ECO-001-Action-Plan.md](Complete/WO-ECO-001-Action-Plan.md) |
 
 ## Phase 1 — done
 

@@ -3,8 +3,8 @@
 | Field | Value |
 | --- | --- |
 | **Work Order ID** | WO-SRV-2026-09-27 |
-| **Status** | **IN PROGRESS** — G3 PASS: poller on canonical root, network globe, BLE owner, cam server, frame grab, System sampling, Reports worklog, Plumbing non-NPU, read-only `solar-gate-status`, Telegram relay login/polling. Open: Telegram replies BLOCKED (models), Energy actuating actions + timelapse VERIFY PENDING, NPU BLOCKED, poller §5 gate. G2 code KEPT (retire only with Alexander sign-off) |
-| **Updated** | 2026-09-29 ~01:37 HST — status + open findings refresh; G2 retirements reverted; residual path survey |
+| **Status** | **IN PROGRESS** — G3 PASS: poller on canonical root, network globe, BLE owner, cam server, frame grab, System sampling, Reports worklog, Plumbing non-NPU, read-only `solar-gate-status`, Telegram relay login/polling, NPU `llama3.2:1b` on demand. Open: Telegram replies off until sign-off (quiet mode; models were rebuilt), Energy actuating actions + timelapse VERIFY PENDING. G2 code KEPT (retire only with Alexander sign-off). Header corrected 2026-09-29 evening; earlier "NPU BLOCKED" / "models missing" notes below are historical. |
+| **Updated** | 2026-09-29 ~23:15 HST — EcoFlow BLE reads restored. `Energy/.venv` was missing again, so reads had been frozen on the cloud API since 19:49 HST; recreated from the G2 pin and tracked as `Energy/requirements.txt`. Manual reads 23:12 HST: Delta 2 `src=ble` soc 0.83%, River 2 Pro `src=ble` soc 67.03%. Poller, BLE owner, and globe already execute from the Ecosystem tree; no live process still runs an old-root executable. |
 
 **Policy:** Do not run the old desk as the poller host.
 
@@ -17,12 +17,12 @@
 | Item | Status |
 | --- | --- |
 | systemd ExecStart | Pacific `run-poller.sh` (quoted) |
-| Energy (reads + leapfrog + actions) | source LANDED / runtime VERIFY PENDING — folder **`Energy/` only**; `ECOFLOW_ACTIONS` → `Energy/scripts/actions` |
-| System | source LANDED / runtime VERIFY PENDING — folder **`System/` only** |
-| Plumbing (ollama + FLM warmup) | source LANDED / runtime VERIFY PENDING — under **`System/scripts/plumbing/`** |
-| Reports (worklog + roll-up + archive) | source LANDED / runtime VERIFY PENDING — folder **`Reports/` only** (WO-RPT-001 foundation) |
-| Github (setup-remotes + sync-all) | source LANDED / runtime VERIFY PENDING — folder **`Github/` only** |
-| Communications/network (cloudflare + globe command) | source LANDED / runtime VERIFY PENDING — command + cwd now Pacific |
+| Energy (reads + leapfrog + actions) | Reads **PASS** 2026-09-29 22:10 HST (`SUMMARY=` from `src=api`, B2 7%, B1 100%). Actuating actions still pending. Folder **`Energy/` only**. |
+| System | source LANDED / runtime **PASS** 2026-09-29 22:13 HST. `sys_stats_cycle` wrote `2 - RootRecord-Database/System/samples/sys-20260929-221323.json`. |
+| Plumbing (ollama + FLM warmup) | source LANDED / runtime **PASS** — non-NPU 00:57 HST, NPU `llama3.2:1b` 02:52 HST, both under **`System/scripts/plumbing/`** |
+| Reports (worklog + roll-up + archive) | source LANDED / runtime **PASS** 2026-09-29 22:13 HST. Catch-up scan 22:11–22:13; the next scan was 22:13:36–22:13:37. Roll-up and weekly archive are closed under WO-RPT-001. |
+| Github (setup-remotes + sync-all) | source LANDED / runtime **PASS** 2026-09-29 22:01 HST. Automatic authority is `github_sync_all` (WO-GH-001). |
+| Communications/network (cloudflare + globe command) | source LANDED / runtime **PASS** 2026-09-29 22:13 HST. Globe process is Pacific `Communications/network/local-data-globe/collector.js`. Tunnel was HTTP 200 earlier tonight (WO-CF). |
 | Stack reload | Automated reload **does not** open status window (window-close was tearing down stack) |
 
 ## Residual G2 (from Pacific `jobs.py` 2026-09-28 ~21:10 HST)
@@ -31,8 +31,8 @@
 | --- | --- | --- |
 | Telegram / coms | `council_relay` | G3 surface + `System/scripts/plumbing/single-flight.sh` landed; runtime verification pending |
 | Security/Cameras (formerly A-Eyes) | cam server, frame grab, timelapse | G3 surface landed, including hourly wrapper; runtime verification pending |
-| Weather | `weather_poller` | Already **disabled** |
-| Network globe | cwd | source LANDED / runtime VERIFY PENDING — cwd now Pacific |
+| Weather | `weather_poller` | Enabled. Restarted 2026-09-29 22:04 HST after `Weather/.venv` was rebuilt. Geology and voice stay off. The 2026-09-28 “disabled” notes below are historical. |
+| Network globe | cwd | runtime **PASS** 2026-09-29 22:13 HST. Live process is Pacific `collector.js` (pid 744076). |
 
 ### Legacy `SKILL.md` preservation rule
 
@@ -316,7 +316,7 @@ After that, `flm_npu_warmup` picks it up at the next poller start; no restart is
 
 ## Weather hook-in + old-root archive — 2026-09-29 ~01:54 HST
 
-- Weather **PASS** (Pacific `Weather/`, venv `Weather/.venv`, job `weather_poller` enabled, data → canonical `WEATHER/Hawai'i/`; reports VERIFY PENDING). One poller restart 01:49 HST → PID 880218; relay 880530 and weather 880724 now under the poller unit. Old-root data archived to `2 - RootRecord-Database/Archive/Previous-Datasets/G2-old-root-20260929/` (4.5 GB, README only in git). `store.py` → canonical `ROOTRECORD/`; G2 pulls no longer arm a stack reload. Evidence: `2 - RootRecord-Database/Logs/Migration/g3-weather-archive-evidence-20260929T115429Z.md`.
+- Weather **PASS** (Pacific `Weather/`, venv `Weather/.venv`, job `weather_poller` enabled, data → canonical `Weather/Hawai'i/`). Reports written 2026-09-29 22:13 HST (county reports and manifest). Some NOAA products returned HTML error pages, HTTP 500, or 403; the poller stayed up. Venv rebuilt 22:04 HST after the interpreter was missing. One poller restart 01:49 HST → PID 880218; relay 880530 and weather 880724 now under the poller unit. Old-root data archived to `2 - RootRecord-Database/Archive/Previous-Datasets/G2-old-root-20260929/` (4.5 GB, README only in git). `store.py` → canonical `ROOTRECORD/`; G2 pulls no longer arm a stack reload. Evidence: `2 - RootRecord-Database/Logs/Migration/g3-weather-archive-evidence-20260929T115429Z.md`.
 
 ## Pre-reboot checkpoint 2026-09-29
 
@@ -383,8 +383,8 @@ Test records: [`Documentation/07-testing/`](../../07-testing/README.md). Databas
 | Database Title-case rename (one stack restart 03:09 HST) | PASS | Database `92bd69c`, Pacific `1368822`; docs `0b7be45` (Pacific), `7d2e79b` (Library), `66cbae7` (Database) — [record](../../07-testing/2026-09-29-database-titlecase-rename.md) |
 | OOM loop from resident FLM warmup (03:10–03:13 HST) | FAIL → fixed; fix PASS | `ff298b2` (non-resident warmup, `FLM_WARMUP_RESIDENT=1` opt-in), `3039c3f` (`--keepalive 0`); poller PID 105444 stable since 03:13:28 — [record](../../07-testing/2026-09-29-oom-flm-warmup-resident.md) |
 | EcoFlow data freshness (`Energy/.venv`) | PASS (battery levels flagged) | WO-SRV 03:20 entry; `Energy/soc/*-last.json` `source: ble` — [record](../../07-testing/2026-09-29-ecoflow-stale-data-energy-venv.md) |
-| Laptop battery B3 / `LAP=` | LANDED / VERIFY PENDING | `0ea16cd`; 0 `LAP=` lines at 03:38 HST (poller predates the commit) — [record](../../07-testing/2026-09-29-laptop-battery-b3-dashboard.md) |
-| NPU route `llama3.2:1b` on demand | PASS (route); own-session fix VERIFY PENDING | `753168e`, `7000197`; Library `e023b08`; Database `dc382a2` — [record](../../07-testing/2026-09-29-npu-llama3.2-1b-on-demand.md) |
+| Laptop battery B3 / `LAP=` | **PASS** 2026-09-29 22:10 HST | `LAP=46%/Discharging/batt` on the energy status line. The 03:38 gap was the pre-commit poller. — [record](../../07-testing/2026-09-29-laptop-battery-b3-dashboard.md) |
+| NPU route `llama3.2:1b` on demand | **PASS** (route and own-session, 22:16 HST) | `753168e`, `7000197`; exit 0 and server stopped — [record](../../07-testing/2026-09-29-npu-llama3.2-1b-on-demand.md) |
 | Telegram relay | login/polling PASS; replies BLOCKED (models); quiet mode default | `ebc32a7`, `b3754fb` |
 | G2 legacy files | KEPT (retire only with Alexander sign-off) | skills `1dcee66` |
 
@@ -393,7 +393,7 @@ Test records: [`Documentation/07-testing/`](../../07-testing/README.md). Databas
 2. `ava-/bruce-/carly-telegram` models missing — relay replies **BLOCKED**. Relay quiet mode is the default (`RR_RELAY_REPLIES=0`) until Alexander opts in. Caveat: in quiet mode incoming messages are consumed (marked read) and will **not** be answered later.
 3. Security timelapse check after 05:00 HST — **VERIFY PENDING**.
 4. Energy arm/disarm and AC hardware tests — **VERIFY PENDING** (need Alexander's approval).
-5. B1 (River 2 Pro) physical check; both batteries low (03:39 HST BLE: B2 47.56%, B1 5.23%) — **VERIFY PENDING**.
+5. B1 (River 2 Pro) physical check — **VERIFY PENDING**. API at 22:10 HST: B1 100%, B2 (Delta 2) 7%, laptop 46% and discharging. The 03:39 BLE snapshot (B1 5.23%, B2 47.56%) is historical.
 6. Weather retention policy — **PROPOSED** (Pacific `Weather/README.md` §Retention, awaiting sign-off).
 7. Whether `Weather/` gets its own repo (RootRecord-Weather-Database) — **PROPOSED** / needs decision; weather data is local only.
 8. Weather and relay start only at poller boot (ON_BOOT); no mid-session auto-recovery — open design item.

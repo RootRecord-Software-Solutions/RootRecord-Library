@@ -4,7 +4,7 @@
 | --- | --- |
 | **Work Order ID** | WO-AGENT-2026-09-27 |
 | **Date** | 2026-09-27 (HST) |
-| **Status** | OPEN — Investigate before consolidate |
+| **Status** | **COMPLETE** — signed off 2026-09-29 ~21:56 HST. Canonical home is Library `Agent Context/`. `Documentation/02-agents/` stays an index. Placeholder folders were not deleted. Personal `AvaIvy` and `CarlyMal` remotes stay separate. |
 | **Owner** | RootRecord |
 | **Related** | Session 01 worklog §10; Library Agent Context packs |
 
@@ -33,9 +33,9 @@ Session 01 recorded duplication as a **fact to investigate**, not permission to 
 
 - [x] Packs present under Library `Agent Context/`
 - [x] Duplication noted in Session 01
-- [ ] Diff both trees file-by-file
-- [ ] Choose canonical home
-- [ ] Update REPOS / handoff docs to point at one path
+- [x] Diff both trees file-by-file (2026-09-29: 34 vs 5 files; shared names are four identical `.gitkeep` files)
+- [x] Choose canonical home — `Agent Context/`; `02-agents/` is the index
+- [x] Update REPOS / handoff docs to point at one path
 
 ### 2.3 Known friction
 
@@ -76,7 +76,7 @@ Session 01 recorded duplication as a **fact to investigate**, not permission to 
 
 **Additional requirements:**
 
-- Whether GitHub agent-context orgs (`AvaIvy`, etc.) remain separate remotes
+- Personal GitHub mirrors (`AvaIvy`, `CarlyMal`) remain separate remotes. Recorded 2026-09-29. This desk does not sync them.
 
 ---
 

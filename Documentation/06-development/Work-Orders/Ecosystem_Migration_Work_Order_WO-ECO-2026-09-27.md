@@ -62,11 +62,11 @@ RootRecord-Ecosystem
 - [x] Poller confirmed active from Ecosystem path (2026-09-28)
 - [x] Pacific source imports for Energy, A-Eyes, Github, Plumbing, and Telegram landed; runtime verification remains tracked under WO-SRV
 - [x] `repos.conf` Pacific catalog row aligned to the Ecosystem path; Website/Mainland remain intentionally disabled
-- [ ] Master-Prompt `08-repository-and-file-links.md` authored
+- [x] Master-Prompt `08-repository-and-file-links.md` authored (desk ownership table, 2026-09-29)
 
 ### 2.3 Transitional friction
 
-- Current Pacific `jobs.py` active scheduler surfaces resolve to Pacific paths; the remaining legacy Weather command/cwd pair is explicitly disabled and outside active cutover scope
+- Current Pacific `jobs.py` active scheduler surfaces resolve to Pacific paths. `weather_poller` is enabled and was restarted 2026-09-29 22:04 HST. Geology and voice jobs stay off.
 - Org placement: **Library + Pacific Server + Database** under `RootRecord-Software-Solutions`; other operational repos under `rootrecordsoftwaresolutions`
 - Prior remote `rootrecordsoftwaresolutions/Solar-Pacific-RootRecord-Server` is legacy for Pacific runtime
 
@@ -119,7 +119,7 @@ RootRecord-Ecosystem
 - [x] Library repo online and auto-synced
 - [x] Agent CONTEXT maps updated for Pacific path (2026-09-28)
 - [x] WO-SRV / WO-CF updated for domain layout
-- [ ] Master-Prompt repository links section
+- [x] Master-Prompt repository links section (`prompts/08-repository-and-file-links.md`, 2026-09-29)
 
 ### 4.2 Runtime
 
@@ -132,8 +132,8 @@ RootRecord-Ecosystem
 ### 4.3 Data / Website / Node
 
 - [ ] Keep generated content out of Library and runtime git trees
-- [ ] Website continues via existing mirror
-- [ ] Node: leave placeholder
+- [ ] Website continues via existing mirror — `www.rootrecord.cloud` serves the AWS globe (200) as of 16:10 HST. The `website` sync row stays disabled. Real-browser check and a Vercel deploy are still open.
+- [ ] Node: leave placeholder — superseded. Desk checkout is imported (139 tracked files, working tree clean 22:18 HST). AWS trim, tunnel, allowlist, and fallback Phase 2 are PASS. A real fallback and a relay send are still VERIFY PENDING. The `mainland` sync row stays disabled.
 - [x] **Resolved 2026-09-29:** the active Pacific source paths use the canonical Ecosystem Database root `/home/rootrecord/RootRecord-Ecosystem/2 - RootRecord-Database`. The older `/home/rootrecord/Database/` tree is retained only where historical/runtime evidence or operator-controlled workflows still reference it; it is not the active Database authority. See WO-DATA for the boundary record. The poller source was corrected to this root in the latest Pacific sync; its live post-restart check remains part of WO-SRV.
   - *Desk check 2026-09-29 ~00:52 HST:* some active Pacific sources still hardcode the old root: plumbing `single-flight.sh` (`STATE_DIR`) and `flm-warmup.sh`; Energy `solar-gate-{status,arm,disarm}.sh`; `ble-owner.py` LOG/PID and `devices.conf` `ble_log`. The running poller log is also still at `/home/rootrecord/Database/Logs/Automations/`. Tracked in WO-SRV Next #1; see `2 - RootRecord-Database/Logs/Migration/g3-energy-plumbing-evidence-20260929T104618Z.md`.
   - *Update ~00:57 HST:* those plumbing, solar-gate, BLE-owner and `devices.conf` paths now use the canonical root (Pacific `87a6469`). Still on the old root: the poller (`run-poller.sh` `POLLER_LOG`; `rootserver_poller.py` `ENERGY_ROOT` and system-status), which needs a poller restart, and the `Github/scripts/common.sh` `DATABASE_ROOT` default.
@@ -214,5 +214,5 @@ The operator installed the documented AMD XDNA2/XRT prerequisite stack on the Pa
 - **§4.3 Node (US-Mainland / AWS):** no longer only a placeholder. Desk checkout imported (**PASS**). AWS feed trim + cron, tunnel (`www` 200) and the static allowlist: **PASS**. AWS fallback Phase 2 LANDED on the trimmed-micro t3.micro profile (908 MB RAM), with Root Monitor write mode: **PASS**. A real fallback and a relay send are VERIFY PENDING. Details: [US-Mainland-Server](../../00-architecture/US-Mainland-Server.md).
 - **§4.3 Website:** `www.rootrecord.cloud` serves the AWS globe (200) with landing overlay v2 (LANDED 16:10 HST; real-browser check VERIFY PENDING). Vercel untouched. The RootRecord-Cloud staging build passed on the desk; no deploy.
 - **New ecosystem folder:** `6 - Android Development` (9 apps, 80.7 MB). Not a git repo, not in `repos.conf`. Build VERIFY PENDING. [Inventory](../../00-architecture/Android-Apps-Inventory.md).
-- **§5 sync table:** the `mainland` row is still disabled (sign-off to repoint + enable); the Mainland checkout is uncommitted.
+- **§5 sync table:** the `mainland` row is still disabled (sign-off to repoint + enable). The Mainland checkout is in this umbrella and was clean at 22:18 HST (139 tracked files). Do not enable the row inside this snapshot.
 - Sign-offs: [worklog "State at pause, 16:25 HST"](../../01-operations/0%20-%20Human%20Operator%20Work%20Logs/2026-09-29%20System%20Operator%20Worklog%20%E2%80%94%20Overnight.md#state-at-pause-1625-hst-2026-09-29).

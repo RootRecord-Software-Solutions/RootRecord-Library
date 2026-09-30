@@ -6,7 +6,7 @@ Documentation about RootRecord agents. **Canonical identity packs do not live he
 | --- | --- |
 | **Canonical packs** | [`Agent Context/`](../../Agent%20Context/) at Library repo root |
 | **Team constitution** | [Local Multi-Agent Team & Migration → Build](../00-architecture/Local-Multi-Agent-Team-and-Migration-to-Build-2026-09-28.md) |
-| **Related WO** | [WO-AGENT-2026-09-27](../06-development/Work-Orders/AgentContext_CanonicalHome_Work_Order_WO-AGENT-2026-09-27.md) |
+| **Related WO** | [WO-AGENT-2026-09-27](../06-development/Work-Orders/Complete/AgentContext_CanonicalHome_Work_Order_WO-AGENT-2026-09-27.md) |
 
 ---
 
@@ -31,4 +31,10 @@ Any `Ava-Agent-Context/`, `Bruce-Agent-Context/`, or `Carly-Agent-Context/` dire
 - `AvaIvy/AvaIvy-Agent-Context` — personal mirror; Library pack is authority for org work  
 - `CarlyMal/Carly-Agent-Context` — personal pack; sync toward Library when bounds change  
 
-*README updated 2026-09-28 HST — team constitution link.*
+## Decision (2026-09-29)
+
+Diff of `Agent Context/` (34 files) against `Documentation/02-agents/` (5 files): the only shared names are four identical `.gitkeep` placeholders. `02-agents/README.md` is the index and is not a second pack. Placeholder folders stay. Nothing was deleted.
+
+Personal remotes `AvaIvy/Agent-Context` and `CarlyMal/Carly-Agent-Context` stay separate. This desk does not sync them. The Library pack is the org authority.
+
+*README updated 2026-09-29 HST — canonical-home decision recorded.*

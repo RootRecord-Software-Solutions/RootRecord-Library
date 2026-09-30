@@ -4,7 +4,7 @@
 | --- | --- |
 | **Work Order ID** | WO-CF-2026-09-27 |
 | **Date** | 2026-09-27 (HST) |
-| **Status** | OPEN — Config recovery (paths updated 2026-09-28) |
+| **Status** | COMPLETE — signed off 2026-09-29 ~21:41 HST. Binary restored, poller log `Tunnel READY`, https://rootserver.rootrecord.cloud/ returned HTTP 200. Token stayed in the local file and was not read into git. |
 | **Owner** | RootRecord |
 | **Related** | Session 02 worklog; WO-SRV; domain wiring 2026-09-28 |
 | **Updated** | 2026-09-28 (HST) |
@@ -39,9 +39,9 @@ Public endpoint is configuration recovery, not a runtime rewrite. Poller tunnel 
 - [x] Poller attempts tunnel start via jobs catalog
 - [x] Binary path moved under Communications/network/cloudflare (domain layout)
 - [x] Default `CLOUDFLARED_BIN` in `run-poller.sh` + `rootserver_poller.py` points at new path
-- [ ] Token / credential restored from backup or Cloudflare dashboard (if still missing on any rebuild)
-- [ ] Tunnel UP verified in poller log after every clean OS restore
-- [ ] Public URL verified end-to-end after credential restore
+- [x] Token file present at the local path (poller started the tunnel; token was not printed or committed)
+- [x] Tunnel UP verified in the poller log (`Tunnel READY`, 2026-09-29 21:39 HST)
+- [x] Public URL returned HTTP 200 (2026-09-29 ~21:41 HST)
 
 ### 2.3 Known friction
 
