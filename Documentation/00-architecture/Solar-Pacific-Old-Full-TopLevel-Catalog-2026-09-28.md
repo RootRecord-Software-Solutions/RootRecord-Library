@@ -98,7 +98,7 @@
 | public-edge | Product / Website | |
 | public-finance | Product | |
 | public-health | Product | |
-| python-drop-runner | Review | |
+| python-drop-runner | Pacific `System/PythonDrop` | Empty allowlist. Job `system_python_drop` gated off (`RR_PYTHON_DROP`). |
 | rcon | Product | Minecraft |
 | recycle-origin | Archive | |
 | remaining-tasks | Archive | |

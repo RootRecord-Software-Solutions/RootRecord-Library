@@ -4,7 +4,7 @@
 | --- | --- |
 | **Work Order ID** | WO-MIG-46-2026-09-29 |
 | **Date** | 2026-09-30 (HST) |
-| **Status** | OPEN — draft, not accepted for execution |
+| **Status** | OPEN — landed. Phase 4 archive and GitHub deletion done. Not promoted. |
 | **Owner** | RootRecord |
 | **Related** | Agent 46, Wave G. Cleanup and hold-backs. Old home `python-drop-runner` in `Solar-Pacific-RootRecord-Server` (`online-safe-20260920`). Live scheduler: Pacific `Automations/scripts/jobs.py`. |
 
@@ -44,13 +44,13 @@ Folder name: `PythonDrop`. Same name in all three places. Domain is System, the 
 ### 2.2 Completed so far
 
 - [x] Old source read. Allowlist design chosen. Folder and three paths named.
-- [x] Draft work order written (this file). Status stays OPEN — draft, not accepted for execution.
-- [ ] Alexander accepts this draft and says to build.
-- [ ] `System/PythonDrop` package, `scripts/python_drop.py`, and empty `config/catalog.json` added.
-- [ ] Gated `system_python_drop` block in `jobs.py` (`RR_PYTHON_DROP` unset), only if that file is free to edit.
-- [ ] Status and tick test with the empty catalog, and a refused path outside the catalog.
-- [ ] Phase 4 archive, old-repo deletion, and GitHub commit/push.
-- [ ] Result note on this work order, and the stale Library rows corrected.
+- [x] Draft work order written (this file).
+- [x] Alexander said to build.
+- [x] `System/PythonDrop` package, `scripts/python_drop.py`, and empty `config/catalog.json` added.
+- [x] Gated `system_python_drop` block in `jobs.py` (`RR_PYTHON_DROP` unset). The file was clean at build time.
+- [x] Status and tick test with the empty catalog, and a refused path outside the catalog. PASS 2026-09-30.
+- [x] Phase 4 archive, old-repo deletion, and GitHub commit/push.
+- [x] Result note on this work order, and the stale Library rows corrected.
 
 ### 2.3 Known friction
 
@@ -139,7 +139,7 @@ Phase 4 file list, from checkout `/home/rootrecord/old ollama/old skills` (remot
 - Sign-off gates: no sends, speaker playback, OBS, hardware switching, deletion of live Ecosystem files, or cloud spend. Do not enable `RR_PYTHON_DROP` or add a catalog entry without Alexander’s sign-off. Phase 4 deletion is limited to the old function’s files after the archive copy succeeds. The origin shim stays.
 - Small test that proves the new behavior: `python_drop.py status` prints an empty due list and starts no process; `tick` with the empty catalog exits 0; a path outside the catalog is refused and not executed. No service restart.
 - New code wins. Do not copy the old runner over this design.
-- Result note: add it here after phase 4 (what landed, the archive path, what was removed on this machine, what was removed on GitHub, what was left because it is shared). Do not fill that note in this draft.
+- Result note (2026-09-30): Landed Pacific `System/PythonDrop` (`__init__.py`, `scripts/python_drop.py`, empty `config/catalog.json`) and a gated `jobs.py` block `system_python_drop` (`RR_PYTHON_DROP` unset, 300 s, `tick`). Smoke: `status` and `tick` printed `{"due": [], "catalog": 0, "spawned": 0}` and wrote no Database files. An absolute path and a `..` path were refused and not executed. Archive: `Old repos deleted and merged/Solar-Pacific-RootRecord-Server/python-drop-runner/` (13 files, 586 directories, matching the old tree). Removed on this machine: that whole `python-drop-runner/` directory, including the gitignored `drop/` state and clock folders. Removed on GitHub: commit `98a7b651` on `rootrecordsoftwaresolutions/Solar-Pacific-RootRecord-Server` branch `online-safe-20260920` (the 6 tracked files). Left in place: `origin/ns/apps/core/services/python_drop_runner.py` (origin shim) and the `github-history` snapshots. Gate stays off. No catalog entry was added.
 
 ---
 
