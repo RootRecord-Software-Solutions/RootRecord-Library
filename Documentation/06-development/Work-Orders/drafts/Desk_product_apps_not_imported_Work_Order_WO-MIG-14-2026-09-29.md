@@ -4,7 +4,7 @@
 | --- | --- |
 | **Work Order ID** | WO-MIG-14-2026-09-29 |
 | **Date** | 2026-09-29 (HST) |
-| **Status** | OPEN — server code landed; public pages paused; GitHub deletion not pushed |
+| **Status** | OPEN — pages landed; GitHub deletion not pushed |
 | **Owner** | RootRecord |
 | **Related** | Agent 14. Depends on 7. Public website checkout. No later function depends on this one. Template: `Documentation/01-operations/templates/TEMPLATE Work Order.md`. Globe: `Documentation/08-ideas/2026-09-29-globe-landing-overlay.md`. |
 
@@ -55,8 +55,8 @@ These apps do not belong inside Energy, Geology, Weather, Reports, Security, Com
 - [x] Old source read. Folder name and the three paths chosen.
 - [x] This draft written.
 - [x] Alexander said to complete the work.
-- [ ] `7. Public website checkout` exists as the one Vercel app in `3 - RootRecord-Website`. Public pages are paused on that function.
-- [x] `Products` source, empty Database stores, and the theme archive. Four public pages are not added.
+- [x] `7. Public website checkout` is the Vercel app in `3 - RootRecord-Website`.
+- [x] `Products` source, empty Database stores, theme archive, and four glass-card routes: `/clients`, `/fern-forest`, `/pantry`, `/product-prices`.
 - [x] Small test: empty pantry prints `empty on file`. Product-prices lookup of "sour patch" prints `{}` and exits 1.
 - [x] Phase 4 archive is on disk. The seven directories are deleted in the old clone. Deletion commit `3d54403b` is local. GitHub rejected the push.
 - [x] Result note below. Library pages this function made stale are corrected. This file stays in drafts.
@@ -158,7 +158,7 @@ These apps do not belong inside Energy, Geology, Weather, Reports, Security, Com
 - Small test that proves the new behavior: pantry script on an empty Database store prints an empty pantry; product-prices lookup on an empty store returns no price. No network. No jobs.
 - Phase 4 result:
   - Landed: `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Products/` (Pantry, ProductPrices, FernForest, Clients run; Companions, FinanceDesk, and Look are source copies and are not started). Empty stores under `2 - RootRecord-Database/Products/`. Logs directory `2 - RootRecord-Database/Logs/Products/`. Themes in `5 - RootRecord-Library/Archive/Website-Themes/clients/gigs/nibble.love/` and `.../companions/dev-desk/renderer/styles.css`.
-  - Not landed: the four glass-card routes. `3 - RootRecord-Website` is still empty. Missing function: Public website checkout. This work order did not check that site out.
+  - Landed after checkout: glass-card routes `/clients`, `/fern-forest`, `/pantry`, and `/product-prices` on the one Vercel app in `3 - RootRecord-Website`. Production build lists all four. Pantry shows “Empty on file.” Product prices show “No price on file.” Fern Forest shows the three TMKs and qPublic links. Clients lists nibble.love and does not rehost it.
   - Archived: `/home/rootrecord/RootRecord-Ecosystem/Old repos deleted and merged/Solar-Pacific-RootRecord-Server/{clients,companions,fern-forest,finance-desk,pantry,product-prices,look}/`. File counts matched the old tree before deletion (15, 36, 11, 11, 9, 6, 8).
   - Removed on this machine: those seven directories in `/home/rootrecord/old ollama/old skills`, commit `3d54403b` on `online-safe-20260920` (94 tracked files). `apps.core` and Ava trees were not in those directories and were left.
   - Not removed on GitHub: `git push origin HEAD:online-safe-20260920` was rejected. Push protection cited an OpenAI API key in older commit `679fd86c` (`ecosystem-history/references/archives-pull-20260916/august-emergency-txt/chatgpt improvements.txt`). This deletion was not force-pushed, the secret was not allow-listed, and the repository was not deleted.

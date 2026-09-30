@@ -52,13 +52,13 @@ WAV clips stay in `2 - RootRecord-Database/Media/Audio/Voice`. No `config/`. No 
 - [x] `play.py` landed
 - [x] Dry-run proof recorded (2026-09-30 00:01 HST)
 - [x] Old play-job folders archived, then removed from the old-repo working tree
-- [x] GitHub check recorded. `main` and `online-safe-20260920` already omitted the files. Deletion commit `7416bf2f` was made for `skills-rebuild`. The push did not confirm.
+- [x] GitHub: `7416bf2f` is `skills-rebuild`. `main` and `online-safe-20260920` already omitted the files.
 - [x] Result note and the Library corrections
 
 ### 2.3 Known friction
 
 - `aplay` is on this host. The dry-run passed. A live play still needs Alexander's sign-off.
-- `origin/main` and `origin/online-safe-20260920` already omitted the play jobs. `skills-rebuild` still had them. Commit `7416bf2f` deletes those 37 files. The push to `refs/heads/skills-rebuild` is the open step.
+- `skills-rebuild` on GitHub is `7416bf2f`. That tip no longer has the six play-job directories. Live `aplay` is still the open sign-off.
 - Media/Voice already exists. Agents 16, 17, 18, 19, and 33 depend on this player. They are not built here.
 
 ---
@@ -98,7 +98,8 @@ Do these only after Alexander accepts this draft and says to build. Until then, 
 
 | Path | Role |
 |------|------|
-| `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Media/Playback/scripts/play.py` | Add. The only new source file |
+| `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Media/Playback/scripts/play.py` | Player |
+| `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Media/Playback/README.md` | Folder note: paths, gate, no cron |
 | `2 - RootRecord-Database/Media/Playback/last-play.json` | Runtime state written by the player. Not source |
 | `2 - RootRecord-Database/Media/Playback/` lock file | Single-flight lock. Runtime |
 | `2 - RootRecord-Database/Logs/Media/Playback/` | Player logs. Runtime |
@@ -123,7 +124,7 @@ Do these only after Alexander accepts this draft and says to build. Until then, 
 **Additional requirements:**
 
 - Speaker playback stays gated. Live `aplay` needs a separate sign-off. The build test did not play audio.
-- Push `7416bf2f` to `refs/heads/skills-rebuild` on `Solar-Pacific-RootRecord-Server`. Do not force-push. Do not delete the repository. Local branches `main` and `solar-battery-offline-recovery` in that checkout still contain the old trees and were not rewritten.
+- Local branches `main` and `solar-battery-offline-recovery` in the old checkout still contain the old trees. They were not rewritten. GitHub `skills-rebuild` is `7416bf2f`.
 - This file stays in drafts. It is not on the active index.
 
 ---
@@ -159,7 +160,7 @@ Landed 2026-09-30 ~00:01 HST.
 - Runtime state and the player log are under Database `Media/Playback/` and `Logs/Media/Playback/`, gitignored.
 - Archive: `Old repos deleted and merged/Solar-Pacific-RootRecord-Server/reports/sort/` holds `morning-report-play`, `midday-report-play`, `late-report-play`, `evening-report-play`, `evening-report-audio`, and `report-periodic-audio`. File counts matched the source before delete.
 - Removed from the working tree of `/home/rootrecord/old ollama/old skills` (branch `online-safe-20260920`). Left in place: `evening-report/`, `day-reports-evening/`, `media/voice/scripts/director.py`, `voice-events/scripts/voice_events.py`.
-- GitHub: `origin/main` and `origin/online-safe-20260920` already had none of those paths. They were still on `origin/skills-rebuild` (37 files) and on local branches `main` and `solar-battery-offline-recovery`. Commit `7416bf2f` (`Remove retired report play jobs.`) deletes them from the `skills-rebuild` tip. The first push failed because the commit was detached (`HEAD:skills-rebuild` was not a full ref). A retry of `git push origin 7416bf2f:refs/heads/skills-rebuild` did not return a result. Those two local branches were not rewritten. The repository was not deleted.
+- GitHub: `origin/main` and `origin/online-safe-20260920` already had none of those paths. Commit `7416bf2f` (`Remove retired report play jobs.`, full `7416bf2f1ed3e006fae24be7ce770e61d5845011`) is now `skills-rebuild`. Those play paths are absent from that tip. Local branches `main` and `solar-battery-offline-recovery` in the old checkout still contain the old trees and were not rewritten. The repository was not deleted. No force-push.
 
 This file stays in `Work-Orders/drafts/`. It is not on the active index. Live `aplay` still needs a separate sign-off.
 
