@@ -35,13 +35,13 @@ Folder name, used in all three paths: **Discord**. It is a subfolder of Communic
 | Database | `2 - RootRecord-Database/Communications/Discord/` |
 | Logs | `2 - RootRecord-Database/Logs/Communications/Discord/` |
 | Secrets | `/home/rootrecord/master/master-key.env` only. Allowlist key name: `DISCORD_BOT_TOKEN`. That key is not in the file today. No second env file. |
-| Existing shell | `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Communications/discord/README.md` (lowercase). README only. Not LIVE. |
+| Existing shell | Lowercase `Communications/discord/` removed 2026-09-30. README is `Communications/Discord/README.md`. Not LIVE. |
 | Old source read | `/home/rootrecord/old ollama/old skills/communications/discord/scripts/discord.py` |
 | AWS stub, leave it | `1 - Servers/2 - RootRecord-US-Mainland-Server/communications/discord/poll.py` |
 | Skill copies, leave them | `~/.ollama/skills/coms/discord` and `old ollama/old skills/communications/discord`. Do not restore them. Do not delete them in phase 4. |
 | Old GitHub tree | `Solar-Pacific-RootRecord-Server-Old/communications/discord` is not a separate checkout on this machine. The archive folder is inside the Ecosystem repo and has no `communications/` directory. |
 | Live Telegram | `council_relay` stays the one `getUpdates` owner. |
-| Matrix | Row 59 is Discord and Slack together, status missing. This draft does not edit that row. |
+| Matrix | Row 59 Discord half is partial (2026-09-30). Slack half left missing. |
 
 ### 2.2 Completed so far
 
@@ -55,19 +55,18 @@ Folder name, used in all three paths: **Discord**. It is a subfolder of Communic
 
 ### 2.3 Known friction
 
-- Build waits until Alexander accepts this draft. No other function has to exist before that build.
-- `Communications/discord/` (lowercase) is the current shell. The build moves that README into `Communications/Discord/README.md` in the same change so only one folder remains.
-- `jobs.py` is not edited by this draft. A disabled block is proposed below. If `jobs.py` or `master-key.env` is already being edited at build time, pause.
-- Phase 4 needs a local checkout of `Solar-Pacific-RootRecord-Server-Old` that contains `communications/discord`. None was present when this draft was written. If it is still missing at phase 4, pause and name that checkout. Do not clone it during this draft.
-- WO-COM-002 requires a new bot token before any live login. Do not fall through `AVA_DISCORD_BOT_TOKEN`, `SEXI_DISCORD_BOT_TOKEN`, or `DISCORD_ROOTMC_BOT_TOKEN`.
+- Tasks 1–4 and the result note are done. The job stays `enabled: False`.
+- Lowercase `Communications/discord/` is gone. One folder: `Communications/Discord/`.
+- Phase 4 is paused. Checked again 2026-09-30 00:46 HST: no local checkout of `Solar-Pacific-RootRecord-Server-Old/communications/discord`. The only `communications/discord` tree on disk is `old ollama/old skills/communications/discord`, which stays. Do not clone the old repo. Do not delete that skill copy.
+- `DISCORD_BOT_TOKEN` is still absent from `master-key.env` (key names only, rechecked 2026-09-30 00:46 HST). WO-COM-002 still requires a new token before any live login. Do not fall through `AVA_DISCORD_BOT_TOKEN`, `SEXI_DISCORD_BOT_TOKEN`, or `DISCORD_ROOTMC_BOT_TOKEN`. `config/channels.json` is `[]`.
 
 ---
 
 ## 3. Tasks
 
-Do these only after Alexander accepts this draft and says to build. Until then, stop.
+Tasks 1–5 and 7 are done. Task 6 is paused. The record below is what was built.
 
-1. Create `Communications/Discord/` with package name `Discord`. Move `Communications/discord/README.md` into `Communications/Discord/README.md` in the same change. Do not leave a lowercase twin. No `Logs/` directory on the server. Logs go only under `2 - RootRecord-Database/Logs/Communications/Discord/`.
+1. Create `Communications/Discord/` with package name `Discord`. Move `Communications/discord/README.md` into `Communications/Discord/README.md` in the same change. Do not leave a lowercase twin. No `Logs/` directory on the server. Logs go only under `2 - RootRecord-Database/Logs/Communications/Discord/`. **Done.**
 2. Add `Communications/Discord/lib/envload.py` following `Energy/lib/envload.py`: an allowlist of `DISCORD_BOT_TOKEN` only, read from `/home/rootrecord/master/master-key.env`, never print values, never add a second env file. Add `Communications/Discord/scripts/poll.py`. No token, or an empty channel list: exit 0, write a status file under the Database path, do not call Discord. `post_message` returns without HTTP unless `RR_DISCORD_POST=1`. That gate stays unset. Do not set `RR_DISCORD_POLLER`.
 3. Do not port `discord_chat.py` (persona replies) or `discord_september.py` (archive, nuke, rebuild).
 4. Do not edit `jobs.py` unless this accepted build inserts only the disabled block below. Do not enable the job.
@@ -88,7 +87,7 @@ Do these only after Alexander accepts this draft and says to build. Until then, 
 ```
 
 5. If `jobs.py` or `master-key.env` is already being edited, pause. Do not build Slack poller, earthquake Discord post, Kilauea public draft queue, or economy brief.
-6. After the script works: copy this function's old-repo files into `/home/rootrecord/RootRecord-Ecosystem/Old repos deleted and merged/Solar-Pacific-RootRecord-Server-Old/`, keeping the path they had inside the old repo (`communications/discord/...`). Generated data that lived beside that source goes into this archive too, and still does not go into the live Folders. After the archive copy is on disk, delete those same files from the old repo on this machine and on GitHub. Commit that deletion and push it. Do not force-push. Do not delete the GitHub repository. If the archive copy fails, do not delete. If no local checkout of `Solar-Pacific-RootRecord-Server-Old/communications/discord` exists, pause and name that checkout. Do not clone it. Leave the AWS stub. Leave `~/.ollama/skills/coms/discord` and `old ollama/old skills/communications/discord`.
+6. After the script works: copy this function's old-repo files into `/home/rootrecord/RootRecord-Ecosystem/Old repos deleted and merged/Solar-Pacific-RootRecord-Server-Old/`, keeping the path they had inside the old repo (`communications/discord/...`). **Paused 2026-09-30 00:46 HST.** No local checkout of `Solar-Pacific-RootRecord-Server-Old/communications/discord`. Do not clone it. Nothing archived. Nothing removed on GitHub. Leave the AWS stub. Leave `~/.ollama/skills/coms/discord` and `old ollama/old skills/communications/discord`.
 7. Update this work order with the result note (what landed, what was archived, what was removed on GitHub) and set the new status. Correct only the Discord half of row 59 in `5 - RootRecord-Library/Documentation/00-architecture/Old-Repo-Migration-Matrix.md`. Leave the Slack half for agent 22. Do not rewrite unrelated work orders.
 
 ---

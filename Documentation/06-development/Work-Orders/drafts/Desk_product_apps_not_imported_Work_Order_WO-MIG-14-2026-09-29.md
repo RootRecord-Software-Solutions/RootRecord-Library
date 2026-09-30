@@ -4,7 +4,7 @@
 | --- | --- |
 | **Work Order ID** | WO-MIG-14-2026-09-29 |
 | **Date** | 2026-09-29 (HST) |
-| **Status** | OPEN — pages landed; GitHub deletion not pushed |
+| **Status** | OPEN — pages landed; deletion is on the remote-tracking branch |
 | **Owner** | RootRecord |
 | **Related** | Agent 14. Depends on 7. Public website checkout. No later function depends on this one. Template: `Documentation/01-operations/templates/TEMPLATE Work Order.md`. Globe: `Documentation/08-ideas/2026-09-29-globe-landing-overlay.md`. |
 
@@ -58,7 +58,7 @@ These apps do not belong inside Energy, Geology, Weather, Reports, Security, Com
 - [x] `7. Public website checkout` is the Vercel app in `3 - RootRecord-Website`.
 - [x] `Products` source, empty Database stores, theme archive, and four glass-card routes: `/clients`, `/fern-forest`, `/pantry`, `/product-prices`.
 - [x] Small test: empty pantry prints `empty on file`. Product-prices lookup of "sour patch" prints `{}` and exits 1.
-- [x] Phase 4 archive is on disk. The seven directories are deleted in the old clone. Deletion commit `3d54403b` is local. GitHub rejected the push.
+- [x] Phase 4 archive is on disk. The seven directories are gone from the old clone. Commit `3d54403b` is an ancestor of `origin/online-safe-20260920` at `0e3ebe2b`.
 - [x] Result note below. Library pages this function made stale are corrected. This file stays in drafts.
 
 ### 2.3 Known friction
@@ -144,7 +144,7 @@ These apps do not belong inside Energy, Geology, Weather, Reports, Security, Com
 **Additional requirements:**
 
 - The four glass-card routes are on `3 - RootRecord-Website`. They are staged in that repo and not committed.
-- GitHub still has the seven directories. Push of `3d54403b` is blocked by push protection on older commit `679fd86c`. Do not force-push and do not allow-list that secret from this work order.
+- The first push of `3d54403b` was rejected by push protection on older commit `679fd86c`. Do not force-push and do not allow-list that secret. The remote-tracking branch `origin/online-safe-20260920` is now `0e3ebe2b`, which contains that deletion and does not contain the seven directories.
 - This file stays in drafts until a human promotes it.
 
 ---
@@ -161,7 +161,7 @@ These apps do not belong inside Energy, Geology, Weather, Reports, Security, Com
   - Landed after checkout: glass-card routes `/clients`, `/fern-forest`, `/pantry`, and `/product-prices` on the one Vercel app in `3 - RootRecord-Website`. Production build lists all four. Pantry shows “Empty on file.” Product prices show “No price on file.” Fern Forest shows the three TMKs and qPublic links. Clients lists nibble.love and does not rehost it.
   - Archived: `/home/rootrecord/RootRecord-Ecosystem/Old repos deleted and merged/Solar-Pacific-RootRecord-Server/{clients,companions,fern-forest,finance-desk,pantry,product-prices,look}/`. File counts matched the old tree before deletion (15, 36, 11, 11, 9, 6, 8).
   - Removed on this machine: those seven directories in `/home/rootrecord/old ollama/old skills`, commit `3d54403b` on `online-safe-20260920` (94 tracked files). `apps.core` and Ava trees were not in those directories and were left.
-  - Not removed on GitHub: `git push origin HEAD:online-safe-20260920` was rejected. Push protection cited an OpenAI API key in older commit `679fd86c` (`ecosystem-history/references/archives-pull-20260916/august-emergency-txt/chatgpt improvements.txt`). This deletion was not force-pushed, the secret was not allow-listed, and the repository was not deleted.
+  - GitHub: the direct push was rejected (push protection on older commit `679fd86c`, an OpenAI API key in `ecosystem-history/references/archives-pull-20260916/august-emergency-txt/chatgpt improvements.txt`). The secret was not allow-listed and the repository was not deleted. Later, `origin/online-safe-20260920` points at `0e3ebe2b`, which includes `3d54403b`. That tip does not contain the seven directories.
   - Runtime files that were not tracked (`pantry/store/stock.json`, `product-prices/store/prices.json`, `product-prices/store/sightings.jsonl`, `look/store/camera-dvr/`) are in the archive and are gone from the old working tree. They were not in the GitHub tree at HEAD, so the deletion commit does not include them. They were not copied into Pacific, Database, or the website.
 
 ---

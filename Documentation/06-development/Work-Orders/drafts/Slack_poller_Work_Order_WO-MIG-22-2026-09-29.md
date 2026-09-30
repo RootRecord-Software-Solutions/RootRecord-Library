@@ -143,9 +143,7 @@ Do these only after Alexander accepts this draft and says to build. Until then, 
 
 - `SLACK_BOT_TOKEN` in `master-key.env` is required before any Slack HTTP call. This work did not add that key. Even with a token, posting needs a separate sign-off.
 - Enabling the Pacific job or setting `RR_SLACK` needs a separate sign-off.
-- Phase 4 pauses if the archive copy fails.
-- If `jobs.py` or `master-key.env` is already being edited at build time, pause.
-- Mainland `communications_slack` stays enabled in the shared jobs file until a later sign-off edits that shared file.
+- Mainland `communications_slack` stays enabled in the shared jobs file until a later sign-off edits that shared file. The stub it points at is already archived and removed.
 
 ---
 
