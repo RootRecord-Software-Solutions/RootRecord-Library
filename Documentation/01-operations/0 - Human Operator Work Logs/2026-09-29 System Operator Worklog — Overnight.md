@@ -499,3 +499,18 @@ Real-browser mouse interaction (drag/zoom, click, hover over WebGL) is **VERIFY 
 - Optional: have the server send a per-flow `lastSeen` on arcs, so the card's "Last seen" is exact instead of the overlay's observed time.
 
 - 16:04 HST — Added desktop launcher `~/Desktop/Root-Monitor.desktop` (copy of `~/.local/share/applications/rootrecord-control-panel.desktop`, chmod +x, gio trusted, desktop-file-validate clean). Opens Root Monitor; revert by deleting the file.
+
+## 16:07–16:20 HST — Root Monitor: switches → labelled buttons; camera viewer button made visible
+
+Request (Alexander): "make toggles buttons. I can't see the camera toggle."
+
+| Time (HST) | Step | Result |
+| --- | --- | --- |
+| 16:07 | Backup: whole `Apps/Control-Panel` + `~/Desktop/Root-Monitor.desktop` → `Database/GITHUB/2026-09-29_160737_control-panel-toggle-buttons-backup/` (docs added before editing) | DONE |
+| 16:08 | Cause: the Cameras page had **no control**, only a hint pointing at Settings → *Cameras* (the camera config-file page). The real `Adw.SwitchRow` was in Settings → **Panel**, third group, **below the fold** inside a nested scroller | FOUND |
+| 16:09–16:12 | `rr_ui.state_toggle` (ToggleButton "Name: On" green / "Name: Off" red outline). Big "Camera viewer: Off" button on the Cameras page; the Cameras group moved first on Settings → Panel (same button, synced). Starlink, Still fallback, Show ch1–4, Risky actions (confirm kept) → buttons. `rr_aws_page.py`: minimal swap of `Gtk.Switch` → `state_toggle` (re-read + md5 check right before writing; the other worker's code is otherwise unchanged) | LANDED |
+| 16:12–16:13 | `run-check.sh` PASS (viewer OFF/ON, 0 errors, 0 leaks, strace OFF = 0 image syscalls / 0 :8791 connects); `test_settings_io` **103/103**; new `test_toggle_buttons.py` **30/30** (AWS ssh stubbed, nothing written); `rr_aws_fallback` unit checks 12/12 (re-created); RSS no growth (85.4 vs 85.7 MB) | PASS |
+| 16:14 | Screenshots, separate NON_UNIQUE instance at nice 10: `test-reports/Control-Panel/toggle-buttons-20260929-161253/` (cameras off/on, settings panel, AWS). Alexander's instance PID 3221324 untouched | PASS |
+| 16:15–16:20 | Docs: 07-testing record + README row, Control-Panel README, `Control-Panel-GTK.md` | LANDED |
+
+No git writes, no sudo, `jobs.py`/`settings.json`/`Lib/rr_aws_fallback*` not edited, nothing written on AWS. Stopped here at Alexander's pause request; the fix is complete. **Needs Alexander:** close and reopen Root Monitor (the open window runs the pre-16:10 code).
