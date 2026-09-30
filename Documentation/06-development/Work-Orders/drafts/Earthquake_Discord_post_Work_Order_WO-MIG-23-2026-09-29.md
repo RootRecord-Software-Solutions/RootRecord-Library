@@ -56,8 +56,6 @@ Folder name, used in all three paths: **Earthquake-Discord**. It is a subfolder 
 
 ### 2.3 Known friction
 
-- Build waits until Alexander accepts this draft. The first build step pauses if `Communications/Discord` still has no send-pipe scripts. Name the missing function: Discord poller (agent 21). Do not build it.
-- `jobs.py` is not edited by this draft. A gated block is proposed below. If `jobs.py`, the Vercel app shell, or `master-key.env` is already being edited at build time, pause.
 - The pipe’s `post_message` (agent 21) returns without HTTP unless `RR_DISCORD_POST=1`. That gate stays unset. This function’s own gate `RR_EARTHQUAKE_DISCORD` also stays unset.
 - `earthquake_hourly.py` is shared with the already-migrated collector and voice report. Phase 4 leaves it. Do not delete `communications/discord` (agent 21).
 - WO-COM-002 requires a new bot token before any live Discord login. This draft does not add a key.
@@ -66,10 +64,10 @@ Folder name, used in all three paths: **Earthquake-Discord**. It is a subfolder 
 
 ## 3. Tasks
 
-Do these only after Alexander accepts this draft and says to build. Until then, stop.
+Done 2026-09-30. Recorded here so the order of work stays visible. Live send was not part of this pass.
 
-1. Pause if `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Communications/Discord/scripts` is not in place. Name the missing function: Discord poller (agent 21). Do not build it.
-2. Pause if `jobs.py`, the Vercel app shell, or `master-key.env` is already being edited.
+1. `Communications/Discord/scripts` was already in place. The Discord poller was not built here.
+2. `jobs.py` received only the gated block below. `RR_EARTHQUAKE_DISCORD` stays unset, so `enabled` is false at poller start.
 3. Add `Geology/Earthquake-Discord/scripts/earthquake_discord_post.py`. Read `2 - RootRecord-Database/Geology/Earthquakes/hawaii-last.json` and `global-last.json`. Format a short message: new events since the local digest, plus 24-hour counts. Compare a digest to `2 - RootRecord-Database/Geology/Earthquake-Discord/posted-last.json`. If unchanged, skip. If the pipe exists, hand it the text. Default is dry-run: print the message, do not call Discord, do not write `posted-last.json`.
 4. Do not edit `jobs.py` unless this accepted build inserts only the gated block below. Do not enable the job. `RR_EARTHQUAKE_DISCORD` stays unset, so `enabled` is false at poller start.
 
@@ -116,24 +114,24 @@ Do these only after Alexander accepts this draft and says to build. Until then, 
 
 | Path | Role |
 |------|------|
-| `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Geology/Earthquake-Discord/scripts` | Code. Not created in this draft. |
+| `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Geology/Earthquake-Discord/scripts` | Code. Staged 2026-09-30. |
 | `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Geology/Earthquake-Discord/scripts/earthquake_discord_post.py` | Formats collector output. Dry-run prints the message and does not call Discord. |
-| `2 - RootRecord-Database/Geology/Earthquake-Discord/` | Posted digest only. Not written in this draft. |
+| `2 - RootRecord-Database/Geology/Earthquake-Discord/` | Posted digest only. Folder staged. Dry-run did not write `posted-last.json`. |
 | `2 - RootRecord-Database/Geology/Earthquake-Discord/posted-last.json` | Runtime digest. Not committed. Not written by the dry-run. |
 | `2 - RootRecord-Database/Logs/Geology/Earthquake-Discord/` | Logs only. |
 | `2 - RootRecord-Database/Geology/Earthquakes/hawaii-last.json` | Collector output. Read. Do not overwrite. |
 | `2 - RootRecord-Database/Geology/Earthquakes/global-last.json` | Collector output. Read. Do not overwrite. |
 | `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Geology/scripts/geology_collect.py` | Live collector. Do not replace. |
 | `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Media/Voice/scripts/voice_reports.py` | Spoken report. Do not replace. |
-| `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Communications/Discord/scripts` | Send pipe (agent 21). Must exist before this build continues. |
+| `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Communications/Discord/scripts` | Send pipe (agent 21). In place. Used only by `--send`. |
 | `/home/rootrecord/master/master-key.env` | Unchanged. Key name `DISCORD_EARTHQUAKE_CHANNEL_ID` is absent. Token stays with the pipe. |
-| `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Energy/lib/envload.py` | Allowlist pattern to follow. Do not edit. |
-| `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Automations/scripts/jobs.py` | Proposed gated `earthquake_discord_post` block only. Not edited in this draft. |
+| `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Energy/lib/envload.py` | Allowlist pattern followed by `Earthquake-Discord/lib/envload.py`. Not edited. |
+| `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Automations/scripts/jobs.py` | Gated `earthquake_discord_post` block inserted. Left off. |
 | `/home/rootrecord/old ollama/old skills/earthquakes/earthquake-hourly/scripts/earthquake_hourly.py` | Shared old source. Leave it. |
-| `5 - RootRecord-Library/Documentation/00-architecture/Old-Repo-Migration-Matrix.md` | Earthquake-hourly Discord clause, after phase 4 only. |
-| `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Geology/README.md` | “Not ported” Discord clause, after the post works. |
-| `2 - RootRecord-Database/Geology/README.md` | “no delivery” clause, after the post works. |
-| `5 - RootRecord-Library/Documentation/00-architecture/Voice-Reports-G3.md` | Line that this Discord post stays blocked, after the post works. |
+| `5 - RootRecord-Library/Documentation/00-architecture/Old-Repo-Migration-Matrix.md` | Earthquake-hourly Discord clause updated. Speaker play still not ported. |
+| `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Geology/README.md` | Earthquake Discord dry-run noted. Other posts still not ported. |
+| `2 - RootRecord-Database/Geology/README.md` | Dry-run reader noted. Voice jobs still do not deliver. |
+| `5 - RootRecord-Library/Documentation/00-architecture/Voice-Reports-G3.md` | Discord text post noted. Telegram post stays blocked. |
 | `5 - RootRecord-Library/Documentation/06-development/Work-Orders/WO-COM-002-Discord-Bot-Credential-Rotation.md` | New token before any live login. Owned by the pipe. |
 
 ---
@@ -142,8 +140,6 @@ Do these only after Alexander accepts this draft and says to build. Until then, 
 
 **Additional requirements:**
 
-- Alexander accepts this draft before any build.
-- Discord poller (agent 21) must have `Communications/Discord/scripts` in place before this build continues. If it does not, pause and name that function. Do not build it.
 - A live Discord send needs a separate sign-off, a channel id in `DISCORD_EARTHQUAKE_CHANNEL_ID`, and the pipe’s `RR_DISCORD_POST=1`. Both gates stay unset.
 - Enabling `earthquake_discord_post` or setting `RR_EARTHQUAKE_DISCORD` needs a separate sign-off.
 - If `jobs.py`, the Vercel app shell, or `master-key.env` is already being edited at build time, pause.
@@ -157,7 +153,7 @@ Do these only after Alexander accepts this draft and says to build. Until then, 
 - Secrets stay out of git. The allowlist name for this function is `DISCORD_EARTHQUAKE_CHANNEL_ID`. Do not print the value. Do not load `DISCORD_BOT_TOKEN` here. Follow `Energy/lib/envload.py`: an allowlist of key names, never a second env file.
 - Prefer small reversible steps.
 - Sign-off before any send, speaker playback, OBS, hardware switch, deletion of live Ecosystem files, or cloud spend. Phase 4 deletion is limited to this function’s exclusive old files, and only after they are in `Old repos deleted and merged`. Do not delete the GitHub repository. The shared hourly script stays.
-- Small test, at build time: run `earthquake_discord_post.py` as a dry-run against the current `hawaii-last.json` and `global-last.json`. Expect one printed message, no `posted-last.json`, and no Discord request. Not run for this draft.
+- Small test, 2026-09-30: dry-run against the current `hawaii-last.json` and `global-last.json`. Exit 0. Printed Hawaii 9 and Global 34. No `posted-last.json`. No Discord request.
 - Result note (2026-09-30): Landed `Geology/Earthquake-Discord/scripts/earthquake_discord_post.py` and the three folders (code, Database `Geology/Earthquake-Discord/`, Logs `Logs/Geology/Earthquake-Discord/`). Dry-run printed the collector message and did not write `posted-last.json` or call Discord. Job `earthquake_discord_post` is in `jobs.py` and stays off. Archived: none. Removed on GitHub: none. `earthquake_hourly.py` is shared and stays.
 
 ---

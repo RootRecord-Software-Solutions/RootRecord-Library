@@ -159,7 +159,7 @@ Landed 2026-09-30 HST. Folder 3 is still empty, so the public pages stay staged.
 - Server code: `Website/lib/envload.py`, `Website/scripts/stripe_poll.py`, `Website/scripts/vercel_builds.py`, `Website/scripts/live_data_pages.py`. Readmes: Pacific `Website/README.md`, Database `Website/README.md`, `Logs/Website/README.md`.
 - No-key test: Stripe wrote `Database/Website/stripe-snapshot.json` with `detail: not_configured`. Vercel printed `missing_vercel_token` and wrote no log. Live pages wrote `Database/Website/pages/{power,weather,kilauea}.json`.
 - Jobs: `stripe_poll` (1800 s, `RR_STRIPE=1`) and `vercel_builds` (300 s, `RR_VERCEL_BUILDS=1`) in `EVERY_SECONDS`, both off.
-- Staged, not deployed: `Website/staged/live-data.html` and `Website/staged/cards.css`. `3 - RootRecord-Website` was left empty so the RootRecord-Cloud checkout can land there.
+- Staged shell remains at `Website/staged/`. The live pages are now in `3 - RootRecord-Website/src/app/data/` (`/data`, `/data/power`, `/data/weather`, `/data/kilauea`), glass cards reading Database `Website/pages/*.json`. Not pushed, so Vercel production is unchanged.
 - Theme archive: `5 - RootRecord-Library/Archive/Website-Themes/holding/`.
 - Old-repo archive: `Old repos deleted and merged/Solar-Pacific-RootRecord-Server/{stripe-poll,vercel-builds,live-data-pages,holding}/`.
 - Local deletion commit on `online-safe-20260920`: `577ad693`. Not pushed. GitHub rejected the branch because an older commit trips push protection. History was not rewritten. `Ava-Core-Dev/holding` returned repository not found, so that remote was left as it is.

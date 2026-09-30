@@ -49,7 +49,8 @@ Folder name, used in all three places: `CouncilQuake` (inside Communications). N
 - [x] Persona homes confirmed in Library Agent Context and Database Production Modelfiles. `Communications/CouncilPersona` is not required for this notice.
 - [x] `CouncilQuake` dry-run script, README, and gated `jobs.py` block added. Send and WAV stay off.
 - [ ] Alexander has not accepted this draft for execution.
-- [ ] Offline dry-run test result not yet recorded in the phase 5 note.
+- [x] Offline `--self-test` passed 2026-09-30: one M2.4 notice, second run zero, no send, live `hawaii-last.json` untouched.
+- [ ] Phase 4 archive and GitHub deletion not done.
 - [ ] Phase 4 archive not done. Phase 5 result note not written. Matrix row 6 not corrected.
 
 ### 2.3 Known friction

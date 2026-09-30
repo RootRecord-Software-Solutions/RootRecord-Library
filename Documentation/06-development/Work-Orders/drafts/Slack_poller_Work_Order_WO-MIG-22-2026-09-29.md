@@ -16,7 +16,7 @@
 
 The old function is the mainland stub `1 - Servers/2 - RootRecord-US-Mainland-Server/communications/slack/poll.py`. If `SLACK_BOT_TOKEN` is unset it does nothing. If the token is set it still does nothing (`pass`). It never calls the Slack API and never posts. The mainland job `communications_slack` in `automations/scripts/jobs.py` is enabled, interval 1 second, and points at that stub. `communications/.env.example` has `SLACK=notsetupyet`. The root `.env.example` lists the name `SLACK_BOT_TOKEN` with no value.
 
-Pacific already keeps a live quiet Telegram council relay (`RR_RELAY_REPLIES` stays `0`, one `getUpdates` owner) and a Discord README shell gated by WO-COM-002. `Communications/README.md` marks slack as a shell, not a second relay. The notify-policy draft stays unsealed. EcoFlow BLE, the Hawaiʻi weather poller, the globe collector, camera grabs, Kokoro, and `geology_collect.py` stay as they are.
+Pacific keeps a live quiet Telegram council relay (`RR_RELAY_REPLIES` stays `0`, one `getUpdates` owner). The notify-policy draft stays unsealed. EcoFlow BLE, the Hawaiʻi weather poller, the globe collector, camera grabs, Kokoro, and `geology_collect.py` stay as they are. Slack is not a second live relay.
 
 This function, once accepted, is the same no-post lane under `Communications/Slack`. No token means write `not_configured` and exit 0, with no HTTP. A present token still does not call Slack and does not post. Posting stays behind Alexander's sign-off.
 

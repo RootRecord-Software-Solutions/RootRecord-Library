@@ -36,7 +36,7 @@ Folder name, used in all three places: `Inbox` (inside Communications). No lower
 | Discord and Slack pollers | `Communications/Discord/` and `Communications/Slack/` already exist, with gated jobs. They are other functions. Do not edit them. |
 | D1 sync | No Folder. Cloudflare `SELECT` / `DELETE` and the `ava_ecoflow` clear stay paused. Name D1 sync. Do not build it. |
 | `master-key.env` key names | None for this function. The local commands do not read tokens. Do not add an allowlist, a second env file, or a key. Do not print values. |
-| Old source | Checkout `/home/rootrecord/old ollama/old skills`, remote `rootrecordsoftwaresolutions/Solar-Pacific-RootRecord-Server`, branch `online-safe-20260920`. Paths `inbox/`, `inbox-drain/`, `overnight-relay/`, `reply-feedback/`. `reply-feedback/store/` is gitignored (`** /store/`). |
+| Old source | Checkout `/home/rootrecord/old ollama/old skills`, remote `rootrecordsoftwaresolutions/Solar-Pacific-RootRecord-Server`, branch `online-safe-20260920`. Paths `inbox/`, `inbox-drain/`, `overnight-relay/`, `reply-feedback/`. `reply-feedback/store/` is gitignored (pattern `**/store/`). |
 
 ### 2.2 Completed so far
 
