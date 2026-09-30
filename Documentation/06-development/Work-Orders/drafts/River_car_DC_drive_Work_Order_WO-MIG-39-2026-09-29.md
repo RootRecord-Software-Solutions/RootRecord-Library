@@ -39,7 +39,7 @@ No new `master-key.env` keys. Actuation reuses the live BLE scripts, which alrea
 | Database path | `2 - RootRecord-Database/Energy/River-Car/` (runtime state; gitignored) |
 | Logs path | `2 - RootRecord-Database/Logs/Energy/River-Car/` (runtime; gitignored) |
 | Secrets | No new keys. Existing allowlist name used by the BLE scripts: `ECOFLOW_RIVER_2_PRO`. Do not print values. |
-| Old source | Git root `/home/rootrecord/old ollama/old skills`, remote `rootrecordsoftwaresolutions/Solar-Pacific-RootRecord-Server`. Tracked: `energy/ecoflow-river-car/` (`SKILL.md`, `INDEX.md`, `DAILY.md`, `references/migrate.md`, `scripts/river_car_dc.py`, `scripts/drive_automation.py`, `scripts/disk_session.py`). `__pycache__` beside those scripts is untracked generated data. |
+| Old source | Removed from `/home/rootrecord/old ollama/old skills` and from GitHub commit `e41510a8`. Archive: `Old repos deleted and merged/Solar-Pacific-RootRecord-Server/energy/ecoflow-river-car/`. |
 | Live atomic switch | `Energy/scripts/actions/river2pro-dc-on.sh` and `river2pro-dc-off.sh` via `enable_dc_12v_port`. Keep. |
 | Automation policy | `Energy/River-Car/scripts/`. Job `energy_river_car_drive` gated off. |
 | Car state for status | Existing Energy reads (`dc_12v_port` in `read_runner.py`). Not a new cloud poll. |
@@ -58,7 +58,7 @@ No new `master-key.env` keys. Actuation reuses the live BLE scripts, which alrea
 ### 2.3 Known friction
 
 - The live system already switches this port over BLE. The old skill used a cloud `PUT mpptCar`. New code calls the BLE scripts. It does not copy the cloud client over them.
-- `jobs.py` is shared. This draft does not edit it. At build time, if `jobs.py` is mid-edit, pause and leave the gated block in this work order only.
+- `jobs.py` was free at build time. The gated-off `energy_river_car_drive` block is in place. `RR_RIVER_CAR_DRIVE` is unset.
 - Do not edit the Vercel app or `master-key.env` for this function.
 - Hardware switching needs Alexander's sign-off. `--execute` stays refused until `RR_RIVER_CAR_EXECUTE=1`.
 

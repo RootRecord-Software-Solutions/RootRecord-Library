@@ -73,7 +73,7 @@ RR_VOICE_REPORT_OUT=/tmp/rr-migr/voice-test RR_VOICE_BANDWIDTH_DRY=1 nice -n 10 
 
 ## Not done / BLOCKED
 
-- Council health / Bruce stats (G1 `council/council-health`, `council-bruce-stats`): needs the three bot tokens for `getMe`, a live chat probe (model load) and alert sends to the council group. Needs sign-off.
+- Council health (G1 `council/council-health`): needs the three bot tokens for `getMe`, a live chat probe (model load) and alert sends to the council group. Needs sign-off. Bruce stats (WO-MIG-26, 2026-09-30): dry-run from live host and EcoFlow last files; job `bruce_stats_posts` gated `RR_BRUCE_STATS`; Telegram send stays off until `RR_BRUCE_STATS_SEND=1`.
 - Load categories: needs a G1 cloud-quota → G3 last-file field map and a threshold check.
 
 - 49 other state + global news builders: product / website data, out of Pacific scope.

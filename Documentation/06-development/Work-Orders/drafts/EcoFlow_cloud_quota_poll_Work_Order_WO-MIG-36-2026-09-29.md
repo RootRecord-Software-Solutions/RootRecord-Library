@@ -8,7 +8,7 @@
 | **Owner** | RootRecord |
 | **Related** | Agent 36. Wave E. Cloud and keys, after the local path. No earlier function has to exist before the build. No later function in this list depends on this one. Matrix row 31. |
 
-**Scope:** EcoFlow cloud quota poll is one Energy subfolder. This draft names the folder and the three paths and records the build. BLE stays the live read. The cloud path stays a labeled fallback and does not call the EcoFlow Open Platform unless Alexander sets `RR_ECOFLOW_CLOUD=1` after this draft is accepted. No runtime files are edited, no job is enabled, no EcoFlow HTTP is made, `jobs.py` is not edited, and nothing is archived until Alexander accepts this draft and says to build.
+**Scope:** EcoFlow cloud quota poll is one Energy subfolder. BLE stays the live read. The cloud path is a labeled fallback and does not call the EcoFlow Open Platform unless `RR_ECOFLOW_CLOUD=1`. That flag stays unset. The job was not inserted because `jobs.py` already had other edits. Exclusive old files are archived, and that deletion is on GitHub.
 
 ---
 
@@ -30,7 +30,7 @@ Folder name, used in all three paths: **Cloud-Quota**. It is a subfolder of Ener
 
 | Item | Location / status |
 | --- | --- |
-| Folder | `Cloud-Quota` under Energy. Not created. This draft only names it. |
+| Folder | `Cloud-Quota` under Energy. Created. |
 | Code | `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Energy/Cloud-Quota/scripts` |
 | Database | `2 - RootRecord-Database/Energy/Cloud-Quota/` |
 | Logs | `2 - RootRecord-Database/Logs/Energy/Cloud-Quota/` |
@@ -121,9 +121,9 @@ Do these only after Alexander accepts this draft and says to build. Until then, 
 
 | Path | Role |
 |------|------|
-| `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Energy/Cloud-Quota/scripts` | Code. Not created in this draft. |
-| `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Energy/Cloud-Quota/scripts/quota_poll.py` | Default run prints `cloud=off` and does not HTTP. |
-| `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Energy/Cloud-Quota/README.md` | Short note for the subfolder. Not created in this draft. |
+| `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Energy/Cloud-Quota/scripts` | Code. Created. |
+| `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Energy/Cloud-Quota/scripts/quota_poll.py` | Default run prints `cloud=off` and does not HTTP. Dry run passed. |
+| `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Energy/Cloud-Quota/README.md` | Short note for the subfolder. Created. |
 | `2 - RootRecord-Database/Energy/Cloud-Quota/` | Cloud snapshots only, and only when `RR_ECOFLOW_CLOUD=1`. Not written in this draft. |
 | `2 - RootRecord-Database/Logs/Energy/Cloud-Quota/` | Logs only. |
 | `2 - RootRecord-Database/Energy/samples/` | BLE samples. Do not replace. |

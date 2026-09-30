@@ -4,7 +4,7 @@
 | --- | --- |
 | **Work Order ID** | WO-MIG-26-2026-09-29 |
 | **Date** | 2026-09-30 (HST) |
-| **Status** | OPEN — draft, not accepted for execution |
+| **Status** | OPEN — built (dry-run); send not signed off |
 | **Owner** | RootRecord |
 | **Related** | Agent 26, wave D. Depends on Folder 25, Council quake Telegram posts (`Communications/CouncilQuake`). No later function waits on this one. Matrix row 60, Bruce clause only. |
 
@@ -53,7 +53,7 @@ Folder name, used in all three places: `BruceStats` (inside Communications). No 
 
 - [x] Old source read (`council-bruce-stats`, `bruce_stats.py`, the origin shim).
 - [x] Council quake Telegram posts folder is in place, so the build does not pause.
-- [ ] Dry-run proof and phase 4 archive are recorded in the result note below after they exist.
+- [x] Dry-run proof passed. Phase 4 archive and GitHub deletion are in the result note below.
 
 ### 2.3 Known friction
 
@@ -123,7 +123,7 @@ Folder name, used in all three places: `BruceStats` (inside Communications). No 
 - If `jobs.py` or `master-key.env` is already being edited at build time, pause and name the file.
 - `RR_BRUCE_STATS_SEND=1` stays off until a separate sign-off. Enabling the dry-run job is not a send.
 - Phase 4 deletes only the three old paths after the archive copy is on disk. Shared files stay. If the archive copy fails, do not delete.
-- Phase 5 result note is empty until the build and the archive copy exist.
+- Phase 5 result note is filled below. This draft stays in `drafts/` and is not on the active index.
 
 ---
 
