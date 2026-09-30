@@ -57,7 +57,7 @@ States: **LIVE** = enabled in G3 now · **GATED** = in jobs.py, OFF until its fl
 | public-health | every 5 min | — | OUT (website) |
 | fs-index | every 15 min | — | BLOCKED (scope: full-disk index of private paths) |
 | host-sample | every 1 min | `System/scripts/host_desks.py net-sample` (300 s) + `System/lib/sample.py` | PROPOSED `RR_NET_SAMPLES` |
-| log-cleanup | 04:20 | — | BLOCKED (deletes files) |
+| log-cleanup | 04:20 | `log_retention` | GATED off (`enabled: False`, `--dry-run`). WO-MIG-41. Move, never delete. Live `--apply` needs `RR_LOG_RETENTION_APPLY=1` |
 | user-qrcodes / account-import | every 6 h | — | OUT (identity; personal data) |
 | d1-sync | every 6 h | — | BLOCKED (D1 credentials) |
 | inbox-drain | every 5 min | `inbox_drain` 300 s | GATED `RR_INBOX_DRAIN` (WO-MIG-31). Local copy of Relay-Inbox. No D1. No send. |

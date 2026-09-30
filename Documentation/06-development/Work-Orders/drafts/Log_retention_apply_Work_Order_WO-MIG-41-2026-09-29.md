@@ -4,7 +4,7 @@
 | --- | --- |
 | **Work Order ID** | WO-MIG-41-2026-09-29 |
 | **Date** | 2026-09-30 (HST) |
-| **Status** | OPEN — draft, not accepted for execution |
+| **Status** | COMPLETE — LogRetention built 2026-09-30; `log_retention` stays off (`--dry-run`). Live `--apply` is not signed off |
 | **Owner** | RootRecord |
 | **Related** | Agent 41, Wave G. Cleanup and hold-backs. Old home `log-cleanup` in `Solar-Pacific-RootRecord-Server` (`online-safe-20260920`). Live policy model: Pacific `Weather/scripts/weather-retention.py` (`weather_retention` stays dry-run and disabled). |
 
@@ -32,9 +32,9 @@ Folder name: `LogRetention`. Same name in all three places. Domain is System, th
 
 | Item | Location / status |
 | --- | --- |
-| Server code | `1 - Servers/1 - RootRecord-Pacific-Solar-Server/System/LogRetention/scripts` — not installed. Package name `LogRetention` |
-| Database data | `2 - RootRecord-Database/System/LogRetention` — not installed. Last-state JSON only (`log-retention.json`: counts and paths). Runtime output. Not committed |
-| Database logs | `2 - RootRecord-Database/Logs/System/LogRetention` — not installed. Dry-run and apply reports only |
+| Server code | `1 - Servers/1 - RootRecord-Pacific-Solar-Server/System/LogRetention/scripts/log_retention.py` — installed. Package name `LogRetention` |
+| Database data | `2 - RootRecord-Database/System/LogRetention/log-retention.json` — written by the 01:00 HST dry-run. Counts and paths only. Runtime output. Not committed |
+| Database logs | `2 - RootRecord-Database/Logs/System/LogRetention/log-retention_dry-run_2026-09-30_0100.md` — dry-run report. Runtime output. Not committed |
 | Apply destination | `2 - RootRecord-Database/Archive/Previous-Datasets/Logs-<YYYYMM>/`, path mirrored under `Logs/`. Used only by `--apply`. Not a fourth home for the function |
 | master-key.env | No key names. The script does not read secrets |
 | Live weather retention | `Weather/scripts/weather-retention.py`. Job `weather_retention` at 00:30, `enabled: False`, command `--dry-run`. Do not edit. Do not switch it to `--apply` |
@@ -42,18 +42,18 @@ Folder name: `LogRetention`. Same name in all three places. Domain is System, th
 | Log folders | `2 - RootRecord-Database/Logs/` already has domain folders from waves A–F. No dependency Folder is missing |
 | Old source | `/home/rootrecord/old ollama/old skills/log-cleanup/scripts/job.py`. Remote `git@github.com:rootrecordsoftwaresolutions/Solar-Pacific-RootRecord-Server.git`, branch `online-safe-20260920` |
 | Old pre-move file | `origin/ns/apps/core/crons/on_time/log_cleanup.py` in that same checkout. `references/migrate.md` says do not restore that body |
-| Shared file at build time | `Automations/scripts/jobs.py` is already modified in the Ecosystem working tree. If it is still dirty from another agent when the build is ordered, pause and do not edit it |
+| Shared file at build time | `Automations/scripts/jobs.py` was clean at build time. Gated block `log_retention` is in `ON_AT` |
 
 ### 2.2 Completed so far
 
 - [x] Old source read. Live weather dry-run policy identified. Folder and three paths named.
-- [x] Draft work order written (this file). Status stays OPEN — draft, not accepted for execution.
-- [ ] Alexander accepts this draft and says to build.
-- [ ] `System/LogRetention` package and `scripts/log_retention.py` added.
-- [ ] Gated `log_retention` block in `jobs.py` (`enabled: False`, command `--dry-run`), only if that file is free to edit.
-- [ ] Dry-run test on live `Logs/` (zero moves, zero deletes) and synthetic `--apply` on a temp directory.
-- [ ] Phase 4 archive, old-repo deletion, and GitHub commit/push.
-- [ ] Result note on this work order, and the stale Library rows corrected.
+- [x] Draft work order written (this file).
+- [x] Alexander accepted this draft and said to build (2026-09-30).
+- [x] `System/LogRetention` package and `scripts/log_retention.py` added.
+- [x] Gated `log_retention` block in `jobs.py` (`enabled: False`, command `--dry-run`).
+- [x] Dry-run test on live `Logs/` (zero moves, zero deletes) and synthetic `--apply` on a temp directory.
+- [x] Phase 4 archive, old-repo deletion, and GitHub commit/push.
+- [x] Result note on this work order, and the stale Library rows corrected.
 
 ### 2.3 Known friction
 
@@ -147,7 +147,13 @@ Phase 4 file list, from checkout `/home/rootrecord/old ollama/old skills` (remot
 - Sign-off gates: no sends, speaker playback, OBS, hardware switching, deletion of live Ecosystem files, or cloud spend. Phase 4 deletion is limited to the old function’s files after the archive copy succeeds. `--apply` on live `Logs/` stays off until Alexander reviews a dry-run report.
 - Small test that proves the new behavior: dry-run `log_retention.py` against `2 - RootRecord-Database/Logs/`, confirm the report says zero files would be deleted and that no file moved, then run `--apply` only on a temp tree and confirm the aged log exists at the archive dest and the young live log was not unlinked. No service restart.
 - New code wins. Enhance nothing that already deletes logs, because no live delete script exists. Do not copy `job.py` over `weather-retention.py`.
-- Result note: add it here after phase 4 (what landed, the archive path, what was removed on this machine, what was removed on GitHub, what was left because it is shared). Do not fill that note in this draft.
+- Result note (2026-09-30 01:15 HST):
+  - Landed: `System/LogRetention/scripts/log_retention.py` and `System/LogRetention/__init__.py`. Dry-run report `2 - RootRecord-Database/Logs/System/LogRetention/log-retention_dry-run_2026-09-30_0100.md`. State `2 - RootRecord-Database/System/LogRetention/log-retention.json` (`would_delete` 0, scanned 43, would move 0). `jobs.py` id `log_retention`, `enabled: False`, 04:20, command `--dry-run`. Poller was not restarted.
+  - Test: temp `--apply` moved `old-2026-09-22.log` and `rotated.log.1` into `Logs-202609/`; both files still had their bytes at the dest. `young-2026-09-29.log` and `live_current.log` stayed. Live `--apply` without `RR_LOG_RETENTION_APPLY` exited 2 and wrote nothing. A second live `--dry-run --no-save` left all 103 log-file paths and sizes unchanged. Would delete: 0.
+  - Archived: `Old repos deleted and merged/Solar-Pacific-RootRecord-Server/log-cleanup/` (source plus `__pycache__`), `origin/ns/apps/core/crons/on_time/log_cleanup.py`, and `state/store/log-cleanup.json`. Copies were byte-checked before deletion.
+  - Removed on this machine: `/home/rootrecord/old ollama/old skills/log-cleanup/`, `state/store/log-cleanup.json`, and `origin/ns/apps/core/crons/on_time/log_cleanup.py`. Local commit `45842637` on branch `online-safe-20260920`.
+  - Removed on GitHub: `Solar-Pacific-RootRecord-Server` branch `online-safe-20260920` contains `45842637` (branch tip when checked: `8e6be6f2`). `log-cleanup` and `log_cleanup.py` return 404 on that branch. `Solar-Pacific-RootRecord-Server-Old` `main` commit `91503c38` (`fa261cba..91503c38`); both paths return 404 on `main`. Neither repository was deleted. No force-push.
+  - Left in place: the other files in `origin/ns/apps/core/crons/on_time/`, and the snapshots under `/home/rootrecord/old ollama/github-history/` that contain `log-cleanup`. `weather-retention.py` and `weather_retention` were not changed.
 
 ---
 

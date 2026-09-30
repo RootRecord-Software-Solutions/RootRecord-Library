@@ -135,7 +135,19 @@ New files after acceptance, not before: `envload.py`, `api_ledger.py`, `xai.py`,
 - The proving test is an offline seed on a temp root: catalog rows exist, `may_spend("xai")` and `may_spend("cursor")` are false, and HTTP and spend entry points are not called.
 - Phase 4 order is fixed: archive `api/` first. If that copy fails, do not delete. Then remove only `api/` from the old repo on this machine and on GitHub. Do not delete the repository.
 - Do not import logs, samples, last-state files, generated reports, caches, virtualenvs, or `__pycache__` into Pacific, Database, the website, or git. `__pycache__` beside the old source goes to the archive only.
-- Sends, speaker playback, OBS, hardware switching, deletion of live Ecosystem files, and cloud spend need Alexander's sign-off. This draft does none of those.
+- Sends, speaker playback, OBS, hardware switching, deletion of live Ecosystem files, and cloud spend need Alexander's sign-off. This build did none of those.
+
+---
+
+## Result (2026-09-30)
+
+Landed `System/ApiPrices/scripts/` (`envload.py`, `api_ledger.py`, `xai.py`, `cursor_fallback.py`, `job.py`). Jobs `api_prices` (10:25) and `cursor_fallback` (10:22, 16:22) are in `jobs.py` with `"enabled": False`. `master-key.env` was not edited.
+
+Proof on `/tmp/rr-mig-35`: `seeded=25 prices=25 may_spend_xai=False (spend_master_off) may_spend_cursor=False (spend_master_off) http_attempts=0 spend_attempts=0`. The live Database path `System/ApiPrices` was not created. A proof pointed at the live Database exited 2.
+
+Archive: `Old repos deleted and merged/Solar-Pacific-RootRecord-Server/api/` (24 files, copy matched). Removed `api/` on GitHub `rootrecordsoftwaresolutions/Solar-Pacific-RootRecord-Server` commit `205f06e4` branch `online-safe-20260920`, and on `Solar-Pacific-RootRecord-Server-Old` commit `fa261cb` branch `main`. Neither repository was deleted. `apps.core` was left. `~/.ollama/skills` was not restored.
+
+Library lines updated: matrix row 72 and blocker 6, the `api` catalog row, and the `api-prices` / `cursor-fallback` rows in the G1 scheduler map.
 
 ---
 
