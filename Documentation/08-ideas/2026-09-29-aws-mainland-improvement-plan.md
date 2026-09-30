@@ -4,7 +4,7 @@
 | --- | --- |
 | **Date (HST)** | 2026-09-29 |
 | **Proposed by** | Grok (executor, us-mainland-import pass), building on the US-MAINLAND-SERVER lane handoff (2026-09-22 functions/to-dos) |
-| **State** | PROPOSED — nothing on the AWS host was changed in this pass |
+| **State** | PROPOSED overall. **P0-1 LANDED/PASS** and **P0-4 LANDED/PASS** (cloudflared www) on 2026-09-29 14:07–14:15 HST, see the [test record](../07-testing/2026-09-29-aws-hawaii-trim-and-cloudflared.md). The rest is unchanged |
 | **Grounding** | [US-Mainland-Server architecture](../00-architecture/US-Mainland-Server.md) (read-only SSH 13:49 HST); test record [2026-09-29-us-mainland-import-and-ssh](../07-testing/2026-09-29-us-mainland-import-and-ssh.md); G2 `handoff/emergency-2026-09-22/US-MAINLAND-SERVER-FUNCTIONS-TODOS-2026-09-22.md` |
 | **Needs sign-off from** | Alexander (every AWS change), plus a working SSH path |
 | **Related WO** | WO-SRV (Servers cutover) |
@@ -20,7 +20,8 @@
 
 ### P0 — stop the disk from filling (urgent, small, reversible)
 
-1. Deploy the repo's own bounded-feed script where the desk collector already calls it, then run it once:
+1. **LANDED / PASS (2026-09-29 14:07 HST)**. The script was deployed to `…/network-globe/network-globe/scripts/maintain-hawaii-feed.sh` and run once at `nice 10`: `hawaii.ndjson` 1,827,611,155 → 50,331,325 B (same inode), free disk 1.5G → 3.2G. Auto-trim now runs on AWS from the **`ubuntu` crontab `*/15`** (line mirrored in Mainland `network-globe/cron/maintain-hawaii-feed.crontab`, log `journalctl -t maintain-hawaii-feed`). Backup: AWS `~/rootrecord/bin.bak-hawaii-trim-20260929-140641/` (includes the last 64 MiB of the feed). [Test record](../07-testing/2026-09-29-aws-hawaii-trim-and-cloudflared.md). Original plan:
+   Deploy the repo's own bounded-feed script where the desk collector already calls it, then run it once:
    ```bash
    H="-o BatchMode=yes -o ConnectTimeout=5 -o HostName=18.118.30.226 rr-aws-ip"
    ssh $H 'mkdir -p /home/ubuntu/network-globe/network-globe/scripts && df -h /'
@@ -33,7 +34,8 @@
 ### P0 — stable, documented access
 
 3. Allocate an **Elastic IP** (free while attached to a running instance) so the address stops changing; update local `~/.ssh/config` `rr-aws-ip` HostName and the collector `AWS_HOST` default together.
-4. Restore **cloudflared** on AWS as a systemd unit with two ingress rules: `www.rootrecord.cloud → 127.0.0.1:8090` (existing `config-globe.yml`, tunnel `939b16f7…`) and `ssh.rootrecord.cloud → ssh://localhost:22`. Then `ssh rr-aws uptime` (desk ProxyCommand already fixed) becomes the primary path.
+4. **LANDED / PASS for `www` (2026-09-29 14:12 HST)**. cloudflared 2026.9.3 (official .deb) now runs as `cloudflared-network-globe.service` (User=ubuntu, `--no-autoupdate`) on the existing tunnel `network-globe` **939b16f7** (credentials JSON from the desk's old aws-sync mirror, 0600; no tunnel created, no DNS change). The origin is `network-globe-web.service` (`server.js` :8090). `https://www.rootrecord.cloud/` went from 530/1033 to **200**. An `ssh.rootrecord.cloud → ssh://localhost:22` rule was added: the tunnel carries SSH and passes with the verified AWS host key, but the desk `known_hosts` still holds the old instance key for `ssh.rootrecord.cloud`, so `ssh rr-aws uptime` stays FAIL until that entry is replaced (needs OK). `rr-aws-ip` HostName is now 18.118.30.226 (PASS). Backup: AWS `~/rootrecord/bin.bak-cloudflared-20260929-141048/`. Original plan:
+   Restore **cloudflared** on AWS as a systemd unit with two ingress rules: `www.rootrecord.cloud → 127.0.0.1:8090` (existing `config-globe.yml`, tunnel `939b16f7…`) and `ssh.rootrecord.cloud → ssh://localhost:22`. Then `ssh rr-aws uptime` (desk ProxyCommand already fixed) becomes the primary path.
 
 ### P1 — health endpoint (what "continuity node" should expose first)
 

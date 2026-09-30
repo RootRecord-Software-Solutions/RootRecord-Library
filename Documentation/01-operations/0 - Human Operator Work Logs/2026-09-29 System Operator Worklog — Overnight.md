@@ -339,3 +339,30 @@ No deploy, push, Vercel settings, jobs.py, Control-Panel, AWS, sudo, restarts, s
 - Pick a live-data origin for the site (`origin.avaivy.cloud` is down; `rootserver.rootrecord.cloud` has no `/api/*` contract), then set `AVA_ORIGIN_URL` in Vercel.
 - Optional `repos.conf` row `cloud` (line in the architecture doc) — keep **disabled**: enabling = auto-deploy on every desk edit, and `is_runtime_code_tree` would arm Pacific stack reloads for pulls into this path.
 - Retire/guard `scripts/auto-push.py` upstream (requires a push = deploy).
+
+## AWS Mainland pass: Hawaii feed trim, auto-trim, www tunnel restored, `rr-aws-ip` fixed (14:05–14:35 HST)
+
+Approved by Alexander: deploy and run the trim script once, make trimming automatic, restore the tunnel for `www` (keep `www` on the AWS globe, leave Vercel alone), and fix the `rr-aws-ip` HostName. Backups: AWS `/home/ubuntu/rootrecord/bin.bak-hawaii-trim-20260929-140641/` (old script, units, crontab state, timers, stat/df, last 64 MiB of `hawaii.ndjson`) and `/home/ubuntu/rootrecord/bin.bak-cloudflared-20260929-141048/` (mirror config, the leftover `cloudflared-update.{service,timer}`, dir/listener/memory/service snapshots; there were no creds on AWS to back up). Desk: `~/.ssh/config.bak-20260929-140612` and `/home/rootrecord/Database/GITHUB/aws-hawaii-trim-cloudflared.bak-20260929-141557/`. Record: [test record](../../07-testing/2026-09-29-aws-hawaii-trim-and-cloudflared.md).
+
+| Time (HST) | What | State |
+| --- | --- | --- |
+| 14:05 | Read-only: AWS disk 1.6G free (77 %). The desk collector's writer (`cat >>`, pid 222029) holds the feed open. The script was missing at `scripts/`, which the desk collector calls (journal: exit 127 at 13:40 and 13:55). The repo script was found to be identical to the stray copy in the `network-globe/` root. No `ubuntu` crontab. Passwordless sudo OK | done |
+| 14:06 | Desk `~/.ssh/config`: only the `rr-aws-ip` HostName changed, 3.139.100.162 → 18.118.30.226. `ssh -o BatchMode=yes -o ConnectTimeout=5 rr-aws-ip uptime` → up 3 days 9:23 | **PASS** |
+| 14:06:41 | AWS backup folder created, including a 64 MiB tail of the feed | done |
+| 14:07 | Deployed `scripts/maintain-hawaii-feed.sh` (sha256 matches the repo, `chmod +x`, `bash -n` OK). Reviewed it: flock, truncate-in-place on the same inode (the writer keeps appending), and a sub-second window in which appended lines may be lost | **PASS** |
+| 14:07:38 | One run at `nice -n 10`: `trimmed 1827611155 -> 50331325 bytes; offset reset`, 0.53 s. Free disk **1.5G → 3.2G** (78 % → 53 %). Feed-server and connection-history both active, and the writer is still appending | **PASS** |
+| 14:08 | `ubuntu` crontab: `*/15 * * * * nice -n 10 /bin/bash …/scripts/maintain-hawaii-feed.sh 67108864 50331648 2>&1 \| /usr/bin/logger -t maintain-hawaii-feed`, mirrored in Mainland `network-globe/cron/maintain-hawaii-feed.crontab` | LANDED |
+| 14:10 | Tunnel diagnosis: cloudflared was **not installed**. It had been purged on 2026-09-26 02:41 HST, together with its unit and `/etc/cloudflared`; before that it ran the token tunnel `rootserver` 9adf2231, not the globe. `config-globe.yml` points at tunnel `network-globe` **939b16f7**, but its creds JSON was missing on AWS. The globe web server (`server.js`, expects :8090) was not running; only feed-server :8787 was. `cloudflared tunnel list` on the desk (existing origin cert) showed 939b16f7 with **0 connections**, which explains the 1033 on `www` | done |
+| 14:11 | Official cloudflared .deb 2026.9.3 installed. The 939b16f7 creds JSON was copied from the desk's old aws-sync mirror to `~ubuntu/.cloudflared/` at 0600 (contents never printed). Ingress validated (`www → 127.0.0.1:8090`, `ssh → ssh://localhost:22`, 404) | LANDED |
+| 14:11 | `network-globe-web.service` (User=ubuntu, PORT=8090) enabled and started; origin `curl 127.0.0.1:8090/` → 200 | **PASS** |
+| 14:12 | `cloudflared-network-globe.service` enabled and started; 4 tunnel connections registered. `https://www.rootrecord.cloud/` **530 → 200**, and `rootrecord.cloud` returns 301 → `www`. No tunnel created, no DNS change, Vercel untouched | **PASS** |
+| 14:13 | `ssh rr-aws uptime` through the tunnel: the host key presented is the AWS key (`SHA256:Kdsqhy…FbXA`, checked against `/etc/ssh/ssh_host_ed25519_key.pub` over direct SSH), and it passes with that key pinned. With the desk `known_hosts` it fails: line 11 still holds the pre-rebuild key (`rsiA1b…`, same as 3.139.100.162). `known_hosts` was **not** edited | PASS (pinned) / FAIL (desk known_hosts) |
+| 14:15:02 | First cron fire: `feed 55736202 bytes <= 67108864 -- no trim`. The poller, feed-server, history, web, cloudflared, github-poller and cron are all active. MemAvailable 446 MB (512 MB before), load 1.39/1.17/0.74, no swap | **PASS** |
+| 14:16–14:25 | Mainland checkout, uncommitted (no git writes): `network-globe/cron/maintain-hawaii-feed.crontab`, `network-globe/network-globe-web.service`, `network-globe/cloudflared-network-globe.service`, `mirror/.cloudflared/config-globe.yml` (+ssh rule), and a README section. Library: test record, 07 README row, and the AWS plan P0-1 and P0-4 marked LANDED/PASS | LANDED |
+
+Not touched: the poller, the Elastic IP, the `rootserver` tunnel (its connectors are on the desk), Cloudflare DNS/tunnels, Vercel, and the leftover disabled `cloudflared-update.{service,timer}`. There were no desk git writes, desk sudo or restarts.
+
+**Needs Alexander:**
+- OK to replace the stale `ssh.rootrecord.cloud` entry in the desk `~/.ssh/known_hosts`: `ssh-keygen -R ssh.rootrecord.cloud`, then pin `SHA256:KdsqhyZ0zGl+ezS07KKNUh9U5kO2WPgJt37VgewFbXA`. After that, `ssh rr-aws uptime` works.
+- Enable `mainland` auto-sync (or commit by hand) so the mirrored units and crontab reach GitHub.
+- Optional: fix the `connection-history.py` re-ingest after a trim (it inflates daily counters).

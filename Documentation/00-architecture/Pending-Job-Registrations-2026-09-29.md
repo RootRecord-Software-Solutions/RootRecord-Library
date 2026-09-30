@@ -84,18 +84,18 @@ Minutes are chosen to avoid the used minutes (0, 3, 6, 7, 8, 15, 22, 30, 32, 37,
     {
         "id": "reports_hawaii_news",
         "enabled": os.environ.get("RR_HAWAII_NEWS", "0") == "1",
-        "description": "Hawaii official state news collector (G0 port), daily. Official hawaii.gov namespace only.",
+        "description": "Hawaii government news collector (G0 port + 16 seed feeds), daily. hawaii.gov + County of Maui feeds.",
         "at_times": ["10:00"],
         "builtin": "",
         "command": f'nice -n 10 python3 "{PACIFIC}/Reports/News/scripts/hawaii_news.py"',
-        "timeout_sec": 900,
+        "timeout_sec": 300,
         "cwd": f"{PACIFIC}/Reports/News/scripts",
-        "env": {},
+        "env": {"RR_NEWS_SEEDS_ONLY": "1"},  # seed feeds only (~12 s); drop to also run G0 portal discovery (~23 s, 25 x 404 today)
     },
 ```
 
 ## On-demand ports (no job needed)
 
-`Geology/scripts/earthquakes_backfill.py`, `Media/Video/scripts/mp4_converter.py`, `Communications/web-facts/scripts/web_facts.py`, `System/scripts/host_desks.py security|net-usage`.
+`Geology/scripts/earthquakes_backfill.py`, `Media/Video/scripts/mp4_converter.py`, `Communications/web-facts/scripts/web_facts.py`, `Communications/live-wx/scripts/live_wx.py`, `System/scripts/host_desks.py security|net-usage`.
 
-*Created 2026-09-29 ~14:08 HST (old-repo migration, breadth pass).*
+*Created 2026-09-29 ~14:08 HST (old-repo migration, breadth pass). Updated ~14:25 HST: `reports_hawaii_news` now seeded (278 posts in a temp-root run), env `RR_NEWS_SEEDS_ONLY=1`, timeout 300 s.*
