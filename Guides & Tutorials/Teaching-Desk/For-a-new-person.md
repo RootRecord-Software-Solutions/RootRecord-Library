@@ -14,7 +14,7 @@ The window you see at login is **Root Monitor**. It is a viewer. Closing it does
 
 Root Monitor opens on Energy.
 
-![Energy, the page the window opens on](../Root-Monitor-Operators-Handbook/media/20260930-024823-01-energy.png)
+![Energy, the page the window opens on](../Root-Monitor-Operators-Handbook/media/01-energy.png)
 
 The line under the title is the one to read first. On the night this picture was taken it said the poller was passing, then three batteries:
 
