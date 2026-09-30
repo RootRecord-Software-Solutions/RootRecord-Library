@@ -4,10 +4,10 @@
 | --- | --- |
 | **Date (HST)** | 2026-09-29 14:01–14:15 HST |
 | **Author** | Grok (executor, website-staging pass) for Alexander |
-| **State** | **Checkout moved 2026-09-30.** Canonical git checkout is `3 - RootRecord-Website` @ `84dec4a`, token-free `origin`, ignored by the ecosystem root `.gitignore`. The 2026-09-29 Communications tree was removed the same day. `npm ci` / `npm run build` / brief `next start` from that pass stay **PASS**. Live data proxy **FAIL** (origin 530). Deploy and Vercel settings **not touched**. Auto-sync stays **off**. |
+| **State** | Folder removed 2026-09-30. Do not start it again. The 2026-09-29 Communications tree was removed the same day. Live data proxy **FAIL** (origin 530). Deploy and Vercel settings **not touched**. Auto-sync stays **off**. |
 | **Repo** | `rootrecordsoftwaresolutions/RootRecord-Cloud` (`main` @ `84dec4a`, 2026-09-28 18:39 HST) |
-| **Checkout** | `/home/rootrecord/RootRecord-Ecosystem/3 - RootRecord-Website/` |
-| **Leftover snapshot** | Removed 2026-09-30 from `Communications/website/RootRecord-Cloud/`. It had no `.git`. The checkout is folder 3. |
+| **Checkout** | Folder removed 2026-09-30. Do not start it again. |
+| **Leftover snapshot** | Removed 2026-09-30 from `Communications/website/RootRecord-Cloud/`. It had no `.git`. There is no desk checkout. |
 | **Pacific-tracked** | `Communications/website/README.md`, `Communications/website/.env.example` (names only), `.gitignore` entry, `Communications/README.md` row |
 | **Test record** | [07-testing/2026-09-29-website-rootrecord-cloud-staging.md](../07-testing/2026-09-29-website-rootrecord-cloud-staging.md) |
 | **Backup** | `/home/rootrecord/Database/GITHUB/website-staging.bak-20260929-140240/` |
