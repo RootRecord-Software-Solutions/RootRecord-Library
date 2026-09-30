@@ -14,7 +14,7 @@
 
 ## 1. Intent
 
-The old job replayed today's morning-boot audio at :32 HST until noon, then disarmed. It did not synthesize speech. Source: `/home/rootrecord/old ollama/old skills/morning-boot-replay/scripts/job.py`.
+The old job replayed today's morning-boot audio at :32 HST until noon, then disarmed. It did not synthesize speech. Source archive: `Old repos deleted and merged/Solar-Pacific-RootRecord-Server-Old/morning-boot-replay/scripts/job.py`.
 
 The live system already writes the boot brief and must be kept: `voice_reports.py boot_brief` (Ava), morning edition before 12:00 HST and midday after, text plus a WAV from `voice-render.sh`. Speaker delivery stays off.
 
@@ -158,7 +158,7 @@ Do not rewrite unrelated work orders.
 
 ### Result note
 
-Landed 2026-09-30: `Media/MorningBootReplay/scripts/replay.py`. It replays today's morning `boot_brief_current.wav` until noon HST and hands it to `Media/Playback/scripts/play.py --report boot_brief --dry-run`. This folder never calls `aplay`. Proof on a temp database root: `play_once` returned `played` and wrote `last_played`; a midday `done` board returned `disarmed`. `jobs.py` was not edited. Gate `RR_MORNING_BOOT_REPLAY` stays off.
+Landed 2026-09-30: `Media/MorningBootReplay/scripts/replay.py`. It replays today's morning `boot_brief_current.wav` until noon HST and hands it to `Media/Playback/scripts/play.py --report boot_brief --dry-run`. `run` arms itself when today's state is not already disarmed. A same-day disarm stays off. This folder never calls `aplay`. Proof on a temp database root: an empty state plus a morning WAV arms, then `play_once` returns `played` and writes `last_played`; a same-day disarm stays `disabled`; a missing WAV returns `wav_missing`. `jobs.py` was not edited. Gate `RR_MORNING_BOOT_REPLAY` stays off.
 
 Archived to `Old repos deleted and merged/Solar-Pacific-RootRecord-Server-Old/morning-boot-replay/` and `.../origin/ns/apps/core/crons/since_last_fire/morning_boot_replay.py`. Removed those paths from the local old repo (`/home/rootrecord/old ollama/old skills`, commit `fb3b6149`). Shared files left in place: `scheduler-clock/scripts/scheduler.py`, `scheduler-clock/CURRENT.md`, `ecosystem-index/`, `companions/dev-desk/lib/deskState.mjs`, `ecosystem-history/scripts/one_shot_morning_boot_tts.py`, `origin/scripts/routes/desktop.py`.
 
