@@ -1,0 +1,170 @@
+# WORK ORDER — Country location pollers
+
+| Field | Value |
+| --- | --- |
+| **Work Order ID** | WO-MIG-13-2026-09-29 |
+| **Date** | 2026-09-29 (HST) |
+| **Status** | OPEN — draft, not accepted for execution |
+| **Owner** | RootRecord |
+| **Related** | Agent 13. Wave B. Depends on the Folders for public website checkout, the US all-states weather dataset, and the state and global news builders being in place before any build. No later function depends on this one. Matrix row 81. |
+
+**Scope:** Bring country location weather polling into the live Ecosystem as one Weather subfolder, limited to locations the one Vercel site actually routes. This draft does not build that code, edit `jobs.py`, restart services, send messages, actuate hardware, or spend cloud money. It does not import the 306 old per-city poller copies, their SQLite output, or any per-country theme.
+
+---
+
+## 1. Intent
+
+The old function, `operations/locations/**/poller.py` in `rootrecordsoftwaresolutions/old`, polled Open-Meteo for about 230 country codes. The tree is 306 city folders. Each folder is only `location.json` plus `poller.py`. Every `poller.py` is the same blob (`85e04d7aef53db1370078d76e4d8ec60666c0d4e`): read that city's `location.json`, fetch current temperature, humidity, wind, and precipitation from `https://api.open-meteo.com/v1/forecast`, and walk `https://archive-api.open-meteo.com/v1/archive` forward from 2026-03-31 one day at a time into SQLite (`database/locations/.../weather.db` and `database/weather.db`). The GitHub repo has no `database/` tree, so those SQLite files are not in the repo. The pollers were website data and were not imported. They are absent from Pacific.
+
+The live system already collects Hawaiʻi weather (`Weather/scripts/run_poller.py`, job `weather_poller`), EcoFlow readings, geology (`geology_collect.py`), the globe collector, camera grabs, and Kokoro. Those stay. Open-Meteo is not used under Pacific `Weather/`. Geology already keeps `Geology/config/global-locations.json` (306 public places) for quake nearest-place tags. That catalog is a different function and stays where it is.
+
+This function, once accepted, is one shared poller for the locations the one Vercel site still serves. The site on `main` serves `/`, `/home`, `/home/status`, `/status`, `/energy`, and `/api/energy`. It has no country or city route, so the allowlist is empty until a checkout shows a real route. No per-country themes.
+
+---
+
+## 2. Current reality
+
+### 2.1 What exists
+
+Folder name, used in all three paths: **CountryLocations**. It is a subfolder of Weather. No second top-level domain. No lowercase twin. No symlink. No `Logs/` directory on the server.
+
+| Item | Location / status |
+| --- | --- |
+| Folder | `CountryLocations` — not created. Draft only. |
+| Code | `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Weather/CountryLocations/scripts` — absent |
+| Database | `2 - RootRecord-Database/Weather/CountryLocations/` — absent |
+| Logs | `2 - RootRecord-Database/Logs/Weather/CountryLocations/` — absent |
+| Secrets | None. No new key names in `/home/rootrecord/master/master-key.env`. Open-Meteo is a public API. |
+| Old source | `rootrecordsoftwaresolutions/old` `operations/locations/**` — 306 `poller.py` (one blob) and 306 `location.json`. No theme files in that tree. |
+| Shared file, leave it | `old/config/locations/global-locations.json` — already copied to `Geology/config/global-locations.json`. Not part of this deletion. |
+| Live Vercel app | `rootrecordsoftwaresolutions/RootRecord-Website` `main` — no country or city route. |
+| Local website checkout | `3 - RootRecord-Website/` is an empty directory. |
+| Hawaiʻi weather | Live. `Weather/scripts/run_poller.py`. Do not replace. |
+| Local checkout of `old` | Not on this machine at draft time (the earlier migration clone under `/tmp/rr-migr` was deleted). |
+
+### 2.2 Completed so far
+
+- [x] Old tree read: 306 identical pollers, no themes, no `database/` on GitHub.
+- [x] Live site routes checked: none are country or city pages.
+- [x] Folder and the three paths named above.
+- [ ] Draft accepted by Alexander.
+- [ ] Build (paused until the dependency Folders exist, and until this draft is accepted).
+- [ ] Phase 4 archive and GitHub file deletion.
+- [ ] Result note and matrix row 81 correction.
+
+### 2.3 Known friction
+
+- Public website checkout, the US all-states weather dataset, and the state and global news builders have no Folders yet. The website directory exists and is empty. Build pauses until those three functions have Folders. Do not build them here.
+- `jobs.py` is shared. This draft does not edit it. A later accepted build may insert only the disabled block in section 3.
+- Phase 4 needs a local checkout of `old`. None was present when this draft was written. If it is still missing at phase 4, pause and name that checkout. Do not clone it during this draft.
+
+---
+
+## 3. Tasks
+
+Do these only after Alexander accepts this draft and says to build. Until then, stop.
+
+1. Pause if any of these functions still has no Folder: public website checkout; US all-states weather dataset; state and global news builders. Name the missing function. Do not build it.
+2. Read the checked-out Vercel app and set the allowlist to location ids that app actually routes. If it still has no country or city route, the allowlist stays empty. Do not copy 306 `poller.py` files.
+3. Create `Weather/CountryLocations/` with package name `CountryLocations`. Add `scripts/poll_locations.py`, `config/allowlist.json`, and a short README. Empty allowlist: exit 0, write a status file under the Database path, do not call Open-Meteo. No archive backfill. No `Logs/` directory on the server. Logs go only under `2 - RootRecord-Database/Logs/Weather/CountryLocations/`.
+4. Do not edit `jobs.py` unless this accepted build inserts only the disabled block below. Do not set `RR_COUNTRY_LOCATIONS`. Do not enable the job.
+
+```python
+{
+    # Country location pollers (WO-MIG-13). OFF. One script, allowlist of
+    # locations the one Vercel site routes. Empty allowlist does not call Open-Meteo.
+    "id": "country_location_pollers",
+    "enabled": False,
+    "description": "Open-Meteo current conditions for CountryLocations allowlist -> Database Weather/CountryLocations/. Gate RR_COUNTRY_LOCATIONS stays unset.",
+    "interval_sec": 900,
+    "builtin": "",
+    "command": f'nice -n 10 python3 "{PACIFIC}/Weather/CountryLocations/scripts/poll_locations.py"',
+    "timeout_sec": 60,
+    "needs_internet": True,
+    "cwd": f"{PACIFIC}/Weather/CountryLocations",
+    "env": {},
+}
+```
+
+5. No public page on this pass. A later page, if one is added, goes in the one Vercel app (`3 - RootRecord-Website`) and follows the US-Mainland globe glass-card overlay. Data and logs stay on the Database paths above. Do not import an old theme.
+6. After the script works: copy `operations/locations/**` into `/home/rootrecord/RootRecord-Ecosystem/Old repos deleted and merged/old/`, keeping the path it had inside the old repo (`operations/locations/...`). Generated data that lived beside that source goes into this archive too, and still does not go into the live Folders. After the archive copy is on disk, delete those same files from the old repo on this machine and on GitHub. Commit that deletion and push it. Do not force-push. Do not delete the GitHub repository. If the archive copy fails, do not delete. If no local checkout of `old` exists, pause. Leave `old/config/locations/global-locations.json`.
+7. Update this work order with the result note (what landed, what was archived, what was removed on GitHub) and set the new status. Correct only `5 - RootRecord-Library/Documentation/00-architecture/Old-Repo-Migration-Matrix.md` row 81. Do not rewrite unrelated work orders.
+
+---
+
+## 4. Non-goals
+
+- Do not overwrite the Hawaiʻi weather poller, EcoFlow BLE, `geology_collect.py`, the globe collector, camera grabs, or Kokoro.
+- Do not edit `Geology/config/global-locations.json` or delete `old/config/locations/global-locations.json`.
+- Do not import logs, samples, last-state files, generated reports, SQLite databases, caches, virtualenvs, `node_modules`, or `__pycache__` into Pacific, Database, the website, or git.
+- Do not copy the 306 per-city `poller.py` files. One script replaces them.
+- Do not run the Open-Meteo archive backfill from 2026-03-31.
+- Do not add a public page, a second Vercel site, or a per-country theme. This tree has no theme files.
+- Do not build public website checkout, the US all-states weather dataset, or the state and global news builders.
+- Do not edit other agents' files. If `jobs.py`, the Vercel app shell, or `master-key.env` is already being edited, pause.
+
+---
+
+## 5. Key file / path reference
+
+| Path | Role |
+|------|------|
+| `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Weather/CountryLocations/scripts` | Code. Created only after this draft is accepted. |
+| `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Weather/CountryLocations/scripts/poll_locations.py` | The one poller. Empty allowlist does not call Open-Meteo. |
+| `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Weather/CountryLocations/config/allowlist.json` | Location ids the checked-out Vercel app routes. Empty today. |
+| `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Weather/CountryLocations/README.md` | Short note for the subfolder. |
+| `2 - RootRecord-Database/Weather/CountryLocations/` | Samples, last files, and stores. Not created in this draft. |
+| `2 - RootRecord-Database/Logs/Weather/CountryLocations/` | Logs only. |
+| `/home/rootrecord/master/master-key.env` | Unchanged. No new key names. |
+| `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Automations/scripts/jobs.py` | Not edited by this draft. Later build may insert only the disabled block in section 3. |
+| `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Geology/config/global-locations.json` | Quake nearest-place catalog. Leave it. |
+| `3 - RootRecord-Website` | One Vercel app. No page added on this pass. Checkout is empty today. |
+| `Old repos deleted and merged/old/operations/locations/` | Phase 4 archive path. Not copied in this draft. |
+| `5 - RootRecord-Library/Documentation/00-architecture/Old-Repo-Migration-Matrix.md` | Row 81 corrected only after phase 4. |
+
+---
+
+## 6. Open items
+
+**Additional requirements:**
+
+- Alexander accepts this draft before any build.
+- Build pauses while public website checkout, the US all-states weather dataset, or the state and global news builders has no Folder.
+- Phase 4 pauses if there is no local checkout of `old`, or if the archive copy fails.
+- Enabling `country_location_pollers` or setting `RR_COUNTRY_LOCATIONS` needs a separate sign-off.
+- The Open-Meteo archive backfill needs a separate sign-off.
+
+---
+
+## 7. Notes & constraints
+
+- No force-push.
+- Secrets stay out of git. This function adds no key names.
+- Prefer small reversible steps.
+- Sign-off before any send, speaker playback, OBS, hardware switch, deletion of live Ecosystem files, cloud spend, enabling the job, or the archive backfill. Phase 4 deletion is limited to this function's old files, and only after they are in `Old repos deleted and merged`. Do not delete the GitHub repository.
+- Small test, after the build, not now: run `poll_locations.py` once with an empty allowlist. It must exit 0, write a status file that says zero locations, and make no HTTP call.
+- Result note: not written. After phase 4, add here what landed, the archive path, and what was removed on GitHub, then correct matrix row 81 only.
+
+---
+
+*Work order prepared 2026-09-29 HST. Update status when closed.*
+
+---
+
+## Archive / location note
+
+This file is a draft. It is not on the active index. Do not auto-promote.
+
+```text
+Documentation/06-development/Work-Orders/drafts/Country_location_pollers_Work_Order_WO-MIG-13-2026-09-29.md
+```
+
+See `drafts/README.md` and WO-WOGEN-001. Do not auto-promote.
+
+**Closed WOs:** set Status → COMPLETE/CLOSED → `git mv` into:
+
+```text
+Documentation/06-development/Work-Orders/Complete/
+```
+
+Human session logs archive under `Documentation/01-operations/archive/YYYY-Www/` (WO-ARCH) — separate from closed work orders.
