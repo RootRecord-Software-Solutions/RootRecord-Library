@@ -30,18 +30,19 @@ Folder name: **Economy-Brief**, a subfolder of Reports. One capitalized name in 
 
 | Item | Location / status |
 | --- | --- |
-| Server code | `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Reports/Economy-Brief/scripts` — not created. Script will be `economy_brief.py` (same layout as `Reports/Late-Final/scripts/late_final.py`). No `config/`. No `Logs/` on the server. |
-| Database data | `2 - RootRecord-Database/Reports/Economy-Brief/` — not created. Daily markdown and last snapshot stay here, out of git. |
-| Database logs | `2 - RootRecord-Database/Logs/Reports/Economy-Brief/` — not created. |
+| Server code | `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Reports/Economy-Brief/scripts` — folder staged (`.gitkeep`). `economy_brief.py` not written. No `config/`. No `Logs/` on the server. |
+| Database data | `2 - RootRecord-Database/Reports/Economy-Brief/` — folder staged (`.gitkeep`). Markdown stays out of git. |
+| Database logs | `2 - RootRecord-Database/Logs/Reports/Economy-Brief/` — folder staged (`.gitkeep`). Run lines stay out of git. |
 | Secrets | `/home/rootrecord/master/master-key.env` only. No MySQL, Discord, RootMC, or economy key names are present. This function adds none and reads no passwords. MySQL credentials stay with MySQL desk facts. Discord channel ids stay with the Discord poller. |
 | Old runtime | `reports/sort/economy-brief/scripts/job.py` in the gitignored `reports/` tree of `rootrecordsoftwaresolutions/Solar-Pacific-RootRecord-Server`. Local checkout: `/home/rootrecord/old ollama/old skills`, branch `online-safe-20260920`. |
 | GitHub-tracked shim | `origin/ns/apps/core/crons/on_time/economy_brief.py` in that same repo. It execs `~/.ollama/skills/economy-brief/scripts/job.py`. Do not restore that path. |
 | Live Kīlauea facts | `2 - RootRecord-Database/Geology/Volcanoes/kilauea-last.json` (`alert_level`, `multiplier`). Missing file means `unknown` / `1.0`. |
-| Dependency Folders | Council persona prompts, Discord poller, and MySQL desk facts are not installed. `Communications/discord` is a README and `.gitkeep` only. |
+| Dependency Folders | Discord poller: `Communications/Discord/` is in place. MySQL desk facts: `System/MysqlDesk/` is in place. Council persona prompts: no Folder yet. The lowercase `Communications/discord` README remains; this function does not use it. |
 
 ### 2.2 Completed so far
 
 - [x] Draft work order written (this file). Status stays OPEN — draft, not accepted for execution.
+- [x] Economy-Brief code, Database, and Logs folders created and staged. Runtime files stay gitignored.
 - [ ] Alexander accepts this draft and says to build.
 - [ ] Dependency Folders exist: Council persona prompts, Discord poller, MySQL desk facts.
 - [ ] `economy_brief.py` writes the markdown under Database `Reports/Economy-Brief/`.
