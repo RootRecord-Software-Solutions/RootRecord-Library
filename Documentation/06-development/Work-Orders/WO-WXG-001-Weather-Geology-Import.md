@@ -3,7 +3,7 @@
 | Field | Value |
 |-------|--------|
 | **Priority** | P1 |
-| **Status** | Draft — Weather poller restarted 2026-09-29 22:04 HST after `Weather/.venv` was missing. County reports and the manifest were written at 22:13 HST. Some NOAA products returned error pages. Geology and voice jobs stay **OFF** until Alexander signs off. Do not enable `RR_*` flags from this draft alone. |
+| **Status** | Draft — Weather poller recycled 2026-09-30 02:24:58 HST to load resource edits. County reports regenerated 02:34. `noaa_homepage` still failed a bot-check at 02:33. Geology and voice jobs stay **OFF**. Do not enable `RR_*` flags from this draft alone. |
 | **Target** | Pacific `Weather/`, `Geology/` |
 | **Depends on** | Operator source for NWS / Kīlauea (and any residual G1/G2 scripts) |
 | **Related** | Migration priority P1; Old inventory; solar_weather cron notes |

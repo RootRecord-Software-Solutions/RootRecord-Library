@@ -26,7 +26,7 @@ Work-Orders/
 
 ---
 
-## Active ops backlog (updated 2026-09-30 01:29 HST)
+## Active ops backlog (updated 2026-09-30 02:35 HST)
 
 | ID | Title | Status | File |
 | --- | --- | --- | --- |
@@ -94,18 +94,20 @@ Architecture maps (Library):
 
 ---
 
-## Live snapshot (ops) — 2026-09-30 01:24 HST
+## Live snapshot (ops) — 2026-09-30 02:35 HST
 
 ```text
 Host      rootrecord-software-solutions up since 01:09 HST. CPU ~8%, RAM ~46%, disk 60% (264/468 GB). Laptop 100% on AC.
 systemd   rr-rootserver-poller.service active. Poller pid 3096, Pacific Automations cwd. BLE owner and globe units active.
 Energy    River 2 Pro BLE live, ~35% SOC at 01:22, discharging, solar 0 W. Delta 2 dead and not transmitting (operator). WAITING is normal. Last Delta 2 file 00:53 at 1% SOC.
 Cameras   ch1–ch4 grabbed. cam_server cwd is Pacific Security/Cameras. ch4 is a small night frame. Timelapse still waits on the 05–19 HST window.
-Weather   Poller up. County reports regenerated 01:18. Some NOAA pages INVALID or HTTP 500/503/403.
+Weather   Poller recycled 02:24:58 HST. County reports regenerated 02:34. noaa_homepage still failed a bot-check at 02:33. Geology stays off.
 Tunnel    https://rootserver.rootrecord.cloud HTTP 200 (poller :8799). Local website removed 2026-09-30. Do not start next dev on :3001.
-Github    github_sync_all publishing ecosystem, pacific, database, library. skills matched. website and mainland rows still disabled.
-Telegram  Relay up, replies OFF. getUpdates saw timeouts after boot.
-G2        Code kept, including ~/.ollama/skills and the 27 GB old-skills tree. Do not retire without Alexander's sign-off.
+Window    Root Monitor autostarts at next login (applied 02:33). Terminal dashboard stays in the menu. Conky not started.
+Github    github_sync_all publishing ecosystem, pacific, database, library. skills row still enabled (HEAD 6483586 at 02:16). website and mainland rows still disabled.
+Telegram  Relay up, replies OFF.
+G2        Identical skills copies removed 2026-09-30. Unique and diverged skills files stayed. 27 GB old-skills tree not touched. Do not retire the rest without Alexander's sign-off.
+Not migrated  Root Monitor list is 16 open items (7 BLOCKED, 9 VERIFY PENDING). Closed WOs are in Complete/.
 Next      Documentation/01-operations/2026-09-30-whats-left-for-alexander.md
 ```
 

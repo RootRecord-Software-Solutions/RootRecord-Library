@@ -3,7 +3,7 @@
 | Field | Value |
 |-------|--------|
 | **Priority** | P2 |
-| **Status** | Draft |
+| **Status** | Draft — local folder `3 - RootRecord-Website` was removed 2026-09-30. Do not recreate it or bind port 3001. `https://rootserver.rootrecord.cloud/` is the poller. The website sync row stays disabled. |
 | **Surfaces** | rootrecord.info, rootrecord.online, avaivy.cloud, rootrecord.cloud (status only) |
 | **Depends on** | WO-WEB-001 for status contract; operator design preference |
 | **Related** | Private all-connections URL atlas; agent context REPOS/INFRASTRUCTURE |

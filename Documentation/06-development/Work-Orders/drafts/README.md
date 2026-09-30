@@ -16,6 +16,10 @@
 - **WO-WOGEN-001** generator output (when accepted and implemented)  
 - Anything with `Status: DRAFT` that must not clutter the active backlog table  
 
+## Desk fact (2026-09-30)
+
+`3 - RootRecord-Website` is gone. Do not recreate that folder, and do not start a local site on port 3001. Drafts that still name that checkout are describing the desk as it was when they were written. Promote one only when Alexander asks, and retarget it before any build.
+
 ## Hard rules
 
 1. **Never auto-promote** a file from `drafts/` into the active index README.  

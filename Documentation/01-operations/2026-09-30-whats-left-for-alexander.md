@@ -1,7 +1,7 @@
 # What's left for Alexander — 2026-09-30
 
 **For:** Alexander (operator)  
-**Checked:** 2026-09-30 01:24 HST on `rootrecord-software-solutions`  
+**Checked:** 2026-09-30 02:35 HST on `rootrecord-software-solutions`  
 **Status:** Draft for you. Agents do not promote, enable, send, spend, or delete from this list.
 
 The 40-agent pass across ecosystem, pacific, database, and library held. The desk came up at 01:09 HST and the Pacific stack started from this Ecosystem tree. This file is the remaining work that still needs you. Historical work orders stay the record of how it got here.
@@ -17,7 +17,8 @@ The 40-agent pass across ecosystem, pacific, database, and library held. The des
 | River 2 Pro | BLE live. About 35% SOC at 01:22, discharging, solar 0 W (night) |
 | Delta 2 | Dead. It does not transmit. `WAITING` and the 00:53 snapshot at 1% SOC are normal |
 | Cameras | ch1–ch4 grabbing. ch4 is a small night frame |
-| Weather | Poller up. County reports regenerated 01:18. Some NOAA pages are HTML errors, 500, 503, or 403 |
+| Weather | Poller recycled 02:24:58 HST so it loads the resource edits. County reports regenerated 02:34. `noaa_homepage` still failed a bot-check at 02:33. Geology stays off |
+| Desk window | Root Monitor autostarts at the next login (applied 02:33). The terminal dashboard stays in the menu. Conky is not started |
 | Globe, Ollama, GitHub sync | Up. Sync publishes ecosystem, pacific, database, library. `skills` matched |
 | Telegram relay | Process up, replies off on purpose |
 | FLM | On demand. Resident warmup is off |
@@ -35,11 +36,11 @@ These are the decisions. Nothing below should be flipped by an agent from this d
 
 Standing rule from 2026-09-29: do not retire or delete G2 or G1 code without your explicit sign-off. "No live references" is not enough.
 
-Still on disk at the 01:24 check:
+Still on disk at the 02:35 check:
 
-- `~/.ollama/skills` — 277 MB, still the enabled `skills` sync row
-- `/home/rootrecord/old ollama/old skills` — 27 GB
-- `Old repos deleted and merged/` — partial copy, about 30 MB, still being filled
+- `~/.ollama/skills` — still the enabled `skills` sync row. Byte-identical copies of Pacific files were removed tonight. Unique and diverged files stayed. Dangerous leftover scripts exit immediately and do not run the old target. Latest skills commit at 02:16 HST was `6483586`.
+- `/home/rootrecord/old ollama/old skills` — 27 GB, not part of that removal
+- `Old repos deleted and merged/` — partial copy, still being filled
 
 **Your call:** leave all of it, or name a specific tree you want retired. Until you name one, agents keep it.
 
@@ -86,7 +87,7 @@ Separate from that batch, because they move files or fill disk:
 
 | Item | What you would be allowing |
 | --- | --- |
-| `weather_retention` | Apply after you review the dry run under `Logs/Weather/Retention/` |
+| `weather_retention` | Dry run around 02:02 HST would have moved 0 files. Apply is still your call |
 | `log_retention` | Dry-run job first. Live `--apply` needs its own yes (`RR_LOG_RETENTION_APPLY=1`) |
 | `RR_RADAR_ZIP=1` | All-time radar zip growth |
 | `path_index` | Full-disk path index. Job stays `enabled: False` until a separate yes |
@@ -129,7 +130,7 @@ WO-DATA is still open for this, not for the path. The canonical Database path is
 
 ## Suggested order, when you want to pick
 
-1. Leave Delta 2 and the live stack alone.
+1. Leave Delta 2 and the live stack alone. Root Monitor is the login window as of 02:33 HST. Conky is still off.
 2. Local website stays off. Mainland sync row stays disabled unless you say otherwise.
 3. After sunrise, accept or reject the timelapse hour and the 5-second camera interval.
 4. Name a River action test only if you want actuation marked PASS.

@@ -99,15 +99,15 @@ The dish answers gRPC at `192.168.100.1:9200` (reachable 12:45 HST). No Starlink
 | Screenshot mode (24 pages rendered to textures) | 127.3 MB | 5.4 s |
 | Starlink helper (own process, only while Network visible) | 55.7 MB | 0.43 s per poll incl. start |
 
-RSS work done in this pass: Settings rows use one label per row (not Adw.ActionRow), files with > 20 settings show 12 rows + "show the other N", sub-pages are built on visit and released on leave (gc + `malloc_trim`), `git ls-files` asks only about the 27 registry paths, and Ollama is queried with a raw local HTTP/1.0 GET (no urllib/ssl import).
+2026-09-30 02:33 HST: every settings row is built (the 12-row cap is gone). Editable `bool01` rows are labelled toggles. `--check` peak RSS 89.8 MB. Sub-pages are still built on visit and released on leave.
 
 ## 7. Sign-off items (Alexander)
 
-1. **Default viewer swap:** run `Packaging/swap-default-viewer.sh apply` (reversible with `revert`). Either this or item 2, not both.
-2. **systemd --user unit** (alternative autostart): copy `Packaging/rootrecord-control-panel.service` to `~/.config/systemd/user/`, `systemctl --user daemon-reload && systemctl --user enable --now rootrecord-control-panel.service`.
-3. **Conky:** `conky-all` 1.22.2 is now installed (dpkg 12:35 HST, not by this pass). The config was installed to `~/.config/conky/rootrecord.conkyrc` and **not started**: `conky -c ~/.config/conky/rootrecord.conkyrc`. Autostarting Conky is a separate decision.
-4. **RSS:** accept `--check` 84.5 MB / window 85.7 MB against the 80 MB target, or ask for a slimmer build (e.g. a separate Settings app).
-5. **RR_* flags:** create the poller drop-in `rr-flags.conf` so flag edits can be saved; every change needs a poller restart by you.
+1. **Default viewer swap:** **done** 2026-09-30 02:33 HST. Revert with `Packaging/swap-default-viewer.sh revert`. Do not also enable the user unit.
+2. **systemd --user unit:** still not installed. Leave it off while the autostart desktop is in place.
+3. **Conky:** installed, config copied, **not started**.
+4. **RSS:** `--check` 89.8 MB on 2026-09-30 02:33 HST, over the 80 MB target.
+5. **RR_* flags:** a confirmed toggle creates `rr-flags.conf` if it is missing. Nothing is restarted. The new value is used the next time the poller starts.
 6. **SSH:** `rr-aws` ProxyCommand points at `~/.local/bin/cloudflared`, which does not exist (the tunnel binary is Pacific `Communications/network/cloudflare/bin/cloudflared`); `rr-aws-ip` timed out after 5 s. Fix `~/.ssh/config` / the AWS side yourself. Mainland: add a Host block and set `ssh_mainland_alias`.
 7. **Security items** in §3: review the cloudflare snapshot files (git-tracked) and decide whether those fields should leave git.
 8. Risky actions: `risky_actions_enabled` + per-action `signed_off` (unchanged rule).

@@ -4,7 +4,7 @@
 | --- | --- |
 | **Date** | 2026-09-28 (HST) |
 | **Supports** | WO-SRV-2026-09-27 |
-| **Rule** | Pre-filled from existing static audits. Bruce fills Verified / Retired after G3 checklist. Docs only. **Standing rule (Alexander, 2026-09-29): never retire or delete G2/legacy code; "no live references" is not grounds (unimported automations, e.g. `rootrecordsoftwaresolutions/old`, may need it). Retire only with Alexander's explicit sign-off.** |
+| **Rule** | Pre-filled from existing static audits. Bruce fills Verified / Retired after G3 checklist. Docs only. **Standing rule (Alexander, 2026-09-29): never retire or delete G2/legacy code; "no live references" is not grounds. Retire only with Alexander's explicit sign-off.** **2026-09-30 exception:** he allowed removal of `~/.ollama/skills` files that were byte-identical to Pacific. Unique and diverged files stayed. Dangerous leftover scripts were fail-closed, not deleted. The 27 GB `/home/rootrecord/old ollama/old skills` tree was not in that pass. Rows below that name skills `1dcee66` are the 2026-09-29 record. |
 
 ---
 

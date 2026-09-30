@@ -212,3 +212,15 @@ Rows B–D: no new runtime evidence since the ~03:45 block, so those states stan
 | Geology / old-repo port rows above | unchanged: manual PASS; poller cycle VERIFY PENDING (flags + poller restart are sign-off items) | — |
 
 Sign-offs: worklog section "State at pause, 16:25 HST".
+
+## Status refresh — 2026-09-30 02:35 HST
+
+| Row | State | Evidence |
+| --- | --- | --- |
+| Root Monitor login window | **LANDED** 02:33 HST. Terminal autostart saved. Conky not started. | `Packaging/swap-default-viewer.sh apply` |
+| Not migrated list | 16 open (7 BLOCKED, 9 VERIFY PENDING). Seven closed work orders removed from the panel list. | `Apps/Control-Panel/Lib/rr_migration.json` |
+| Weather poller | Recycled 02:24:58 HST. Reports regenerated 02:34. `noaa_homepage` still FAILED (bot-check) at 02:33. | `2 - RootRecord-Database/Weather/Hawai'i/logs/weather-poller.log` |
+| Geology / voice jobs | Still gated. Do not enable from this refresh. | jobs.py `RR_*` defaults |
+| Local website | Removed. Do not recreate `3 - RootRecord-Website` or bind port 3001. | operator list |
+| G2 identical skills copies | Removed where the hash matched Pacific. Unique files and the 27 GB old-skills tree stayed. | skills `6483586` (02:16 HST) |
+| B. Timelapse / C. Energy actuation / A. Telegram replies | Unchanged: still waiting on Alexander | operator list |

@@ -577,7 +577,7 @@ Docs-only consolidation, 16:24–16:35 HST: no system changes, no git writes by 
 
 ### Pending sign-offs (consolidated, 16:25 HST)
 
-One list of everything still waiting on Alexander. The earlier "Needs Alexander" lists in this worklog stay as history; this is the current view.
+This is the 16:25 HST pause list. The current operator list is [What's left for Alexander](../2026-09-30-whats-left-for-alexander.md) (refreshed 2026-09-30 02:35 HST). Root Monitor login swap was applied 2026-09-30 02:33. Conky was not started.
 
 - [ ] **`:8787` feed server** on AWS is still publicly reachable: bind it to localhost or close the port in the security group.
 - [ ] **Telegram:** `telegram_hold` and `basic_replies` on AWS (both OFF), and a Telegram bot for the hold.
@@ -592,7 +592,7 @@ One list of everything still waiting on Alexander. The earlier "Needs Alexander"
 - [ ] **The 10 PROPOSED job blocks** in [Pending-Job-Registrations §B](../../00-architecture/Pending-Job-Registrations-2026-09-29.md), plus keep/remove for the 7 gated blocks already in `jobs.py` (§A).
 - [ ] **Hawaiʻi news seeds:** review the 16 seed feeds before `RR_HAWAII_NEWS` is registered.
 - [ ] **Report board file in git:** keep `Reports/board/daily-reports-due.json` tracked, or ignore it.
-- [ ] **Root Monitor:** default-viewer swap (`Packaging/swap-default-viewer.sh apply`, reversible), start Conky, and create the `rr-flags.conf` poller drop-in (needed before any RR_* flag edit).
+- [x] **Root Monitor login swap** applied 2026-09-30 02:33 HST. Conky is still not started. `rr-flags.conf` is created on the first confirmed flag save; it was not created by that swap.
 - [ ] **`git rm --cached` of generated reports** (Database `Reports/Generated/`, `Logs/AI/Reports/`, the voice report copies and sidecars) plus `.gitignore` rules.
 - [ ] **`OLLAMA_KEEP_ALIVE=0`** in `ollama.service` (sudo).
 - [ ] **Pronunciation approvals:** the 4 PROPOSED candidates (Kalākaua, Liliʻuokalani, Nuʻuanu, Māhele) and the by-ear checks.
