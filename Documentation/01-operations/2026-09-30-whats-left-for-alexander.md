@@ -1,0 +1,155 @@
+# What's left for Alexander — 2026-09-30
+
+**For:** Alexander (operator)  
+**Checked:** 2026-09-30 01:24 HST on `rootrecord-software-solutions`  
+**Status:** Draft for you. Agents do not promote, enable, send, spend, or delete from this list.
+
+The 40-agent pass across ecosystem, pacific, database, and library held. The desk came up at 01:09 HST and the Pacific stack started from this Ecosystem tree. This file is the remaining work that still needs you. Historical work orders stay the record of how it got here.
+
+---
+
+## Already running (leave it)
+
+| Surface | State |
+| --- | --- |
+| Poller | `rr-rootserver-poller.service` active, Pacific `Automations/` |
+| Tunnel | `https://rootserver.rootrecord.cloud` HTTP 200 |
+| Local site | `3 - RootRecord-Website` on `:3001`, HTTP 200 |
+| River 2 Pro | BLE live. About 35% SOC at 01:22, discharging, solar 0 W (night) |
+| Delta 2 | Dead. It does not transmit. `WAITING` and the 00:53 snapshot at 1% SOC are normal |
+| Cameras | ch1–ch4 grabbing. ch4 is a small night frame |
+| Weather | Poller up. County reports regenerated 01:18. Some NOAA pages are HTML errors, 500, 503, or 403 |
+| Globe, Ollama, GitHub sync | Up. Sync publishes ecosystem, pacific, database, library. `skills` matched |
+| Telegram relay | Process up, replies off on purpose |
+| FLM | On demand. Resident warmup is off |
+| Geology and the other gated jobs | Off until you say otherwise |
+
+Laptop was 100%, on AC. Disk about 60% (264 / 468 GB).
+
+---
+
+## Your calls
+
+These are the decisions. Nothing below should be flipped by an agent from this document alone.
+
+### 1. Legacy code stays until you name it
+
+Standing rule from 2026-09-29: do not retire or delete G2 or G1 code without your explicit sign-off. "No live references" is not enough.
+
+Still on disk at the 01:24 check:
+
+- `~/.ollama/skills` — 277 MB, still the enabled `skills` sync row
+- `/home/rootrecord/old ollama/old skills` — 27 GB
+- `Old repos deleted and merged/` — partial copy, about 30 MB, still being filled
+
+**Your call:** leave all of it, or name a specific tree you want retired. Until you name one, agents keep it.
+
+### 2. Website and mainland sync rows
+
+Both catalog rows are disabled and still point at `~/.ollama/skills/...`. The site that is actually serving locally is `3 - RootRecord-Website`. The mainland desk copy is `1 - Servers/2 - RootRecord-US-Mainland-Server`.
+
+**Your call:** leave both rows disabled, or tell an agent to retarget `repos.conf` at those Ecosystem folders and enable them.
+
+### 3. Daylight cameras
+
+Grabs pass. Timelapse folders stay empty until the 05:00–19:00 HST window. Capture interval is still 1 second. WO-AEYES proposed 5 seconds and did not apply it.
+
+**Your call:** after sunrise, look at one hourly compile. Say whether the interval stays 1 second or becomes 5.
+
+### 4. River hardware actions
+
+Reads on River 2 Pro pass. Actuating actions (solar-gate arm/disarm, AC always-on) are still unverified. Delta 2 action tests from 2026-09-23 are historical. That pack is dead, so do not schedule a Delta 2 actuation test.
+
+**Your call:** when you want a hardware PASS, name the River action and the moment to run it.
+
+### 5. Telegram replies
+
+Relay is logged in and polling. Replies stay off until `RR_RELAY_REPLIES=1`. `getUpdates` was timing out after the reboot. That is a network retry, not a missing model.
+
+**Your call:** leave quiet mode, or opt in to replies.
+
+### 6. Turn-on batch (data only, no send)
+
+These exist in `jobs.py` and stay off. One sentence from you can enable a named subset.
+
+| Gate | Job |
+| --- | --- |
+| `RR_GEOLOGY=1` | Earthquake and volcano collect |
+| `RR_KILAUEA_CAMS=1` | Kilauea cam stills |
+| `RR_SUN_TIMES=1` | Sunrise and sunset file |
+| `RR_UPTIME_LOG=1` | Desk up/down log |
+| `RR_US_STATES=1` | US states weather dataset |
+| `RR_SMART_DEVICES=1` | Smart-device collect |
+| `RR_TEMPLATE_REPORTS=1` | Daily template reports |
+| `RR_AI_REPORT=1` / `RR_AI_USAGE=1` | AI processing and usage reports |
+
+Separate from that batch, because they move files or fill disk:
+
+| Item | What you would be allowing |
+| --- | --- |
+| `weather_retention` | Apply after you review the dry run under `Logs/Weather/Retention/` |
+| `log_retention` | Dry-run job first. Live `--apply` needs its own yes (`RR_LOG_RETENTION_APPLY=1`) |
+| `RR_RADAR_ZIP=1` | All-time radar zip growth |
+| `path_index` | Full-disk path index. Job stays `enabled: False` until a separate yes |
+
+### 7. Send, spend, and speaker batch
+
+Built, gated, and staying off until you name the one you want.
+
+- Council quake Telegram send (`RR_COUNCIL_QUAKE_SEND=1`)
+- Earthquake Discord live post, Discord poller, Slack poller
+- Kilauea public draft send
+- Council health send
+- Bruce stats posts
+- Inbox drain and overnight relay
+- Voice reports and live speaker play (`aplay`)
+- Hurricane radio
+- AdSense / AdMob live Google calls
+- xAI chat, TTS, billing probe, Cursor fallback spend
+- Cloud narrative live spend
+- Stripe poll and Vercel build poll
+- River-car DC drive (`RR_RIVER_CAR_DRIVE=1`)
+- Discord bot credential rotation (WO-COM-002): issue a fresh token before any enable. Do not load a token from archive history
+
+### 8. What gets published
+
+WO-DATA is still open for this, not for the path. The canonical Database path is already in use.
+
+**Your call:**
+
+- Geology `*-last.json` and `Daily/*.jsonl` are still tracked. Say if they stay public or become local-only.
+- Users / PII retention: do not copy people, users, or account-import into a repo.
+- Timelapse masters: say whether those files stay local.
+- The Pacific `cloudflared` binary is untracked. Say if it stays off git (recommended) or gets a published home.
+
+### 9. Draft work orders
+
+46 `WO-MIG-*` files sit in `Work-Orders/drafts/`. They are not a queue. Promote one only when you want that function accepted for execution.
+
+---
+
+## Suggested order, when you want to pick
+
+1. Leave Delta 2 and the live stack alone.
+2. Say whether website and mainland sync rows stay disabled.
+3. After sunrise, accept or reject the timelapse hour and the 5-second camera interval.
+4. Name a River action test only if you want actuation marked PASS.
+5. Enable any data-only gates from section 6 in one list.
+6. Name any send, spend, or speaker from section 7 one at a time.
+7. Decide publication for geology files, timelapse masters, and the cloudflared binary.
+8. Name a legacy tree only when you actually want it retired.
+
+---
+
+## Work orders this list sits on
+
+| ID | Still open because |
+| --- | --- |
+| WO-ECO-2026-09-27 | Out-of-scope imports and a few ownership checkboxes. Runtime path is done |
+| WO-SRV-2026-09-27 | Your sign-off on actuation, timelapse, relay replies, and G2 retirement |
+| WO-OLD-2026-09-28 | Next G1 packet, and no retirement without you |
+| WO-GH-2026-09-27 | Website and mainland rows |
+| WO-DATA-2026-09-27 | Publication and retention choices above |
+| WO-AEYES-2026-09-27 | Interval and daylight timelapse |
+
+Closed recently and not reopened by this list: WO-RPT-001, WO-ARCH, WO-SYS-001, WO-AGENT, WO-GH-001.
