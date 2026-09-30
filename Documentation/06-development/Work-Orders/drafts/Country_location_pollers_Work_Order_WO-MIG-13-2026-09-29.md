@@ -37,8 +37,7 @@ Folder name, used in all three paths: **CountryLocations**. It is a subfolder of
 | Secrets | None. No new key names in `/home/rootrecord/master/master-key.env`. Open-Meteo is a public API. |
 | Old source | `rootrecordsoftwaresolutions/old` `operations/locations/**` — 306 `poller.py` (one blob) and 306 `location.json`. No theme files in that tree. |
 | Shared file, leave it | `old/config/locations/global-locations.json` — already copied to `Geology/config/global-locations.json`. Not part of this deletion. |
-| Live Vercel app | `rootrecordsoftwaresolutions/RootRecord-Website` `main` — no country or city route. |
-| Local website checkout | `3 - RootRecord-Website/` is an empty directory. |
+| Live Vercel checkout | `3 - RootRecord-Website/src/app/` as of 2026-09-30 00:39 HST. Pages include `/us-states` (WO-MIG-11, not this allowlist). No country or city route. |
 | Hawaiʻi weather | Live. `Weather/scripts/run_poller.py`. Do not replace. |
 | Local checkout of `old` | Used `/tmp/rr-old-wo13` for the deletion commit. Not kept. |
 
@@ -47,8 +46,8 @@ Folder name, used in all three paths: **CountryLocations**. It is a subfolder of
 - [x] Old tree read: 306 identical pollers, no themes, no `database/` on GitHub.
 - [x] Live site routes checked: none are country or city pages.
 - [x] Folder and the three paths named above.
-- [x] Asked to finish the build (2026-09-30). US-States and the news builders were already on disk. The website checkout is still empty.
-- [ ] Public website checkout (`3 - RootRecord-Website/` is still empty, so the allowlist stays `[]`).
+- [x] Asked to finish the build (2026-09-30). US-States and the news builders were already on disk.
+- [x] Public website checkout rechecked 2026-09-30 00:39 HST. It has pages. None is a country or city route, so the allowlist stays `[]`.
 - [x] US all-states weather dataset Folder `Weather/US-States` is on disk.
 - [x] State and global news builders are in `Reports/News/scripts/`.
 - [x] `CountryLocations` script, empty allowlist, README, and disabled `jobs.py` block.
@@ -58,7 +57,7 @@ Folder name, used in all three paths: **CountryLocations**. It is a subfolder of
 
 ### 2.3 Known friction
 
-- Public website checkout is still an empty directory, so no country route was added to the allowlist.
+- Recheck 2026-09-30 00:39 HST: the website checkout is no longer empty. `/us-states` is the US-States dataset. This allowlist stays empty until a country or city page exists.
 - `jobs.py` has the disabled `country_location_pollers` block only. The job is not enabled.
 - `config/locations/global-locations.json` stayed on the old repo. It is the geology catalog, not this function.
 
@@ -148,6 +147,7 @@ Do these only after Alexander accepts this draft and says to build. Until then, 
 - Sign-off before any send, speaker playback, OBS, hardware switch, deletion of live Ecosystem files, cloud spend, enabling the job, or the archive backfill. Phase 4 deletion is limited to this function's old files, and only after they are in `Old repos deleted and merged`. Do not delete the GitHub repository.
 - Small test, 2026-09-30 00:02 HST: `poll_locations.py` with an empty allowlist exited 0, wrote `status-last.json` with `locations` 0 and `http_calls` 0.
 - Result note (2026-09-30 00:08 HST): Landed `Weather/CountryLocations/` with an empty allowlist and disabled job `country_location_pollers`. Empty run: exit 0, `http_calls` 0. Archived 612 files at `Old repos deleted and merged/old/operations/locations/`. Removed those files on GitHub `rootrecordsoftwaresolutions/old` commit `fe6661a` (default branch `cursor/radio-idle-obs-gates`). `main` already had no poller at its tip. `config/locations/global-locations.json` was left. The repository was not deleted.
+- Recheck (2026-09-30 00:39 HST): website checkout, US-States, and state/global news are now on disk. No country or city page, so the allowlist stayed `[]`. Second empty run: exit 0, `http_calls` 0. `Weather/README.md` now names this subfolder beside `US-States`.
 
 ---
 

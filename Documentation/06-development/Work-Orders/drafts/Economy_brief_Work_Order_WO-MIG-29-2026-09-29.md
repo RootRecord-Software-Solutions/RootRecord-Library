@@ -45,9 +45,9 @@ Folder name: **Economy-Brief**, a subfolder of Reports. One capitalized name in 
 - [x] Economy-Brief code, Database, and Logs folders created and staged. Runtime files stay gitignored.
 - [ ] Alexander accepts this draft and says to build.
 - [x] Discord poller Folder `Communications/Discord/` and MySQL desk facts Folder `System/MysqlDesk/` are in place.
-- [ ] Council persona prompts Folder. Script stays paused until it exists.
-- [ ] `economy_brief.py` writes the markdown under Database `Reports/Economy-Brief/`.
-- [ ] Fixture dry-run passes (no network, no Discord).
+- [ ] Council persona prompts Folder. The brief does not call it. Measured markdown does not wait on that Folder.
+- [x] `economy_brief.py` writes the markdown under Database `Reports/Economy-Brief/`.
+- [x] Fixture dry-run PASS 2026-09-30 00:41 HST. `economy-brief-2026-09-30.md` from a 4-wallet fixture. Gold-never-dollars note present. No `$`. `posted` false. Kīlauea line read `WATCH` / `2.5` from `kilauea-last.json`. No Discord. No MySQL.
 - [ ] Phase 4 archive, then deletion of this function's old files.
 - [ ] Phase 5 result note and the three Library corrections.
 
@@ -107,7 +107,7 @@ Folder name: **Economy-Brief**, a subfolder of Reports. One capitalized name in 
 
 | Path | Role |
 |------|------|
-| `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Reports/Economy-Brief/scripts/economy_brief.py` | New script. Not written until the build is accepted and the three Folders exist. |
+| `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Reports/Economy-Brief/scripts/economy_brief.py` | Writer. Fixture dry-run PASS 2026-09-30 00:41 HST. Discord send stays refused. |
 | `2 - RootRecord-Database/Reports/Economy-Brief/` | Daily markdown and last snapshot. Runtime output. Out of git. |
 | `2 - RootRecord-Database/Logs/Reports/Economy-Brief/` | Run log only. |
 | `2 - RootRecord-Database/Geology/Volcanoes/kilauea-last.json` | Read-only alert level and multiplier. |
