@@ -4,7 +4,7 @@
 | --- | --- |
 | **Work Order ID** | WO-MIG-01-2026-09-29 |
 | **Date** | 2026-09-29 (HST) |
-| **Status** | BUILT — default off. `RR_NIGHT_SLEEP=1` needs sign-off. Not on the active index. |
+| **Status** | ARMED — `RR_NIGHT_SLEEP=1` on the live poller since 2026-09-30 00:02 HST. No `night-mode.json`, so jobs are not skipped. Not on the active index. |
 | **Owner** | RootRecord |
 | **Related** | Agent 01, Wave A. Later function that depends on this gate: 2, 23:30 late-final report. Old source: `old ollama/old skills/scheduler-clock/scripts/scheduler.py` (`night_sleeping`, `NIGHT_POLL`). Live map: `Documentation/00-architecture/G1-Scheduler-To-G3-Jobs-Map-2026-09-29.md`. |
 
@@ -37,7 +37,7 @@ Folder name: **NightSleep**, under the System domain. One capitalized folder. No
 | Old skip | `night_sleeping()` and `NIGHT_POLL` inside shared `scheduler.py` |
 | Old flag writer | `write_night_state` / `in_starlink_sleep` in the old EcoFlow BLE poller — not this function |
 | Live poller | `Automations/scripts/rootserver_poller.py` `run_job()` calls the gate only when `RR_NIGHT_SLEEP=1` at process start |
-| Live job map | Gate is in code and default off. Enabled jobs still run around the clock until that flag is set. |
+| Live job map | Gate is armed (`RR_NIGHT_SLEEP=1` since 2026-09-30 00:02 HST). No `night-mode.json`, so enabled jobs still run. |
 
 ### 2.2 Completed so far
 
@@ -47,7 +47,7 @@ Folder name: **NightSleep**, under the System domain. One capitalized folder. No
 - [x] Offline test of `should_run` — PASS 2026-09-29 23:59 HST
 - [x] Phase 4: no file belongs only to this gate; nothing archived or deleted
 - [x] Library pages corrected
-- [ ] `RR_NIGHT_SLEEP=1` on the live poller (needs sign-off; poller was not restarted)
+- [x] `RR_NIGHT_SLEEP=1` on the live poller (signed off 2026-09-30; restarted 00:02 HST; no night-sleep skips because the flag file is absent)
 
 ### 2.3 Known friction
 
@@ -108,7 +108,7 @@ Build only after Alexander accepts this draft and says to build. Until then, do 
 
 **Additional requirements:**
 
-- `RR_NIGHT_SLEEP=1` on the live poller needs a separate sign-off. The default stays unset or `0`. The running poller was not restarted, so it still has the previous code until the next start.
+- Live launcher `Automations/scripts/poller/run-poller.sh` exports `RR_NIGHT_SLEEP=1` unless already set. Poller restarted 2026-09-30 00:02 HST (pid 372971). Tunnel registered. Scheduler resumed at 00:03:03. No `SKIP — night sleep` lines. `night-mode.json` is still absent, so the armed gate does not skip jobs.
 - `jobs.py` was not edited. The flag is read in `rootserver_poller.py` at process start.
 - Phase 4 archive path: none. GitHub deletion: none. Shared files left in place: `old ollama/old skills/scheduler-clock/scripts/scheduler.py`, `SKILL.md`, `CURRENT.md`. EcoFlow poller and its `night-mode.json` were not deleted. No commit and no push. Repository `Solar-Pacific-RootRecord-Server-Old` was not deleted.
 

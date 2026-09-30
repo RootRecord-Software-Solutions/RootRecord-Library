@@ -31,8 +31,8 @@ Folder name: **Late-Final**, a subfolder of the existing Reports domain (same pa
 | Item | Location / status |
 | --- | --- |
 | Code | `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Reports/Late-Final/scripts/late_final.py` — landed. |
-| Database | `2 - RootRecord-Database/Reports/Late-Final/last.json` — written by the dry-run. The due ledger stays `2 - RootRecord-Database/Reports/board/daily-reports-due.json`. |
-| Logs | `2 - RootRecord-Database/Logs/Reports/Late-Final/` — created only on a real run. The dry-run did not write a log. |
+| Database | `2 - RootRecord-Database/Reports/Late-Final/last.json` — last run at 2026-09-30 00:02 HST (`ran`). The due ledger stays `2 - RootRecord-Database/Reports/board/daily-reports-due.json`. |
+| Logs | `2 - RootRecord-Database/Logs/Reports/Late-Final/late-final.jsonl` — one line from the live text run. |
 | Secrets | None. No `master-key.env` key names. |
 | G1 source | `Solar-Pacific-RootRecord-Server-Old` `scheduler-clock/scripts/scheduler.py` job id `late-final-report` calls `_run("late_report")` at hour 23, minute 30. Same runner as job id `late-report` at 21:00. |
 | Live late roll-up | `voice_late_report` at 21:02 in `Automations/scripts/jobs.py`, gated `RR_VOICE_ROLLUPS`. Template is `voice_reports.py` `_rollup(..., "late")`. |
@@ -46,6 +46,7 @@ Folder name: **Late-Final**, a subfolder of the existing Reports domain (same pa
 - [x] `Reports/Late-Final/scripts/late_final.py`
 - [x] Gated `jobs.py` block `voice_late_final_report` at 23:30 (`RR_VOICE_LATE_FINAL=1`), left disabled
 - [x] `--dry-run` test, 2026-09-29 23:59 HST: `would-run`, late slot open, no report file, no WAV
+- [x] Live text run, 2026-09-30 00:02 HST: `ran`, rc 0, `late_report_current.md` written, no WAV, no playback
 - [x] Phase 4: nothing unique to archive or delete
 - [x] Phase 5 Library corrections
 
@@ -84,8 +85,8 @@ Folder name: **Late-Final**, a subfolder of the existing Reports domain (same pa
 | Path | Role |
 | --- | --- |
 | `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Reports/Late-Final/scripts/late_final.py` | Runner. Landed. |
-| `2 - RootRecord-Database/Reports/Late-Final/last.json` | Last-run JSON from the dry-run. |
-| `2 - RootRecord-Database/Logs/Reports/Late-Final/late-final.jsonl` | Real-run log only. Not written by the dry-run. |
+| `2 - RootRecord-Database/Reports/Late-Final/last.json` | Last-run JSON. Live text run wrote `ran`. |
+| `2 - RootRecord-Database/Logs/Reports/Late-Final/late-final.jsonl` | One log line from the live text run. |
 | `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Reports/scripts/report_board.py` | Existing board. Read the `late` slot. Do not add a slot. |
 | `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Media/Voice/scripts/voice_reports.py` | Existing `late_report` template. Call with `--no-voice`. Do not edit. |
 | `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Automations/scripts/jobs.py` | Gated block `voice_late_final_report` at 23:30. Left disabled. |
@@ -117,7 +118,7 @@ Folder name: **Late-Final**, a subfolder of the existing Reports domain (same pa
 
 ### Result (phase 4–5)
 
-- Landed: `Reports/Late-Final/scripts/late_final.py` and a disabled `jobs.py` block `voice_late_final_report` at 23:30 (`RR_VOICE_LATE_FINAL`). Dry-run 2026-09-29 23:59 HST: `would-run`, late slot open, no report markdown, no WAV.
+- Landed: `Reports/Late-Final/scripts/late_final.py` and a disabled `jobs.py` block `voice_late_final_report` at 23:30 (`RR_VOICE_LATE_FINAL`). Dry-run 2026-09-29 23:59 HST: `would-run`. Live text run 2026-09-30 00:02 HST: `ran`, rc 0, `test-reports/Voice/late_report_current.md` written, no WAV, no playback. The poller flag stays unset.
 - Archived: nothing unique to archive. Shared old-repo files left in place: `scheduler-clock/scripts/scheduler.py`, `reports/sort/late-report/`, `reports/sort/daily-report-board/`.
 - Removed on GitHub: none. Shared files left. Repository not deleted.
 - Library pages corrected: `G1-Scheduler-To-G3-Jobs-Map-2026-09-29.md`, `Voice-Reports-G3.md`, `Old-Repo-Migration-Matrix.md` row 15, `2026-09-29-old-repo-ports-breadth-batch5.md`.

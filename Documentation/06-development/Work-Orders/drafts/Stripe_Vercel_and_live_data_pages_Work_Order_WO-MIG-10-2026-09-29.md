@@ -4,7 +4,7 @@
 | --- | --- |
 | **Work Order ID** | WO-MIG-10-2026-09-29 |
 | **Date** | 2026-09-29 (HST) |
-| **Status** | OPEN — draft, not accepted for execution |
+| **Status** | OPEN — server code landed; public pages staged; checkout blocked |
 | **Owner** | RootRecord |
 | **Related** | Agent 10. Build pauses on agent 07 (Public website checkout) until `3 - RootRecord-Website` holds the one Vercel app. Agent 38 (AdSense and AdMob end-of-day) depends on this function later. |
 
@@ -36,8 +36,8 @@ Public pages, after checkout exists: `3 - RootRecord-Website`. Data and logs sta
 
 | Item | Location / status |
 | --- | --- |
-| Folder `Website` (code, data, logs) | Not installed |
-| `3 - RootRecord-Website` | Empty. Public website checkout (agent 07) has not landed |
+| Folder `Website` (code, data, logs) | Landed. Jobs `stripe_poll` and `vercel_builds` are in `EVERY_SECONDS`, gated off |
+| `3 - RootRecord-Website` | Still empty. Public pages are staged under Pacific `Website/staged/`, not deployed |
 | Vercel staging clone | `Communications/website/RootRecord-Cloud`, gitignored. Next.js app. Live-data proxy to `origin.avaivy.cloud` returns 530 |
 | Visual direction | US-Mainland globe, full-screen dark globe and glass cards. `1 - Servers/2 - RootRecord-US-Mainland-Server/mirror/network-globe/network-globe/` and `Documentation/08-ideas/2026-09-29-globe-landing-overlay.md`. `www.rootrecord.cloud` is that globe |
 | Old `stripe-poll` | `/home/rootrecord/old ollama/old skills/stripe-poll` |
@@ -48,17 +48,16 @@ Public pages, after checkout exists: `3 - RootRecord-Website`. Data and logs sta
 | Nested holding repo | `holding/site` → `Ava-Core-Dev/holding` |
 | Shared helper to leave | `origin/scripts/config.py` defines `vercel_token` and `vercel_team_id` for other functions |
 | `master-key.env` | `/home/rootrecord/master/master-key.env`. None of these names are present: `STRIPE_SECRET_KEY`, `AVA_STRIPE_SECRET_KEY`, `VERCEL_TOKEN`, `VERCEL_API_TOKEN`, `VERCEL_TEAM_ID`, `VERCEL_ORG_ID` |
-| Theme archive | `5 - RootRecord-Library/Archive/Website-Themes/` does not exist yet |
+| Theme archive | `5 - RootRecord-Library/Archive/Website-Themes/holding/` holds an unchanged copy of `holding/site`. Old repo not deleted |
 | Scheduler map | `stripe-poll` every 30 minutes and `vercel-builds` every 5 minutes are OUT (website / payment keys) |
 
 ### 2.2 Completed so far
 
-- [x] Draft work order written. Status stays OPEN — draft, not accepted for execution. Not on the active index.
-- [ ] Alexander accepts this draft and says to build.
-- [ ] Public website checkout exists in `3 - RootRecord-Website`.
-- [ ] Website code, Database last files, and Database logs.
-- [ ] Gated jobs proposed, left off.
-- [ ] Archive copy, then old-repo deletion, then this work order’s result note.
+- [x] Draft work order written. Not on the active index.
+- [x] Website code, no-key Stripe snapshot, live-page JSON, and gated-off jobs.
+- [x] Public page shell staged under `Website/staged/`. Holding skin copied into the theme archive.
+- [ ] Public website checkout exists in `3 - RootRecord-Website`. Pages stay staged until then.
+- [ ] Old-repo deletion and GitHub push. Archive of the four skill folders is not done, because the Vercel pages are not in the live app yet.
 
 ### 2.3 Known friction
 

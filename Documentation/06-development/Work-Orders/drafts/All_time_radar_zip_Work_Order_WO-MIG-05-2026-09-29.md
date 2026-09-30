@@ -4,11 +4,11 @@
 | --- | --- |
 | **Work Order ID** | WO-MIG-05-2026-09-29 |
 | **Date** | 2026-09-29 (HST) |
-| **Status** | OPEN — draft, not accepted for execution |
+| **Status** | COMPLETE — RadarZip built 2026-09-29; `weather_radar_zip` stays off until `RR_RADAR_ZIP=1` |
 | **Owner** | RootRecord |
 | **Related** | Agent 05. Old source `weather/radar-archive/scripts/radar_archive.py`. Live poller `Weather/fetch/radar.py`. Later consumer: Agent 20 OBS studio and overlays (do not build it). |
 
-**Scope:** Add longer retention for Hawaii radar by appending frames the live poller already saved into one all-time zip under `Weather/RadarZip`. The poller, the 14-day loose imagery window, and `weather_poller` stay. This draft does not authorize runtime edits, a `jobs.py` change, service restarts, sends, or GitHub deletion. Those wait until this draft is accepted and a build is ordered.
+**Scope:** Longer retention for Hawaii radar: frames the live poller already saved are appended into one all-time zip under `Weather/RadarZip`. The poller, the 14-day loose imagery window, and `weather_poller` stay. The scheduled job is in `jobs.py` and stays off.
 
 ---
 
@@ -30,9 +30,9 @@ Folder name: `RadarZip` (capitalized, one name in all three places). No lowercas
 
 | Item | Location / status |
 | --- | --- |
-| Code (not created yet) | `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Weather/RadarZip/scripts` — Python package name `RadarZip` |
-| Database (not created yet) | `2 - RootRecord-Database/Weather/RadarZip/` — `radar_archive.zip` and `radar-archive.json`. Not inside `Weather/Hawai'i`, so the 14-day imagery walk does not touch it |
-| Logs (not created yet) | `2 - RootRecord-Database/Logs/Weather/RadarZip/` |
+| Code | `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Weather/RadarZip/scripts/radar_zip.py` — package `RadarZip` |
+| Database | `2 - RootRecord-Database/Weather/RadarZip/radar_archive.zip` and `radar-archive.json`. Not inside `Weather/Hawai'i` |
+| Logs | `2 - RootRecord-Database/Logs/Weather/RadarZip/radar_zip.log` |
 | Live fetch | `Weather/fetch/radar.py` writes `HAWAII_loop_current.gif` and dated frames under `2 - RootRecord-Database/Weather/Hawai'i/hfo/radar.weather.gov/ridge/standard/HAWAII_loop/`. Job `weather_poller` is live. Do not replace it |
 | 14-day imagery rule | `Weather/scripts/weather-retention.py` keeps GOES / radar / IR-loop / wwamap dated folders 14 days, then moves them. Job `weather_retention` is gated (`enabled: False`, `--dry-run`). Do not change the window and do not turn on `--apply` |
 | Old source | `/home/rootrecord/old ollama/old skills/weather/radar-archive/` — git remote `git@github.com:rootrecordsoftwaresolutions/Solar-Pacific-RootRecord-Server.git`, branch `online-safe-20260920` |
@@ -43,11 +43,11 @@ Folder name: `RadarZip` (capitalized, one name in all three places). No lowercas
 ### 2.2 Completed so far
 
 - [x] Old source read. Live poller and 14-day retention identified. Folder and three paths named.
-- [ ] `RadarZip` script, Database store, and Logs directory — not built. This draft is before-documentation.
-- [ ] Gated `weather_radar_zip` block in `jobs.py` — proposed only. Do not add it until a build is ordered, and leave it off (`RR_RADAR_ZIP` unset).
-- [ ] Local once-and-twice zip test — not run.
-- [ ] Phase 4 archive copy and GitHub file deletion — not started.
-- [ ] Result note and Library corrections — after phase 4 only.
+- [x] `RadarZip` script, Database zip, state file, and log written.
+- [x] Gated `weather_radar_zip` block in `jobs.py`. Off unless `RR_RADAR_ZIP=1` at poller start. Poller was not restarted.
+- [x] Local test 2026-09-29 23:58 HST: first run added `HAWAII_loop_20260929T220442-1000.gif` (member count 1); second run added 0. `HAWAII_loop_current.gif` hash and mtime unchanged. Weather poller pid 5264 start time unchanged.
+- [x] Phase 4 archive copy and GitHub file deletion. See the result note in section 7.
+- [x] Library rows corrected (matrix row 42 and the scheduler `radar-archive` row).
 
 ### 2.3 Known friction
 
@@ -124,7 +124,12 @@ Build only after this draft is accepted and a build is ordered. Until then, do n
 - Sign-off gates: no sends, speaker playback, OBS, hardware switching, deletion of live Ecosystem files, or cloud spend. Phase 4 deletion is limited to the old function's files after the archive copy succeeds. `RR_RADAR_ZIP` stays off until disk growth is accepted.
 - Small test that proves the new behavior: run `radar_zip.py` once, confirm `radar_archive.zip` contains `HAWAII_loop_20260929T220442-1000.gif`, run it again and confirm the member count is unchanged, and confirm `HAWAII_loop_current.gif` and the poller process are unchanged. No service restart.
 - New code wins. Enhance the live archive. Do not copy the old in-memory zip rewrite over the poller.
-- Result note (phase 4, not yet): what landed, the archive path, and what was removed on GitHub. Leave this section without that note until phase 4 is done.
+- Result note (2026-09-29 23:58 HST):
+  - Landed: `Weather/RadarZip/scripts/radar_zip.py` and `Weather/RadarZip/__init__.py`. Zip and `radar-archive.json` under `2 - RootRecord-Database/Weather/RadarZip/`. Log under `2 - RootRecord-Database/Logs/Weather/RadarZip/`. `jobs.py` id `weather_radar_zip`, enabled only when `RR_RADAR_ZIP=1` (still off).
+  - Archived: `Old repos deleted and merged/Solar-Pacific-RootRecord-Server/weather/radar-archive/` (source plus `OFFLOADED` and `__pycache__`) and `Old repos deleted and merged/Solar-Pacific-RootRecord-Server/state/store/radar-archive.json`.
+  - Removed on this machine: `/home/rootrecord/old ollama/old skills/weather/radar-archive/` and `state/store/radar-archive.json`. Local commit `8c9437d0` on branch `online-safe-20260920` of `Solar-Pacific-RootRecord-Server`. That branch has no upstream and no merge-base with GitHub `main`, and `main` does not contain this folder, so that commit was not pushed.
+  - Removed on GitHub: `rootrecordsoftwaresolutions/Solar-Pacific-RootRecord-Server-Old` `main`, commit `92d4f66` (`fac2b0e..92d4f66`). `weather/radar-archive` returns 404 on `main`. The repository was not deleted.
+  - Left in place (shared): `reports/Stale Root Reports/` copies of the old zip, current GIF, and state JSON; on Server-Old, `origin/ns/apps/core/services/radar_archive.py`, `kilauea/weather-kilauea/desk/live/radar_archive.py`, and ecosystem-index mentions.
 
 ---
 

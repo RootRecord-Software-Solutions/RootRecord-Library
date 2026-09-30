@@ -154,7 +154,7 @@ RR_DATABASE_ROOT=/tmp/rr-migr2/gb nice -n 10 python3 Weather/hurricanes/scripts/
 **Check later**
 - [ ] G1 labels double up ("Fay Fay", "Tropical Storm Surigae SURIGAE").
 - [ ] Confirm the target folder `Weather/Hawai'i/hurricanes/global/` (git-ignored) and the schedule (G1 05/09/12/16/20 :40).
-- [ ] RAMMB per-storm pages / track tables and the storm plot were not ported.
+- [x] RAMMB per-storm pages / track tables and the storm plot landed 2026-09-29 in `Weather/hurricanes/scripts/storm_track.py`, `storm_plot.py`, and `global_board.refresh()`. Fixture test PASS (no live network). OBS wiring is still a later function.
 
 ## Host hardware
 
@@ -192,7 +192,7 @@ Read-only comparison of the G1 `scheduler-clock` `add_job` calls against G3 `job
 | Coverage | **PASS** | All 64 unique G1 job ids (73 `add_job` calls) are mapped to LIVE / GATED / PROPOSED / ON DEMAND / BLOCKED / OUT. |
 
 **Check later**
-- [x] G3 night-sleep gate landed 2026-09-29 (`System/NightSleep`, WO-MIG-01). Default off. `--check` PASS 23:59 HST: `weather_poller` runs and `voice_late_report` skips while `sleeping` is true; both run when the file is absent. Live poller not restarted. `RR_NIGHT_SLEEP=1` still needs sign-off.
+- [x] G3 night-sleep gate armed 2026-09-30 00:02 HST (`RR_NIGHT_SLEEP=1` in `run-poller.sh`, WO-MIG-01). `--check` PASS 23:59 HST. Live restart active; no `night-mode.json`, so no night-sleep skips.
 - [x] The G1 23:30 late-final report was re-added 2026-09-29 as gated `voice_late_final_report` (`RR_VOICE_LATE_FINAL`). Dry-run PASS 23:59 HST: `would-run` (late slot open), no `late_report_current.md`, no WAV.
 
 ## Reviewed, still BLOCKED / OUT

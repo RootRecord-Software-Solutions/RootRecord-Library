@@ -4,11 +4,11 @@
 | --- | --- |
 | **Work Order ID** | WO-MIG-13-2026-09-29 |
 | **Date** | 2026-09-29 (HST) |
-| **Status** | OPEN — build paused. Dependency Folders are missing. Not promoted. |
+| **Status** | OPEN — code landed and staged. Phase 4 blocked. Not promoted. |
 | **Owner** | RootRecord |
 | **Related** | Agent 13. Wave B. Depends on the Folders for public website checkout, the US all-states weather dataset, and the state and global news builders being in place before any build. No later function depends on this one. Matrix row 81. |
 
-**Scope:** Bring country location weather polling into the live Ecosystem as one Weather subfolder, limited to locations the one Vercel site actually routes. This draft does not build that code, edit `jobs.py`, restart services, send messages, actuate hardware, or spend cloud money. It does not import the 306 old per-city poller copies, their SQLite output, or any per-country theme.
+**Scope:** Country location weather polling is one Weather subfolder, limited to locations the one Vercel site actually routes. The script, empty allowlist, and disabled job block are landed. Phase 4 (archive and GitHub deletion) is not done. No services were restarted, no messages sent, no hardware actuated, and no cloud money spent. The 306 old per-city poller copies, their SQLite output, and any per-country theme stay out.
 
 ---
 
@@ -16,7 +16,7 @@
 
 The old function, `operations/locations/**/poller.py` in `rootrecordsoftwaresolutions/old`, polled Open-Meteo for about 230 country codes. The tree is 306 city folders. Each folder is only `location.json` plus `poller.py`. Every `poller.py` is the same blob (`85e04d7aef53db1370078d76e4d8ec60666c0d4e`): read that city's `location.json`, fetch current temperature, humidity, wind, and precipitation from `https://api.open-meteo.com/v1/forecast`, and walk `https://archive-api.open-meteo.com/v1/archive` forward from 2026-03-31 one day at a time into SQLite (`database/locations/.../weather.db` and `database/weather.db`). The GitHub repo has no `database/` tree, so those SQLite files are not in the repo. The pollers were website data and were not imported. They are absent from Pacific.
 
-The live system already collects Hawaiʻi weather (`Weather/scripts/run_poller.py`, job `weather_poller`), EcoFlow readings, geology (`geology_collect.py`), the globe collector, camera grabs, and Kokoro. Those stay. Open-Meteo is not used under Pacific `Weather/`. Geology already keeps `Geology/config/global-locations.json` (306 public places) for quake nearest-place tags. That catalog is a different function and stays where it is.
+The live system already collects Hawaiʻi weather (`Weather/scripts/run_poller.py`, job `weather_poller`), EcoFlow readings, geology (`geology_collect.py`), the globe collector, camera grabs, and Kokoro. Those stay. The Hawaiʻi poller does not call Open-Meteo. Geology already keeps `Geology/config/global-locations.json` (306 public places) for quake nearest-place tags. That catalog is a different function and stays where it is.
 
 This function, once accepted, is one shared poller for the locations the one Vercel site still serves. The site on `main` serves `/`, `/home`, `/home/status`, `/status`, `/energy`, and `/api/energy`. It has no country or city route, so the allowlist is empty until a checkout shows a real route. No per-country themes.
 
@@ -30,10 +30,10 @@ Folder name, used in all three paths: **CountryLocations**. It is a subfolder of
 
 | Item | Location / status |
 | --- | --- |
-| Folder | `CountryLocations` — not created. Draft only. |
-| Code | `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Weather/CountryLocations/scripts` — absent |
-| Database | `2 - RootRecord-Database/Weather/CountryLocations/` — absent |
-| Logs | `2 - RootRecord-Database/Logs/Weather/CountryLocations/` — absent |
+| Folder | `CountryLocations` under Weather. Landed 2026-09-30 00:02 HST. |
+| Code | `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Weather/CountryLocations/scripts/poll_locations.py` |
+| Database | `2 - RootRecord-Database/Weather/CountryLocations/status-last.json` (runtime, gitignored with `/Weather/`) |
+| Logs | `2 - RootRecord-Database/Logs/Weather/CountryLocations/poll_locations.log` (runtime, gitignored) |
 | Secrets | None. No new key names in `/home/rootrecord/master/master-key.env`. Open-Meteo is a public API. |
 | Old source | `rootrecordsoftwaresolutions/old` `operations/locations/**` — 306 `poller.py` (one blob) and 306 `location.json`. No theme files in that tree. |
 | Shared file, leave it | `old/config/locations/global-locations.json` — already copied to `Geology/config/global-locations.json`. Not part of this deletion. |
@@ -47,13 +47,14 @@ Folder name, used in all three paths: **CountryLocations**. It is a subfolder of
 - [x] Old tree read: 306 identical pollers, no themes, no `database/` on GitHub.
 - [x] Live site routes checked: none are country or city pages.
 - [x] Folder and the three paths named above.
-- [x] Asked to complete the remaining work (2026-09-29). Build stopped at task 1.
+- [x] Asked to complete the remaining work (2026-09-29). Dependency Folders still missing, so this function's files were staged and the blocked steps were not done.
 - [ ] Public website checkout has a Folder (the Vercel app is checked out).
-- [ ] US all-states weather dataset has a Folder.
-- [ ] State and global news builders have a Folder.
-- [ ] Build of `CountryLocations`.
-- [ ] Phase 4 archive and GitHub file deletion.
-- [ ] Result note and matrix row 81 correction.
+- [ ] US all-states weather dataset has a Folder (`Weather/US-States` absent).
+- [ ] State and global news builders have a Folder (`Reports/News/` is Hawaiʻi only).
+- [x] `CountryLocations` script, empty allowlist, README, and disabled `jobs.py` block.
+- [x] Empty-allowlist test 2026-09-30 00:02 HST: exit 0, `locations` 0, `http_calls` 0.
+- [ ] Phase 4 archive and GitHub file deletion (blocked: no local checkout of `old`).
+- [x] Result note below. Matrix row 81 set to partial.
 
 ### 2.3 Known friction
 
@@ -61,7 +62,7 @@ Folder name, used in all three paths: **CountryLocations**. It is a subfolder of
   - **Public website checkout.** `3 - RootRecord-Website/` exists and is empty. No `src/`.
   - **US all-states weather dataset.** `Weather/US-States` is not on disk.
   - **State and global news builders.** No Folder. `Reports/News/` is the Hawaiʻi collector only.
-- `jobs.py` is shared. This draft does not edit it. A later accepted build may insert only the disabled block in section 3.
+- `jobs.py` has the disabled `country_location_pollers` block only. The job is not enabled.
 - Phase 4 needs a local checkout of `old`. None was present when this draft was written. If it is still missing at phase 4, pause and name that checkout. Do not clone it during this draft.
 
 ---
@@ -115,18 +116,18 @@ Do these only after Alexander accepts this draft and says to build. Until then, 
 
 | Path | Role |
 |------|------|
-| `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Weather/CountryLocations/scripts` | Code. Created only after this draft is accepted. |
+| `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Weather/CountryLocations/scripts` | Code. Landed. |
 | `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Weather/CountryLocations/scripts/poll_locations.py` | The one poller. Empty allowlist does not call Open-Meteo. |
 | `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Weather/CountryLocations/config/allowlist.json` | Location ids the checked-out Vercel app routes. Empty today. |
 | `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Weather/CountryLocations/README.md` | Short note for the subfolder. |
-| `2 - RootRecord-Database/Weather/CountryLocations/` | Samples, last files, and stores. Not created in this draft. |
+| `2 - RootRecord-Database/Weather/CountryLocations/` | Runtime status. Gitignored. |
 | `2 - RootRecord-Database/Logs/Weather/CountryLocations/` | Logs only. |
 | `/home/rootrecord/master/master-key.env` | Unchanged. No new key names. |
-| `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Automations/scripts/jobs.py` | Not edited by this draft. Later build may insert only the disabled block in section 3. |
+| `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Automations/scripts/jobs.py` | Disabled `country_location_pollers` block only. Not enabled. |
 | `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Geology/config/global-locations.json` | Quake nearest-place catalog. Leave it. |
 | `3 - RootRecord-Website` | One Vercel app. No page added on this pass. Checkout is empty today. |
 | `Old repos deleted and merged/old/operations/locations/` | Phase 4 archive path. Not copied in this draft. |
-| `5 - RootRecord-Library/Documentation/00-architecture/Old-Repo-Migration-Matrix.md` | Row 81 corrected only after phase 4. |
+| `5 - RootRecord-Library/Documentation/00-architecture/Old-Repo-Migration-Matrix.md` | Row 81 set to partial. Old files not removed. |
 
 ---
 
@@ -148,8 +149,8 @@ Do these only after Alexander accepts this draft and says to build. Until then, 
 - Secrets stay out of git. This function adds no key names.
 - Prefer small reversible steps.
 - Sign-off before any send, speaker playback, OBS, hardware switch, deletion of live Ecosystem files, cloud spend, enabling the job, or the archive backfill. Phase 4 deletion is limited to this function's old files, and only after they are in `Old repos deleted and merged`. Do not delete the GitHub repository.
-- Small test, after the build, not now: run `poll_locations.py` once with an empty allowlist. It must exit 0, write a status file that says zero locations, and make no HTTP call.
-- Result note: not written. After phase 4, add here what landed, the archive path, and what was removed on GitHub, then correct matrix row 81 only.
+- Small test, 2026-09-30 00:02 HST: `poll_locations.py` with an empty allowlist exited 0, wrote `status-last.json` with `locations` 0 and `http_calls` 0.
+- Result note (2026-09-30 00:02 HST): Landed `Weather/CountryLocations/` (`poll_locations.py`, `config/allowlist.json` = `[]`, README, package `CountryLocations`). Disabled job `country_location_pollers` is in `jobs.py` (`enabled: False`). Empty-allowlist run wrote `status-last.json` with `http_calls` 0. Nothing archived. Nothing removed on GitHub. `old/config/locations/global-locations.json` left in place. Phase 4 stays blocked until a local checkout of `old` exists and the three dependency Folders are in place.
 
 ---
 

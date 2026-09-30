@@ -12,7 +12,7 @@ States: **LIVE** = enabled in G3 now · **GATED** = in jobs.py, OFF until its fl
 | --- | --- | --- | --- |
 | heartbeat | every 60 s | `heartbeat` builtin | LIVE |
 | rr-noaa | every 60 min | `weather_poller` daemon (Pacific `Weather/`) | LIVE |
-| radar-archive | every 10 min | `weather_poller` (`Weather/fetch/radar.py`, 14-day dated archive) | LIVE |
+| radar-archive | every 10 min | `weather_poller` (`Weather/fetch/radar.py`, 14-day dated archive); all-time zip `weather_radar_zip` (`Weather/RadarZip/scripts/radar_zip.py`, 600 s) | LIVE fetch; zip GATED `RR_RADAR_ZIP` |
 | official-weather-media | every 10 min | `Weather/scripts/official_statement.py` (HLS) + `voice_reports.py official_weather` | PROPOSED `RR_OFFICIAL_HLS`, `RR_VOICE_OFFICIAL`; OBS BLOCKED |
 | nws-hawaii-counties | :07 :22 :37 :52 | `voice_nws_weather` | GATED `RR_VOICE_NWS` |
 | rr-kilauea | every 60 min | `geology_collect` (HVO) + `voice_kilauea_report` | GATED `RR_GEOLOGY`, `RR_VOICE_KILAUEA`; Grok draft / Discord BLOCKED |
@@ -65,6 +65,6 @@ States: **LIVE** = enabled in G3 now · **GATED** = in jobs.py, OFF until its fl
 
 Counts over the 64 ids: every id is accounted for above (grouped rows cover several ids). Nothing in G1's scheduler lacks a G3 decision; the remaining gaps are the BLOCKED / OUT rows.
 
-G1 extras not in the table: `AVA_CRON_WAVE` clone guard and night-sleep gating (`Ecoflow/state/night-mode.json sleeping` skipped jobs). G3 night-sleep gate landed 2026-09-29 in `System/NightSleep` (WO-MIG-01). It is default off (`RR_NIGHT_SLEEP` unset). With the gate off, the poller still runs every enabled job around the clock. Turning it on needs sign-off. The 23:30 late-final report is still not re-added.
+G1 extras not in the table: `AVA_CRON_WAVE` clone guard and night-sleep gating (`Ecoflow/state/night-mode.json sleeping` skipped jobs). G3 night-sleep gate is armed on the live poller as of 2026-09-30 00:02 HST (`RR_NIGHT_SLEEP=1` in `run-poller.sh`, WO-MIG-01). There is no `night-mode.json`, so jobs are not skipped. The 23:30 late-final report is still not re-added.
 
 *Created 2026-09-29 ~14:35 HST (old-repo migration, breadth pass 2). Read-only; no job changed.*
