@@ -78,5 +78,6 @@ Geology/
 - **Imported (copy/port only; G1 `kilauea/*`, `earthquakes`, G0 `backfillquakes.py` KEPT unchanged):** `Geology/scripts/geology_collect.py` (USGS FDSN Hawaiʻi bbox 18.5–22.5 N / 160.5–154.5 W + `2.5_day` global feed; USGS HANS HVO status + notices), `kilauea_cams.py` (V1/V2/V3 stills), `earthquakes_backfill.py` (SQLite, on demand).
 - **Layout used:** flat `Geology/scripts/` (the "Suggested layout" above stays a future option). Database: `Geology/Earthquakes/{hawaii,global}-last.json` + `Daily/*.jsonl`, `Geology/Volcanoes/{hvo,kilauea,mauna-loa}-last.json` + `Daily/hvo-notices-*.jsonl` + `Cams/`, `Geology/collector-last.json`. Event DB `quakes.db` and cam JPGs are git-ignored (rule 5).
 - **Gates:** `RR_GEOLOGY=1` (300 s), `RR_KILAUEA_CAMS=1` (600 s), `RR_VOICE_QUAKE=1` (voice :08). All OFF until Alexander signs off and the poller restarts.
-- **Not imported (BLOCKED / sign-off):** Telegram council-quake, Discord posts, rr-kilauea public drafts, Grok drafts, OBS cam push, YouTube scraping, G0 nearest-location enrichment (needs a dataset).
+- **Council quake notices:** dry-run landed as Pacific `Communications/CouncilQuake/` (WO-MIG-25). Reads `hawaii-last.json`. Telegram send and Carly WAV stay off until sign-off.
+- **Not imported (BLOCKED / sign-off):** Discord posts, rr-kilauea public drafts, Grok drafts, OBS cam push, YouTube scraping, G0 nearest-location enrichment (needs a dataset).
 - Records: [geology test](../07-testing/2026-09-29-geology-earthquakes-hvo-collector.md), [migration matrix](./Old-Repo-Migration-Matrix.md).

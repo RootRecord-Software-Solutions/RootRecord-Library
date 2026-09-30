@@ -22,7 +22,7 @@ States: **LIVE** = enabled in G3 now · **GATED** = in jobs.py, OFF until its fl
 | hourly-clip-reports (+ hourly-clip-prebuild :55) | :02 | `voice_solar_desk` / `voice_security_desk` / `voice_bandwidth_desk` / `voice_kilauea_report` | PROPOSED / GATED; playback BLOCKED |
 | earthquake-hourly | :08 | `voice_earthquake_report` | GATED `RR_VOICE_QUAKE` |
 | earthquake-m2-poll | every 10 min | `geology_collect` (300 s) | GATED `RR_GEOLOGY` |
-| council-quake | every 2 min | — | BLOCKED (Telegram sends) |
+| council-quake | every 2 min | `council_quake_telegram` | GATED `RR_COUNCIL_QUAKE` (120 s, dry-run). Send BLOCKED until `RR_COUNCIL_QUAKE_SEND=1`. WAV off. |
 | council-bruce-stats | 07:18 15:18 21:18 | — | BLOCKED (Telegram sends) |
 | hourly-solar-weather | :04 | `voice_solar_desk` + `energy_sun_times` | PROPOSED `RR_VOICE_SOLAR`; GATED `RR_SUN_TIMES` |
 | solar-notes-quarter-hour | every 30 min | Energy BLE poller (G3 Energy db) | LIVE (capability) |
