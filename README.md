@@ -115,7 +115,7 @@ G2 → G3 migration: the Pacific runtime is on the new Database root (`2 - RootR
 
 ## 🔄 How the ecosystem stays in sync
 
-The Library is authored on the Solar Pacific desk. This desk publishes through the umbrella `ecosystem` sync row. The Library directory in this checkout is not its own git repository.
+The Library is authored on the Solar Pacific desk. This desk publishes it through the `library` mirror row and through the umbrella `ecosystem` row. The Library directory in this checkout is not its own git repository.
 
 ```text
 Desk edit

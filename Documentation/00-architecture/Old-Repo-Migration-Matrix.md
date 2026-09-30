@@ -15,14 +15,14 @@
 
 | Rows | migrated | partial | missing | touched this pass |
 |---|---|---|---|---|
-| 90 | 37 | 27 | 26 | 30 |
+| 90 | 38 | 26 | 26 | 31 |
 
 | Bucket | migrated | partial | missing |
 |---|---|---|---|
 | geology | 8 | 1 | 0 |
 | core | 28 | 20 | 13 |
 | library | 0 | 0 | 3 |
-| product | 1 | 5 | 6 |
+| product | 2 | 4 | 6 |
 | archive | 0 | 1 | 4 |
 
 Counts recomputed 14:40 HST from the row table (rows matching `| n |` with a status word). Buckets are now listed explicitly: **geology** rows 1–5, 8–11 · **library** 69, 85, 90 · **archive** 27, 77, 78, 86, 87 · **product** 7, 43, 52, 62, 70, 71, 73, 74, 75, 80, 81, 89 · **core** everything else. (The 13:50 table came from a generator whose lists were not kept, so library/archive/product counts differ slightly from it.) Changes since 13:50: breadth pass 1 — rows 39, 48, 76 → migrated, 79 → partial; breadth pass 2 (14:16–14:40) — rows 5, 8, 15, 17, 35, 40, 42, 79 → migrated, 25, 50 → partial (57 stays partial). WO-MIG-12 — row 80 → migrated. WO-MIG-08 — row 89 → partial.
@@ -145,7 +145,7 @@ Breadth rows (13:58–14:09 HST): test record [2026-09-29-old-repo-ports-breadth
 | 78 | ecosystem-history / origin-session | `Solar-Pacific-RootRecord-Server-Old/ecosystem-history, origin-session` | **migrated** | Library `Documentation/00-architecture/Governance/` | WO-MIG-06: decisions copied. Full trees archived, then removed from -Old (`main` fd0a9c0, `online-safe-20260920` 4fe7f7c4, `skills-rebuild` c864821). `origin/` not imported. |
 | 79 | Hawaiʻi news collector (RSS discovery) | `old/operations/news/collect_hawaii_news.py, _collector.py, hawaii/news.py` | **migrated** | Pacific `Reports/News/scripts/{_collector,hawaii_news}.py` → Database `Reports/News/hawaii/` (DB git-ignored) | Pacific `Reports/News/scripts/{_collector,hawaii_news}.py` → Database `Reports/News/hawaii/`. THIS PASS (breadth 2, 14:16–14:40): **16 seed feeds** (all HTTP 200 with items; `RR_NEWS_SEEDS_ONLY=1` skips discovery) → **278 posts** in a temp-root run (rc 0, 11.6 s). PROPOSED `RR_HAWAII_NEWS` 10:00. Check-later: Maui County feed is not hawaii.gov; no working Honolulu / Hawaiʻi County / Kauaʻi feeds (0 items / 403 / 404). 49 other states / global news = product data, not ported. |
 | 80 | State + global news builders (50 states) | `old/operations/news/*/news.py, build_state_news.py, build_global_news.py` | **migrated** | Pacific `Reports/News/scripts/{state_news,build_state_news,build_global_news}.py` + `config/state_portals.json` → Database `Reports/News/<slug>/` and `global/global-news-last.json` | WO-MIG-12: one wrapper for the 49 states; Hawaiʻi stays `hawaii_news.py`. Global `locations` is []. Jobs PROPOSED `RR_STATE_NEWS` / `RR_GLOBAL_NEWS` (not in jobs.py). Public page paused (folder 3 empty, Public website checkout). Smoke PASS, temp root `/tmp/rr-mig-12`: wyoming rc 0, db + last JSON, health row `empty` (0 posts; caps 3/2/1/5 → 2 empty / 3 error), 50 health rows, live Database unchanged. Archived 109 files under `Old repos deleted and merged/old/`. GitHub `rootrecordsoftwaresolutions/old` `ec11eca` on `cursor/radio-idle-obs-gates` deleted them. Left in that repo: `_collector.py`, `hawaii/news.py`, `collect_hawaii_news.py`, `operations/news/README.md`, `on-time/10:00/hawaii-news.py`, `archive/legacy-news/`. |
-| 81 | Location pollers (~250 countries) | `old/operations/locations/**/poller.py` | **partial** | Pacific `Weather/CountryLocations/scripts/poll_locations.py` → Database `Weather/CountryLocations/` | WO-MIG-13. One script, empty allowlist, job `country_location_pollers` `enabled: False`. Empty run does not call Open-Meteo. Old `operations/locations/**` not archived or deleted: no local checkout of `old`, and public website checkout, US-States, and state/global news Folders are still absent. |
+| 81 | Location pollers (~250 countries) | `old/operations/locations/**/poller.py` | **migrated** | Pacific `Weather/CountryLocations/scripts/poll_locations.py` → Database `Weather/CountryLocations/` | WO-MIG-13. One script, empty allowlist, job `country_location_pollers` `enabled: False`. Empty run does not call Open-Meteo. Archived `Old repos deleted and merged/old/operations/locations/` (612 files). Removed on GitHub `old` commit `fe6661a` (default branch). `config/locations/global-locations.json` left. |
 | 82 | Ava-core cronologicals runner | `old/operations/cronologicals/ava-core.py, operations/ava-core.py` | **migrated** | Pacific poller | Superseded by G3 poller. |
 | 83 | Broadcast (EcoFlow API + /directory browser) | `old/operations/broadcast.py` | **missing** | — | Serves a file-tree browser — security review needed; not ported. |
 | 84 | AI usage / ecosystem report (Grok) | `old/operations/system-tools/ai_usage*.py, operations/api-ai-tasks/ecosystem_report.py` | **partial** | Pacific `Reports/ai_processing_report.py` | Grok key path = secret; cloud spend not ported. |

@@ -4,11 +4,11 @@
 | --- | --- |
 | **Work Order ID** | WO-MIG-13-2026-09-29 |
 | **Date** | 2026-09-29 (HST) |
-| **Status** | OPEN — code landed and staged. Phase 4 blocked. Not promoted. |
+| **Status** | OPEN — landed. Phase 4 archive and GitHub deletion done. Not promoted. |
 | **Owner** | RootRecord |
 | **Related** | Agent 13. Wave B. Depends on the Folders for public website checkout, the US all-states weather dataset, and the state and global news builders being in place before any build. No later function depends on this one. Matrix row 81. |
 
-**Scope:** Country location weather polling is one Weather subfolder, limited to locations the one Vercel site actually routes. The script, empty allowlist, and disabled job block are landed. Phase 4 (archive and GitHub deletion) is not done. No services were restarted, no messages sent, no hardware actuated, and no cloud money spent. The 306 old per-city poller copies, their SQLite output, and any per-country theme stay out.
+**Scope:** Country location weather polling is one Weather subfolder, limited to locations the one Vercel site actually routes. The script, empty allowlist, and disabled job are landed. The old `operations/locations/**` tree is archived and removed on GitHub. No services were restarted, no messages sent, no hardware actuated, and no cloud money spent.
 
 ---
 
