@@ -4,11 +4,11 @@
 | --- | --- |
 | **Work Order ID** | WO-MIG-37-2026-09-29 |
 | **Date** | 2026-09-29 (HST) |
-| **Status** | OPEN — draft, not accepted for execution |
+| **Status** | OPEN — ledger landed; spend section on the local report; job gated off; old files removed from GitHub |
 | **Owner** | RootRecord |
 | **Related** | Agent 37. Wave E. No earlier function has to exist first. No later function depends on this one. Matrix row 84. |
 
-**Scope:** Extend the live local AI processing report with a Grok spend ledger under Reports folder `AI-Usage`. The ledger records estimated token cost. It does not call xAI. The existing JSONL report, EcoFlow BLE, Kokoro, and template reports stay as they are. This draft is before-documentation only. It is not on the active index and it is not permission to build.
+**Scope:** Extend the live local AI processing report with a Grok spend ledger under Reports folder `AI-Usage`. The ledger records estimated token cost. It does not call xAI. The existing JSONL report, EcoFlow BLE, Kokoro, and template reports stay as they are. This file stays in `drafts/` and is not on the active index.
 
 ---
 
@@ -47,19 +47,19 @@ Folder name in all three places: **AI-Usage**. It sits inside the existing Repor
 | Inference log | `2 - RootRecord-Database/Logs/AI/Inference/`. Metadata only. Leave it. |
 | Library page | `5 - RootRecord-Library/Documentation/00-architecture/AI-Processing-Logs-and-Reports.md`. Describes the JSONL report. Phase 5 corrects section 3 only, after the spend section exists. |
 | Matrix | Row 84 is **partial**. Grok key path is a secret. Cloud spend is not ported. |
-| Old ledger | `operations/system-tools/ai_usage.py` and `ai_usage_report.py` on GitHub repo `old`. Not in the Ecosystem. |
-| Old Grok caller | `operations/api-ai-tasks/ecosystem_report.py` on GitHub repo `old`. Spends. Not copied in. |
+| Old ledger | Archived at `Old repos deleted and merged/old/operations/system-tools/ai_usage.py` and `ai_usage_report.py`. Removed from GitHub repo `old` (`aea8b73`). |
+| Old Grok caller | Archived at `Old repos deleted and merged/old/operations/api-ai-tasks/ecosystem_report.py`. Removed from GitHub (`aea8b73`). Not copied into Pacific. |
 | Secrets loader pattern | `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Energy/lib/envload.py`. Allowlist, never print values. Do not edit that file. |
 
 ### 2.2 Completed so far
 
 - [x] Draft work order written (this file).
-- [ ] Alexander accepts this draft and says to build.
-- [ ] Ledger, summary writer, pricing file, and Grok spend section on the local report.
-- [ ] Gated `jobs.py` block only, default off.
-- [ ] Fixture proof test, no network.
-- [ ] Phase 4 archive, then removal of the three old files from repo `old`.
-- [ ] Phase 5 result note on this work order, and the two Library corrections named below.
+- [x] Alexander said to keep working. Build started 2026-09-30 HST.
+- [x] Ledger, summary writer, pricing file, allowlist loader, and Grok spend section on the local report.
+- [x] Gated `jobs.py` block `ai_usage_report` / `RR_AI_USAGE=1`, default off. `RR_AI_REPORT` left off.
+- [x] Fixture proof test, no network. `grok-3`, 1,000,000 input tokens, 0 output: Estimated USD 3.00. Empty summary: `no ledger rows`. Temp trees deleted.
+- [x] Phase 4 archive is on disk. The three files are removed from repo `old` on GitHub (`cursor/radio-idle-obs-gates`, `aea8b73`). No force-push. The repository was not deleted.
+- [x] Phase 5 result note below. Matrix row 84 stays partial. Section 3 of `AI-Processing-Logs-and-Reports.md` names the spend section.
 
 ### 2.3 Known friction
 
@@ -135,7 +135,7 @@ Do not start these until Alexander accepts this draft and says to build.
 
 - Sign-off before any Grok POST, send, speaker playback, OBS, hardware switch, live Ecosystem deletion, or cloud spend. This build does none of those.
 - Phase 4 is already ordered: archive the three old files, then remove them from repo `old` locally and on GitHub. No force-push. Do not delete the repository.
-- After phase 4, add a short result note to this work order: what landed, the archive path, and what was removed on GitHub. That note is not written yet.
+- Result note is in the section below. This file stays in `drafts/`. It is not on the active index.
 - `operations/system-tools/` files listed in section 4 are shared. Leave them.
 
 ---
@@ -153,6 +153,18 @@ Do not start these until Alexander accepts this draft and says to build.
 ---
 
 *Work order prepared 2026-09-30 HST. Update status when closed.*
+
+---
+
+## Result (2026-09-30 HST)
+
+Landed: `Reports/AI-Usage/scripts/ai_usage.py`, `ai_usage_report.py`, `config/pricing.json`, `lib/envload.py`, and a Grok spend section on `Reports/ai_processing_report.py`. `jobs.py` id `ai_usage_report` is off unless `RR_AI_USAGE=1`. No HTTP client. No call to xAI.
+
+Archive: `/home/rootrecord/RootRecord-Ecosystem/Old repos deleted and merged/old/operations/system-tools/ai_usage.py`, `ai_usage_report.py`, and `operations/api-ai-tasks/ecosystem_report.py`.
+
+GitHub: those three paths removed from `rootrecordsoftwaresolutions/old` branch `cursor/radio-idle-obs-gates`, commit `aea8b73`. Shared files in `operations/system-tools/` were left. The repository was not deleted.
+
+Proof: temp database only. Fixture `grok-3` at 1,000,000 input tokens and 0 output wrote `Estimated USD: 3.00` and kept the JSONL sections. A second run with no summary wrote `no ledger rows`.
 
 ---
 

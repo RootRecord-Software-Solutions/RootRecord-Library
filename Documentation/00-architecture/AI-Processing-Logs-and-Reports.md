@@ -43,6 +43,8 @@ Reads the current JSONL plus the archive days inside the window (`RR_AI_REPORT_H
 
 Contents: time window, request count, requests by route and by route/model, NPU share, fallback count, FLM cold starts, errors (exit_code ≠ 0) with the last 20 listed, empty replies, unparsable lines, latency p50/p95/max, max FLM peak RSS, and the lowest MemAvailable seen.
 
+A Grok spend section (WO-MIG-37) reads Database `Reports/AI-Usage/last-summary.json`. It lists xAI calls, tokens, and estimated USD, or `no ledger rows` when that file is missing or has no xAI rows. The ledger does not call xAI. `Reports/AI-Usage/scripts/ai_usage_report.py` writes the summary. Hourly job `ai_usage_report` stays off unless `RR_AI_USAGE=1`.
+
 ## 4. Gate
 
 Pacific `Automations/scripts/jobs.py` → `EVERY_HOUR` id `ai_processing_report_hourly` (runs at :00):

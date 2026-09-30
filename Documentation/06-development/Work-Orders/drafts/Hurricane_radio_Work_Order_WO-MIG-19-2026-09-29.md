@@ -4,11 +4,11 @@
 | --- | --- |
 | **Work Order ID** | WO-MIG-19-2026-09-29 |
 | **Date** | 2026-09-30 (HST) |
-| **Status** | OPEN — draft, not accepted for execution |
+| **Status** | BUILT — dry-run handoff landed, speakers off. Not promoted. |
 | **Owner** | RootRecord |
 | **Related** | Agent 19, Wave C. Depends on 15, Report playback. No later function depends on this one. Old source: `old ollama/old skills/weather/hurricane-radio/scripts/job.py`. Live desk: `Media/Voice/scripts/voice_reports.py` `hurricane_desk`. Live player: `Media/Playback/scripts/play.py`. |
 
-**Scope:** Add a radio output beside the existing hurricane desk. The output hands the desk's Kokoro WAV to the shared Report playback player as a dry-run. In scope is that script, its Database last-run file, its log path, and one gated job proposal that stays off. Out of scope is the player, the desk text, AWS radio, speaker playback, OBS, and any other agent's function. This draft is not accepted for execution. Do not promote it onto the active index.
+**Scope:** Add a radio output beside the existing hurricane desk. The output hands the desk's Kokoro WAV to the shared Report playback player as a dry-run. In scope is that script, its Database last-run file, its log path, and one gated job proposal that stays off. Out of scope is the player, the desk text, AWS radio, speaker playback, OBS, and any other agent's function. Do not promote this file onto the active index.
 
 ---
 
@@ -28,10 +28,10 @@ Folder name: **HurricaneRadio**, under the Media domain. One capitalized folder.
 
 | Item | Location / status |
 | --- | --- |
-| Folder | `HurricaneRadio` — not installed |
-| Server code | `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Media/HurricaneRadio/scripts` — to be created at build |
-| Database data | `2 - RootRecord-Database/Media/HurricaneRadio/` — `last-radio.json`; not created yet; runtime only, not committed |
-| Database logs | `2 - RootRecord-Database/Logs/Media/HurricaneRadio/` — `radio.log`; not created yet |
+| Folder | `HurricaneRadio` — installed under Media |
+| Server code | `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Media/HurricaneRadio/scripts/radio.py` |
+| Database data | `2 - RootRecord-Database/Media/HurricaneRadio/last-radio.json` — written at runtime, not committed |
+| Database logs | `2 - RootRecord-Database/Logs/Media/HurricaneRadio/radio.log` — written at runtime, not committed |
 | master-key.env | No keys. This function reads no secrets |
 | Package | `HurricaneRadio` |
 | Report playback | Present: `Media/Playback/scripts/play.py`. Pause at build only if that Folder is gone. Do not build the player |
@@ -45,17 +45,18 @@ Folder name: **HurricaneRadio**, under the Media domain. One capitalized folder.
 
 - [x] Old `job.py` and `play_on_radio` read. AWS push is not ported
 - [x] Live desk and `Media/Playback` confirmed. No newer hurricane-radio output exists to enhance
-- [ ] Alexander accepts this draft and says to build
-- [ ] `HurricaneRadio` script, last-run path, and log path
-- [ ] Dry-run test (no speaker, no `aplay`)
-- [ ] Phase 4 archive, then deletion from the old repo locally and on GitHub
-- [ ] Result note and Library corrections
+- [x] Alexander said to continue
+- [x] Report playback Folder present at build (`Media/Playback/scripts/play.py`)
+- [x] `HurricaneRadio` script, last-run path, and log path
+- [x] Dry-run test (no speaker, no `aplay`) — 2026-09-30 00:44 HST, temp database root
+- [x] Phase 4 archive copy, local deletion, and GitHub push `28d9c3e1`
+- [x] Result note and Library corrections
 
 ### 2.3 Known friction
 
 - Report playback (agent 15) is the shared Kokoro player. This function pauses if that Folder is missing and does not build the player.
 - `hurricane_desk_current.wav` is not on disk. A run with no WAV records `no_wav` or `audio_missing` and exits 0. This function does not render speech.
-- `jobs.py` is shared. If it is already being edited when the build starts, do not edit it. Stage the gated block in `proposed-job-block.txt`. If it is free, insert that same block, still default off.
+- `jobs.py` was already being edited at build, so the gated block was not inserted. It is staged in `proposed-job-block.txt`. Default stays off.
 - Speaker playback and AWS radio need Alexander's sign-off. This folder never passes `--play` and never calls `aplay`.
 - `play_on_radio` lives in old `hurricane-desk`. That file is shared with the already-migrated desk. Leave it.
 
@@ -121,11 +122,9 @@ Build only after Alexander accepts this draft and says to build. Until then, do 
 
 **Additional requirements:**
 
-- Alexander accepts this draft and says to build before any runtime edit.
-- Report playback must have a Folder before this build continues. It is present now (`Media/Playback`). If it is gone at build time, pause and name Report playback.
-- Speaker playback, AWS radio, sends, hardware switching, and cloud spend need a separate sign-off. This draft does none of those.
-- `RR_HURRICANE_RADIO=1` on the live poller needs a separate sign-off. The default stays off.
-- Phase 4 result note is written only after the archive copy is on disk and the old-repo deletion is committed.
+- Speaker playback, AWS radio, sends, hardware switching, and cloud spend need a separate sign-off. This build did none of those.
+- `RR_HURRICANE_RADIO=1` on the live poller needs a separate sign-off. The block is staged, not inserted. The default stays off.
+- Paste `proposed-job-block.txt` into `jobs.py` only when that file is free. Leave it disabled.
 
 ---
 
@@ -138,11 +137,25 @@ Build only after Alexander accepts this draft and says to build. Until then, do 
 - Sign-off gate: live `aplay` (`RR_PLAYBACK=1` and `--play` on the player), AWS radio, and turning `RR_HURRICANE_RADIO` on. This folder's dry-run sets `played: false`.
 - Test, after a build accept only: `python3 scripts/radio.py run` prints one JSON line with `played: false` and does not spawn `aplay`. With no WAV, detail is `no_wav` or `audio_missing`.
 - New periodic jobs stay gated off. The `jobs.py` block is proposed only, default off.
-- After phase 4, add a short result note here: what landed, the archive path, and the GitHub deletion. Then correct only the two Library pages named in task 7.
+- Phase 4 result: see section 8. Archive copy is on disk. Local deletion and GitHub push are commit `28d9c3e1`.
 
 ---
 
-*Work order prepared 2026-09-30 HST. Update status when closed.*
+## 8. Result note
+
+Landed 2026-09-30: `Media/HurricaneRadio` (`__init__.py`, `README.md`, `scripts/radio.py`). `python3 scripts/radio.py run` with a temporary database root printed `played: false` and `detail: audio_missing` (no `hurricane_desk_current.wav`). A fake `aplay` on `PATH` was not called.
+
+`jobs.py` was already being edited, so the gated `media_hurricane_radio` / `RR_HURRICANE_RADIO` block was not inserted. It is staged in `Media/HurricaneRadio/proposed-job-block.txt`.
+
+Archive path: `Old repos deleted and merged/Solar-Pacific-RootRecord-Server/weather/hurricane-radio/` (the six old files, copy matched the source, plus the untracked `scripts/__pycache__` that sat beside `job.py`). Left in place: `weather/hurricane-desk/` (`play_on_radio`).
+
+Local deletion and GitHub push: commit `28d9c3e1` on `online-safe-20260920` in `/home/rootrecord/old ollama/old skills`, pushed to `rootrecordsoftwaresolutions/Solar-Pacific-RootRecord-Server` (`f05ec568..28d9c3e1`). The repository was not deleted. History was not rewritten.
+
+Library: the radio half of matrix row 41, and the hurricane-radio row in `G1-Scheduler-To-G3-Jobs-Map-2026-09-29.md`, now say the dry-run handoff landed and the speaker stays off. The OBS half of row 41 stays missing.
+
+---
+
+*Work order prepared 2026-09-30 HST. Build recorded 2026-09-30 HST. Not promoted.*
 
 ---
 
