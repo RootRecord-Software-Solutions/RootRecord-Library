@@ -36,7 +36,7 @@ These are facts, not suggestions.
 | Question | Page |
 | --- | --- |
 | What does the window show? | [Root Monitor handbook](../Root-Monitor-Operators-Handbook/Root-Monitor-Operators-Handbook.md) |
-| Where do logs and reports live, and what is gitignored? | [Database logs and reports](../Database-Logs-and-Reports-Maintenance.md) |
+| Where do logs and reports live, and what is gitignored? | [Database logs and reports](../Database-Logs-and-Reports-Maintenance/Database-Logs-and-Reports-Maintenance.md) |
 | What is still Alexander's decision? | [What's left](../../Documentation/01-operations/2026-09-30-whats-left-for-alexander.md) |
 | How does he want a messy plan cleaned up? | [One clean plan](../HOW-TO-TURN-MESSY-AI-OUTPUT-INTO-ONE-CLEAN-PLAN.md) |
 | What would a new person learn after this? | [For a new person](./For-a-new-person.md) and the [course map](./Course-map.md) |

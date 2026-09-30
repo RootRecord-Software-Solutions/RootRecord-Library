@@ -25,7 +25,7 @@ Written pages stay in plain language. A lesson that would turn something on does
 | 4 | The window — use the handbook instead of describing the UI from memory | Not written |
 | 5 | A messy plan — follow the clean-plan guide until there is one document | Not written |
 
-Standing handbooks that are not numbered lessons: [Root Monitor](../Root-Monitor-Operators-Handbook/Root-Monitor-Operators-Handbook.md), [Database logs and reports](../Database-Logs-and-Reports-Maintenance.md).
+Standing handbooks that are not numbered lessons: [Root Monitor](../Root-Monitor-Operators-Handbook/Root-Monitor-Operators-Handbook.md), [Database logs and reports](../Database-Logs-and-Reports-Maintenance/Database-Logs-and-Reports-Maintenance.md).
 
 ## What this is not
 

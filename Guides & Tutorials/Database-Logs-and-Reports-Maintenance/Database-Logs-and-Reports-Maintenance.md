@@ -391,14 +391,14 @@ Hand-run `worklog_once.sh` **does** write Worklog. That is a write. Do not loop 
 
 | Page | Why |
 | --- | --- |
-| [For an AI](./Teaching-Desk/For-an-AI.md) | Edit rules, what you leave alone |
-| [Root Monitor handbook](./Root-Monitor-Operators-Handbook/Root-Monitor-Operators-Handbook.md) | What the window shows vs the poller |
-| [AI processing logs](../Documentation/00-architecture/AI-Processing-Logs-and-Reports.md) | JSONL fields, redaction, gate |
-| [Template report generation](../Documentation/00-architecture/Template-Report-Generation.md) | Generated reports, validator, never-write-Library |
-| [Voice reports G3](../Documentation/00-architecture/Voice-Reports-G3.md) | `_current` + Archive convention for voice |
-| [04-data](../Documentation/04-data/README.md) | Boundary; path row is partly stale (old `/home/rootrecord/Database/`) |
-| [WO-RPT-001](../Documentation/06-development/Work-Orders/WO-RPT-001-Reports-Worklog-Domain-Import.md) | Worklog spine |
-| [WO-MIG-41](../Documentation/06-development/Work-Orders/drafts/Log_retention_apply_Work_Order_WO-MIG-41-2026-09-29.md) | Log retention; apply still unsigned |
+| [For an AI](../Teaching-Desk/For-an-AI.md) | Edit rules, what you leave alone |
+| [Root Monitor handbook](../Root-Monitor-Operators-Handbook/Root-Monitor-Operators-Handbook.md) | What the window shows vs the poller |
+| [AI processing logs](../../Documentation/00-architecture/AI-Processing-Logs-and-Reports.md) | JSONL fields, redaction, gate |
+| [Template report generation](../../Documentation/00-architecture/Template-Report-Generation.md) | Generated reports, validator, never-write-Library |
+| [Voice reports G3](../../Documentation/00-architecture/Voice-Reports-G3.md) | `_current` + Archive convention for voice |
+| [04-data](../../Documentation/04-data/README.md) | Boundary; path row is partly stale (old `/home/rootrecord/Database/`) |
+| [WO-RPT-001](../../Documentation/06-development/Work-Orders/WO-RPT-001-Reports-Worklog-Domain-Import.md) | Worklog spine |
+| [WO-MIG-41](../../Documentation/06-development/Work-Orders/drafts/Log_retention_apply_Work_Order_WO-MIG-41-2026-09-29.md) | Log retention; apply still unsigned |
 | Database README on GitHub | Layout authority; Logs sketch lagging the tree |
 | Pacific `Reports/README.md` | Worklog + future radio spine; proposed jobs |
 | Pacific `Logs/Automations` README (in Database) | POLLER_LOG, hourly cut |

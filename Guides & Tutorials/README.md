@@ -17,7 +17,7 @@ Nothing in this folder starts a service, sends a message, spends money, or turns
 | Guide | What it is |
 | --- | --- |
 | [Root Monitor operator's handbook](./Root-Monitor-Operators-Handbook/Root-Monitor-Operators-Handbook.md) | The live window, page by page, with screenshots from 30 September 2026. |
-| [Database logs and reports maintenance](./Database-Logs-and-Reports-Maintenance.md) | What Logs/, Reports/, and Worklog are on the Database tree, who writes them, what git ignores, and how to prune without guessing. |
+| [Database logs and reports maintenance](./Database-Logs-and-Reports-Maintenance/Database-Logs-and-Reports-Maintenance.md) | What Logs/, Reports/, and Worklog are on the Database tree, who writes them, what git ignores, and how to prune without guessing. |
 | [Turn a messy AI dump into one plan](./HOW-TO-TURN-MESSY-AI-OUTPUT-INTO-ONE-CLEAN-PLAN.md) | How Alexander steers a planning session until one document is actually right. |
 
 ## Where the rules live
