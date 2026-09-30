@@ -14,11 +14,11 @@
 
 ## 1. Intent
 
-The old helper at `/home/rootrecord/old ollama/old skills/communications/discord/scripts/discord.py` is Discord REST: `get_messages`, `get_me`, and post, pin, forward, and DM. The AWS stub `1 - Servers/2 - RootRecord-US-Mainland-Server/communications/discord/poll.py` checks `DISCORD_BOT_TOKEN` and does nothing. Pacific `Communications/discord/` is a README. The function is absent because that folder has no poller, `master-key.env` has no Discord key, and posting has no sign-off (WO-COM-002).
+The old helper at `/home/rootrecord/old ollama/old skills/communications/discord/scripts/discord.py` is Discord REST: `get_messages`, `get_me`, and post, pin, forward, and DM. The AWS stub `1 - Servers/2 - RootRecord-US-Mainland-Server/communications/discord/poll.py` checks `DISCORD_BOT_TOKEN` and does nothing. Pacific `Communications/discord/` was a README. The poller now lives at `Communications/Discord/`. `master-key.env` still has no Discord key, and posting has no sign-off (WO-COM-002).
 
 The live system already runs Telegram `council_relay` (one `getUpdates` owner), EcoFlow BLE, the Hawaiʻi weather poller, `geology_collect.py`, the globe collector, camera grabs, and Kokoro. Those stay.
 
-This function, once accepted, polls only. It does not post. A `post_message` entry point returns without HTTP unless `RR_DISCORD_POST=1`, and that gate stays unset. Later agents call this folder. They are not built here.
+This function polls only. It does not post. `post_message` returns without HTTP unless `RR_DISCORD_POST=1`, and that gate stays unset. Later agents call this folder. They are not built here.
 
 ---
 
@@ -116,7 +116,7 @@ Do these only after Alexander accepts this draft and says to build. Until then, 
 | `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Communications/Discord/scripts` | Code. Landed. |
 | `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Communications/Discord/scripts/poll.py` | The poller. No token means no Discord HTTP. |
 | `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Communications/Discord/lib/envload.py` | Allowlist `DISCORD_BOT_TOKEN` from `master-key.env`. |
-| `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Communications/Discord/README.md` | Absorbs the lowercase shell README on build. |
+| `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Communications/Discord/README.md` | Absorbed the lowercase shell README. |
 | `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Communications/discord/` | Lowercase shell removed 2026-09-30. No twin. |
 | `2 - RootRecord-Database/Communications/Discord/` | Runtime status. Gitignored. `status-last.json` written by the no-token test. |
 | `2 - RootRecord-Database/Logs/Communications/Discord/` | Logs only. |
@@ -125,7 +125,7 @@ Do these only after Alexander accepts this draft and says to build. Until then, 
 | `1 - Servers/2 - RootRecord-US-Mainland-Server/communications/discord/poll.py` | AWS stub. Leave it. |
 | `/home/rootrecord/old ollama/old skills/communications/discord/scripts/discord.py` | Old REST helper read for this draft. Not the phase 4 GitHub tree. |
 | `Old repos deleted and merged/Solar-Pacific-RootRecord-Server-Old/communications/discord/` | Phase 4 archive path. Not copied in this draft. |
-| `5 - RootRecord-Library/Documentation/00-architecture/Old-Repo-Migration-Matrix.md` | Row 59 Discord half, after phase 4 only. |
+| `5 - RootRecord-Library/Documentation/00-architecture/Old-Repo-Migration-Matrix.md` | Row 59 Discord half set to partial. Slack half left missing. |
 | `5 - RootRecord-Library/Documentation/06-development/Work-Orders/WO-COM-002-Discord-Bot-Credential-Rotation.md` | New token before any live login. |
 
 ---
@@ -134,8 +134,7 @@ Do these only after Alexander accepts this draft and says to build. Until then, 
 
 **Additional requirements:**
 
-- Alexander accepts this draft before any build.
-- A new `DISCORD_BOT_TOKEN` in `master-key.env`, issued per WO-COM-002, is required before any live Discord login. This draft does not add that key.
+- A new `DISCORD_BOT_TOKEN` in `master-key.env`, issued per WO-COM-002, is required before any live Discord login. This build did not add that key. Empty `channels.json` still does not call Discord after the key exists.
 - `RR_DISCORD_POST=1` is required before any post. It stays unset.
 - Enabling `discord_poller` or setting `RR_DISCORD_POLLER` needs a separate sign-off.
 - Phase 4 pauses if there is no local checkout of `Solar-Pacific-RootRecord-Server-Old/communications/discord`, or if the archive copy fails.
