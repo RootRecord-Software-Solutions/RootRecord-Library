@@ -18,6 +18,7 @@ Single entry point for agents and operators working the Pacific server cutover *
 | --- | --- |
 | [Local-Multi-Agent-Team-and-Migration-to-Build-2026-09-28.md](./Local-Multi-Agent-Team-and-Migration-to-Build-2026-09-28.md) | **Team OS** — roles, truth gates, migrate→build, hardware capacity |
 | [Migration-Lineage-Three-Generations-2026-09-28.md](./Migration-Lineage-Three-Generations-2026-09-28.md) | G3 / G2 / G1 / **G0** named; import order rule |
+| [archive/](./archive/README.md) | Session 1 restructuring notes (ChatGPT, Copilot, Grok, Claude). History only, moved 2026-09-30. |
 | [Pacific-Domain-Import-Playbook-2026-09-28.md](./Pacific-Domain-Import-Playbook-2026-09-28.md) | Step-by-step Phase 0–4; retirement stub pattern |
 | [Pacific-Jobs-Path-Inventory-2026-09-28.md](./Pacific-Jobs-Path-Inventory-2026-09-28.md) | **Historical** path inventory — live status is WO-SRV |
 | [Pacific-Server-Library-Dependency-Map-2026-09-28.md](./Pacific-Server-Library-Dependency-Map-2026-09-28.md) | Library files touched; domain status |
