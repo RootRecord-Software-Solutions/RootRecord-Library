@@ -122,9 +122,9 @@ Phase 4 file list, from checkout `/home/rootrecord/old ollama/old skills` (remot
 | `/home/rootrecord/old ollama/old skills/origin/ns/apps/core/scheduler.py` | Shared scheduler. Leave it |
 | `Old repos deleted and merged/Solar-Pacific-RootRecord-Server/fs-index/` | Phase 4 archive path (after the copy succeeds) |
 | `Old repos deleted and merged/Solar-Pacific-RootRecord-Server/live-directories/` | Phase 4 archive path for the topic desk |
-| `5 - RootRecord-Library/Documentation/00-architecture/Old-Repo-Migration-Matrix.md` | After phase 4, correct row 26 only |
-| `5 - RootRecord-Library/Documentation/00-architecture/G1-Scheduler-To-G3-Jobs-Map-2026-09-29.md` | After phase 4, correct the `fs-index` row only |
-| `5 - RootRecord-Library/Documentation/00-architecture/Solar-Pacific-Old-Full-TopLevel-Catalog-2026-09-28.md` | After phase 4, correct the `fs-index` and `live-directories` rows only |
+| `5 - RootRecord-Library/Documentation/Old-Repo-Migration-Matrix.md` | After phase 4, correct row 26 only |
+| `5 - RootRecord-Library/Documentation/G1-Scheduler-To-G3-Jobs-Map-2026-09-29.md` | After phase 4, correct the `fs-index` row only |
+| `5 - RootRecord-Library/Documentation/Solar-Pacific-Old-Full-TopLevel-Catalog-2026-09-28.md` | After phase 4, correct the `fs-index` and `live-directories` rows only |
 
 ---
 
