@@ -122,4 +122,5 @@ bash verify.sh
 | Fact envelope | `5 - RootRecord-Library/Documentation/00-architecture/Schemas/state-envelope.md` |
 | Personas and bounds | `5 - RootRecord-Library/Agent Context/` |
 | Operator decisions still open | `5 - RootRecord-Library/Documentation/01-operations/2026-09-30-whats-left-for-alexander.md` |
+| Voice desk, current | `5 - RootRecord-Library/Documentation/01-operations/2026-09-30-voice-desk.md` |
 | Migration counts | `5 - RootRecord-Library/Documentation/00-architecture/Old-Repo-Migration-Matrix.md` |

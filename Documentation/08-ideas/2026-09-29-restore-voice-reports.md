@@ -8,7 +8,7 @@
 | **Needs sign-off from** | Alexander (enabling voice output); Carly seal before anything public |
 
 ## Problem
-Legacy generations produced spoken and on-air reports. G3 has the Reports worklog foundation and weather reports, but no voice layer.
+Legacy generations produced spoken and on-air reports. On 2026-09-29 this proposal assumed G3 had no voice layer. That layer is now the local Kokoro desk. What remains off is public broadcast and the speakers.
 
 ## Proposal
 After the residual close-out, do a diff-only scavenger pass of the G0/G1 voice packets. Then add a local-only voice report built from existing measured data (Energy SOC, weather reports, worklog roll-up), rendered on demand, never resident, and off by default.
