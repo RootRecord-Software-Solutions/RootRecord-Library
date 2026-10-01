@@ -70,6 +70,8 @@ Once per clock hour, during the energy report, `Security/Cameras/panel_look.py` 
 
 The model names the weather (rain, fog, overcast, clear, dark) and the tilt. Left side up is the morning position. Flat is the day position. Right side up is the evening position. Left and right are as channel 1 sees the array.
 
+An infrared still is grayscale. The color span of that frame sits near 2, and a color frame sits above 11. A span under 6 is night, so weather is dark. The gray look is the infrared illuminator. It is not overcast. The tilt reading stays with the model. A color look from earlier in the same hour is replaced once the newest still is infrared.
+
 | Part of the day | From the sun file | What is correct |
 | --- | --- | --- |
 | Morning | Two hours before sunrise through one hour after | Left side up, or flat. Right side up asks for a person. |
