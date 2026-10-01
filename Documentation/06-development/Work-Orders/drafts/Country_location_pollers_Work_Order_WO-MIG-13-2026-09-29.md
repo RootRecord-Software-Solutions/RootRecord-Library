@@ -91,7 +91,7 @@ Do these only after Alexander accepts this draft and says to build. Until then, 
 
 5. No public page on this pass. A later page, if one is added, goes in the one Vercel app (`3 - RootRecord-Website`) and follows the US-Mainland globe glass-card overlay. Data and logs stay on the Database paths above. Do not import an old theme.
 6. After the script works: copy `operations/locations/**` into `/home/rootrecord/RootRecord-Ecosystem/Old repos deleted and merged/old/`, keeping the path it had inside the old repo (`operations/locations/...`). Generated data that lived beside that source goes into this archive too, and still does not go into the live Folders. After the archive copy is on disk, delete those same files from the old repo on this machine and on GitHub. Commit that deletion and push it. Do not force-push. Do not delete the GitHub repository. If the archive copy fails, do not delete. If no local checkout of `old` exists, pause. Leave `old/config/locations/global-locations.json`.
-7. Update this work order with the result note (what landed, what was archived, what was removed on GitHub) and set the new status. Correct only `5 - RootRecord-Library/Documentation/00-architecture/Old-Repo-Migration-Matrix.md` row 81. Do not rewrite unrelated work orders.
+7. Update this work order with the result note (what landed, what was archived, what was removed on GitHub) and set the new status. Correct only `5 - RootRecord-Library/Documentation/Old-Repo-Migration-Matrix.md` row 81. Do not rewrite unrelated work orders.
 
 ---
 
@@ -123,7 +123,7 @@ Do these only after Alexander accepts this draft and says to build. Until then, 
 | `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Geology/config/global-locations.json` | Quake nearest-place catalog. Leave it. |
 | `3 - RootRecord-Website` | One Vercel app. No page added on this pass. Checkout is empty today. |
 | `Old repos deleted and merged/old/operations/locations/` | Phase 4 archive. 306 `poller.py` and 306 `location.json`. |
-| `5 - RootRecord-Library/Documentation/00-architecture/Old-Repo-Migration-Matrix.md` | Row 81 set to migrated. |
+| `5 - RootRecord-Library/Documentation/Old-Repo-Migration-Matrix.md` | Row 81 set to migrated. |
 
 ---
 
