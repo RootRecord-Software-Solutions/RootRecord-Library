@@ -113,8 +113,8 @@ Do not start these until Alexander accepts this draft and says to build.
 | `council/council-health/` on `Solar-Pacific-RootRecord-Server-Old` | Old source. Archive, then delete those files only. |
 | `scheduler-clock/scripts/scheduler.py` (old repo) | Shared. Leave. Name in the result note. |
 | `origin/scripts/routes/crons.py` (old repo) | Shared. Leave. Name in the result note. |
-| `5 - RootRecord-Library/Documentation/00-architecture/Old-Repo-Migration-Matrix.md` | Phase 5 only: correct row 60. |
-| `5 - RootRecord-Library/Documentation/00-architecture/G1-Scheduler-To-G3-Jobs-Map-2026-09-29.md` | Phase 5 only: correct the `council-health` row. |
+| `5 - RootRecord-Library/Documentation/Old-Repo-Migration-Matrix.md` | Phase 5 only: correct row 60. |
+| `5 - RootRecord-Library/Documentation/G1-Scheduler-To-G3-Jobs-Map-2026-09-29.md` | Phase 5 only: correct the `council-health` row. |
 | `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Communications/README.md` | Phase 5 only: note the gated check. |
 
 ---
