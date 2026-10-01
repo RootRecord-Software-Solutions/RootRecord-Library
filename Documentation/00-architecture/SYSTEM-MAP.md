@@ -33,11 +33,11 @@ Local models are the readers that matter today. A later website would read the p
 
 One process, `council-relay.py`, long-polls with Ava's token. Bruce and Carly post and react. Replies in the sandbox are on. Replies in the live council and in private DMs stay off. See Decisions/0001 and the telegram contract.
 
-Inference is `run-infer.sh`: NPU, on demand, persona JSON per voice. The jobs header still names `llama3.2:1b` and an Ollama fallback. The relay does not. The snapshot records both. See Decisions/0002.
+Inference is `run-infer.sh`. The council relay forces NPU `llama3.2:3b`, context 4096, on demand, no Ollama fallback. Other callers still default to `llama3.2:1b`. Personas are JSON files per voice. See Decisions/0002.
 
 ## What is not built
 
-An execution broker. Agents cannot launch the programs listed in `System/config/program-registry.json`. Permissions in a persona file do not grant a side effect. The runtime does not enforce a broker yet because there is nothing to call.
+Agent execution of restarts, writes, sends, or git pushes. `Automations/execution/execution-broker.py` answers reads and refuses those side effects. The poller job `service_supervisor` is the only automatic restart for the weather poller and the council relay. A persona file is not permission.
 
 ## Verify
 

@@ -12,7 +12,7 @@ The council should use the NPU. A resident 3B process at context 8192 OOM'd this
 
 ## Drift
 
-`Automations/scripts/jobs.py` still says `llama3.2:1b` and an Ollama fallback. That line is older than this decision. The state aggregator reports `configuration_drift` instead of hiding one of them. Fixing the comment is a documentation edit. Changing the relay model is not.
+Resolved in the `jobs.py` header on 2026-09-30: the council line names `llama3.2:3b` and no Ollama fallback. `flm-warmup.sh` and non-council `run-infer.sh` callers still default to `llama3.2:1b`. That split is intentional. The aggregator reports drift only when the council line and `ensure-relay.sh` disagree.
 
 ## Do not remove without reconsidering
 

@@ -1,4 +1,4 @@
-# 0004 — No execution broker yet
+# 0004 — Broker refuses side effects
 
 Date: 2026-09-30.
 

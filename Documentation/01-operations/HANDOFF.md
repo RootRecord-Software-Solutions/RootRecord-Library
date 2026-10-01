@@ -52,17 +52,17 @@ Nothing in the 2026-09-30 verify set is a confirmed failure. Run verify before b
 | Private DM replies | Same gate | same |
 | Quake Telegram send | Dry-run | `RR_COUNCIL_QUAKE_SEND` |
 | Bruce stats send | Dry-run | `RR_BRUCE_STATS_SEND` |
-| Council Ollama fallback | Jobs header still mentions it | `RR_NPU_ONLY=1` on the relay |
+| Council Ollama fallback | Relay sets `RR_NPU_ONLY=1` | Do not turn the fallback on for council chat |
 | Specialist routing | Personas are the council brain | `RR_SPECIALIST_ROUTING` off |
-| Agent program launch | Registry exists, `agent_launchable` is false | execution broker is `not_built` |
+| Agent program launch | Broker exists and refuses restarts | `restart_known_service` stays locked |
 | Public website checkout | Removed 2026-09-30 | do not recreate `3 - RootRecord-Website/` or bind port 3001 |
 | Resident FLM | A 3B serve left running OOM'd the desk on 2026-09-29 | on demand only, context stays 4096 |
 
 ## In progress
 
-The state aggregator writes schema 2: domains, drift, visibility, and projections. The context builder only switches slices for power questions versus scope questions. It is not a full per-request assembler.
+The state aggregator writes schema 2: domains, drift, visibility, and projections. The context builder switches slices for power questions versus scope questions. It is not a full per-request assembler.
 
-`jobs.py` still says `llama3.2:1b` and an Ollama fallback. The relay observes `llama3.2:3b` and no fallback. That disagreement is recorded as `configuration_drift`. Do not delete either side to make the warning go away without an operator decision.
+Non-council callers and `flm-warmup.sh` still default to `llama3.2:1b`. The council line in `jobs.py` names `llama3.2:3b` and no Ollama fallback, matching `ensure-relay.sh`.
 
 ## Next
 
