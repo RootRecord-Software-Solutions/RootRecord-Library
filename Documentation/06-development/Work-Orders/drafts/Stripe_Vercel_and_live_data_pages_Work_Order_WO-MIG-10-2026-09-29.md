@@ -122,9 +122,9 @@ Build only after Alexander accepts this draft and says to build. Until then, do 
 | `5 - RootRecord-Library/Archive/Website-Themes/holding/` | Unchanged copy of `holding/site`. Out of the Vercel build |
 | `Old repos deleted and merged/Solar-Pacific-RootRecord-Server/` | Phase 4 archive of the four folders, original relative paths |
 | `Old repos deleted and merged/holding/` | Phase 4 archive of the nested `Ava-Core-Dev/holding` site |
-| `Documentation/00-architecture/Old-Repo-Migration-Matrix.md` | Row 75. Correct only after phase 4 |
-| `Documentation/00-architecture/G1-Scheduler-To-G3-Jobs-Map-2026-09-29.md` | Stripe/Vercel OUT row. Correct only after phase 4 |
-| `Documentation/00-architecture/Website-RootRecord-Cloud-Staging.md` | Correct only if this function changes the one app’s home |
+| `Documentation/Old-Repo-Migration-Matrix.md` | Row 75. Correct only after phase 4 |
+| `Documentation/G1-Scheduler-To-G3-Jobs-Map-2026-09-29.md` | Stripe/Vercel OUT row. Correct only after phase 4 |
+| `Documentation/Website-RootRecord-Cloud-Staging.md` | Correct only if this function changes the one app’s home |
 | `Documentation/08-ideas/2026-09-29-globe-landing-overlay.md` | Visual direction for public pages |
 
 ---
