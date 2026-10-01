@@ -3,7 +3,7 @@
 | Field | Value |
 | --- | --- |
 | **Date (HST)** | 2026-09-29 |
-| **State** | PROPOSED |
+| **State** | LANDED for the local Kokoro desk, 2026-09-30. Sandbox voice notes are on. Public broadcast and speakers stay off. Current record: [voice desk](../01-operations/2026-09-30-voice-desk.md). |
 | **Grounding** | MIGRATION-DOCS-INDEX G0 scavenger list (`voice`, `voice-events`, `startup-voice`, `kokoro`, `radio`; day/morning/evening report packets); WO-RPT-001 ("voice-safe summaries on top, Carly seal before public") |
 | **Needs sign-off from** | Alexander (enabling voice output); Carly seal before anything public |
 

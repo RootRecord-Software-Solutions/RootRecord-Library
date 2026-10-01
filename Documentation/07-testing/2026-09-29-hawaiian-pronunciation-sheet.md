@@ -1,5 +1,7 @@
 # Test sheet — Hawaiian place-name pronunciation (Kokoro G3 port)
 
+**Update 2026-09-30:** `Hawaii` and `Hawaiian` are spoken as those English words. The syllable spellings in the table below are the 2026-09-29 test, not the current speech. Current record: [voice desk](../01-operations/2026-09-30-voice-desk.md).
+
 | Field | Value |
 | --- | --- |
 | **Date / time (HST)** | 2026-09-29 04:12 HST |

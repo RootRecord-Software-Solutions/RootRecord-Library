@@ -94,6 +94,8 @@ Non-council callers and `flm-warmup.sh` still default to `llama3.2:1b`. The coun
 
 ## Recent changes
 
+2026-09-30 evening: voice desk brought current. Sandbox delivery is on for the armed reports. Host temperature is Celsius. Hawaii is the English word. Energy includes the hourly channel 1 look, generator and transfer watts, and "out of range" after 30 minutes. Twenty-four chime files exist; the chime job stays off. See `Documentation/01-operations/2026-09-30-voice-desk.md`.
+
 2026-09-30 afternoon: interaction modes, principal registry, sandbox request seed, council draft loop, Cursor handoff package, execution and verification report schemas, broker denial of `development.execute_work_order`, BLOCKED recovery drafts, Root Monitor execution gates. `cursor_api` and `restart_known_service` stay locked. See `Documentation/02-agents/INTERACTION-MODES.md` and Decision 0006.
 
 2026-09-30: sandbox replies, per-voice NPU personas, desk file, read receipt, state aggregator, drift line, agent/public/slice projections, this handoff, contracts, and `verify.sh`.

@@ -78,38 +78,18 @@ Live-facts gate: G1 `speakers.is_live` is kept. Text with no live facts does not
 | morning / midday / late reports (+ `_play`, slots, merged-morning 10:20) | 09:00, 12:00, 21:00 (G3: 09:02 / 12:02 / 21:02) | Ava | Energy + Weather (alerts + SFP) + host `/proc` + work-order count | `morning_report_current.wav`, `midday_report_current.wav`, `late_report_current.wav` + `test-reports/Voice/*_current.md` | **LANDED, PASS**, template-first, gated OFF (`RR_VOICE_ROLLUPS=1`). Optional one-line LLM summary through `run-infer.sh` (`RR_VOICE_ROLLUP_LLM=1`, caller `voice_rollup`, lengths-only log) PASS once. Optional cloud prose is `Reports/CloudNarrative` (WO-MIG-32): dry-run package, no socket; merged copies today's morning narrative and does not call the model again; live spend still needs sign-off. G1 `day` (18:00) not ported (**PROPOSED**). 23:30 late-final is the same late roll-up, a second chance, gated OFF (`RR_VOICE_LATE_FINAL=1`, text only) |
 | boot_brief / audio_request (`boot_prelims`) | on boot | Ava (boot) | `/proc/uptime`, `/proc` CPU/mem, Energy last JSON, NWS HI alerts, Geology Kīlauea last JSON, hurricane `track.json` | `boot_brief_current.wav` | **LANDED 2026-09-29 14:29 HST** as `voice_reports.py boot_brief` (morning edition before 12:00, midday after). Text PASS; WAV VERIFY PENDING. Job **PROPOSED, not in jobs.py** (ON_BOOT `voice_boot_brief`, `RR_VOICE_BOOT`, runs `geology_collect` first). Morning replay is `Media/MorningBootReplay/scripts/replay.py` (dry-run handoff to `Media/Playback`; speakers off). Sunrise restore LANDED 2026-09-30 as `Media/SunriseRestore` (request only, no speaker). [Test](../07-testing/2026-09-29-old-repo-ports-breadth-batch5.md#boot-brief-voice-report) |
 
-## 6. Gates, and what enabling needs
+## 6. Gates, as of 2026-09-30
 
-- `voice_system_perf` job (Pacific `Automations/scripts/jobs.py`, EVERY_MINUTE `only_at_minutes=[6]`): `enabled = RR_VOICE_SYSTEM_PERF == "1"`. The flag is read once, when the poller imports `jobs.py`, so it **takes effect only at the next poller start** and does nothing tonight. It writes text + WAV and **delivers nothing**.
-- **Telegram and AWS radio stay OFF.** Speaker playback is Pacific `Media/Playback/scripts/play.py` (WO-MIG-15, 2026-09-30): dry-run by default; live `aplay` needs `RR_PLAYBACK=1` and `--play`, quiet hours 22:00–06:00 HST, and a single-flight lock so a second caller gets `busy`. No periodic play job. A live speaker run has not been done.
-  1. **Telegram**: a sendVoice step that converts WAV → OGG/Opus (the Bot API wants OGG/Opus for voice notes; the OGG goes in git-ignored `Archive/`), wired through the existing council relay / `Communications/telegram` (single `getUpdates` owner). It must not send when unchanged or when the gate skips. Still needs Alexander's sign-off.
-  2. **Speakers**: the playback step is in place and stays gated. A live `aplay` run still needs Alexander's sign-off for that run.
-- Batch 2 (2026-09-29 04:31, all in the same `jobs.py`, each `enabled = os.environ.get(FLAG, "0") == "1"`, read only at poller start, **no delivery**; command `nice -n 10 python3 {PACIFIC}/Media/Voice/scripts/voice_reports.py <report>`):
+The schedule and which flags default on are in [2026-09-30 voice desk](../01-operations/2026-09-30-voice-desk.md). Flags are read when the poller starts.
 
-  | Job id | Schedule (HST) | Flag |
-  | --- | --- | --- |
-  | `voice_hourly_chime` | EVERY_MINUTE `only_at_minutes=[0, 30]` | `RR_VOICE_HOURLY_CHIME=1` |
-  | `voice_nws_weather` | EVERY_MINUTE `[7, 22, 37, 52]` | `RR_VOICE_NWS=1` |
-  | `voice_energy_report` | EVERY_MINUTE `[15, 45]` | `RR_VOICE_ENERGY=1` |
-  | `voice_remaining_tasks` | EVERY_MINUTE `[32]` | `RR_VOICE_REMAINING=1` |
-  | `voice_morning_report` / `voice_midday_report` / `voice_late_report` | ON_AT `09:02` / `12:02` / `21:02` | `RR_VOICE_ROLLUPS=1` (+ `RR_VOICE_ROLLUP_LLM=1` for the LLM summary line) |
-  | `voice_late_final_report` (added 2026-09-29 ~23:59 HST) | ON_AT `23:30` | `RR_VOICE_LATE_FINAL=1` (text only; skips if the late slot is already done; `System/NightSleep` `should_run` when that module is present) |
-  | `voice_earthquake_report` (added 2026-09-29 ~13:20 HST) | EVERY_MINUTE `[8]` | `RR_VOICE_QUAKE=1` (data from `geology_collect`, `RR_GEOLOGY=1`) |
-  | `voice_kilauea_report` (added 2026-09-29 ~13:44 HST) | EVERY_MINUTE `[3]` | `RR_VOICE_KILAUEA=1` (data from `geology_collect`) |
-  | `voice_hurricane_desk` (added 2026-09-29 ~13:43 HST) | ON_AT `05:50` `09:50` `12:50` `16:55` `20:50` | `RR_VOICE_HURRICANE=1` |
-  | `voice_solar_desk` — **PROPOSED, not in jobs.py** | EVERY_MINUTE `[4]` | `RR_VOICE_SOLAR=1` |
-  | `voice_security_desk` — **PROPOSED, not in jobs.py** | EVERY_MINUTE `[11]` | `RR_VOICE_SECURITY=1` |
-  | `voice_bandwidth_desk` — **PROPOSED, not in jobs.py** | EVERY_MINUTE `[12]` | `RR_VOICE_BANDWIDTH=1` (needs `system_net_sample`, `RR_NET_SAMPLES=1`; `RR_VOICE_BANDWIDTH_DRY=1` skips the sample write) |
-  | `voice_official_weather` — **PROPOSED, not in jobs.py** | EVERY_MINUTE `[25]` | `RR_VOICE_OFFICIAL=1` (fresh HLS needs `weather_official_hls`, `RR_OFFICIAL_HLS=1`) |
-  | `voice_boot_brief` — **PROPOSED, not in jobs.py** | ON_BOOT (priority 20) | `RR_VOICE_BOOT=1` |
-  | `reports_board_catchup` — **PROPOSED, not in jobs.py** | ON_AT `14:00` | `RR_REPORT_BOARD=1` (Pacific `Reports/scripts/report_board.py run-due`: re-runs a missed morning / midday roll-up as text; `--voice` renders WAV, never plays) |
+Sandbox Telegram delivery is on (`RR_VOICE_DELIVER=1`, `RR_TELEGRAM_DEST=sandbox`): voice note, transcript, and measured report. Unchanged spoken text is not sent again. Speaker playback stays dry-run unless `RR_PLAYBACK=1` and `--play`. AWS radio is not wired from these jobs.
 
-  The three 2026-09-29 migration-pass registrations in `jobs.py` are a **sign-off item** (standing rule: `jobs.py` is edited only when Alexander asks or a work order requires it; left in place, not reverted). Exact blocks: Database `Logs/Migration/migration-jobs-py-additions-20260929.md`.
+`voice_solar_desk`, `voice_security_desk`, and `voice_bandwidth_desk` are in `jobs.py` and default on. `voice_hourly_chime` is :00 only and stays off until `RR_VOICE_HOURLY_CHIME=1`. `voice_official_weather`, `voice_boot_brief`, and `reports_board_catchup` are still not armed from `run-poller.sh`. Roll-ups and the hurricane desk stay off the same way.
 
-  If the single-flight lock is busy the text `_current.md` is still written and the WAV is skipped (rc 75 from `voice-render.sh`, logged in the JSON line). Not scheduled: council_quake (delivery-bound), hourly solar. official_weather and boot_brief are LANDED with PROPOSED jobs (above).
+If the single-flight lock is busy, the text file is still written and the WAV is skipped (rc 75).
 
-- **Text fixes 2026-09-29 14:18 HST** (breadth pass 2): `speakable.spoken_clock` says minutes 1–9 as "oh N" ("two oh one p.m."; shared by every report that speaks a clock — phrase clips use only :00 / :30, cache unchanged); `voice_reports.spoken_watts` ("zero watts" / "one watt" / rounded) used by solar_desk, energy_report and the roll-ups, with an all-zero device spoken as "idle"; `spoken_hhmm` speaks sun times as words ("six eleven a.m."). [Test](../07-testing/2026-09-29-old-repo-ports-breadth-batch5.md#voice-text-fixes).
-- `Media/Voice/scripts/speech_scrub.py` (G1 persona scrub: drops vendor / "As an AI" / constraint sentences) is available as a library + stdin CLI; **not wired** into any report yet.
+- **Text fixes 2026-09-29 14:18 HST** (breadth pass 2): `speakable.spoken_clock` says minutes 1–9 as "oh N". `voice_reports.spoken_watts` says "zero watts" / "one watt". `spoken_hhmm` speaks sun times as words. [Test](../07-testing/2026-09-29-old-repo-ports-breadth-batch5.md#voice-text-fixes).
+- **2026-09-30:** Hawaii and Hawaiian are the English words. Host temperature is Celsius. A bare "degrees" with no unit is still Fahrenheit, for the weather numbers. `speech_scrub.py` is still not wired into a report.
 
 ## 7. Naming and formats standard — **PROPOSED**
 
