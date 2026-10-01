@@ -11,6 +11,8 @@
   ·
   <a href="https://github.com/RootRecord-Software-Solutions/RootRecord-Database"><strong>Database</strong></a>
   ·
+  <a href="https://github.com/RootRecord-Software-Solutions/RootRecord-Website"><strong>Website</strong></a>
+  ·
   <a href="https://rootrecord.cloud"><strong>rootrecord.cloud</strong></a>
 </p>
 
@@ -42,8 +44,8 @@ It gives operators and agents a durable place to find the same architecture, con
 | **[RootRecord-Library](https://github.com/RootRecord-Software-Solutions/RootRecord-Library)** | Durable docs, agent context & work orders |
 | **[RootRecord-Pacific-Solar-Server](https://github.com/RootRecord-Software-Solutions/RootRecord-Pacific-Solar-Server)** | Primary Pacific runtime |
 | **[RootRecord-Database](https://github.com/RootRecord-Software-Solutions/RootRecord-Database)** | Data, media & log layout |
-| **US Mainland Server** | `RootRecord-Ecosystem/1 - Servers/2 - RootRecord-US-Mainland-Server/` continuity node |
-| **Website surface** | `RootRecord-Ecosystem/1 - Servers/1 - RootRecord-Pacific-Solar-Server/Website/` |
+| **[RootRecord-Website](https://github.com/RootRecord-Software-Solutions/RootRecord-Website)** | Public home page. Desk source is Pacific `Website/Home/`. Vercel builds this repository |
+| **US Mainland Server** | `RootRecord-Ecosystem/1 - Servers/2 - RootRecord-US-Mainland-Server/` continuity node. AWS relays globe data and last-known operation JSON |
 | **Weather data** | `RootRecord-Ecosystem/2 - RootRecord-Database/Weather/` |
 
 Historical and mirror repositories remain useful for lineage and inventory; active canonical org work belongs in the appropriate current repository.

@@ -25,7 +25,7 @@ A new function starts from the banner in the standing rule. A new poller job is 
 These are facts, not suggestions.
 
 - Delta 2 does not transmit. A quiet Delta 2 read is normal. Do not schedule a test that tries to drive it.
-- Do not create `3 - RootRecord-Website`, and do not bind port 3001. `https://rootserver.rootrecord.cloud/` is the poller, not a website.
+- Do not create `3 - RootRecord-Website`, and do not bind port 3001. The public page is Pacific `Website/Home/`, published to `RootRecord-Software-Solutions/RootRecord-Website`. `https://rootserver.rootrecord.cloud/` is the poller, not a website.
 - Do not turn on `RR_*` gates, Telegram replies, voice playback, or speaker output. Alexander names the one he wants.
 - Do not restart the poller, the relay, or the cameras unless he asks.
 - Do not retire a legacy tree unless he names that tree. Byte-identical skills copies were already removed. Unique skills files and the old 27 GB skills tree stay.

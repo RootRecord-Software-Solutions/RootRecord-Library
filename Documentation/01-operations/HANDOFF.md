@@ -58,7 +58,7 @@ Nothing in the 2026-09-30 verify set is a confirmed failure. Run verify before b
 | Cursor API build | Package path exists | `cursor_api` stays off in the gate seed |
 | Build from a username | Registry rows have null numeric ids | record `from.id` before any `READY_FOR_BUILD` |
 | Council passes on the relay | Seed code is in `council-relay.py` | `RR_INTERACTION_COUNCIL` stays unset; the running process uses the code it started with |
-| Public website checkout | Removed 2026-09-30 | do not recreate `3 - RootRecord-Website/` or bind port 3001 |
+| Public page | `Website/Home/` syncs to `RootRecord-Software-Solutions/RootRecord-Website` | do not recreate `3 - RootRecord-Website/` or bind port 3001 |
 | Resident FLM | A 3B serve left running OOM'd the desk on 2026-09-29 | on demand only, context stays 4096 |
 
 ## In progress

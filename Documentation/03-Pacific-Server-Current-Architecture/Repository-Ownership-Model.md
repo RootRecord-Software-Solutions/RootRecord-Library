@@ -12,12 +12,13 @@ RootRecord kept separate homes so public context, operational knowledge, runtime
 - A service, job, monitor, or runtime script goes in `1 - Servers/1 - RootRecord-Pacific-Solar-Server/`.
 - A log, sample, database, or media file goes in `2 - RootRecord-Database/`.
 - A sentence meant for anyone who clones the public umbrella goes in the ecosystem README or another public doc, without secrets or live telemetry.
+- The public page goes in `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Website/Home/`. That folder is the Vercel repository.
 
 Sync flags are under `2 - RootRecord-Database/Github/flags/`. `/home/rootrecord/Database/` is not on this desk.
 
 ## What this desk syncs
 
-`Github/scripts/repos.conf` enables four rows: `ecosystem` (inplace) and `pacific`, `database`, and `library` (mirror). The live Pacific, Database, and Library folders have no `.git`. Mirror checkouts are `Github-worktrees/pacific`, `Github-worktrees/database`, and `Github-worktrees/library`. `skills`, `website`, and `mainland` are disabled (`enabled=0`). Their configured paths are under `Old repos deleted and merged/ollama-skills-g2-2026-09-30`, not the live Mainland directory and not the Pacific Website directory. The Mainland tree and the Pacific Website tree are directories inside the umbrella. They are not separate git repositories on this desk. GitHub still has `rootrecordsoftwaresolutions/US-Mainland-Server` and `rootrecordsoftwaresolutions/RootRecord-Website`.
+`Github/scripts/repos.conf` enables five rows: `ecosystem` (inplace) and `pacific`, `database`, `library`, and `website` (mirror). The live Pacific, Database, and Library folders have no `.git`. Mirror checkouts are `Github-worktrees/pacific`, `Github-worktrees/database`, `Github-worktrees/library`, and `Github-worktrees/website`. `website` publishes `Website/Home/` to `RootRecord-Software-Solutions/RootRecord-Website`. `skills` and `mainland` are disabled (`enabled=0`). Their configured paths are under `Old repos deleted and merged/ollama-skills-g2-2026-09-30`, not the live Mainland directory. The Mainland tree is a directory inside the umbrella. It is not a separate git repository on this desk. GitHub still has `rootrecordsoftwaresolutions/US-Mainland-Server`. The old `rootrecordsoftwaresolutions/RootRecord-Website` repository is not the Vercel source.
 
 The sync runs as poller job `github_sync_all`. There is no RootRecord systemd timer for it. `Pull.sh` and `Push.sh` are manual. They look for `.git` inside Pacific, Database, and Library, do not find one, and do not pull or push the umbrella.
 
