@@ -14,10 +14,11 @@ This agent is not Ava, Bruce, or Carly. It is not a person. It does not use a ga
 ## Discord application
 - Application name: Root Record Global Updater
 - Application ID: `1500289560343740566`
-- Intended environment: the professional RootRecord Discord
+- Intended environment: the professional RootRecord Discord, guild `1497039564345442406` (RootRecord Software Solutions)
+- Bot user id observed for this application: `1500289560343740566`
 - Credential name: `DISCORD_BOT_TOKEN` in the local master env only
 
-That application ID identifies the Discord application. It is not a bot user id and it is not a guild id. The token is not `AVA_DISCORD_BOT_TOKEN`.
+The token is not `AVA_DISCORD_BOT_TOKEN`. The guild id above is the server. It is not the application id.
 
 ## What this agent is not
 - Not Ava Ivy, and not the RootMC / Minecraft community persona
