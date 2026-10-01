@@ -18,7 +18,7 @@ Key paths (on desk):
 - Energy (measured only): `/home/rootrecord/RootRecord-Ecosystem/2 - RootRecord-Database/Energy/{soc,watts,samples}/`
 - System samples: `/home/rootrecord/RootRecord-Ecosystem/2 - RootRecord-Database/System/`
 - Worklog: `/home/rootrecord/RootRecord-Ecosystem/2 - RootRecord-Database/Worklog/`
-- Backups: `/home/rootrecord/Database/GITHUB/`
+- Backups: `2 - RootRecord-Database/Github/` (not `/home/rootrecord/Database`)
 - Master env: `/home/rootrecord/master/master-key.env` (never commit)
 
 Communications domain (in Pacific repo):

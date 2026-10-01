@@ -37,7 +37,7 @@ Key operational paths (desk):
 - Plumbing / single-flight: `System/scripts/plumbing/`
 - Desk live file: `/home/rootrecord/RootRecord-Ecosystem/2 - RootRecord-Database/Intake/desk-live.txt`
 - Logs: `/home/rootrecord/RootRecord-Ecosystem/2 - RootRecord-Database/Logs/` (e.g. Automations/automations_current.log)
-- Backups: `/home/rootrecord/Database/GITHUB/`
+- Backups: `2 - RootRecord-Database/Github/` (not `/home/rootrecord/Database`)
 - Master env: `/home/rootrecord/master/master-key.env` (never commit)
 
 ## Migration generations (2026-09-28)
