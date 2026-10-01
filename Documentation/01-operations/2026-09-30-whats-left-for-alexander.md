@@ -48,7 +48,7 @@ Still on disk at the 02:35 check:
 
 ### 2. No local Next server
 
-The public page is `Website/Home/`. Vercel hosts it. The `website` catalog row publishes that folder to `RootRecord-Software-Solutions/RootRecord-Website`. `www` still answers from the AWS globe only because DNS has not moved. The data contract is `Website/HANDOFF-vercel-homepage-2026-09-30.md`. Do not recreate `3 - RootRecord-Website`. Do not bind port 3001. Do not call port 8787.
+The public page is `Website/Home/`. Vercel hosts it. The `website` catalog row publishes that folder to `RootRecord-Software-Solutions/RootRecord-Website`. `rootrecord.cloud` and `www` 301 to `https://rootrecord.online/`. That host has no deployment yet. The data contract is `Website/HANDOFF-vercel-homepage-2026-09-30.md`. Do not recreate `3 - RootRecord-Website`. Do not bind port 3001. Do not call port 8787.
 
 `https://rootserver.rootrecord.cloud/` is the poller, not a site. The mainland desk copy is `1 - Servers/2 - RootRecord-US-Mainland-Server`, and that sync row stays disabled.
 
