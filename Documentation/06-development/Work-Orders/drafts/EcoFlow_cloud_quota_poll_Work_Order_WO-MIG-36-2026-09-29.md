@@ -95,7 +95,7 @@ Do these only after Alexander accepts this draft and says to build. Until then, 
 
 7. One test, no cloud spend: run `quota_poll.py` with the flag unset. Expect exit 0, text `cloud=off`, no new file under `Energy/Cloud-Quota/`, and no request to `api.ecoflow.com`. A fixture map of `pd.soc` through `map_quota_to_fields` proves the field shape without HTTP.
 8. After the migration works, and before the Library update: copy this function’s exclusive old files into `Old repos deleted and merged/ecoflow-quota/`, keeping their old relative paths: `scripts/ecoflow_quota.py`, `SKILL.md`, `INDEX.md`, `DAILY.md`, `references/migrate.md`. Leave `scripts/energy.py` and `scripts/ecoflow_public.py`. Do not restore those files into Pacific. After the archive copy is on disk, delete those same exclusive files from the old location on this machine and, if a remote still has them, from GitHub. Commit that deletion and push it. Do not force-push. Do not delete the GitHub repository. `Solar-Pacific-RootRecord-Server-Old/energy/ecoflow-quota` is not in the checkout here. If no remote still has these files, record that and stop. If the archive copy fails, do not delete.
-9. Update this work order with the result note (what landed, what was archived, what was removed on GitHub) and set the new status. Correct only the Library lines this function made stale: the ecoflow-quota row in `5 - RootRecord-Library/Documentation/00-architecture/G1-Scheduler-To-G3-Jobs-Map-2026-09-29.md`, and row 31 in `5 - RootRecord-Library/Documentation/00-architecture/Old-Repo-Migration-Matrix.md`. Do not rewrite unrelated work orders.
+9. Update this work order with the result note (what landed, what was archived, what was removed on GitHub) and set the new status. Correct only the Library lines this function made stale: the ecoflow-quota row in `5 - RootRecord-Library/Documentation/G1-Scheduler-To-G3-Jobs-Map-2026-09-29.md`, and row 31 in `5 - RootRecord-Library/Documentation/Old-Repo-Migration-Matrix.md`. Do not rewrite unrelated work orders.
 
 ---
 
@@ -135,8 +135,8 @@ Do these only after Alexander accepts this draft and says to build. Until then, 
 | `/home/rootrecord/old ollama/old skills/energy/ecoflow-quota/scripts/ecoflow_quota.py` | Exclusive old cron. Archive in phase 4. Do not restore into Pacific. |
 | `/home/rootrecord/old ollama/old skills/energy/ecoflow-quota/scripts/energy.py` | Shared bank math. Leave it. |
 | `/home/rootrecord/old ollama/old skills/energy/ecoflow-quota/scripts/ecoflow_public.py` | Shared sanitized live file. Leave it. |
-| `5 - RootRecord-Library/Documentation/00-architecture/G1-Scheduler-To-G3-Jobs-Map-2026-09-29.md` | ecoflow-quota row, after phase 4 only. |
-| `5 - RootRecord-Library/Documentation/00-architecture/Old-Repo-Migration-Matrix.md` | Row 31, after phase 4 only. |
+| `5 - RootRecord-Library/Documentation/G1-Scheduler-To-G3-Jobs-Map-2026-09-29.md` | ecoflow-quota row, after phase 4 only. |
+| `5 - RootRecord-Library/Documentation/Old-Repo-Migration-Matrix.md` | Row 31, after phase 4 only. |
 
 ---
 
