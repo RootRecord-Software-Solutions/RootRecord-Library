@@ -86,7 +86,7 @@ Do these only after Alexander accepts this draft and says to build. Until then, 
 
 6. If `jobs.py` or `master-key.env` is already being edited, pause.
 7. After the queue works: copy this function's old-repo source into `/home/rootrecord/RootRecord-Ecosystem/Old repos deleted and merged/Solar-Pacific-RootRecord-Server/kilauea/rr-kilauea/`, keeping the path it had inside the old repo. Copy `DAILY.md`, `INDEX.md`, `OFFLOADED`, `SKILL.md`, `references/migrate.md`, and `scripts/kilauea.py`. `__pycache__` beside that source goes into this archive too, and still does not go into Pacific, Database, the website, or git. After the archive copy is on disk, delete those same files from the old repo on this machine (`/home/rootrecord/old ollama/old skills`) and on GitHub (`rootrecordsoftwaresolutions/Solar-Pacific-RootRecord-Server`). Commit that deletion and push it. Do not force-push. Do not delete the GitHub repository. If the archive copy fails, do not delete. Leave shared files: `reports/scripts/reports.py`, `origin/ns/apps/core/services/kilauea.py`, and `kilauea/rr-kilauea/desk/scheduler.py`.
-8. Update this work order with the result note (what landed, the archive path, the GitHub deletion) and set the new status. Correct only these Library pages: `5 - RootRecord-Library/Documentation/00-architecture/Old-Repo-Migration-Matrix.md` row 3, `5 - RootRecord-Library/Documentation/00-architecture/G1-Scheduler-To-G3-Jobs-Map-2026-09-29.md`, `5 - RootRecord-Library/Documentation/00-architecture/Voice-Reports-G3.md`, and `5 - RootRecord-Library/Documentation/00-architecture/Geology-Domain-Ownership-Kilauea-Earthquakes-2026-09-28.md`. Do not rewrite unrelated work orders.
+8. Update this work order with the result note (what landed, the archive path, the GitHub deletion) and set the new status. Correct only these Library pages: `5 - RootRecord-Library/Documentation/Old-Repo-Migration-Matrix.md` row 3, `5 - RootRecord-Library/Documentation/G1-Scheduler-To-G3-Jobs-Map-2026-09-29.md`, `5 - RootRecord-Library/Documentation/Voice-Reports-G3.md`, and `5 - RootRecord-Library/Documentation/Geology-Domain-Ownership-Kilauea-Earthquakes-2026-09-28.md`. Do not rewrite unrelated work orders.
 
 ---
 
@@ -125,10 +125,10 @@ Do these only after Alexander accepts this draft and says to build. Until then, 
 | `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Communications/CouncilPersona/` | Agent 03. Present. Do not edit. |
 | `/home/rootrecord/old ollama/old skills/kilauea/rr-kilauea/scripts/kilauea.py` | Removed from the old repo and from GitHub `c1ea1dd5`. Scheduler symlink left. |
 | `Old repos deleted and merged/Solar-Pacific-RootRecord-Server/kilauea/rr-kilauea/` | Phase 4 archive. Copied 2026-09-30. |
-| `5 - RootRecord-Library/Documentation/00-architecture/Old-Repo-Migration-Matrix.md` | Row 3 corrected. Grok still not ported. |
-| `5 - RootRecord-Library/Documentation/00-architecture/G1-Scheduler-To-G3-Jobs-Map-2026-09-29.md` | rr-kilauea row names the gated draft job. |
-| `5 - RootRecord-Library/Documentation/00-architecture/Voice-Reports-G3.md` | Grok stays blocked. Draft queue named as separate. |
-| `5 - RootRecord-Library/Documentation/00-architecture/Geology-Domain-Ownership-Kilauea-Earthquakes-2026-09-28.md` | Public draft queue marked landed. |
+| `5 - RootRecord-Library/Documentation/Old-Repo-Migration-Matrix.md` | Row 3 corrected. Grok still not ported. |
+| `5 - RootRecord-Library/Documentation/G1-Scheduler-To-G3-Jobs-Map-2026-09-29.md` | rr-kilauea row names the gated draft job. |
+| `5 - RootRecord-Library/Documentation/Voice-Reports-G3.md` | Grok stays blocked. Draft queue named as separate. |
+| `5 - RootRecord-Library/Documentation/Geology-Domain-Ownership-Kilauea-Earthquakes-2026-09-28.md` | Public draft queue marked landed. |
 
 ---
 
