@@ -32,6 +32,7 @@ These files are the mode, identity, and handoff layer. They do not replace the c
 | Cursor handoff | [handoff/cursor-handoff-schema.json](handoff/cursor-handoff-schema.json) |
 | Reports | [reports/execution-report-schema.json](reports/execution-report-schema.json), [reports/verification-report-schema.json](reports/verification-report-schema.json) |
 | Decision | [0006](../00-architecture/Decisions/0006-interaction-modes.md) |
+| How to read it | [INTERACTION-MODES.md](INTERACTION-MODES.md) |
 
 `interaction_mode` is a request mode. The 2026-09-28 “Migrate mode → build mode” section is a migration phase. The names are not the same thing.
 

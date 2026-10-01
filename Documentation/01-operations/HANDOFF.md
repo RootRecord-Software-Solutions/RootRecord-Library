@@ -6,7 +6,7 @@ Checked against the live desk on 2026-09-30. Live numbers move. Re-run `bash ver
 
 ## Current mission
 
-Build a canonical machine-readable state of the Pacific desk, with small projections for local models and a later website. Do not give Ava, Bruce, or Carly hands yet.
+Build a canonical machine-readable state of the Pacific desk, with small projections for local models and a later website. Ava, Bruce, and Carly may inspect. They may not restart, send, push, or build. A human build goes through an interaction request and stays short of Cursor until the `cursor_api` gate is opened.
 
 Library is knowledge. Pacific is the executable runtime. Database is where bytes go. Ecosystem is the umbrella checkout. A git commit is not a deploy.
 
