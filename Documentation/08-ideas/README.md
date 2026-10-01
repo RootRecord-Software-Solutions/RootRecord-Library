@@ -14,6 +14,7 @@ Items Alexander approved show their current state in the index. Four were approv
 
 | Date | Proposal | State | Grounding |
 | --- | --- | --- | --- |
+| 2026-10-01 | [RootRecord 24/7 broadcast channel (FUTURE PLAN)](./2026-10-01-rootrecord-broadcast-channel.md) | PROPOSED — docs only; no stream, no AWS, no jobs | Alexander concept; Pacific `Reports/` radio/stream deferred; WO-RPT-001 Phase F; voice desk 2026-09-30 |
 | 2026-09-29 | [Auto-recovery for weather and relay after a mid-session crash](./2026-09-29-weather-relay-auto-recovery.md) | LANDED / VERIFY PENDING (next poller start) — Pacific `5353e1f`, `52573e7` | follow-ups evidence 02:50 HST: both are ON_BOOT only |
 | 2026-09-29 | [Pacific copy of `npu-status.sh`](./2026-09-29-npu-status-pacific-copy.md) | LANDED / VERIFY PENDING (idle run PASS) — Pacific `5353e1f` | NPU/FLM evidence: G2-only script |
 | 2026-09-29 | [AI processing log and daily report](./2026-09-29-ai-processing-log-and-report.md) | PROPOSED | NPU on-demand test; FLM log privacy finding |
