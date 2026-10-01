@@ -79,7 +79,7 @@ Build only after Alexander accepts this draft and says to build. Until then, do 
    - `weather/hurricane-radio/references/migrate.md`
    - `weather/hurricane-radio/scripts/job.py`
    Leave `weather/hurricane-desk/` (`play_on_radio` stays with the desk). Do not restore anything under `~/.ollama/skills/energy`, automations, or `coms/ssh/local-data-globe`. Do not import logs, samples, last-state files, generated reports, images, radar frames, zip archives, dumps, caches, virtualenvs, `node_modules`, or `__pycache__` into Pacific, Database, the website, or git. Generated data that lived beside the old source goes into the archive only. If the archive copy fails, do not delete. After the archive copy is on disk, delete those six files from the old repo on this machine and on GitHub (`rootrecordsoftwaresolutions/Solar-Pacific-RootRecord-Server`). Commit that deletion and push it. Do not force-push. Do not delete the GitHub repository.
-7. Then update this work order with what landed, the archive path, the GitHub deletion, and the new status. Correct only the Library pages this function made stale: the radio half of row 41 in `Documentation/00-architecture/Old-Repo-Migration-Matrix.md`, and the hurricane-radio row in `Documentation/00-architecture/G1-Scheduler-To-G3-Jobs-Map-2026-09-29.md`. Leave the OBS half of row 41 untouched. Do not rewrite unrelated work orders.
+7. Then update this work order with what landed, the archive path, the GitHub deletion, and the new status. Correct only the Library pages this function made stale: the radio half of row 41 in `Documentation/Old-Repo-Migration-Matrix.md`, and the hurricane-radio row in `Documentation/G1-Scheduler-To-G3-Jobs-Map-2026-09-29.md`. Leave the OBS half of row 41 untouched. Do not rewrite unrelated work orders.
 
 ---
 
@@ -113,8 +113,8 @@ Build only after Alexander accepts this draft and says to build. Until then, do 
 | `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Automations/scripts/jobs.py` | `media_hurricane_radio` inserted, gated `RR_HURRICANE_RADIO` (off) |
 | `old ollama/old skills/weather/hurricane-radio/` | Old function files to archive in phase 4, then remove from the old repo and GitHub |
 | `old ollama/old skills/weather/hurricane-desk/` | Shared `play_on_radio`. Leave |
-| `5 - RootRecord-Library/Documentation/00-architecture/Old-Repo-Migration-Matrix.md` | Correct the radio half of row 41 after phase 4 only |
-| `5 - RootRecord-Library/Documentation/00-architecture/G1-Scheduler-To-G3-Jobs-Map-2026-09-29.md` | Correct the hurricane-radio row after phase 4 only |
+| `5 - RootRecord-Library/Documentation/Old-Repo-Migration-Matrix.md` | Correct the radio half of row 41 after phase 4 only |
+| `5 - RootRecord-Library/Documentation/G1-Scheduler-To-G3-Jobs-Map-2026-09-29.md` | Correct the hurricane-radio row after phase 4 only |
 
 ---
 
