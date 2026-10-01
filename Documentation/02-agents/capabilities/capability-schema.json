@@ -12,6 +12,8 @@
     "executor": "who actually performs it today: broker-read, poller_job, or none",
     "inputs": "parameter names",
     "returns": "field names, not prose",
-    "requires_confirmation": "true when a human must agree before any future unlock"
+    "requires_confirmation": "true when a human must agree before any future unlock",
+    "permission": "optional. READ | DIAGNOSE | GENERATE_WORK_ORDER | BUILD | MODIFY_FILES | COMMIT | PUSH | CREATE_PR | MERGE | DEPLOY | RECOVER | COMMUNICATE. kind stays the effect class.",
+    "monitor_gate": "optional. Root Monitor gate id the broker reads. A missing gate denies this capability when its permission is not READ or DIAGNOSE."
   }
 }

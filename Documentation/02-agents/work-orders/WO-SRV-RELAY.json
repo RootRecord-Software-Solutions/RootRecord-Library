@@ -1,5 +1,6 @@
 {
   "id": "WO-SRV-RELAY",
+  "family": "machine",
   "type": "maintenance",
   "target": "council_relay",
   "executor": "poller_job:service_supervisor",
