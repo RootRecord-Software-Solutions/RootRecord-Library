@@ -111,9 +111,9 @@ Do these only after Alexander accepts this draft and says to build. Until then, 
 | `/home/rootrecord/master/master-key.env` | Allowlist name `XAI_API_KEY` only. Never commit values |
 | `/home/rootrecord/old ollama/old skills/synth/scripts/synth.py` | Shared text router. Leave it |
 | `/home/rootrecord/old ollama/old skills/api/ai-external-api/xai/scripts/xai.py` | Shared API client. Leave it |
-| `5 - RootRecord-Library/Documentation/00-architecture/Old-Repo-Migration-Matrix.md` | Phase 5. Row 54 only |
-| `5 - RootRecord-Library/Documentation/00-architecture/Voice-Reports-G3.md` | Phase 5. Grok voice bullet only |
-| `5 - RootRecord-Library/Documentation/00-architecture/Solar-Pacific-Old-Full-TopLevel-Catalog-2026-09-28.md` | Phase 5. synth row only |
+| `5 - RootRecord-Library/Documentation/Old-Repo-Migration-Matrix.md` | Phase 5. Row 54 only |
+| `5 - RootRecord-Library/Documentation/Voice-Reports-G3.md` | Phase 5. Grok voice bullet only |
+| `5 - RootRecord-Library/Documentation/Solar-Pacific-Old-Full-TopLevel-Catalog-2026-09-28.md` | Phase 5. synth row only |
 
 ---
 
