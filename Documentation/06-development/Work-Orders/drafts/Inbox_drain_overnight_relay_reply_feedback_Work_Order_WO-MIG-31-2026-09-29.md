@@ -111,8 +111,8 @@ Do not start these until Alexander accepts this draft and says to build.
 | `/home/rootrecord/master/master-key.env` | Not read. Not edited. |
 | `inbox/`, `inbox-drain/`, `overnight-relay/`, `reply-feedback/` on `Solar-Pacific-RootRecord-Server` `online-safe-20260920` | Old source. Archive, then delete those paths only. |
 | `reply-feedback/store/` | Gitignored generated data. Archive, then delete on this machine only. |
-| `5 - RootRecord-Library/Documentation/00-architecture/Old-Repo-Migration-Matrix.md` | Phase 5 only: correct row 63. |
-| `5 - RootRecord-Library/Documentation/00-architecture/G1-Scheduler-To-G3-Jobs-Map-2026-09-29.md` | Phase 5 only: correct `inbox-drain` and `overnight-relay`. |
+| `5 - RootRecord-Library/Documentation/Old-Repo-Migration-Matrix.md` | Phase 5 only: correct row 63. |
+| `5 - RootRecord-Library/Documentation/G1-Scheduler-To-G3-Jobs-Map-2026-09-29.md` | Phase 5 only: correct `inbox-drain` and `overnight-relay`. |
 
 ---
 
