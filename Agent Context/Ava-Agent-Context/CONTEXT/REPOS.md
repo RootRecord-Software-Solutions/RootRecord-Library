@@ -5,10 +5,10 @@ Short ownership map, not a copy: [08-repository-and-file-links.md](../../../../0
 ## Pack home (2026-09-29)
 
 Canonical identity packs: `5 - RootRecord-Library/Agent Context/{Ava,Bruce,Carly}-Agent-Context/`.
-`Documentation/02-agents/` is an index plus empty placeholders. Do not copy IDENTITY files there.
+`Documentation/02-agents/` is the interaction index (modes, requests, handoff, capabilities). Do not copy IDENTITY files there. The agent-named folders under it contain only `.gitkeep`.
 Personal GitHub mirrors (`AvaIvy`, `CarlyMal`) stay separate remotes. The Library pack is the org authority.
 
-Automatic git sync is one timer: Pacific `github_sync_all` (WO-GH-001 Option B, 2026-09-29). Do not suggest a second pull timer. `Pull.sh` and `Push.sh` are manual only.
+Automatic git sync is the poller job `github_sync_all` (WO-GH-001 Option B, 2026-09-29). It is not a systemd timer. Do not add a second timer. `Pull.sh` and `Push.sh` are manual scripts. On this desk they do not pull or push the umbrella, because Pacific, Database, and Library have no `.git` of their own.
 
 ## Organizational / Canonical
 | Repository | Purpose |
@@ -36,5 +36,5 @@ Automatic git sync is one timer: Pacific `github_sync_all` (WO-GH-001 Option B, 
 ## Ava Identity
 | Repository | Purpose |
 |------------|--------|
-| `AvaIvy/Agent-Context` | Historical identity & policy (mirrored into Library agent packs) |
+| `AvaIvy/AvaIvy-Agent-Context` | GitHub full name. `AvaIvy/Agent-Context` resolves to this repository. Historical identity, mirrored into the Library pack |
 | Ava Ivy Cloud (avaivy.cloud) | Public chat / identity surface |

@@ -6,7 +6,7 @@ Documentation about RootRecord agents. **Canonical identity packs do not live he
 | --- | --- |
 | **Canonical packs** | [`Agent Context/`](../../Agent%20Context/) at Library repo root |
 | **Not a pack** | [CouncilPersona-shell.md](CouncilPersona-shell.md) — empty Pacific shell, removed 2026-09-30. No prompts. |
-| **Team constitution** | [Local Multi-Agent Team & Migration → Build](../01-AI-and-Agent-Runtime/Local-Multi-Agent-Team-and-Migration-to-Build-2026-09-28.md) |
+| **Team constitution** | [Local Multi-Agent Team & Migration → Build](../00-architecture/Local-Multi-Agent-Team-and-Migration-to-Build-2026-09-28.md) |
 | **Related WO** | [WO-AGENT-2026-09-27](../06-development/Work-Orders/Complete/AgentContext_CanonicalHome_Work_Order_WO-AGENT-2026-09-27.md) |
 
 ---
@@ -45,13 +45,13 @@ Any `Ava-Agent-Context/`, `Bruce-Agent-Context/`, or `Carly-Agent-Context/` dire
 
 ## Personal mirrors
 
-- `AvaIvy/AvaIvy-Agent-Context` — GitHub full name. `AvaIvy/Agent-Context` resolves to this repository. Library pack is authority for org work.
-- `CarlyMal/Carly-Agent-Context` — GitHub full name. `CarlyMal/Agent-Context` resolves to this repository.
+- `AvaIvy/AvaIvy-Agent-Context` — personal mirror; Library pack is authority for org work  
+- `CarlyMal/Carly-Agent-Context` — personal pack; sync toward Library when bounds change  
 
 ## Decision (2026-09-29)
 
 Diff of `Agent Context/` (34 files) against `Documentation/02-agents/` (5 files): the only shared names are four identical `.gitkeep` placeholders. `02-agents/README.md` is the index and is not a second pack. Placeholder folders stay. Nothing was deleted.
 
-Personal remotes `AvaIvy/AvaIvy-Agent-Context` and `CarlyMal/Carly-Agent-Context` stay separate. This desk does not sync them. The Library pack is the org authority.
+Personal remotes `AvaIvy/Agent-Context` and `CarlyMal/Carly-Agent-Context` stay separate. This desk does not sync them. The Library pack is the org authority.
 
 *README updated 2026-09-29 HST — canonical-home decision recorded.*

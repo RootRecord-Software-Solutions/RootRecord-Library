@@ -14,10 +14,8 @@ Security · Billing · Honesty Gate · **Work-order structure**
 Independent security review · Billing surfaces · Measured-data seal · Public-copy seal · Structured WO drafts from templates
 
 ## Live Models (Solar Pacific)
-- `carly`
-- `carly-appsec`
-- `carly-energy`
-- `carly-telegram`
+
+`ollama list` on 2026-09-30 includes `carly-telegram` and `rr-council-carly`. These names are not installed Ollama tags: `carly`, `carly-appsec`, `carly-energy`. `run-infer.sh` still accepts the voice target `carly` and, when fallback is allowed, maps it to `carly-telegram`. Council chat sets `RR_NPU_ONLY=1`, so that fallback stays off for the relay.
 
 ## Public / Operational Surfaces
 - Security review on architecture and public claims

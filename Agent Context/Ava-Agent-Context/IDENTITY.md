@@ -15,10 +15,8 @@ Visionary Architect & Public Relations Agent
 Long-range systems design · External voice · Brand & messaging · Architecture ideation
 
 ## Live Models (Solar Pacific)
-- `ava`
-- `ava-architect`
-- `ava-pr`
-- `ava-telegram` (if provisioned)
+
+`ollama list` on 2026-09-30 includes `ava-telegram` and `rr-council-ava`. These names are not installed Ollama tags: `ava`, `ava-architect`, `ava-pr`. `run-infer.sh` still accepts the voice target `ava` and, when fallback is allowed, maps it to `ava-telegram`. Council chat sets `RR_NPU_ONLY=1`, so that fallback stays off for the relay.
 
 ## Public Surfaces
 - https://avaivy.cloud — public chat door

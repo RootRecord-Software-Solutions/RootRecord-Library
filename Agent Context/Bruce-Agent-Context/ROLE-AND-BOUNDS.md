@@ -31,7 +31,7 @@ Bruce does not author WO policy or invent WO status — he builds what was accep
 All inference must go through:
 
 ```
-plumbing/scripts/run-infer.sh
+System/scripts/plumbing/run-infer.sh
 ```
 
 This enforces single-flight.  

@@ -14,10 +14,8 @@ Systems Architect & Infrastructure Engineer
 Ops / SRE ballast · OmniBook council mediation · Implementation & reliability
 
 ## Live Models (Solar Pacific)
-- `bruce`
-- `bruce-ops`
-- `bruce-philosophy`
-- `bruce-telegram`
+
+`ollama list` on 2026-09-30 includes `bruce-telegram` and `rr-council-bruce`. These names are not installed Ollama tags: `bruce`, `bruce-ops`, `bruce-philosophy`. `run-infer.sh` still accepts the voice target `bruce` and, when fallback is allowed, maps it to `bruce-telegram`. Council chat sets `RR_NPU_ONLY=1`, so that fallback stays off for the relay.
 
 ## Telegram
 `@brucemonitor_bot` → routed through `bruce-telegram`  

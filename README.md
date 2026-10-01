@@ -77,9 +77,7 @@ RootRecord-Library/
 │  ├─ 07-testing/
 │  ├─ 08-ideas/
 │  ├─ 09-desired-upgrades/
-│  ├─ adr/
-│  ├─ archive/
-│  └─ schemas/
+│  └─ archive/
 ├─ Guides & Tutorials/
 └─ README.md
 ```
