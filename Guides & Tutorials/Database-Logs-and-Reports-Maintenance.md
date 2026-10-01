@@ -81,6 +81,8 @@ Pacific `Github/scripts/ecosystem-skip-autocommit.txt` extra-blocks the **umbrel
 
 plus Energy samples/soc/watts and System sample/sqlite trees. Intentional commits of other Database paths can still sync. Live telemetry is meant to stay on the desk.
 
+Database `.gitignore` also ignores `/System/control-panel/`. That is where Root Monitor writes `automation-overrides.json` and `power-automations.json` (1 October 2026). They are desk state, not a published log. The public service-window file is Pacific `Website/Home/service-notice.json`, which the website mirror does publish. Contract: [Desk automations and service windows](../Documentation/02-Runtime-Jobs-and-Control/Desk-Automations-and-Service-Windows.md).
+
 ---
 
 ## 2. Folder map (what is actually on GitHub)
@@ -393,6 +395,7 @@ Hand-run `worklog_once.sh` **does** write Worklog. That is a write. Do not loop 
 | --- | --- |
 | [For an AI](./Teaching-Desk/For-an-AI.md) | Edit rules, what you leave alone |
 | [Root Monitor handbook](./Root-Monitor-Operators-Handbook/Root-Monitor-Operators-Handbook.md) | What the window shows vs the poller |
+| [Desk automations and service windows](../Documentation/02-Runtime-Jobs-and-Control/Desk-Automations-and-Service-Windows.md) | Job overrides, power schedules, and the public service-window file |
 | [AI processing logs](../Documentation/00-architecture/AI-Processing-Logs-and-Reports.md) | JSONL fields, redaction, gate |
 | [Template report generation](../Documentation/00-architecture/Template-Report-Generation.md) | Generated reports, validator, never-write-Library |
 | [Voice reports G3](../Documentation/00-architecture/Voice-Reports-G3.md) | `_current` + Archive convention for voice |

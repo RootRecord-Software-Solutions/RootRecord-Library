@@ -16,10 +16,12 @@ Root Monitor is the native control panel for the Pacific Solar desk. It sits bes
 
 It is a window on the desk. There is no browser, no Chromium, no Electron, and no network server inside the panel. Almost everything you see is read from files the stack already writes: JSON under Energy and System, the automations log, systemd, `/proc`, and `~/.ssh/config`.
 
-Two places write:
+Four places write:
 
 - **Settings** writes a file after you confirm. It takes a backup first. It does not restart anything.
 - **AWS Fallback**, while `aws_fallback_mode` is `write`, writes one flag file on AWS after you confirm. On this desk that mode is **write**.
+- **Automations** (1 October 2026) writes job on/off flags and power schedules under Database `System/control-panel/` after you confirm. The poller reads those files. The page does not run a battery command itself.
+- **Telemetry** (1 October 2026) writes `Website/Home/service-notice.json` after you confirm. The public homepage banner and the live network panel read that file.
 
 Closing the window closes only the panel. The poller keeps running.
 
@@ -82,14 +84,18 @@ Top to bottom:
 4. NPU
 5. AI log
 6. Poller / services
-7. Running
-8. Network
-9. SSH
-10. AWS Fallback
-11. Cameras
-12. Controls
-13. Not migrated
-14. Settings
+7. Automations
+8. Telemetry
+9. Running
+10. Network
+11. SSH
+12. AWS Fallback
+13. Cameras
+14. Controls
+15. Not migrated
+16. Settings
+
+The screenshots in `media/` are from 30 September 2026 and stop at the pages that existed that night. Automations and Telemetry are described below from the code. They do not have a picture in this handbook yet.
 
 Click a name. The page builds the first time you visit it, then stays until you leave the ones that are released on purpose (AWS Fallback, and each Settings or Not-migrated sub-page).
 
@@ -297,6 +303,36 @@ Under the grid: seconds since the automations log was written. Here, 4 seconds.
 **Recent poller log** is the last lines of the automations log, formatted by `poller-watch.py`'s `format_line`. On this capture you can see A-EYES writing a channel-4 still, an ENERGY line, a SUMMARY for the River, a SYSTEM sample, and a GitHub sync. The ecosystem repo was ahead of GitHub. That is information, not a button. Root Monitor does not push.
 
 How many lines: `log_lines` in Settings → Panel, default 40.
+
+---
+
+## Automations
+
+Added 1 October 2026. The full contract is Library `Documentation/02-Runtime-Jobs-and-Control/Desk-Automations-and-Service-Windows.md`.
+
+The status line at the top of the page tells you whether the running poller will honor what you save:
+
+| Line | What to do |
+| --- | --- |
+| The running poller reads these toggles each cycle… | A confirmed toggle applies on the next poller cycle. A due power schedule runs in that minute. |
+| This poller process started before that reader… | The file is saved. Restart the poller when you want it to take effect. This page does not restart it. |
+| The poller is not running… | The file is saved. Nothing fires until a poller starts. |
+
+**Jobs.** One button per poller job, inside six groups (on boot, once at start, every few seconds, every minute, every hour, at a clock time). The subtitle says the schedule and whether the button is an override or the `jobs.py` default. A click confirms, then writes `automation-overrides.json`. When the saved value matches the code default, the key is removed. Turning off `self_terminal`, `cloudflare_tunnel`, `heartbeat`, `ecoflow_read_cycle`, or `service_supervisor` adds an extra sentence in the confirm.
+
+**Power schedules.** Pick a device (Delta 2 or River 2 Pro), a function from the catalog (AC, DC, USB, charging, backup, bypass, X-Boost, AC always-on — each off and on), a clock time in Hawaii, and every day or once. You can add a second step in the same confirm, such as AC off and later AC on. Confirm stores the rows in `power-automations.json`. The poller runs the matching script under the EcoFlow BLE lock when that minute arrives, and retries a failure for 15 minutes. A one-time row turns itself off after a successful run. The master button pauses every schedule. It does not delete them and it does not run one now.
+
+Both JSON files live under Database `System/control-panel/` and are gitignored.
+
+---
+
+## Telemetry
+
+Added 1 October 2026. Same contract page as Automations.
+
+A service window is a down time, a return time, and an optional public note of at most 160 characters. Confirm writes `Website/Home/service-notice.json`. That file ships with the public site. The homepage shows a banner when a window is active, or when one starts inside the next 24 hours. During the window the live network panel shows the last stored counts (Hawaiʻi, Mainland, flows, endpoints) and does not treat a missing live feed as a fresh zero. The poller takes that snapshot once, when the window becomes active.
+
+Delete and "refresh last known" each ask you to confirm. Refresh replaces the counts. It does not move the clock times.
 
 ---
 
@@ -773,7 +809,7 @@ AWS is the exception in destination, not in shape: the backup is on the AWS home
 
 - It will not restart the poller unless risky actions are signed off and you confirm the restart button. That path is off.
 - It will not send Telegram, play voice, or flip a gated job from the Controls page. Those buttons have no command.
-- It will not arm or disarm a battery, or switch AC. That work is a Not-migrated placeholder.
+- It will not run a battery command from this window. Automations stores a catalog schedule; the poller runs that script when the clock is due. Immediate arm or disarm on the Controls page is still unwired. The Not migrated list still shows the older energy-actions placeholder as VERIFY PENDING.
 - It will not start the cameras, the grab jobs, or the poller.
 - It will not push git. The Running page can show a push the poller already started.
 - It will not start a Cursor build by itself. `cursor_api` ships Off. Opening that gate is a confirm, and the broker still requires a numeric Telegram id and a handoff package.
@@ -820,8 +856,10 @@ The host was quiet: CPU 5.4% (green), RAM 69.9% (amber, under the 80% red line),
 
 ```text
 1 - Servers/1 - RootRecord-Pacific-Solar-Server/Apps/Control-Panel/
-  rr_control_panel.py     window, Energy through Controls, screenshot mode
+  rr_control_panel.py     window, page list, screenshot mode
   rr_pages.py             Running, Network, SSH, Not migrated, Settings hub
+  rr_automations_page.py  job toggles and power schedules
+  rr_telemetry_page.py    public service windows
   rr_aws_page.py          AWS Fallback
   rr_ui.py                buttons, rows, redaction
   settings.json           this panel only
@@ -852,6 +890,7 @@ That walk turns the camera viewer on in memory for one shot and does not save se
 ## Related notes
 
 - App README: `Apps/Control-Panel/README.md`
+- Automations and service windows: `5 - RootRecord-Library/Documentation/02-Runtime-Jobs-and-Control/Desk-Automations-and-Service-Windows.md`
 - Test notes from the days this panel landed:
   - `5 - RootRecord-Library/Documentation/07-testing/2026-09-29-root-monitor-settings-running-network-ssh.md`
   - `5 - RootRecord-Library/Documentation/07-testing/2026-09-29-root-monitor-aws-fallback-page.md`
