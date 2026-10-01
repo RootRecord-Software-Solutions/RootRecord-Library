@@ -1,5 +1,8 @@
 # Changelog — Bruce Monitor Agent Context
 
+## 0.1.3 — 2026-10-01
+- CONTEXT/REPOS.md: `api.rootrecord.cloud` is A `18.118.30.226`. Public reports are at `https://www.rootrecord.cloud/reports/`.
+
 ## 0.1.2 — 2026-09-30
 - PRINCIPLES and desk honesty: answer from desk and forecast on the turn. “No data” is only for a missing figure. Room corrections are shared with Ava and Carly on the next turn.
 

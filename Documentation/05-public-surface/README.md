@@ -1,6 +1,6 @@
 # 05 — Public surface
 
-The public page is [Website/Home](../../../1%20-%20Servers/1%20-%20RootRecord-Pacific-Solar-Server/Website/Home/README.md) in the Pacific tree, published to [RootRecord-Website](https://github.com/RootRecord-Software-Solutions/RootRecord-Website). Production is `https://www.rootrecord.cloud/`. SSH is A `18.118.30.226`. The API hostname `api.rootrecord.cloud` has no public DNS yet. The contract is [HANDOFF-vercel-homepage-2026-09-30.md](../../../1%20-%20Servers/1%20-%20RootRecord-Pacific-Solar-Server/Website/HANDOFF-vercel-homepage-2026-09-30.md).
+The public page is [Website/Home](../../../1%20-%20Servers/1%20-%20RootRecord-Pacific-Solar-Server/Website/Home/README.md) in the Pacific tree, published to [RootRecord-Website](https://github.com/RootRecord-Software-Solutions/RootRecord-Website). Production is `https://www.rootrecord.cloud/`. SSH is A `18.118.30.226`. `api.rootrecord.cloud` is the same address, proxy off. Caddy on AWS proxies it to `127.0.0.1:8091`. Reports live at `https://www.rootrecord.cloud/reports/`. The homepage service banner reads `service-notice.json`. The contract is [HANDOFF-vercel-homepage-2026-09-30.md](../../../1%20-%20Servers/1%20-%20RootRecord-Pacific-Solar-Server/Website/HANDOFF-vercel-homepage-2026-09-30.md) plus [Desk automations and service windows](../02-Runtime-Jobs-and-Control/Desk-Automations-and-Service-Windows.md).
 
 | Field | Value |
 | --- | --- |
