@@ -79,7 +79,7 @@ Build only after Alexander accepts this draft and says to build. Until then, do 
    - `sunrise-restore/references/migrate.md`
    - `sunrise-restore/scripts/sunrise_restore.py`
    Leave and name: `origin/ns/apps/core/services/sunrise_restore.py` (shim still imported by shared `origin/scripts/main.py`), `energy/ecoflow-automations/desk/live/sunrise_restore.py`, and the EcoFlow poller. Do not restore anything under `~/.ollama/skills/energy`. Do not import `DAILY.md` inserts, the old flag JSON, logs, samples, or generated audio into Pacific, Database, the website, or git. If the archive copy fails, do not delete. After the archive copy is on disk, delete those five files from the old repo on this machine and on GitHub. Commit that deletion and push it. Do not force-push. Do not delete the GitHub repository.
-7. Then update this work order with what landed, the archive path, the GitHub deletion, and the new status. Correct only the Library pages this function made stale: `Documentation/00-architecture/Old-Repo-Migration-Matrix.md` (row 25) and `Documentation/00-architecture/Voice-Reports-G3.md`. Do not rewrite unrelated work orders.
+7. Then update this work order with what landed, the archive path, the GitHub deletion, and the new status. Correct only the Library pages this function made stale: `Documentation/Old-Repo-Migration-Matrix.md` (row 25) and `Documentation/Voice-Reports-G3.md`. Do not rewrite unrelated work orders.
 
 ---
 
@@ -113,8 +113,8 @@ Build only after Alexander accepts this draft and says to build. Until then, do 
 | `old ollama/old skills/origin/ns/apps/core/services/sunrise_restore.py` | Shared shim. Leave |
 | `old ollama/old skills/origin/scripts/main.py` | Shared caller. Leave |
 | `old ollama/old skills/energy/ecoflow-automations/desk/live/sunrise_restore.py` | Under energy. Leave |
-| `5 - RootRecord-Library/Documentation/00-architecture/Old-Repo-Migration-Matrix.md` | Correct row 25 after phase 4 only |
-| `5 - RootRecord-Library/Documentation/00-architecture/Voice-Reports-G3.md` | Correct the sunrise-restore playback note after phase 4 only |
+| `5 - RootRecord-Library/Documentation/Old-Repo-Migration-Matrix.md` | Correct row 25 after phase 4 only |
+| `5 - RootRecord-Library/Documentation/Voice-Reports-G3.md` | Correct the sunrise-restore playback note after phase 4 only |
 
 ---
 
