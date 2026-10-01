@@ -106,7 +106,7 @@ Do not start these until Alexander accepts this draft and says to build. No othe
 | `Media/Voice/scripts/speech_scrub.py` | Keep. Source of `SPEAK_LOCK`. |
 | `/home/rootrecord/old ollama/old skills/council/council-telegram/scripts/personas.py` | Old loader. Archive a copy in phase 4. Leave in place (shared with `worker.py`, `pipeline.py`, `classify.py`, `moderation.py`). |
 | `/home/rootrecord/old ollama/old skills/agents/{ava-ivy,bruce-monitor,carly-mal}/prompt.md` | Old prompts. Archive copies in phase 4. Leave in place (gitignored; not on GitHub). |
-| `5 - RootRecord-Library/Documentation/00-architecture/Old-Repo-Migration-Matrix.md` | Phase 5 only: correct row 57. |
+| `5 - RootRecord-Library/Documentation/Old-Repo-Migration-Matrix.md` | Phase 5 only: correct row 57. |
 
 ---
 
