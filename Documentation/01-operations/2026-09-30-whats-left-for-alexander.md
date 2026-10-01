@@ -46,11 +46,11 @@ Still on disk at the 02:35 check:
 
 **Your call:** leave all of it, or name a specific tree you want retired. Until you name one, agents keep it.
 
-### 2. No local website
+### 2. No local Next server
 
-Alexander removed the local site on 2026-09-30. `3 - RootRecord-Website` is gone, and port 3001 is closed. Do not run `next dev`, `npm run dev`, or any other local website on this desk.
+The public page is `Website/Home/`. The `website` catalog row publishes that folder to `RootRecord-Software-Solutions/RootRecord-Website` for Vercel. Do not recreate `3 - RootRecord-Website`. Do not bind port 3001.
 
-The `website` catalog row stays disabled. `https://rootserver.rootrecord.cloud/` is the poller, not a site. The mainland desk copy is `1 - Servers/2 - RootRecord-US-Mainland-Server`, and that sync row stays disabled until Alexander says otherwise.
+`https://rootserver.rootrecord.cloud/` is the poller, not a site. The mainland desk copy is `1 - Servers/2 - RootRecord-US-Mainland-Server`, and that sync row stays disabled.
 
 ### 3. Daylight cameras
 
@@ -141,7 +141,7 @@ The build path is documented in `Documentation/02-agents/INTERACTION-MODES.md`. 
 ## Suggested order, when you want to pick
 
 1. Leave Delta 2 and the live stack alone. Root Monitor is the login window as of 02:33 HST. Conky is still off.
-2. Local website stays off. Mainland sync row stays disabled unless you say otherwise.
+2. The public page stays `Website/Home/`. Mainland sync row stays disabled unless you say otherwise.
 3. After sunrise, accept or reject the timelapse hour and the 5-second camera interval.
 4. Name a River action test only if you want actuation marked PASS.
 5. Enable any data-only gates from section 6 in one list.
@@ -159,7 +159,7 @@ The build path is documented in `Documentation/02-agents/INTERACTION-MODES.md`. 
 | WO-ECO-2026-09-27 | Out-of-scope imports and a few ownership checkboxes. Runtime path is done |
 | WO-SRV-2026-09-27 | Your sign-off on actuation, timelapse, relay replies, and G2 retirement |
 | WO-OLD-2026-09-28 | Next G1 packet, and no retirement without you |
-| WO-GH-2026-09-27 | Website and mainland rows |
+| WO-GH-2026-09-27 | Website row publishes `Website/Home/`. Mainland row still disabled |
 | WO-DATA-2026-09-27 | Publication and retention choices above |
 | WO-AEYES-2026-09-27 | Interval and daylight timelapse |
 

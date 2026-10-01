@@ -89,7 +89,7 @@ Pacific = solar/ops/agents runtime. **Minecraft and desktop apps are separate pr
 
 | Repo | Priv | Notes |
 | --- | --- | --- |
-| [RootRecord-Website](https://github.com/rootrecordsoftwaresolutions/RootRecord-Website) | private | Public Next.js surface |
+| [RootRecord-Website](https://github.com/RootRecord-Software-Solutions/RootRecord-Website) | private | Public home page. Vercel source. Desk folder `Website/Home/` |
 | [RootRecord-Weather-Database](https://github.com/rootrecordsoftwaresolutions/RootRecord-Weather-Database) | public | Weather data & media |
 
 ---

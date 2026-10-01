@@ -104,12 +104,14 @@ Cameras   ch1–ch4 grabbed. cam_server cwd is Pacific Security/Cameras. ch4 is 
 Weather   Poller recycled 02:24:58 HST. County reports regenerated 02:34. noaa_homepage still failed a bot-check at 02:33. Geology stays off.
 Tunnel    https://rootserver.rootrecord.cloud HTTP 200 (poller :8799). Local website removed 2026-09-30. Do not start next dev on :3001.
 Window    Root Monitor autostarts at next login (applied 02:33). Terminal dashboard stays in the menu. Conky not started.
-Github    github_sync_all publishing ecosystem, pacific, database, library. skills row still enabled (HEAD 6483586 at 02:16). website and mainland rows still disabled.
+Github    github_sync_all publishing ecosystem, pacific, database, library, and website (Website/Home only). skills and mainland stay disabled.
 Telegram  Relay up, replies OFF.
 G2        Identical skills copies removed 2026-09-30. Unique and diverged skills files stayed. 27 GB old-skills tree not touched. Do not retire the rest without Alexander's sign-off.
 Not migrated  Root Monitor list is 16 open items (7 BLOCKED, 9 VERIFY PENDING). Closed WOs are in Complete/.
 Next      Documentation/01-operations/2026-09-30-whats-left-for-alexander.md
 ```
+
+The Github line in that 02:35 snapshot was updated when the `website` row was enabled. The rest of the block is the earlier check.
 
 **Not migrated refresh — 2026-09-30 19:02 HST.** Root Monitor is 14 open items (7 BLOCKED, 7 VERIFY PENDING). FLM own-session left the list (PASS 2026-09-29 22:16). Geology collect left the list (poller cycle ok at 19:01). Timelapse hours 12–18 compiled. Delta 2 read 74% SOC at 18:59. The G2 checkout sits at `Old repos deleted and merged/ollama-skills-g2-2026-09-30` and is not retired.
 

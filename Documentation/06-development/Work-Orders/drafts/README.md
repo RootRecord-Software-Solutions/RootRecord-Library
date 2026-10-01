@@ -18,7 +18,7 @@
 
 ## Desk fact (2026-09-30)
 
-`3 - RootRecord-Website` is gone. Do not recreate that folder, and do not start a local site on port 3001. Drafts that still name that checkout are describing the desk as it was when they were written. Promote one only when Alexander asks, and retarget it before any build.
+`3 - RootRecord-Website` is not on this desk. Do not recreate it, and do not bind port 3001. The public page is Pacific `Website/Home/`, published to `RootRecord-Software-Solutions/RootRecord-Website`. Drafts that still name folder 3 are describing the desk as it was when they were written. Promote one only when Alexander asks, and retarget it before any build.
 
 ## Hard rules
 

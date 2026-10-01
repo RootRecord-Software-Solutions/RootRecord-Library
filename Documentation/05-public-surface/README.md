@@ -1,6 +1,6 @@
 # 05 — Public surface
 
-Docs for **outward-facing** RootRecord surfaces: website, status boards, voice, and sealed public claims.
+The public page is [Website/Home](../../../1%20-%20Servers/1%20-%20RootRecord-Pacific-Solar-Server/Website/Home/README.md) in the Pacific tree, published to [RootRecord-Website](https://github.com/RootRecord-Software-Solutions/RootRecord-Website). AWS relays globe data and last-known operation JSON. It does not host the page.
 
 | Field | Value |
 | --- | --- |

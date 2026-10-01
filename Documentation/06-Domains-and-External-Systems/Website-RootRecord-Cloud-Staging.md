@@ -1,5 +1,7 @@
 # Website staging — RootRecord-Cloud (Vercel) in Pacific `Communications/website/`
 
+**Current site (2026-09-30):** the public page is Pacific `Website/Home/`, published to [RootRecord-Website](https://github.com/RootRecord-Software-Solutions/RootRecord-Website). The record below is the 2026-09-29 RootRecord-Cloud checkout. That checkout is gone. Do not start it. Do not bind port 3001.
+
 | Field | Value |
 | --- | --- |
 | **Date (HST)** | 2026-09-29 14:01–14:15 HST |
