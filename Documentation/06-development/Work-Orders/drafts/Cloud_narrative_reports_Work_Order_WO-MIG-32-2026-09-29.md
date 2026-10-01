@@ -167,8 +167,8 @@ Copy this function's old files into `/home/rootrecord/RootRecord-Ecosystem/Old r
 
 Add a short result note to this work order: what landed, what was archived, what was removed on GitHub, and the new status. Correct only the Library pages this function made stale:
 
-- `Documentation/00-architecture/Voice-Reports-G3.md` (Kīlauea Grok line, and the morning/midday/late cloud clause)
-- `Documentation/00-architecture/Old-Repo-Migration-Matrix.md` (Kīlauea Grok clause, row 45 cloud generation, row 50 merged-morning Grok clause)
+- `Documentation/Voice-Reports-G3.md` (Kīlauea Grok line, and the morning/midday/late cloud clause)
+- `Documentation/Old-Repo-Migration-Matrix.md` (Kīlauea Grok clause, row 45 cloud generation, row 50 merged-morning Grok clause)
 - `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Geology/README.md` ("Grok report generation" line only)
 
 Do not rewrite unrelated work orders.
