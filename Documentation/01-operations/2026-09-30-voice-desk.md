@@ -15,13 +15,13 @@ These flags default to 1 in `run-poller.sh`. The schedule is HST.
 | Minute | Who | Report | What it says |
 | --- | --- | --- | --- |
 | :03 | Carly | Kīlauea | HVO alert and notice. Place names are respelled. She does not read raw JSON, and she does not say Hawaii after every line. |
-| :04 | Bruce | Solar desk | Pack state of charge, solar, AC, generator or transfer. |
+| :04 | Bruce | Solar desk | Pack state of charge, solar, AC, USB-C, generator or transfer, sun times, the channel 1 still, and the last stored camera look. |
 | :06 | Bruce | System | CPU, memory, disk, host battery, uptime, integrated graphics, NPU. Host temperature is degrees Celsius. |
 | :07 :22 :37 :52 | Ava | NWS | Hawaii alerts and the forecast period on file. |
 | :08 | Carly | Earthquakes | Hawaii first, then global. A stale file is named as stale. |
 | :11 | Carly | Security | Firewall, ssh, listeners, failed sign-ins. No raw JSON. |
 | :12 | Carly | Bandwidth | Byte samples. If there is no sample window yet, the note is not sent. |
-| :15 :45 | Carly | Energy | Both packs, the channel 1 still, and the hourly solar look. |
+| :15 :45 | — | Energy look | Refreshes the hourly camera look. It does not send a voice note. Bruce speaks that sentence on the next solar desk. |
 | :32 | Bruce | Remaining tasks | Open report-board slots in the next hour. Morning 09:02, midday 12:02, late 21:02. |
 
 Geology collection (`RR_GEOLOGY`) and network samples (`RR_NET_SAMPLES`) also default to 1, because the quake and bandwidth notes read those files.
@@ -66,7 +66,7 @@ Generator and transfer use watts, and the same rules are in the voice, the BLE c
 
 ## Channel 1 solar look
 
-Once per clock hour, during the energy report, `Security/Cameras/panel_look.py` asks the local vision model `gemma4:e4b` about the newest channel 1 still. The :45 report reuses that hour's sentence. The cache is Database `Energy/vision/ch1-look-last.json`. A failed look is not cached, so the next energy run can try again. The sentence is in the spoken note, the written report, and the photo caption.
+Once per clock hour, the :15 energy run asks `Security/Cameras/panel_look.py` and the local vision model `gemma4:e4b` about the newest channel 1 still. The :45 run reuses that hour's sentence and does not send a note. The cache is Database `Energy/vision/ch1-look-last.json`. A failed look is not cached, so the next energy run can try again. Bruce's hourly solar desk speaks the last stored sentence, names its age when it is from an earlier hour, and attaches the still. It does not start a second look.
 
 The model names the weather (rain, fog, overcast, clear, dark) and the tilt. Left side up is the morning position. Flat is the day position. Right side up is the evening position. Left and right are as channel 1 sees the array.
 
