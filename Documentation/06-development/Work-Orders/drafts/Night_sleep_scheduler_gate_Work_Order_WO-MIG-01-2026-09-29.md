@@ -6,7 +6,7 @@
 | **Date** | 2026-09-29 (HST) |
 | **Status** | ARMED — `RR_NIGHT_SLEEP=1` on the live poller since 2026-09-30 00:02 HST. No `night-mode.json`, so jobs are not skipped. Not on the active index. |
 | **Owner** | RootRecord |
-| **Related** | Agent 01, Wave A. Later function that depends on this gate: 2, 23:30 late-final report. Old source: `old ollama/old skills/scheduler-clock/scripts/scheduler.py` (`night_sleeping`, `NIGHT_POLL`). Live map: `Documentation/00-architecture/G1-Scheduler-To-G3-Jobs-Map-2026-09-29.md`. |
+| **Related** | Agent 01, Wave A. Later function that depends on this gate: 2, 23:30 late-final report. Old source: `old ollama/old skills/scheduler-clock/scripts/scheduler.py` (`night_sleeping`, `NIGHT_POLL`). Live map: `Documentation/G1-Scheduler-To-G3-Jobs-Map-2026-09-29.md`. |
 
 **Scope:** Add a night-sleep skip gate on the live Pacific poller, reading a `sleeping` flag and leaving every enabled job running until that gate is explicitly turned on. In scope is the gate module, its Database state and log paths, and one call from `run_job()`. Out of scope is writing the flag, sunrise math, audio mute, hardware switching, a new periodic job, and any other agent's function. Built 2026-09-29 with the gate default off. This file stays in drafts. Do not promote it onto the active index.
 
@@ -97,8 +97,8 @@ Build only after Alexander accepts this draft and says to build. Until then, do 
 | `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Automations/scripts/rootserver_poller.py` | Extend `run_job()` with the gate call; pause if already being edited |
 | `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Automations/scripts/jobs.py` | No new job. Optional gated comment only if the file is free |
 | `old ollama/old skills/scheduler-clock/scripts/scheduler.py` | Old skip source; shared; do not delete |
-| `5 - RootRecord-Library/Documentation/00-architecture/G1-Scheduler-To-G3-Jobs-Map-2026-09-29.md` | Correct after phase 4 only |
-| `5 - RootRecord-Library/Documentation/00-architecture/Old-Repo-Migration-Matrix.md` | Correct after phase 4 only |
+| `5 - RootRecord-Library/Documentation/G1-Scheduler-To-G3-Jobs-Map-2026-09-29.md` | Correct after phase 4 only |
+| `5 - RootRecord-Library/Documentation/Old-Repo-Migration-Matrix.md` | Correct after phase 4 only |
 | `5 - RootRecord-Library/Documentation/07-testing/2026-09-29-old-repo-ports-breadth-batch5.md` | Correct after phase 4 only |
 | `5 - RootRecord-Library/Documentation/07-testing/README.md` | Correct the night-sleep row after phase 4 only |
 
