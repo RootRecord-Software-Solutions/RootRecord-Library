@@ -40,7 +40,7 @@ Standing rule from 2026-09-29: do not retire or delete G2 or G1 code without you
 
 Still on disk at the 02:35 check:
 
-- `~/.ollama/skills` — still the enabled `skills` sync row. Byte-identical copies of Pacific files were removed tonight. Unique and diverged files stayed. Dangerous leftover scripts exit immediately and do not run the old target. Latest skills commit at 02:16 HST was `6483586`.
+- `~/.ollama/skills` — given back to Ollama on 2026-09-30 17:45 HST. The G2 checkout, including `.git` at `6483586`, moved to `Old repos deleted and merged/ollama-skills-g2-2026-09-30`. GitHub `Solar-Pacific-RootRecord-Server` was not deleted. The `skills` sync row is off and must stay off.
 - `/home/rootrecord/old ollama/old skills` — 27 GB, not part of that removal
 - `Old repos deleted and merged/` — partial copy, still being filled
 
