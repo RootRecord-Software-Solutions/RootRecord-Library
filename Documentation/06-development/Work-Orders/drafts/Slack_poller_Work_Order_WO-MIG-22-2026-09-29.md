@@ -40,7 +40,7 @@ Folder name, used in all three paths: **Slack**. It is a subfolder of Communicat
 | Old job line, shared file | `communications_slack` in `1 - Servers/2 - RootRecord-US-Mainland-Server/automations/scripts/jobs.py`. Leave it. That file also runs Telegram and Discord. |
 | Shared examples, leave them | `communications/README.md`, `communications/.env.example`, and the mainland root `.env.example`. |
 | Dependency | Discord poller (agent 21). `Communications/Discord/` was absent when this draft was first written, then present (`scripts/poll.py` and `lib/envload.py`) before the Slack build. |
-| Live Telegram | `council_relay` stays the one `getUpdates` owner. Replies stay off. |
+| Live Telegram | `council_relay` stays the one `getUpdates` owner. Sandbox replies on. Live council stays quiet. |
 | Matrix | Row 59 is one Discord/Slack line. Left unchanged so the Discord half is not rewritten. |
 
 ### 2.2 Completed so far

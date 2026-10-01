@@ -66,9 +66,9 @@ Reads on River 2 Pro pass. Actuating actions (solar-gate arm/disarm, AC always-o
 
 ### 5. Telegram replies
 
-Relay is logged in and polling. Replies stay off until `RR_RELAY_REPLIES=1`. `getUpdates` was timing out after the reboot. That is a network retry, not a missing model.
+Morning check: replies were off. Afternoon the same day: the sandbox answers. Live council and private DMs stay quiet (`RR_RELAY_REPLIES` default 0). Council model is NPU `llama3.2:3b`. `getUpdates` timeouts after the reboot were a network retry, not a missing model.
 
-**Your call:** leave quiet mode, or opt in to replies.
+**Your call:** leave the live council quiet, or opt in with `RR_RELAY_REPLIES=1`.
 
 ### 6. Turn-on batch (data only, no send)
 

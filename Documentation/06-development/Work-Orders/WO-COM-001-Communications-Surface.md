@@ -3,7 +3,7 @@
 | Field | Value |
 |-------|--------|
 | **Priority** | P1 |
-| **Status** | Draft — README paths corrected 2026-09-29 22:23 HST. Replies stay off. Discord and the notify-policy seal are still open, so this draft is not promoted. |
+| **Status** | Draft — sandbox replies on as of 2026-09-30 afternoon. Live council and private DMs stay quiet. Discord and the notify-policy seal are still open, so this draft is not promoted. |
 | **Target** | Pacific `Communications/` (incl. `network/cloudflare`, `discord/`, `telegram/`) |
 | **Depends on** | Live tunnel already working; operator policy on Telegram/Discord/alerts |
 | **Related** | WO-WEB-001; WO-COM-002; poller stack lifecycle scripts; [Communications-Notify-Policy-Draft-2026-09-28.md](../../00-architecture/Communications-Notify-Policy-Draft-2026-09-28.md) (Ava draft — pending Carly seal) |
