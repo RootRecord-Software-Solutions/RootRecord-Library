@@ -89,7 +89,7 @@ cloud	0	inplace	…/Communications/website/RootRecord-Cloud	rootrecordsoftwareso
 ## Sign-off items (2026-09-29, closed or moved)
 
 1. `www.rootrecord.cloud` stayed on the AWS globe. The Vercel project was deleted. Domains have not moved to the new page.
-2. Desk origin for the old Next app is closed with that app. The new page’s data contract is Pacific `Website/HANDOFF-vercel-homepage-2026-09-30.md`. `www` `/api/state` is the globe process only until DNS moves.
+2. Desk origin for the old Next app is closed with that app. Production is `https://www.rootrecord.cloud/`. The data contract is Pacific `Website/HANDOFF-vercel-homepage-2026-09-30.md`.
 3. The `cloud` sync row was not added.
 4. `scripts/auto-push.py` belonged to the deleted checkout.
 5. `rootserver.rootrecord.cloud/health` exposes a filesystem path publicly (minor). That host is the poller, not the page.

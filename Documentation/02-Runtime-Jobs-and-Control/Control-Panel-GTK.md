@@ -108,7 +108,7 @@ The dish answers gRPC at `192.168.100.1:9200` (reachable 12:45 HST). No Starlink
 3. **Conky:** installed, config copied, **not started**.
 4. **RSS:** `--check` 89.8 MB on 2026-09-30 02:33 HST, over the 80 MB target.
 5. **RR_* flags:** a confirmed toggle creates `rr-flags.conf` if it is missing. Nothing is restarted. The new value is used the next time the poller starts.
-6. **SSH:** `rr-aws` ProxyCommand points at `~/.local/bin/cloudflared`, which does not exist (the tunnel binary is Pacific `Communications/network/cloudflare/bin/cloudflared`); `rr-aws-ip` timed out after 5 s. Fix `~/.ssh/config` / the AWS side yourself. Mainland: add a Host block and set `ssh_mainland_alias`.
+6. **SSH (current 2026-09-30 21:00 HST):** `rr-aws` and `rr-aws-ip` both use `18.118.30.226` with no ProxyCommand. `ssh.rootrecord.cloud` is an A record for that address, proxy off. The older note that `rr-aws` depended on a missing `cloudflared` ProxyCommand is no longer the desk config.
 7. **Security items** in §3: review the cloudflare snapshot files (git-tracked) and decide whether those fields should leave git.
 8. Risky actions: `risky_actions_enabled` + per-action `signed_off` (unchanged rule).
 9. System-level settings (NetworkManager, `/etc/systemd/system/ollama.service`) stay read-only (need sudo).

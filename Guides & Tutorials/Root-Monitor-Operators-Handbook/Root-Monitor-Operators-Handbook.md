@@ -394,8 +394,8 @@ Nothing on this page runs until you press a button.
 
 | Host | What the row said | Buttons |
 | --- | --- | --- |
-| **rr-aws** | AWS host via the Cloudflare Access hostname. `ubuntu@ssh.rootrecord.cloud:22`. ProxyCommand is set, and **its binary is missing on this desk**. | Open terminal · Status (uptime) |
-| **rr-aws-ip** | AWS host by direct IP. `ubuntu@18.118.30.226:22`. Direct. Identity configured. | Open terminal · Status (uptime) |
+| **rr-aws** | Direct AWS host. `ubuntu@18.118.30.226:22`. No ProxyCommand. `ssh.rootrecord.cloud` is the same address. | Open terminal · Status (uptime) |
+| **rr-aws-ip** | Same host, same address. `ubuntu@18.118.30.226:22`. Direct. Identity configured. | Open terminal · Status (uptime) |
 | **Mainland** | Placeholder. There is no Host block yet. | none, until you add one |
 
 **Open terminal** starts a terminal already aimed at that alias.
@@ -408,7 +408,7 @@ timeout 5 ssh -o BatchMode=yes -o ConnectTimeout=5 <alias> uptime
 
 The row subtitle becomes `checking…`, then `PASS` or `FAIL` plus the uptime line and the time. FAIL with rc 124 is the 5-second timeout. This does not open a shell you can type into.
 
-**rr-aws** will fail that check while the ProxyCommand binary is missing. Use **rr-aws-ip** for a direct check. AWS Fallback on this desk is set to `rr-aws-ip` for that reason.
+Both `rr-aws` and `rr-aws-ip` use `18.118.30.226` with no ProxyCommand, as of 2026-09-30 21:00 HST. A login that evening returned that address.
 
 **Mainland.** Add a `Host` block to `~/.ssh/config`, then set `ssh_mainland_alias` in Settings → Panel to that alias and save. The buttons appear on the next time the SSH page is built (leave the page and come back, or restart the panel).
 
