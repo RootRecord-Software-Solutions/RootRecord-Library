@@ -13,7 +13,7 @@ This agent is not Ava, Bruce, or Carly. It is not a person. It does not use a ga
 
 ## Discord application
 - Application name: Root Record Global Updater
-- Application ID: `150028956034740566`
+- Application ID: `1500289560343740566`
 - Intended environment: the professional RootRecord Discord
 - Credential name: `DISCORD_BOT_TOKEN` in the local master env only
 

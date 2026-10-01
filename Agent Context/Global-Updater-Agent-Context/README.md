@@ -32,7 +32,7 @@ Factual RootRecord information, system observations, operational updates, and he
 
 ## Discord application
 
-Root Record Global Updater. Application ID `150028956034740566`.
+Root Record Global Updater. Application ID `1500289560343740566`.
 
 Intended environment: the professional RootRecord Discord.
 
@@ -62,4 +62,4 @@ The updater answers in one voice. It is not the Telegram council.
 
 Meaningful changes are recorded in [CHANGELOG.md](CHANGELOG.md).
 
-Current version: **0.1.0**
+Current version: **0.1.1**
