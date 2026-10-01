@@ -107,8 +107,8 @@ Folder name, used in all three places: **D1**. One capitalized top-level Folder.
 | `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Energy/lib/envload.py` | Pattern for the allowlist loader. Do not edit. |
 | `/home/rootrecord/old ollama/old skills/database/d1-sync/scripts/job.py` | Old job. Archive in phase 4, then delete from `online-safe-20260920`. |
 | `/home/rootrecord/old ollama/old skills/origin/ns/apps/core/crons/always_on/d1_sync.py` | Old shim. Archive in phase 4, then delete from that branch. |
-| `5 - RootRecord-Library/Documentation/00-architecture/Old-Repo-Migration-Matrix.md` | Correct row 68 only after phase 4. |
-| `5 - RootRecord-Library/Documentation/00-architecture/G1-Scheduler-To-G3-Jobs-Map-2026-09-29.md` | Correct the `d1-sync` row only after phase 4. |
+| `5 - RootRecord-Library/Documentation/Old-Repo-Migration-Matrix.md` | Correct row 68 only after phase 4. |
+| `5 - RootRecord-Library/Documentation/G1-Scheduler-To-G3-Jobs-Map-2026-09-29.md` | Correct the `d1-sync` row only after phase 4. |
 
 ---
 
