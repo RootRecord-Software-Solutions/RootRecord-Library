@@ -106,9 +106,9 @@ Build only after Alexander accepts this draft and says to build. Until then, do 
 | `/home/rootrecord/old ollama/old skills/api/ai-external-api/cursor/scripts/job.py` | Old Cursor drain. Report-draft write is not ported. |
 | `api/api-prices/` and `api/ai-external-api/` SKILL, INDEX, DAILY, and `references/migrate.md` | Old notes. Archive with the tree. Do not treat as live runtime. |
 | `Old repos deleted and merged/Solar-Pacific-RootRecord-Server/api/` | Phase 4 archive path. Not written by this draft. |
-| `5 - RootRecord-Library/Documentation/00-architecture/Old-Repo-Migration-Matrix.md` | Row 72 and blocker 6. Correct only after phase 4. |
-| `5 - RootRecord-Library/Documentation/00-architecture/Solar-Pacific-Old-Full-TopLevel-Catalog-2026-09-28.md` | `api` row. Correct only after phase 4. |
-| `5 - RootRecord-Library/Documentation/00-architecture/G1-Scheduler-To-G3-Jobs-Map-2026-09-29.md` | `api-prices` and `cursor-fallback` rows. Correct only after phase 4. |
+| `5 - RootRecord-Library/Documentation/Old-Repo-Migration-Matrix.md` | Row 72 and blocker 6. Correct only after phase 4. |
+| `5 - RootRecord-Library/Documentation/Solar-Pacific-Old-Full-TopLevel-Catalog-2026-09-28.md` | `api` row. Correct only after phase 4. |
+| `5 - RootRecord-Library/Documentation/G1-Scheduler-To-G3-Jobs-Map-2026-09-29.md` | `api-prices` and `cursor-fallback` rows. Correct only after phase 4. |
 
 New files after acceptance, not before: `envload.py`, `api_ledger.py`, `xai.py`, `cursor_fallback.py`, and `job.py` under `System/ApiPrices/scripts`.
 
