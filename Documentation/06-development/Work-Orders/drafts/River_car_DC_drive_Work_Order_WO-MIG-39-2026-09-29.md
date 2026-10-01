@@ -109,8 +109,8 @@ command: python3 Energy/River-Car/scripts/drive_automation.py --tick
 | `Automations/scripts/jobs.py` | One gated-off `energy_river_car_drive` entry, only if the file is free at build time. Otherwise the block stays in this work order. |
 | `Old repos deleted and merged/Solar-Pacific-RootRecord-Server/energy/ecoflow-river-car/` | Phase 4 archive. Same relative path as the old repo. Include the untracked `__pycache__` beside those scripts. |
 | `/home/rootrecord/old ollama/old skills` | Old git root. Delete the archived paths only after the copy is on disk. Commit and push `Solar-Pacific-RootRecord-Server`. No force-push. Do not delete the GitHub repository. If the archive copy fails, do not delete. |
-| `Documentation/00-architecture/Old-Repo-Migration-Matrix.md` | Phase 5. Correct row 32 only. |
-| `Documentation/00-architecture/Solar-Pacific-Old-Inventory-Map-2026-09-28.md` | Phase 5. Correct the `ecoflow-river-car` line only. |
+| `Documentation/Old-Repo-Migration-Matrix.md` | Phase 5. Correct row 32 only. |
+| `Documentation/Solar-Pacific-Old-Inventory-Map-2026-09-28.md` | Phase 5. Correct the `ecoflow-river-car` line only. |
 
 ---
 
