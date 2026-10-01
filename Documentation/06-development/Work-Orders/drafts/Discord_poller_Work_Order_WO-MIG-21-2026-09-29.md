@@ -88,7 +88,7 @@ Tasks 1–5 and 7 are done. Task 6 is paused. The record below is what was built
 
 5. If `jobs.py` or `master-key.env` is already being edited, pause. Do not build Slack poller, earthquake Discord post, Kilauea public draft queue, or economy brief.
 6. After the script works: copy this function's old-repo files into `/home/rootrecord/RootRecord-Ecosystem/Old repos deleted and merged/Solar-Pacific-RootRecord-Server-Old/`, keeping the path they had inside the old repo (`communications/discord/...`). **Paused 2026-09-30 00:46 HST.** No local checkout of `Solar-Pacific-RootRecord-Server-Old/communications/discord`. Do not clone it. Nothing archived. Nothing removed on GitHub. Leave the AWS stub. Leave `~/.ollama/skills/coms/discord` and `old ollama/old skills/communications/discord`.
-7. Update this work order with the result note (what landed, what was archived, what was removed on GitHub) and set the new status. Correct only the Discord half of row 59 in `5 - RootRecord-Library/Documentation/00-architecture/Old-Repo-Migration-Matrix.md`. Leave the Slack half for agent 22. Do not rewrite unrelated work orders.
+7. Update this work order with the result note (what landed, what was archived, what was removed on GitHub) and set the new status. Correct only the Discord half of row 59 in `5 - RootRecord-Library/Documentation/Old-Repo-Migration-Matrix.md`. Leave the Slack half for agent 22. Do not rewrite unrelated work orders.
 
 ---
 
@@ -124,7 +124,7 @@ Tasks 1–5 and 7 are done. Task 6 is paused. The record below is what was built
 | `1 - Servers/2 - RootRecord-US-Mainland-Server/communications/discord/poll.py` | AWS stub. Leave it. |
 | `/home/rootrecord/old ollama/old skills/communications/discord/scripts/discord.py` | Old REST helper read for this draft. Not the phase 4 GitHub tree. |
 | `Old repos deleted and merged/Solar-Pacific-RootRecord-Server-Old/communications/discord/` | Phase 4 archive path. Not copied in this draft. |
-| `5 - RootRecord-Library/Documentation/00-architecture/Old-Repo-Migration-Matrix.md` | Row 59 Discord half set to partial. Slack half left missing. |
+| `5 - RootRecord-Library/Documentation/Old-Repo-Migration-Matrix.md` | Row 59 Discord half set to partial. Slack half left missing. |
 | `5 - RootRecord-Library/Documentation/06-development/Work-Orders/WO-COM-002-Discord-Bot-Credential-Rotation.md` | New token before any live login. |
 
 ---
