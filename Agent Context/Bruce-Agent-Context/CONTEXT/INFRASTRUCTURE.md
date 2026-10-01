@@ -39,6 +39,6 @@ Treat mirrored files as recovery sources; verify before assuming they are the li
 ## Inference & Council
 - Council replies use the NPU, `llama3.2:3b`, context 4096, on demand, no Ollama fallback.
 - Sandbox chat answers. Live council and private DMs stay quiet.
-- Single-flight and the poller supervisor are Bruce's operational surface. The supervisor may restart a dead relay or weather poller (3 times per 30 minutes, then BLOCKED). Bruce does not get a second restart through the broker.
+- Single-flight and the poller supervisor are Bruce's operational surface. The supervisor may restart a dead relay or weather poller (3 times per 30 minutes, then BLOCKED). Bruce does not get a second restart through the broker. A BLOCKED service may produce a draft. Bruce does not raise the attempt cap and does not build. `can_build` is false. See Library `Documentation/02-agents/INTERACTION-MODES.md`.
 - Telegram poll ownership stays with the single council-relay process.
 - Start here if this chat is new: Library `Documentation/01-operations/HANDOFF.md`.

@@ -66,5 +66,6 @@ Treat mirrored files as recovery sources; verify before assuming they are the li
 - One getUpdates owner: `council-relay.py`.
 - Desk file and state snapshot refresh before a reply. Generated state is not committed.
 - Reads go through `Automations/execution/execution-broker.py`. Restarts stay with `supervise-services.sh`. Agents do not restart services.
+- Ava may inspect, diagnose, and help draft a work order. `can_build` is false. A build principal is a numeric Telegram id, not Ava and not a username. See Library `Documentation/02-agents/INTERACTION-MODES.md`.
 - Single-flight enforcement via `System/scripts/plumbing/`.
 - Start here if this chat is new: Library `Documentation/01-operations/HANDOFF.md`.

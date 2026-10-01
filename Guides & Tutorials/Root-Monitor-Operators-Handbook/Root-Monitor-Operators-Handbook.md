@@ -733,6 +733,8 @@ This sub-page is not the registry list. It edits Root Monitor's own `settings.js
 
 **Safety — NEEDS SIGN-OFF.** "Allow risky actions" is Off. Turning it On opens a confirm: poller restart, Telegram, voice, and RR_* need Alexander's sign-off. Even after it is on, each risky action still needs `signed_off` and a command in `settings.json`, and a second confirm at the moment you run it.
 
+**Execution gates.** Below that card, Settings → Panel lists the gates in `execution-gates.json`. The broker reads that file on its own. The panel does not grant permission by being open. Turning a gate On asks for confirm. Turning it Off writes immediately. `cursor_api`, commit, push, merge, deploy, recovery run, and raising the attempt cap ship Off. Opening Build does not open Deployment. Agents must not toggle these. The seed copy lives at `Apps/Control-Panel/execution-gates.json`. The live copy the broker prefers is Database `System/control-panel/execution-gates.json`. If the live file is missing, the broker uses the seed.
+
 **Known URLs.** Name and URL only. Click a row to open it with `xdg-open`. The pencil edits, the trash removes, the plus adds. A URL with `user:pass@` or a token, key, or password query parameter is refused.
 
 The seed list:
@@ -776,6 +778,7 @@ AWS is the exception in destination, not in shape: the backup is on the AWS home
 - It will not arm or disarm a battery, or switch AC. That work is a Not-migrated placeholder.
 - It will not start the cameras, the grab jobs, or the poller.
 - It will not push git. The Running page can show a push the poller already started.
+- It will not start a Cursor build by itself. `cursor_api` ships Off. Opening that gate is a confirm, and the broker still requires a numeric Telegram id and a handoff package.
 - It will not print a secret into a label, a toast, a log line, or a screenshot.
 - It will not keep working on a page you have left. Starlink, camera decode, and the AWS widget tree stop or are freed.
 

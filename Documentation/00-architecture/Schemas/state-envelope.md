@@ -27,3 +27,5 @@ Visibility:
 Context for council inference is 4096 tokens. The model receives a slice from `projections/slices.json`, not the whole snapshot.
 
 Events are not a stream yet. `recent_changes` is the last few git subjects, and a commit is not a deploy.
+
+`execution_broker` carries `read_broker`, `agent_launch`, `build_handoff`, and `cursor_api`. `interaction` may carry a request id, mode, and status for the agent slice. The original Telegram text stays on the request record, visibility `operator`, and out of this snapshot.

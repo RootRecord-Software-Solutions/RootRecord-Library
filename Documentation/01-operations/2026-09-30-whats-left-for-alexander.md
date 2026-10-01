@@ -128,6 +128,14 @@ WO-DATA is still open for this, not for the path. The canonical Database path is
 
 46 `WO-MIG-*` files sit in `Work-Orders/drafts/`. They are not a queue. Promote one only when you want that function accepted for execution.
 
+### 10. Interaction modes need your ids, not a username
+
+The build path is documented in `Documentation/02-agents/INTERACTION-MODES.md`. The registry already names `@rootrecordadmin`, `@WildEcho94`, and `@Crazychickenlady12`. Each `telegram_user_id` is null. Until you record the numeric Telegram ids, nobody can reach `READY_FOR_BUILD`, including a message that uses one of those names.
+
+`cursor_api`, commit, push, merge, deploy, and recovery run ship off. Root Monitor can open a gate after a confirm. Opening one from this file does not turn it on.
+
+**Your call:** paste the three numeric ids when you want the build ceiling to exist. Leave `cursor_api` off until you want a `READY_FOR_BUILD` request to call Cursor without a person starting the session. Do not unlock `restart_known_service` from this note.
+
 ---
 
 ## Suggested order, when you want to pick
@@ -140,6 +148,7 @@ WO-DATA is still open for this, not for the path. The canonical Database path is
 6. Name any send, spend, or speaker from section 7 one at a time.
 7. Decide publication for geology files, timelapse masters, and the cloudflared binary.
 8. Name a legacy tree only when you actually want it retired.
+9. Record the three Telegram numeric ids before expecting a build to pass the principal check. Leave `cursor_api` off until you want that call.
 
 ---
 

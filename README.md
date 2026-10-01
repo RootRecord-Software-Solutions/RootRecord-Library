@@ -97,7 +97,7 @@ Each agent pack follows the same basic spine:
 
 ## Current status — 2026-09-30 afternoon
 
-Council chat on this desk uses NPU `llama3.2:3b`, on demand, context 4096, with no Ollama fallback. The sandbox answers. The live council and private DMs stay quiet. Generated state stays in Database `System/status/` and is not committed. The execution broker can read state and refuses restarts. Start at [HANDOFF.md](./Documentation/01-operations/HANDOFF.md). The 2026-09-29 section below is the record of that day, not the council model in use now.
+Council chat on this desk uses NPU `llama3.2:3b`, on demand, context 4096, with no Ollama fallback. The sandbox answers. The live council and private DMs stay quiet. Generated state stays in Database `System/status/` and is not committed. The execution broker can read state and refuses restarts and agent builds. Interaction modes, the principal registry, and the Cursor handoff contract are in [INTERACTION-MODES.md](./Documentation/02-agents/INTERACTION-MODES.md). `cursor_api` ships off. Start at [HANDOFF.md](./Documentation/01-operations/HANDOFF.md). The 2026-09-29 section below is the record of that day, not the council model in use now.
 
 ## Current status — 2026-09-29 (HST)
 

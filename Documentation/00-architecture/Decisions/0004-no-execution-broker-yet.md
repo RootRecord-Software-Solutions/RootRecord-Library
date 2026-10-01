@@ -17,3 +17,5 @@ The agents need to know what exists and what they must not touch before they can
 - Confirmation, audit, and the difference between gated, disabled, and not built
 - BLE, git push, and Telegram send are side effects even when a human runs them from the poller
 - Alexander has not authorized agent execution
+
+Decision 0006 adds interaction modes and a Cursor handoff. It does not unlock `restart_known_service`, and it does not put Ava, Bruce, or Carly in the build-operator set.

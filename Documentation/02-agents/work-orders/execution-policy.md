@@ -20,4 +20,6 @@ If the supervisor has BLOCKED the service, the agent reports that and stops. It 
 
 ## File
 
-The relay order is `WO-SRV-RELAY.json` in this directory. It describes `supervise-services.sh`. It does not replace it.
+The relay order is `WO-SRV-RELAY.json` in this directory. It describes `supervise-services.sh`. It does not replace it. `family` is `machine`.
+
+A development draft is a different family. The council writes it under Database `System/status/requests/drafts/`. It is not this directory, and it is not permission to execute. A standard user draft stops at `PENDING_AUTHORIZATION`. Cursor receives a development order only from a handoff package, and only when `cursor_api` is on.

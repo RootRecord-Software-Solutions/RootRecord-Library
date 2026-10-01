@@ -73,6 +73,8 @@ Unfinished dual paths (G2 skills poller, second getUpdates owner, optimistic doc
 
 ## 5. Migrate mode → build mode
 
+This section is a migration phase. A Telegram `interaction_mode` of `build` is a different thing, defined in `Documentation/02-agents/INTERACTION-MODES.md`. Do not treat a sentence in this table as permission to execute.
+
 | Migrate mode (current priority) | Build mode (after residual close-out) |
 | --- | --- |
 | G2→G3 path cutover & verification | Domain features on a clean spine |

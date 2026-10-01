@@ -54,7 +54,10 @@ Nothing in the 2026-09-30 verify set is a confirmed failure. Run verify before b
 | Bruce stats send | Dry-run | `RR_BRUCE_STATS_SEND` |
 | Council Ollama fallback | Relay sets `RR_NPU_ONLY=1` | Do not turn the fallback on for council chat |
 | Specialist routing | Personas are the council brain | `RR_SPECIALIST_ROUTING` off |
-| Agent program launch | Broker exists and refuses restarts | `restart_known_service` stays locked |
+| Agent program launch | Broker answers reads and refuses restarts | `restart_known_service` stays locked |
+| Cursor API build | Package path exists | `cursor_api` stays off in the gate seed |
+| Build from a username | Registry rows have null numeric ids | record `from.id` before any `READY_FOR_BUILD` |
+| Council passes on the relay | Seed code is in `council-relay.py` | `RR_INTERACTION_COUNCIL` stays unset; the running process uses the code it started with |
 | Public website checkout | Removed 2026-09-30 | do not recreate `3 - RootRecord-Website/` or bind port 3001 |
 | Resident FLM | A 3B serve left running OOM'd the desk on 2026-09-29 | on demand only, context stays 4096 |
 
@@ -71,6 +74,7 @@ Non-council callers and `flm-warmup.sh` still default to `llama3.2:1b`. The coun
 3. Add source domains still marked unknown (incident store, root monitor, per-job last result).
 4. The execution broker refuses restarts. The poller supervisor already recovers the relay and the weather poller. Do not unlock `restart_known_service` unless Alexander says so.
 5. Do not start a website or a second relay unless Alexander says so.
+6. Record the three Telegram numeric ids before expecting `READY_FOR_BUILD`. Do not treat a username as that id. Do not open `cursor_api` from this file.
 
 ## Do not change
 
@@ -84,10 +88,13 @@ Non-council callers and `flm-warmup.sh` still default to `llama3.2:1b`. The coun
 ## Open questions
 
 - Which state fields, if any, become `visibility: public` for a future site.
-- When agents may request a program, and which ones.
-- Whether root monitor is a daemon that should be running or a desktop app.
+- Which numeric Telegram ids belong to `@rootrecordadmin`, `@WildEcho94`, and `@Crazychickenlady12`.
+- Which execution gates Alexander opens after those ids are recorded. `cursor_api` is not implied by build mode.
+- Whether root monitor is a daemon that should be running or a desktop app. It is the GTK panel today.
 
 ## Recent changes
+
+2026-09-30 afternoon: interaction modes, principal registry, sandbox request seed, council draft loop, Cursor handoff package, execution and verification report schemas, broker denial of `development.execute_work_order`, BLOCKED recovery drafts, Root Monitor execution gates. `cursor_api` and `restart_known_service` stay locked. See `Documentation/02-agents/INTERACTION-MODES.md` and Decision 0006.
 
 2026-09-30: sandbox replies, per-voice NPU personas, desk file, read receipt, state aggregator, drift line, agent/public/slice projections, this handoff, contracts, and `verify.sh`.
 
@@ -105,6 +112,7 @@ bash verify.sh
 
 | Need | File |
 | --- | --- |
+| How a Telegram request becomes work | `5 - RootRecord-Library/Documentation/02-agents/INTERACTION-MODES.md` |
 | How the layers connect | `5 - RootRecord-Library/Documentation/00-architecture/SYSTEM-MAP.md` |
 | Why a gate exists | `5 - RootRecord-Library/Documentation/00-architecture/Decisions/` |
 | Relay promise | `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Communications/telegram/CONTRACT.md` |
