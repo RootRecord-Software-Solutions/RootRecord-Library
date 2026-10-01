@@ -123,8 +123,8 @@ Phase 4 file list, from checkout `/home/rootrecord/old ollama/old skills` (remot
 | `/home/rootrecord/old ollama/old skills/state/store/log-cleanup.json` | Old local state. Archive. Do not import. Not on GitHub |
 | `Old repos deleted and merged/Solar-Pacific-RootRecord-Server/log-cleanup/` | Phase 4 archive path (after the copy succeeds) |
 | `Old repos deleted and merged/Solar-Pacific-RootRecord-Server/origin/ns/apps/core/crons/on_time/log_cleanup.py` | Phase 4 archive path for the pre-move file |
-| `5 - RootRecord-Library/Documentation/00-architecture/Old-Repo-Migration-Matrix.md` | After phase 4, correct row 20 and the destructive note that still lists log-cleanup as blocked |
-| `5 - RootRecord-Library/Documentation/00-architecture/G1-Scheduler-To-G3-Jobs-Map-2026-09-29.md` | After phase 4, correct the `log-cleanup` row only |
+| `5 - RootRecord-Library/Documentation/Old-Repo-Migration-Matrix.md` | After phase 4, correct row 20 and the destructive note that still lists log-cleanup as blocked |
+| `5 - RootRecord-Library/Documentation/G1-Scheduler-To-G3-Jobs-Map-2026-09-29.md` | After phase 4, correct the `log-cleanup` row only |
 
 ---
 
