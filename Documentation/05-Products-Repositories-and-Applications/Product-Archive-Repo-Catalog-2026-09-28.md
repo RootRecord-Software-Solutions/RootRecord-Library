@@ -7,7 +7,7 @@
 | **Authority** | Org [RootRecord-Software-Solutions](https://github.com/RootRecord-Software-Solutions) for ops; product code may stay under historical accounts until promoted |
 | **Rule** | **Documentation only** — no migration execution here. Promote into org / new ops **after** Pacific residual domains catch up |
 
-**Related:** [MIGRATION-DOCS-INDEX](./MIGRATION-DOCS-INDEX-2026-09-28.md) · [Migration-Lineage](./Migration-Lineage-Three-Generations-2026-09-28.md) · G1 [Solar-Pacific-Old README](https://github.com/rootrecordsoftwaresolutions/Solar-Pacific-RootRecord-Server-Old/blob/main/README.md) · G0 [`old`](https://github.com/rootrecordsoftwaresolutions/old/blob/main/README.md)
+**Related:** [MIGRATION-DOCS-INDEX](../04-Migration-and-Legacy-Recovery/MIGRATION-DOCS-INDEX-2026-09-28.md) · [Migration-Lineage](../04-Migration-and-Legacy-Recovery/Migration-Lineage-Three-Generations-2026-09-28.md) · G1 [Solar-Pacific-Old README](https://github.com/rootrecordsoftwaresolutions/Solar-Pacific-RootRecord-Server-Old/blob/main/README.md) · G0 [`old`](https://github.com/rootrecordsoftwaresolutions/old/blob/main/README.md)
 
 ---
 

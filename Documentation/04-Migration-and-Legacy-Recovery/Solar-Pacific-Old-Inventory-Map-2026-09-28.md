@@ -195,8 +195,8 @@ For each packet:
 | --- | --- |
 | **[G1 README — migration status](https://github.com/rootrecordsoftwaresolutions/Solar-Pacific-RootRecord-Server-Old/blob/main/README.md)** | Single list on the archive repo |
 | [Migration-Lineage-Three-Generations-2026-09-28.md](./Migration-Lineage-Three-Generations-2026-09-28.md) | Order of operations |
-| [Pacific-Jobs-Path-Inventory-2026-09-28.md](./Pacific-Jobs-Path-Inventory-2026-09-28.md) | G2 residual job paths |
-| [Pacific-Server-Library-Dependency-Map-2026-09-28.md](./Pacific-Server-Library-Dependency-Map-2026-09-28.md) | G3/Library status |
+| [Pacific-Jobs-Path-Inventory-2026-09-28.md](../03-Pacific-Server-Current-Architecture/Pacific-Jobs-Path-Inventory-2026-09-28.md) | G2 residual job paths |
+| [Pacific-Server-Library-Dependency-Map-2026-09-28.md](../03-Pacific-Server-Current-Architecture/Pacific-Server-Library-Dependency-Map-2026-09-28.md) | G3/Library status |
 | [MIGRATION-DOCS-INDEX-2026-09-28.md](./MIGRATION-DOCS-INDEX-2026-09-28.md) | Entry index |
 | WO-SRV / WO-ECO | Cutover work orders |
 

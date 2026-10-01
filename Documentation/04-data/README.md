@@ -26,8 +26,8 @@ Logs are **Database**, not a Pacific code domain. See Pacific Domain Import Play
 | Doc | Topic |
 | --- | --- |
 | [WO-DATA-2026-09-27](../06-development/Work-Orders/Database_Boundary_Work_Order_WO-DATA-2026-09-27.md) | Boundary & publication policy (OPEN) |
-| [WO-RPT-001](../06-development/Work-Orders/WO-RPT-001-Reports-Worklog-Domain-Import.md) | WORKLOG machine SOT |
-| [Pacific-Domain-Import-Playbook](../00-architecture/Pacific-Domain-Import-Playbook-2026-09-28.md) | Code vs Database rules |
+| [WO-RPT-001](../06-development/Work-Orders/Complete/WO-RPT-001-Reports-Worklog-Domain-Import.md) | WORKLOG machine SOT |
+| [Pacific-Domain-Import-Playbook](../03-Pacific-Server-Current-Architecture/Pacific-Domain-Import-Playbook-2026-09-28.md) | Code vs Database rules |
 
 ## Still to document (WO-DATA)
 

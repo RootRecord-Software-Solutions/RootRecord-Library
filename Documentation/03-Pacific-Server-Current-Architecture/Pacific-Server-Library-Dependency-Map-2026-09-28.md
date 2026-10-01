@@ -6,7 +6,7 @@
 | **Status** | **Documentation complete** for migration planning |
 | **Runtime repo** | `RootRecord-Software-Solutions/RootRecord-Pacific-Solar-Server` |
 | **Live path** | `/home/rootrecord/RootRecord-Ecosystem/1 - Servers/1 - RootRecord-Pacific-Solar-Server` |
-| **Index** | [MIGRATION-DOCS-INDEX-2026-09-28.md](./MIGRATION-DOCS-INDEX-2026-09-28.md) |
+| **Index** | [MIGRATION-DOCS-INDEX-2026-09-28.md](../04-Migration-and-Legacy-Recovery/MIGRATION-DOCS-INDEX-2026-09-28.md) |
 
 ---
 

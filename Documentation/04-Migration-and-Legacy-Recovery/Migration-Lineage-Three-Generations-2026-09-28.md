@@ -75,7 +75,7 @@ G0 may still contain flat cousins of the same names — still archive only.
 8. Reports / worklog  
 9. Agents / AI processing redesign (planned)  
 
-See: [Pacific-Jobs-Path-Inventory-2026-09-28.md](./Pacific-Jobs-Path-Inventory-2026-09-28.md).
+See: [Pacific-Jobs-Path-Inventory-2026-09-28.md](../03-Pacific-Server-Current-Architecture/Pacific-Jobs-Path-Inventory-2026-09-28.md).
 
 ---
 

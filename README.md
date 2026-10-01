@@ -59,7 +59,14 @@ RootRecord-Library/
 │  ├─ Bruce-Agent-Context/
 │  └─ Carly-Agent-Context/
 ├─ Documentation/
-│  ├─ 00-architecture/
+│  ├─ 00-architecture/          Decisions, Governance, Schemas; duplicate copies of the moved pages
+│  ├─ 01-AI-and-Agent-Runtime/
+│  ├─ 02-Runtime-Jobs-and-Control/
+│  ├─ 03-Pacific-Server-Current-Architecture/
+│  ├─ 04-Migration-and-Legacy-Recovery/
+│  ├─ 05-Products-Repositories-and-Applications/
+│  ├─ 06-Domains-and-External-Systems/
+│  ├─ 07-Communications/
 │  ├─ 01-operations/
 │  ├─ 02-agents/
 │  ├─ 03-security/

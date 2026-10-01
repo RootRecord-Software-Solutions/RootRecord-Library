@@ -8,7 +8,7 @@ Single entry point for agents and operators working the Pacific server cutover *
 
 **What Alexander still has to decide (2026-09-30 02:35 HST):** [What's left for Alexander](../01-operations/2026-09-30-whats-left-for-alexander.md). The runtime cutover is live. Root Monitor is the login window. Delta 2 silence is expected. Closed work orders are in `Work-Orders/Complete/`. The open list is Root Monitor `Lib/rr_migration.json` (16 items).
 
-**Team constitution (standing):** [Local-Multi-Agent-Team-and-Migration-to-Build-2026-09-28.md](./Local-Multi-Agent-Team-and-Migration-to-Build-2026-09-28.md) — Ava → Carly → Bruce; small local models; migrate then build.
+**Team constitution (standing):** [Local-Multi-Agent-Team-and-Migration-to-Build-2026-09-28.md](../01-AI-and-Agent-Runtime/Local-Multi-Agent-Team-and-Migration-to-Build-2026-09-28.md) — Ava → Carly → Bruce; small local models; migrate then build.
 
 ---
 
@@ -16,47 +16,47 @@ Single entry point for agents and operators working the Pacific server cutover *
 
 | Doc | Purpose |
 | --- | --- |
-| [Local-Multi-Agent-Team-and-Migration-to-Build-2026-09-28.md](./Local-Multi-Agent-Team-and-Migration-to-Build-2026-09-28.md) | **Team OS** — roles, truth gates, migrate→build, hardware capacity |
+| [Local-Multi-Agent-Team-and-Migration-to-Build-2026-09-28.md](../01-AI-and-Agent-Runtime/Local-Multi-Agent-Team-and-Migration-to-Build-2026-09-28.md) | **Team OS** — roles, truth gates, migrate→build, hardware capacity |
 | [Migration-Lineage-Three-Generations-2026-09-28.md](./Migration-Lineage-Three-Generations-2026-09-28.md) | G3 / G2 / G1 / **G0** named; import order rule |
-| [archive/](./archive/README.md) | Session 1 restructuring notes (ChatGPT, Copilot, Grok, Claude). History only, moved 2026-09-30. |
-| [Pacific-Domain-Import-Playbook-2026-09-28.md](./Pacific-Domain-Import-Playbook-2026-09-28.md) | Step-by-step Phase 0–4; retirement stub pattern |
-| [Pacific-Jobs-Path-Inventory-2026-09-28.md](./Pacific-Jobs-Path-Inventory-2026-09-28.md) | **Historical** path inventory — live status is WO-SRV |
-| [Pacific-Server-Library-Dependency-Map-2026-09-28.md](./Pacific-Server-Library-Dependency-Map-2026-09-28.md) | Library files touched; domain status |
-| [Pacific-Unmigrated-Domains-Notes-2026-09-28.md](./Pacific-Unmigrated-Domains-Notes-2026-09-28.md) | **Superseded** for Plumbing/Reports placement (resolved under System + Reports) |
+| [archive/](../00-architecture/archive/README.md) | Session 1 restructuring notes (ChatGPT, Copilot, Grok, Claude). History only, moved 2026-09-30. |
+| [Pacific-Domain-Import-Playbook-2026-09-28.md](../03-Pacific-Server-Current-Architecture/Pacific-Domain-Import-Playbook-2026-09-28.md) | Step-by-step Phase 0–4; retirement stub pattern |
+| [Pacific-Jobs-Path-Inventory-2026-09-28.md](../03-Pacific-Server-Current-Architecture/Pacific-Jobs-Path-Inventory-2026-09-28.md) | **Historical** path inventory — live status is WO-SRV |
+| [Pacific-Server-Library-Dependency-Map-2026-09-28.md](../03-Pacific-Server-Current-Architecture/Pacific-Server-Library-Dependency-Map-2026-09-28.md) | Library files touched; domain status |
+| [Pacific-Unmigrated-Domains-Notes-2026-09-28.md](../03-Pacific-Server-Current-Architecture/Pacific-Unmigrated-Domains-Notes-2026-09-28.md) | **Superseded** for Plumbing/Reports placement (resolved under System + Reports) |
 
 ## G3 verification & residual close-out (Ava → Bruce)
 
 | Doc | Purpose |
 | --- | --- |
-| [G3-Runtime-Verification-Checklist-2026-09-28.md](./G3-Runtime-Verification-Checklist-2026-09-28.md) | Runtime gate before legacy retirement (supports WO-SRV) |
+| [G3-Runtime-Verification-Checklist-2026-09-28.md](../02-Runtime-Jobs-and-Control/G3-Runtime-Verification-Checklist-2026-09-28.md) | Runtime gate before legacy retirement (supports WO-SRV) |
 | [Residual-Path-Retirement-Table-2026-09-28.md](./Residual-Path-Retirement-Table-2026-09-28.md) | Pre-filled old→new table; Bruce fills Verified/Retired |
-| [Communications-Notify-Policy-Draft-2026-09-28.md](./Communications-Notify-Policy-Draft-2026-09-28.md) | Notify policy draft for WO-COM-001 (Carly conditional seal may land via PR; check main) |
+| [Communications-Notify-Policy-Draft-2026-09-28.md](../07-Communications/Communications-Notify-Policy-Draft-2026-09-28.md) | Notify policy draft for WO-COM-001 (Carly conditional seal may land via PR; check main) |
 | **[07-testing/README.md](../07-testing/README.md)** | **Testing thread** (2026-09-29): one record per test run (HST time, method, pass criteria, state, resource impact, evidence, SHAs, cleanup) + test-safety policy + index |
 | **[08-ideas/README.md](../08-ideas/README.md)** | **Ideas & feature proposals** (2026-09-29): all PROPOSED; auto-recovery, `npu-status.sh` Pacific copy, AI processing log, voice reports, relay message hold, weather retention/repo |
-| [AI-Specialist-Models-and-Routing.md](./AI-Specialist-Models-and-Routing.md) | **AI specialists + router** (2026-09-29): one Modelfile per function/topic, keyword router `route-specialist.py`, FLM system-message route, gated `run-infer.sh` hook (off by default), resource policy, how to add a specialist |
-| [Template-Report-Generation.md](./Template-Report-Generation.md) | **Template reports** (2026-09-29): `Reports/template_fill.py` fills the 4 `01-operations/templates/` from measured data into Database `Reports/Generated/` (never the Library); `template_validate.py` rejects structure mismatches and flags unsupported numbers; `rr-exec` drafts free text only; job `template_reports_daily` OFF unless `RR_TEMPLATE_REPORTS=1` |
-| [Voice-Reports-G3.md](./Voice-Reports-G3.md) | **Voice (2026-09-29)**: Kokoro-82M G3 port, persona map, phrase-clip cache, G1→G3 report map, gates (delivery OFF), naming standard (PROPOSED) |
-| [AI-Processing-Logs-and-Reports.md](./AI-Processing-Logs-and-Reports.md) | **AI processing (2026-09-29)**: run-infer JSONL fields, rotation, report, `RR_AI_REPORT` gate, FLM log redaction |
+| [AI-Specialist-Models-and-Routing.md](../01-AI-and-Agent-Runtime/AI-Specialist-Models-and-Routing.md) | **AI specialists + router** (2026-09-29): one Modelfile per function/topic, keyword router `route-specialist.py`, FLM system-message route, gated `run-infer.sh` hook (off by default), resource policy, how to add a specialist |
+| [Template-Report-Generation.md](../01-AI-and-Agent-Runtime/Template-Report-Generation.md) | **Template reports** (2026-09-29): `Reports/template_fill.py` fills the 4 `01-operations/templates/` from measured data into Database `Reports/Generated/` (never the Library); `template_validate.py` rejects structure mismatches and flags unsupported numbers; `rr-exec` drafts free text only; job `template_reports_daily` OFF unless `RR_TEMPLATE_REPORTS=1` |
+| [Voice-Reports-G3.md](../01-AI-and-Agent-Runtime/Voice-Reports-G3.md) | **Voice (2026-09-29)**: Kokoro-82M G3 port, persona map, phrase-clip cache, G1→G3 report map, gates (delivery OFF), naming standard (PROPOSED) |
+| [AI-Processing-Logs-and-Reports.md](../01-AI-and-Agent-Runtime/AI-Processing-Logs-and-Reports.md) | **AI processing (2026-09-29)**: run-infer JSONL fields, rotation, report, `RR_AI_REPORT` gate, FLM log redaction |
 | Ops worklog `2026-09-29 System Operator Worklog — Overnight.md` | Overnight docs pass steps (HST) + **Needs Alexander sign-off** list |
 
 ## 2026-09-29 afternoon: AWS Mainland node, globe landing, Root Monitor, Android
 
 | Doc | Purpose |
 | --- | --- |
-| [US-Mainland-Server.md](./US-Mainland-Server.md) | **AWS continuity node**: desk checkout, change log, and the current AWS state table (at pause, 16:25 HST) |
+| [US-Mainland-Server.md](../06-Domains-and-External-Systems/US-Mainland-Server.md) | **AWS continuity node**: desk checkout, change log, and the current AWS state table (at pause, 16:25 HST) |
 | [07-testing/2026-09-29-aws-hawaii-trim-and-cloudflared.md](../07-testing/2026-09-29-aws-hawaii-trim-and-cloudflared.md) | **AWS Hawaii feed trim + `*/15` auto-trim cron; cloudflared tunnel restored** (`www` 530 → 200): PASS |
 | [07-testing/2026-09-29-aws-globe-static-allowlist.md](../07-testing/2026-09-29-aws-globe-static-allowlist.md) | **AWS static allowlist** (P0: globe `server.js` no longer serves its folder; sensitive paths 404): PASS |
 | [08-ideas/2026-09-29-aws-fallback-rebuild.md](../08-ideas/2026-09-29-aws-fallback-rebuild.md) | **AWS fallback rebuild**: small fallback node with per-function toggles; Phase 2 LANDED on the trimmed t3.micro profile (908 MB RAM); real fallback VERIFY PENDING |
 | [08-ideas/2026-09-29-globe-landing-overlay.md](../08-ideas/2026-09-29-globe-landing-overlay.md) | **Globe landing overlay** for `www.rootrecord.cloud` (glass cards; v2 spin / click info; AWS Ohio node): AWS deploy LANDED 16:10 HST; real-browser check VERIFY PENDING. Records: [preview](../07-testing/2026-09-29-globe-landing-overlay-preview.md), [v2](../07-testing/2026-09-29-globe-overlay-v2-spin-click-info.md), [AWS deploy](../07-testing/2026-09-29-globe-overlay-aws-deploy.md) |
 | [07-testing/2026-09-29-root-monitor-toggle-buttons.md](../07-testing/2026-09-29-root-monitor-toggle-buttons.md) | **Control Panel (Root Monitor) toggle buttons**: switches → labelled buttons, visible camera viewer button: PASS |
-| [Control-Panel-GTK.md](./Control-Panel-GTK.md) | Root Monitor (GTK4 Control Panel): pages, settings, AWS Fallback page, sign-off items |
-| [Android-Apps-Inventory.md](./Android-Apps-Inventory.md) | **Android apps inventory**: 9 apps imported into `6 - Android Development` (80.7 MB); build VERIFY PENDING. [Test record](../07-testing/2026-09-29-android-apps-import.md) |
+| [Control-Panel-GTK.md](../02-Runtime-Jobs-and-Control/Control-Panel-GTK.md) | Root Monitor (GTK4 Control Panel): pages, settings, AWS Fallback page, sign-off items |
+| [Android-Apps-Inventory.md](../05-Products-Repositories-and-Applications/Android-Apps-Inventory.md) | **Android apps inventory**: 9 apps imported into `6 - Android Development` (80.7 MB); build VERIFY PENDING. [Test record](../07-testing/2026-09-29-android-apps-import.md) |
 
 ## Product & archive inventory (Minecraft, apps, mirrors)
 
 | Doc | Purpose |
 | --- | --- |
-| **[Product-Archive-Repo-Catalog-2026-09-28.md](./Product-Archive-Repo-Catalog-2026-09-28.md)** | **Full catalog** — RootMC Paper suite, Nukkit legacy, Business/Weather Manager, Solana, web, Ava stacks, **~79 inventory mirrors**, future migration tracks A–H |
+| **[Product-Archive-Repo-Catalog-2026-09-28.md](../05-Products-Repositories-and-Applications/Product-Archive-Repo-Catalog-2026-09-28.md)** | **Full catalog** — RootMC Paper suite, Nukkit legacy, Business/Weather Manager, Solana, web, Ava stacks, **~79 inventory mirrors**, future migration tracks A–H |
 
 **Rule:** Document now; **migrate products only after** Pacific residual domains catch up. Do **not** bulk-merge plugins into Pacific server core.
 
@@ -68,8 +68,8 @@ Single entry point for agents and operators working the Pacific server cutover *
 | [Solar-Pacific-Old-Inventory-Map-2026-09-28.md](./Solar-Pacific-Old-Inventory-Map-2026-09-28.md) | High-value packet → G3 mapping (Library side) |
 | [Solar-Pacific-Old-Full-TopLevel-Catalog-2026-09-28.md](./Solar-Pacific-Old-Full-TopLevel-Catalog-2026-09-28.md) | All **95** G1 tops classified |
 | **[Old-Repo-Migration-Matrix.md](./Old-Repo-Migration-Matrix.md)** | G1 + G0 → G3 matrix (90 rows: migrated / partial / missing, target, blockers), 2026-09-29 pass |
-| **[Pending-Job-Registrations-2026-09-29.md](./Pending-Job-Registrations-2026-09-29.md)** | Job registrations: 7 gated blocks already in jobs.py (sign-off) + 10 PROPOSED blocks not in jobs.py (net sampler, solar / security / bandwidth desks, Hawaiʻi news; 14:40: HLS fetcher, official-weather + boot-brief voice, report-board catch-up, global hurricane board) |
-| **[G1-Scheduler-To-G3-Jobs-Map-2026-09-29.md](./G1-Scheduler-To-G3-Jobs-Map-2026-09-29.md)** | G1 `scheduler-clock` job ids (64) → G3 state (LIVE / GATED / PROPOSED / ON DEMAND / BLOCKED / OUT); matrix row 15 verification |
+| **[Pending-Job-Registrations-2026-09-29.md](../02-Runtime-Jobs-and-Control/Pending-Job-Registrations-2026-09-29.md)** | Job registrations: 7 gated blocks already in jobs.py (sign-off) + 10 PROPOSED blocks not in jobs.py (net sampler, solar / security / bandwidth desks, Hawaiʻi news; 14:40: HLS fetcher, official-weather + boot-brief voice, report-board catch-up, global hurricane board) |
+| **[G1-Scheduler-To-G3-Jobs-Map-2026-09-29.md](../02-Runtime-Jobs-and-Control/G1-Scheduler-To-G3-Jobs-Map-2026-09-29.md)** | G1 `scheduler-clock` job ids (64) → G3 state (LIVE / GATED / PROPOSED / ON DEMAND / BLOCKED / OUT); matrix row 15 verification |
 
 ### G1 scheduler skills — retired (2026-09-28)
 
@@ -114,7 +114,7 @@ Best use: scavenger pass when redesigning **AI processing**, **weather/reports**
 
 | Doc | Purpose |
 | --- | --- |
-| [Grok-Pacific-Automations-Domain-Wiring-Session-2026-09-28.md](./Grok-Pacific-Automations-Domain-Wiring-Session-2026-09-28.md) | Automations wiring session |
+| [Grok-Pacific-Automations-Domain-Wiring-Session-2026-09-28.md](../06-Domains-and-External-Systems/Grok-Pacific-Automations-Domain-Wiring-Session-2026-09-28.md) | Automations wiring session |
 | Ops worklog `2026-09-28 System Operator Worklog — Session 01.md` | Operator confirmation |
 
 ## Work orders
@@ -150,7 +150,7 @@ Weather: **enabled and PASS** since 2026-09-29 (Pacific `Weather/`; see WO-SRV).
 
 **Documented without executing product migration:** full product/archive catalog (Paper, Nukkit, apps, mirrors); Automations G1 retirement; G0/G1 READMEs.
 
-**Strategy:** close residual verification before build-mode expansion — see [Local Multi-Agent Team](./Local-Multi-Agent-Team-and-Migration-to-Build-2026-09-28.md).
+**Strategy:** close residual verification before build-mode expansion — see [Local Multi-Agent Team](../01-AI-and-Agent-Runtime/Local-Multi-Agent-Team-and-Migration-to-Build-2026-09-28.md).
 
 ---
 

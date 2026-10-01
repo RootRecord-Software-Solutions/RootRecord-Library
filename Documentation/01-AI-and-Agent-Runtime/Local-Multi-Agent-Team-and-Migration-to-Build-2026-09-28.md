@@ -120,9 +120,9 @@ Standing phrasing: plan for **when** the business supports upgrade — not specu
 
 | Doc | Role |
 | --- | --- |
-| [MIGRATION-DOCS-INDEX-2026-09-28.md](./MIGRATION-DOCS-INDEX-2026-09-28.md) | Cutover entry point |
-| [G3-Runtime-Verification-Checklist-2026-09-28.md](./G3-Runtime-Verification-Checklist-2026-09-28.md) | Runtime gate |
-| [Residual-Path-Retirement-Table-2026-09-28.md](./Residual-Path-Retirement-Table-2026-09-28.md) | Retirement tracking |
+| [MIGRATION-DOCS-INDEX-2026-09-28.md](../04-Migration-and-Legacy-Recovery/MIGRATION-DOCS-INDEX-2026-09-28.md) | Cutover entry point |
+| [G3-Runtime-Verification-Checklist-2026-09-28.md](../02-Runtime-Jobs-and-Control/G3-Runtime-Verification-Checklist-2026-09-28.md) | Runtime gate |
+| [Residual-Path-Retirement-Table-2026-09-28.md](../04-Migration-and-Legacy-Recovery/Residual-Path-Retirement-Table-2026-09-28.md) | Retirement tracking |
 | [Agent Context/](../../Agent%20Context/) | Canonical role packs |
 | [Documentation/02-agents/README.md](../02-agents/README.md) | Agent map pointer |
 | [WO-WOGEN-001](../06-development/Work-Orders/WO-WOGEN-001-Work-Order-Generator.md) | Later: measured friction → draft WOs |

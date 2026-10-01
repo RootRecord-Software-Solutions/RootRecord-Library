@@ -9,7 +9,7 @@ This runbook is for live desk/runtime verification only. A successful static sou
 Related records:
 
 - [G3-Runtime-Verification-Checklist-2026-09-28.md](./G3-Runtime-Verification-Checklist-2026-09-28.md)
-- [Residual-Path-Retirement-Table-2026-09-28.md](./Residual-Path-Retirement-Table-2026-09-28.md)
+- [Residual-Path-Retirement-Table-2026-09-28.md](../04-Migration-and-Legacy-Recovery/Residual-Path-Retirement-Table-2026-09-28.md)
 - [WO-SRV-2026-09-27](../06-development/Work-Orders/Servers_Cutover_Work_Order_WO-SRV-2026-09-27.md)
 
 ## Operator evidence rules
