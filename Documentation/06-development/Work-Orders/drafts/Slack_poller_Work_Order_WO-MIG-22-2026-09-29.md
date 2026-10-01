@@ -133,7 +133,7 @@ Do these only after Alexander accepts this draft and says to build. Until then, 
 | `1 - Servers/2 - RootRecord-US-Mainland-Server/.env.example` | Shared. Left in place. Name `SLACK_BOT_TOKEN` only. |
 | `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Communications/Discord/` | Dependency folder. Present before the Slack build. |
 | `Old repos deleted and merged/US-Mainland-Server/communications/slack/poll.py` | Archive of the stub. On disk. |
-| `5 - RootRecord-Library/Documentation/00-architecture/Old-Repo-Migration-Matrix.md` | Row 59 Slack half, after phase 4 only, and only that half. |
+| `5 - RootRecord-Library/Documentation/Old-Repo-Migration-Matrix.md` | Row 59 Slack half, after phase 4 only, and only that half. |
 
 ---
 
