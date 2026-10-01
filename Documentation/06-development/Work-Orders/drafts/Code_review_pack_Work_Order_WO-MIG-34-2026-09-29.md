@@ -96,7 +96,7 @@ Do these only after Alexander accepts this draft and says to build. Until then, 
 5. Add a `/CodeReview/` ignore under `2 - RootRecord-Database/.gitignore` so generated packs stay out of git. If `jobs.py` or that gitignore is already being edited, pause.
 6. Smoke test: run the script with output rooted at `/tmp/rr-mig-34`. Expect exit 0, a `CURRENT.md` plus one dated file, a coder section that says off, and no inference process. That test does not write the live Database path.
 7. After the smoke test passes: copy the old `code-review/` tree, including `store/` markdown, into `/home/rootrecord/RootRecord-Ecosystem/Old repos deleted and merged/Solar-Pacific-RootRecord-Server/code-review/`, keeping the path it had inside the old repo. Generated data that lived beside that source goes into this archive too, and still does not go into the live Folders. After the archive copy is on disk, delete the tracked files from the `old ollama/old skills` checkout and from GitHub `Solar-Pacific-RootRecord-Server`. Commit that deletion and push it. Do not force-push. Do not delete the GitHub repository. If the archive copy fails, do not delete. Leave the `github-history` snapshots. Leave `apps.core`. Leave `~/.ollama/skills`. `store/` is gitignored, so it is archived locally and is not a GitHub deletion.
-8. Update this work order with the result note (what landed, what was archived, what was removed on GitHub) and set the new status. Correct only row 67 of `5 - RootRecord-Library/Documentation/00-architecture/Old-Repo-Migration-Matrix.md` and the `code-review` row of `5 - RootRecord-Library/Documentation/00-architecture/G1-Scheduler-To-G3-Jobs-Map-2026-09-29.md`. Do not rewrite unrelated work orders.
+8. Update this work order with the result note (what landed, what was archived, what was removed on GitHub) and set the new status. Correct only row 67 of `5 - RootRecord-Library/Documentation/Old-Repo-Migration-Matrix.md` and the `code-review` row of `5 - RootRecord-Library/Documentation/G1-Scheduler-To-G3-Jobs-Map-2026-09-29.md`. Do not rewrite unrelated work orders.
 
 ---
 
@@ -129,8 +129,8 @@ Do these only after Alexander accepts this draft and says to build. Until then, 
 | `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Automations/scripts/jobs.py` | Left unchanged. The file was already being edited, so the gated block was not inserted. |
 | `/home/rootrecord/old ollama/old skills/code-review/` | Old source read for this draft. Phase 4 archive source. |
 | `Old repos deleted and merged/Solar-Pacific-RootRecord-Server/code-review/` | Phase 4 archive. 24 files copied. |
-| `5 - RootRecord-Library/Documentation/00-architecture/Old-Repo-Migration-Matrix.md` | Row 67, after phase 4 only. |
-| `5 - RootRecord-Library/Documentation/00-architecture/G1-Scheduler-To-G3-Jobs-Map-2026-09-29.md` | `code-review` row, after phase 4 only. |
+| `5 - RootRecord-Library/Documentation/Old-Repo-Migration-Matrix.md` | Row 67, after phase 4 only. |
+| `5 - RootRecord-Library/Documentation/G1-Scheduler-To-G3-Jobs-Map-2026-09-29.md` | `code-review` row, after phase 4 only. |
 
 ---
 
