@@ -128,10 +128,10 @@ Done 2026-09-30. Recorded here so the order of work stays visible. Live send was
 | `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Energy/lib/envload.py` | Allowlist pattern followed by `Earthquake-Discord/lib/envload.py`. Not edited. |
 | `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Automations/scripts/jobs.py` | Gated `earthquake_discord_post` block inserted. Left off. |
 | `/home/rootrecord/old ollama/old skills/earthquakes/earthquake-hourly/scripts/earthquake_hourly.py` | Shared old source. Leave it. |
-| `5 - RootRecord-Library/Documentation/00-architecture/Old-Repo-Migration-Matrix.md` | Earthquake-hourly Discord clause updated. Speaker play still not ported. |
+| `5 - RootRecord-Library/Documentation/Old-Repo-Migration-Matrix.md` | Earthquake-hourly Discord clause updated. Speaker play still not ported. |
 | `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Geology/README.md` | Earthquake Discord dry-run noted. Other posts still not ported. |
 | `2 - RootRecord-Database/Geology/README.md` | Dry-run reader noted. Voice jobs still do not deliver. |
-| `5 - RootRecord-Library/Documentation/00-architecture/Voice-Reports-G3.md` | Discord text post noted. Telegram post stays blocked. |
+| `5 - RootRecord-Library/Documentation/Voice-Reports-G3.md` | Discord text post noted. Telegram post stays blocked. |
 | `5 - RootRecord-Library/Documentation/06-development/Work-Orders/WO-COM-002-Discord-Bot-Credential-Rotation.md` | New token before any live login. Owned by the pipe. |
 
 ---
