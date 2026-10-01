@@ -17,11 +17,11 @@ RootRecord kept separate homes so public context, operational knowledge, runtime
 
 ## What this desk syncs
 
-`Github/scripts/repos.conf` enables `ecosystem` (inplace) plus `pacific`, `database`, and `library` (mirror publishes; the live folders have no `.git` of their own). `skills` stays enabled. `website` and `mainland` stay disabled until each is a real checkout outside this snapshot. `Pull.sh` remains the manual pull path.
+`Github/scripts/repos.conf` enables `ecosystem` (inplace) plus `pacific`, `database`, and `library` (mirror publishes; the live folders have no `.git` of their own). `skills` stays enabled. The current umbrella contains the Mainland continuity tree and the Pacific Website tree; do not describe them as separate current GitHub repositories. The sync configuration should be treated as the source of truth for which mirror rows are active. `Pull.sh` remains the manual pull path.
 
 ## What stays out of the public umbrella
 
-Live telemetry, sqlite databases, logs, and worklogs listed in `ecosystem-skip-autocommit.txt` stay on disk. Secrets and private infrastructure identifiers stay out of git. Generated weather bytes under Database `Weather/` are local. Published Hawaiʻi weather products belong to `rootrecordsoftwaresolutions/RootRecord-Weather-Database`, not to a dump inside Library.
+Live telemetry, sqlite databases, logs, and worklogs listed in `ecosystem-skip-autocommit.txt` stay on disk. Secrets and private infrastructure identifiers stay out of git. Generated weather bytes under Database `Weather/` are local. Published and generated Hawaiʻi weather data is represented under the umbrella Database tree; preserve the documented Database boundary rather than inventing a separate current repository.
 
 ## History
 
