@@ -25,5 +25,5 @@ The short teaching pages point at these. They do not replace them.
 
 | File | Role |
 | --- | --- |
-| [How to read and edit code](../prompts/How-To-Read-And-Edit-Code.md) | Standing rule for section banners, `# info:` notes, and the `jobs.py` copy-paste template. |
+| [How to read and edit code](./How-To-Read-And-Edit-Code.md) | Standing rule for section banners, `# info:` notes, and the `jobs.py` copy-paste template. |
 | [What's left for Alexander](../Documentation/01-operations/2026-09-30-whats-left-for-alexander.md) | The operator's open calls. An AI does not work down this list on its own. |

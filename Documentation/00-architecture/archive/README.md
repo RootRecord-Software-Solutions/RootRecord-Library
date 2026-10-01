@@ -1,6 +1,6 @@
 # Archive — restructuring Session 1
 
-Preserved contributions from the first restructuring pass. These are history. Current architecture is the files in the parent folder, starting with [SYSTEM-MAP](../SYSTEM-MAP.md) and [MIGRATION-DOCS-INDEX](../MIGRATION-DOCS-INDEX-2026-09-28.md).
+Preserved contributions from the first restructuring pass. These are history. Current pages start at [SYSTEM-MAP](../../03-Pacific-Server-Current-Architecture/SYSTEM-MAP.md) and [MIGRATION-DOCS-INDEX](../../04-Migration-and-Legacy-Recovery/MIGRATION-DOCS-INDEX-2026-09-28.md).
 
 Moved here 2026-09-30. Nothing in these folders authorizes a change.
 

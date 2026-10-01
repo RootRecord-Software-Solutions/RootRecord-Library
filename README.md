@@ -59,7 +59,7 @@ RootRecord-Library/
 │  ├─ Bruce-Agent-Context/
 │  └─ Carly-Agent-Context/
 ├─ Documentation/
-│  ├─ 00-architecture/          Decisions, Governance, Schemas; duplicate copies of the moved pages
+│  ├─ 00-architecture/          Decisions, Governance, Schemas. Old page names are pointers.
 │  ├─ 01-AI-and-Agent-Runtime/
 │  ├─ 02-Runtime-Jobs-and-Control/
 │  ├─ 03-Pacific-Server-Current-Architecture/
@@ -78,7 +78,8 @@ RootRecord-Library/
 │  ├─ 08-ideas/
 │  ├─ 09-desired-upgrades/
 │  └─ archive/
-├─ Guides & Tutorials/
+├─ Guides & Tutorials/        How to read and edit code, teaching desk
+├─ prompts/                   Pointer only. The how-to lives in Guides.
 └─ README.md
 ```
 

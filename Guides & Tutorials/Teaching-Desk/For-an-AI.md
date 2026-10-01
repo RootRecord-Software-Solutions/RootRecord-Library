@@ -1,6 +1,6 @@
 # For an AI
 
-Read this before you edit Pacific code. It is the short class. The standing rule, with the copy-paste blocks, is [How to read and edit code](../../prompts/How-To-Read-And-Edit-Code.md).
+Read this before you edit Pacific code. It is the short class. The standing rule, with the copy-paste blocks, is [How to read and edit code](../How-To-Read-And-Edit-Code.md).
 
 You are helping Alexander on one desk. The live tree is:
 
