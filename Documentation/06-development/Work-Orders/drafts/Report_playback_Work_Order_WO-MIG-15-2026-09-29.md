@@ -113,9 +113,9 @@ Do these only after Alexander accepts this draft and says to build. Until then, 
 | `Old repos deleted and merged/Solar-Pacific-RootRecord-Server/reports/sort/evening-report-play/` | Phase 4 archive |
 | `Old repos deleted and merged/Solar-Pacific-RootRecord-Server/reports/sort/evening-report-audio/` | Phase 4 archive |
 | `Old repos deleted and merged/Solar-Pacific-RootRecord-Server/reports/sort/report-periodic-audio/` | Phase 4 archive |
-| `5 - RootRecord-Library/Documentation/00-architecture/Old-Repo-Migration-Matrix.md` | Phase 5. Row 46 only |
-| `5 - RootRecord-Library/Documentation/00-architecture/G1-Scheduler-To-G3-Jobs-Map-2026-09-29.md` | Phase 5. `report-periodic-audio` row only |
-| `5 - RootRecord-Library/Documentation/00-architecture/Voice-Reports-G3.md` | Phase 5. Speaker bullet in section 6 only |
+| `5 - RootRecord-Library/Documentation/Old-Repo-Migration-Matrix.md` | Phase 5. Row 46 only |
+| `5 - RootRecord-Library/Documentation/G1-Scheduler-To-G3-Jobs-Map-2026-09-29.md` | Phase 5. `report-periodic-audio` row only |
+| `5 - RootRecord-Library/Documentation/Voice-Reports-G3.md` | Phase 5. Speaker bullet in section 6 only |
 
 ---
 
