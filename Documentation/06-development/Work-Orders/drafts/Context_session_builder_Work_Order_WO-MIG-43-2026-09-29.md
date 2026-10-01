@@ -63,7 +63,7 @@ Folder name: **ContextSession**. It does not belong inside Energy, Geology, Weat
 5. No other function has to exist before this build. There is no dependency Folder to wait on.
 6. Smoke test against a temp root under `/tmp`, not the live Database: create, append, list, current. Assert the store refuses an unsafe user id. Confirm importing the package does not bind a socket.
 7. After that test passes: copy the old tree to `Old repos deleted and merged/old/operations/context_session_builder/`, keeping the path it had inside `old`. Generated data that lived beside that source goes into the archive too, and still does not go into the live Folders. If the archive copy fails, do not delete. Then delete those same files from the old repo on this machine and on GitHub branch `cursor/radio-idle-obs-gates`. Commit and push. Do not force-push. Do not delete the GitHub repository. No shared file was found; if one turns up, leave it and name it here.
-8. Update this work order with what landed, the archive path, and the GitHub deletion. Correct only row 85 of `Documentation/00-architecture/Old-Repo-Migration-Matrix.md` and the context-session sentence in that file's blockers list.
+8. Update this work order with what landed, the archive path, and the GitHub deletion. Correct only row 85 of `Documentation/Old-Repo-Migration-Matrix.md` and the context-session sentence in that file's blockers list.
 
 ---
 
@@ -94,7 +94,7 @@ Folder name: **ContextSession**. It does not belong inside Energy, Geology, Weat
 | `/home/rootrecord/master/master-key.env` | Not used. Not edited. |
 | `operations/context_session_builder/` in `rootrecordsoftwaresolutions/old` | Old source. Archive, then delete. |
 | `Old repos deleted and merged/old/operations/context_session_builder/` | Archive path after phase 4. |
-| `Documentation/00-architecture/Old-Repo-Migration-Matrix.md` | Row 85 and the context-session blocker sentence, after phase 4. |
+| `Documentation/Old-Repo-Migration-Matrix.md` | Row 85 and the context-session blocker sentence, after phase 4. |
 
 ---
 
