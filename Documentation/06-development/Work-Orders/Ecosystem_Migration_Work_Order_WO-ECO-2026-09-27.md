@@ -17,12 +17,13 @@
 
 The long-term shape:
 
+The tree below is the 2026-09-27 plan. Folder `3 - RootRecord-Website` was not created. The public page is Pacific `Website/Home/`, published to `RootRecord-Software-Solutions/RootRecord-Website`. Do not recreate folder 3. Do not bind port 3001.
+
 ```text
 RootRecord-Ecosystem
 ├─ 0 - Master-Prompt          # governance / identity / architecture (boot path)
 ├─ 1 - Servers                # deployed runtime systems
 ├─ 2 - RootRecord-Database    # generated data + telemetry + media
-├─ 3 - RootRecord-Website     # public surface
 ├─ 4 - RootRecord-Node        # future distributed nodes
 └─ 5 - RootRecord-Library     # durable knowledge / docs / agent context
 ```
@@ -33,7 +34,7 @@ RootRecord-Ecosystem
 | --- | --- |
 | Runnable code / services | `1 - Servers` → matching GitHub runtime repo |
 | Generated data, logs, media | `2 - RootRecord-Database` (and weather DB repo where applicable) |
-| Public presentation | `3 - RootRecord-Website` |
+| Public presentation | Pacific `Website/Home/` → `RootRecord-Software-Solutions/RootRecord-Website` |
 | Future node deployments | `4 - RootRecord-Node` |
 | Decisions, history, agent context, work orders | `5 - RootRecord-Library` |
 | Always-on agent bootstrap | `0 - Master-Prompt` |
@@ -94,8 +95,9 @@ RootRecord-Ecosystem
 
 ### RootRecord-Website
 
-- **GitHub:** https://github.com/rootrecordsoftwaresolutions/RootRecord-Website
-- **Local:** `3 - RootRecord-Website`
+- **GitHub:** https://github.com/RootRecord-Software-Solutions/RootRecord-Website
+- **Local:** Pacific `Website/Home/`
+- The old org repository `rootrecordsoftwaresolutions/RootRecord-Website` is not the Vercel source. Folder `3 - RootRecord-Website` is not on this desk.
 
 ### RootRecord-Database + Weather Database
 
@@ -148,16 +150,16 @@ RootRecord-Ecosystem
 
 ## 5. Sync system (standing)
 
-Catalog: Pacific `Github/scripts/repos.conf` (the `skills` row still points at the legacy `.ollama/skills` tree)
+Catalog: Pacific `Github/scripts/repos.conf`. Pacific, Database, and Library are mirror rows. Their live folders have no `.git`. `skills` and `mainland` stay disabled and point at `Old repos deleted and merged/ollama-skills-g2-2026-09-30`.
 
 | id | enabled | mode | local (desk) | github_slug |
 | --- | --- | --- | --- | --- |
-| pacific | 1 | inplace | `…/1 - Servers/1 - RootRecord-Pacific-Solar-Server` | `RootRecord-Software-Solutions/RootRecord-Pacific-Solar-Server` |
-| database | 1 | inplace | `…/2 - RootRecord-Database` | `RootRecord-Software-Solutions/RootRecord-Database` |
-| library | 1 | inplace | `…/5 - RootRecord-Library` | `RootRecord-Software-Solutions/RootRecord-Library` |
-| skills | 1 | inplace | `/home/rootrecord/.ollama/skills` (legacy G2 tree) | `rootrecordsoftwaresolutions/Solar-Pacific-RootRecord-Server` |
-| website | 0 (disabled) | mirror | `/home/rootrecord/.ollama/skills/website/site` | `rootrecordsoftwaresolutions/RootRecord-Website` |
-| mainland | 0 (disabled) | inplace | `/home/rootrecord/.ollama/skills/us-mainland-server` | `rootrecordsoftwaresolutions/US-Mainland-Server` |
+| pacific | 1 | mirror | `…/1 - Servers/1 - RootRecord-Pacific-Solar-Server` | `RootRecord-Software-Solutions/RootRecord-Pacific-Solar-Server` |
+| database | 1 | mirror | `…/2 - RootRecord-Database` | `RootRecord-Software-Solutions/RootRecord-Database` |
+| library | 1 | mirror | `…/5 - RootRecord-Library` | `RootRecord-Software-Solutions/RootRecord-Library` |
+| skills | 0 (disabled) | inplace | `…/Old repos deleted and merged/ollama-skills-g2-2026-09-30` | `rootrecordsoftwaresolutions/Solar-Pacific-RootRecord-Server` |
+| website | 1 | mirror | Pacific `Website/Home/` | `RootRecord-Software-Solutions/RootRecord-Website` |
+| mainland | 0 (disabled) | inplace | `…/Old repos deleted and merged/ollama-skills-g2-2026-09-30/us-mainland-server` | `rootrecordsoftwaresolutions/US-Mainland-Server` |
 
 Deploy standing rule: push → sync merge → `schedule-stack-reload` when runtime code is pulled.
 
@@ -212,7 +214,7 @@ The operator installed the documented AMD XDNA2/XRT prerequisite stack on the Pa
 
 - **§4.2 Runtime:** the old-repo matrix is now **35 migrated / 22 partial / 33 missing** (supersedes the 27 / 27 / 36 note in §4.2). All ports are gated OFF; their jobs are PROPOSED in [Pending-Job-Registrations](../../02-Runtime-Jobs-and-Control/Pending-Job-Registrations-2026-09-29.md).
 - **§4.3 Node (US-Mainland / AWS):** no longer only a placeholder. Desk checkout imported (**PASS**). AWS feed trim + cron, tunnel (`www` 200) and the static allowlist: **PASS**. AWS fallback Phase 2 LANDED on the trimmed-micro t3.micro profile (908 MB RAM), with Root Monitor write mode: **PASS**. A real fallback and a relay send are VERIFY PENDING. Details: [US-Mainland-Server](../../06-Domains-and-External-Systems/US-Mainland-Server.md).
-- **§4.3 Website:** `www.rootrecord.cloud` serves the AWS globe (200) with landing overlay v2 (LANDED 16:10 HST; real-browser check VERIFY PENDING). Vercel untouched. The RootRecord-Cloud staging build passed on the desk; no deploy.
+- **§4.3 Website (as of 16:25 HST that day):** `www.rootrecord.cloud` served the AWS globe. The RootRecord-Cloud staging build had passed and was not deployed. **Superseded 2026-09-30:** the public page is Pacific `Website/Home/`, synced to `RootRecord-Software-Solutions/RootRecord-Website`. The old Vercel project was deleted. AWS remains the data relay. The operations route is in mainland source and is not deployed.
 - **New ecosystem folder:** `6 - Android Development` (9 apps, 80.7 MB). Not a git repo, not in `repos.conf`. Build VERIFY PENDING. [Inventory](../../05-Products-Repositories-and-Applications/Android-Apps-Inventory.md).
-- **§5 sync table:** the `mainland` row is still disabled (sign-off to repoint + enable). The Mainland checkout is in this umbrella and was clean at 22:18 HST (139 tracked files). Do not enable the row inside this snapshot.
+- **§5 sync table:** `mainland` stays disabled. The live Mainland tree is a directory inside the umbrella and is not its own git checkout. The `website` row in §5 is the 2026-09-30 catalog, not the disabled row that was current at this pause.
 - Sign-offs: [worklog "State at pause, 16:25 HST"](../../01-operations/0%20-%20Human%20Operator%20Work%20Logs/2026-09-29%20System%20Operator%20Worklog%20%E2%80%94%20Overnight.md#state-at-pause-1625-hst-2026-09-29).

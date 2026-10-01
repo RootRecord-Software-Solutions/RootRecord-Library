@@ -560,7 +560,7 @@ To change one, go to **Settings → Feature Flags**. Saving writes `~/.config/sy
 
 The screenshot is the 02:35 HST capture. The list below is the 19:02 HST refresh. Placeholders only. No start buttons, no flags, no "migrate" action.
 
-**7 BLOCKED, 7 VERIFY PENDING.** Fourteen items. Closed work orders are not listed. FLM own-session (passed 29 September, 22:16 HST) and Geology collect (poller cycle ok at 19:01 HST) left the list.
+**6 BLOCKED, 8 VERIFY PENDING.** Fourteen items. Public site foundation moved from BLOCKED to VERIFY PENDING when `Website/Home/` began syncing to `RootRecord-Website`. Closed work orders are not listed. FLM own-session (passed 29 September, 22:16 HST) and Geology collect (poller cycle ok at 19:01 HST) left the list.
 
 | Item | State |
 | --- | --- |
@@ -571,7 +571,7 @@ The screenshot is the 02:35 HST capture. The list below is the 19:02 HST refresh
 | Energy actuating actions (arm/disarm, AC) | VERIFY PENDING |
 | Weather retention apply | VERIFY PENDING |
 | Public status / solar board | VERIFY PENDING |
-| Public site foundation + website repo sync | BLOCKED |
+| Public site foundation + website repo sync | VERIFY PENDING |
 | US-Mainland-Server (continuity node) | BLOCKED |
 | G1 selective recovery packets | BLOCKED |
 | G2 residual paths (27 dormant files) | VERIFY PENDING |
