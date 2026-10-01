@@ -95,7 +95,11 @@ Each agent pack follows the same basic spine:
 
 ---
 
-## 📌 Current status — 2026-09-29 (HST)
+## Current status — 2026-09-30 afternoon
+
+Council chat on this desk uses NPU `llama3.2:3b`, on demand, context 4096, with no Ollama fallback. The sandbox answers. The live council and private DMs stay quiet. Generated state stays in Database `System/status/` and is not committed. The execution broker can read state and refuses restarts. Start at [HANDOFF.md](./Documentation/01-operations/HANDOFF.md). The 2026-09-29 section below is the record of that day, not the council model in use now.
+
+## Current status — 2026-09-29 (HST)
 
 G2 → G3 migration: the Pacific runtime is on the new Database root (`2 - RootRecord-Database`, Title-case folders). Post-reboot checks, Weather, NPU/FastFlowLM (`llama3.2:1b` on demand) and the Title-case rename are **PASS**. G2 legacy files are **KEPT** until Alexander signs off. Open items are tracked as BLOCKED / PROPOSED / VERIFY PENDING in WO-SRV.
 

@@ -37,6 +37,8 @@ Secondary node providing continuity, synchronization, and recovery when the Paci
 Treat mirrored files as recovery sources; verify before assuming they are the live deployed state.
 
 ## Inference & Council
-- Single-flight enforcement via plumbing scripts
-- Council mediation is Bruce’s operational responsibility
-- Telegram poll ownership stays with the single council-relay process
+- Council replies use the NPU, `llama3.2:3b`, context 4096, on demand, no Ollama fallback.
+- Sandbox chat answers. Live council and private DMs stay quiet.
+- Single-flight and the poller supervisor are Bruce's operational surface. The supervisor may restart a dead relay or weather poller (3 times per 30 minutes, then BLOCKED). Bruce does not get a second restart through the broker.
+- Telegram poll ownership stays with the single council-relay process.
+- Start here if this chat is new: Library `Documentation/01-operations/HANDOFF.md`.

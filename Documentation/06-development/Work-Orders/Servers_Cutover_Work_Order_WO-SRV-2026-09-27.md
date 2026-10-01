@@ -4,7 +4,7 @@
 | --- | --- |
 | **Work Order ID** | WO-SRV-2026-09-27 |
 | **Status** | **IN PROGRESS** — G3 PASS: poller on canonical root, network globe, BLE owner, cam server, frame grab, System sampling, Reports worklog, Plumbing non-NPU, read-only `solar-gate-status`, Telegram relay login/polling, NPU `llama3.2:1b` on demand. Open: Telegram replies off until sign-off (quiet mode; models were rebuilt), Energy actuating actions + timelapse VERIFY PENDING. G2 code KEPT (retire only with Alexander sign-off). Header corrected 2026-09-29 evening; earlier "NPU BLOCKED" / "models missing" notes below are historical. |
-| **Updated** | 2026-09-30 02:35 HST — Host up since 01:09. Poller, tunnel, River 2 Pro BLE, cameras, weather, globe, and relay login are on the Ecosystem tree. Delta 2 is dead and does not transmit. Root Monitor is the login window (02:33). Open items are River actuation, daylight timelapse, relay replies, and the skills files that were not byte-identical. Operator list: `Documentation/01-operations/2026-09-30-whats-left-for-alexander.md`. Earlier notes in this file are history. |
+| **Updated** | 2026-09-30 afternoon — Council path: NPU `llama3.2:3b`, sandbox replies on, live council still gated. State snapshot and a refuse-by-default execution broker are in place. See `Documentation/01-operations/HANDOFF.md`. The 02:35 list below is that morning's check. Delta 2 was not transmitting then; freshness is now a measured `observed` / `stale` / `dead` field, not a standing label. |
 
 **Policy:** Do not run the old desk as the poller host.
 

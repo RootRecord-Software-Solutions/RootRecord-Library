@@ -61,5 +61,10 @@ Secondary node providing continuity, synchronization, and recovery when the Paci
 Treat mirrored files as recovery sources; verify before assuming they are the live deployed state.
 
 ## Inference & Council
-- Single-flight enforcement via `System/scripts/plumbing/` (Bruce’s operational responsibility)
-- Ava participates in design and public voice; does not own the inference gate
+- Council replies use the NPU, `llama3.2:3b`, context 4096, on demand, no Ollama fallback. Personas: Database `AI/FLM/Personas/`.
+- Sandbox chat answers. Live council and private DMs stay quiet.
+- One getUpdates owner: `council-relay.py`.
+- Desk file and state snapshot refresh before a reply. Generated state is not committed.
+- Reads go through `Automations/execution/execution-broker.py`. Restarts stay with `supervise-services.sh`. Agents do not restart services.
+- Single-flight enforcement via `System/scripts/plumbing/`.
+- Start here if this chat is new: Library `Documentation/01-operations/HANDOFF.md`.

@@ -223,4 +223,17 @@ Sign-offs: worklog section "State at pause, 16:25 HST".
 | Geology / voice jobs | Still gated. Do not enable from this refresh. | jobs.py `RR_*` defaults |
 | Local website | Removed. Do not recreate `3 - RootRecord-Website` or bind port 3001. | operator list |
 | G2 identical skills copies | Removed where the hash matched Pacific. Unique files and the 27 GB old-skills tree stayed. | skills `6483586` (02:16 HST) |
-| B. Timelapse / C. Energy actuation / A. Telegram replies | Unchanged: still waiting on Alexander | operator list |
+| B. Timelapse / C. Energy actuation / A. Telegram replies | Unchanged at 02:35: still waiting on Alexander | operator list |
+
+## Status refresh — 2026-09-30 afternoon
+
+Supersedes the NPU-default and "replies off" bullets in the 2026-09-29 preconditions, and the 02:35 "Telegram replies" cell, for the council path only. Older rows stay as the record of that morning.
+
+| Row | State | Evidence |
+| --- | --- | --- |
+| Council inference | NPU `llama3.2:3b`, context 4096, on demand, `RR_NPU_ONLY=1`. Non-council callers and `flm-warmup.sh` still default to `llama3.2:1b`. | `ensure-relay.sh`, `jobs.py` header |
+| Sandbox replies | On (`SANDBOX_REPLIES=1`). Live council and private DMs stay quiet. | `relay.conf` |
+| Desk | `Intake/desk-live.txt` refreshed before each reply. | `desk-live.py` |
+| Canonical state | `System/status/rootrecord-state.json` plus agent/public/slice projections. Not auto-committed. | `state-aggregate.py`, Decisions/0005 |
+| Execution | Broker answers reads and refuses restarts. Poller `service_supervisor` still recovers weather and the relay. | `Automations/execution/`, WO-SRV-RELAY |
+| Continuity | `Documentation/01-operations/HANDOFF.md`. Desk check: `bash verify.sh` from the ecosystem root. | HANDOFF |

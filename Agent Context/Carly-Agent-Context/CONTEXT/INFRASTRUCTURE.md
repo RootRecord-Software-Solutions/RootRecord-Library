@@ -31,5 +31,9 @@ Secondary node providing continuity, synchronization, and recovery when the Paci
 Treat mirrored files as recovery sources; verify before assuming they are the live deployed state.
 
 ## Inference & Council
-- Single-flight enforcement via plumbing scripts (Bruce’s operational responsibility)
-- Carly participates in security review, billing, and honesty seal; does not own the inference gate
+- Council replies use the NPU, `llama3.2:3b`, context 4096, on demand, no Ollama fallback.
+- Sandbox chat answers. Live council and private DMs stay quiet.
+- Carly may inspect through the execution broker. She cannot restart, send, or push. Those capabilities stay denied.
+- Single-flight enforcement via plumbing scripts (Bruce's operational responsibility).
+- Carly participates in security review and the honesty seal. She does not own the inference gate.
+- Start here if this chat is new: Library `Documentation/01-operations/HANDOFF.md`.

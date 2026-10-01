@@ -21,6 +21,8 @@ The 40-agent pass across ecosystem, pacific, database, and library held. The des
 | Desk window | Root Monitor autostarts at the next login (applied 02:33). The terminal dashboard stays in the menu. Conky is not started |
 | Globe, Ollama, GitHub sync | Up. Sync publishes ecosystem, pacific, database, library. `skills` matched |
 | Telegram relay | Process up, replies off on purpose |
+
+Later the same day (afternoon): the sandbox answers. The live council and private DMs stay quiet. Council inference is NPU `llama3.2:3b`. Delta 2 freshness is whatever the latest BLE file says (`observed`, `stale`, or `dead`), not the 02:35 "dead" label. See `HANDOFF.md` in this folder.
 | FLM | On demand. Resident warmup is off |
 | Geology and the other gated jobs | Off until you say otherwise |
 
