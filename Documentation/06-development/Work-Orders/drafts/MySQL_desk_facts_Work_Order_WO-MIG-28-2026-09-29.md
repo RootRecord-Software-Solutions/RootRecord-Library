@@ -89,7 +89,7 @@ No `mysql` client and no PyMySQL are installed. The live path may import PyMySQL
 5. Do not edit `jobs.py`. No periodic job. No other function has to exist before this build.
 6. Proof: run `facts` with the allowlist empty. Confirm the JSON above and that PyMySQL is not imported. Do not run a live Shockbyte `SELECT` until Alexander confirms the key names are in `master-key.env`.
 7. After that proof: copy `mysql/` and `database/db-facts/` into `Old repos deleted and merged/Solar-Pacific-RootRecord-Server/`, keeping those paths. Then delete them from the old repo on this machine and on GitHub only when nothing else in that repo still imports them. Do not delete the GitHub repository. Do not force-push. If the archive copy fails, do not delete.
-8. Update this work order with what landed, the archive path, and the GitHub deletion. Correct only row 68 of `Documentation/00-architecture/Old-Repo-Migration-Matrix.md` for `mysql` / `db-facts`.
+8. Update this work order with what landed, the archive path, and the GitHub deletion. Correct only row 68 of `Documentation/Old-Repo-Migration-Matrix.md` for `mysql` / `db-facts`.
 
 ---
 
@@ -116,7 +116,7 @@ No `mysql` client and no PyMySQL are installed. The live path may import PyMySQL
 | `old ollama/old skills/mysql/` | Old mysql skill. Archive, then delete if unshared. |
 | `old ollama/old skills/database/db-facts/` | Old db-facts skill. Archive, then delete if unshared. |
 | `Old repos deleted and merged/Solar-Pacific-RootRecord-Server/` | Archive root for those two paths. |
-| `Documentation/00-architecture/Old-Repo-Migration-Matrix.md` | Row 68, mysql / db-facts note only, after phase 4. |
+| `Documentation/Old-Repo-Migration-Matrix.md` | Row 68, mysql / db-facts note only, after phase 4. |
 
 ---
 
