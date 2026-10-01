@@ -10,7 +10,7 @@
 | **Test records** | v1: [2026-09-29-globe-landing-overlay-preview](../07-testing/2026-09-29-globe-landing-overlay-preview.md) · v2: [2026-09-29-globe-overlay-v2-spin-click-info](../07-testing/2026-09-29-globe-overlay-v2-spin-click-info.md) |
 | **Screenshots** | `/home/rootrecord/RootRecord-Ecosystem/test-reports/Globe-Landing/`: 11 v1 PNGs, 8 `v2-*.png`, and `v2-unit-test-run.log` |
 | **Backup** | `/home/rootrecord/Database/GITHUB/globe-landing.bak-20260929-141948/` (`mainland/` originals, `library/` README and worklog copies, `aws-runtime-readonly/` read-only copies of the live AWS `index.html` + `server.js`) · v2: `/home/rootrecord/Database/GITHUB/globe-overlay-v2.bak-20260929-154351/` (`mainland/` overlay + index/server + `AWS-LIVE-SERVER.md`; `library/` these docs + README + worklog; `aws-runtime-readonly/index.public.html` = live page, md5 `f3d03774…`) |
-| **Related** | [US-Mainland-Server](../00-architecture/US-Mainland-Server.md) · [AWS Mainland plan](./2026-09-29-aws-mainland-improvement-plan.md) · [website staging record](../07-testing/2026-09-29-website-rootrecord-cloud-staging.md) |
+| **Related** | [US-Mainland-Server](../06-Domains-and-External-Systems/US-Mainland-Server.md) · [AWS Mainland plan](./2026-09-29-aws-mainland-improvement-plan.md) · [website staging record](../07-testing/2026-09-29-website-rootrecord-cloud-staging.md) |
 
 ## Brief
 

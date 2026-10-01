@@ -5,7 +5,7 @@
 | **Date (HST)** | 2026-09-29 |
 | **Proposed by** | Grok (executor, smart-devices pass) |
 | **State** | PROPOSED |
-| **Grounding** | [Smart-Devices-Energy](../00-architecture/Smart-Devices-Energy.md); test record [2026-09-29-smart-devices-foundation](../07-testing/2026-09-29-smart-devices-foundation.md); Database `Energy/soc/{delta2,river2pro}-last.json` (e.g. Delta 2 41.57 % at 13:17 HST) |
+| **Grounding** | [Smart-Devices-Energy](../06-Domains-and-External-Systems/Smart-Devices-Energy.md); test record [2026-09-29-smart-devices-foundation](../07-testing/2026-09-29-smart-devices-foundation.md); Database `Energy/soc/{delta2,river2pro}-last.json` (e.g. Delta 2 41.57 % at 13:17 HST) |
 | **Needs sign-off from** | Alexander |
 | **Related WO** | none yet |
 

@@ -1,6 +1,6 @@
 # Voice desk — current as of 2026-09-30 17:20 HST
 
-This is the living description of the spoken reports. The 2026-09-29 port record is [Voice-Reports-G3](../00-architecture/Voice-Reports-G3.md). Where that file still says a job is off, has no delivery, or skips a vision line, this file wins.
+This is the living description of the spoken reports. The 2026-09-29 port record is [Voice-Reports-G3](../01-AI-and-Agent-Runtime/Voice-Reports-G3.md). Where that file still says a job is off, has no delivery, or skips a vision line, this file wins.
 
 Sandbox chat is `-1004406495175`. `RR_VOICE_DELIVER=1` and `RR_TELEGRAM_DEST=sandbox` are the defaults in `Automations/scripts/poller/run-poller.sh`. A sandbox post is a voice note, a transcript, and the measured report. A live chat would be voice and report only. The same spoken words are not sent again. Hourly chimes also remember the date and hour, so the same sentence can send on the next day.
 

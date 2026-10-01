@@ -17,7 +17,7 @@ Docs for **outward-facing** RootRecord surfaces: website, status boards, voice, 
 | [WO-WEB-001](../06-development/Work-Orders/WO-WEB-001-Public-Status-Solar-Board.md) | Public status / solar board |
 | [WO-WEB-002](../06-development/Work-Orders/WO-WEB-002-Public-Site-Foundation.md) | Public site foundation |
 | [WO-COM-001](../06-development/Work-Orders/WO-COM-001-Communications-Surface.md) | Messaging edges (not open bots without approval) |
-| Notify policy draft | [Communications-Notify-Policy-Draft](../00-architecture/Communications-Notify-Policy-Draft-2026-09-28.md) |
+| Notify policy draft | [Communications-Notify-Policy-Draft](../07-Communications/Communications-Notify-Policy-Draft-2026-09-28.md) |
 
 ## Rules
 

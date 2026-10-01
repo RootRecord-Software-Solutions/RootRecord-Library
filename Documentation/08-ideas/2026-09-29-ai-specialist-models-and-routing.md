@@ -8,7 +8,7 @@
 | **Grounding** | Team constitution §3 ("specialists over generalists"); `run-infer.sh` / relay fall back to `*-telegram` models that were missing from `ollama list` (overnight worklog sign-off list); G2 lane catalog `old ollama/agents/lanes.conf` |
 | **Needs sign-off from** | Alexander (to apply the hook to `run-infer.sh` and switch the gate on) |
 | **Related WO** | none yet |
-| **Design doc** | [AI-Specialist-Models-and-Routing.md](../00-architecture/AI-Specialist-Models-and-Routing.md) |
+| **Design doc** | [AI-Specialist-Models-and-Routing.md](../01-AI-and-Agent-Runtime/AI-Specialist-Models-and-Routing.md) |
 
 ## Problem (measured)
 Every request goes to one generic prompt: FLM `llama3.2:1b` with a two-line system prompt, or an Ollama `*-telegram` persona that did not exist on the desk (the models were missing from `ollama list` until this pass). Small models answer better with a focused, grounded prompt.

@@ -126,7 +126,7 @@ RootRecord-Ecosystem
 - [x] Pacific server live under `1 - Servers/…`
 - [x] Automations core path-wired and operator-verified
 - [ ] Import remaining out-of-scope domains one at a time (including Weather/Geology where separately authorized)
-  - *Update 2026-09-29 ~13:40 HST:* **Geology** imported (LANDED, manual PASS, jobs gated OFF: `RR_GEOLOGY`, `RR_KILAUEA_CAMS`, `RR_VOICE_QUAKE`); old-repo batch 1 (sun times `RR_SUN_TIMES`, uptime log `RR_UPTIME_LOG`, MP4 converter on demand). Old-repo matrix: 27 migrated / 27 partial / 36 missing of 90 rows (as of 14:12 HST; was 24 / 28 / 38 at 13:50) — [Old-Repo-Migration-Matrix](../../00-architecture/Old-Repo-Migration-Matrix.md). Box stays open until the missing rows are ported or BLOCKED with sign-off.
+  - *Update 2026-09-29 ~13:40 HST:* **Geology** imported (LANDED, manual PASS, jobs gated OFF: `RR_GEOLOGY`, `RR_KILAUEA_CAMS`, `RR_VOICE_QUAKE`); old-repo batch 1 (sun times `RR_SUN_TIMES`, uptime log `RR_UPTIME_LOG`, MP4 converter on demand). Old-repo matrix: 27 migrated / 27 partial / 36 missing of 90 rows (as of 14:12 HST; was 24 / 28 / 38 at 13:50) — [Old-Repo-Migration-Matrix](../../04-Migration-and-Legacy-Recovery/Old-Repo-Migration-Matrix.md). Box stays open until the missing rows are ported or BLOCKED with sign-off.
 - [x] `repos.conf` Pacific path alignment
 
 ### 4.3 Data / Website / Node
@@ -195,11 +195,11 @@ The operator installed the documented AMD XDNA2/XRT prerequisite stack on the Pa
 
 ## Old-repo migration pass — 2026-09-29 ~13:12–13:45 HST
 
-- Survey of G1 `Solar-Pacific-RootRecord-Server-Old` and G0 `old` (read-only shallow clones in `/tmp`, deleted afterwards; nothing written to either repo) → [Old-Repo-Migration-Matrix](../../00-architecture/Old-Repo-Migration-Matrix.md): **24 migrated · 28 partial · 38 missing** (90 rows; 14 touched this pass, as of 13:50 HST).
+- Survey of G1 `Solar-Pacific-RootRecord-Server-Old` and G0 `old` (read-only shallow clones in `/tmp`, deleted afterwards; nothing written to either repo) → [Old-Repo-Migration-Matrix](../../04-Migration-and-Legacy-Recovery/Old-Repo-Migration-Matrix.md): **24 migrated · 28 partial · 38 missing** (90 rows; 14 touched this pass, as of 13:50 HST).
 - Ported this pass (all LANDED, manual PASS, periodic jobs gated OFF): Geology collector, Kīlauea cams, quake backfill, earthquake voice report, sun times, uptime log, MP4 converter, hurricane desk + Kīlauea voice reports (text), G0 nearest-location quake tag. Details in WO-SRV "Geology + old-repo migration pass".
 - BLOCKED (need Alexander): deliveries (Telegram/Discord/speakers), OBS, log-cleanup (deletes), actuation, cloud keys/spend, load-categories field map, fs-index / python-drop-runner / broadcast scope, Hawaiʻi news target.
 - Addendum ~13:46 HST: voice `hurricane_desk` + `kilauea_report` LANDED (text PASS, gated `RR_VOICE_HURRICANE` / `RR_VOICE_KILAUEA`). jobs.py registrations (7, all OFF) are a **sign-off item** under the jobs.py standing rule; blocks in Database `Logs/Migration/migration-jobs-py-additions-20260929.md`.
-- Addendum ~14:10 HST (breadth batch 4): web facts, live-wx chat lines, host net/security desks, solar / security / bandwidth voice desks LANDED (smoke PASS); Hawaiʻi news ported but 0 posts (FAIL on content). Jobs PROPOSED only ([Pending-Job-Registrations](../../00-architecture/Pending-Job-Registrations-2026-09-29.md)). Matrix now **27 migrated · 27 partial · 36 missing** (90 rows; 23 touched). [Record](../../07-testing/2026-09-29-old-repo-ports-breadth-batch4.md).
+- Addendum ~14:10 HST (breadth batch 4): web facts, live-wx chat lines, host net/security desks, solar / security / bandwidth voice desks LANDED (smoke PASS); Hawaiʻi news ported but 0 posts (FAIL on content). Jobs PROPOSED only ([Pending-Job-Registrations](../../02-Runtime-Jobs-and-Control/Pending-Job-Registrations-2026-09-29.md)). Matrix now **27 migrated · 27 partial · 36 missing** (90 rows; 23 touched). [Record](../../07-testing/2026-09-29-old-repo-ports-breadth-batch4.md).
 - Addendum ~14:40 HST (breadth batch 5):
   - Voice text fixes and Hawaiʻi news seeds: news now **278 posts**.
   - LANDED with smoke PASS: HLS fetcher, `official_weather` and `boot_brief` voice reports (text), report board and catch-up, load categories, global hurricane board, host hardware, speech scrub, and the G1 scheduler map.
@@ -210,9 +210,9 @@ The operator installed the documented AMD XDNA2/XRT prerequisite stack on the Pa
 
 ## State at pause — 2026-09-29 16:25 HST
 
-- **§4.2 Runtime:** the old-repo matrix is now **35 migrated / 22 partial / 33 missing** (supersedes the 27 / 27 / 36 note in §4.2). All ports are gated OFF; their jobs are PROPOSED in [Pending-Job-Registrations](../../00-architecture/Pending-Job-Registrations-2026-09-29.md).
-- **§4.3 Node (US-Mainland / AWS):** no longer only a placeholder. Desk checkout imported (**PASS**). AWS feed trim + cron, tunnel (`www` 200) and the static allowlist: **PASS**. AWS fallback Phase 2 LANDED on the trimmed-micro t3.micro profile (908 MB RAM), with Root Monitor write mode: **PASS**. A real fallback and a relay send are VERIFY PENDING. Details: [US-Mainland-Server](../../00-architecture/US-Mainland-Server.md).
+- **§4.2 Runtime:** the old-repo matrix is now **35 migrated / 22 partial / 33 missing** (supersedes the 27 / 27 / 36 note in §4.2). All ports are gated OFF; their jobs are PROPOSED in [Pending-Job-Registrations](../../02-Runtime-Jobs-and-Control/Pending-Job-Registrations-2026-09-29.md).
+- **§4.3 Node (US-Mainland / AWS):** no longer only a placeholder. Desk checkout imported (**PASS**). AWS feed trim + cron, tunnel (`www` 200) and the static allowlist: **PASS**. AWS fallback Phase 2 LANDED on the trimmed-micro t3.micro profile (908 MB RAM), with Root Monitor write mode: **PASS**. A real fallback and a relay send are VERIFY PENDING. Details: [US-Mainland-Server](../../06-Domains-and-External-Systems/US-Mainland-Server.md).
 - **§4.3 Website:** `www.rootrecord.cloud` serves the AWS globe (200) with landing overlay v2 (LANDED 16:10 HST; real-browser check VERIFY PENDING). Vercel untouched. The RootRecord-Cloud staging build passed on the desk; no deploy.
-- **New ecosystem folder:** `6 - Android Development` (9 apps, 80.7 MB). Not a git repo, not in `repos.conf`. Build VERIFY PENDING. [Inventory](../../00-architecture/Android-Apps-Inventory.md).
+- **New ecosystem folder:** `6 - Android Development` (9 apps, 80.7 MB). Not a git repo, not in `repos.conf`. Build VERIFY PENDING. [Inventory](../../05-Products-Repositories-and-Applications/Android-Apps-Inventory.md).
 - **§5 sync table:** the `mainland` row is still disabled (sign-off to repoint + enable). The Mainland checkout is in this umbrella and was clean at 22:18 HST (139 tracked files). Do not enable the row inside this snapshot.
 - Sign-offs: [worklog "State at pause, 16:25 HST"](../../01-operations/0%20-%20Human%20Operator%20Work%20Logs/2026-09-29%20System%20Operator%20Worklog%20%E2%80%94%20Overnight.md#state-at-pause-1625-hst-2026-09-29).

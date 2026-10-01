@@ -6,7 +6,7 @@ Documentation about RootRecord agents. **Canonical identity packs do not live he
 | --- | --- |
 | **Canonical packs** | [`Agent Context/`](../../Agent%20Context/) at Library repo root |
 | **Not a pack** | [CouncilPersona-shell.md](CouncilPersona-shell.md) — empty Pacific shell, removed 2026-09-30. No prompts. |
-| **Team constitution** | [Local Multi-Agent Team & Migration → Build](../00-architecture/Local-Multi-Agent-Team-and-Migration-to-Build-2026-09-28.md) |
+| **Team constitution** | [Local Multi-Agent Team & Migration → Build](../01-AI-and-Agent-Runtime/Local-Multi-Agent-Team-and-Migration-to-Build-2026-09-28.md) |
 | **Related WO** | [WO-AGENT-2026-09-27](../06-development/Work-Orders/Complete/AgentContext_CanonicalHome_Work_Order_WO-AGENT-2026-09-27.md) |
 
 ---
