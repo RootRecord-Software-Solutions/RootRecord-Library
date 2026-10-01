@@ -117,8 +117,8 @@ Folder name: **Economy-Brief**, a subfolder of Reports. One capitalized name in 
 | `/home/rootrecord/old ollama/old skills/origin/ns/apps/core/crons/on_time/economy_brief.py` | Removed. Commit `27f7c442`, pushed to `online-safe-20260920`. |
 | `Old repos deleted and merged/Solar-Pacific-RootRecord-Server/reports/sort/economy-brief/` | Phase 4 archive of the gitignored tree, same in-repo path. |
 | `Old repos deleted and merged/Solar-Pacific-RootRecord-Server/origin/ns/apps/core/crons/on_time/economy_brief.py` | Phase 4 archive of the shim. |
-| `5 - RootRecord-Library/Documentation/00-architecture/Old-Repo-Migration-Matrix.md` | Row 51. Correct only after phase 4. |
-| `5 - RootRecord-Library/Documentation/00-architecture/G1-Scheduler-To-G3-Jobs-Map-2026-09-29.md` | `economy-brief` row. Correct only after phase 4. |
+| `5 - RootRecord-Library/Documentation/Old-Repo-Migration-Matrix.md` | Row 51. Correct only after phase 4. |
+| `5 - RootRecord-Library/Documentation/G1-Scheduler-To-G3-Jobs-Map-2026-09-29.md` | `economy-brief` row. Correct only after phase 4. |
 | `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Reports/README.md` | Status line. Correct only after phase 4. |
 
 ---
