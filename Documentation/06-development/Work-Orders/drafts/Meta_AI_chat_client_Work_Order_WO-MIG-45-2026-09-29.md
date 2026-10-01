@@ -118,7 +118,7 @@ Build only after Alexander accepts this draft and says to build. Until then, do 
 - Small test that proves the new behavior: from `Communications/MetaAI/scripts`, `python3 meta.py --check` does not call `prompt` and does not pip-install.
 - Shared old-repo files to leave: none. `operations/meta/meta.py` is the only file in that directory, and nothing else in the old repo imports it.
 - If the archive copy fails, do not delete.
-- After phase 4, add a short result note here (what landed, what was archived, what was removed on GitHub) and correct only matrix row 86 in `Documentation/00-architecture/Old-Repo-Migration-Matrix.md`.
+- After phase 4, add a short result note here (what landed, what was archived, what was removed on GitHub) and correct only matrix row 86 in `Documentation/Old-Repo-Migration-Matrix.md`.
 - Do not rewrite unrelated work orders. Do not promote this draft onto the active index.
 
 ---
