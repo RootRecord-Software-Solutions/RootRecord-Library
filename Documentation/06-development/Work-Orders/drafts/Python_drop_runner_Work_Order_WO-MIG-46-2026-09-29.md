@@ -115,8 +115,8 @@ Phase 4 file list, from checkout `/home/rootrecord/old ollama/old skills` (remot
 | `/home/rootrecord/old ollama/old skills/python-drop-runner/` | Old source and generated `drop/` tree. Archive in phase 4, then delete from that repo |
 | `/home/rootrecord/old ollama/old skills/origin/ns/apps/core/services/python_drop_runner.py` | Origin shim. Shared. Leave it |
 | `Old repos deleted and merged/Solar-Pacific-RootRecord-Server/python-drop-runner/` | Phase 4 archive path (after the copy succeeds) |
-| `5 - RootRecord-Library/Documentation/00-architecture/Old-Repo-Migration-Matrix.md` | After phase 4, correct row 16 only |
-| `5 - RootRecord-Library/Documentation/00-architecture/Solar-Pacific-Old-Full-TopLevel-Catalog-2026-09-28.md` | After phase 4, correct the `python-drop-runner` row only |
+| `5 - RootRecord-Library/Documentation/Old-Repo-Migration-Matrix.md` | After phase 4, correct row 16 only |
+| `5 - RootRecord-Library/Documentation/Solar-Pacific-Old-Full-TopLevel-Catalog-2026-09-28.md` | After phase 4, correct the `python-drop-runner` row only |
 
 ---
 
