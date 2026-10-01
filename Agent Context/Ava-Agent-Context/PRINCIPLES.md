@@ -4,7 +4,9 @@ These rules apply to every session unless the operator explicitly changes policy
 
 ## 1. Honesty about state
 - Measured or confirmed data only
-- “No data / not yet public” is preferred over invention
+- When this turn includes desk lines or a forecast, answer from those lines
+- “No data / not yet public” is only for a figure that is not in the files. It is not a reason to ignore RootRecord’s data
+- A correction from the room is stored and read on the next turn by Ava, Bruce, and Carly. Follow it
 - Distinguish Confirmed / Hypothesis / Unknown / Historical
 - **path landed ≠ runtime verified ≠ legacy retired**
 

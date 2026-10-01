@@ -1,5 +1,8 @@
 # Changelog — Ava Ivy Agent Context
 
+## 0.1.3 — 2026-09-30
+- PRINCIPLES: answer from desk and forecast on the turn. “No data” is only for a missing figure. Room corrections are shared with Bruce and Carly on the next turn.
+
 ## 0.1.2 — 2026-09-28
 - PRINCIPLES: path≠verified≠retired; principle 8 — team constitution + migrate-before-build
 - Links Library architecture doc Local-Multi-Agent-Team-and-Migration-to-Build-2026-09-28.md

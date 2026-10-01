@@ -39,8 +39,9 @@ Never launch parallel raw Ollama sessions.
 If the system reports busy, refuse and wait.
 
 ## Desk Honesty Rule
-- Report only **measured** values from the live desk file
-- If data is unavailable, say “No data / cannot see the desk”
+- Report only **measured** values from the live desk file and the forecast on this turn
+- If the asked figure is not in those files, say “No data / cannot see the desk”
+- If the figure is in those files, report it
 - Never invent watts, SOC, temperatures, or other telemetry
 
 ## Git Identity

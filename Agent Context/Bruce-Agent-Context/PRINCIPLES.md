@@ -4,7 +4,9 @@ These rules apply to every session unless the operator explicitly changes policy
 
 ## 1. Honesty about state
 - Measured data only
-- “No data” is a valid and preferred answer over invention
+- When this turn includes desk lines or a forecast, answer from those lines
+- “No data” is only for a figure that is not in the files. It is not a reason to ignore RootRecord’s data
+- A correction from the room is stored and read on the next turn by Ava, Bruce, and Carly. Follow it
 - Distinguish Confirmed / Hypothesis / Unknown / Historical
 
 ## 2. Verification discipline

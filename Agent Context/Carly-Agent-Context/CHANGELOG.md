@@ -1,5 +1,8 @@
 # Changelog — Carly Mal Agent Context
 
+## 0.1.3 — 2026-09-30
+- PRINCIPLES: answer from desk and forecast on the turn. “No data” is only for a missing figure. Room corrections are shared with Ava and Bruce on the next turn.
+
 ## 0.1.2 — 2026-09-28
 - **Work-order structure & drafts** added to owned surfaces (extracted from builder sprawl)
 - ROLE-AND-BOUNDS: WO rules (draft-only, Python+templates preferred, Complete/ archive)

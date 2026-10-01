@@ -1,5 +1,8 @@
 # Changelog — Bruce Monitor Agent Context
 
+## 0.1.2 — 2026-09-30
+- PRINCIPLES and desk honesty: answer from desk and forecast on the turn. “No data” is only for a missing figure. Room corrections are shared with Ava and Carly on the next turn.
+
 ## 0.1.1 — 2026-09-28
 - CONTEXT/REPOS.md: Pacific runtime org repo + Library
 - CONTEXT/INFRASTRUCTURE.md: Ecosystem Servers path; poller/stack/cloudflared monitor table
