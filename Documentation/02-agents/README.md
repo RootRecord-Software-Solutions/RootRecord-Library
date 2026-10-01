@@ -15,17 +15,28 @@ Documentation about RootRecord agents. **Canonical identity packs do not live he
 
 | Agent | Role | Pack |
 | --- | --- | --- |
-| **Ava Ivy** | Architect + public voice | [Ava-Agent-Context](../../Agent%20Context/Ava-Agent-Context/) |
+| **Ava Ivy** | Architect + public voice. Minecraft / RootMC personality | [Ava-Agent-Context](../../Agent%20Context/Ava-Agent-Context/) |
 | **Carly Mal** | Security, billing, honesty seal, WO structure | [Carly-Agent-Context](../../Agent%20Context/Carly-Agent-Context/) |
 | **Bruce** | Implement & operate | [Bruce-Agent-Context](../../Agent%20Context/Bruce-Agent-Context/) |
+| **Root Record Global Updater** | Factual data, observations, operational information, professional help desk | [Global-Updater-Agent-Context](../../Agent%20Context/Global-Updater-Agent-Context/) |
 
-Pipeline: **Ava → Carly → Bruce**.
+Council pipeline: **Ava → Carly → Bruce**. That pipeline is not the Global Updater.
+
+```text
+Ava Ivy
+→ Minecraft / RootMC
+→ personality-driven gamer/community agent
+
+Global Updater
+→ professional RootRecord Discord
+→ factual operational/data/help-desk agent
+```
 
 ## Boundary
 
-Library `Agent Context/` is the only editable home for who Ava, Bruce, and Carly are: identity, principles, bounds, durable workflow, and `CONTEXT/`.
+Library `Agent Context/` is the only editable home for who Ava, Bruce, Carly, and the Global Updater are: identity, principles, bounds, durable workflow, and `CONTEXT/`.
 
-Pacific may hold server implementation. It must not hold a second copy of that identity. `Communications/CouncilPersona/scripts/personas.py` reads `IDENTITY.md`, `ROLE-AND-BOUNDS.md`, `PRINCIPLES.md`, and `WORKFLOW.md` from this tree. There is no sync job.
+Pacific may hold server implementation. It must not hold a second copy of that identity. `Communications/CouncilPersona/scripts/personas.py` reads `IDENTITY.md`, `ROLE-AND-BOUNDS.md`, `PRINCIPLES.md`, and `WORKFLOW.md` from this tree, including `Global-Updater-Agent-Context`. There is no sync job. Telegram does not request the Global Updater voice.
 
 `CONTEXT/`, changelogs, and the handoff template stay here and are not injected into every Telegram turn (NPU context 4096).
 
