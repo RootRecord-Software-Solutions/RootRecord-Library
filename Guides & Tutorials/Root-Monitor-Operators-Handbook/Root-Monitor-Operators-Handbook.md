@@ -558,9 +558,9 @@ To change one, go to **Settings → Feature Flags**. Saving writes `~/.config/sy
 
 ![Sixteen placeholders; Telegram council replies open](media/14-migration.png)
 
-Sixteen items that are not in this panel yet, as of 30 September 2026, 02:35 HST. Placeholders only. No start buttons, no flags, no "migrate" action.
+The screenshot is the 02:35 HST capture. The list below is the 19:02 HST refresh. Placeholders only. No start buttons, no flags, no "migrate" action.
 
-**7 BLOCKED, 9 VERIFY PENDING.** Closed work orders are not listed.
+**7 BLOCKED, 7 VERIFY PENDING.** Fourteen items. Closed work orders are not listed. FLM own-session (passed 29 September, 22:16 HST) and Geology collect (poller cycle ok at 19:01 HST) left the list.
 
 | Item | State |
 | --- | --- |
@@ -569,8 +569,6 @@ Sixteen items that are not in this panel yet, as of 30 September 2026, 02:35 HST
 | Slack / communications surface | VERIFY PENDING |
 | Security timelapse compile | VERIFY PENDING |
 | Energy actuating actions (arm/disarm, AC) | VERIFY PENDING |
-| FLM / NPU own-session fix | VERIFY PENDING |
-| Geology (earthquake) domain | VERIFY PENDING |
 | Weather retention apply | VERIFY PENDING |
 | Public status / solar board | VERIFY PENDING |
 | Public site foundation + website repo sync | BLOCKED |
@@ -585,7 +583,7 @@ Click a name in the inner sidebar. You get the work-order id, a short note, **Op
 
 ![Discord bot placeholder](media/15-migration-discord.png)
 
-Discord, as an example: still the migration gate. No Discord runtime on Pacific. A fresh token is required before any enable. The page tells you not to load a token from archive history. The button opens `WO-COM-002-Discord-Bot-Credential-Rotation.md`.
+Discord, as an example: still the migration gate. The poller is on Pacific and stays off. A fresh token is required before any enable. The page tells you not to load a token from archive history. The button opens `WO-COM-002-Discord-Bot-Credential-Rotation.md`.
 
 Red **BLOCKED** and amber **VERIFY PENDING** are labels, not actions. A real page replaces the placeholder when that item lands. The list lives in `Apps/Control-Panel/Lib/rr_migration.json`.
 
