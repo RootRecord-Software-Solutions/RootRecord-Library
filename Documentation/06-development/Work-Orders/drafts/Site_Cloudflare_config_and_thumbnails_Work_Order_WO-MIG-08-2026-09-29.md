@@ -6,7 +6,7 @@
 | **Date** | 2026-09-29 (HST) |
 | **Status** | BUILT — manifest, checker, and archive landed. DNS not changed. Not on the active index. |
 | **Owner** | RootRecord |
-| **Related** | Agent 08. Depends on 7. Public website checkout. Later: 9. Cloudflare workers. Template: `Documentation/01-operations/templates/TEMPLATE Work Order.md`. Globe: `Documentation/08-ideas/2026-09-29-globe-landing-overlay.md`. Staging: `Documentation/00-architecture/Website-RootRecord-Cloud-Staging.md`. |
+| **Related** | Agent 08. Depends on 7. Public website checkout. Later: 9. Cloudflare workers. Template: `Documentation/01-operations/templates/TEMPLATE Work Order.md`. Globe: `Documentation/08-ideas/2026-09-29-globe-landing-overlay.md`. Staging: `Documentation/Website-RootRecord-Cloud-Staging.md`. |
 
 **Scope:** Routing and thumbnail assets for the one Vercel site. Add a local route manifest and an on-demand checker under `Communications/Site`. Archive the old avaivy.cloud skin unchanged. Do not apply that skin, do not change DNS or tunnels, and do not import generated images or HTML into the live Folders. This file is the before-documentation. It is not on the active index.
 
@@ -113,7 +113,7 @@ Build order, after Alexander accepts this draft and says to build. Do not start 
 | `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Communications/network/cloudflare/` | Live desk tunnel. Read-only. |
 | `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Communications/website/` | Vercel staging clone. Read-only. |
 | `3 - RootRecord-Website` | One Vercel app, owned by agent 07. Empty today. Do not edit. |
-| `5 - RootRecord-Library/Documentation/00-architecture/Website-RootRecord-Cloud-Staging.md` | Staging record. Read-only until phase 5, and only if routing changed. |
+| `5 - RootRecord-Library/Documentation/Website-RootRecord-Cloud-Staging.md` | Staging record. Read-only until phase 5, and only if routing changed. |
 | `5 - RootRecord-Library/Documentation/08-ideas/2026-09-29-globe-landing-overlay.md` | Visual direction. Read-only. |
 | GitHub `rootrecordsoftwaresolutions/old` `web/cloudflare-config.yml`, `web/cloudflare-avaivy.ingress.yml`, `web/cloudflare/`, `Thumbnails/`, and the skin files in task 4 | Old source. Phase 4 archive, then delete those paths only. |
 | `Old repos deleted and merged/old/` | Phase 4 archive root. Preserve repo-relative paths. |
