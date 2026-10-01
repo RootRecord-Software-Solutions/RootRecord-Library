@@ -65,7 +65,7 @@ Folder name: **DirectoryBrowser**. It belongs in Security, so it is a subfolder 
 5. No other function has to exist before this build. There is no dependency Folder to wait on.
 6. Smoke test against a temp root under `/tmp`, not the live Database and not `/home`: one ordinary file and one symlink that points outside the temp root. The CLI lists the file and omits or refuses the symlink. Confirm importing the package does not bind a socket.
 7. After that test passes: copy only `operations/cronologicals/always-on/directory.enabled` and `web/sites/avaivy.cloud/directory/directory.js` to `Old repos deleted and merged/old/`, keeping the path each had inside `old`. Generated data that lived beside that source goes into the archive too, and still does not go into the live Folders. If the archive copy fails, do not delete. Then delete those same two files from the old repo on this machine and on GitHub branch `cursor/radio-idle-obs-gates`. Commit and push. Do not force-push. Do not delete the GitHub repository. Leave the shared files named in §4.
-8. Update this work order with what landed, the archive path, and the GitHub deletion. Correct only row 83 of `Documentation/00-architecture/Old-Repo-Migration-Matrix.md` and the broadcast sentence in that file's blockers list.
+8. Update this work order with what landed, the archive path, and the GitHub deletion. Correct only row 83 of `Documentation/Old-Repo-Migration-Matrix.md` and the broadcast sentence in that file's blockers list.
 
 ---
 
@@ -104,7 +104,7 @@ Folder name: **DirectoryBrowser**. It belongs in Security, so it is a subfolder 
 | `operations/broadcast.py` and `operations/cronologicals/always-on/broadcast.py` | Shared. Leave them. |
 | `Old repos deleted and merged/old/operations/cronologicals/always-on/directory.enabled` | Archive path after phase 4. |
 | `Old repos deleted and merged/old/web/sites/avaivy.cloud/directory/directory.js` | Archive path after phase 4. |
-| `Documentation/00-architecture/Old-Repo-Migration-Matrix.md` | Row 83 and the broadcast blocker sentence, after phase 4. |
+| `Documentation/Old-Repo-Migration-Matrix.md` | Row 83 and the broadcast blocker sentence, after phase 4. |
 
 ---
 
