@@ -79,7 +79,7 @@ Do not start these until Alexander accepts this draft and says to build.
 7. Proof test, one state: `python3 "1 - Servers/1 - RootRecord-Pacific-Solar-Server/Weather/US-States/scripts/fetch_us_states.py" --state WY --force`. Pass means `us-last.json` has a Wyoming Open-Meteo row.
 8. After that test passes, copy the three old files listed in section 5 into `/home/rootrecord/RootRecord-Ecosystem/Old repos deleted and merged/old/`, keeping each path from inside repo `old`. Generated data that lived beside that source goes into this archive too, and still does not go into the live Folders. If the archive copy fails, stop and do not delete.
 9. After the archive copy is on disk, delete those same three files from repo `old` on this machine and on GitHub. Commit that deletion and push it. Do not force-push. Do not delete the GitHub repository.
-10. Update this work order with what landed, the archive path, the GitHub deletion, and the new status. Correct matrix row 43 in `5 - RootRecord-Library/Documentation/00-architecture/Old-Repo-Migration-Matrix.md` only.
+10. Update this work order with what landed, the archive path, the GitHub deletion, and the new status. Correct matrix row 43 in `5 - RootRecord-Library/Documentation/Old-Repo-Migration-Matrix.md` only.
 
 ---
 
@@ -117,7 +117,7 @@ Do not start these until Alexander accepts this draft and says to build.
 | `operations/weather/README.md` | Old source note for this function only. Phase 4 archive, then remove from repo `old`. |
 | `operations/cronologicals/since-last-fire/every-hour/fetch-us-weather.py` | Old hourly wrapper. Phase 4 archive, then remove from repo `old`. |
 | `config/locations/global-locations.json` (repo `old`) | Shared with Geology and later location pollers. Leave it. |
-| `5 - RootRecord-Library/Documentation/00-architecture/Old-Repo-Migration-Matrix.md` | Phase 5: correct row 43 only. |
+| `5 - RootRecord-Library/Documentation/Old-Repo-Migration-Matrix.md` | Phase 5: correct row 43 only. |
 | `/home/rootrecord/RootRecord-Ecosystem/Old repos deleted and merged/old/` | Phase 4 archive root. Keep the old in-repo paths. |
 
 ---
