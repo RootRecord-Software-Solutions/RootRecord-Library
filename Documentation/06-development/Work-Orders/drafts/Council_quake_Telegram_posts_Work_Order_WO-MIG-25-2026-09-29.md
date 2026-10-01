@@ -114,9 +114,9 @@ Do not start these until Alexander accepts this draft and says to build.
 | `/home/rootrecord/old ollama/old skills/council/council-quake/` | Old function. Archive, then delete these paths only. |
 | `council/council-telegram/scripts/notify.py` | Shared. Leave in the old repo. |
 | `council/council-telegram/scripts/report_cast.py` | Shared. Leave in the old repo. |
-| `5 - RootRecord-Library/Documentation/00-architecture/Old-Repo-Migration-Matrix.md` | Phase 5 only: correct row 6. |
-| `5 - RootRecord-Library/Documentation/00-architecture/G1-Scheduler-To-G3-Jobs-Map-2026-09-29.md` | Phase 5 only: correct the `council-quake` line. |
-| `5 - RootRecord-Library/Documentation/00-architecture/Geology-Domain-Ownership-Kilauea-Earthquakes-2026-09-28.md` | Phase 5 only: correct the “not ported” council-quake mention. |
+| `5 - RootRecord-Library/Documentation/Old-Repo-Migration-Matrix.md` | Phase 5 only: correct row 6. |
+| `5 - RootRecord-Library/Documentation/G1-Scheduler-To-G3-Jobs-Map-2026-09-29.md` | Phase 5 only: correct the `council-quake` line. |
+| `5 - RootRecord-Library/Documentation/Geology-Domain-Ownership-Kilauea-Earthquakes-2026-09-28.md` | Phase 5 only: correct the “not ported” council-quake mention. |
 
 ---
 
