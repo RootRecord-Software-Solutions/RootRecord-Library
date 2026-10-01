@@ -1,7 +1,7 @@
 # CouncilPersona
 
-The empty Pacific shell was removed on 2026-09-30. The chat loader was added later the same day.
+Not an identity pack.
 
-Runtime prompts and `system_for` live at `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Communications/CouncilPersona/`. This file is not the persona text.
+Pacific `Communications/CouncilPersona/scripts/personas.py` reads Library `Agent Context/{Ava,Bruce,Carly}-Agent-Context/` at reply time. It does not keep a prompt copy, and nothing syncs the packs onto the server.
 
-Canonical packs stay `Agent Context/{Ava,Bruce,Carly}-Agent-Context/`. The `*-telegram` Modelfiles stay the Ollama fallback. NPU sampling settings stay in `2 - RootRecord-Database/AI/FLM/Personas/`.
+The short `prompts/*.md` files that briefly lived in that folder were a second editable persona. They are gone from the working tree. Git history still has them. Do not restore them as a source of truth.

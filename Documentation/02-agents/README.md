@@ -5,7 +5,7 @@ Documentation about RootRecord agents. **Canonical identity packs do not live he
 | Field | Value |
 | --- | --- |
 | **Canonical packs** | [`Agent Context/`](../../Agent%20Context/) at Library repo root |
-| **Not a pack** | [CouncilPersona-shell.md](CouncilPersona-shell.md) — pointer only. Chat prompts live in Pacific `Communications/CouncilPersona/`. |
+| **Not a pack** | [CouncilPersona-shell.md](CouncilPersona-shell.md) — Pacific loader only. It reads these packs. It does not store them. |
 | **Team constitution** | [Local Multi-Agent Team & Migration → Build](../01-AI-and-Agent-Runtime/Local-Multi-Agent-Team-and-Migration-to-Build-2026-09-28.md) |
 | **Related WO** | [WO-AGENT-2026-09-27](../06-development/Work-Orders/Complete/AgentContext_CanonicalHome_Work_Order_WO-AGENT-2026-09-27.md) |
 
@@ -20,6 +20,16 @@ Documentation about RootRecord agents. **Canonical identity packs do not live he
 | **Bruce** | Implement & operate | [Bruce-Agent-Context](../../Agent%20Context/Bruce-Agent-Context/) |
 
 Pipeline: **Ava → Carly → Bruce**.
+
+## Boundary
+
+Library `Agent Context/` is the only editable home for who Ava, Bruce, and Carly are: identity, principles, bounds, durable workflow, and `CONTEXT/`.
+
+Pacific may hold server implementation. It must not hold a second copy of that identity. `Communications/CouncilPersona/scripts/personas.py` reads `IDENTITY.md`, `ROLE-AND-BOUNDS.md`, `PRINCIPLES.md`, and `WORKFLOW.md` from this tree. There is no sync job.
+
+`CONTEXT/`, changelogs, and the handoff template stay here and are not injected into every Telegram turn (NPU context 4096).
+
+Database `AI/FLM/Personas/*.json` and the `*-telegram` Modelfiles are old runtime text plus sampling settings. They are not a place to edit identity. `agents/{ava-ivy,bruce-monitor,carly-mal}/` is not on the live Pacific tree. Leftover packets under old skills checkouts are historical.
 
 ## Interaction contracts
 

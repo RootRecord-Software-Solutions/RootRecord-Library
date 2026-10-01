@@ -4,7 +4,7 @@ Date: 2026-09-30.
 
 ## Decision
 
-The relay sets `RR_NPU_ONLY=1`, `RR_NPU_PERSONA=1`, and `FLM_MODEL` default `llama3.2:3b`. Context stays 4096. The model loads for a reply and then stops. Personas are JSON files under Database `AI/FLM/Personas/`, not one generic prompt.
+The relay sets `RR_NPU_ONLY=1`, `RR_NPU_PERSONA=1`, and `FLM_MODEL` default `llama3.2:3b`. Context stays 4096. The model loads for a reply and then stops. Who the agent is comes from Library `Agent Context/`, read by `Communications/CouncilPersona/scripts/personas.py` into `RR_PERSONA_SYSTEM`. Database `AI/FLM/Personas/*.json` supplies temperature, max tokens, and top_p. The `system` string in those JSON files is an old Modelfile copy, not the identity.
 
 ## Reason
 
