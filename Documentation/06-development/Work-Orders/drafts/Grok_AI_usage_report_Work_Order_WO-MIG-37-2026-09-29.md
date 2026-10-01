@@ -45,7 +45,7 @@ Folder name in all three places: **AI-Usage**. It sits inside the existing Repor
 | Local AI report | `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Reports/ai_processing_report.py`. Stdlib. Reads `Logs/AI/Inference/inference_current.jsonl`. Default output `RR_AI_REPORT_OUT`, else `test-reports/AI-Processing/ai-processing-report_current.md`. Enhance this file. Do not replace it. |
 | Hourly job | `jobs.py` id `ai_processing_report_hourly`. Enabled only when `RR_AI_REPORT=1` at poller start. Leave that gate off. |
 | Inference log | `2 - RootRecord-Database/Logs/AI/Inference/`. Metadata only. Leave it. |
-| Library page | `5 - RootRecord-Library/Documentation/00-architecture/AI-Processing-Logs-and-Reports.md`. Describes the JSONL report. Phase 5 corrects section 3 only, after the spend section exists. |
+| Library page | `5 - RootRecord-Library/Documentation/AI-Processing-Logs-and-Reports.md`. Describes the JSONL report. Phase 5 corrects section 3 only, after the spend section exists. |
 | Matrix | Row 84 is **partial**. Grok key path is a secret. Cloud spend is not ported. |
 | Old ledger | Archived at `Old repos deleted and merged/old/operations/system-tools/ai_usage.py` and `ai_usage_report.py`. Removed from GitHub repo `old` (`aea8b73`). |
 | Old Grok caller | Archived at `Old repos deleted and merged/old/operations/api-ai-tasks/ecosystem_report.py`. Removed from GitHub (`aea8b73`). Not copied into Pacific. |
@@ -124,8 +124,8 @@ Do not start these until Alexander accepts this draft and says to build.
 | `operations/system-tools/ai_usage.py` | Old source. Phase 4 archive, then remove from repo `old`. |
 | `operations/system-tools/ai_usage_report.py` | Old source. Phase 4 archive, then remove from repo `old`. |
 | `operations/api-ai-tasks/ecosystem_report.py` | Old spend script. Phase 4 archive, then remove from repo `old`. Not copied into Pacific. |
-| `5 - RootRecord-Library/Documentation/00-architecture/Old-Repo-Migration-Matrix.md` | Phase 5: correct row 84 only. |
-| `5 - RootRecord-Library/Documentation/00-architecture/AI-Processing-Logs-and-Reports.md` | Phase 5: correct section 3 only, after the spend section exists. |
+| `5 - RootRecord-Library/Documentation/Old-Repo-Migration-Matrix.md` | Phase 5: correct row 84 only. |
+| `5 - RootRecord-Library/Documentation/AI-Processing-Logs-and-Reports.md` | Phase 5: correct section 3 only, after the spend section exists. |
 
 ---
 
