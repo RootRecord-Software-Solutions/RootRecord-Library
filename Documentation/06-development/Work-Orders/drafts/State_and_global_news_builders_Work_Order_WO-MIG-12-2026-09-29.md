@@ -116,7 +116,7 @@ Build only after Alexander accepts this draft and says to build. Until then, do 
 | `2 - RootRecord-Database/.gitignore` | Extend so new last-JSON files stay out of git. |
 | `3 - RootRecord-Website` | News route, only after agent 07. Pause and name that function if the folder is empty. |
 | `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Automations/scripts/jobs.py` | Shared. Proposed block is below. Do not edit during a collision. |
-| `5 - RootRecord-Library/Documentation/00-architecture/Old-Repo-Migration-Matrix.md` | Phase 5: correct row 80 only. |
+| `5 - RootRecord-Library/Documentation/Old-Repo-Migration-Matrix.md` | Phase 5: correct row 80 only. |
 | `Old repos deleted and merged/old/` | Phase 4 archive. Preserve the path each file had inside the old repo. |
 
 G0 sources read for this draft (not copied yet): `operations/news/build_state_news.py`, `build_global_news.py`, `state_portals.json`, `state_event_sources.json`, and the thin `operations/news/<state>/news.py` wrappers.
