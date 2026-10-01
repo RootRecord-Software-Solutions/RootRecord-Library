@@ -1,6 +1,6 @@
 # 05 — Public surface
 
-The public page is [Website/Home](../../../1%20-%20Servers/1%20-%20RootRecord-Pacific-Solar-Server/Website/Home/README.md) in the Pacific tree, published to [RootRecord-Website](https://github.com/RootRecord-Software-Solutions/RootRecord-Website). AWS relays globe data and last-known operation JSON. It does not host the page.
+The public page is [Website/Home](../../../1%20-%20Servers/1%20-%20RootRecord-Pacific-Solar-Server/Website/Home/README.md) in the Pacific tree, published to [RootRecord-Website](https://github.com/RootRecord-Software-Solutions/RootRecord-Website). Vercel hosts that page. AWS still answers `www` only because DNS has not moved. The globe data contract is [HANDOFF-vercel-homepage-2026-09-30.md](../../../1%20-%20Servers/1%20-%20RootRecord-Pacific-Solar-Server/Website/HANDOFF-vercel-homepage-2026-09-30.md).
 
 | Field | Value |
 | --- | --- |
