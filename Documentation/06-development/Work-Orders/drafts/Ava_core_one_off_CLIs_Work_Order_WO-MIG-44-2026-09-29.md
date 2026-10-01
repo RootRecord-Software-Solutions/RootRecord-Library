@@ -85,7 +85,7 @@ No new Folder. The function is not installed. Same answer in all three places: n
    - `operations/broadcast.py` and any live cronologicals
    - Any other file under `tools/` besides `build-global-routes.py`
 5. Commit that deletion on GitHub `old`, branch `cursor/radio-idle-obs-gates`, and push. No force-push. Do not delete the GitHub repository. Do not delete the new archive, and do not delete unrelated files already under `Old repos deleted and merged/old/`.
-6. Update this work order with what landed, the archive path, and the GitHub commit. Correct only row 87 of `Documentation/00-architecture/Old-Repo-Migration-Matrix.md`. Do not rewrite other work orders.
+6. Update this work order with what landed, the archive path, and the GitHub commit. Correct only row 87 of `Documentation/Old-Repo-Migration-Matrix.md`. Do not rewrite other work orders.
 
 ---
 
@@ -123,7 +123,7 @@ No new Folder. The function is not installed. Same answer in all three places: n
 | `operations/system-tools/github-auto-push.py`, `GITHUB-AUTO-PUSH.txt`, `ai_usage.py`, `ai_usage_report.py`, `new 1.txt`, `AGENTS.md`, `screenshot.sh.disabled` | Shared or other functions. Leave them. |
 | `operations/broadcast.py` | File-browser agent. Leave it. |
 | `Old repos deleted and merged/old/` | Archive root after phase 4. Same relative paths as in `old`. |
-| `Documentation/00-architecture/Old-Repo-Migration-Matrix.md` | Row 87 only, after phase 4. |
+| `Documentation/Old-Repo-Migration-Matrix.md` | Row 87 only, after phase 4. |
 
 ---
 
