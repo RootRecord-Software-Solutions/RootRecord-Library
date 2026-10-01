@@ -118,8 +118,8 @@ Build only after Alexander accepts this draft and says to build. Until then, do 
 | `/home/rootrecord/old ollama/old skills/state/store/admob-report.json` | Old generated last file. Archive, then remove |
 | `apps.core` | Shared. Leave it |
 | `Old repos deleted and merged/Solar-Pacific-RootRecord-Server/` | Phase 4 archive, original relative paths |
-| `Documentation/00-architecture/Old-Repo-Migration-Matrix.md` | Row 71. Correct only after phase 4 |
-| `Documentation/00-architecture/G1-Scheduler-To-G3-Jobs-Map-2026-09-29.md` | `adsense-eod / admob-eod` row. Correct only after phase 4 |
+| `Documentation/Old-Repo-Migration-Matrix.md` | Row 71. Correct only after phase 4 |
+| `Documentation/G1-Scheduler-To-G3-Jobs-Map-2026-09-29.md` | `adsense-eod / admob-eod` row. Correct only after phase 4 |
 | `Documentation/08-ideas/2026-09-29-globe-landing-overlay.md` | Visual direction for the status card |
 
 ---
