@@ -69,7 +69,8 @@ The state aggregator writes schema 2: domains, drift, visibility, and projection
 1. Keep verify green on the live desk.
 2. Decide whether to update the `jobs.py` header so it matches the relay, or leave the drift visible.
 3. Add source domains still marked unknown (incident store, root monitor, per-job last result).
-4. Do not start the execution broker, a website, or a second relay unless Alexander says so.
+4. The execution broker refuses restarts. The poller supervisor already recovers the relay and the weather poller. Do not unlock `restart_known_service` unless Alexander says so.
+5. Do not start a website or a second relay unless Alexander says so.
 
 ## Do not change
 

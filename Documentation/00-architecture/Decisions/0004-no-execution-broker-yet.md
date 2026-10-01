@@ -4,11 +4,13 @@ Date: 2026-09-30.
 
 ## Decision
 
-`System/config/program-registry.json` lists programs, side effects, and gates. Every entry has `agent_launchable: false`. The snapshot field `execution_broker` is `not_built`.
+`System/config/program-registry.json` lists programs, side effects, and gates. Every entry has `agent_launchable: false`.
+
+On 2026-09-30 a refuse-by-default broker was added at `Automations/execution/execution-broker.py`. It may answer read capabilities from the snapshot. It refuses `restart_known_service`. The poller job `service_supervisor` remains the only automatic restart for the weather poller and the council relay.
 
 ## Reason
 
-The agents need to know what exists and what they must not touch before they can start anything. A persona instruction is not permission.
+The agents need to know what exists and what they must not touch before they can start anything. A persona instruction is not permission. The supervisor already implements observe, restart, cap, and BLOCK. A second restarter in the model is the bug.
 
 ## Do not remove without reconsidering
 
