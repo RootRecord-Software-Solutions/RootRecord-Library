@@ -49,7 +49,7 @@ Folder name: **Website**. This function is the one Vercel app. It does not get a
 | --- | --- |
 | Folder 3 | `3 - RootRecord-Website/` checkout of RootRecord-Cloud @ `84dec4a`. Ecosystem root `.gitignore` ignores it. |
 | Newer app, not a checkout | `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Communications/website/RootRecord-Cloud/` — source tree, no `.git`, gitignored by the Pacific `.gitignore` |
-| Staging notes | `Communications/website/README.md` and `.env.example` (names only). Library: `Documentation/00-architecture/Website-RootRecord-Cloud-Staging.md`. Staging SHA noted there: `84dec4a` |
+| Staging notes | `Communications/website/README.md` and `.env.example` (names only). Library: `Documentation/Website-RootRecord-Cloud-Staging.md`. Staging SHA noted there: `84dec4a` |
 | Old site | `~/.ollama/skills/website/site` — `RootRecord-Website` @ `ee3d9c1`. `repos.conf` row `website` is disabled (`0`) and still points at this path |
 | Old backgrounds | `/home/rootrecord/old ollama/old skills/site-backgrounds` |
 | Ecosystem ignore | No root `.gitignore`. `.git/info/exclude` is empty. Folder 3 is not ignored |
@@ -122,7 +122,7 @@ Build only after Alexander accepts this draft and says to build. No earlier Fold
 | `~/.ollama/skills/website/site` | Old RootRecord-Website skin. Do not copy into folder 3. Do not reuse its remote URL. |
 | `/home/rootrecord/old ollama/old skills/site-backgrounds` | Old backgrounds. Archive unchanged. Do not apply. |
 | `5 - RootRecord-Library/Archive/Website-Themes/` | Theme archive. Out of the Vercel build. |
-| `5 - RootRecord-Library/Documentation/00-architecture/Website-RootRecord-Cloud-Staging.md` | Says the site lives under Communications. Correct after phase 4. |
+| `5 - RootRecord-Library/Documentation/Website-RootRecord-Cloud-Staging.md` | Says the site lives under Communications. Correct after phase 4. |
 | `5 - RootRecord-Library/Documentation/08-ideas/2026-09-29-globe-landing-overlay.md` | Visual direction. Not a restyle task for this function. |
 | `/home/rootrecord/master/master-key.env` | No new keys from this function. |
 | `Old repos deleted and merged/<old-repo-name>/` | Phase 4 archive. Deletion only after this copy is on disk. |
@@ -159,7 +159,7 @@ Build only after Alexander accepts this draft and says to build. No earlier Fold
 
 Left in place and named: `~/.ollama/skills/website/site` (`RootRecord-Website`), `public-chat`, `public-edge`, `public-finance`, `public-health`, and `websites` (agents 8, 9, and 10). The Communications `RootRecord-Cloud/` tree was removed 2026-09-30 after sign-off. Folder 3 at `84dec4a` was checked first and was left in place.
 
-Corrected: `Documentation/00-architecture/Website-RootRecord-Cloud-Staging.md`, `Communications/website/README.md`, `Communications/README.md`. No unrelated work orders were rewritten. No Vercel deploy. `repos.conf` `website` row stays disabled. `jobs.py` was not edited.
+Corrected: `Documentation/Website-RootRecord-Cloud-Staging.md`, `Communications/website/README.md`, `Communications/README.md`. No unrelated work orders were rewritten. No Vercel deploy. `repos.conf` `website` row stays disabled. `jobs.py` was not edited.
 
 ---
 
