@@ -42,9 +42,9 @@ It gives operators and agents a durable place to find the same architecture, con
 | **[RootRecord-Library](https://github.com/RootRecord-Software-Solutions/RootRecord-Library)** | Durable docs, agent context & work orders |
 | **[RootRecord-Pacific-Solar-Server](https://github.com/RootRecord-Software-Solutions/RootRecord-Pacific-Solar-Server)** | Primary Pacific runtime |
 | **[RootRecord-Database](https://github.com/RootRecord-Software-Solutions/RootRecord-Database)** | Data, media & log layout |
-| **[US-Mainland-Server](https://github.com/rootrecordsoftwaresolutions/US-Mainland-Server)** | Continuity node |
-| **[RootRecord-Website](https://github.com/rootrecordsoftwaresolutions/RootRecord-Website)** | Public web surface |
-| **[RootRecord-Weather-Database](https://github.com/rootrecordsoftwaresolutions/RootRecord-Weather-Database)** | Hawaiʻi weather data & media |
+| **US Mainland Server** | `RootRecord-Ecosystem/1 - Servers/2 - RootRecord-US-Mainland-Server/` continuity node |
+| **Website surface** | `RootRecord-Ecosystem/1 - Servers/1 - RootRecord-Pacific-Solar-Server/Website/` |
+| **Weather data** | `RootRecord-Ecosystem/2 - RootRecord-Database/Weather/` |
 
 Historical and mirror repositories remain useful for lineage and inventory; active canonical org work belongs in the appropriate current repository.
 
