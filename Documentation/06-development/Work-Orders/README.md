@@ -111,6 +111,8 @@ Not migrated  Root Monitor list is 16 open items (7 BLOCKED, 9 VERIFY PENDING). 
 Next      Documentation/01-operations/2026-09-30-whats-left-for-alexander.md
 ```
 
+**Not migrated refresh — 2026-09-30 19:02 HST.** Root Monitor is 14 open items (7 BLOCKED, 7 VERIFY PENDING). FLM own-session left the list (PASS 2026-09-29 22:16). Geology collect left the list (poller cycle ok at 19:01). Timelapse hours 12–18 compiled. Delta 2 read 74% SOC at 18:59. The G2 checkout sits at `Old repos deleted and merged/ollama-skills-g2-2026-09-30` and is not retired.
+
 ---
 
 ## Rules

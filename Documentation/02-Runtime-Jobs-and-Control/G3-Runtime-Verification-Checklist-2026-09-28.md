@@ -237,3 +237,14 @@ Supersedes the NPU-default and "replies off" bullets in the 2026-09-29 precondit
 | Canonical state | `System/status/rootrecord-state.json` plus agent/public/slice projections. Not auto-committed. | `state-aggregate.py`, Decisions/0005 |
 | Execution | Broker answers reads and refuses restarts and agent builds. `cursor_api` ships off. Poller `service_supervisor` still recovers weather and the relay. | `Automations/execution/`, WO-SRV-RELAY, Decision 0006 |
 | Continuity | `Documentation/01-operations/HANDOFF.md`. Desk check: `bash verify.sh` from the ecosystem root. | HANDOFF |
+
+## Status refresh — 2026-09-30 19:02 HST
+
+| Row | State | Evidence |
+| --- | --- | --- |
+| Not migrated list | 14 open (7 BLOCKED, 7 VERIFY PENDING). FLM own-session removed (PASS 2026-09-29 22:16). Geology collect removed (poller cycle ok). | `Apps/Control-Panel/Lib/rr_migration.json` |
+| Geology collect | Poller job `geology_collect` cycling. Last file ok at 19:01 HST (Kīlauea WATCH, Mauna Loa NORMAL). | `Logs/Automations/Archive/automations_2026-09-30_1900.log`, `Geology/collector-last.json` |
+| Timelapse | hour_12.mp4 through hour_18.mp4 written today. Interval still 1 second. | `2 - RootRecord-Database/Media/Timelapses/video_chunks/` |
+| Energy reads | River 2 Pro 93% SOC at 19:02 (BLE and cloud). Delta 2 74% SOC at 18:59 (BLE). Actuation still unsigned. | `Energy/samples/read-river2pro-20260930-190212.json`, `read-delta2-20260930-185935.json` |
+| G2 skills checkout | `~/.ollama/skills` is Ollama's again. Checkout HEAD `6483586` is under `Old repos deleted and merged/ollama-skills-g2-2026-09-30`. Skills sync row off. Not retired. | `Github/scripts/repos.conf` |
+| NOAA homepage | Bot-check failure still in the weather log at 18:41 HST. Geology collect did not depend on it. | `Weather/Hawai'i/logs/weather-poller.log` |
