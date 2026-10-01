@@ -73,7 +73,7 @@ Pacific = solar/ops/agents runtime. **Minecraft and desktop apps are separate pr
 | [RootRecord-Core-Node](https://github.com/rootrecordsoftwaresolutions/RootRecord-Core-Node) | private | Core node |
 | [RootRecord-Core-Ops](https://github.com/rootrecordsoftwaresolutions/RootRecord-Core-Ops) | private | Developer/operator desk |
 | [RootRecord-Core-Processor](https://github.com/rootrecordsoftwaresolutions/RootRecord-Core-Processor) | private | 24/7 operations host |
-| [RootRecord-Cloud](https://github.com/rootrecordsoftwaresolutions/RootRecord-Cloud) | private | Cloud surface |
+| [RootRecord-Cloud](https://github.com/rootrecordsoftwaresolutions/RootRecord-Cloud) | private | Old Vercel app. Project deleted 2026-09-30. Not the public page |
 
 ### 4.3 RootMC / web product surfaces (not Paper plugins)
 

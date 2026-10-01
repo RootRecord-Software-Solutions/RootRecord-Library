@@ -53,35 +53,45 @@ Listed in Pacific `Communications/website/.env.example`. Real values belong only
 | Auto-sync risk | Every site edit churns Pacific commits | Nested `.git` excluded **before** clone (else `git add -A` would record an embedded gitlink) |
 | Existing folder | `Communications/website/` was **empty** (created 13:28 HST today) | Nothing to move or delete; README + `.env.example` tracked beside the clone |
 
-Pacific precedent: `us-mainland-server/` was excluded from Pacific as its own repo, and `repos.conf` already models the site as a separate repo (`website` row, disabled). Order used: `.gitignore` entry → `git check-ignore` verified → `git clone`.
+Pacific precedent that day: `us-mainland-server/` was excluded from Pacific as its own repo, and `repos.conf` then had a disabled `website` row. That row is enabled now and publishes `Website/Home/`. Order used: `.gitignore` entry → `git check-ignore` verified → `git clone`.
 
 ## Build / smoke (details in the test record)
 
 `npm ci --ignore-scripts` 30 packages in 8 s (506 MB `node_modules`); `npm run build` 33 s wall, compiled + type-checked, **293 static pages**, First Load JS 103–142 kB; min MemAvailable 5.7 GB. `next start` on 127.0.0.1:3099 for ~5 s: `/`, `/blog`, `/status` 200; `/api/not-allowed` 404 (allowlist works); `/api/health` **530** passed through from `origin.avaivy.cloud` → server stopped, port closed. The build did not modify any tracked file in the clone.
 
-## Live-surface findings (read-only)
+## Live-surface findings (read-only, 2026-09-29)
+
+These four findings are that day's read. The Vercel project was deleted 2026-09-30. `www.rootrecord.cloud` is the AWS globe. The public page is Pacific `Website/Home/`.
 
 1. `https://root-record-cloud.vercel.app` → **200** (Vercel site up).
 2. `https://rootrecord.cloud` → **301 → `https://www.rootrecord.cloud`** → **530 (Cloudflare 1033)**. `www.rootrecord.cloud` is routed to the **AWS Network Globe tunnel** (`US-Mainland-Server/mirror/.cloudflared/config-globe.yml`), whose connector is down (see [US-Mainland-Server](./US-Mainland-Server.md)). So the public domain does not reach the Vercel site today, contrary to `AGENTS.md`.
 3. `origin.avaivy.cloud` → **530**: no connector; every desk-data panel on the live site shows `OFFLINE` (by design, no invented numbers).
 4. The desk tunnel (`cloudflared` PID 105450) serves `rootserver.rootrecord.cloud` → poller `:8799`: `/health` 200 (plain-text ENERGY line, includes a Database filesystem path), `/api/health` and `/api/status` 404 — it does **not** implement the `/api/*` JSON contract the site expects, so `AVA_ORIGIN_URL` cannot simply be repointed there.
 
-## Auto-sync (not changed)
+## Auto-sync
 
-`repos.conf` row `website 0 mirror /home/rootrecord/.ollama/skills/website/site rootrecordsoftwaresolutions/RootRecord-Website origin` refers to a **different** repo (RootRecord-Website) and a G2 path. If Alexander wants desk edits of this site to sync, the row would be:
+The disabled `website` row and the proposed `cloud` row below were the 2026-09-29 recommendation. Do not add that `cloud` row. Do not clone `RootRecord-Cloud`.
+
+The catalog row that is on now is:
 
 ```text
-cloud	0	inplace	/home/rootrecord/RootRecord-Ecosystem/1 - Servers/1 - RootRecord-Pacific-Solar-Server/Communications/website/RootRecord-Cloud	rootrecordsoftwaresolutions/RootRecord-Cloud	origin
+website	1	mirror	…/Website/Home	RootRecord-Software-Solutions/RootRecord-Website	origin
 ```
 
-Recommended to keep it **disabled (`0`)**: with `1`, every desk edit would auto-push to `main` = **Vercel production deploy**. Also, `push-repo-once.sh` `is_runtime_code_tree()` matches any path containing `RootRecord-Pacific-Solar-Server`, so a pull into this nested clone would **arm a Pacific poller stack reload** — exclude `*/Communications/website/*` there first if the row is ever enabled.
+A merge of that row does not reload the poller. `website` is excluded from `is_runtime_code_tree`.
 
-## Sign-off items
+Historical recommendation, not the catalog:
 
-1. `www.rootrecord.cloud`: Vercel domain (site) vs AWS globe tunnel — pick one; today neither serves it.
-2. Desk origin for live data: revive `origin.avaivy.cloud` or build the `/api/*` contract on `rootserver.rootrecord.cloud`, then set `AVA_ORIGIN_URL` in Vercel.
-3. Auto-sync row for the clone (above) — keep disabled unless deploy-on-edit is wanted; fix `is_runtime_code_tree` first.
-4. Retire or guard `scripts/auto-push.py` (upstream change — needs a push = deploy).
-5. `rootserver.rootrecord.cloud/health` exposes a filesystem path publicly (minor).
+```text
+cloud	0	inplace	…/Communications/website/RootRecord-Cloud	rootrecordsoftwaresolutions/RootRecord-Cloud	origin
+```
 
-*Website staging 2026-09-29 HST.*
+## Sign-off items (2026-09-29, closed or moved)
+
+1. `www.rootrecord.cloud` stayed on the AWS globe. The Vercel project was deleted. Domains have not moved to the new page.
+2. Desk origin for the old Next app is closed with that app. The new page reads `https://www.rootrecord.cloud/api/state` and `/api/operations`.
+3. The `cloud` sync row was not added.
+4. `scripts/auto-push.py` belonged to the deleted checkout.
+5. `rootserver.rootrecord.cloud/health` exposes a filesystem path publicly (minor). That host is the poller, not the page.
+
+*Website staging 2026-09-29 HST. Current-site notes added 2026-09-30 HST.*

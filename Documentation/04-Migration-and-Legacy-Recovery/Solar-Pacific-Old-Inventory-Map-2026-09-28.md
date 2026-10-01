@@ -146,7 +146,7 @@ These were G1 scheduler functionality, not a model for future AI skill design. A
 | G1 tops | Prefer |
 | --- | --- |
 | `rootmc-android/`, `minecraft/`, `goals/`, `advertising/`, `websites/` | Product repos / Website / Library — not Pacific server core |
-| `clients/`, `finance-desk/` | Pacific `Products/` (WO-MIG-14). `3 - RootRecord-Website` is gone and must not be recreated. |
+| `clients/`, `finance-desk/` | Pacific `Products/` (WO-MIG-14). `3 - RootRecord-Website` is gone and must not be recreated. The public page is Pacific `Website/Home/`. |
 
 ### 2.11 Archive-only (do not put in G3 runtime)
 

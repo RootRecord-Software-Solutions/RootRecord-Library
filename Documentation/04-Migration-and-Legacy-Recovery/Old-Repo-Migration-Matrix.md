@@ -11,6 +11,8 @@
 
 **Status words:** *migrated* = the capability exists in G3 (LANDED or better; each row says whether it is gated) · *partial* = some of it exists in G3, the rest is listed · *missing* = not in G3. "THIS PASS" marks rows changed on 2026-09-29 13:12 HST onward. "Bucket" in the counts: core = Pacific runtime scope, geology = priority-1 scope, library = docs/agent context, product = product/website repos (out of Pacific scope), archive = archive-only.
 
+**Public page after this matrix (2026-09-30):** Pacific `Website/Home/`, published to `RootRecord-Software-Solutions/RootRecord-Website`. Rows that name `3 - RootRecord-Website` or a Next page under it describe routes that were not carried onto that page. Do not recreate folder 3. Do not bind port 3001.
+
 ## Summary counts
 
 | Rows | migrated | partial | missing | touched this pass |

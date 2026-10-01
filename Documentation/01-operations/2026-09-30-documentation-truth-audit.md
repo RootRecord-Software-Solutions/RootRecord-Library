@@ -6,6 +6,8 @@
 
 The desk clock and the GitHub sync log use different zones. Sync lines stamped `2026-10-01T03:58Z` are the same evening in HST.
 
+**Correction after this audit (same evening):** the `website` catalog row is enabled. It mirrors Pacific `Website/Home/` to `RootRecord-Software-Solutions/RootRecord-Website`. Rows below that say the website row is `enabled=0`, or that the desk has no website folder, describe the desk at about 18:00 HST. They are not the catalog after the public page was published.
+
 Labels in this report are only `VERIFIED`, `STALE`, `UNKNOWN`, `HISTORICAL`, or `CONFLICT`.
 
 ## Verified Architecture

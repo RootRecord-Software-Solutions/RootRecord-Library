@@ -15,7 +15,7 @@
 | --- | --- | --- |
 | **RootRecord-Core-Processor** | private | Hosted 24/7 processor: installers, read-only GitHub pull timer, boot self-check |
 | **RootRecord-Core-Ops** | private | Operator desk processors: EcoFlow, WatchDog, Weather/Kilauea/EQ reports, migration ledger |
-| **RootRecord-Cloud** | private | Next.js public cloud surface (goals, blog, status, chat proxy) |
+| **RootRecord-Cloud** | private | Former Next.js cloud surface (goals, blog, status, chat proxy). The Vercel project was deleted 2026-09-30. The public page is `RootRecord-Software-Solutions/RootRecord-Website` |
 | **all-connections** | private | Combined atlas: Ava desktop + FastAPI origin `:8787` + Workers + URL map |
 | **ava-core-old** | private | Older Ava solar Root Server / GEO docs |
 | **old** | private | Parallel G1-style skill dump (+ sites); forensic |
@@ -87,7 +87,7 @@ These are **product/ops roadmap items**, not automatically G3 Pacific domains â€
 
 | Repo | Features | Home |
 | --- | --- | --- |
-| RootRecord-Cloud | goals UI, blog, login, status, chat API, desk-api proxy | Website / Cloud product |
+| RootRecord-Cloud | Former goals UI, blog, login, status, chat API, desk-api proxy. Not the current site | Historical. Public page is `Website/Home/` |
 | mirror-rootrecord-* | Minecraft plugins, weather manager, solana, etc. | Product mirrors only |
 | RootMC-Net | Game net site | RootMC |
 
