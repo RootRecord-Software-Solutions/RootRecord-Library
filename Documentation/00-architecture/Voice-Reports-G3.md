@@ -2,8 +2,8 @@
 
 | Field | Value |
 | --- | --- |
-| **Date (HST)** | 2026-09-29 (overnight build, 03:50–04:20 HST) |
-| **State** | Engine **LANDED + PASS** · phrase cache **LANDED + PASS** (by-ear **VERIFY PENDING**) · `system_perf` **LANDED, gated OFF** · delivery **OFF** pending Alexander sign-off |
+| **Date (HST)** | 2026-09-29 port record. **Current behavior is [2026-09-30 voice desk](../01-operations/2026-09-30-voice-desk.md).** |
+| **State** | Engine **LANDED**. Speeds are all **1.0**. Sandbox delivery is **ON** (`RR_VOICE_DELIVER=1`). Host temperature is spoken as **Celsius**. Channel 1 solar look is part of the energy report. Hourly chime files exist; the chime job stays **OFF** until `RR_VOICE_HOURLY_CHIME=1`. |
 | **Backup** | `/home/rootrecord/Database/GITHUB/g3-voice-ailog.bak-20260929-035454/` |
 | **Tests** | `07-testing/2026-09-29-kokoro-voice-port-g3.md` · `07-testing/2026-09-29-kokoro-phrase-clips-qc.md` · `07-testing/2026-09-29-hawaiian-pronunciation-sheet.md` |
 
@@ -11,13 +11,13 @@
 
 | Persona | Kokoro voice | Speed | Report kinds (G1 `speakers.KIND_AGENT`) |
 | --- | --- | --- | --- |
-| **Ava** (default) | `af_heart` | 0.82 | morning, midday, evening, late, summary, weather, nws, chime, official, boot |
-| **Bruce** | `am_echo` | 0.92 | solar, system, remaining, hourly |
-| **Carly** | `af_nova` | 0.74 | energy, earthquake, kilauea, hurricane, alerts, security, bandwidth, net |
+| **Ava** (default) | `af_heart` | 1.0 | morning, midday, evening, late, summary, weather, nws, chime, official, boot |
+| **Bruce** | `am_echo` | 1.0 | solar, system, remaining, hourly |
+| **Carly** | `af_nova` | 1.0 | energy, earthquake, kilauea, hurricane, alerts, security, bandwidth, net |
 
 - Model: hexgrad **Kokoro-82M** (`kokoro-v1_0.pth`, sha256 `496dba118d1a58f5f3db2efc88dbdc216e0483fc89fe6e47ee1f2c53f18ad1e4`), kokoro **0.9.4**, misaki[en] **0.9.4**, torch **2.14.0+cpu**, spaCy `en_core_web_sm` 3.8.0, American English (`lang_code="a"`).
 - Output: **24 kHz, 16-bit PCM, mono WAV**.
-- Pronunciation: Ava/Ayeva/Avaivy fixes (`ˈAvə`, `ˈAvəˈIvi`) + G1 `hawaiian_lexicon.py` / `speakable.py` copied verbatim (99 place names respelled to plain English; Kokoro is never fed IPA). Sheet: `07-testing/2026-09-29-hawaiian-pronunciation-sheet.md`.
+- Pronunciation: place names use English respells in `hawaiian_lexicon.py`. Kokoro is not fed IPA. As of 2026-09-30, `Hawaii` and `Hawaiian` stay those English words. The 2026-09-29 sheet still lists the older syllable spellings: `07-testing/2026-09-29-hawaiian-pronunciation-sheet.md`.
 - **Grok has no Kokoro voice.** Cloud Ara is a gated route in Pacific `Media/CloudTTS` (WO-MIG-33). The default engine stays Kokoro. A live xAI call needs `RR_CLOUD_TTS=1` and `--speak`, and was not run.
 - The G1 clip-stitch TTS path and the prebuilt G1 chime/phoneme clips are **not used**. The G3 phrase cache (§4) is new, rendered fresh with the same voices, and was approved by Alexander (2026-09-29 ~04:00 HST) as the one exception to "no stitching".
 
