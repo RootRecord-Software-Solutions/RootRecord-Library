@@ -67,7 +67,7 @@ Build only after this draft is accepted and a build is ordered. Until then, do n
 3. One local test, no restart: run the script once against the frame already on disk (`HAWAII_loop_20260929T220442-1000.gif`), confirm the zip lists it, run again and confirm the member count stays the same, and confirm `HAWAII_loop_current.gif` and the poller are unchanged.
 4. This function does not depend on another migration Folder. Do not pause for Agent 20. Agent 20 (OBS studio and overlays) depends on this Folder later. Do not build OBS.
 5. After the migration works, and before Library updates: copy `weather/radar-archive/` (tracked source plus `OFFLOADED`) into `/home/rootrecord/RootRecord-Ecosystem/Old repos deleted and merged/Solar-Pacific-RootRecord-Server/weather/radar-archive/`, keeping the path it had inside the old repo. Also copy `state/store/radar-archive.json` the same way. Generated data that lived beside that source goes into this archive and still does not go into Pacific, Database, the website, or git. After the archive copy is on disk, delete those same files from the old repo on this machine and on GitHub. Commit that deletion and push it. Do not force-push. Do not delete the GitHub repository. If the archive copy fails, do not delete. Leave `reports/Stale Root Reports/` copies and name them here (shared). Do not import the old zip, GIFs, samples, or state into the live Folders.
-6. Then update this same work order with what landed, the archive path, the GitHub deletion, and the new status. Correct only the Library pages this function made stale: row 42 of `5 - RootRecord-Library/Documentation/00-architecture/Old-Repo-Migration-Matrix.md` and the `radar-archive` row of `5 - RootRecord-Library/Documentation/00-architecture/G1-Scheduler-To-G3-Jobs-Map-2026-09-29.md`. Do not rewrite unrelated work orders.
+6. Then update this same work order with what landed, the archive path, the GitHub deletion, and the new status. Correct only the Library pages this function made stale: row 42 of `5 - RootRecord-Library/Documentation/Old-Repo-Migration-Matrix.md` and the `radar-archive` row of `5 - RootRecord-Library/Documentation/G1-Scheduler-To-G3-Jobs-Map-2026-09-29.md`. Do not rewrite unrelated work orders.
 
 ---
 
@@ -101,8 +101,8 @@ Build only after this draft is accepted and a build is ordered. Until then, do n
 | `/home/rootrecord/old ollama/old skills/weather/radar-archive/` | Old source to archive in phase 4, then delete from that repo |
 | `/home/rootrecord/old ollama/old skills/state/store/radar-archive.json` | Old state. Archive with the source. Do not import it |
 | `Old repos deleted and merged/Solar-Pacific-RootRecord-Server/weather/radar-archive/` | Phase 4 archive path (after the copy succeeds) |
-| `5 - RootRecord-Library/Documentation/00-architecture/Old-Repo-Migration-Matrix.md` | Correct row 42 only after phase 4 |
-| `5 - RootRecord-Library/Documentation/00-architecture/G1-Scheduler-To-G3-Jobs-Map-2026-09-29.md` | Correct the `radar-archive` row only after phase 4 |
+| `5 - RootRecord-Library/Documentation/Old-Repo-Migration-Matrix.md` | Correct row 42 only after phase 4 |
+| `5 - RootRecord-Library/Documentation/G1-Scheduler-To-G3-Jobs-Map-2026-09-29.md` | Correct the `radar-archive` row only after phase 4 |
 
 ---
 
