@@ -108,14 +108,14 @@ G2 → G3 migration: the Pacific runtime is on the new Database root (`2 - RootR
 - 💡 **Ideas & proposals:** [Documentation/08-ideas/](./Documentation/08-ideas/README.md) — every item PROPOSED until Alexander signs off
 - 🔧 **Desired upgrades:** [Documentation/09-desired-upgrades/](./Documentation/09-desired-upgrades/README.md) — hardware to buy or build later; nothing here is an order
 - 📝 **Overnight worklog:** [2026-09-29 System Operator Worklog — Overnight](./Documentation/01-operations/0%20-%20Human%20Operator%20Work%20Logs/2026-09-29%20System%20Operator%20Worklog%20%E2%80%94%20Overnight.md) (includes the "Needs Alexander sign-off" list)
-- 🗂️ **Migration index:** [MIGRATION-DOCS-INDEX](./Documentation/00-architecture/MIGRATION-DOCS-INDEX-2026-09-28.md)
+- 🗂️ **Migration index:** [MIGRATION-DOCS-INDEX](./Documentation/04-Migration-and-Legacy-Recovery/MIGRATION-DOCS-INDEX-2026-09-28.md)
 
 ### Where things stand — 16:25 HST (paused)
 
 - **LANDED / PASS today:** AWS feed trim + auto-trim cron; `www.rootrecord.cloud` back (200) with the P0 static-allowlist fix; globe overlay v2 on AWS (spin, click info, AWS Ohio node); AWS fallback Phase 2 on the trimmed t3.micro profile (908 MB RAM) with Root Monitor write mode; Root Monitor toggle buttons + camera button; 9 Android apps imported (80.7 MB); old-repo matrix 35 / 22 / 33.
 - **VERIFY PENDING:** the globe in a real browser, a real fallback on AWS, a relay send.
 - **Waiting on Alexander:** the consolidated list in the worklog's [State at pause, 16:25 HST](./Documentation/01-operations/0%20-%20Human%20Operator%20Work%20Logs/2026-09-29%20System%20Operator%20Worklog%20%E2%80%94%20Overnight.md#state-at-pause-1625-hst-2026-09-29) section.
-- **New docs:** [Android-Apps-Inventory](./Documentation/00-architecture/Android-Apps-Inventory.md), [US-Mainland-Server](./Documentation/00-architecture/US-Mainland-Server.md), [Control-Panel-GTK (Root Monitor)](./Documentation/00-architecture/Control-Panel-GTK.md); all linked from the migration index.
+- **New docs:** [Android-Apps-Inventory](./Documentation/05-Products-Repositories-and-Applications/Android-Apps-Inventory.md), [US-Mainland-Server](./Documentation/06-Domains-and-External-Systems/US-Mainland-Server.md), [Control-Panel-GTK (Root Monitor)](./Documentation/02-Runtime-Jobs-and-Control/Control-Panel-GTK.md); all linked from the migration index.
 
 ---
 
