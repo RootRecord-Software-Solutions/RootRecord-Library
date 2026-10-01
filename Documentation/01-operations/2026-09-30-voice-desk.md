@@ -2,7 +2,7 @@
 
 This is the living description of the spoken reports. The 2026-09-29 port record is [Voice-Reports-G3](../01-AI-and-Agent-Runtime/Voice-Reports-G3.md). Where that file still says a job is off, has no delivery, or skips a vision line, this file wins.
 
-Sandbox chat is `-1004406495175`. `RR_VOICE_DELIVER=1` and `RR_TELEGRAM_DEST=sandbox` are the defaults in `Automations/scripts/poller/run-poller.sh`. A sandbox post is a voice note, a transcript, and the measured report. A live chat would be voice and report only. The same spoken words are not sent again. Hourly chimes also remember the date and hour, so the same sentence can send on the next day.
+Sandbox chat is `-1004406495175`. `RR_VOICE_DELIVER=1` and `RR_TELEGRAM_DEST=sandbox` are the defaults in `Automations/scripts/poller/run-poller.sh`. A sandbox post is a voice note, a transcript, and the measured report. A live chat would be voice and report only. The same spoken words are not sent again. Hourly chimes also remember the date and the slot (`HH:MM`), so the same sentence can send on the next day.
 
 Flags are read when the poller starts. A script edit is picked up on the next run of that job. A new `jobs.py` entry is not, until the poller is started again.
 
@@ -32,7 +32,7 @@ Not exported in `run-poller.sh`, so a normal poller start leaves them off:
 
 | Flag | Report |
 | --- | --- |
-| `RR_VOICE_HOURLY_CHIME` | The :00 chime. The 24 files exist. The job does not play them until this flag is 1 at poller start. |
+| `RR_VOICE_HOURLY_CHIME` | The :00 and :30 chimes. The 48 files exist. The job does not play them until this flag is 1 at poller start. |
 | `RR_VOICE_HURRICANE` | Hurricane desk. |
 | `RR_VOICE_ROLLUPS` | Morning 09:02, midday 12:02, late 21:02. |
 | `RR_VOICE_LATE_FINAL` | 23:30 second chance for the late roll-up. |
@@ -81,11 +81,11 @@ Morning tilt helps early capture and is not required. Overnight left tilt is the
 
 ## Hourly chimes
 
-Twenty-four files, `Database/Media/Audio/Voice/Chimes/hour-00.wav` through `hour-23.wav`. Each one starts with `Media/Voice/assets/deep-ui-chime.mp3`, then the voice. Midnight is Ava, 1 a.m. is Bruce, 2 a.m. is Carly, then it repeats. Playback copies the file. It does not call Kokoro.
+Forty-eight files, `Database/Media/Audio/Voice/Chimes/hour-00-00.wav` through `hour-23-30.wav`, one for every hour and half hour. Each one starts with `Media/Voice/assets/deep-ui-chime.mp3`, then the voice. Midnight and 12:30 a.m. are Ava, 1:00 and 1:30 a.m. are Bruce, 2:00 and 2:30 a.m. are Carly, then it repeats. Playback copies the file. It does not call Kokoro.
 
-The sentence is the Hawaii hour, then Mountain Daylight Time (four hours ahead), Eastern time (six hours ahead), and UTC (ten hours ahead). Those offsets match daylight time. They are wrong after US standard time begins in November, and the files have to be rendered again.
+The sentence is the Hawaii time, then Mountain Daylight Time (four hours ahead), Eastern time (six hours ahead), and UTC (ten hours ahead). The minute is the same in each zone. Those offsets match daylight time. They are wrong after US standard time begins in November, and the files have to be rendered again.
 
-The job is `:00` only. It stays off until `RR_VOICE_HOURLY_CHIME=1` is in the poller environment at start. Rebuild with:
+The job is `:00` and `:30`. It stays off until `RR_VOICE_HOURLY_CHIME=1` is in the poller environment at start. Rebuild with:
 
 ```bash
 PACIFIC="/home/rootrecord/RootRecord-Ecosystem/1 - Servers/1 - RootRecord-Pacific-Solar-Server"
