@@ -69,5 +69,5 @@ Finish every documentation artifact needed to migrate G2 residual domains into G
 ## Entry point for next agent
 
 ```text
-Documentation/00-architecture/MIGRATION-DOCS-INDEX-2026-09-28.md
+Documentation/04-Migration-and-Legacy-Recovery/MIGRATION-DOCS-INDEX-2026-09-28.md
 ```
