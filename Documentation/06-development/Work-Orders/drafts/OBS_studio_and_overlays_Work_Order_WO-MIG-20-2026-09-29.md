@@ -102,7 +102,7 @@ Both dependency folders are on disk as of this draft. The pause in tasks 1 and 2
 | `2 - RootRecord-Database/Media/Overlays/` static HTML page | Browser-source page. No listening server. |
 | `2 - RootRecord-Database/Logs/Media/Overlays/` | Run log only |
 | `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Automations/scripts/jobs.py` | Do not edit. Proposed gate stays in this draft. |
-| `5 - RootRecord-Library/Documentation/00-architecture/Old-Repo-Migration-Matrix.md` | After phase 4, correct rows 41 and 56 and blocker 3 |
+| `5 - RootRecord-Library/Documentation/Old-Repo-Migration-Matrix.md` | After phase 4, correct rows 41 and 56 and blocker 3 |
 | `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Weather/README.md` | After phase 4, correct the OBS half of the blocked line. Leave storm radio. |
 
 ---
