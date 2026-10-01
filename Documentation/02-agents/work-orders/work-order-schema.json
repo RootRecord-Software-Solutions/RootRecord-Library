@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "record": "work_order",
+  "required": ["id", "type", "target", "executor", "agent_may_invoke", "trigger", "allowed_actions", "max_attempts", "verification"],
+  "fields": {
+    "id": "WO-... stable id",
+    "type": "maintenance | security | docs",
+    "target": "service or domain id",
+    "executor": "poller_job:... or none. Not an agent name.",
+    "agent_may_invoke": "false means an agent must not start this order",
+    "trigger": "measured condition. Not a guess.",
+    "allowed_actions": "capability ids. The broker still applies the capability registry.",
+    "max_attempts": "cap for the executor that already owns recovery",
+    "window_sec": "window for that cap",
+    "requires_operator": "human gate for the executor. False does not mean an agent may run it.",
+    "security_review": "true when Carly's later check is required before an unlock",
+    "on_block": "what the executor does after the cap",
+    "verification": "checks that must pass after recovery. process_alive is a process scan."
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "id": "WO-SRV-RELAY",
+  "type": "maintenance",
+  "target": "council_relay",
+  "executor": "poller_job:service_supervisor",
+  "agent_may_invoke": false,
+  "trigger": {
+    "condition": "process_not_running",
+    "match": "council-relay.py"
+  },
+  "allowed_actions": ["inspect_relay", "run_verification"],
+  "recovery_owned_by": "Automations/scripts/supervise-services.sh",
+  "max_attempts": 3,
+  "window_sec": 1800,
+  "requires_operator": false,
+  "security_review": false,
+  "on_block": "One BLOCKED line. No more restarts until the process is seen alive. Do not raise the cap from an agent.",
+  "verification": ["process_alive"]
+}
