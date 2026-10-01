@@ -235,5 +235,5 @@ Supersedes the NPU-default and "replies off" bullets in the 2026-09-29 precondit
 | Sandbox replies | On (`SANDBOX_REPLIES=1`). Live council and private DMs stay quiet. | `relay.conf` |
 | Desk | `Intake/desk-live.txt` refreshed before each reply. | `desk-live.py` |
 | Canonical state | `System/status/rootrecord-state.json` plus agent/public/slice projections. Not auto-committed. | `state-aggregate.py`, Decisions/0005 |
-| Execution | Broker answers reads and refuses restarts. Poller `service_supervisor` still recovers weather and the relay. | `Automations/execution/`, WO-SRV-RELAY |
+| Execution | Broker answers reads and refuses restarts and agent builds. `cursor_api` ships off. Poller `service_supervisor` still recovers weather and the relay. | `Automations/execution/`, WO-SRV-RELAY, Decision 0006 |
 | Continuity | `Documentation/01-operations/HANDOFF.md`. Desk check: `bash verify.sh` from the ecosystem root. | HANDOFF |

@@ -34,6 +34,7 @@ Security review, credential hygiene, honesty seals, and billing-wall posture for
 | [Communications-Notify-Policy-Draft](../00-architecture/Communications-Notify-Policy-Draft-2026-09-28.md) | Notify vs log-only (pending Carly seal) |
 | [WO-COM-001](../06-development/Work-Orders/WO-COM-001-Communications-Surface.md) | Communications surface organization |
 | [WO-DATA-2026-09-27](../06-development/Work-Orders/Database_Boundary_Work_Order_WO-DATA-2026-09-27.md) | Database boundary (no secret dumps) |
+| [INTERACTION-MODES](../02-agents/INTERACTION-MODES.md) | Build match key is numeric Telegram id. Username is a label. Agents cannot build. Carly reject blocks. |
 
 ---
 
