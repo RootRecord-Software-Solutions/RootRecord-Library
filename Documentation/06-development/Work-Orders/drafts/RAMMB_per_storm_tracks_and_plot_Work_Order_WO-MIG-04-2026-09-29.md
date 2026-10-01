@@ -87,7 +87,7 @@ No dependency Folder is missing. `global_board.py` is already in Weather/hurrica
 | `2 - RootRecord-Database/Weather/Hawai'i/hurricanes/global/storm-plot.txt` | Text plot |
 | `2 - RootRecord-Database/Logs/Weather/hurricanes/global-board.log` | One line per run |
 | `5 - RootRecord-Library/Documentation/07-testing/2026-09-29-old-repo-ports-breadth-batch5.md` | Correct the "not ported" check-later after the build |
-| `5 - RootRecord-Library/Documentation/00-architecture/Old-Repo-Migration-Matrix.md` | Correct the row-40 track-table note after the build |
+| `5 - RootRecord-Library/Documentation/Old-Repo-Migration-Matrix.md` | Correct the row-40 track-table note after the build |
 
 ---
 
