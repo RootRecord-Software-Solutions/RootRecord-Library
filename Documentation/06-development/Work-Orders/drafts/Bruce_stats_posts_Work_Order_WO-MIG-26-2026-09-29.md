@@ -108,8 +108,8 @@ Folder name, used in all three places: `BruceStats` (inside Communications). No 
 | `/home/rootrecord/old ollama/old skills/council/council-bruce-stats/` | Old function. Archive, then delete. |
 | `/home/rootrecord/old ollama/old skills/council/council-telegram/scripts/bruce_stats.py` | This function’s processor. Archive, then delete. Leave the rest of `council-telegram`. |
 | `/home/rootrecord/old ollama/old skills/origin/ns/apps/council/bruce_stats.py` | Shim. Archive, then delete. Leave the rest of `apps/council`. |
-| `5 - RootRecord-Library/Documentation/00-architecture/G1-Scheduler-To-G3-Jobs-Map-2026-09-29.md` | Phase 5: correct the `council-bruce-stats` line only. |
-| `5 - RootRecord-Library/Documentation/00-architecture/Old-Repo-Migration-Matrix.md` | Phase 5: Bruce clause of row 60 and item 12 only. |
+| `5 - RootRecord-Library/Documentation/G1-Scheduler-To-G3-Jobs-Map-2026-09-29.md` | Phase 5: correct the `council-bruce-stats` line only. |
+| `5 - RootRecord-Library/Documentation/Old-Repo-Migration-Matrix.md` | Phase 5: Bruce clause of row 60 and item 12 only. |
 | `5 - RootRecord-Library/Documentation/07-testing/2026-09-29-old-repo-ports-breadth-batch4.md` | Phase 5: Bruce clause of the blocked bullet only. |
 
 ---
