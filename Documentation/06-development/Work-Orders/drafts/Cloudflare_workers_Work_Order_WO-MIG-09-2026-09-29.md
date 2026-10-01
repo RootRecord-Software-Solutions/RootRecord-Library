@@ -103,7 +103,7 @@ Folder name, used in all three places: **Cloudflare-Workers**. Domain: Communica
 | `3 - RootRecord-Website` | Agent 07. Checked out. This function adds no page here. |
 | `old ollama/github-history/09202026 1830/cloudflare-workers/` | Read-only snapshot of the old function. Not the phase 4 delete target. |
 | `Old repos deleted and merged/<old-repo-name>/` | Phase 4 archive, after the migration works. |
-| `5 - RootRecord-Library/Documentation/00-architecture/Old-Repo-Migration-Matrix.md` | Row 62. Correct in phase 5 only. |
+| `5 - RootRecord-Library/Documentation/Old-Repo-Migration-Matrix.md` | Row 62. Correct in phase 5 only. |
 | `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Communications/README.md` | Edge-workers line. Correct in phase 5 only. |
 
 ---
