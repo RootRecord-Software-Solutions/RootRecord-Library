@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "record": "execution_report",
+  "visibility": "operator",
+  "required": ["report_id", "request_id", "work_order_id", "executor", "authorization_ref", "started_at", "finished_at", "steps", "files_changed", "audit_ids", "status"],
+  "status": ["completed", "failed", "blocked", "partial"],
+  "fields": {
+    "steps": "Each step has capability or allowed_step, result, and evidence_ref.",
+    "files_changed": "Paths the executor reports. Empty when the run was blocked.",
+    "audit_ids": "Timestamps of matching execution-audit lines.",
+    "note": "This report records the attempt. It does not claim the desk is healthy. No tokens, chat transcripts, or secret values."
+  }
+}

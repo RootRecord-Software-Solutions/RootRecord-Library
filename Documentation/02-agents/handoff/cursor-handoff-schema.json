@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "record": "cursor_handoff",
+  "required": [
+    "request_id",
+    "work_order_id",
+    "interaction_mode",
+    "original_request",
+    "council_interpretation_version",
+    "authorized_by",
+    "requested_by",
+    "executor",
+    "capability",
+    "allowed_steps",
+    "scope_paths",
+    "out_of_scope_paths",
+    "verification",
+    "resource_limits"
+  ],
+  "fields": {
+    "interaction_mode": "build",
+    "executor": "cursor",
+    "capability": "development.execute_work_order",
+    "authorized_by": "Principal id matched on telegram_user_id. A username string does not authorize the call.",
+    "allowed_steps": "Explicit list. The executor cannot widen it. commit, push, merge, and deploy stay off unless their own gates are on.",
+    "resource_limits": "no_second_relay, no_resident_flm, max_context 4096, no_secret_files, no_arbitrary_shell.",
+    "note": "The package is the Cursor API input. While cursor_api is off the request remains at CURSOR_HANDOFF."
+  }
+}

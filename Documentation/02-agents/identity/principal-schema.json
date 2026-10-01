@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "record": "principal_registry",
+  "match_key": "telegram_user_id",
+  "required": ["schema_version", "match_key", "authorized_build_operators", "agents"],
+  "fields": {
+    "telegram_user_id": "Numeric Telegram from.id. Null means this row cannot authorize BUILD. The username is a label.",
+    "username": "Display label. Never the match key.",
+    "principal_id": "Stable id stored on authorization records.",
+    "can_build": "Always false for ava, bruce, and carly."
+  }
+}

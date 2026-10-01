@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "record": "interaction_mode",
+  "modes": ["conversation", "work_order", "build", "diagnose", "recovery", "deployment"],
+  "fields": {
+    "interaction_mode": "Request mode. Not the 2026-09-28 migration phase called build mode.",
+    "ceiling": "build for a principal matched on telegram_user_id. work_order for everyone else.",
+    "question_round_cap": 3
+  },
+  "execution": {
+    "conversation": false,
+    "work_order": false,
+    "build": "conditional on council review, numeric principal id, and gates",
+    "diagnose": "read capabilities only",
+    "recovery": "existing programs only, gate default off",
+    "deployment": false
+  }
+}

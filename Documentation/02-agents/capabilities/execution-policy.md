@@ -27,7 +27,9 @@ An agent request names a capability id and an agent id. The broker looks up the 
 
 ## Not unlocked
 
-`restart_known_service`, `run_known_diagnostic`, `generate_report`, `create_work_order`, configuration edits, code edits, GitHub writes, deploys.
+`restart_known_service`, `run_known_diagnostic`, `generate_report`, `create_work_order`, `development.execute_work_order`, configuration edits, code edits, GitHub writes, deploys.
+
+`development.execute_work_order` is the Cursor executor capability. Ava, Bruce, and Carly are denied. A Telegram username does not authorize it. The broker requires a numeric Telegram id on the authorization record, a request in `READY_FOR_BUILD`, and the `cursor_api` gate. That gate ships off. Commit, push, merge, and deploy stay off even when `cursor_api` is opened.
 
 ## Audit
 

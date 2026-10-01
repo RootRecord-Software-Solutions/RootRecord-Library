@@ -20,6 +20,21 @@ Documentation about RootRecord agents. **Canonical identity packs do not live he
 
 Pipeline: **Ava → Carly → Bruce**.
 
+## Interaction contracts
+
+These files are the mode, identity, and handoff layer. They do not replace the capability registry or the machine work orders.
+
+| Contract | Path |
+| --- | --- |
+| Principals | [identity/principal-registry.json](identity/principal-registry.json) |
+| Modes | [modes/mode-policy.md](modes/mode-policy.md) |
+| Requests | [requests/request-lifecycle.md](requests/request-lifecycle.md) |
+| Cursor handoff | [handoff/cursor-handoff-schema.json](handoff/cursor-handoff-schema.json) |
+| Reports | [reports/execution-report-schema.json](reports/execution-report-schema.json), [reports/verification-report-schema.json](reports/verification-report-schema.json) |
+| Decision | [0006](../00-architecture/Decisions/0006-interaction-modes.md) |
+
+`interaction_mode` is a request mode. The 2026-09-28 “Migrate mode → build mode” section is a migration phase. The names are not the same thing.
+
 Standing strategy: same roles on small local NPU models or future larger capacity; **migrate & stabilize first**, then **build**. Truth gate: path landed ≠ runtime verified ≠ legacy retired.
 
 ## Empty subfolders under this path

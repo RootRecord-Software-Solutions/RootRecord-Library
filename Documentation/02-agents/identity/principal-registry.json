@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "match_key": "telegram_user_id",
+  "note": "Usernames are labels. A null telegram_user_id cannot authorize BUILD. Record the numeric ids before any request may reach READY_FOR_BUILD.",
+  "authorized_build_operators": [
+    {
+      "principal_id": "rootrecordadmin",
+      "username": "rootrecordadmin",
+      "telegram_user_id": null
+    },
+    {
+      "principal_id": "WildEcho94",
+      "username": "WildEcho94",
+      "telegram_user_id": null
+    },
+    {
+      "principal_id": "Crazychickenlady12",
+      "username": "Crazychickenlady12",
+      "telegram_user_id": null
+    }
+  ],
+  "agents": {
+    "ava": {
+      "can_build": false,
+      "permissions": ["READ", "DIAGNOSE", "GENERATE_WORK_ORDER"]
+    },
+    "bruce": {
+      "can_build": false,
+      "permissions": ["READ", "DIAGNOSE", "GENERATE_WORK_ORDER"]
+    },
+    "carly": {
+      "can_build": false,
+      "permissions": ["READ", "DIAGNOSE"]
+    }
+  }
+}

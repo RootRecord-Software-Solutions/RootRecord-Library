@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "record": "verification_report",
+  "visibility": "operator",
+  "required": ["report_id", "execution_report_id", "checks", "status", "observed_at"],
+  "status": ["verified", "failed", "incomplete"],
+  "fields": {
+    "checks": "Each check has id, measured, expected, and result.",
+    "security_review": "Present when the work order sets security_review true.",
+    "note": "Written by the verifier after the execution report. The function that changed files does not grade itself."
+  }
+}

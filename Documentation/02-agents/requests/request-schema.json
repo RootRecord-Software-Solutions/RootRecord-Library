@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "record": "interaction_request",
+  "required": ["request_id", "status", "interaction_mode", "original_request", "requested_by", "authorization"],
+  "statuses": [
+    "RECEIVED",
+    "CLASSIFIED",
+    "BLOCKED",
+    "MODE_SELECTED",
+    "DISCOVERY",
+    "QUESTIONS_REQUIRED",
+    "QUESTIONS_ANSWERED",
+    "WORK_ORDER_DRAFTED",
+    "COUNCIL_REVIEW",
+    "PENDING_AUTHORIZATION",
+    "NEEDS_DECISION",
+    "READY_FOR_BUILD",
+    "CURSOR_HANDOFF",
+    "EXECUTING",
+    "EXECUTION_REPORTED",
+    "VERIFYING",
+    "VERIFIED",
+    "VERIFICATION_FAILED",
+    "STATE_UPDATED",
+    "CLOSED"
+  ],
+  "fields": {
+    "original_request": "Exact human text plus channel, chat id, message id, and timestamp. Immutable.",
+    "council_interpretation": "Versioned list. Does not replace original_request.",
+    "work_order_ref": "Development draft id once written.",
+    "authorization": "principal id, telegram_user_id, build_authorized, authorized_by, events.",
+    "execution_report_ref": "Set after the executor writes a report.",
+    "verification_report_ref": "Set after the verifier writes a report.",
+    "resulting_state_ref": "Summary fact id after verification.",
+    "question_round": "Count of question rounds. Cap is 3.",
+    "visibility": "operator"
+  }
+}
