@@ -10,7 +10,7 @@
 | **Commits** | none |
 | **Backup** | `config-globe.yml.bak-before-ml1` on the Mainland One host. `~/.ssh/known_hosts.old` after `ssh-keygen -R ssh.rootrecord.cloud`. No new desk backup directory |
 
-The full command log, DNS table, rename list, and what was left unchanged are in the operations record linked above. This file is the pass/fail gate.
+The full command log, DNS table, rename list, and what was left unchanged are in the operations record linked above. This file is the pass/fail gate for that evening. Alexander locked the radio plan later the same day. `ml1.rootrecord.cloud` is the SSH hostname now. `ssh.rootrecord.cloud` is retired. `ml2.rootrecord.cloud` is SSH. The FAIL and BLOCKED rows below are the evening measurements. They are not the locked routes.
 
 ## What was tested
 

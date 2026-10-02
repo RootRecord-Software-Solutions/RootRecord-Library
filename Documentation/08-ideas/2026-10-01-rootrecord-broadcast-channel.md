@@ -8,7 +8,7 @@
 | **Proposed by** | Alexander (concept); Library write-up for review |
 | **Needs sign-off from** | Alexander, before any later work order |
 | **Related WO** | none yet. Ancestor: [WO-RPT-001](../06-development/Work-Orders/Complete/WO-RPT-001-Reports-Worklog-Domain-Import.md) Phase F (radio / live-stream **deferred**). Do not treat this page as completing that phase. |
-| **Related ideas** | [Restore voice reports](./2026-09-29-restore-voice-reports.md) (local Kokoro **LANDED**; public broadcast still off). [AWS Mainland improvement](./2026-09-29-aws-mainland-improvement-plan.md) and [AWS fallback rebuild](./2026-09-29-aws-fallback-rebuild.md) (continuity node; **not** a broadcast instance). |
+| **Related ideas** | [Restore voice reports](./2026-09-29-restore-voice-reports.md) (local Kokoro **LANDED**; this YouTube plan is still off). [AWS Mainland improvement](./2026-09-29-aws-mainland-improvement-plan.md) and [AWS fallback rebuild](./2026-09-29-aws-fallback-rebuild.md) are older continuity notes. Mainland One is radio as of 2026-10-01. Earthquake and hurricane voice reports stay Pacific poller jobs. |
 
 This page is **plan**. Rows labeled **already true** are checked against Library on `main` and Pacific `Reports/` / `Media/` as they stood on GitHub when this was written. If a WAV is not proven on disk from this checkout, this page says so.
 
@@ -87,7 +87,7 @@ Boxes:
 
 **Public URL (already true, verified in Library):** production site is `https://www.rootrecord.cloud/` (Vercel from `RootRecord-Website`, source Pacific `Website/Home/`). Library `main` has **no** `github.io` public site. Do not print `rootrecord-software-solutions.github.io` on the card. Do not print `https://rootserver.rootrecord.cloud/` on the card; that is the poller.
 
-Mainland SSH `ssh.rootrecord.cloud` A `18.118.30.226` is the existing AWS host. It is **not** already a broadcast encoder.
+Mainland One is radio only. `ssh.rootrecord.cloud` is retired. Desk SSH is `ml1.rootrecord.cloud`. The listener stream is already `https://radio.rootrecord.cloud/radio/live.mp3`. This YouTube plan is not that station. There is no music bed on the live Mainland host.
 
 ---
 

@@ -1,5 +1,7 @@
 # Proposal — AWS as a small fallback node: rebuild plan, per-function toggles, buffer-to-relay catch-up
 
+> **Superseded 2026-10-01:** Mainland One is radio only. Pollers stay on the Pacific desk. They have not moved to Mainland Two. This page is the 2026-09-29 fallback plan. The lock is [2026-10-01 mainland rename and SSH tunnels](../01-operations/2026-10-01-mainland-rename-and-ssh-tunnels.md).
+
 | Field | Value |
 | --- | --- |
 | **Date (HST)** | 2026-09-29 (Phase 1: plan + read-only inventory, 14:57–15:20 HST) |

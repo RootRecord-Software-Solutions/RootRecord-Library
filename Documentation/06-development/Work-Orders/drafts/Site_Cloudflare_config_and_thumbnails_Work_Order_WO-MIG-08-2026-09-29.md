@@ -1,5 +1,7 @@
 # WORK ORDER — Site Cloudflare config and thumbnails
 
+> **Superseded 2026-10-01:** `www` stays on Vercel. `ssh.rootrecord.cloud` is retired. Mainland One is radio. Do not follow the globe and SSH lines below as the live routes. The lock is `Documentation/01-operations/2026-10-01-mainland-rename-and-ssh-tunnels.md`.
+
 | Field | Value |
 | --- | --- |
 | **Work Order ID** | WO-MIG-08-2026-09-29 |

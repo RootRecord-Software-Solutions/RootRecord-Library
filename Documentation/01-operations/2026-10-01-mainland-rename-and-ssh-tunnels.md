@@ -5,7 +5,7 @@
 | **When** | 2026-10-01 19:23–19:41 HST (UTC 2026-10-02 05:23–05:41) |
 | **Operator** | Alexander |
 | **Writer** | Grok, from the same desk session |
-| **State** | Mainland One SSH through the tunnel **PASS**. Mainland Two direct SSH **PASS**. `ml2.rootrecord.cloud` **BLOCKED** on a Cloudflare account login. Rename of desk names and GitHub remotes **LANDED** in the working tree, **not committed** |
+| **State** | Evening checks are below. Alexander locked the radio plan the same day. That lock is [What is true now](#what-is-true-now). `ssh.rootrecord.cloud` is retired. Mainland One is radio only |
 | **Commits** | none |
 | **Secrets** | No tokens, private keys, or credential files are copied here. Key paths and public fingerprints only |
 
@@ -17,7 +17,7 @@ This is the record of three requests in one sitting: check Mainland One after a 
 | --- | --- |
 | Mainland One desk folder | `1 - Servers/2 - RootRecord-US-Mainland-One/` |
 | Mainland One GitHub | https://github.com/RootRecord-Software-Solutions/US-Mainland-One |
-| Mainland One on the AWS host | `/home/ubuntu/US-Mainland-Server/` (directory on the machine was not renamed) |
+| Mainland One on the AWS host | `/home/ubuntu/US-Mainland-Server/` (that directory was not renamed). The radio runtime is `/home/ubuntu/rootrecord-radio` |
 | Mainland Two desk folder | `1 - Servers/3 - RootRecord-US-Mainland-Two/` |
 | Mainland Two GitHub | https://github.com/RootRecord-Software-Solutions/US-Mainland-Two |
 | Mainland Two on its host | `/home/ubuntu/US-Mainland-Server-2/` in the unit files (directory on the machine was not renamed) |
@@ -29,7 +29,7 @@ Mainland One has no `.git` of its own. The umbrella publishes it with the `mainl
 
 ## Desk SSH config
 
-File: `~/.ssh/config`. Written 2026-10-01. No other hosts are in that file.
+File: `~/.ssh/config`. Written 2026-10-01. No other hosts are in that file. The table is what the aliases did during the evening checks. The locked hostnames are in [What is true now](#what-is-true-now). `ssh.rootrecord.cloud` is retired.
 
 | Alias | How it connects | Key | Result this evening |
 | --- | --- | --- | --- |
@@ -186,7 +186,7 @@ Places that now say One and Two include:
 - `0 - Master-Prompt/MASTER-PROMPT.md`, `README.md`, `prompts/07-current-state.md`, `prompts/08-repository-and-file-links.md`
 - `Github/scripts/repos.conf` and `Github/README.md`
 - Control panel `rr_pages.py`, `Lib/rr_ssh.py`, `Lib/rr_migration.json`
-- `Media/Voice/scripts/radio_push.py` desk path (the remote path is still `/home/ubuntu/US-Mainland-Server/...`)
+- `Media/Voice/scripts/radio_push.py` desk path. The radio runtime it replaces is `/home/ubuntu/rootrecord-radio`
 - Agent context `REPOS.md` and `ROLE-AND-BOUNDS.md` for Ava, Bruce, and Carly
 - Live library docs, work orders, and the operators handbook
 - Mainland One `README.md`, `SKILL.md`, `INDEX.md`, `references/GITHUB-IDENTITY.md` (commit identity label is now `US-MAINLAND-ONE`)
@@ -203,7 +203,7 @@ The current architecture stub is `Documentation/00-architecture/US-Mainland-One.
 | `2 - RootRecord-Database/Worklog/` | Generated scan logs of paths as they were that hour |
 | `2 - RootRecord-Database/Archive/Github-desk-backups/` | Point-in-time backups. A first pass edited them. They were reverted |
 | `Github-worktrees/` and `Old repos deleted and merged/` | Not the live trees |
-| `api.rootrecord.cloud` A record | Not part of the SSH request. It still points at `18.118.30.226` |
+| `api.rootrecord.cloud` A record | Left alone that evening. The later lock aims it at Mainland Two. The API process is not there yet |
 
 ## Mainland Two
 
@@ -235,28 +235,48 @@ The deb was removed from `/tmp` after `dpkg`.
 
 ## What is true now
 
-1. `ssh ml1` and `ssh rr-aws` go through Cloudflare to Mainland One, hostname `ml1.rootrecord.cloud`, and do not depend on `3.140.195.32`. Checked 2026-10-02 06:23 UTC: hostname `ip-172-31-10-115`.
-2. `ssh rr-aws-ip` is the direct address `3.140.195.32` and will break again if that address changes.
-3. Tunnel `network-globe` (`939b16f7-7d13-4776-bd4d-80fe8021fc72`) routes are `www.rootrecord.cloud` → `http://127.0.0.1:8090`, `ml1.rootrecord.cloud` → `ssh://localhost:22`, `radio.rootrecord.cloud` → `http://127.0.0.1:8092`, `api.rootrecord.cloud` → `http://127.0.0.1:8091`. `ssh.rootrecord.cloud` is no longer a route.
-4. `radio.rootrecord.cloud` and `api.rootrecord.cloud` are proxied CNAMEs to that tunnel. `https://radio.rootrecord.cloud/radio/now.json` and `/radio/live.mp3` returned 200 through Cloudflare. `https://api.rootrecord.cloud/api/state` returned 200. `/radio/now.json` on the API host is 404 because that path is only on the radio origin.
-5. `ssh ml2` is direct to `3.149.238.83` with `rr-stream-server.pem`.
-6. Mainland Two has `cloudflared` 2026.9.3 installed. It has no tunnel and no `ml2.rootrecord.cloud` record.
-7. The rename is in the working tree and in Mainland Two's remote URL. It is not committed.
+Alexander locked this on 1 Oct 2026. The evening sections above are the checks from that sitting. They are not the live routes.
 
-## Radio, later the same night
+Mainland One is radio only going forward. `www.rootrecord.cloud` stays on Vercel. Do not point `www` at the tunnel. `ssh.rootrecord.cloud` is retired. `api.rootrecord.cloud` is aimed at Mainland Two. The API process is not there yet. Do not treat it as live on Mainland One. `rootserver.rootrecord.cloud` stays on the Pacific desk. Earthquake and hurricane voice reports are Pacific poller jobs, not the Mainland globe. Pollers are planned to move to Mainland Two later. They have not moved.
 
-The station on Mainland One was already running. `rr-radio-stream` listens on `127.0.0.1:8092`. `GET /radio/live.mp3` from that port is `audio/mpeg`. `GET /radio/now.json` returned the track Deep Aquarium. Caddy sends `api.rootrecord.cloud` paths `/radio/live.mp3` and `/radio/now.json` to 8092 and everything else to 8091.
+Desk SSH:
 
-`api.rootrecord.cloud` was still an A record for `18.118.30.226`, so the public page could not reach the station. That record is now an A record for `3.140.195.32`, proxy off. `https://api.rootrecord.cloud/radio/now.json` returned 200 after the change.
+| Alias | How it connects | Direct fallback |
+| --- | --- | --- |
+| `ml1` | `cloudflared access ssh` to `ml1.rootrecord.cloud` | none on this alias |
+| `rr-aws` | same tunnel hostname as `ml1` | none on this alias |
+| `rr-aws-ip` | direct `ubuntu@3.140.195.32:22` | this alias is the fallback |
+| `ml2` | `cloudflared access ssh` to `ml2.rootrecord.cloud` | `ml2-ip` is `3.149.238.83` |
 
-`radio.rootrecord.cloud` was added to the Caddyfile with the same two paths. Its DNS is an A record for `3.140.195.32`, proxy off. The first certificate request happened before that DNS existed, so Let's Encrypt returned NXDOMAIN and then a failure rate limit until 05:58 UTC. After that window Caddy obtained a public certificate (issuer Let's Encrypt YE1, subject `radio.rootrecord.cloud`). Confirmed from the desk: `https://radio.rootrecord.cloud/radio/now.json` returns 200, and `/radio/live.mp3` returns `audio/mpeg`. The host copy of that Caddyfile is also saved at `status-api/Caddyfile` in the Mainland One tree.
+Do not restart cloudflared over `ssh ml1`. That session is the tunnel.
 
-A `radio.rootrecord.cloud` rule was also written into the local cloudflared config, service `http://127.0.0.1:8092`. After restart the connector logged the dashboard config again: `www.rootrecord.cloud`, `ssh.rootrecord.cloud`, and the 404 catch-all. The radio hostname is not in that config. A proxied CNAME to the tunnel does not serve the station until the dashboard ingress includes it. The API token still cannot edit that ingress.
+Tunnel `Mainland-One`, id `939b16f7-7d13-4776-bd4d-80fe8021fc72`:
 
-The published site requests `https://radio.rootrecord.cloud/radio/live.mp3` and `.../now.json` from `Website/Home/radio/index.html`, `Website/Home/live/index.html`, `assets/radio.js`, `assets/live-radio.js`, and `assets/broadcast-mode.js`. Those files are already on `www.rootrecord.cloud`. Readings stay on `https://api.rootrecord.cloud`.
+| Hostname | Service |
+| --- | --- |
+| `ml1.rootrecord.cloud` | `ssh://localhost:22` |
+| `radio.rootrecord.cloud` | `http://127.0.0.1:8092` |
 
-## Still open
+Tunnel `Mainland Two`, id `bd8e68a4-8a97-4b20-afd9-b058473a0a22`:
 
-1. Create a separate tunnel for Mainland Two, route `ml2.rootrecord.cloud` → `ssh://localhost:22`, a proxied CNAME, a systemd unit, and point `ssh ml2` at `cloudflared access ssh`. Do not add that route on `network-globe`.
-4. Add and commit the Mainland One folder rename in the umbrella, and commit the doc and catalog edits. Do not commit `Downloads/rr-stream-server.pem` or anything under `~/.ssh`.
-5. If the host directories are renamed to `US-Mainland-One` and `US-Mainland-Two`, update the `/home/ubuntu/...` paths in the unit files in the same change.
+| Hostname | Service |
+| --- | --- |
+| `ml2.rootrecord.cloud` | SSH |
+
+## Radio
+
+The station page is [2026-10-01 radio station](./2026-10-01-radio-station.md).
+
+The listener stream is `https://radio.rootrecord.cloud/radio/live.mp3`. That response is `audio/mpeg` at 128 kbps. Now-playing is `https://radio.rootrecord.cloud/radio/now.json`. The public mix is not the library file format.
+
+The station library is one filetype, Opus (`.opus`). Reports are 24 kbps mono. Chimes are 48 kbps. Music is 96 kbps. A report file is `<report>_current.opus`. A chime is `hour-HH-MM.opus`. Music is `.opus`.
+
+Hawaii still renders a WAV. `Media/Voice/scripts/radio_push.py` encodes that one report to Opus and replaces it on the Mainland runtime. Prune keeps both `*_current.ogg` and `*_current.opus` until that report is replaced, then deletes only that report's old ogg.
+
+The runtime on the host is `/home/ubuntu/rootrecord-radio`. Paths inside the rebuild are relative to that folder: `audio/`, `state/`, `plays.log`, `active/`.
+
+A watchdog on Mainland One is `rr-radio-watchdog.timer`. It runs once a minute. The script is `/home/ubuntu/radio-watchdog.sh`. It starts one `rr-radio-station.service` when a release is ready, and restarts that service only if the heartbeat is older than 30 seconds. The old `rr-radio-stream` and `rr-radio-watch` units were masked. The watchdog activates `releases/staged` into `active` when `active` is missing. A git pull stages a release. The pull does not itself start the player.
+
+There is no music on the live Mainland host right now. The new build folder on the desk is the local copy being converted. The public station is not playing a music bed.
+
+The published site requests `https://radio.rootrecord.cloud/radio/live.mp3` and `.../now.json` from `Website/Home/radio/index.html`, `Website/Home/live/index.html`, `assets/radio.js`, `assets/live-radio.js`, and `assets/broadcast-mode.js`. Those pages stay on `www.rootrecord.cloud`.

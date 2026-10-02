@@ -1,5 +1,7 @@
 # Proposal — AWS US-Mainland node: stabilise, then make it a health + hazard continuity mirror
 
+> **Superseded 2026-10-01:** Mainland One is radio only. `ssh.rootrecord.cloud` is retired. `www` stays on Vercel. This page is the 2026-09-29 proposal. The lock is [2026-10-01 mainland rename and SSH tunnels](../01-operations/2026-10-01-mainland-rename-and-ssh-tunnels.md).
+
 | Field | Value |
 | --- | --- |
 | **Date (HST)** | 2026-09-29 |
