@@ -1,6 +1,6 @@
 # US-Mainland-Two
 
-Current as of 2026-10-02 ~03:09 HST. This page is the live host role. The 2026-10-01 SSH and rename sitting is [2026-10-01 mainland rename and SSH tunnels](../01-Operations/2026-10-01-mainland-rename-and-ssh-tunnels.md). Do not treat OLD FILES or continuity plans as live ML1/ML2 truth.
+Current as of 2026-10-02 ~03:12 HST. This page is the live host role. The 2026-10-01 SSH and rename sitting is [2026-10-01 mainland rename and SSH tunnels](../01-Operations/2026-10-01-mainland-rename-and-ssh-tunnels.md). Do not treat OLD FILES or continuity plans as live ML1/ML2 truth.
 
 | Field | Value |
 | --- | --- |
@@ -21,23 +21,24 @@ Current as of 2026-10-02 ~03:09 HST. This page is the live host role. The 2026-1
 
 Alexander (~03:00–03:02 HST; fallback restore ~03:04): **ML2 is the API.** Public hostname `api.rootrecord.cloud` → this host `:8091` (`/health`, `/api/state` arcs, `/api/operations`, analytics). That origin is **separate** from Root Monitor’s **AWS Fallback** page, which still aims at ML1 alias `rr-aws-ip` and `/home/ubuntu/rootrecord/fallback` (**restored** ~03:01–03:04; Status bindable again — see [US-Mainland-One](./US-Mainland-One.md)). Do **not** retarget the panel to ML2 without Alexander ask. Live flip already `RR_LOCAL_DATA_POLL=0` (survived reboot); banks keep landing. Automations data-poll remains the gate for Local Pacific vs ML2.
 
-## First-test scope — authoritative inventory (~03:02–03:09 HST)
+## First-test scope — authoritative inventory (~03:02–03:12 HST)
 
 **Bottom line:** first test is real for **geology + US weather + API** — **not** a full poller move yet. Do not invent collectors beyond this list.
 
 | State | What |
 | --- | --- |
 | **Working** | Radio on ML1; public API on ML2 (`/health`, `/api/state` arcs, `/api/operations`, analytics); ML2→Pacific bank **geology + US-states** ~5m (acks ~02:57 / ~03:02 HST); `RR_LOCAL_DATA_POLL=0` survived reboot; EcoFlow / cams / LAN globe **capture** still Pacific by design; ML1 AWS Fallback runtime **restored** (~03:04; Status bindable; globe units stay masked) |
-| **Not working / incomplete** | Full Home pageviews (Vercel, no client trackers — option C / ML2 logs only); most gated Pacific jobs have **no** ML2 collector yet (**only 2** enabled) |
+| **Not working / incomplete** | Full Home pageviews (Vercel, no client trackers — option C / ML2 logs only); most gated Pacific jobs have **no** verified-live ML2 collector yet (**only 2** stream-verified live; `weather_hawaii` + `radio_rss` desk-enabled / host deploy not verified) |
 | **ML2 live collectors** | `geology` + `weather_us_states` **only** |
 | **Pacific gated off** while `RR_LOCAL_DATA_POLL=0` | `geology_collect`, `geology_kilauea_cams`, `weather_poller` (Hawaiʻi), `weather_us_states`, `weather_radar_zip`, `weather_retention`, `country_location_pollers`, `radio_rss_poll` |
 | **Still Pacific forever** | EcoFlow / Energy; smart cams; `network_globe` LAN tap — **not** in the ML2 exclusive gate and **not** moving (Alexander ~03:09 HST) |
-| **Scaffold on ML2, not enabled** | `weather_hawaii`, country locations, hurricanes, Kīlauea cams, `radio_rss` — overnight Mainland WIP expanding first-test toward `weather_hawaii` then `radio_rss` (**not landed yet**; inventory stays geology + US weather) |
+| **Desk-enabled / host deploy in progress (not verified live)** | `weather_hawaii` + `radio_rss` — desk code **enabled**; runner honors exclusive gate (`RR_LOCAL_DATA_POLL=0` only). Still deploying/banking on the ML2 host — **NOT stream-verified yet**. Do **not** clear stale-desk notes (NWS HI / hurricane / news hour) until Mainland stream-verify ping. Inventory **live** remains geology + US weather (+ API) until that ping |
+| **Still scaffold / not enabled** | country locations, hurricanes, Kīlauea cams — overnight WIP after weather_hawaii + radio_rss verify: then port **Telegram + Discord pollers** onto ML2 under the exclusive gate (Pacific jobs stay; soft toggle). **Not landed / not live** |
 
 ### Room confirms (~03:02–03:04 HST)
 
 - **Master:** AWS Fallback Status should bind ON/OFF after recreate; leave panel on ML1; don’t confuse with ML2 API; globe units stay masked / flags forced off; classic activate expecting `:8090` won’t pass by design.
-- **Report Instructor:** earthquake / Kīlauea desks can refresh from ML2 geology banks; NWS Hawaiʻi, hurricane, radio news hour need Pacific collectors that are gated off (`weather_poller`, `radio_rss_poll`, etc.) — those go **stale** until scaffolds enabled or local poll flips back. Analytics pull still hits ML2 API fine.
+- **Report Instructor:** earthquake / Kīlauea desks can refresh from ML2 geology banks; NWS Hawaiʻi, hurricane, radio news hour still **stale-risk** while Pacific collectors stay gated (`weather_poller`, `radio_rss_poll`, etc.) — desk now has `weather_hawaii` + `radio_rss` **enabled**, but host deploy/bank is **not stream-verified yet**; keep stale notes until Mainland stream-verify ping (do not claim unstuck). Analytics pull still hits ML2 API fine.
 - **Cove:** Vercel up, no client trackers; Home/Live pull `api.rootrecord.cloud` (ML2) for arcs/ops; Radio page listens to ML1 only — no poller dependency on the Website tree.
 
 ## Live host check (2026-10-02 ~02:50 HST) — supersedes ~02:10 / ~02:26 / ~02:29 / ~02:39
@@ -71,7 +72,7 @@ Disk recovery and API enable from ~02:10 remain in force (`ml2-api`, `ml2-collec
 
 The desk tree and host checkout run a live path under the toggle plan:
 
-- `collectors/` — geology, Kīlauea camera, weather (Hawaiʻi, US states, country locations, hurricanes), and radio-RSS scaffold modules plus the runner. **Live now (first-test):** `geology` and `weather_us_states` **only** via `ml2-collectors.timer`. Scaffold present but **not enabled:** `weather_hawaii`, country locations, hurricanes, Kīlauea cams, `radio_rss`. Not a full poller move.
+- `collectors/` — geology, Kīlauea camera, weather (Hawaiʻi, US states, country locations, hurricanes), and radio-RSS modules plus the runner. **Live / stream-verified (first-test):** `geology` and `weather_us_states` **only** via `ml2-collectors.timer`. **Desk-enabled, host deploy in progress (not stream-verified):** `weather_hawaii` + `radio_rss` (runner honors exclusive gate / `RR_LOCAL_DATA_POLL=0` only). Still scaffold / not enabled: country locations, hurricanes, Kīlauea cams. Not a full poller move.
 - `stream/` — clean SSH NDJSON client/protocol and `home_receiver.py` for the Pacific Database. **`ml2-db-stream` verified** through desk `rr-ml2-db-tunnel` `:17022`.
 - `api_local/` — local API status-cache sync; it overwrites `var/cache/api/` and does not stream API-circulated metrics home. **`ml2-api.service` is enabled** on `:8091`, including analytics routes.
 - Analytics — `ANALYTICS.md`; `/api/analytics/daily|period|current`; aggregates land under desk `Logs/Website/analytics/`. Pacific pull consumes daily for voice reports (gate `RR_ANALYTICS_PULL`).
@@ -97,7 +98,7 @@ Alexander (2026-10-02 ~02:26 HST; SHAs attached ~02:29; schema FAIL ~02:34 clear
 
 ### Exclusive gate (Alexander standing rule ~03:08–03:09 HST)
 
-**Exclusive:** if AWS/ML2 data-poll is **on**, solar (Pacific local) data-poll is **off**; if solar/local is **on**, AWS/ML2 pollers are **off**. Soft kill-switch only — do **not** delete or hardcode collectors; Pacific collectors stay installed; `RR_LOCAL_DATA_POLL` flips them. Pacific already gates on `RR_LOCAL_DATA_POLL`; Mainland is wiring the ML2 side of the same exclusive gate. Overnight Mainland WIP will expand first-test toward `weather_hawaii` then `radio_rss` — **do not claim those landed**; inventory remains **geology + US weather (+ API)** until they do. **EcoFlow / Energy and smart cams stay Pacific forever** — they are **not** part of this exclusive gate and are **not** moving to ML2.
+**Exclusive:** if AWS/ML2 data-poll is **on**, solar (Pacific local) data-poll is **off**; if solar/local is **on**, AWS/ML2 pollers are **off**. Soft kill-switch only — do **not** delete or hardcode collectors; Pacific collectors stay installed; `RR_LOCAL_DATA_POLL` flips them. Pacific already gates on `RR_LOCAL_DATA_POLL`; Mainland runner honors the same exclusive gate (`RR_LOCAL_DATA_POLL=0` only). **Desk (~03:12 HST):** `weather_hawaii` + `radio_rss` code **enabled**; still deploying/banking on ML2 host — **NOT stream-verified yet**. Do **not** claim them live or voice unstuck until Mainland stream-verify ping; keep stale-desk notes. Next after that verify: Telegram + Discord pollers on the **ML2 side under the exclusive gate** (Pacific jobs stay; soft toggle only) — **not landed**. Live inventory remains **geology + US weather (+ API)** until weather/rss stream-verify. Clean bounce if needed when enabling. **EcoFlow / Energy and smart cams stay Pacific forever** — they are **not** part of this exclusive gate and are **not** moving to ML2.
 
 **Near-term** (now live): collectors (geology + weather_us_states), stream (verified), and API/analytics are live with Pacific local data-poll gated **off** (`RR_LOCAL_DATA_POLL=0`) while ML2 is healthy under the exclusive gate. Pacific remains the **sole long-term bank**. EcoFlow/energy, smart cams, LAN globe, voice, local devices, tunnel, and durable Database stay Pacific-owned forever (outside the exclusive gate).
 
