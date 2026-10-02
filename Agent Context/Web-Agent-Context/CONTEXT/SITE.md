@@ -18,7 +18,7 @@ Do not recreate `3 - RootRecord-Website/`. Do not bind port 3001. Do not start a
 
 ## Pages
 
-Navigation is Home, Products, Services, Solutions, About, Security, Status, and Radio. The page list is `Website/Home/README.md`.
+Primary navigation (Alexander 2026-10-02): Home, Products, Services, Solutions, About, Security, Status, Reports, Radio, Live. Current page is a span, not a link (omit the self-link). Footer sitewide: Account, Terms, Privacy, Data deletion. Report pages use the same primary nav. Ecosystem / Systems (`/operations` as nav label) / Intelligence / Knowledge stay off primary nav. The page list is `Website/Home/README.md`.
 
 | Path | What it is |
 | --- | --- |

@@ -8,9 +8,9 @@
 | **Tests** | `07-Testing/2026-09-29-kokoro-voice-port-g3.md` · `07-Testing/2026-09-29-kokoro-phrase-clips-qc.md` · `07-Testing/2026-09-29-hawaiian-pronunciation-sheet.md` |
 
 
-## Current as of 2026-10-02 00:39 HST
+## Current as of 2026-10-02 ~00:50 HST
 
-Operator schedule and armed flags live in [2026-09-30 voice desk](../01-Operations/2026-09-30-voice-desk.md). This page is the 2026-09-29 port record. Where the sections below still name an old minute (`system_perf` docstring :06) or say roll-ups / hurricane / late-final are gated off, the voice-desk page and live `jobs.py` / `run-poller.sh` win. As of 00:34 HST: spoken stamps use the generation clock; measured desks may append percent-change lines via `compare_span.py`; staged on-air cues use the short notification sound, not the full spoken clock chime.
+Operator schedule and armed flags live in [2026-09-30 voice desk](../01-Operations/2026-09-30-voice-desk.md). This page is the 2026-09-29 port record. Where the sections below still name an old minute (`system_perf` docstring :06) or say roll-ups / hurricane / late-final are gated off, the voice-desk page and live `jobs.py` / `run-poller.sh` win. As of ~00:50 HST (Alexander operator copy): :12/:42 lead 17m59s into the playlist lock; ten-desk p90 891s fits; generation-clock stamps (not snapped slots); `compare_span.py` percent lines; four desk status clips + staged on-air cues (`notify.opus` ding first); mixer release `stage-notice`. Living detail: [voice desk](../01-Operations/2026-09-30-voice-desk.md).
 
 **Pipeline (live):** `jobs.py` → `voice_reports.py` / `system_perf.py` → MD (+ Archive under `test-reports/Voice/`) → `voice-render.sh` stitch (Kokoro single-flight) → `voice_deliver` when `RR_VOICE_DELIVER=1` → `radio_push` unless `RR_RADIO_PUSH=0` → Discord `report_relay` (300 s) → `publish_report_pages` → `/reports/<slug>`.
 
