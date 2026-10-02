@@ -1,6 +1,6 @@
 # US-Mainland-Two
 
-Current as of 2026-10-02 ~02:57 HST. This page is the live host role. The 2026-10-01 SSH and rename sitting is [2026-10-01 mainland rename and SSH tunnels](../01-Operations/2026-10-01-mainland-rename-and-ssh-tunnels.md). Do not treat OLD FILES or continuity plans as live ML1/ML2 truth.
+Current as of 2026-10-02 ~03:04 HST. This page is the live host role. The 2026-10-01 SSH and rename sitting is [2026-10-01 mainland rename and SSH tunnels](../01-Operations/2026-10-01-mainland-rename-and-ssh-tunnels.md). Do not treat OLD FILES or continuity plans as live ML1/ML2 truth.
 
 | Field | Value |
 | --- | --- |
@@ -17,13 +17,30 @@ Current as of 2026-10-02 ~02:57 HST. This page is the live host role. The 2026-1
 | **Library SHA** | `2fc7a47` (RootRecord-Library; context only) |
 | **Test-mode toggle** | Host `docs/TOGGLE.md` test-mode § (Library does not edit that file) |
 
+## Public API origin (ML2) — not the AWS Fallback panel
+
+Alexander (~03:00–03:02 HST; fallback restore ~03:04): **ML2 is the API.** Public hostname `api.rootrecord.cloud` → this host `:8091` (`/health`, `/api/state` arcs, `/api/operations`, analytics). That origin is **separate** from Root Monitor’s **AWS Fallback** page, which still aims at ML1 alias `rr-aws-ip` and `/home/ubuntu/rootrecord/fallback` (**restored** ~03:01–03:04; Status bindable again — see [US-Mainland-One](./US-Mainland-One.md)). Do **not** retarget the panel to ML2 without Alexander ask. Live flip already `RR_LOCAL_DATA_POLL=0` (survived reboot); banks keep landing. Automations data-poll remains the gate for Local Pacific vs ML2.
+
+## First-test scope — authoritative inventory (~03:02–03:04 HST)
+
+**Bottom line:** first test is real for **geology + US weather + API** — **not** a full poller move yet. Do not invent collectors beyond this list.
+
+| State | What |
+| --- | --- |
+| **Working** | Radio on ML1; public API on ML2 (`/health`, `/api/state` arcs, `/api/operations`, analytics); ML2→Pacific bank **geology + US-states** ~5m (acks ~02:57 / ~03:02 HST); `RR_LOCAL_DATA_POLL=0` survived reboot; EcoFlow / cams / LAN globe **capture** still Pacific by design; ML1 AWS Fallback runtime **restored** (~03:04; Status bindable; globe units stay masked) |
+| **Not working / incomplete** | Full Home pageviews (Vercel, no client trackers — option C / ML2 logs only); most gated Pacific jobs have **no** ML2 collector yet (**only 2** enabled) |
+| **ML2 live collectors** | `geology` + `weather_us_states` **only** |
+| **Pacific gated off** while `RR_LOCAL_DATA_POLL=0` | `geology_collect`, `geology_kilauea_cams`, `weather_poller` (Hawaiʻi), `weather_us_states`, `weather_radar_zip`, `weather_retention`, `country_location_pollers`, `radio_rss_poll` |
+| **Still Pacific forever** | EcoFlow / Energy; `network_globe` LAN tap |
+| **Scaffold on ML2, not enabled** | `weather_hawaii`, country locations, hurricanes, Kīlauea cams, `radio_rss` |
+
 ## Live host check (2026-10-02 ~02:50 HST) — supersedes ~02:10 / ~02:26 / ~02:29 / ~02:39
 
 Mainland landed ML2 analytics + bank path; **schema parity PASS** (~02:39) still stands. Desk data-poll **flipped to ML2 LIVE** (~02:50). Desk ML2 `6425c8a`, host `087ee38`, Ecosystem `00985524`, Library `2fc7a47`.
 
 - **API + analytics:** `ANALYTICS.md` in the ML2 tree; endpoints `/api/analytics/daily`, `/api/analytics/period`, `/api/analytics/current` on `:8091`. Desk sink: Pacific Database `Logs/Website/analytics/`. Pacific `Website/scripts/analytics_pull.py` (job `analytics_pull`, gate `RR_ANALYTICS_PULL=1`, off until armed) consumes `/api/analytics/daily` into that bank for voice `bandwidth_desk` / `current_report`.
 - **Stream verified:** 7 handoffs reached Pacific `Geology/` + `Weather/US-States/`. `ml2-db-stream` runs via desk tunnel `rr-ml2-db-tunnel` on `:17022` (not the earlier “stream still off” state).
-- **Collectors on:** `geology` and `weather_us_states` (other internet-facing collectors remain staged for review).
+- **Collectors on (first-test only):** `geology` and `weather_us_states` **only**. Other internet-facing modules stay scaffold/staged — not a full poller move (see First-test scope §).
 - **Pacific gate (LIVE ~02:50 HST):** Settings write mode, `data_poll_desired=ml2`; drop-in `~/.config/systemd/user/rr-rootserver-poller.service.d/rr-data-poll.conf` sets `Environment=RR_LOCAL_DATA_POLL=0`; intent `data_poll_mode.yaml` `mode=remote`; poller restarted. Verified `live_raw=0` / `live_label=ML2 offload`; `:8799` HTTP 200. **Clears** earlier “`RR_LOCAL_DATA_POLL` still not flipped” / default-local-ON-as-current-live notes. Code fail-safe default remains local ON when unset; live desk is now gated off. Toggle-not-replacement: home collectors stay installed; gate flipped only. No git commit.
 - **Toggle plan:** toggle-not-replacement + later local-mirror plan already filed (~02:26); SHAs and live stream/analytics state attached here; GTK UI filed ~02:32; live flip applied ~02:50.
 
@@ -48,7 +65,7 @@ Disk recovery and API enable from ~02:10 remain in force (`ml2-api`, `ml2-collec
 
 The desk tree and host checkout run a live path under the toggle plan:
 
-- `collectors/` — geology, Kīlauea camera, weather (Hawaiʻi, US states, country locations, hurricanes), and radio-RSS scaffold modules plus the runner. **Live now:** `geology` and `weather_us_states` via `ml2-collectors.timer`. Other internet-facing collectors stay staged for review.
+- `collectors/` — geology, Kīlauea camera, weather (Hawaiʻi, US states, country locations, hurricanes), and radio-RSS scaffold modules plus the runner. **Live now (first-test):** `geology` and `weather_us_states` **only** via `ml2-collectors.timer`. Scaffold present but **not enabled:** `weather_hawaii`, country locations, hurricanes, Kīlauea cams, `radio_rss`. Not a full poller move.
 - `stream/` — clean SSH NDJSON client/protocol and `home_receiver.py` for the Pacific Database. **`ml2-db-stream` verified** through desk `rr-ml2-db-tunnel` `:17022`.
 - `api_local/` — local API status-cache sync; it overwrites `var/cache/api/` and does not stream API-circulated metrics home. **`ml2-api.service` is enabled** on `:8091`, including analytics routes.
 - Analytics — `ANALYTICS.md`; `/api/analytics/daily|period|current`; aggregates land under desk `Logs/Website/analytics/`. Pacific pull consumes daily for voice reports (gate `RR_ANALYTICS_PULL`).
