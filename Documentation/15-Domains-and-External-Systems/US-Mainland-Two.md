@@ -1,6 +1,6 @@
 # US-Mainland-Two
 
-Current as of 2026-10-02 ~03:25 HST. This page is the live host role. The 2026-10-01 SSH and rename sitting is [2026-10-01 mainland rename and SSH tunnels](../01-Operations/2026-10-01-mainland-rename-and-ssh-tunnels.md). Do not treat OLD FILES or continuity plans as live ML1/ML2 truth. Mainland local commits only — **no push**.
+Current as of 2026-10-02 ~03:31 HST. This page is the live host role. The 2026-10-01 SSH and rename sitting is [2026-10-01 mainland rename and SSH tunnels](../01-Operations/2026-10-01-mainland-rename-and-ssh-tunnels.md). Do not treat OLD FILES or continuity plans as live ML1/ML2 truth. Mainland local commits only — **no push**.
 
 | Field | Value |
 | --- | --- |
@@ -21,21 +21,21 @@ Current as of 2026-10-02 ~03:25 HST. This page is the live host role. The 2026-1
 
 Alexander (~03:00–03:02 HST; fallback restore ~03:04): **ML2 is the API.** Public hostname `api.rootrecord.cloud` → this host `:8091` (`/health`, `/api/state` arcs, `/api/operations`, analytics). That origin is **separate** from Root Monitor’s **AWS Fallback** page, which still aims at ML1 alias `rr-aws-ip` and `/home/ubuntu/rootrecord/fallback` (**restored** ~03:01–03:04; Status bindable again — see [US-Mainland-One](./US-Mainland-One.md)). Do **not** retarget the panel to ML2 without Alexander ask. Live flip already `RR_LOCAL_DATA_POLL=0` (survived reboot); banks keep landing. Automations data-poll remains the gate for Local Pacific vs ML2.
 
-## Live inventory — authoritative (~03:23 HST)
+## Live inventory — authoritative (~03:31 HST)
 
-**Bottom line:** LIVE collectors are **geology + weather_us_states + weather_hawaii + radio_rss** (hurricanes covered by `weather_hawaii`). SSH bank stream **verified** into the same Pacific Database `path_rel` tree desks/LLMs read. **Not** a full poller move. Discord/Telegram *pollers* still scaffold. EcoFlow/cams/globe stay Pacific. Pacific remains the **only** LLM-readable long-term bank.
+**Bottom line:** LIVE collectors are **geology + geology_kilauea_cams + weather_us_states + weather_hawaii + radio_rss** (hurricanes covered by `weather_hawaii`). SSH bank stream **verified** into the same Pacific Database `path_rel` tree desks/LLMs read. **Not** a full poller move. Discord/Telegram *pollers* still scaffold. EcoFlow/cams/globe stay Pacific. Pacific remains the **only** LLM-readable long-term bank.
 
 | State | What |
 | --- | --- |
-| **Working** | Radio on ML1; public API on ML2 (`/health`, `/api/state` arcs, `/api/operations`, analytics); ML2→Pacific banks for **geology + US-states + Hawaiʻi weather (incl. hurricane tracks) + RadioRss** via SSH stream (Telegram datapack fallback); `RR_LOCAL_DATA_POLL=0` exclusive gate overnight ML2-on; EcoFlow / cams / LAN globe **capture** Pacific; ML1 AWS Fallback restored; handoff≈0 after stream; `ml2-purge` extended so weather-bank/radio-bank scratch never stacks on ML2 |
+| **Working** | Radio on ML1; public API on ML2 (`/health`, `/api/state` arcs, `/api/operations`, analytics); ML2→Pacific banks for **geology + Kīlauea cams + US-states + Hawaiʻi weather (incl. hurricane tracks) + RadioRss** via SSH stream (Telegram datapack fallback); `RR_LOCAL_DATA_POLL=0` exclusive gate overnight ML2-on; EcoFlow / cams / LAN globe **capture** Pacific; ML1 AWS Fallback restored; handoff≈0 after stream; `ml2-purge` extended so weather-bank/radio-bank scratch never stacks on ML2 |
 | **Not working / incomplete** | Full Home pageviews (Vercel, no client trackers — option C / ML2 logs only); Discord poller **blocked on token**; Telegram/Discord poller scaffolds not live (council-relay stays Pacific) |
-| **ML2 LIVE collectors** | `geology` + `weather_us_states` + `weather_hawaii` (600s oneshot) + `radio_rss` — runner exclusive `RR_LOCAL_DATA_POLL=0` only |
+| **ML2 LIVE collectors** | `geology` + `geology_kilauea_cams` (USGS still intake only; no vision) + `weather_us_states` + `weather_hawaii` (600s oneshot) + `radio_rss` — runner exclusive `RR_LOCAL_DATA_POLL=0` only |
 | **Hurricanes** | Covered by `weather_hawaii` (not a separate live collector) |
 | **Pacific gated off** while `RR_LOCAL_DATA_POLL=0` | `geology_collect`, `geology_kilauea_cams`, `weather_poller` (Hawaiʻi), `weather_us_states`, `weather_radar_zip`, `weather_retention`, `country_location_pollers`, `radio_rss_poll` |
 | **Still Pacific forever** | EcoFlow / Energy; smart cams; `network_globe` LAN tap; Telegram **council-relay** — **not** in the ML2 exclusive gate and **not** moving |
 | **Stream** | SSH primary into same Database `path_rel` tree LLMs read; Telegram datapack fallback; Pacific datapack-pickup allowlist expanded + `ml2_datapack_pickup` job (timer+boot) |
-| **Scaffold / not live** | Discord poller (no token); Telegram poller scaffold (council-relay stays Pacific); country locations; Kīlauea cams collect on ML2 |
-| **WIP (unverified)** | General `*_current` product stream naming + solar archive-on-replace; Kīlauea USGS HVO stills are the first consumer — see WIP § below |
+| **Scaffold / not live** | Discord poller (no token); Telegram poller scaffold (council-relay stays Pacific); country locations |
+| **Verified Kīlauea Cams bank** | ML2 `geology_kilauea_cams` takes USGS stills only (no vision), remains in `LOCAL_DATA_POLL_JOBS` as a soft toggle, streams the handoff under exclusive `RR_LOCAL_DATA_POLL=0`, and wipes scratch after stream; Pacific Cams bank is durable/LLM-readable |
 | **Purge / no-stack** | `ml2-purge` extended (`8cb0456`) wipes weather-bank archive/imagery scratch (+ radio-bank); handoff stays ~0 after stream. Weather-bank scratch was ~295M before scrub — ML2 must never accumulate |
 
 ### Sample paths (room confirm ~03:23 HST) — Pacific Database
@@ -45,16 +45,21 @@ Alexander (~03:00–03:02 HST; fallback restore ~03:04): **ML2 is the API.** Pub
 - `Media/RadioRss/` health/queue — ok
 
 
-## WIP — general `*_current` product intake; Kīlauea first consumer (~03:25 HST)
+## Verified — Kīlauea `*_current` bank + archive-on-replace (~03:31 HST)
 
-**Not verified yet.** Wiring overnight; Alexander will ping when first `_current` banks and archive-on-replace are confirmed.
+The first `*_current` bank is **LIVE and verified**. ML2 `geology_kilauea_cams` performs USGS still intake only (no vision on the mainland host), is enabled under the exclusive `RR_LOCAL_DATA_POLL=0` gate and remains in `LOCAL_DATA_POLL_JOBS` as a soft toggle, streams the handoff to Pacific, and wipes scratch after stream. Pacific is the only durable/LLM-readable bank and the only side that looks at the images.
 
-- General pattern: ML2 product streams use a live `*_current` path and stream home for analysis; Kīlauea USGS HVO stills are the first consumer.
-- For every `*_current` product, Pacific (solar) renames the previous one into dated `archive/` when a second one lands; `archive/` is history only and the live path stays `*_current` for LLM reads.
-- Report Instructor looker can prefer `_current` (fallback to `-last`).
-- Report-blend bank fields: retain each `*_current` product, `cams_current.json`, and `look-last` when Report Instructor writes it. The looker prefers Cams `*_current`, then `-last`, then live USGS; Report Instructor owns report text that says whether the still was viewed (Y/N) and what conditions looked like. This remains WIP until Mainland verifies the first bank; do not claim it is live.
-ML2/Mainland only polls and banks stills as `*_current` for solar; Pacific LLMs do the looking/vision, no vision runs on the Mainland host, and this remains WIP pending first-bank verification.
-- **EcoFlow and cams stay forever-Pacific.** This naming/archive pattern is not a move to ML2; LIVE collectors inventory above is unchanged by this path WIP.
+- Live paths: `Geology/Volcanoes/Cams/v1cam_current.jpg`, `v2cam_current.jpg`, `v3cam_current.jpg`, and `Geology/Volcanoes/Cams/cams_current.json`.
+- `cams_current.json` records `photo_viewed` and per-camera `fetched_at`, `bytes`, `sha`, `ok`, and `error`.
+- Pacific `rr_db_stream_receive` (and datapack twin when used) archives any filename containing `_current` on replacement as `archive/YYYYMMDD/<stem>_<HHMMSS><ext>`. The live `_current` is always newest for LLM reads; archive is history only. Verified example: `Geology/Volcanoes/Cams/archive/20261002/v3cam_current_033046.jpg`.
+- `kilauea_look` prefers `*_current` over `*-last`; `v3cam_current.jpg` was verified with `source_kind=current`.
+- EcoFlow stays Pacific forever. ML2 never runs vision; Pacific LLMs look.
+
+Local SHAs (no push): ML2 `5f3d5c841a10145a33cb1723ee17e1097637f4a2`; Pacific `5bc07464631aa429c0d5813c55fe5db9455315bf`; Ecosystem `0bd1ecbd292863f8e39dea1696959a8bcf31ba70`.
+
+### Verified — report blend (~03:33 HST)
+
+Report Instructor confirmed the look/report blend. The report states whether a still was viewed (**Y/N**) and, when viewed, what conditions looked like. The bank, paths, archive-on-replace, Pacific-only looking, and report blend are verified.
 
 
 ### Room confirms (~03:02–03:04; stream-verify + scrub ~03:23 HST)
@@ -95,7 +100,7 @@ Disk recovery and API enable from ~02:10 remain in force (`ml2-api`, `ml2-collec
 
 The desk tree and host checkout run a live path under the toggle plan:
 
-- `collectors/` — geology, Kīlauea camera, weather (Hawaiʻi, US states, country locations, hurricanes), and radio-RSS modules plus the runner. **LIVE / stream-verified (~03:23):** `geology` + `weather_us_states` + `weather_hawaii` (600s oneshot; hurricanes via this module) + `radio_rss` via `ml2-collectors` / vendor Weather/RadioRss; runner exclusive gate `RR_LOCAL_DATA_POLL=0` only. Still scaffold / not enabled: country locations, Kīlauea cams collect, Discord/Telegram pollers. Not a full poller move.
+- `collectors/` — geology, Kīlauea camera, weather (Hawaiʻi, US states, country locations, hurricanes), and radio-RSS modules plus the runner. **LIVE / stream-verified (~03:31):** `geology` + `geology_kilauea_cams` (USGS still intake only; no vision) + `weather_us_states` + `weather_hawaii` (600s oneshot; hurricanes via this module) + `radio_rss` via `ml2-collectors` / vendor Weather/RadioRss; runner exclusive gate `RR_LOCAL_DATA_POLL=0` only. Still scaffold / not enabled: country locations, Discord/Telegram pollers. Kīlauea cam scratch is wiped after stream. Not a full poller move.
 - `stream/` — clean SSH NDJSON client/protocol and `home_receiver.py` for the Pacific Database. **`ml2-db-stream` verified** through desk `rr-ml2-db-tunnel` `:17022`.
 - `api_local/` — local API status-cache sync; it overwrites `var/cache/api/` and does not stream API-circulated metrics home. **`ml2-api.service` is enabled** on `:8091`, including analytics routes.
 - Analytics — `ANALYTICS.md`; `/api/analytics/daily|period|current`; aggregates land under desk `Logs/Website/analytics/`. Pacific pull consumes daily for voice reports (gate `RR_ANALYTICS_PULL`).
