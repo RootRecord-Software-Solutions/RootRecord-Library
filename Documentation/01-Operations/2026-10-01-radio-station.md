@@ -153,6 +153,8 @@ Music stays open under the whole cycle. One encoder, one station process, and th
 
 Reports run twice an hour on Pacific/Honolulu. At `HH:59:59` the music bed ducks to `0.1`, one second before the chime, so the drop is already in place. At `HH:00:00` the hour chime plays (`hour-HH-00.opus`, about 11 seconds). Music stays at `0.1` through the chime. Then every current report plays, longest first, at full voice level. Music stays at `0.1` under the reports and is not ducked again. When the last report ends, music returns to `1`.
 
+Desk auto-sync `e101f21` briefly restored `DUCK = 0.25`. Live mixer and desk were corrected to `0.1` ~01:38 HST (Mainland `1a4c1bb`; `rr-radio-station` restarted).
+
 At `HH:29:59` the same cycle starts for the half hour: duck, then `hour-HH-30.opus`, then every current report longest first, then restore. If a cycle is still running, that boundary cuts it. The voice stops, the new chime starts clean, and a second report pass is not stacked on one already playing. The slot key is the Hawaii date plus the chime `HH:MM`, so that half hour plays once and can play again the next day. A missing chime file is logged once for that slot, and the report pass still runs.
 
 Order is duration, longest first. The mixer probes duration with `ffprobe` and keeps that value for the file identity. Until a duration is known, file size is the order. Samples are summed and clipped to 16-bit. The voice decoder is another ffmpeg reading that Opus file to 44.1 kHz stereo PCM.
