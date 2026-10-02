@@ -19,8 +19,9 @@ Documentation about RootRecord agents. **Canonical identity packs do not live he
 | **Carly Mal** | Security, billing, honesty seal, WO structure | [Carly-Agent-Context](../../Agent%20Context/Carly-Agent-Context/) |
 | **Bruce** | Implement & operate | [Bruce-Agent-Context](../../Agent%20Context/Bruce-Agent-Context/) |
 | **Root Record Global Updater** | Factual data, observations, operational information, professional help desk | [Global-Updater-Agent-Context](../../Agent%20Context/Global-Updater-Agent-Context/) |
+| **Root Record Documenter** | Writes the current fact into the existing Library page and the master prompt | [Documenter-Agent-Context](../../Agent%20Context/Documenter-Agent-Context/) |
 
-Council pipeline: **Ava → Carly → Bruce**. That pipeline is not the Global Updater.
+Council pipeline: **Ava → Carly → Bruce**. That pipeline is not the Global Updater and not the Documenter.
 
 ```text
 Ava Ivy
@@ -30,13 +31,17 @@ Ava Ivy
 Global Updater
 → professional RootRecord Discord
 → factual operational/data/help-desk agent
+
+Documenter
+→ Library and master prompt
+→ writes the current fact into the existing page
 ```
 
 ## Boundary
 
-Library `Agent Context/` is the only editable home for who Ava, Bruce, Carly, and the Global Updater are: identity, principles, bounds, durable workflow, and `CONTEXT/`.
+Library `Agent Context/` is the only editable home for who Ava, Bruce, Carly, the Global Updater, and the Documenter are: identity, principles, bounds, durable workflow, and `CONTEXT/`.
 
-Pacific may hold server implementation. It must not hold a second copy of that identity. `Communications/CouncilPersona/scripts/personas.py` reads `IDENTITY.md`, `ROLE-AND-BOUNDS.md`, `PRINCIPLES.md`, and `WORKFLOW.md` from this tree, including `Global-Updater-Agent-Context`. There is no sync job. Telegram does not request the Global Updater voice.
+Pacific may hold server implementation. It must not hold a second copy of that identity. `Communications/CouncilPersona/scripts/personas.py` reads `IDENTITY.md`, `ROLE-AND-BOUNDS.md`, `PRINCIPLES.md`, and `WORKFLOW.md` from this tree, including `Global-Updater-Agent-Context`. It does not load `Documenter-Agent-Context`. There is no sync job. Telegram does not request the Global Updater voice or the Documenter.
 
 `CONTEXT/`, changelogs, and the handoff template stay here and are not injected into every Telegram turn (NPU context 4096).
 
@@ -62,7 +67,7 @@ Standing strategy: same roles on small local NPU models or future larger capacit
 
 ## Empty subfolders under this path
 
-Any `Ava-Agent-Context/`, `Bruce-Agent-Context/`, or `Carly-Agent-Context/` directories **under** `Documentation/02-Agents/` are placeholders only. Do **not** maintain a second copy of IDENTITY/ROLE files here — edit the root `Agent Context/` packs.
+Any `Ava-Agent-Context/`, `Bruce-Agent-Context/`, `Carly-Agent-Context/`, or `Documenter-Agent-Context/` directories **under** `Documentation/02-Agents/` are placeholders only. Do **not** maintain a second copy of IDENTITY/ROLE files here — edit the root `Agent Context/` packs.
 
 ## Personal mirrors
 

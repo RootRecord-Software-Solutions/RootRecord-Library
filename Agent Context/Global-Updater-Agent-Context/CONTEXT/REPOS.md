@@ -3,7 +3,7 @@
 ## Ownership
 | Path or repository | What it owns |
 |------------|--------|
-| `5 - RootRecord-Library/Agent Context/` | Who Ava, Bruce, Carly, and the Global Updater are |
+| `5 - RootRecord-Library/Agent Context/` | Who Ava, Bruce, Carly, the Global Updater, and the Documenter are |
 | `1 - Servers/1 - RootRecord-Pacific-Solar-Server/` | How the Pacific server runs |
 | `Communications/Discord/` | How professional Discord sends and receives |
 | `Communications/telegram/` | Telegram council transport. Not the Global Updater |

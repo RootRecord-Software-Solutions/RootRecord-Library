@@ -31,6 +31,10 @@
     "carly": {
       "can_build": false,
       "permissions": ["READ", "DIAGNOSE"]
+    },
+    "documenter": {
+      "can_build": false,
+      "permissions": ["READ"]
     }
   }
 }

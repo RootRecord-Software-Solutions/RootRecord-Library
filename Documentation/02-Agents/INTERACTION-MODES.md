@@ -65,7 +65,7 @@ The labels waiting for ids:
 
 A matching name with a missing or different id is a standard user. Standard users can reach `PENDING_AUTHORIZATION`. They cannot reach `READY_FOR_BUILD`.
 
-Ava, Bruce, and Carly have `can_build: false`. They are not in that set. `development.execute_work_order` is denied to all three.
+Ava, Bruce, Carly, and the Documenter have `can_build: false`. They are not in that set. `development.execute_work_order` is denied to all four. The Documenter is not a council pass.
 
 Until Alexander records the three numeric ids, the live registry cannot authorize a build.
 

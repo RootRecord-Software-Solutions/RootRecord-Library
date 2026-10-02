@@ -1,6 +1,7 @@
 # Changelog — Carly Mal Agent Context
 
 ## 0.1.5 — 2026-10-01
+- CONTEXT/REPOS.md: identity packs include the Documenter. That seat is not a council hop.
 - CONTEXT/REPOS.md: Mainland One row is the radio host at `9b7fccf`, published by the `mainland` row. The continuity-node inventory is not the live tree.
 - CONTEXT/REPOS.md: Mainland One is the radio tree at `9b7fccf` and the Opus bed is on the air. `ssh.rootrecord.cloud` is retired. `www` stays on Vercel. `api.rootrecord.cloud` is aimed at Mainland Two and is not live yet.
 

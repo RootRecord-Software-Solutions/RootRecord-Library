@@ -95,6 +95,8 @@ Non-council callers and `flm-warmup.sh` still default to `llama3.2:1b`. The coun
 
 ## Recent changes
 
+2026-10-01 23:24 HST: The Root Record Documenter is a Library seat for writing current facts into existing pages. Pack: `Agent Context/Documenter-Agent-Context/`. It is not a council hop and not a Telegram or Discord voice. The master prompt section is `0 - Master-Prompt/MASTER-PROMPT.md` §5a.
+
 2026-10-01 23:20 HST: A pack whose last reading is 5 percent or less, and is older than 30 minutes, is discharged and powered off. Voice, the desk file, the state slice, and the public power page say that. They do not keep announcing watts or "reporting." See `Documentation/01-Operations/2026-10-01-ecoflow-ble-reads.md`.
 
 2026-10-01 23:11 HST: EcoFlow reads stay on Bluetooth. A miss keeps the last BLE file for 3 minutes and does not publish quota. If both watt files are at least 3 minutes old, the leapfrog read power-cycles `hci0` once. The repeating read is user timer `rr-ecoflow-read.timer`. Poller job `ecoflow_read_cycle` stays off. See `Documentation/01-Operations/2026-10-01-ecoflow-ble-reads.md`.
@@ -126,6 +128,7 @@ bash verify.sh
 | State promise | `1 - Servers/1 - RootRecord-Pacific-Solar-Server/System/CONTRACT.md` |
 | Fact envelope | `5 - RootRecord-Library/Documentation/00-Architecture/Schemas/state-envelope.md` |
 | Personas and bounds | `5 - RootRecord-Library/Agent Context/` |
+| Documentation seat | `5 - RootRecord-Library/Agent Context/Documenter-Agent-Context/` |
 | Operator decisions still open | `5 - RootRecord-Library/Documentation/01-Operations/2026-09-30-whats-left-for-alexander.md` |
 | Voice desk, current | `5 - RootRecord-Library/Documentation/01-Operations/2026-09-30-voice-desk.md` |
 | EcoFlow BLE reads, current | `5 - RootRecord-Library/Documentation/01-Operations/2026-10-01-ecoflow-ble-reads.md` |
