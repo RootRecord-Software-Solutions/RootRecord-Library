@@ -14,6 +14,7 @@ Update the row that matches the change. Do not add a folder because the old page
 | Repository ownership | Ava, Bruce, and Carly `CONTEXT/REPOS.md`, plus `Documentation/12-Pacific-Server-Current-Architecture/Repository-Ownership-Model.md` |
 | Operator panel claim | `Guides & Tutorials/Root-Monitor-Operators-Handbook/Root-Monitor-Operators-Handbook.md` |
 | A test of a rule | `Documentation/07-Testing/` one dated record, and the index row in `Documentation/07-Testing/README.md` |
+| The public page | Pacific `Website/Home/` and `Website/Home/README.md`. Cove owns that edit. The contract is `Website/HANDOFF-vercel-homepage-2026-09-30.md` |
 
 The 2026-09-29 section of `US-Mainland-One.md` is an inventory of that day. Do not treat it as the live tree.
 

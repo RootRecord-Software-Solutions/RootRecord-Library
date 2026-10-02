@@ -35,6 +35,10 @@
     "documenter": {
       "can_build": false,
       "permissions": ["READ"]
+    },
+    "cove": {
+      "can_build": false,
+      "permissions": ["READ"]
     }
   }
 }

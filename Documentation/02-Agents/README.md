@@ -20,8 +20,9 @@ Documentation about RootRecord agents. **Canonical identity packs do not live he
 | **Bruce** | Implement & operate | [Bruce-Agent-Context](../../Agent%20Context/Bruce-Agent-Context/) |
 | **Root Record Global Updater** | Factual data, observations, operational information, professional help desk | [Global-Updater-Agent-Context](../../Agent%20Context/Global-Updater-Agent-Context/) |
 | **Wren** | Root Record Documenter. Writes the current fact into the existing Library page and the master prompt | [Documenter-Agent-Context](../../Agent%20Context/Documenter-Agent-Context/) |
+| **Cove** | Root Record Web. Keeps the public page in Pacific `Website/Home/` | [Web-Agent-Context](../../Agent%20Context/Web-Agent-Context/) |
 
-Council pipeline: **Ava → Carly → Bruce**. That pipeline is not the Global Updater and not the Documenter.
+Council pipeline: **Ava → Carly → Bruce**. That pipeline is not the Global Updater, not Wren, and not Cove.
 
 ```text
 Ava Ivy
@@ -35,13 +36,17 @@ Global Updater
 Wren (Documenter)
 → Library and master prompt
 → writes the current fact into the existing page
+
+Cove (Web)
+→ Pacific Website/Home/
+→ the public page Vercel publishes
 ```
 
 ## Boundary
 
-Library `Agent Context/` is the only editable home for who Ava, Bruce, Carly, the Global Updater, and the Documenter are: identity, principles, bounds, durable workflow, and `CONTEXT/`.
+Library `Agent Context/` is the only editable home for who Ava, Bruce, Carly, the Global Updater, Wren, and Cove are: identity, principles, bounds, durable workflow, and `CONTEXT/`.
 
-Pacific may hold server implementation. It must not hold a second copy of that identity. `Communications/CouncilPersona/scripts/personas.py` reads `IDENTITY.md`, `ROLE-AND-BOUNDS.md`, `PRINCIPLES.md`, and `WORKFLOW.md` from this tree, including `Global-Updater-Agent-Context`. It does not load `Documenter-Agent-Context`. There is no sync job. Telegram does not request the Global Updater voice or the Documenter.
+Pacific may hold server implementation. It must not hold a second copy of that identity. `Communications/CouncilPersona/scripts/personas.py` reads `IDENTITY.md`, `ROLE-AND-BOUNDS.md`, `PRINCIPLES.md`, and `WORKFLOW.md` from this tree, including `Global-Updater-Agent-Context`. It does not load `Documenter-Agent-Context` or `Web-Agent-Context`. There is no sync job. Telegram does not request the Global Updater, Wren, or Cove.
 
 `CONTEXT/`, changelogs, and the handoff template stay here and are not injected into every Telegram turn (NPU context 4096).
 
@@ -67,7 +72,7 @@ Standing strategy: same roles on small local NPU models or future larger capacit
 
 ## Empty subfolders under this path
 
-Any `Ava-Agent-Context/`, `Bruce-Agent-Context/`, `Carly-Agent-Context/`, or `Documenter-Agent-Context/` directories **under** `Documentation/02-Agents/` are placeholders only. Do **not** maintain a second copy of IDENTITY/ROLE files here — edit the root `Agent Context/` packs.
+Any `Ava-Agent-Context/`, `Bruce-Agent-Context/`, `Carly-Agent-Context/`, `Documenter-Agent-Context/`, or `Web-Agent-Context/` directories **under** `Documentation/02-Agents/` are placeholders only. Do **not** maintain a second copy of IDENTITY/ROLE files here — edit the root `Agent Context/` packs.
 
 ## Personal mirrors
 

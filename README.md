@@ -104,6 +104,7 @@ Each agent pack follows the same basic spine:
 - [Bruce](./Agent%20Context/Bruce-Agent-Context/)
 - [Carly](./Agent%20Context/Carly-Agent-Context/)
 - [Wren](./Agent%20Context/Documenter-Agent-Context/)
+- [Cove](./Agent%20Context/Web-Agent-Context/)
 
 ---
 

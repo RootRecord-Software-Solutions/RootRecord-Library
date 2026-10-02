@@ -99,6 +99,8 @@ Non-council callers and `flm-warmup.sh` still default to `llama3.2:1b`. The coun
 
 2026-10-02 00:12 HST: Wren verified the Report Instructor desk map against live `jobs.py` and `run-poller.sh` (poller up since 00:09 HST). Voice :12/:42 desks, roll-ups, late-final, hurricane, news :36, Telegram deliver, and radio push are armed. Hourly chime, ai_processing, ai_usage, template_reports, and several others stay gated. Code corrections vs older ops lists: roll-ups/hurricane/late-final are on (not off); `RR_TELEGRAM_DEST` default is `council`; `system_perf`/`current_report` docstring minutes disagree with jobs `[12,42]`; `current_report` missing from `report-channels.json`; CloudNarrative README jobs id absent; template/ai_processing headers name different out paths than live `OUT_DIR`. See `Documentation/01-Operations/2026-09-30-voice-desk.md` and `Documentation/10-AI-and-Agent-Runtime/Voice-Reports-G3.md`.
 
+2026-10-02 00:29 HST: Cove is the web seat. Pack: `Agent Context/Web-Agent-Context/`. The public page is Pacific `Website/Home/`, published by Vercel. `api.rootrecord.cloud` is aimed at Mainland Two and the process is not running, so a missing reading stays missing. The paste is `PROMPT.md` in that pack.
+
 2026-10-02 00:10 HST: Ten desks each have four local status clips: about to generate, in transit, failed to send, and sent. The sent line plays only after Mainland One has the file. A skipped send does not play the failure line. The chime stays a file replay. `RR_VOICE_STATUS=0` keeps the clips quiet. The poller has been up since 00:09 HST. See `Documentation/01-Operations/2026-09-30-voice-desk.md`.
 
 2026-10-01 23:48 HST: Voice desks render at `:12` and `:42`, before the station locks the playlist at `:29:59` and `:59:59`. Across 299 runs a full set is typically 6 to 8 minutes, and a slow energy camera look can reach about 15. News is `:36`. Hurricane is `:40`. Roll-ups stay at 09:02, 12:02, and 21:02 and first play on the following half hour. The poller has been up since 23:46 HST. The averages are on `Documentation/01-Operations/2026-09-30-voice-desk.md`.
@@ -139,6 +141,7 @@ bash verify.sh
 | Fact envelope | `5 - RootRecord-Library/Documentation/00-Architecture/Schemas/state-envelope.md` |
 | Personas and bounds | `5 - RootRecord-Library/Agent Context/` |
 | Wren, documentation seat | `5 - RootRecord-Library/Agent Context/Documenter-Agent-Context/` |
+| Cove, public page | `5 - RootRecord-Library/Agent Context/Web-Agent-Context/` |
 | Operator decisions still open | `5 - RootRecord-Library/Documentation/01-Operations/2026-09-30-whats-left-for-alexander.md` |
 | Voice desk, current | `5 - RootRecord-Library/Documentation/01-Operations/2026-09-30-voice-desk.md` |
 | EcoFlow BLE reads, current | `5 - RootRecord-Library/Documentation/01-Operations/2026-10-01-ecoflow-ble-reads.md` |

@@ -4,7 +4,7 @@ Short ownership map, not a copy: [08-repository-and-file-links.md](../../../../0
 
 ## Pack home (2026-09-29)
 
-Canonical identity packs: `5 - RootRecord-Library/Agent Context/{Ava,Bruce,Carly}-Agent-Context/`, plus `Global-Updater-Agent-Context/` and `Documenter-Agent-Context/`. Wren is the Documenter and writes existing pages. Wren is not a council hop.
+Canonical identity packs: `5 - RootRecord-Library/Agent Context/{Ava,Bruce,Carly}-Agent-Context/`, plus `Global-Updater-Agent-Context/`, `Documenter-Agent-Context/`, and `Web-Agent-Context/`. Wren writes existing pages. Cove keeps `Website/Home/`. Neither is a council hop.
 `Documentation/02-Agents/` is the interaction index (modes, requests, handoff, capabilities). Do not copy IDENTITY files there. The agent-named folders under it contain only `.gitkeep`.
 Personal GitHub mirrors (`AvaIvy`, `CarlyMal`) stay separate remotes. The Library pack is the org authority.
 
