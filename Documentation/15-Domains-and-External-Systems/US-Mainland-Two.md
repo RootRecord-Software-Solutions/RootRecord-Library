@@ -1,6 +1,6 @@
 # US-Mainland-Two
 
-Current as of 2026-10-02 ~02:32 HST. This page is the live host role. The 2026-10-01 SSH and rename sitting is [2026-10-01 mainland rename and SSH tunnels](../01-Operations/2026-10-01-mainland-rename-and-ssh-tunnels.md). Do not treat OLD FILES or continuity plans as live ML1/ML2 truth.
+Current as of 2026-10-02 ~02:39 HST. This page is the live host role. The 2026-10-01 SSH and rename sitting is [2026-10-01 mainland rename and SSH tunnels](../01-Operations/2026-10-01-mainland-rename-and-ssh-tunnels.md). Do not treat OLD FILES or continuity plans as live ML1/ML2 truth.
 
 | Field | Value |
 | --- | --- |
@@ -11,8 +11,8 @@ Current as of 2026-10-02 ~02:32 HST. This page is the live host role. The 2026-1
 | **Host** | `ip-172-31-15-254`, public `3.149.238.83` |
 | **SSH** | `ssh ml2` → `ml2.rootrecord.cloud`. Direct fallback `ml2-ip` |
 | **Tunnel** | `bd8e68a4-8a97-4b20-afd9-b058473a0a22`. Routes include `ml2.rootrecord.cloud` (SSH). `api.rootrecord.cloud` → ML2 `:8091` is live (`/health`, `/api/operations`, `/api/state`, analytics). |
-| **Desk branch** | `main`, local `484abe1` (US-Mainland-Two) |
-| **Host SHA** | `559f90e` (US-Mainland-Server-2; rsync deploy; no push) |
+| **Desk branch** | `main`, local `6425c8a` (US-Mainland-Two) |
+| **Host SHA** | `087ee38` (US-Mainland-Server-2; rsync deploy; no push) |
 | **Ecosystem SHA** | `bfa9ff2f` (desk umbrella; context only) |
 | **Test-mode toggle** | Host `docs/TOGGLE.md` test-mode § (Library does not edit that file) |
 
@@ -20,19 +20,20 @@ Current as of 2026-10-02 ~02:32 HST. This page is the live host role. The 2026-1
 
 Mainland landed ML2 analytics + bank path. Desk ML2 `484abe1`, host `559f90e`, Ecosystem `bfa9ff2f`.
 
-- **API + analytics:** `ANALYTICS.md` in the ML2 tree; endpoints `/api/analytics/daily`, `/api/analytics/period`, `/api/analytics/current` on `:8091`. Desk sink: Pacific Database `Logs/Website/analytics/`.
+- **API + analytics:** `ANALYTICS.md` in the ML2 tree; endpoints `/api/analytics/daily`, `/api/analytics/period`, `/api/analytics/current` on `:8091`. Desk sink: Pacific Database `Logs/Website/analytics/`. Pacific `Website/scripts/analytics_pull.py` (job `analytics_pull`, gate `RR_ANALYTICS_PULL=1`, off until armed) consumes `/api/analytics/daily` into that bank for voice `bandwidth_desk` / `current_report`.
 - **Stream verified:** 7 handoffs reached Pacific `Geology/` + `Weather/US-States/`. `ml2-db-stream` runs via desk tunnel `rr-ml2-db-tunnel` on `:17022` (not the earlier “stream still off” state).
 - **Collectors on:** `geology` and `weather_us_states` (other internet-facing collectors remain staged for review).
-- **Pacific gate:** `RR_LOCAL_DATA_POLL` lives in Pacific `automation_control.py`; default local **ON**; **not flipped** this sitting. Desk Root Monitor Automations now exposes the GTK data-poll toggle (dry-run default); restart Root Monitor to load it.
+- **Pacific gate:** `RR_LOCAL_DATA_POLL` lives in Pacific `automation_control.py`; default local **ON**; **not flipped** this sitting. Desk Root Monitor Automations exposes the GTK data-poll toggle (dry-run default). Schema parity PASS ~02:39 — flip still a human decision; do not auto-flip.
 - **Toggle plan:** toggle-not-replacement + later local-mirror plan already filed (~02:26); SHAs and live stream/analytics state attached here; GTK UI filed ~02:32.
 
 Disk recovery and API enable from ~02:10 remain in force (`ml2-api`, `ml2-collectors`, `ml2-purge` installed). Sysmon remains staged/off.
 
-### Stream path (now working)
+### Stream path (now working) — schema parity PASS (~02:39 HST)
 
 - Desk `rr-ml2-db-tunnel` → `:17022` carries `ml2-db-stream` NDJSON home.
-- Verified landings: Pacific Geology + Weather/US-States (7 handoffs this check).
-- Earlier blockers (missing stream key / receiver / forced-command) are cleared for this verified path; keep purge as safety until acks stay healthy.
+- Verified landings: Pacific Geology + Weather/US-States (7 handoffs). Banks and paths: `Geology/*`, `Weather/US-States/us-last.json`; stream drains handoffs after ack.
+- **Schema parity PASS vs Pacific** (Mainland fix ~02:39 HST): ML2 `geology` + `weather_us_states` now emit Pacific last-file contracts — quakes `events[]` with `nearest`/`time_hst`/`kilauea_150km_count`; volcano last-files top-level `alert_level`/`color_code`/`erupting`/`latest_notice`/`at`; `us-last` `{updated_at, location_count, rows}` full (77); `collector-last` `sources{}`. Vendored `config/geology/global-locations.json` for nearest + US locations. Local commits desk+host; no push; `RR_LOCAL_DATA_POLL` still not flipped; ML1 radio untouched.
+- Earlier blockers (missing stream key / receiver / forced-command) remain cleared; keep purge as safety until acks stay healthy.
 
 ## What is in the tree
 
@@ -41,7 +42,7 @@ The desk tree and host checkout run a live path under the toggle plan:
 - `collectors/` — geology, Kīlauea camera, weather (Hawaiʻi, US states, country locations, hurricanes), and radio-RSS scaffold modules plus the runner. **Live now:** `geology` and `weather_us_states` via `ml2-collectors.timer`. Other internet-facing collectors stay staged for review.
 - `stream/` — clean SSH NDJSON client/protocol and `home_receiver.py` for the Pacific Database. **`ml2-db-stream` verified** through desk `rr-ml2-db-tunnel` `:17022`.
 - `api_local/` — local API status-cache sync; it overwrites `var/cache/api/` and does not stream API-circulated metrics home. **`ml2-api.service` is enabled** on `:8091`, including analytics routes.
-- Analytics — `ANALYTICS.md`; `/api/analytics/daily|period|current`; aggregates land under desk `Logs/Website/analytics/`.
+- Analytics — `ANALYTICS.md`; `/api/analytics/daily|period|current`; aggregates land under desk `Logs/Website/analytics/`. Pacific pull consumes daily for voice reports (gate `RR_ANALYTICS_PULL`).
 - `config/` — collector, purge, toggle-example, stream, and deny-list policy. Operator toggle: host `docs/TOGGLE.md` test-mode §.
 - `scripts/` — `run-collectors.sh`, `run-stream.sh`, `ml2-purge.sh`, `run-api-local-sync.sh`, and the kept `aws-git-pull.sh`.
 - `systemd/` — **`ml2-api`**, **`ml2-collectors`**, **`ml2-purge`**, and **`ml2-db-stream`** are in the live path for this sitting. **`ml2-sysmon`** remains staged files only. The `aws-git-pull` scaffolding remains kept and its timer is not installed on the host.
@@ -60,11 +61,11 @@ EcoFlow and all energy data are Pacific-only. ML2 collectors must not collect or
 
 ## Pacific data-poll toggle — not a replacement
 
-Alexander (2026-10-02 ~02:26 HST; SHAs attached ~02:29): this is a **toggle**, not a cutover that deletes home collectors. Pacific/home data polling **stays installed**. `RR_LOCAL_DATA_POLL` in Pacific `automation_control.py` (host `docs/TOGGLE.md` test-mode §) turns local polling **off** while ML2 is healthy; if AWS/ML2 dies, flip local polling **back on**. Never delete home collectors as the path to ML2. **Default remains local ON; gate was not flipped** this sitting.
+Alexander (2026-10-02 ~02:26 HST; SHAs attached ~02:29; schema check ~02:34): this is a **toggle**, not a cutover that deletes home collectors. Pacific/home data polling **stays installed**. `RR_LOCAL_DATA_POLL` in Pacific `automation_control.py` (host `docs/TOGGLE.md` test-mode §) turns local polling **off** while ML2 is healthy; if AWS/ML2 dies, flip local polling **back on**. Never delete home collectors as the path to ML2. **Default remains local ON; gate was not flipped** this sitting. **`RR_LOCAL_DATA_POLL` still not flipped** — stream banks/paths correct, schema parity PASS ~02:39; flip remains a human decision after healthy soak.
 
 **Near-term** (Mainland bringing ML2 online): collectors (geology + weather_us_states), stream (verified), and API/analytics are live with that toggle still at default ON. Pacific remains the **sole long-term bank**. EcoFlow/energy, LAN globe, voice, local devices, tunnel, and durable Database stay Pacific-owned.
 
-**GTK Automations UI (desk, 2026-10-02 ~02:32 HST):** Root Monitor Automations now has a Local Pacific vs ML2 **data-poll** control under Pacific `Apps/Control-Panel/` (`Lib/rr_data_poll.py`; defaults dry-run / desired=local / apply_dropin=false). Confirm before write; no auto poller restart; live collectors not flipped this session. Alexander must restart Root Monitor to see the GTK. Operator detail: [Root-Monitor-Operators-Handbook](../../Guides%20%26%20Tutorials/Root-Monitor-Operators-Handbook/Root-Monitor-Operators-Handbook.md) · contract: [Desk-Automations-and-Service-Windows.md](../11-Runtime-Jobs-and-Control/Desk-Automations-and-Service-Windows.md). Do not treat that UI as a cutover.
+**GTK Automations UI (desk, 2026-10-02 ~02:32 HST):** Root Monitor Automations now has a Local Pacific vs ML2 **data-poll** control under Pacific `Apps/Control-Panel/` (`Lib/rr_data_poll.py`; defaults dry-run / desired=local / apply_dropin=false). Confirm before write; no auto poller restart; live collectors not flipped this session. Alexander must restart Root Monitor to see the GTK. Operator detail: `Guides & Tutorials/Root-Monitor-Operators-Handbook/Root-Monitor-Operators-Handbook.md` · contract: [Desk-Automations-and-Service-Windows.md](../11-Runtime-Jobs-and-Control/Desk-Automations-and-Service-Windows.md). Do not treat that UI as a cutover.
 
 **Later** (document now, implement later — not building yet): move/mirror functions into the two mainland desk repos (`US-Mainland-One`, `US-Mainland-Two`) so work can run from those trees locally with no behavioral difference if mainland servers go down — local desk as failover parity.
 
