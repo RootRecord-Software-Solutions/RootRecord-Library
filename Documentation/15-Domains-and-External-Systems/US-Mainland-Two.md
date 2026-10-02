@@ -1,6 +1,6 @@
 # US-Mainland-Two
 
-Current as of 2026-10-02 ~02:50 HST. This page is the live host role. The 2026-10-01 SSH and rename sitting is [2026-10-01 mainland rename and SSH tunnels](../01-Operations/2026-10-01-mainland-rename-and-ssh-tunnels.md). Do not treat OLD FILES or continuity plans as live ML1/ML2 truth.
+Current as of 2026-10-02 ~02:57 HST. This page is the live host role. The 2026-10-01 SSH and rename sitting is [2026-10-01 mainland rename and SSH tunnels](../01-Operations/2026-10-01-mainland-rename-and-ssh-tunnels.md). Do not treat OLD FILES or continuity plans as live ML1/ML2 truth.
 
 | Field | Value |
 | --- | --- |
@@ -11,7 +11,7 @@ Current as of 2026-10-02 ~02:50 HST. This page is the live host role. The 2026-1
 | **Host** | `ip-172-31-15-254`, public `3.149.238.83` |
 | **SSH** | `ssh ml2` → `ml2.rootrecord.cloud`. Direct fallback `ml2-ip` |
 | **Tunnel** | `bd8e68a4-8a97-4b20-afd9-b058473a0a22`. Routes include `ml2.rootrecord.cloud` (SSH). `api.rootrecord.cloud` → ML2 `:8091` is live (`/health`, `/api/operations`, `/api/state`, analytics). |
-| **Desk branch** | `main`, local `6425c8a` (US-Mainland-Two) |
+| **Desk branch** | `main`, local `819f68e` (US-Mainland-Two; also `6c66bf1`; ahead, no push) |
 | **Host SHA** | `087ee38` (US-Mainland-Server-2; rsync deploy; no push) |
 | **Ecosystem SHA** | `00985524` (desk umbrella; context only) |
 | **Library SHA** | `2fc7a47` (RootRecord-Library; context only) |
@@ -26,6 +26,12 @@ Mainland landed ML2 analytics + bank path; **schema parity PASS** (~02:39) still
 - **Collectors on:** `geology` and `weather_us_states` (other internet-facing collectors remain staged for review).
 - **Pacific gate (LIVE ~02:50 HST):** Settings write mode, `data_poll_desired=ml2`; drop-in `~/.config/systemd/user/rr-rootserver-poller.service.d/rr-data-poll.conf` sets `Environment=RR_LOCAL_DATA_POLL=0`; intent `data_poll_mode.yaml` `mode=remote`; poller restarted. Verified `live_raw=0` / `live_label=ML2 offload`; `:8799` HTTP 200. **Clears** earlier “`RR_LOCAL_DATA_POLL` still not flipped” / default-local-ON-as-current-live notes. Code fail-safe default remains local ON when unset; live desk is now gated off. Toggle-not-replacement: home collectors stay installed; gate flipped only. No git commit.
 - **Toggle plan:** toggle-not-replacement + later local-mirror plan already filed (~02:26); SHAs and live stream/analytics state attached here; GTK UI filed ~02:32; live flip applied ~02:50.
+
+### Post-boot verification + globe /api/state (~02:52–02:57 HST)
+
+Desk rebooted into ML2 mode; drop-in `RR_LOCAL_DATA_POLL=0` was already on disk — **flip LIVE notes above still stand**. Alexander observed: radio online; EcoFlow and cameras online; no network trackers on Vercel yet; API still needs work; globe initially showed no ping-line connectors.
+
+**Globe arcs restored (~02:55–02:56 HST):** Empty arcs were an ML2 stub. `api.rootrecord.cloud/api/state` now carries **11 arcs / 7 points** fed from Pacific live LAN rebroadcast (`Communications/network/local-data-globe` → `hawaii-current.ndjson`) into ML2 `var/cache/api/state.json` — globe capture is **not** running on ML2. Ops seed / `status-current` refreshed ~02:55–02:56 HST. Recurring desk user timer `rr-ml2-globe-state-push` every 2m. Desk ML2 commits `6c66bf1` + `819f68e` (ahead, **no push**). LAN capture stays Pacific; EcoFlow stays Pacific (expected with the toggle).
 
 Disk recovery and API enable from ~02:10 remain in force (`ml2-api`, `ml2-collectors`, `ml2-purge` installed). Sysmon remains staged/off.
 
@@ -48,7 +54,7 @@ The desk tree and host checkout run a live path under the toggle plan:
 - `scripts/` — `run-collectors.sh`, `run-stream.sh`, `ml2-purge.sh`, `run-api-local-sync.sh`, and the kept `aws-git-pull.sh`.
 - `systemd/` — **`ml2-api`**, **`ml2-collectors`**, **`ml2-purge`**, and **`ml2-db-stream`** are in the live path for this sitting. **`ml2-sysmon`** remains staged files only. The `aws-git-pull` scaffolding remains kept and its timer is not installed on the host.
 
-The network-globe module is intentionally a refusal: LAN capture stays Pacific-local. The existing cloudflared tunnel serves the live API on `:8091`.
+LAN globe **capture** stays Pacific-local (network-globe module refused on ML2). Pacific rebroadcast feeds ML2 `var/cache/api/state.json` for public arcs (see post-boot §). The existing cloudflared tunnel serves the live API on `:8091`.
 
 ## 2026-10-02 staged system monitor (not installed)
 
@@ -71,6 +77,8 @@ Alexander (2026-10-02 ~02:26 HST; SHAs attached ~02:29; schema FAIL ~02:34 clear
 **Later** (document now, implement later — not building yet): move/mirror functions into the two mainland desk repos (`US-Mainland-One`, `US-Mainland-Two`) so work can run from those trees locally with no behavioral difference if mainland servers go down — local desk as failover parity.
 
 ## Recent ML2 commits
+
+- `819f68e` / `6c66bf1` — Desk (US-Mainland-Two): globe `/api/state` feed from Pacific `local-data-globe` rebroadcast (`hawaii-current.ndjson` → `var/cache/api/state.json`); ops status-current refresh; desk timer `rr-ml2-globe-state-push` every 2m. Ahead of origin; **no push**. Host rsync path unchanged this note.
 
 - `484abe1` — Desk (US-Mainland-Two): analytics + bank path; geology + weather_us_states; stream verified. Host deployed as `559f90e` via rsync (no push). Ecosystem context `bfa9ff2f`.
 - `84c4a37` — Desk: earlier test-mode geology collectors + `:8091` API enable path (superseded live state above; host was `3274fb3`).
