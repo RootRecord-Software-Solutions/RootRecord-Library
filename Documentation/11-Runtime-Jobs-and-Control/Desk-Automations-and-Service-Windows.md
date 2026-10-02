@@ -25,17 +25,19 @@ Tests point at copies with `RR_AUTOMATION_OVERRIDES`, `RR_POWER_AUTOMATIONS`, `R
 
 ## 2. Data poll — Local Pacific vs ML2 (GTK, 2026-10-02)
 
-Toggle, not replacement. Home collectors stay in `jobs.py`. Pacific env `RR_LOCAL_DATA_POLL` (in `automation_control.py`) gates the internet data-poll job set: unset/`1` = Local Pacific ON (fail-safe default); `0` = gate those jobs off while ML2 collectors + stream are healthy. Policy essay: [US-Mainland-Two.md](../15-Domains-and-External-Systems/US-Mainland-Two.md).
+Toggle, not replacement. Home collectors stay in `jobs.py`. Pacific env `RR_LOCAL_DATA_POLL` (in `automation_control.py`) gates the internet data-poll job set: unset/`1` = Local Pacific ON (fail-safe default when unset); `0` = gate those jobs off while ML2 collectors + stream are healthy. Policy essay: [US-Mainland-Two.md](../15-Domains-and-External-Systems/US-Mainland-Two.md).
 
 Root Monitor **Automations** (desk `Apps/Control-Panel/`) shows Local Pacific vs ML2 at the top of the page. Behavior mirrors AWS Fallback safety:
 
-| Setting (Panel `settings.json`) | Default | Meaning |
+| Setting (Panel `settings.json`) | Code default | Meaning |
 | --- | --- | --- |
 | `data_poll_toggle_mode` | `dry-run` | Confirm shows the change; writes nothing that affects the live poller |
 | `data_poll_desired` | `local` | Panel intent (`local` → env 1, `ml2` → 0). Intent YAML is documentation until a file reader exists |
 | `data_poll_apply_dropin` | `false` | When true *and* mode is `write`, also writes `~/.config/systemd/user/rr-rootserver-poller.service.d/rr-data-poll.conf` |
 
-Confirm before any write. The panel **never** restarts the poller. Live collectors were **not** flipped in the 2026-10-02 landing session. Example config: Pacific `Automations/config/data_poll_mode.example.yaml`. Alexander must **restart Root Monitor** to see the GTK control.
+Confirm before any write. The panel **never** restarts the poller (human restarts after apply). Example config: Pacific `Automations/config/data_poll_mode.example.yaml`.
+
+**Current live (2026-10-02 ~02:50 HST):** write mode applied — `data_poll_desired=ml2`; drop-in `rr-data-poll.conf` `Environment=RR_LOCAL_DATA_POLL=0`; intent `data_poll_mode.yaml` `mode=remote`; poller restarted. Verified `live_raw=0` / `live_label=ML2 offload`; `:8799` HTTP 200. Clears earlier “not flipped” / default-local-ON-as-current-live notes for this desk. Collectors remain installed; gate flipped only. No git commit.
 
 ## 3. Job on/off
 
@@ -142,4 +144,4 @@ The page keeps measured sections. It drops the `## Spoken` block, persona names,
 - The Not migrated row "Energy actuating actions" stays VERIFY PENDING. The scheduled catalog above is the path that exists. Immediate arm or disarm from Controls is still unwired.
 - Delta 2 transmit behavior is unchanged. A quiet Delta 2 read is still normal.
 - These modules do not send mail, spend money, or push git by themselves. The website mirror publishes `service-notice.json` when that folder syncs.
-- The Automations **data-poll** control does not delete home collectors, does not auto-restart the poller, and does not flip live collectors until Alexander applies env and restarts after ML2 banks are verified.
+- The Automations **data-poll** control does not delete home collectors and does not auto-restart the poller. Live flip (~02:50 HST) applied env + human poller restart after ML2 banks/schema were verified; gate only — collectors stay installed.

@@ -8,7 +8,7 @@ Pacific Solar Server desk panel. Written for someone sitting at the machine who 
 
 This handbook is a picture of one night. Battery percentages, log ages, and "PASS" dots will be different when you open it tomorrow. The layout, the buttons, and the rules will not.
 
-**Current enhance (2026-10-02 ~02:30 HST, Master, desk-local):** Automations **data-poll toggle** (Local Pacific vs ML2 / `RR_LOCAL_DATA_POLL`) dry-run by default. Prior:  Energy header and page mark **LOW** / **CRITICAL** / **STALE**; Energy shows a refresh stamp (`Energy page refreshed … · interval Ns`). AWS Fallback copy is mode-aware (WRITE vs DRY-RUN) and Status-first. Settings → Panel: `aws_fallback_mode` / `aws_fallback_alias` editable; `start_page` help lists every sidebar id. `Lib/rr_migration.json` **as_of 2026-10-02 00:20 HST** — **6 BLOCKED / 8 VERIFY PENDING**; energy-actions note says scheduled Automations landed, Controls arm/disarm still unwired. Safety unchanged: `risky_actions_enabled` false; no SSH writes from a glance; agents must not click Restart everything. **Needs Alexander:** restart Root Monitor to load the GTK changes; B2 ~1% operational check; migration closes still his (tokens, retention, Controls arm/disarm, WO).
+**Current enhance (2026-10-02 ~02:32 UI / ~02:50 live flip HST, Master → Wren, desk-local):** Automations **data-poll toggle** (Local Pacific vs ML2 / `RR_LOCAL_DATA_POLL`) under Pacific `Apps/Control-Panel/` — `Lib/rr_data_poll.py`; code defaults dry-run / desired=local / apply_dropin=false; Automations Local Pacific vs ML2; Settings keys; example `Automations/config/data_poll_mode.example.yaml`. Toggle not replacement; confirm before write; panel does not auto-restart the poller. **Live (~02:50 HST):** write mode applied — `desired=ml2`, drop-in `rr-data-poll.conf` `RR_LOCAL_DATA_POLL=0`, intent `data_poll_mode.yaml` `mode=remote`, poller restarted; verified `live_raw=0` / `live_label=ML2 offload`, `:8799` HTTP 200. Clears earlier “not flipped” / default-local-ON-as-current-live notes. Prior: Energy header/page **LOW** / **CRITICAL** / **STALE**; refresh stamp; AWS Fallback mode-aware; Settings → Panel AWS keys; `Lib/rr_migration.json` **as_of 2026-10-02 00:20 HST** — **6 BLOCKED / 8 VERIFY PENDING**. Safety unchanged. **Needs Alexander:** B2 ~1% check; migration closes still his.
 
 ---
 
@@ -22,7 +22,7 @@ Four places write:
 
 - **Settings** writes a file after you confirm. It takes a backup first. It does not restart anything.
 - **AWS Fallback**, while `aws_fallback_mode` is `write`, writes one flag file on AWS after you confirm. On this desk that mode is **write**.
-- **Automations** (1 October 2026) writes job on/off flags and power schedules under Database `System/control-panel/` after you confirm. The poller reads those files. The page does not run a battery command itself.
+- **Automations** (1 October 2026; data-poll UI 2026-10-02) writes job on/off flags and power schedules under Database `System/control-panel/` after you confirm, and (write mode) optional data-poll intent. Defaults keep data-poll in dry-run. The poller reads those files / env. The page does not run a battery command itself and does not restart the poller.
 - **Telemetry** (1 October 2026) writes `Website/Home/service-notice.json` after you confirm. The public homepage banner and the live network panel read that file.
 
 Closing the window closes only the panel. The poller keeps running.
@@ -312,10 +312,12 @@ How many lines: `log_lines` in Settings → Panel, default 40.
 
 ### Data poll — Local Pacific vs ML2 (2026-10-02)
 
-Top of the Automations page. Shows the live poller `RR_LOCAL_DATA_POLL` state (unset = Local Pacific ON), panel desired mode, and an AWS Fallback-style toggle (`Data poll: Local Pacific` / `Data poll: ML2`).
+Top of the Automations page. Shows the live poller `RR_LOCAL_DATA_POLL` state (unset/`1` = Local Pacific ON fail-safe; `0` = ML2 offload), panel desired mode, and an AWS Fallback-style toggle (`Data poll: Local Pacific` / `Data poll: ML2`).
 
-- **DRY-RUN** (default, `data_poll_toggle_mode`): confirm shows the exact change, then writes nothing. Toast: `dry-run: data poll → … not written`.
-- **WRITE** (Settings → Panel sign-off): confirm → saves `data_poll_desired` + Database `System/control-panel/data_poll_mode.yaml`. Live collectors stay running. Optional `data_poll_apply_dropin` also writes `rr-data-poll.conf`; you still restart the poller yourself after ML2 stream banks are verified.
+**Current live (~02:50 HST):** `desired=ml2` / intent `mode=remote` / drop-in `RR_LOCAL_DATA_POLL=0`; poller restarted; verified `live_raw=0` / `live_label=ML2 offload`, `:8799` HTTP 200. Collectors stay installed; gate flipped only.
+
+- **DRY-RUN** (code default, `data_poll_toggle_mode`): confirm shows the exact change, then writes nothing. Toast: `dry-run: data poll → … not written`.
+- **WRITE** (Settings → Panel sign-off): confirm → saves `data_poll_desired` + Database `System/control-panel/data_poll_mode.yaml`. Home collectors stay installed (toggle not replacement). Optional `data_poll_apply_dropin` also writes `rr-data-poll.conf`; you still restart the poller yourself after ML2 stream banks are verified.
 - Fail-safe: prefer Local Pacific if AWS/ML2 is down. Never delete home collectors. EcoFlow/Energy stay Pacific-only.
 - Gated job ids are labelled `RR_LOCAL_DATA_POLL gate` in the job list.
 
@@ -774,6 +776,10 @@ This sub-page is not the registry list. It edits Root Monitor's own `settings.js
 | GTK renderer | `cairo` (lightest). Applies on next start. |
 | Starlink | On, poll 10 s minimum. Does nothing without the helper venv. |
 | Mainland SSH alias | empty |
+| AWS Fallback mode / alias | `aws_fallback_mode` / `aws_fallback_alias` (desk may already be write) |
+| Data poll toggle mode | `data_poll_toggle_mode` = **dry-run** (write is sign-off) |
+| Data poll desired | `data_poll_desired` = **local** (`local` or `ml2`) |
+| Data poll apply drop-in | `data_poll_apply_dropin` = **false** (true + write mode may write `rr-data-poll.conf`; still no restart) |
 
 **Paths** are the database root and the Pacific repo root. They are editable here because the panel has to know where to read. Pointing them somewhere else makes every page look at the wrong tree. Save only if the trees have actually moved.
 
@@ -814,6 +820,8 @@ Every write in this program goes through the same shape:
 If a save fails, a toast says `Save failed: …` and the previous file is the backup you just made.
 
 AWS is the exception in destination, not in shape: the backup is on the AWS home directory, and the write is one flag file over SSH. Cancel still writes nothing.
+
+Data poll (Automations) uses the same confirm shape. In dry-run it shows the change and writes nothing. In write mode it may save panel intent / YAML; it still does not restart the poller.
 
 ---
 
@@ -870,12 +878,14 @@ The host was quiet: CPU 5.4% (green), RAM 69.9% (amber, under the 80% red line),
 1 - Servers/1 - RootRecord-Pacific-Solar-Server/Apps/Control-Panel/
   rr_control_panel.py     window, page list, screenshot mode
   rr_pages.py             Running, Network, SSH, Not migrated, Settings hub
-  rr_automations_page.py  job toggles and power schedules
+  rr_automations_page.py  job toggles, power schedules, data-poll Local Pacific vs ML2
   rr_telemetry_page.py    public service windows
   rr_aws_page.py          AWS Fallback
   rr_ui.py                buttons, rows, redaction
-  settings.json           this panel only
+  settings.json           this panel only (incl. data_poll_* defaults)
   Lib/rr_sources.py       readers
+  Lib/rr_settings.py      defaults (data_poll dry-run / local / apply_dropin false)
+  Lib/rr_data_poll.py     RR_LOCAL_DATA_POLL helpers (2026-10-02)
   Lib/rr_registry.py      settings catalog
   Lib/rr_config_io.py     masked diff, backup, atomic write
   Lib/rr_aws_fallback.json

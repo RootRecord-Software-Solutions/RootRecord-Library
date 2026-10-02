@@ -4,7 +4,7 @@ Finished Hawaii reports go to the Mainland station. The station snapshots the pl
 
 This is the living description of the spoken reports. The 2026-09-29 port record is [Voice-Reports-G3](../10-AI-and-Agent-Runtime/Voice-Reports-G3.md). Where that file still says a job is off, has no delivery, or uses an old minute, this file wins. Trust `Automations/scripts/poller/run-poller.sh` and `Automations/scripts/jobs.py` over older “what stays off” lists.
 
-## Current as of 2026-10-02 ~02:18 HST
+## Current as of 2026-10-02 ~02:40 HST
 
 Alexander’s operator copy, checked against live `jobs.py`, `run-poller.sh`, `voice_reports.py`, `status_cue.py`, `voice_deliver.py`, Discord `public_report.py` / `report-channels.json`, and `publish_report_pages.py`. As of ~01:41 HST the separate `energy_report` voice job is retired: pack watts, newest ch1 still, and the hourly camera look live inside Bruce’s `solar_desk` (title “Energy and solar”). `status_cue.TYPES` lists **nine** generating desks. As of ~01:57 HST those nine desks and the stack-closer cycle key moved from `:12` / `:42` to `:22` / `:52` in `jobs.py` and `status_cue.cycle_key` (tests updated). Historical timing numbers below still come from `voice-timing.md` (generated 2026-10-02 01:07 HST, 303 runs, when Energy was still a tenth job and starts were still `:12` / `:42`). The live Mainland mixer is release `stage-notice`. Do not kill the encoder mid-report. A `jobs.py` / `run-poller.sh` change needs a poller restart before the running process adopts the new minutes; script edits are picked up on the next job run.
 
@@ -42,7 +42,17 @@ Kokoro is single-flight through `voice-render.sh`. A busy render returns **75**.
 
 `solar_desk` is the combined energy + solar product: EcoFlow packs, sun times, newest channel-1 still, and this hour’s camera look (`panel_look.observe` when the hour has no reading). The old `energy_report` job and `RR_VOICE_ENERGY` flag are gone from `jobs.py` / `run-poller.sh`; `b_energy_report` remains a one-release alias that forwards to `b_solar_desk`. Discord and the public Energy area keep only `solar-desk`.
 
-Armed flags (defaults 1 in `run-poller.sh`): `RR_VOICE_SYSTEM_PERF`, `RR_VOICE_NWS`, `RR_VOICE_REMAINING`, `RR_VOICE_QUAKE` (+ `RR_GEOLOGY`), `RR_VOICE_KILAUEA`, `RR_VOICE_SOLAR`, `RR_VOICE_SECURITY`, `RR_VOICE_BANDWIDTH` (+ `RR_NET_SAMPLES`), `RR_VOICE_CURRENT`. Also armed: news `:36` (`RR_RADIO_NEWS`), roll-ups (`RR_VOICE_ROLLUPS`), late final (`RR_VOICE_LATE_FINAL`), hurricane (`RR_VOICE_HURRICANE`).
+Armed flags (defaults 1 in `run-poller.sh`): `RR_VOICE_SYSTEM_PERF`, `RR_VOICE_NWS`, `RR_VOICE_REMAINING`, `RR_VOICE_QUAKE` (+ `RR_GEOLOGY`), `RR_VOICE_KILAUEA`, `RR_VOICE_SOLAR`, `RR_VOICE_SECURITY`, `RR_VOICE_BANDWIDTH` (+ `RR_NET_SAMPLES`), `RR_VOICE_CURRENT`. Also armed: news `:36` (`RR_RADIO_NEWS`), roll-ups (`RR_VOICE_ROLLUPS`), late final (`RR_VOICE_LATE_FINAL`), hurricane (`RR_VOICE_HURRICANE`), desk uptime log (`RR_UPTIME_LOG`).
+
+### System perf connectivity and host power mode (2026-10-02 ~02:15–02:33 HST)
+
+`system_uptime_log` (every 60 s, `RR_UPTIME_LOG` default **1** in `run-poller.sh`) runs Pacific `System/scripts/uptime_log.py tick`. Live stamps only: heartbeat gaps and boot_id changes write Database `System/uptime/` (`uptime-events.jsonl`, `uptime-last.json`, `presence.json`, `offline-samples.jsonl`, `return-samples.jsonl`, `connectivity-daily.json`). Averages start from `recording_since` on the first live tick after the job armed — pre-recording / testing stamps are not offline samples. Bruce’s `system_perf` speaks last-online, uptime percent, average offline, and average expected return when samples exist (`connectivity_lines` → `uptime_log.sentences`).
+
+Host power mode is logged read-only by new `System/scripts/power_profile.py` (performance / balanced / energy saver via `powerprofilesctl` or ACPI platform profile; it never sets a mode). Bank: Database `System/power-profile/` (`mode-last.json`, `mode-segments.jsonl`, `mode-use.json`). Each uptime tick calls `power_profile.note`; `system_perf` also samples and speaks “Host power mode is …”. Tests: `test_uptime_connectivity.py`, `test_power_profile.py`.
+
+### Site traffic in bandwidth / current (2026-10-02 ~02:33 HST)
+
+Mainland Home/Radio analytics are folded into Pacific spoken reports (schema **1.0.0**, no page JS). Pacific `Website/scripts/analytics_pull.py` mirrors ML2 `GET /api/analytics/daily` into Database `Logs/Website/analytics/daily/` (plus `analytics-last.json`; sample `daily/2026-10-02.json`). Voice `bandwidth_desk` and `current_report` speak measured site traffic: **api** / **home_proxy** / **radio**, with honest partial Home (`home_proxy` is telemetry Referer www only; full `home.pageviews` stay null until edge analytics). Job `analytics_pull` is gated `RR_ANALYTICS_PULL=1` at 900 s; **not** exported in `run-poller.sh`, so a normal start leaves it off until armed. Desks can still refresh a stale day file themselves when speaking. READMEs: Database `Logs/Website/analytics/README.md` and Pacific `Website/README.md` Analytics section.
 
 ### Always on (hard-enabled in jobs.py)
 
@@ -60,6 +70,7 @@ Armed flags (defaults 1 in `run-poller.sh`): `RR_VOICE_SYSTEM_PERF`, `RR_VOICE_N
 
 | Flag / job | Report |
 | --- | --- |
+| `RR_ANALYTICS_PULL` | `analytics_pull` — mirror ML2 daily JSON → `Logs/Website/analytics/` every 900 s. Flag **not** in `run-poller.sh`; off until armed. |
 | `RR_VOICE_HOURLY_CHIME` | :00 and :30 chimes. Job exists in `jobs.py`. Flag is **not** in `run-poller.sh`, so a normal start leaves it off. Station chime is separate. |
 | `RR_AI_REPORT` | `ai_processing_report_hourly` |
 | `RR_AI_USAGE` | `ai_usage_report` |

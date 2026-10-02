@@ -45,7 +45,7 @@ The hostname is aimed at Mainland Two, tunnel `bd8e68a4-8a97-4b20-afd9-b058473a0
 
 `rootserver.rootrecord.cloud` is the Pacific poller on `127.0.0.1:8799`. It is not this API. Pollers have not moved to Mainland Two.
 
-Visitor/session signal for reports comes from Mainland Two server/access logs once Mainland exposes aggregates; no client/page analytics JS on Website/Home (Cove / Report Instructor). ML2 now exposes `/api/analytics/daily`, `/api/analytics/period`, and `/api/analytics/current` on `api.rootrecord.cloud` (`:8091`); operator notes in ML2 `ANALYTICS.md`; desk aggregates under `Logs/Website/analytics/`.
+Visitor/session signal for reports comes from Mainland Two server/access logs once Mainland exposes aggregates; no client/page analytics JS on Website/Home (Cove / Report Instructor). ML2 now exposes `/api/analytics/daily`, `/api/analytics/period`, and `/api/analytics/current` on `api.rootrecord.cloud` (`:8091`); operator notes in ML2 `ANALYTICS.md`; desk aggregates under `Logs/Website/analytics/`. Pacific `Website/scripts/analytics_pull.py` mirrors daily JSON (schema 1.0.0) into Database `Logs/Website/analytics/` (sample `daily/2026-10-02.json`); voice `bandwidth_desk` and `current_report` speak api / home_proxy / radio (honest partial Home). Job `analytics_pull` gated `RR_ANALYTICS_PULL=1` (900 s), off until armed in `run-poller.sh`. Still no page JS.
 
 The operations bundle the future API is meant to serve is written on the desk by `Website/scripts/live_data_pages.py` to `2 - RootRecord-Database/Website/operations.json`. The page does not read that file directly.
 
