@@ -23,9 +23,9 @@ The listener stream is always `audio/mpeg`, 128 kbps, 44.1 kHz, stereo PCM encod
 | `description` | Description from `audio/library.json` for that file, or empty |
 | `report` | Spoken title of the report on air. The string `Time` while a chime is playing |
 | `chime` | True while a Hawaii chime is the voice |
-| `duck` | `0.25` while a report or a chime is the voice. `1` when music is full level |
-| `phase` | `NORMAL` or `CHIME` |
-| `reportState` | `NONE`, `ACTIVE`, or `HELD` |
+| `duck` | `0.25` from the second before a chime through the last report in that cycle. `1` when the cycle is idle |
+| `phase` | `NORMAL`, `DUCK`, `CHIME`, or `REPORTS` |
+| `reportState` | `NONE` or `ACTIVE` |
 | `musicPid` | Process id of the open music decoder. `0` when none is open |
 | `listeners` | Open `live.mp3` sockets |
 
@@ -127,33 +127,31 @@ Prune then runs on the remote reports directory. It keeps every `*_current.ogg` 
 
 Music push is a separate one-way `rsync`. It is `radio_push.py --music`. It is not part of each report. It does not delete remote files and it does not download. The default music source is the desk path in `RR_RADIO_MUSIC`. A report push does not wait for that copy.
 
-The mainland process never fetches the WAV. A new file on disk is enough. The mixer scans the catalog about every 5 seconds. A changed report is queued. The node process stays up.
+The mainland process never fetches the WAV. A new file on disk is enough. The mixer scans the catalog about every 5 seconds. A changed report waits for the next half-hour cycle. It does not start when the file arrives. The node process stays up.
 
 ### Who is eligible
 
-Windows are Pacific/Honolulu. The end of a window is the start of the next one, so 12:00 is midday and 21:00 is late. 09:00 belongs to the morning.
+The scheduled pass plays every `*_current.opus` in the reports directory, longest first. Morning, midday, and late reports are included whenever their files are present. There is no on-air window. An older `*_current.ogg` beside a current Opus file is not played.
 
-| File id | On air |
-| --- | --- |
-| `morning_report` | 09:00–12:00 |
-| `midday_report` | 12:00–21:00 |
-| `late_report` | 21:00–09:00, across midnight |
-
-The file can sit on disk outside its window. The catalog omits it until the window opens, and drops it from the queue when the window closes. Every other `*_current.opus` is eligible whenever it is present. Earthquake and hurricane reports are in that second group. Their jobs keep running on the Pacific desk whether or not the old globe process is up.
+Earthquake and hurricane reports stay in that set. Their jobs keep running on the Pacific desk whether or not the old globe process is up.
 
 ## How the mix works
 
-`stream.js` is the mixer. `radio.js` is the catalog: it lists Opus files, applies the Hawaii windows, and reads titles from `audio/library.json`. A missing library entry uses the file name with `.opus` removed.
+`stream.js` is the mixer. `radio.js` is the catalog: it lists every `*_current.opus` in the reports directory and reads titles from `audio/library.json`. A missing library entry uses the file name with `.opus` removed. A leftover `*_current.ogg` for the same id is not a second copy.
 
-Music stays open under reports and chimes. The music decoder reads the next file in a shuffled order and opens the following file when that one ends. The same track is not placed first again when the library has more than one file. If the music directory is empty, `music` in `now.json` stays empty and the encoder continues with silence under the voice.
+Music stays open under the whole cycle. One encoder, one station process, and the public mix stays `/radio/live.mp3`. The music decoder reads the next file in a shuffled order and opens the following file when that one ends. The same track is not placed first again when the library has more than one file. If the music directory is empty, `music` in `now.json` stays empty and the encoder continues with silence under the voice.
 
-A report ducks music to `0.25`. Samples are summed and clipped to 16-bit. The report decoder is a second ffmpeg reading that Opus file to 44.1 kHz stereo PCM. When the report ends, music returns to full level.
+Reports run twice an hour on Pacific/Honolulu. At `HH:59:59` the music bed ducks to `0.25`, one second before the chime, so the drop is already in place. At `HH:00:00` the hour chime plays (`hour-HH-00.opus`, about 11 seconds). Music stays at `0.25` through the chime. Then every current report plays, longest first, at full voice level. Music stays at `0.25` under the reports and is not ducked again. When the last report ends, music returns to `1`.
 
-A Hawaii `:00` or `:30` chime holds the report decoder and then resumes the same samples. `reportState` goes from `ACTIVE` to `HELD` for the length of the chime, then back to `ACTIVE`. The chime slot key is the Hawaii date plus `HH:MM`, so the same half-hour plays once that day and can play again the next day. A missing chime file is logged once for that slot and the report is left running.
+At `HH:29:59` the same cycle starts for the half hour: duck, then `hour-HH-30.opus`, then every current report longest first, then restore. If a cycle is still running, that boundary cuts it. The voice stops, the new chime starts clean, and a second report pass is not stacked on one already playing. The slot key is the Hawaii date plus the chime `HH:MM`, so that half hour plays once and can play again the next day. A missing chime file is logged once for that slot, and the report pass still runs.
 
-A new report file does not restart the process. The file identity is device, inode, size, and modification time. A new identity for a report that is already on air is stored as pending. The current decode finishes, then the new file starts. A new identity for a report that is waiting replaces that queue entry. The first quiet moment after the process opens waits about 12 seconds, then plays the next eligible report. After that, reports already on disk rotate about every 10 minutes. A newly written or replaced file skips that wait.
+Order is duration, longest first. The mixer probes duration with `ffprobe` and keeps that value for the file identity. Until a duration is known, file size is the order. Samples are summed and clipped to 16-bit. The voice decoder is another ffmpeg reading that Opus file to 44.1 kHz stereo PCM.
 
-Code activation waits for a quiet boundary: no report in progress and no chime in progress. `HELD` still counts as in progress, because the same report samples have to resume. At that boundary, if `deploy-pending` names a different release, the process exits 75.
+A new or replaced report does not start playback and does not restart the process. The file identity is device, inode, size, and modification time. The cycle list is the reports on disk at the boundary. A file that arrives or changes after that waits for the next cycle. A queued file whose identity changed before its turn is skipped.
+
+The chime does not pause or resume a report. `reportState` is `NONE` or `ACTIVE`. `phase` is `NORMAL`, `DUCK`, `CHIME`, or `REPORTS`. During a chime, `report` is `Time`.
+
+Code activation waits until the cycle is idle (`phase` `NORMAL`). At that boundary, if `deploy-pending` names a different release, the process exits 75.
 
 If ffmpeg disappears while a file is open, the process exits 127. `radio-run.sh` installs ffmpeg and starts the mix again. If `node` or `ffmpeg` is missing at start, `radio-run.sh` tries `apt-get install` and retries. The station watch script does the same for `python3` before it writes its status file.
 
@@ -188,7 +186,7 @@ Leave these masked. The old watch also started the status API and Caddy:
 
 The running engine switches on exit 75 when `deploy-pending` names a release that exists and contains both `stream.js` and `radio.js`. `radio-run.sh` points `active` at `releases/<sha>`, deletes `deploy-pending`, and continues the loop. The listener port comes back inside that same script. Exit 75 with no such release is a failure (`deploy_missing`) and the script stops. Any other exit is a failure. systemd restarts the unit on failure. A clean quiet-boundary switch never leaves the `while` loop, so it is not a restart of the unit.
 
-While a report or a chime is in progress, the engine logs `deploy_deferred` and keeps the current release. The pending file stays on disk until the boundary.
+While a cycle is in progress (the pre-chime duck, a chime, or a report), the engine logs `deploy_deferred` and keeps the current release. The pending file stays on disk until the cycle is idle.
 
 ## How to test on the desk
 
