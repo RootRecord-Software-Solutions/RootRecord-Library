@@ -249,11 +249,11 @@ The station on Mainland One was already running. `rr-radio-stream` listens on `1
 
 `api.rootrecord.cloud` was still an A record for `18.118.30.226`, so the public page could not reach the station. That record is now an A record for `3.140.195.32`, proxy off. `https://api.rootrecord.cloud/radio/now.json` returned 200 after the change.
 
-`radio.rootrecord.cloud` was added to the Caddyfile with the same two paths. Its DNS is an A record for `3.140.195.32`, proxy off. The first certificate request happened before that DNS existed, so Let's Encrypt returned NXDOMAIN and then a failure rate limit until 05:58 UTC. Caddy retries on its own.
+`radio.rootrecord.cloud` was added to the Caddyfile with the same two paths. Its DNS is an A record for `3.140.195.32`, proxy off. The first certificate request happened before that DNS existed, so Let's Encrypt returned NXDOMAIN and then a failure rate limit until 05:58 UTC. After that window Caddy obtained a public certificate (issuer Let's Encrypt YE1, subject `radio.rootrecord.cloud`). Confirmed from the desk: `https://radio.rootrecord.cloud/radio/now.json` returns 200, and `/radio/live.mp3` returns `audio/mpeg`. The host copy of that Caddyfile is also saved at `status-api/Caddyfile` in the Mainland One tree.
 
 A `radio.rootrecord.cloud` rule was also written into the local cloudflared config, service `http://127.0.0.1:8092`. After restart the connector logged the dashboard config again: `www.rootrecord.cloud`, `ssh.rootrecord.cloud`, and the 404 catch-all. The radio hostname is not in that config. A proxied CNAME to the tunnel does not serve the station until the dashboard ingress includes it. The API token still cannot edit that ingress.
 
-The site source now requests `https://radio.rootrecord.cloud/radio/live.mp3` and `.../now.json` from `Website/Home/radio/index.html`, `Website/Home/live/index.html`, `assets/radio.js`, `assets/live-radio.js`, and `assets/broadcast-mode.js`. Readings stay on `https://api.rootrecord.cloud`.
+The published site requests `https://radio.rootrecord.cloud/radio/live.mp3` and `.../now.json` from `Website/Home/radio/index.html`, `Website/Home/live/index.html`, `assets/radio.js`, `assets/live-radio.js`, and `assets/broadcast-mode.js`. Those files are already on `www.rootrecord.cloud`. Readings stay on `https://api.rootrecord.cloud`.
 
 ## Still open
 
