@@ -31,7 +31,7 @@ These flags default to 1 in `run-poller.sh`. The schedule is HST.
 | 05:40, 09:40, 12:40, 16:40, 20:40 | Carly | Hurricane | Before the following hour snapshot. Off unless `RR_VOICE_HURRICANE=1`. |
 | :00 and :30 | rotating | Chime | Prebuilt file. The job stays off until `RR_VOICE_HOURLY_CHIME=1`. The station chime is separate and stays on the hour and the half hour. |
 
-The desks share one poller thread and one voice lock, so they run one after another. Energy runs before the solar desk. The current report runs last. Across 299 logged runs, a full set is typically 6 to 8 minutes. A slow energy camera look pushes the same set toward 15 minutes. `:12` and `:42` are 18 minutes before the station locks the playlist at `:29:59` and `:59:59`, which covers those slow runs. A file that arrives after the snapshot waits for the next cycle. Starting on the hour or the half hour was too late.
+The desks share one poller thread and one voice lock, so they run one after another. Energy runs before the solar desk. The current report runs last. `:12` and `:42` start 18 minutes before the station locks the playlist at `:29:59` and `:59:59`. A file that arrives after the snapshot waits for the next cycle. Starting on the hour or the half hour was too late.
 
 News at `:36` and the hurricane desk at `:40` finish before the top-of-hour stack.
 
@@ -41,20 +41,7 @@ The poller was started again at 23:46 HST on 1 October 2026 and is on this sched
 
 ## How long a desk takes
 
-These are the current averages from those 299 runs. They are a measurement of that log, not a promise for the next pass.
-
-| Report | Median | Average |
-| --- | ---: | ---: |
-| System | 28s | 37s |
-| NWS | 34s | 37s |
-| Energy | 65s | 76s |
-| Remaining tasks | 21s | 23s |
-| Earthquakes | 32s | 43s |
-| Kīlauea | 32s | 40s |
-| Solar | 33s | 41s |
-| Security | 25s | 38s |
-| Bandwidth | 27s | 29s |
-| Current | 78s | 87s |
+The current measurement is [voice timing](./voice-timing.md). `voice_timing_report` rewrites that page from the automations log at :05. It follows the Documenter handoff template and does not call a model.
 
 Geology collection (`RR_GEOLOGY`) and network samples (`RR_NET_SAMPLES`) also default to 1, because the quake and bandwidth notes read those files.
 
