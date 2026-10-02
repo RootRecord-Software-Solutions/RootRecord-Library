@@ -4,15 +4,15 @@ Finished Hawaii reports go to the Mainland station. The station snapshots the pl
 
 This is the living description of the spoken reports. The 2026-09-29 port record is [Voice-Reports-G3](../10-AI-and-Agent-Runtime/Voice-Reports-G3.md). Where that file still says a job is off, has no delivery, or uses an old minute, this file wins. Trust `Automations/scripts/poller/run-poller.sh` and `Automations/scripts/jobs.py` over older “what stays off” lists.
 
-## Current as of 2026-10-02 ~01:41 HST
+## Current as of 2026-10-02 ~01:57 HST
 
-Alexander’s operator copy, checked against live `jobs.py`, `run-poller.sh`, `voice_reports.py`, `status_cue.py`, `voice_deliver.py`, Discord `public_report.py` / `report-channels.json`, and `publish_report_pages.py`. As of ~01:41 HST the separate `energy_report` voice job is retired: pack watts, newest ch1 still, and the hourly camera look live inside Bruce’s `solar_desk` (title “Energy and solar”). `status_cue.TYPES` lists **nine** generating desks. Historical timing numbers below still come from `voice-timing.md` (generated 2026-10-02 01:07 HST, 303 runs, when Energy was still a tenth job). The live Mainland mixer is release `stage-notice`. Do not kill the encoder mid-report. A `jobs.py` / `run-poller.sh` change needs a poller restart before the running process drops `voice_energy_report`; script edits are picked up on the next job run.
+Alexander’s operator copy, checked against live `jobs.py`, `run-poller.sh`, `voice_reports.py`, `status_cue.py`, `voice_deliver.py`, Discord `public_report.py` / `report-channels.json`, and `publish_report_pages.py`. As of ~01:41 HST the separate `energy_report` voice job is retired: pack watts, newest ch1 still, and the hourly camera look live inside Bruce’s `solar_desk` (title “Energy and solar”). `status_cue.TYPES` lists **nine** generating desks. As of ~01:57 HST those nine desks and the stack-closer cycle key moved from `:12` / `:42` to `:22` / `:52` in `jobs.py` and `status_cue.cycle_key` (tests updated). Historical timing numbers below still come from `voice-timing.md` (generated 2026-10-02 01:07 HST, 303 runs, when Energy was still a tenth job and starts were still `:12` / `:42`). The live Mainland mixer is release `stage-notice`. Do not kill the encoder mid-report. A `jobs.py` / `run-poller.sh` change needs a poller restart before the running process adopts the new minutes; script edits are picked up on the next job run.
 
 ### Station lock and lead time
 
 The station locks the playlist at `HH:29:59` and `HH:59:59`, then plays the half-hour chime and every current report. A file that arrives after that lock waits for the next cycle. Generation used to start at `:00` and `:30`, which was too late. The nine generating desks share one poller thread and one Kokoro lock, so they run one after another.
 
-From [voice-timing.md](./voice-timing.md) (303 runs, still includes the retired Energy job): former ten-desk sum median **376 s** (6m16s), average **459 s** (7m39s), p90 **889 s** (14m49s). The next `voice_timing_report` rewrite drops `voice_energy_report` from the stack. Lead from `:12:00` to the `:29:59` lock is **17 minutes 59 seconds**. `:42` has the same lead before `:59:59`. That p90 fits, with about three minutes spare. `:12` and `:42` stay. News stays at `:36`. Hurricane stays at 05:40, 09:40, 12:40, 16:40, and 20:40. The hourly chime stays at `:00` and `:30` and is a replay of prebuilt files, not a render.
+From [voice-timing.md](./voice-timing.md) (303 runs, still includes the retired Energy job and the old `:12` / `:42` starts): former ten-desk sum median **376 s** (6m16s), average **459 s** (7m39s), p90 **889 s** (14m49s). The next `voice_timing_report` rewrite drops `voice_energy_report` from the stack and will show the new minutes. Live start is now `:22` and `:52`. Lead from `:22:00` to the `:29:59` lock is **7 minutes 59 seconds**; `:52` has the same lead before `:59:59`. Median still fits that window; the old ten-desk p90 does not. News stays at `:36` (after the `:22` stack, before `:52`). Hurricane stays at 05:40, 09:40, 12:40, 16:40, and 20:40. The hourly chime stays at `:00` and `:30` and is a replay of prebuilt files, not a render.
 
 Daypart roll-ups cannot be uploaded before their window opens, or the upload deletes the roll-up that is still on the air. Morning **09:02**, midday **12:02**, late **21:02**, late final **23:02**. Those first air on the following half hour. `voice_timing_report` runs at minute **5**. It is not a model. It rewrites [voice-timing.md](./voice-timing.md) from the automations log and `jobs.py`. The poller imports `jobs.py` once at start, so a schedule change needs a restart of `rr-rootserver-poller.service` as user `rootrecord`.
 
@@ -26,7 +26,7 @@ Personas (Kokoro): Ava `af_heart`, Bruce `am_echo`, Carly `af_nova`. All speeds 
 
 Kokoro is single-flight through `voice-render.sh`. A busy render returns **75**. Render one slug at a time. The spaCy venv needs the symlink `cli/Templates` pointing at `cli/templates` or the import fails. Do not remove that symlink.
 
-### Nine generating desks (:12 / :42)
+### Nine generating desks (:22 / :52)
 
 | Job | Persona | Spoken label |
 | --- | --- | --- |
@@ -79,9 +79,9 @@ Scripts proposed only (README gates; not in `jobs.py`): News (hawaii/state/globa
 
 1. Hourly chime gate is not in `run-poller.sh`.
 2. `official_weather` / `boot_brief`: Discord `report-channels.json` routes yes; `jobs.py` entries no.
-3. `current_report`: generated at :12/:42; missing from `Communications/Discord/config/report-channels.json` (site `publish_report_pages.py` still lists it in AREAS and has a separate CURRENT_MD path).
+3. `current_report`: generated at :22/:52; missing from `Communications/Discord/config/report-channels.json` (site `publish_report_pages.py` still lists it in AREAS and has a separate CURRENT_MD path).
 4. CloudNarrative README claims a `jobs.py` entry — absent.
-5. `system_perf.py` docstring still says `only_at_minutes=[6]`; jobs schedule is `[12, 42]`.
+5. `system_perf.py` docstring still says `only_at_minutes=[6]`; jobs schedule is `[22, 52]`.
 6. `ai_processing_report.py` file header says out under Database `Logs/AI/Reports/`; live `OUT_DIR` default is ecosystem `test-reports/AI-Processing/`. `template_fill.py` header and jobs description say Database `Reports/Generated/`; live `OUT_DIR` default is ecosystem `test-reports/Templates/`.
 7. Older ops “what stays off” lists that still name roll-ups, late-final, or hurricane as off are history. `run-poller.sh` arms them.
 
@@ -95,9 +95,9 @@ Each of the nine desks has four local status lines, already rendered, played on 
 | Transit | “<Label> report has been generated and is in transit” | when the send starts |
 | Failed | “<Label> report was generated but failed to send” | if the send fails |
 | Sent | “<Label> report was sent successfully” | only after Mainland One has the file (`ffprobe` duration ≥ 0.2 s, then `mv`) |
-| Stack closer | Ava: “All reports have been sent successfully. Heavy work may resume.” | once per `:12` / `:42` cycle after all nine desks have a Mainland receipt |
+| Stack closer | Ava: “All reports have been sent successfully. Heavy work may resume.” | once per `:22` / `:52` cycle after all nine desks have a Mainland receipt |
 
-After each successful send, `status_cue.note_sent` records the desk in Database `Reports/Voice/stack-send.json` under that cycle key (`YYYY-MM-DDTHH:12` or `:42`; a run past the hour stays on the prior `:42`). When the set of nine is complete and the closer has not yet played this cycle, it plays `Clips/Ava/stack_all_sent.wav` once and marks `announced`. A skipped send, including a daypart outside its window, is not a failure and does not play the failure line. Code: `Media/Voice/scripts/status_cue.py`. Test: `test_status_stack.py`.
+After each successful send, `status_cue.note_sent` records the desk in Database `Reports/Voice/stack-send.json` under that cycle key (`YYYY-MM-DDTHH:22` or `:52`; a run past the hour stays on the prior `:52`). When the set of nine is complete and the closer has not yet played this cycle, it plays `Clips/Ava/stack_all_sent.wav` once and marks `announced`. A skipped send, including a daypart outside its window, is not a failure and does not play the failure line. Code: `Media/Voice/scripts/status_cue.py`. Test: `test_status_stack.py`.
 
 ### Staged on-air cues (radio)
 
@@ -134,7 +134,7 @@ Generator and transfer use watts, and the same rules are in the voice, the BLE c
 
 ## Channel 1 solar look
 
-Once per clock hour, the `:12` energy run asks `Security/Cameras/panel_look.py` and the local vision model `gemma4:e4b` about the newest channel 1 still, and only when that hour has no reading yet. The `:42` run reuses that sentence and does not send a note. The cache is Database `Energy/vision/ch1-look-last.json`. A failed look is not cached, so the next energy run can try again. Bruce's hourly solar desk speaks the last stored sentence, names its age when it is from an earlier hour, and attaches the still. It does not start a second look.
+Once per clock hour, the `:22` `solar_desk` run asks `Security/Cameras/panel_look.py` and the local vision model `gemma4:e4b` about the newest channel 1 still, and only when that hour has no reading yet. The `:52` run reuses that sentence. The cache is Database `Energy/vision/ch1-look-last.json`. A failed look is not cached, so the next solar desk can try again. Bruce's combined solar desk speaks the last stored sentence, names its age when it is from an earlier hour, and attaches the still. It does not start a second look.
 
 The model names the weather (rain, fog, overcast, clear, dark) and the tilt. Left side up is the morning position. Flat is the day position. Right side up is the evening position. Left and right are as channel 1 sees the array.
 
