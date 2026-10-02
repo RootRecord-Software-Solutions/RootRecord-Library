@@ -8,6 +8,8 @@ Pacific Solar Server desk panel. Written for someone sitting at the machine who 
 
 This handbook is a picture of one night. Battery percentages, log ages, and "PASS" dots will be different when you open it tomorrow. The layout, the buttons, and the rules will not.
 
+**Current enhance (2026-10-02 ~00:15–00:20 HST, Master, desk-local):** Energy header and page mark **LOW** / **CRITICAL** / **STALE**; Energy shows a refresh stamp (`Energy page refreshed … · interval Ns`). AWS Fallback copy is mode-aware (WRITE vs DRY-RUN) and Status-first. Settings → Panel: `aws_fallback_mode` / `aws_fallback_alias` editable; `start_page` help lists every sidebar id. `Lib/rr_migration.json` **as_of 2026-10-02 00:20 HST** — **6 BLOCKED / 8 VERIFY PENDING**; energy-actions note says scheduled Automations landed, Controls arm/disarm still unwired. Safety unchanged: `risky_actions_enabled` false; no SSH writes from a glance; agents must not click Restart everything. **Needs Alexander:** restart Root Monitor to load the GTK changes; B2 ~1% operational check; migration closes still his (tokens, retention, Controls arm/disarm, WO).
+
 ---
 
 ## What this program is
