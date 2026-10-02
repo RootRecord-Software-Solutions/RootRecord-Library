@@ -1,6 +1,6 @@
 # US-Mainland-One
 
-Current as of 2026-10-02 08:40 UTC. This page is the live host. The operator guide is [2026-10-01 radio station](../01-Operations/2026-10-01-radio-station.md). The 2026-09-29 import, globe, and fallback inventory is [below](#2026-09-29-import-and-pause). That section is that day's continuity node. It is not the live host.
+Current as of 2026-10-02 ~01:30 HST. This page is the live host. The operator guide is [2026-10-01 radio station](../01-Operations/2026-10-01-radio-station.md). The 2026-09-29 import, globe, and fallback inventory is [below](#2026-09-29-import-and-pause). That section is that day's continuity node. It is not the live host.
 
 | Field | Value |
 | --- | --- |
@@ -41,6 +41,10 @@ At Hawaii `HH:59:59` and `HH:29:59` the bed ducks to 10 percent, the chime plays
 `www.rootrecord.cloud` stays on Vercel. `ssh.rootrecord.cloud` is retired. `api.rootrecord.cloud` is aimed at Mainland Two and the API process is not there. `rootserver.rootrecord.cloud` stays the Pacific poller. Earthquake and hurricane voice reports stay Pacific poller jobs.
 
 Do not restart cloudflared over `ssh ml1`. Use `rr-aws-ip` for a change that restarts the tunnel.
+
+## 2026-10-02 staged system monitor (not installed)
+
+A separate local Mainland worktree stages ML1 collect → send → self-purge in commit `16645da` (its current tip also carries the radio-bed change `1020933`); the monitor is not installed on the live radio host. `system-monitor/` collects the handoff, sends primary SSH NDJSON to the Pacific `System/scripts/rr_db_stream_receive.py`, and purges the local handoff after receiver acknowledgement. `config/sysmon-stream.yaml` remains `enabled: false`; `systemd/ml1-sysmon.{service,timer}` are staged files only. If SSH fails or remains disabled, `telegram_datapack.py` sends a zip through the separate datapack bot, then purges after `sendDocument` acceptance; Pacific `datapack-pickup.py` drains it into Database. The verified Database scaffold is commit `65dea848`, reserving `System/metrics/ml1/`, `Intake/ml1/`, `Logs/ML1/sysmon/`, and `Network/datapacks/{inbox,processed,state}/`. The monitor never reads or writes `Energy/`; the Pacific receiver denies EcoFlow paths. Operator detail lives in Pacific `System/docs/MAINLAND-SYSMON-INTAKE.md`.
 
 ## 2026-09-29 import and pause
 

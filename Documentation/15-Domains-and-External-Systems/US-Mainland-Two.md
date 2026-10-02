@@ -1,6 +1,6 @@
 # US-Mainland-Two
 
-Current as of 2026-10-02 ~01:20 HST. This page is the live host role. The 2026-10-01 SSH and rename sitting is [2026-10-01 mainland rename and SSH tunnels](../01-Operations/2026-10-01-mainland-rename-and-ssh-tunnels.md). Do not treat OLD FILES or continuity plans as live ML1/ML2 truth.
+Current as of 2026-10-02 ~01:30 HST. This page is the live host role. The 2026-10-01 SSH and rename sitting is [2026-10-01 mainland rename and SSH tunnels](../01-Operations/2026-10-01-mainland-rename-and-ssh-tunnels.md). Do not treat OLD FILES or continuity plans as live ML1/ML2 truth.
 
 | Field | Value |
 | --- | --- |
@@ -11,7 +11,7 @@ Current as of 2026-10-02 ~01:20 HST. This page is the live host role. The 2026-1
 | **Host** | `ip-172-31-15-254`, public `3.149.238.83` |
 | **SSH** | `ssh ml2` → `ml2.rootrecord.cloud`. Direct fallback `ml2-ip` |
 | **Tunnel** | `bd8e68a4-8a97-4b20-afd9-b058473a0a22`. Routes include `ml2.rootrecord.cloud` (SSH). `api.rootrecord.cloud` → ML2 `:8091` is **route only** (no API process). |
-| **Desk branch** | `main`, local `abd4bd0`; three commits ahead of `origin/main` at this check |
+| **Desk branch** | `main`, local `7065795`; four commits ahead of `origin/main` at this check |
 
 ## What is in the tree
 
@@ -26,6 +26,10 @@ The desk has a staged, not-live data path:
 
 The network-globe module is intentionally a refusal: LAN capture stays Pacific-local. The existing cloudflared tunnel and API route-only facts remain unchanged.
 
+## 2026-10-02 staged system monitor (not installed)
+
+Commit `7065795` stages ML2 collect → send → self-purge alongside the existing collector and ephemeral-handoff policy; it is not installed on the live host. `system-monitor/` sends primary SSH NDJSON to the Pacific `System/scripts/rr_db_stream_receive.py` and purges the local handoff after receiver acknowledgement. `config/sysmon-stream.yaml` remains `enabled: false`; `systemd/ml2-sysmon.{service,timer}` are staged files only. If SSH fails or remains disabled, `telegram_datapack.py` sends a zip through the separate datapack bot, then purges after `sendDocument` acceptance; Pacific `datapack-pickup.py` drains it into Database. The verified Database scaffold is commit `65dea848`, reserving `System/metrics/ml2/`, `Intake/ml2/`, `Logs/ML2/sysmon/`, and `Network/datapacks/{inbox,processed,state}/`. The existing collector/stream/purge units remain staged, YouTube remains wiped, and EcoFlow/Energy stays denied and Pacific-only. Operator detail lives in Pacific `System/docs/MAINLAND-SYSMON-INTAKE.md`.
+
 ## Ephemeral handoff policy — locked
 
 Pacific is the **only long-term data bank**. ML2 never accumulates a retention archive: `var/raw/` is processed into a handoff, raw is deleted when the handoff is written, and `var/handoff/` is streamed as clean SSH NDJSON and deleted after a successful receiver acknowledgement. The staged hourly `ml2-purge` mirrors the ML1 truncate-style purge for leftovers, temporary files, and rotated logs; it is not installed. API-circulated status and home metrics are overwritten locally under `var/cache/api/` and are not streamed.
@@ -38,6 +42,7 @@ The Pacific stack is not replaced. The proposed `RR_LOCAL_DATA_POLL=0` flag, or 
 
 ## Recent ML2 commits
 
+- `7065795` — **Stage ML2 system monitor + extend stream allowlist for metrics**: collect/send/purge scaffold, `enabled: false` stream config, and staged `ml2-sysmon` units.
 - `737b583` — **Stage ML2 data collectors and SSH home-DB stream scaffold**: collectors, stream client/receiver, toggle example, inventory, and staged units.
 - `abd4bd0` — **ML2 ephemeral handoff + purge (ML1 mirror); EcoFlow excluded**: raw/handoff purge, API-local overwrite cache, deny-list, and policy docs.
 - `04142d5` — **Remove failed YouTube station experiment**: the desk wipe commit; the local desk branch is three commits ahead of `origin/main` at this check.
