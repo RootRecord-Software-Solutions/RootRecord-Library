@@ -8,7 +8,7 @@ Pacific Solar Server desk panel. Written for someone sitting at the machine who 
 
 This handbook is a picture of one night. Battery percentages, log ages, and "PASS" dots will be different when you open it tomorrow. The layout, the buttons, and the rules will not.
 
-**Current enhance (2026-10-02 ~02:32 UI / ~02:50 live flip HST, Master → Wren, desk-local):** Automations **data-poll toggle** (Local Pacific vs ML2 / `RR_LOCAL_DATA_POLL`) under Pacific `Apps/Control-Panel/` — `Lib/rr_data_poll.py`; code defaults dry-run / desired=local / apply_dropin=false; Automations Local Pacific vs ML2; Settings keys; example `Automations/config/data_poll_mode.example.yaml`. Toggle not replacement; confirm before write; panel does not auto-restart the poller. **Live (~02:50 HST):** write mode applied — `desired=ml2`, drop-in `rr-data-poll.conf` `RR_LOCAL_DATA_POLL=0`, intent `data_poll_mode.yaml` `mode=remote`, poller restarted; verified `live_raw=0` / `live_label=ML2 offload`, `:8799` HTTP 200. Clears earlier “not flipped” / default-local-ON-as-current-live notes. Prior: Energy header/page **LOW** / **CRITICAL** / **STALE**; refresh stamp; AWS Fallback mode-aware; Settings → Panel AWS keys; `Lib/rr_migration.json` **as_of 2026-10-02 00:20 HST** — **6 BLOCKED / 8 VERIFY PENDING**. Safety unchanged. **Needs Alexander:** B2 ~1% check; migration closes still his.
+**Current enhance (2026-10-02 ~02:32 UI / ~02:50 live flip / ~03:04 AWS Fallback restore HST, Master → Wren, desk-local):** Automations **data-poll toggle** (Local Pacific vs ML2 / `RR_LOCAL_DATA_POLL`) under Pacific `Apps/Control-Panel/` — `Lib/rr_data_poll.py`; code defaults dry-run / desired=local / apply_dropin=false; Automations Local Pacific vs ML2; Settings keys; example `Automations/config/data_poll_mode.example.yaml`. Toggle not replacement; confirm before write; panel does not auto-restart the poller. **Live (~02:50 HST):** write mode applied — `desired=ml2`, drop-in `rr-data-poll.conf` `RR_LOCAL_DATA_POLL=0`, intent `data_poll_mode.yaml` `mode=remote`, poller restarted; verified `live_raw=0` / `live_label=ML2 offload`, `:8799` HTTP 200. Clears earlier “not flipped” / default-local-ON-as-current-live notes. Prior: Energy header/page **LOW** / **CRITICAL** / **STALE**; refresh stamp; AWS Fallback mode-aware; Settings → Panel AWS keys; `Lib/rr_migration.json` **as_of 2026-10-02 00:20 HST** — **6 BLOCKED / 8 VERIFY PENDING**. Safety unchanged. **Needs Alexander:** B2 ~1% check; migration closes still his.
 
 ---
 
@@ -314,7 +314,7 @@ How many lines: `log_lines` in Settings → Panel, default 40.
 
 Top of the Automations page. Shows the live poller `RR_LOCAL_DATA_POLL` state (unset/`1` = Local Pacific ON fail-safe; `0` = ML2 offload), panel desired mode, and an AWS Fallback-style toggle (`Data poll: Local Pacific` / `Data poll: ML2`).
 
-**Current live (~02:50 HST):** `desired=ml2` / intent `mode=remote` / drop-in `RR_LOCAL_DATA_POLL=0`; poller restarted; verified `live_raw=0` / `live_label=ML2 offload`, `:8799` HTTP 200. Collectors stay installed; gate flipped only.
+**Current live (~02:50 HST; reboot-survived):** `desired=ml2` / intent `mode=remote` / drop-in `RR_LOCAL_DATA_POLL=0`; verified `live_raw=0` / `live_label=ML2 offload`, `:8799` HTTP 200. Collectors stay installed; gate flipped only. First-test: ML2 live collectors are geology + weather_us_states only — NWS Hawaiʻi / hurricane / radio news hour can go stale while those Pacific jobs stay gated (see voice-desk).
 
 - **DRY-RUN** (code default, `data_poll_toggle_mode`): confirm shows the exact change, then writes nothing. Toast: `dry-run: data poll → … not written`.
 - **WRITE** (Settings → Panel sign-off): confirm → saves `data_poll_desired` + Database `System/control-panel/data_poll_mode.yaml`. Home collectors stay installed (toggle not replacement). Optional `data_poll_apply_dropin` also writes `rr-data-poll.conf`; you still restart the poller yourself after ML2 stream banks are verified.
@@ -472,7 +472,9 @@ Read this banner before you touch a button.
 
 > **WRITE — toggles write the flag on AWS after confirm + backup**
 
-The desk is canonical. AWS is a small fallback that keeps basic operations alive when the desk is offline. One function, one flag file under `/home/ubuntu/rootrecord/fallback` on alias **rr-aws-ip**.
+The desk is canonical. AWS is a small fallback that keeps basic operations alive when the desk is offline. One function, one flag file under `/home/ubuntu/rootrecord/fallback` on alias **rr-aws-ip** (ML1 — leave it there; public API is ML2, do not retarget without Alexander ask).
+
+**Current (~03:04 HST):** fallback runtime restored (release `20261002-030103-92360344`); Status should bind ON/OFF again. Globe units stay **masked** / flags forced off on radio-only ML1; classic activate expecting `:8090` will not pass by design. Earlier ~03:00–03:02 tree-missing gap is closed. Distinct from Automations data-poll (`RR_LOCAL_DATA_POLL`).
 
 The page is built when you open it and thrown away when you leave. There is no timer and no background SSH.
 

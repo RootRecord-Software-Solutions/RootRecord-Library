@@ -37,7 +37,9 @@ Root Monitor **Automations** (desk `Apps/Control-Panel/`) shows Local Pacific vs
 
 Confirm before any write. The panel **never** restarts the poller (human restarts after apply). Example config: Pacific `Automations/config/data_poll_mode.example.yaml`.
 
-**Current live (2026-10-02 ~02:50 HST):** write mode applied — `data_poll_desired=ml2`; drop-in `rr-data-poll.conf` `Environment=RR_LOCAL_DATA_POLL=0`; intent `data_poll_mode.yaml` `mode=remote`; poller restarted. Verified `live_raw=0` / `live_label=ML2 offload`; `:8799` HTTP 200. Clears earlier “not flipped” / default-local-ON-as-current-live notes for this desk. Collectors remain installed; gate flipped only. No git commit.
+**Current live (2026-10-02 ~02:50 HST; reboot-survived; first-test ~03:04):** write mode applied — `data_poll_desired=ml2`; drop-in `rr-data-poll.conf` `Environment=RR_LOCAL_DATA_POLL=0`; intent `data_poll_mode.yaml` `mode=remote`; poller restarted. Verified `live_raw=0` / `live_label=ML2 offload`; `:8799` HTTP 200. Collectors remain installed; gate flipped only. First test real for geology + US weather + API only — not a full poller move ([US-Mainland-Two](../15-Domains-and-External-Systems/US-Mainland-Two.md)).
+
+**AWS Fallback page vs Automations data-poll (~03:04 HST):** AWS Fallback stays on ML1 (`rr-aws-ip`); `/home/ubuntu/rootrecord/fallback` **restored**, Status bindable again. Do not confuse with ML2 public API. Automations Local Pacific vs ML2 is the data-poll gate. Globe units on ML1 stay masked / flags forced off.
 
 ## 3. Job on/off
 
@@ -144,4 +146,4 @@ The page keeps measured sections. It drops the `## Spoken` block, persona names,
 - The Not migrated row "Energy actuating actions" stays VERIFY PENDING. The scheduled catalog above is the path that exists. Immediate arm or disarm from Controls is still unwired.
 - Delta 2 transmit behavior is unchanged. A quiet Delta 2 read is still normal.
 - These modules do not send mail, spend money, or push git by themselves. The website mirror publishes `service-notice.json` when that folder syncs.
-- The Automations **data-poll** control does not delete home collectors and does not auto-restart the poller. Live flip (~02:50 HST) applied env + human poller restart after ML2 banks/schema were verified; gate only — collectors stay installed.
+- The Automations **data-poll** control does not delete home collectors and does not auto-restart the poller. Live flip (~02:50 HST) applied env + human poller restart after ML2 banks/schema were verified; gate only — collectors stay installed. Distinct from AWS Fallback (ML1; Status bindable again after ~03:04 restore).

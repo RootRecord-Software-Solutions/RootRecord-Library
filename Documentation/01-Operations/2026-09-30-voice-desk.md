@@ -4,7 +4,7 @@ Finished Hawaii reports go to the Mainland station. The station snapshots the pl
 
 This is the living description of the spoken reports. The 2026-09-29 port record is [Voice-Reports-G3](../10-AI-and-Agent-Runtime/Voice-Reports-G3.md). Where that file still says a job is off, has no delivery, or uses an old minute, this file wins. Trust `Automations/scripts/poller/run-poller.sh` and `Automations/scripts/jobs.py` over older “what stays off” lists.
 
-## Current as of 2026-10-02 ~02:58 HST
+## Current as of 2026-10-02 ~03:04 HST
 
 Alexander’s operator copy, checked against live `jobs.py`, `run-poller.sh`, `voice_reports.py`, `status_cue.py`, `voice_deliver.py`, Discord `public_report.py` / `report-channels.json`, and `publish_report_pages.py`. As of ~01:41 HST the separate `energy_report` voice job is retired: pack watts, newest ch1 still, and the hourly camera look live inside Bruce’s `solar_desk` (title “Energy and solar”). `status_cue.TYPES` lists **nine** generating desks. As of ~01:57 HST those nine desks and the stack-closer cycle key moved from `:12` / `:42` to `:22` / `:52` in `jobs.py` and `status_cue.cycle_key` (tests updated). Historical timing numbers below still come from `voice-timing.md` (generated 2026-10-02 01:07 HST, 303 runs, when Energy was still a tenth job and starts were still `:12` / `:42`). The live Mainland mixer is release `stage-notice`. Do not kill the encoder mid-report. A `jobs.py` / `run-poller.sh` change needs a poller restart before the running process adopts the new minutes; script edits are picked up on the next job run.
 
@@ -68,6 +68,20 @@ Measured after desk reboot into ML2 mode (poller active; `RR_LOCAL_DATA_POLL=0` 
 | Automations log | 02:58 | fresh; no recent `voice_` / `report_` failures |
 
 **No new voice cycle since boot yet.** Live desk schedule remains **`:22` / `:52`** (nine desks; was `:12` / `:42` before ~01:57). Expect the next `:22` / `:52` stack to refresh spoken files from Database. Do not treat pre-reboot WAVs as post-boot proof.
+
+### ML2 first-test — stale-desk risk (~03:02–03:04 HST)
+
+`RR_LOCAL_DATA_POLL=0` (survived reboot). ML2 live collectors are **geology + `weather_us_states` only** — not a full poller move ([US-Mainland-Two](../15-Domains-and-External-Systems/US-Mainland-Two.md) First-test scope).
+
+| Desk / product | Bank path under first-test | Risk |
+| --- | --- | --- |
+| Earthquake / Kīlauea | ML2→Pacific geology banks | Can refresh |
+| NWS Hawaiʻi (`nws_weather`) | Pacific `weather_poller` gated off | Goes **stale** until scaffold enabled or local poll flips back |
+| Hurricane | Pacific collector gated | Goes **stale** same way |
+| Radio news hour | `radio_rss_poll` gated off | Goes **stale** same way |
+| Bandwidth / current analytics | ML2 `/api/analytics/*` | Pull still fine |
+
+Report Instructor: do not treat gated Pacific collectors as still filling Hawaiʻi / hurricane / news banks while the flag is 0.
 
 ### Always on (hard-enabled in jobs.py)
 

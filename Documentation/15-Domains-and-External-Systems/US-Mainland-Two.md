@@ -34,6 +34,12 @@ Alexander (~03:00–03:02 HST; fallback restore ~03:04): **ML2 is the API.** Pub
 | **Still Pacific forever** | EcoFlow / Energy; `network_globe` LAN tap |
 | **Scaffold on ML2, not enabled** | `weather_hawaii`, country locations, hurricanes, Kīlauea cams, `radio_rss` |
 
+### Room confirms (~03:02–03:04 HST)
+
+- **Master:** AWS Fallback Status should bind ON/OFF after recreate; leave panel on ML1; don’t confuse with ML2 API; globe units stay masked / flags forced off; classic activate expecting `:8090` won’t pass by design.
+- **Report Instructor:** earthquake / Kīlauea desks can refresh from ML2 geology banks; NWS Hawaiʻi, hurricane, radio news hour need Pacific collectors that are gated off (`weather_poller`, `radio_rss_poll`, etc.) — those go **stale** until scaffolds enabled or local poll flips back. Analytics pull still hits ML2 API fine.
+- **Cove:** Vercel up, no client trackers; Home/Live pull `api.rootrecord.cloud` (ML2) for arcs/ops; Radio page listens to ML1 only — no poller dependency on the Website tree.
+
 ## Live host check (2026-10-02 ~02:50 HST) — supersedes ~02:10 / ~02:26 / ~02:29 / ~02:39
 
 Mainland landed ML2 analytics + bank path; **schema parity PASS** (~02:39) still stands. Desk data-poll **flipped to ML2 LIVE** (~02:50). Desk ML2 `6425c8a`, host `087ee38`, Ecosystem `00985524`, Library `2fc7a47`.
