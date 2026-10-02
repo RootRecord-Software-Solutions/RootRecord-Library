@@ -243,6 +243,18 @@ The deb was removed from `/tmp` after `dpkg`.
 6. Mainland Two has `cloudflared` 2026.9.3 installed and a login process waiting. It has no tunnel and no `ml2.rootrecord.cloud` record.
 7. The rename is in the working tree and in Mainland Two's remote URL. It is not committed.
 
+## Radio, later the same night
+
+The station on Mainland One was already running. `rr-radio-stream` listens on `127.0.0.1:8092`. `GET /radio/live.mp3` from that port is `audio/mpeg`. `GET /radio/now.json` returned the track Deep Aquarium. Caddy sends `api.rootrecord.cloud` paths `/radio/live.mp3` and `/radio/now.json` to 8092 and everything else to 8091.
+
+`api.rootrecord.cloud` was still an A record for `18.118.30.226`, so the public page could not reach the station. That record is now an A record for `3.140.195.32`, proxy off. `https://api.rootrecord.cloud/radio/now.json` returned 200 after the change.
+
+`radio.rootrecord.cloud` was added to the Caddyfile with the same two paths. Its DNS is an A record for `3.140.195.32`, proxy off. The first certificate request happened before that DNS existed, so Let's Encrypt returned NXDOMAIN and then a failure rate limit until 05:58 UTC. Caddy retries on its own.
+
+A `radio.rootrecord.cloud` rule was also written into the local cloudflared config, service `http://127.0.0.1:8092`. After restart the connector logged the dashboard config again: `www.rootrecord.cloud`, `ssh.rootrecord.cloud`, and the 404 catch-all. The radio hostname is not in that config. A proxied CNAME to the tunnel does not serve the station until the dashboard ingress includes it. The API token still cannot edit that ingress.
+
+The site source now requests `https://radio.rootrecord.cloud/radio/live.mp3` and `.../now.json` from `Website/Home/radio/index.html`, `Website/Home/live/index.html`, `assets/radio.js`, `assets/live-radio.js`, and `assets/broadcast-mode.js`. Readings stay on `https://api.rootrecord.cloud`.
+
 ## Still open
 
 1. Sign in to Cloudflare while `cloudflared tunnel login` is still running on Mainland Two, or start that command again. Then create a tunnel, ingress `ml2.rootrecord.cloud` → `ssh://localhost:22`, a proxied CNAME, a systemd unit, and point `ssh ml2` at `cloudflared access ssh`.
