@@ -4,7 +4,7 @@ Finished Hawaii reports go to the Mainland station. The station snapshots the pl
 
 This is the living description of the spoken reports. The 2026-09-29 port record is [Voice-Reports-G3](../10-AI-and-Agent-Runtime/Voice-Reports-G3.md). Where that file still says a job is off, has no delivery, or uses an old minute, this file wins. Trust `Automations/scripts/poller/run-poller.sh` and `Automations/scripts/jobs.py` over older “what stays off” lists.
 
-## Current as of 2026-10-02 ~02:40 HST
+## Current as of 2026-10-02 ~02:58 HST
 
 Alexander’s operator copy, checked against live `jobs.py`, `run-poller.sh`, `voice_reports.py`, `status_cue.py`, `voice_deliver.py`, Discord `public_report.py` / `report-channels.json`, and `publish_report_pages.py`. As of ~01:41 HST the separate `energy_report` voice job is retired: pack watts, newest ch1 still, and the hourly camera look live inside Bruce’s `solar_desk` (title “Energy and solar”). `status_cue.TYPES` lists **nine** generating desks. As of ~01:57 HST those nine desks and the stack-closer cycle key moved from `:12` / `:42` to `:22` / `:52` in `jobs.py` and `status_cue.cycle_key` (tests updated). Historical timing numbers below still come from `voice-timing.md` (generated 2026-10-02 01:07 HST, 303 runs, when Energy was still a tenth job and starts were still `:12` / `:42`). The live Mainland mixer is release `stage-notice`. Do not kill the encoder mid-report. A `jobs.py` / `run-poller.sh` change needs a poller restart before the running process adopts the new minutes; script edits are picked up on the next job run.
 
@@ -53,6 +53,21 @@ Host power mode is logged read-only by new `System/scripts/power_profile.py` (pe
 ### Site traffic in bandwidth / current (2026-10-02 ~02:33 HST)
 
 Mainland Home/Radio analytics are folded into Pacific spoken reports (schema **1.0.0**, no page JS). Pacific `Website/scripts/analytics_pull.py` mirrors ML2 `GET /api/analytics/daily` into Database `Logs/Website/analytics/daily/` (plus `analytics-last.json`; sample `daily/2026-10-02.json`). Voice `bandwidth_desk` and `current_report` speak measured site traffic: **api** / **home_proxy** / **radio**, with honest partial Home (`home_proxy` is telemetry Referer www only; full `home.pageviews` stay null until edge analytics). Job `analytics_pull` is gated `RR_ANALYTICS_PULL=1` at 900 s; **not** exported in `run-poller.sh`, so a normal start leaves it off until armed. Desks can still refresh a stale day file themselves when speaking. READMEs: Database `Logs/Website/analytics/README.md` and Pacific `Website/README.md` Analytics section.
+
+### Post-boot voice / analytics check (Report Instructor, ~02:58 HST)
+
+Measured after desk reboot into ML2 mode (poller active; `RR_LOCAL_DATA_POLL=0` still set).
+
+| Artifact | mtime (HST) | Note |
+| --- | --- | --- |
+| Voice WAV `nws` | 02:24 | pre-reboot |
+| Voice WAV `solar_desk` | 02:28 | pre-reboot |
+| Voice WAV `bandwidth` | 02:31 | pre-reboot |
+| `current_report` md | 02:33 | pre-reboot |
+| Analytics `as_of` | 02:28:35 | daily file present |
+| Automations log | 02:58 | fresh; no recent `voice_` / `report_` failures |
+
+**No new voice cycle since boot yet.** Live desk schedule remains **`:22` / `:52`** (nine desks; was `:12` / `:42` before ~01:57). Expect the next `:22` / `:52` stack to refresh spoken files from Database. Do not treat pre-reboot WAVs as post-boot proof.
 
 ### Always on (hard-enabled in jobs.py)
 
