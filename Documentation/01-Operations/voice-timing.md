@@ -1,18 +1,18 @@
 # Voice timing
 
-**Generated:** 2026-10-02 03:10 HST  
+**Generated:** 2026-10-02 04:05 HST  
 **Source:** automations log, job wall time from RUN to the result line  
 **Model:** none  
 **Template:** `5 - RootRecord-Library/Agent Context/Documenter-Agent-Context/HANDOFF-TEMPLATE.md`  
 
-## Handoff — 2026-10-02 03:10 HST — voice_timing_report → Library
+## Handoff — 2026-10-02 04:05 HST — voice_timing_report → Library
 
 ### Confirmed facts
 - The station locks the playlist at HH:29:59 and HH:59:59, then chimes on the hour and the half hour.
 - A file that arrives after that lock waits for the next cycle.
 - The measured desks share one poller thread and one voice lock, so a set runs one after another.
 - The lead from :22:00 to the :29:59 lock is 7 minutes 59 seconds. :52 has the same lead before :59:59.
-- The 9-desk set sums to median 314s, average 386s, and p90 698s.
+- The 9-desk set sums to median 329s, average 394s, and p90 679s.
 - That p90 sum is longer than the lead.
 - The schedule table is copied from jobs.py.
 
@@ -22,7 +22,7 @@
 
 ### Evidence
 
-284 finished runs in 44 log files.
+302 finished runs in 45 log files.
 
 | Job | Scheduled |
 | --- | --- |
@@ -45,15 +45,15 @@
 
 | Report | Job | Runs | Median | Average | p90 |
 | --- | --- | ---: | ---: | ---: | ---: |
-| System | `voice_system_perf` | 27 | 31s | 39s | 51s |
-| NWS | `voice_nws_weather` | 80 | 34s | 38s | 89s |
-| Remaining tasks | `voice_remaining_tasks` | 24 | 22s | 26s | 40s |
-| Earthquakes | `voice_earthquake_report` | 23 | 32s | 44s | 74s |
-| Kīlauea | `voice_kilauea_report` | 25 | 32s | 39s | 85s |
-| Solar | `voice_solar_desk` | 21 | 34s | 46s | 94s |
-| Security | `voice_security_desk` | 24 | 25s | 41s | 95s |
-| Bandwidth | `voice_bandwidth_desk` | 22 | 27s | 29s | 40s |
-| Current | `voice_current_report` | 27 | 76s | 84s | 130s |
+| System | `voice_system_perf` | 29 | 33s | 39s | 51s |
+| NWS | `voice_nws_weather` | 82 | 34s | 38s | 89s |
+| Remaining tasks | `voice_remaining_tasks` | 26 | 23s | 27s | 40s |
+| Earthquakes | `voice_earthquake_report` | 25 | 33s | 44s | 74s |
+| Kīlauea | `voice_kilauea_report` | 27 | 34s | 40s | 53s |
+| Solar | `voice_solar_desk` | 23 | 40s | 49s | 105s |
+| Security | `voice_security_desk` | 26 | 26s | 41s | 89s |
+| Bandwidth | `voice_bandwidth_desk` | 24 | 28s | 31s | 48s |
+| Current | `voice_current_report` | 29 | 78s | 84s | 130s |
 | Hurricane | `voice_hurricane_desk` | 4 | 42s | 42s | 52s |
 | Morning roll-up | `voice_morning_report` | 1 | 82s | 82s | 82s |
 | Midday roll-up | `voice_midday_report` | 0 | — | — | — |
