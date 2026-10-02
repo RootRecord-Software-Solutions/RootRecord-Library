@@ -32,8 +32,6 @@ Generated files live in `2 - RootRecord-Database/System/status/`. That directory
 
 ## Working
 
-- **ATTENTION — reverse SSH `:17022` conflict (~04:45 HST):** both `rr-ml2-db-tunnel` and `rr-aws-fetch-tunnel` are restarting hard after remote port forwarding failed for listen port `17022` (240–270+ restarts). The remotes already listen on `127.0.0.1:17022`; SSH to `ml2-ip` and `rr-aws-ip` is OK. Last ML2→Pacific receive succeeded ~60 minutes before this report. Soft gate remains ML2-on because the ML2 host is alive. Mainland owns unstick and drain.
-
 - **Verified — River AC recovery ~04:30 HST:** the persistent 24/7 `rr-river2pro-ac-recover.timer` now runs `OnUnitActiveSec=45`; `COOLDOWN_SEC=0` removes the old 120-second block, so it retries every tick while AC is off. Fresh SOC≥5% (≤5 min) **or** `ac_input_power`≥50W, whichever arrives first, triggers recovery; AC already on is a no-op. Alexander tested power off and recovery worked again. Master owns the EcoFlow/BLE path; ML stays clear.
 
 - Sandbox chat answers. Read receipt is eyes, then inference, then typing, then text.
@@ -110,7 +108,11 @@ Non-council callers and `flm-warmup.sh` still default to `llama3.2:1b`. The coun
 
 ## Recent changes
 
-2026-10-02 ~04:45 HST: Master overnight check — both `rr-ml2-db-tunnel` and `rr-aws-fetch-tunnel` are restarting hard on remote port-forwarding conflict `:17022` (240–270+ restarts); remotes already listen on `127.0.0.1:17022`, and SSH via `ml2-ip`/`rr-aws-ip` is OK. Last ML2→Pacific receive was ~60 minutes earlier. Soft gate remains ML2-on (`RR_LOCAL_DATA_POLL=0`), poller active, net OK; Mainland owns unstick and drain. River B1 ~11.3% SOC, AC on, watchdog no-op. No commit/push.
+2026-10-02 ~04:56 HST: Master closed the soft-gate `weather_poller` leak while leaving ML2-on intent and `RR_LOCAL_DATA_POLL=0` unchanged. `Weather/scripts/ensure-weather-poller.sh` now refuses start when the gate is off, reading the environment or `rr-data-poll.conf`; `Automations/scripts/supervise-services.sh` soft-stops live weather when gated off and never respawns it. The live daemon (pid 197847) was soft-stopped and verified down; the supervisor is gated-off and not respawning. Relay untouched. Backups `*.bak-20261002-weather-gate` sit beside both scripts. No commit/push.
+
+2026-10-02 ~04:58 HST: Mainland cleared both open ML2 findings. In `US-Mainland-Two`, `systemd/ml2-db-stream.service` now waits only on `network-online`; `scripts/run-stream.sh` takes a `flock`, including on the host. The stream drained 856→0 handoffs. The desk user unit for `rr-aws-fetch-tunnel` is stopped/disabled; its remote-listen template is `:17023` if revived, while Pacific `rr-ml2-db-tunnel` remains active on `:17022`. SHA `6560b75` is local only; no commit/push/sync. Pacific `RR_LOCAL_DATA_POLL=0` remains untouched and the weather daemon remains down. River is ~7.5% SOC with AC on; overnight checks remain armed.
+
+2026-10-02 ~04:52 HST: Mainland overnight — ML1 radio is OK and Pacific is up with ML2-on intent (`RR_LOCAL_DATA_POLL=0`), but local `weather_poller` is still writing because Mainland has not flipped the soft gate. The ML2 bank stream is stalled: last ack ~03:44, ~856 handoffs stacked, and `ml2-db-stream` does not start because `After=ml2-collectors` overlaps collectors that run ~10 minutes with a 5-minute timer. Collectors are OK; `:17022` is LISTEN and the earlier port fight may be separate. Keep the tunnel Working; drain is blocked by the stream not starting. Not a desk/net outage. No commit/push.
 
 2026-10-02 ~04:30 HST: Alexander closed the Pacific desk offline flicker from ~04:15–~04:30: ML1 radio stayed live while ML2 handoff stacked weather/media/geology; the soft gate remained ML2-on. Before the drop, the ~04:20 snapshot was gate ML2-on, River ~16.7% AC-on, Delta ~2.7%; tunnel activation during reconnect was unfinished. Alexander held the desk power button; it returned, and agents stay up until River dies (about one hour left at goodnight). Desk-offline Working attention is closed. No commit/push.
 
