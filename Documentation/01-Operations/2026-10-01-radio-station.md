@@ -9,6 +9,8 @@
 
 This is how the station works. Listeners join one live mix. They do not pick tracks.
 
+2026-10-02 ~12:54 HST: Alexander said this mix is causing trouble for other users, so listeners move to YouTube, and video is not allowed. Mainland is not touching this station. The YouTube path is stills only and is not built. The wiped ML2 video stack stays wiped. `rr-radio-station` and `live.mp3` stay as they are until that path exists. ~12:56 HST: Report Instructor keeps reports as audio and will not make a video version or touch the station. Cove keeps the public Radio page on the live mp3 until a stills target exists, and will not embed video.
+
 ## What listeners hit
 
 There is one station, one mix, and one encoder. The public page is `https://www.rootrecord.cloud/radio` (and `/live` audio via `live-radio.js`). That page plays `https://radio.rootrecord.cloud/radio/live.mp3` and reads `https://radio.rootrecord.cloud/radio/now.json`. Browsers often block autoplay. The Listen button is only for the first unlock; after that the client auto-resumes and cache-bust reconnects on pause, stall, waiting, ended, error, offline→online, and visibility, so a stream drop does not put TAP LISTEN back on screen. The stream itself is already audible at the mp3 URL. A 15-minute public limit and `/pro/radio` membership wall are future only — not implemented. ML1 mixer untouched. Website worktree local commit `cdd9f0c` (`Github-worktrees/website/`, not pushed by Mainland); Library note commit `fc06d15`. Earlier Listen-button commit was `36ab4a0`. Pacific `Website/Home/assets/radio.js` may lag the website worktree until desk sync; Vercel may lag GitHub.
@@ -55,7 +57,7 @@ The connector ignores a local config file. The dashboard ingress wins. The live 
 
 `ssh.rootrecord.cloud` is retired. `www.rootrecord.cloud` stays on Vercel. Leave `www` off this tunnel.
 
-Mainland Two is a different machine and a different tunnel. It is **not** the radio station and **not** a YouTube station (YouTube experiment ended 2026-10-02; [US-Mainland-Two](../15-Domains-and-External-Systems/US-Mainland-Two.md)). Live role: Cloudflare tunnel + github-ops pull scaffolding only. Polling later, not live.
+Mainland Two is a different machine and a different tunnel. It is **not** the radio station. The video experiment stays wiped ([US-Mainland-Two](../15-Domains-and-External-Systems/US-Mainland-Two.md)). Alexander ~12:54 HST ordered a stills-only YouTube listen path; that path is not built, and this station was not stopped. Live role: Cloudflare tunnel + github-ops pull scaffolding only. Polling later, not live.
 
 | What | Value |
 | --- | --- |
@@ -120,6 +122,8 @@ The mixer only schedules `*_current.opus`. An `.ogg` file sitting beside it is n
 Hawaii writes a WAV under the voice database, `2 - RootRecord-Database/Media/Audio/Voice/<report>_current.wav`. The script is `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Media/Voice/scripts/radio_push.py`. It encodes that one report to Opus on the desk and replaces one file over SSH on the runtime reports directory, `/home/ubuntu/rootrecord-radio/audio/reports/<report>_current.opus`. It does not download.
 
 `news_update` is built on Pacific `Media/RadioRss` (`news-hour` → replace `news_update_current.wav` → push). As of 2026-10-02 ~04:30 HST a local sample was **~22.7 spoken minutes** within the twenty-to-twenty-five-minute target (`target_words: 3600` in `config/policy.yaml`), with Ava/Bruce/Carly balanced via `balance_personas`. Mix: markets, defence, SpaceX, Hawaii, chips/big tech, world, mainland weather, centrist politics, science, universities, and also; policy raises defence/politics budgets and feeds add `doj_news`/`defense_gov`. Sports is dropped from every feed before desks; `stories.py` uses word-edge matching for `nfl`/`nba`/`mlb`/`sports` and expanded leagues so conflict, influenza, and sportswear stay. Centrist feeds also drop partisan phrasing. The Mainland mixer does not filter sports or partisanship; ingest already did. Job `radio_news_update` timeout is 2400 seconds; At the Report Instructor's ~11:53 HST read, `RR_RADIO_NEWS=1` and the news job is on. See [voice desk](./2026-09-30-voice-desk.md).
+
+2026-10-02 ~13:01 HST: the date is said once. `news_hour.py` on the Pacific desk opens with the month, day, and year and does not repeat a published-on line for each story. Cluster briefs in `pipeline.py` say Published once, on the opener. The ML2 vendor copy matches. The pacific worktree `news_hour.py` still dates every story. That copy is not what gets spoken. The builder the desk runs says the date once. No new audio was rendered and nothing was put on the air. Alexander’s later hour-long news block is an idea only. This cycle is still 30 minutes.
 
 The send is `scp` of a temporary Opus file to a hidden partial name, an `ffprobe` check that the remote file has duration, then `mv` into the final name and mode `644`. After that move, the script deletes only that report's old `<report>_current.ogg`. Other reports' `.ogg` files stay until those reports are published as Opus.
 

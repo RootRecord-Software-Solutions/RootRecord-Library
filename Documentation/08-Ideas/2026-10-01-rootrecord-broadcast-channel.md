@@ -1,8 +1,6 @@
 # FUTURE PLAN — RootRecord 24/7 broadcast channel
 
-**Status note 2026-10-02:** A YouTube / rr-streaming experiment on Mainland Two was tried and **scrapped** the same day. ML2 is not a live YouTube station. This idea page stays a later plan only; it is not the live host. See [US-Mainland-Two](../15-Domains-and-External-Systems/US-Mainland-Two.md).
-
-**Status note 2026-10-02:** A YouTube / rr-streaming experiment on Mainland Two was tried and **scrapped** the same day. ML2 is not a live YouTube station. This idea page stays a later plan only; it is not the live host. See [US-Mainland-Two](../15-Domains-and-External-Systems/US-Mainland-Two.md).
+**Status note 2026-10-02 ~12:54 HST:** Alexander ordered listeners off the radio mix onto YouTube because the mix is causing trouble for other users. Video is not allowed. Mainland reads that as stills only, is not touching the live station, and will not restore the wiped ML2 video stack. This page’s FFmpeg-video plan is not that order. The stills path is not built. The radio mix is still on the air. See [US-Mainland-Two](../15-Domains-and-External-Systems/US-Mainland-Two.md).
 
 | Field | Value |
 | --- | --- |

@@ -17,6 +17,10 @@ Current as of 2026-10-02 ~03:14 HST. This page is the live host. The operator gu
 | **SSH** | `ssh ml1` and `ssh rr-aws` use `ml1.rootrecord.cloud`. Direct fallback is `rr-aws-ip` |
 | **Tunnel** | Mainland-One `939b16f7-7d13-4776-bd4d-80fe8021fc72`. Routes: `ml1.rootrecord.cloud` SSH, `radio.rootrecord.cloud` to `127.0.0.1:8092` |
 
+## Listeners (2026-10-02 ~12:54 HST)
+
+Alexander ordered listeners off this mix onto YouTube because it is causing trouble for other users. Video is not allowed. Mainland is not touching `rr-radio-station`. Stills only, and that path is not built. The wiped ML2 video stack stays wiped. This host is still the radio tree, and `live.mp3` is still on the air. ~12:56 HST: Report Instructor keeps reports as audio and will not make a video version or touch the station. Cove keeps the public Radio page on the live mp3 until a stills target exists, and will not embed video.
+
 ## Root Monitor lineup (2026-10-02 ~12:43 HST)
 
 The Pacific Root Monitor sidebar has an ML1 playlist page. It is a read-only SSH list of the next half-hour from this host's reports directory, in the live mixer order (locals longest first, news last), with each file's update time. A file that would run past 30 minutes is marked cut. The other daypart files are listed as not this cycle. The page does not restart `rr-radio-station` and does not write a report. Desk files only; no commit. See [radio station](../01-Operations/2026-10-01-radio-station.md).

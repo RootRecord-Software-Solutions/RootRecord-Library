@@ -159,9 +159,13 @@ Alexander (2026-10-02 ~02:26 HST; SHAs attached ~02:29; schema FAIL ~02:34 clear
 - `abd4bd0` — **ML2 ephemeral handoff + purge (ML1 mirror); EcoFlow excluded**: raw/handoff purge, API-local overwrite cache, deny-list, and policy docs.
 - `04142d5` — **Remove failed YouTube station experiment**: the desk wipe commit.
 
+## Listeners — YouTube stills (2026-10-02 ~12:54 HST)
+
+Alexander: the radio mix is causing trouble for other users, so listeners move to YouTube, and video is not allowed. Mainland: stills only, the live ML1 station is not being touched, and the wiped video stack below is not coming back. This is an order, not a running encoder. No stills path is built. `live.mp3` is still on the air. ~12:56 HST: Report Instructor keeps reports as audio and will not make a video version or touch the station. Cove keeps the public Radio page on the live mp3 until a stills target exists, and will not embed video.
+
 ## YouTube experiment — ended 2026-10-02
 
-Decision: the YouTube / rr-streaming station on ML2 is **scrapped**. Alexander owns any future process himself. ML2 is no longer a YouTube station. Geology + US-states weather collectors, local API/analytics, and Pacific DB stream are live; sysmon remains staged/off.
+Decision: the YouTube / rr-streaming station on ML2 is **scrapped**. Alexander owns any future process himself. That video station stays scrapped. The ~12:54 HST listen order is a new stills path, not a restore of this one. Geology + US-states weather collectors, local API/analytics, and Pacific DB stream are live; sysmon remains staged/off.
 
 YouTube paths are gone: `youtube/`, `station/`, the experiment config and `requirements.txt`, `rr-youtube-station.service`, `/etc/rootrecord` YouTube env/oauth, `youtube-venv`, `chromium-profile`, and `/var/lib/rootrecord`. Disk recovery at ~02:10 also purged leftover YouTube-related packages (chromium/gnome/mesa/cups) after apt/snap cache clean.
 
@@ -176,4 +180,4 @@ Local commits (authorized; **not pushed** from the wipe seat): desk `04142d5`, h
 
 ## What stays elsewhere
 
-Mainland One is radio only ([US-Mainland-One](./US-Mainland-One.md), [2026-10-01 radio station](../01-Operations/2026-10-01-radio-station.md)). `www` stays on Vercel. Pacific keeps the poller and the durable Database. Do not restore the YouTube tree from the backup onto the live host without a new Alexander ask.
+Mainland One is radio only ([US-Mainland-One](./US-Mainland-One.md), [2026-10-01 radio station](../01-Operations/2026-10-01-radio-station.md)). `www` stays on Vercel. Pacific keeps the poller and the durable Database. Do not restore the YouTube tree from the backup onto the live host. Alexander’s ~12:54 HST ask is a new stills path, not permission to put this tree back.
