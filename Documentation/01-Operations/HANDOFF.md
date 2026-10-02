@@ -95,6 +95,8 @@ Non-council callers and `flm-warmup.sh` still default to `llama3.2:1b`. The coun
 
 ## Recent changes
 
+2026-10-01 23:48 HST: Voice desks render at `:12` and `:42`, before the station locks the playlist at `:29:59` and `:59:59`. Across 299 runs a full set is typically 6 to 8 minutes, and a slow energy camera look can reach about 15. News is `:36`. Hurricane is `:40`. Roll-ups stay at 09:02, 12:02, and 21:02 and first play on the following half hour. The poller has been up since 23:46 HST. The averages are on `Documentation/01-Operations/2026-09-30-voice-desk.md`.
+
 2026-10-01 23:28 HST: Wren's Grok bot paste is `Agent Context/Documenter-Agent-Context/PROMPT.md`.
 
 2026-10-01 23:26 HST: The documentation seat is named Wren. Pack: `Agent Context/Documenter-Agent-Context/`. Wren writes current facts into existing pages, is not a council hop, and is not a Telegram or Discord voice. The master prompt section is `0 - Master-Prompt/MASTER-PROMPT.md` §5a.

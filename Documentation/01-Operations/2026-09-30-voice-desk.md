@@ -29,6 +29,32 @@ These flags default to 1 in `run-poller.sh`. The schedule is HST.
 | :36 | rotating | News | Hourly news update, before the :42 stack. |
 | 09:02, 12:02, 21:02 | Ava | Daypart roll-up | Morning, midday, and late. Rendered inside the window so the next half-hour snapshot can play it. |
 | 05:40, 09:40, 12:40, 16:40, 20:40 | Carly | Hurricane | Before the following hour snapshot. Off unless `RR_VOICE_HURRICANE=1`. |
+| :00 and :30 | rotating | Chime | Prebuilt file. The job stays off until `RR_VOICE_HOURLY_CHIME=1`. The station chime is separate and stays on the hour and the half hour. |
+
+The desks share one poller thread and one voice lock, so they run one after another. Energy runs before the solar desk. The current report runs last. Across 299 logged runs, a full set is typically 6 to 8 minutes. A slow energy camera look pushes the same set toward 15 minutes. `:12` and `:42` are 18 minutes before the station locks the playlist at `:29:59` and `:59:59`, which covers those slow runs. A file that arrives after the snapshot waits for the next cycle. Starting on the hour or the half hour was too late.
+
+News at `:36` and the hurricane desk at `:40` finish before the top-of-hour stack.
+
+Morning, midday, and late roll-ups cannot be written before their window opens, so they stay at 09:02, 12:02, and 21:02. The 09:00 snapshot is taken at 08:59:59, while the late roll-up is still the one on the air, so the new morning file first plays at 09:30. Noon first plays at 12:30. Nine at night first plays at 21:30.
+
+The poller was started again at 23:46 HST on 1 October 2026 and is on this schedule. The next render after that start is 00:12, for the 00:30 announcement.
+
+## How long a desk takes
+
+These are the current averages from those 299 runs. They are a measurement of that log, not a promise for the next pass.
+
+| Report | Median | Average |
+| --- | ---: | ---: |
+| System | 28s | 37s |
+| NWS | 34s | 37s |
+| Energy | 65s | 76s |
+| Remaining tasks | 21s | 23s |
+| Earthquakes | 32s | 43s |
+| Kīlauea | 32s | 40s |
+| Solar | 33s | 41s |
+| Security | 25s | 38s |
+| Bandwidth | 27s | 29s |
+| Current | 78s | 87s |
 
 Geology collection (`RR_GEOLOGY`) and network samples (`RR_NET_SAMPLES`) also default to 1, because the quake and bandwidth notes read those files.
 
@@ -72,7 +98,7 @@ Generator and transfer use watts, and the same rules are in the voice, the BLE c
 
 ## Channel 1 solar look
 
-Once per clock hour, the :15 energy run asks `Security/Cameras/panel_look.py` and the local vision model `gemma4:e4b` about the newest channel 1 still. The :45 run reuses that hour's sentence and does not send a note. The cache is Database `Energy/vision/ch1-look-last.json`. A failed look is not cached, so the next energy run can try again. Bruce's hourly solar desk speaks the last stored sentence, names its age when it is from an earlier hour, and attaches the still. It does not start a second look.
+Once per clock hour, the `:12` energy run asks `Security/Cameras/panel_look.py` and the local vision model `gemma4:e4b` about the newest channel 1 still, and only when that hour has no reading yet. The `:42` run reuses that sentence and does not send a note. The cache is Database `Energy/vision/ch1-look-last.json`. A failed look is not cached, so the next energy run can try again. Bruce's hourly solar desk speaks the last stored sentence, names its age when it is from an earlier hour, and attaches the still. It does not start a second look.
 
 The model names the weather (rain, fog, overcast, clear, dark) and the tilt. Left side up is the morning position. Flat is the day position. Right side up is the evening position. Left and right are as channel 1 sees the array.
 

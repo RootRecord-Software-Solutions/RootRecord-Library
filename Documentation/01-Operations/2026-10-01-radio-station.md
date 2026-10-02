@@ -159,6 +159,8 @@ Order is duration, longest first. The mixer probes duration with `ffprobe` and k
 
 A new or replaced report does not start playback and does not restart the process. The file identity is device, inode, size, and modification time. The cycle list is the reports on disk at the boundary. A file that arrives or changes after that waits for the next cycle. A queued file whose identity changed before its turn is skipped.
 
+Pacific renders the recurring desks at `:12` and `:42` so the files are on disk before `:29:59` and `:59:59`. How long that pass takes is on the [voice desk](./2026-09-30-voice-desk.md). A morning file written at 09:02 misses the 08:59:59 snapshot, so it first plays at 09:30. Midday first plays at 12:30. Late first plays at 21:30.
+
 The chime does not pause or resume a report. `reportState` is `NONE` or `ACTIVE`. `phase` is `NORMAL`, `DUCK`, `CHIME`, or `REPORTS`. During a chime, `report` is `Time`.
 
 Code activation waits until the cycle is idle (`phase` `NORMAL`). At that boundary, if `deploy-pending` names a different release, the process exits 75.
