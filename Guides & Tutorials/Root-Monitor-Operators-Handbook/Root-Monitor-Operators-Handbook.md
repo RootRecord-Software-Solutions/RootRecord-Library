@@ -183,7 +183,7 @@ The newest `ENERGY` line from the tail of `Logs/Automations/automations_current.
 
 At 03:07 the heartbeat was live: `B2=1% B1=15.3% solar=0 W ac=57 W usbc=0 W`, laptop `LAP=100%/Full/AC`. `SUN` was a dash because the NOAA solar table was not available (same gap as the Weather page).
 
-**What to do with a STALE pack:** the panel is showing you the gap. It does not reconnect BLE or call the EcoFlow API. The repeating reader is user timer `rr-ecoflow-read.timer`. `ava-ecoflow-ble.service` is the heartbeat owner, not the poll. A `source: api` or `source: cloud` sample after a recent Bluetooth read is a miss that should have stayed `WAITING`, not a normal split. The rule is `Documentation/01-Operations/2026-10-01-ecoflow-ble-reads.md`. The table above is the 03:07 capture only.
+**What to do with a STALE pack:** the panel is showing you the gap. It does not reconnect BLE or call the EcoFlow API. The repeating reader is user timer `rr-ecoflow-read.timer`. `ava-ecoflow-ble.service` is the heartbeat owner, not the poll. A `source: api` or `source: cloud` sample after a recent Bluetooth read is a miss that should have stayed `WAITING`, not a normal split. A last reading of 5 percent or less that is older than 30 minutes is discharged and powered off. The rule is `Documentation/01-Operations/2026-10-01-ecoflow-ble-reads.md`. The table above is the 03:07 capture only.
 
 ---
 
@@ -609,7 +609,7 @@ The screenshot is the 02:35 HST capture. The list below is the 19:02 HST refresh
 | Weather retention apply | VERIFY PENDING |
 | Public status / solar board | VERIFY PENDING |
 | Public site foundation + website repo sync | VERIFY PENDING |
-| US-Mainland-One (continuity node) | BLOCKED |
+| US-Mainland-One continuity import (2026-09-29) | historical. The live host is the radio tree |
 | G1 selective recovery packets | BLOCKED |
 | G2 residual paths (27 dormant files) | VERIFY PENDING |
 | Residual jobs path rewire | BLOCKED |

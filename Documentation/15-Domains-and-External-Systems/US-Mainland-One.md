@@ -60,7 +60,9 @@ This section is the 2026-09-29 continuity-node inventory. The checkout that day 
 
 > **At pause (16:25 HST):** the State row above describes 13:45–14:05. The rollup for that pause is [Current AWS state](#current-aws-state-at-pause-2026-09-29-1625-hst). The live host is the radio table at the top of this page.
 
-## What the repo is
+## 2026-09-29 file list — do not restore
+
+This list is the continuity checkout from that day. Those directories are not in the live radio tree. Do not copy `automations/`, `communications/`, `network-globe/`, `weather/`, or `scripts/` back into Mainland One.
 
 "Secondary infrastructure node providing service continuity, synchronization, and recovery … when the Solar Pacific Root Server is unavailable." 112 tracked files (~0.85 MB working tree; GitHub reports 195 KB packed). README banner (2026-09-28): continuity node; the **org** `RootRecord-Software-Solutions` is authority (the repo itself still lives on the `rootrecordsoftwaresolutions` user account; no org copy exists).
 

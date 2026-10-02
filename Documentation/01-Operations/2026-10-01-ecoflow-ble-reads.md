@@ -33,6 +33,12 @@ This account cannot restart `bluetooth.service` without a password. A power cycl
 
 Leapfrog keeps choosing the older watt file. After one pack disappears from the scan, that file stays older, so every retry hits the same pack until the other file is also stale. The adapter reset is the recovery for that stretch. Do not "fix" it by publishing quota for the pack that failed the scan.
 
+## A pack at 5 percent or less that goes quiet
+
+A last reading of 5 percent or less that is older than 30 minutes is not a live battery and not a radio miss to keep announcing. The voice reports, the desk file, the state slice, and the public power page say that pack discharged and powered off. They do not repeat its watts or call it reporting. A pack above 5 percent that goes quiet is still "out of range." A fresh Bluetooth read clears the powered-off line.
+
+The minute `ENERGY` log uses `B2=off` or `B1=off` for that case. The poller process reads that code when it starts.
+
 ## What not to do
 
 - Do not turn `ecoflow_read_cycle` back on in the poller. Voice and GitHub jobs in that queue were freezing the read. The timer is outside that queue.

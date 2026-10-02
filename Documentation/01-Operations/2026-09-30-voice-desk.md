@@ -55,7 +55,7 @@ A bare `degrees` after a number is still spoken as Fahrenheit, because the weath
 
 ## Energy speech
 
-Readings older than 30 minutes are "out of range." A current channel 1 still is not given an age. An older still is "N minutes old."
+Readings older than 30 minutes are "out of range." A last reading of 5 percent or less that is older than 30 minutes is "discharged and powered off," and the report does not list that pack's watts. A current channel 1 still is not given an age. An older still is "N minutes old."
 
 Generator and transfer use watts, and the same rules are in the voice, the BLE charge source, and the load categories:
 
