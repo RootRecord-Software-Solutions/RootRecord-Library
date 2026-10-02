@@ -2,7 +2,7 @@
 
 | Field | Value |
 | --- | --- |
-| **When** | 2026-10-01 evening HST, brought current 2026-10-02 ~01:58 HST |
+| **When** | 2026-10-01 evening HST, brought current 2026-10-02 ~02:09 HST |
 | **Operator** | Alexander |
 | **State** | Mainland One is the clean radio tree at `9b7fccf`. One station is on the air and playing the Opus music bed. Read-only check ~01:56–01:58 HST: `rr-radio-station` up since 01:39 HST (one clean restart); `live.mp3` 200; air healthy; encoding + watchdog `watch_ok`; public stream OK; light `ffmpeg` + `stream.js` |
 | **Secrets** | None in this file. No tunnel credential JSON, API tokens, or private keys |
@@ -118,6 +118,8 @@ The mixer only schedules `*_current.opus`. An `.ogg` file sitting beside it is n
 ## How a report gets on the air
 
 Hawaii writes a WAV under the voice database, `2 - RootRecord-Database/Media/Audio/Voice/<report>_current.wav`. The script is `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Media/Voice/scripts/radio_push.py`. It encodes that one report to Opus on the desk and replaces one file over SSH on the runtime reports directory, `/home/ubuntu/rootrecord-radio/audio/reports/<report>_current.opus`. It does not download.
+
+`news_update` is built on Pacific `Media/RadioRss` (`news-hour` → replace `news_update_current.wav` → push). Sports items are dropped from every RSS feed before desks (`config/policy.yaml` `sports_patterns`; normalize / compose / `news_hour` filters). The Mainland mixer does not filter sports; ingest already did. See [voice desk](./2026-09-30-voice-desk.md).
 
 The send is `scp` of a temporary Opus file to a hidden partial name, an `ffprobe` check that the remote file has duration, then `mv` into the final name and mode `644`. After that move, the script deletes only that report's old `<report>_current.ogg`. Other reports' `.ogg` files stay until those reports are published as Opus.
 

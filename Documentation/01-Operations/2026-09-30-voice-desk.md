@@ -4,7 +4,7 @@ Finished Hawaii reports go to the Mainland station. The station snapshots the pl
 
 This is the living description of the spoken reports. The 2026-09-29 port record is [Voice-Reports-G3](../10-AI-and-Agent-Runtime/Voice-Reports-G3.md). Where that file still says a job is off, has no delivery, or uses an old minute, this file wins. Trust `Automations/scripts/poller/run-poller.sh` and `Automations/scripts/jobs.py` over older “what stays off” lists.
 
-## Current as of 2026-10-02 ~01:57 HST
+## Current as of 2026-10-02 ~02:09 HST
 
 Alexander’s operator copy, checked against live `jobs.py`, `run-poller.sh`, `voice_reports.py`, `status_cue.py`, `voice_deliver.py`, Discord `public_report.py` / `report-channels.json`, and `publish_report_pages.py`. As of ~01:41 HST the separate `energy_report` voice job is retired: pack watts, newest ch1 still, and the hourly camera look live inside Bruce’s `solar_desk` (title “Energy and solar”). `status_cue.TYPES` lists **nine** generating desks. As of ~01:57 HST those nine desks and the stack-closer cycle key moved from `:12` / `:42` to `:22` / `:52` in `jobs.py` and `status_cue.cycle_key` (tests updated). Historical timing numbers below still come from `voice-timing.md` (generated 2026-10-02 01:07 HST, 303 runs, when Energy was still a tenth job and starts were still `:12` / `:42`). The live Mainland mixer is release `stage-notice`. Do not kill the encoder mid-report. A `jobs.py` / `run-poller.sh` change needs a poller restart before the running process adopts the new minutes; script edits are picked up on the next job run.
 
@@ -116,6 +116,8 @@ Numbers in the reports get a percent change when an earlier reading exists. Aver
 ## Hawaii, and host temperature
 
 `Hawaii` and `Hawaiian` are spoken as those English words. The old syllable spelling is not used. Other place names still use the English respell in `hawaiian_lexicon.py` (Kīlauea is one token, `keelah-wayuh`; Mauna Loa is `mownah-lowah`; Maui is `mao wee`; Honolulu stays the plain English name). News hour (`Media/RadioRss/scripts/news_hour.py`) runs the same fold + pronounce path before Kokoro. A comma plus a USPS state code is spoken as the state name.
+
+Alexander rule: **no sports in reports.** Sports was entering `news_update` through RadioRss general feeds (Star-Advertiser / Al Jazeera / BBC sports URLs, NFL, and similar). Pacific `Media/RadioRss` now drops sports from **every** feed: global `sports_patterns` in `config/policy.yaml`, `stories.sports()` drop on normalize, compose skip in `pipeline.py`, and a filter in `news_hour.py` before desks. `test_rss_radio.py` covers sports drop and transportation keep (passed). Voice desks, Discord report channels, and Website report pages have no dedicated sports sections — the filter is at ingest, not a desk layout change.
 
 A bare `degrees` after a number is still spoken as Fahrenheit, because the weather numbers are Fahrenheit. The system report says `degrees Celsius` on purpose. The sensor is `acpitz`, in Celsius. The written row is `°C`.
 
