@@ -40,6 +40,8 @@ Alexander (~03:00–03:02 HST; fallback restore ~03:04): **ML2 is the API.** Pub
 | **Verified Kīlauea Cams bank** | ML2 `geology_kilauea_cams` takes USGS stills only (no vision), remains in `LOCAL_DATA_POLL_JOBS` as a soft toggle, streams the handoff under exclusive `RR_LOCAL_DATA_POLL=0`, and wipes scratch after stream; Pacific Cams bank is durable/LLM-readable |
 | **Purge / no-stack** | `ml2-purge` extended (`8cb0456`) wipes weather-bank archive/imagery scratch (+ radio-bank); handoff stays ~0 after stream. Weather-bank scratch was ~295M before scrub — ML2 must never accumulate |
 
+**Open tunnel finding (~04:45 HST):** Reverse SSH `:17022` has a listen-port conflict: `rr-ml2-db-tunnel` and `rr-aws-fetch-tunnel` are restarting hard; the remotes already listen on `127.0.0.1:17022`. Direct SSH via `ml2-ip` and `rr-aws-ip` is OK. Mainland owns unstick and drain; last ML2→Pacific receive was ~60 minutes earlier.
+
 ### Sample paths (room confirm ~03:23 HST) — Pacific Database
 
 - `Weather/Hawai'i/ml2-collector-status.json` — ok

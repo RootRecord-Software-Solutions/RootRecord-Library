@@ -43,9 +43,9 @@ The minute `ENERGY` log uses `B2=off` or `B1=off` for that case. The poller proc
 
 The desk watchdog is `Energy/scripts/watchdog/river2pro-ac-recover.sh`. Its units, `Communications/network/systemd/rr-river2pro-ac-recover.service` and `.timer`, are installed under `~/.config/systemd/user/`; the timer is enabled persistently 24/7 with `OnBootSec=45` and `Persistent=true`, not as an overnight window. `rootrecord` linger is enabled (`linger=yes`). It logs to `Database/Logs/Energy/river2pro-ac-recover.log`.
 
-Current live logic is fresh River SOC≥5% (≤5 minutes) **or** `ac_input_power`≥50W, whichever arrives first, and only when AC is off (`ac_ports=false`) → `river2pro-ac-on.sh`, with a 120-second cooldown; AC already on is a no-op. That no-op was verified with AC already on at about 27.7% SOC and 0 W input. To disable it: `systemctl --user disable --now rr-river2pro-ac-recover.timer`.
+Current live logic is fresh River SOC≥5% (≤5 minutes) **or** `ac_input_power`≥50W, whichever arrives first, and only when AC is off (`ac_ports=false`) → `river2pro-ac-on.sh`. `COOLDOWN_SEC=0` permits a retry every `OnUnitActiveSec=45` tick while AC remains off; AC already on is a no-op. Alexander verified the power-off/recovery path at about 04:30 HST. To disable it: `systemctl --user disable --now rr-river2pro-ac-recover.timer`.
 
-The standing rule is fresh SOC≥5% (≤5 minutes) **or** `ac_input_power`≥50W, whichever arrives first, and only while AC is off. Master owns the EcoFlow/BLE path and the ML lane stays clear.
+The standing rule is fresh SOC≥5% (≤5 minutes) **or** `ac_input_power`≥50W, whichever arrives first, and only while AC is off; retries are every 45-second timer tick with no cooldown. Master owns the EcoFlow/BLE path and the ML lane stays clear.
 
 ## What not to do
 
