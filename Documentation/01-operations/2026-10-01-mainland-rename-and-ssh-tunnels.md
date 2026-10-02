@@ -235,12 +235,12 @@ The deb was removed from `/tmp` after `dpkg`.
 
 ## What is true now
 
-1. `ssh ml1` and `ssh rr-aws` go through Cloudflare to Mainland One, hostname `ssh.rootrecord.cloud`, and do not depend on `3.140.195.32`.
+1. `ssh ml1` and `ssh rr-aws` go through Cloudflare to Mainland One, hostname `ml1.rootrecord.cloud`, and do not depend on `3.140.195.32`. Checked 2026-10-02 06:23 UTC: hostname `ip-172-31-10-115`.
 2. `ssh rr-aws-ip` is the direct address `3.140.195.32` and will break again if that address changes.
-3. `ml1.rootrecord.cloud` is a proxied CNAME to tunnel `939b16f7-7d13-4776-bd4d-80fe8021fc72` and does not accept SSH until that name is added to the dashboard ingress.
-4. `api.rootrecord.cloud` still points at `18.118.30.226`.
+3. Tunnel `network-globe` (`939b16f7-7d13-4776-bd4d-80fe8021fc72`) routes are `www.rootrecord.cloud` → `http://127.0.0.1:8090`, `ml1.rootrecord.cloud` → `ssh://localhost:22`, `radio.rootrecord.cloud` → `http://127.0.0.1:8092`, `api.rootrecord.cloud` → `http://127.0.0.1:8091`. `ssh.rootrecord.cloud` is no longer a route.
+4. `radio.rootrecord.cloud` and `api.rootrecord.cloud` are proxied CNAMEs to that tunnel. `https://radio.rootrecord.cloud/radio/now.json` and `/radio/live.mp3` returned 200 through Cloudflare. `https://api.rootrecord.cloud/api/state` returned 200. `/radio/now.json` on the API host is 404 because that path is only on the radio origin.
 5. `ssh ml2` is direct to `3.149.238.83` with `rr-stream-server.pem`.
-6. Mainland Two has `cloudflared` 2026.9.3 installed and a login process waiting. It has no tunnel and no `ml2.rootrecord.cloud` record.
+6. Mainland Two has `cloudflared` 2026.9.3 installed. It has no tunnel and no `ml2.rootrecord.cloud` record.
 7. The rename is in the working tree and in Mainland Two's remote URL. It is not committed.
 
 ## Radio, later the same night
@@ -257,8 +257,6 @@ The published site requests `https://radio.rootrecord.cloud/radio/live.mp3` and 
 
 ## Still open
 
-1. Sign in to Cloudflare while `cloudflared tunnel login` is still running on Mainland Two, or start that command again. Then create a tunnel, ingress `ml2.rootrecord.cloud` → `ssh://localhost:22`, a proxied CNAME, a systemd unit, and point `ssh ml2` at `cloudflared access ssh`.
-2. Add `ml1.rootrecord.cloud` → `ssh://localhost:22` on the existing Mainland One tunnel in the Cloudflare dashboard. The local YAML already has the rule. The connector ignores it.
-3. Decide whether `api.rootrecord.cloud` should move to `3.140.195.32` or onto the tunnel toward `127.0.0.1:8091`.
+1. Create a separate tunnel for Mainland Two, route `ml2.rootrecord.cloud` → `ssh://localhost:22`, a proxied CNAME, a systemd unit, and point `ssh ml2` at `cloudflared access ssh`. Do not add that route on `network-globe`.
 4. Add and commit the Mainland One folder rename in the umbrella, and commit the doc and catalog edits. Do not commit `Downloads/rr-stream-server.pem` or anything under `~/.ssh`.
 5. If the host directories are renamed to `US-Mainland-One` and `US-Mainland-Two`, update the `/home/ubuntu/...` paths in the unit files in the same change.
