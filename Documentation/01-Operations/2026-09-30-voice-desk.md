@@ -4,15 +4,15 @@ Finished Hawaii reports go to the Mainland station. The station snapshots the pl
 
 This is the living description of the spoken reports. The 2026-09-29 port record is [Voice-Reports-G3](../10-AI-and-Agent-Runtime/Voice-Reports-G3.md). Where that file still says a job is off, has no delivery, or uses an old minute, this file wins. Trust `Automations/scripts/poller/run-poller.sh` and `Automations/scripts/jobs.py` over older “what stays off” lists.
 
-## Current as of 2026-10-02 ~01:07 HST
+## Current as of 2026-10-02 ~01:41 HST
 
-Alexander’s operator copy, checked against live `jobs.py`, `voice-timing.md` (generated 2026-10-02 01:07 HST, 303 finished runs), `radio_push.stage_on_air`, `compare_span.py`, and `status_cue.py`. The live Mainland mixer is release `stage-notice` (active symlink `/home/ubuntu/rootrecord-radio/releases/stage-notice`). Desk and ML1 REBUILD `status-api/stream.js` match. A quiet switch used `deploy-pending` and exit 75. Do not kill the encoder mid-report. `radio_push` is imported on each job, so the next successful push stages without another poller restart.
+Alexander’s operator copy, checked against live `jobs.py`, `run-poller.sh`, `voice_reports.py`, `status_cue.py`, `voice_deliver.py`, Discord `public_report.py` / `report-channels.json`, and `publish_report_pages.py`. As of ~01:41 HST the separate `energy_report` voice job is retired: pack watts, newest ch1 still, and the hourly camera look live inside Bruce’s `solar_desk` (title “Energy and solar”). `status_cue.TYPES` lists **nine** generating desks. Historical timing numbers below still come from `voice-timing.md` (generated 2026-10-02 01:07 HST, 303 runs, when Energy was still a tenth job). The live Mainland mixer is release `stage-notice`. Do not kill the encoder mid-report. A `jobs.py` / `run-poller.sh` change needs a poller restart before the running process drops `voice_energy_report`; script edits are picked up on the next job run.
 
 ### Station lock and lead time
 
-The station locks the playlist at `HH:29:59` and `HH:59:59`, then plays the half-hour chime and every current report. A file that arrives after that lock waits for the next cycle. Generation used to start at `:00` and `:30`, which was too late. The ten generating desks share one poller thread and one Kokoro lock, so they run one after another.
+The station locks the playlist at `HH:29:59` and `HH:59:59`, then plays the half-hour chime and every current report. A file that arrives after that lock waits for the next cycle. Generation used to start at `:00` and `:30`, which was too late. The nine generating desks share one poller thread and one Kokoro lock, so they run one after another.
 
-From [voice-timing.md](./voice-timing.md) (303 runs): ten-desk sum median **376 s** (6m16s), average **459 s** (7m39s), p90 **889 s** (14m49s). Lead from `:12:00` to the `:29:59` lock is **17 minutes 59 seconds**. `:42` has the same lead before `:59:59`. That p90 fits, with about three minutes spare. `:12` and `:42` stay. News stays at `:36`. Hurricane stays at 05:40, 09:40, 12:40, 16:40, and 20:40. The hourly chime stays at `:00` and `:30` and is a replay of prebuilt files, not a render.
+From [voice-timing.md](./voice-timing.md) (303 runs, still includes the retired Energy job): former ten-desk sum median **376 s** (6m16s), average **459 s** (7m39s), p90 **889 s** (14m49s). The next `voice_timing_report` rewrite drops `voice_energy_report` from the stack. Lead from `:12:00` to the `:29:59` lock is **17 minutes 59 seconds**. `:42` has the same lead before `:59:59`. That p90 fits, with about three minutes spare. `:12` and `:42` stay. News stays at `:36`. Hurricane stays at 05:40, 09:40, 12:40, 16:40, and 20:40. The hourly chime stays at `:00` and `:30` and is a replay of prebuilt files, not a render.
 
 Daypart roll-ups cannot be uploaded before their window opens, or the upload deletes the roll-up that is still on the air. Morning **09:02**, midday **12:02**, late **21:02**, late final **23:02**. Those first air on the following half hour. `voice_timing_report` runs at minute **5**. It is not a model. It rewrites [voice-timing.md](./voice-timing.md) from the automations log and `jobs.py`. The poller imports `jobs.py` once at start, so a schedule change needs a restart of `rr-rootserver-poller.service` as user `rootrecord`.
 
@@ -26,22 +26,23 @@ Personas (Kokoro): Ava `af_heart`, Bruce `am_echo`, Carly `af_nova`. All speeds 
 
 Kokoro is single-flight through `voice-render.sh`. A busy render returns **75**. Render one slug at a time. The spaCy venv needs the symlink `cli/Templates` pointing at `cli/templates` or the import fails. Do not remove that symlink.
 
-### Ten generating desks (:12 / :42)
+### Nine generating desks (:12 / :42)
 
 | Job | Persona | Spoken label |
 | --- | --- | --- |
 | `system_perf` | Bruce | System |
 | `nws_weather` | Ava | NWS |
-| `energy_report` | Carly | Energy |
 | `remaining_tasks` | Bruce | Remaining tasks |
 | `earthquake_report` | Carly | Earthquake |
 | `kilauea_report` | Carly | Kilauea |
-| `solar_desk` | Bruce | Solar |
+| `solar_desk` | Bruce | Energy and solar |
 | `security_desk` | Carly | Security |
 | `bandwidth_desk` | Carly | Bandwidth |
 | `current_report` | Ava | Current |
 
-Armed flags (defaults 1 in `run-poller.sh`): `RR_VOICE_SYSTEM_PERF`, `RR_VOICE_NWS`, `RR_VOICE_ENERGY`, `RR_VOICE_REMAINING`, `RR_VOICE_QUAKE` (+ `RR_GEOLOGY`), `RR_VOICE_KILAUEA`, `RR_VOICE_SOLAR`, `RR_VOICE_SECURITY`, `RR_VOICE_BANDWIDTH` (+ `RR_NET_SAMPLES`), `RR_VOICE_CURRENT`. Also armed: news `:36` (`RR_RADIO_NEWS`), roll-ups (`RR_VOICE_ROLLUPS`), late final (`RR_VOICE_LATE_FINAL`), hurricane (`RR_VOICE_HURRICANE`).
+`solar_desk` is the combined energy + solar product: EcoFlow packs, sun times, newest channel-1 still, and this hour’s camera look (`panel_look.observe` when the hour has no reading). The old `energy_report` job and `RR_VOICE_ENERGY` flag are gone from `jobs.py` / `run-poller.sh`; `b_energy_report` remains a one-release alias that forwards to `b_solar_desk`. Discord and the public Energy area keep only `solar-desk`.
+
+Armed flags (defaults 1 in `run-poller.sh`): `RR_VOICE_SYSTEM_PERF`, `RR_VOICE_NWS`, `RR_VOICE_REMAINING`, `RR_VOICE_QUAKE` (+ `RR_GEOLOGY`), `RR_VOICE_KILAUEA`, `RR_VOICE_SOLAR`, `RR_VOICE_SECURITY`, `RR_VOICE_BANDWIDTH` (+ `RR_NET_SAMPLES`), `RR_VOICE_CURRENT`. Also armed: news `:36` (`RR_RADIO_NEWS`), roll-ups (`RR_VOICE_ROLLUPS`), late final (`RR_VOICE_LATE_FINAL`), hurricane (`RR_VOICE_HURRICANE`).
 
 ### Always on (hard-enabled in jobs.py)
 
@@ -86,7 +87,7 @@ Scripts proposed only (README gates; not in `jobs.py`): News (hawaii/state/globa
 
 ### Local status clips (desk speakers only)
 
-Each of the ten desks has four local status lines, already rendered, played on the desk with `aplay`. `RR_VOICE_STATUS=0` skips them. They are **not** on the radio. Clips live under Database `Media/Audio/Voice/Clips/{Ava,Bruce,Carly}/`.
+Each of the nine desks has four local status lines, already rendered, played on the desk with `aplay`. `RR_VOICE_STATUS=0` skips them. They are **not** on the radio. Clips live under Database `Media/Audio/Voice/Clips/{Ava,Bruce,Carly}/`.
 
 | Moment | Line | When |
 | --- | --- | --- |
@@ -94,13 +95,13 @@ Each of the ten desks has four local status lines, already rendered, played on t
 | Transit | “<Label> report has been generated and is in transit” | when the send starts |
 | Failed | “<Label> report was generated but failed to send” | if the send fails |
 | Sent | “<Label> report was sent successfully” | only after Mainland One has the file (`ffprobe` duration ≥ 0.2 s, then `mv`) |
-| Stack closer | Ava: “All reports have been sent successfully. Heavy work may resume.” | once per `:12` / `:42` cycle after all ten desks have a Mainland receipt |
+| Stack closer | Ava: “All reports have been sent successfully. Heavy work may resume.” | once per `:12` / `:42` cycle after all nine desks have a Mainland receipt |
 
-After each successful send, `status_cue.note_sent` records the desk in Database `Reports/Voice/stack-send.json` under that cycle key (`YYYY-MM-DDTHH:12` or `:42`; a run past the hour stays on the prior `:42`). When the set of ten is complete and the closer has not yet played this cycle, it plays `Clips/Ava/stack_all_sent.wav` once and marks `announced`. A skipped send, including a daypart outside its window, is not a failure and does not play the failure line. Code: `Media/Voice/scripts/status_cue.py`. Test: `test_status_stack.py`.
+After each successful send, `status_cue.note_sent` records the desk in Database `Reports/Voice/stack-send.json` under that cycle key (`YYYY-MM-DDTHH:12` or `:42`; a run past the hour stays on the prior `:42`). When the set of nine is complete and the closer has not yet played this cycle, it plays `Clips/Ava/stack_all_sent.wav` once and marks `announced`. A skipped send, including a daypart outside its window, is not a failure and does not play the failure line. Code: `Media/Voice/scripts/status_cue.py`. Test: `test_status_stack.py`.
 
 ### Staged on-air cues (radio)
 
-Each of the ten also has two staged lines, already rendered: “<Label> report has been staged for the hour” and “<Label> report has been staged for the half hour.” After a successful radio push, `radio_push.stage_on_air` encodes that wav to opus, copies it to Mainland One at `/home/ubuntu/rootrecord-radio/audio/cues/{report}-hour.opus` or `{report}-half.opus`, and writes a JSON note in `state/stage`. The next slot is this hour’s `:30` when the minute is under 30, otherwise the next hour’s `:00`. The station plays the cue after whatever report is speaking, or immediately if nothing is speaking. Music ducks while it plays.
+Each of the nine also has two staged lines, already rendered: “<Label> report has been staged for the hour” and “<Label> report has been staged for the half hour.” After a successful radio push, `radio_push.stage_on_air` encodes that wav to opus, copies it to Mainland One at `/home/ubuntu/rootrecord-radio/audio/cues/{report}-hour.opus` or `{report}-half.opus`, and writes a JSON note in `state/stage`. The next slot is this hour’s `:30` when the minute is under 30, otherwise the next hour’s `:00`. The station plays the cue after whatever report is speaking, or immediately if nothing is speaking. Music ducks while it plays.
 
 The time mark on that cue is the **short notification sound only**, `Media/Voice/assets/deep-ui-chime.mp3` (~2 s), uploaded as `audio/cues/notify.opus`. The station plays the ding first, then the spoken staged line. It does **not** play the full spoken clock (“Report generated at…”, Mountain, Eastern, UTC). Those full chimes stay on the half-hour cycle as `hour-HH-MM.opus`.
 
@@ -114,7 +115,7 @@ Numbers in the reports get a percent change when an earlier reading exists. Aver
 
 ## Hawaii, and host temperature
 
-`Hawaii` and `Hawaiian` are spoken as those English words. The old syllable spelling is not used. Other place names still use the English respell in `hawaiian_lexicon.py` (Kīlauea is one token, `keelah-wayuh`; Mauna Loa is `mownah-lowah`). A comma plus a USPS state code is spoken as the state name.
+`Hawaii` and `Hawaiian` are spoken as those English words. The old syllable spelling is not used. Other place names still use the English respell in `hawaiian_lexicon.py` (Kīlauea is one token, `keelah-wayuh`; Mauna Loa is `mownah-lowah`; Maui is `mao wee`; Honolulu stays the plain English name). News hour (`Media/RadioRss/scripts/news_hour.py`) runs the same fold + pronounce path before Kokoro. A comma plus a USPS state code is spoken as the state name.
 
 A bare `degrees` after a number is still spoken as Fahrenheit, because the weather numbers are Fahrenheit. The system report says `degrees Celsius` on purpose. The sensor is `acpitz`, in Celsius. The written row is `°C`.
 

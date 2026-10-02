@@ -8,7 +8,7 @@ Written 1 October 2026, 23:11 HST, from the Pacific files named below. This is t
 | --- | --- | --- |
 | Timer | user unit `rr-ecoflow-read.timer` | Starts a read 20 seconds after the previous start. `OnBootSec=20`. Enabled. |
 | Read | user unit `rr-ecoflow-read.service` | Oneshot. Runs `Energy/scripts/read/leapfrog-read.sh`. Timeout 90 seconds. |
-| Pick | `leapfrog-read.sh` | Reads whichever of Delta 2 or River 2 Pro has the older watt file. Lock: `/tmp/ecoflow-ble.lock`. |
+| Pick | `leapfrog-read.sh` | Prefers the pack with the older watt file. If that read fails, tries the other pack. Then rewrites the agent desk via `desk-live.py`. Lock: `/tmp/ecoflow-ble.lock`. |
 | Reader | `Energy/lib/read_runner.py` | One pack per run. Writes Database `Energy/watts/<alias>-last.json` and `Energy/soc/<alias>-last.json`. |
 | Owner | `ava-ecoflow-ble.service` | Heartbeat process `Energy/scripts/ble/ble-owner.py`. It does not poll the packs. |
 | Poller job | `ecoflow_read_cycle` in `jobs.py` | **Off.** `enabled` is false. The timer owns the repeating read. `ecoflow_read_boot` still runs once when a poller process starts. |
@@ -31,7 +31,7 @@ If both `delta2-last.json` and `river2pro-last.json` under Database `Energy/watt
 
 This account cannot restart `bluetooth.service` without a password. A power cycle clears the BlueZ device cache. A firmware wedge on the Realtek RTL8922AU (`hci0`) still needs a reboot or a `bluetoothd` restart. The kernel line `ACL packet for unknown connection handle` means the controller is already dropping the link.
 
-Leapfrog keeps choosing the older watt file. After one pack disappears from the scan, that file stays older, so every retry hits the same pack until the other file is also stale. The adapter reset is the recovery for that stretch. Do not "fix" it by publishing quota for the pack that failed the scan.
+Leapfrog still prefers the older watt file first. As of 2026-10-02 ~01:11 HST, if that preferred read exits non-zero it falls back to the other pack once, then always rewrites the agent desk with `Communications/telegram/scripts/desk-live.py` from the last files. After one pack disappears from the scan, that file stays older, so most retries still hit the same pack until the other file is also stale. The adapter reset remains the recovery for a wedged radio. Do not "fix" it by publishing quota for the pack that failed the scan.
 
 ## A pack at 5 percent or less that goes quiet
 
