@@ -1,5 +1,9 @@
 # Changelog — Root Record Documenter Agent Context
 
+## 0.1.1 — 2026-10-01
+- The seat has a name: Wren
+- Personality, and the rule that a joke stays out of the operator guide
+
 ## 0.1.0 — 2026-10-01
 - Initial pack
 - Identity, role and bounds, principles, workflow

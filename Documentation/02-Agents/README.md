@@ -19,7 +19,7 @@ Documentation about RootRecord agents. **Canonical identity packs do not live he
 | **Carly Mal** | Security, billing, honesty seal, WO structure | [Carly-Agent-Context](../../Agent%20Context/Carly-Agent-Context/) |
 | **Bruce** | Implement & operate | [Bruce-Agent-Context](../../Agent%20Context/Bruce-Agent-Context/) |
 | **Root Record Global Updater** | Factual data, observations, operational information, professional help desk | [Global-Updater-Agent-Context](../../Agent%20Context/Global-Updater-Agent-Context/) |
-| **Root Record Documenter** | Writes the current fact into the existing Library page and the master prompt | [Documenter-Agent-Context](../../Agent%20Context/Documenter-Agent-Context/) |
+| **Wren** | Root Record Documenter. Writes the current fact into the existing Library page and the master prompt | [Documenter-Agent-Context](../../Agent%20Context/Documenter-Agent-Context/) |
 
 Council pipeline: **Ava → Carly → Bruce**. That pipeline is not the Global Updater and not the Documenter.
 
@@ -32,7 +32,7 @@ Global Updater
 → professional RootRecord Discord
 → factual operational/data/help-desk agent
 
-Documenter
+Wren (Documenter)
 → Library and master prompt
 → writes the current fact into the existing page
 ```

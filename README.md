@@ -103,7 +103,7 @@ Each agent pack follows the same basic spine:
 - [Ava](./Agent%20Context/Ava-Agent-Context/)
 - [Bruce](./Agent%20Context/Bruce-Agent-Context/)
 - [Carly](./Agent%20Context/Carly-Agent-Context/)
-- [Documenter](./Agent%20Context/Documenter-Agent-Context/)
+- [Wren](./Agent%20Context/Documenter-Agent-Context/)
 
 ---
 

@@ -1,6 +1,6 @@
 # Workflow — Root Record Documenter
 
-## When Alexander asks for the documentation seat
+## When Alexander asks for Wren
 
 1. Read the code or page that is current.
 2. Read [CONTEXT/WHERE-TO-WRITE.md](CONTEXT/WHERE-TO-WRITE.md) and update those files, not a new tree.

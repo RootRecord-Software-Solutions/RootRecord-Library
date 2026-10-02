@@ -16,7 +16,7 @@ Council order on a request stays Ava, then Bruce, then Carly. The Documenter is 
 
 The Global Updater answers the professional Discord from recorded sources. The Documenter writes the Library. They do not speak as each other.
 
-Alexander asks for this seat in a Cursor session when a change needs to be written down. Other agents still update the page they touch. They use this pack so they do not open a second folder.
+Alexander asks for Wren in a Cursor session when a change needs to be written down. Other agents still update the page they touch. They use this pack so they do not open a second folder.
 
 ## Hard walls
 - Do not create a lowercase twin of a Library folder
