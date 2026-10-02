@@ -1,5 +1,7 @@
 # Voice Reports — G3 (Kokoro-82M port + phrase-clip cache)
 
+2026-10-02 ~13:44 HST: the hour cycle is the order. Desk `jobs.py` local voice jobs are minute [50], chimes [0, 30], news still one job at :36. Daypart `enabled` lines are broken (`False, "0") == "1"` at `voice_morning_report` and the same shape on midday, late, and late-final), so the file does not parse. Merged battery is ordered and not the spoken script yet. Mainland’s mixer report and the viewer count of 1 are Mainland’s, not a desk measurement.
+
 | Field | Value |
 | --- | --- |
 | **Date (HST)** | 2026-09-29 port record. **Current behavior is [2026-09-30 voice desk](../01-Operations/2026-09-30-voice-desk.md) (updated 2026-10-02).** |
@@ -11,6 +13,8 @@
 ## Current as of 2026-10-02 ~03:21 HST
 
 Operator schedule and armed flags live in [2026-09-30 voice desk](../01-Operations/2026-09-30-voice-desk.md). This page is the 2026-09-29 port record. Where the sections below still name an old minute (`system_perf` docstring :06), list a separate `energy_report`, or say roll-ups / hurricane / late-final are gated off, the voice-desk page and live `jobs.py` / `run-poller.sh` win. As of ~01:41 HST: nine desks (`energy_report` folded into `solar_desk`); as of ~01:57 HST those desks run at `:22` / `:52` (was `:12` / `:42`); generation-clock stamps; `compare_span.py` percent lines; four desk status clips plus Ava stack closer after all nine Mainland receipts; staged on-air cues (`notify.opus` ding first). Living detail: [voice desk](../01-Operations/2026-09-30-voice-desk.md).
+
+2026-10-02 ~13:41 HST PARTIAL: desk `voice_reports.py` is mid-rewrite toward a merged-battery `solar_desk` (average charge, totaled watts). Builders `b_solar_desk` / `b_security_desk` / `b_current_report` are missing on the working tree versus HEAD, so the merge is not the spoken script yet. See HANDOFF and the voice-desk Energy speech note.
 
 **Pipeline (live):** `jobs.py` → `voice_reports.py` / `system_perf.py` → MD (+ Archive under `test-reports/Voice/`) → `voice-render.sh` stitch (Kokoro single-flight) → `voice_deliver` when `RR_VOICE_DELIVER=1` → `radio_push` unless `RR_RADIO_PUSH=0` → Discord `report_relay` (300 s) → `publish_report_pages` → `/reports/<slug>`.
 

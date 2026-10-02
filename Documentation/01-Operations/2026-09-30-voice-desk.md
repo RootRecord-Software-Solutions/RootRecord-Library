@@ -1,5 +1,7 @@
 # Voice desk — current as of 2026-10-02
 
+2026-10-02 ~13:44 HST: the hour cycle is the order. Desk `jobs.py` local voice jobs are minute [50], chimes [0, 30], news still one job at :36. Daypart `enabled` lines are broken (`False, "0") == "1"` at `voice_morning_report` and the same shape on midday, late, and late-final), so the file does not parse. Merged battery is ordered and not the spoken script yet. Mainland’s mixer report and the viewer count of 1 are Mainland’s, not a desk measurement.
+
 Finished Hawaii reports go to the Mainland station. The station snapshots the playlist at `HH:29:59` and `HH:59:59`, then chimes on the hour and the half hour. Voice jobs render before that snapshot. The station is on the air at `https://radio.rootrecord.cloud/radio/live.mp3`. The operator page is [2026-10-01 radio station](./2026-10-01-radio-station.md).
 
 This is the living description of the spoken reports. The 2026-09-29 port record is [Voice-Reports-G3](../10-AI-and-Agent-Runtime/Voice-Reports-G3.md). Where that file still says a job is off, has no delivery, or uses an old minute, this file wins. Trust `Automations/scripts/poller/run-poller.sh` and `Automations/scripts/jobs.py` over older “what stays off” lists.
@@ -50,7 +52,7 @@ Kokoro is single-flight through `voice-render.sh`. A busy render returns **75**.
 | `bandwidth_desk` | Carly | Bandwidth |
 | `current_report` | Ava | Current |
 
-`solar_desk` is the combined energy + solar product: EcoFlow packs, sun times, newest channel-1 still, and this hour’s camera look (`panel_look.observe` when the hour has no reading). The old `energy_report` job and `RR_VOICE_ENERGY` flag are gone from `jobs.py` / `run-poller.sh`; `b_energy_report` remains a one-release alias that forwards to `b_solar_desk`. Discord and the public Energy area keep only `solar-desk`.
+`solar_desk` is the combined energy + solar product: EcoFlow packs, sun times, newest channel-1 still, and this hour’s camera look (`panel_look.observe` when the hour has no reading). The old `energy_report` job and `RR_VOICE_ENERGY` flag are gone from `jobs.py` / `run-poller.sh`; `b_energy_report` remains a one-release alias that forwards to `b_solar_desk`. Discord and the public Energy area keep only `solar-desk`. 2026-10-02 ~13:41 HST PARTIAL: the desk working tree of `voice_reports.py` is mid-rewrite toward one merged battery (average charge, totaled watts; powered-off packs out). That merge is not live yet — `b_solar_desk` and sibling builders are missing on the working tree versus HEAD. Until it lands, treat HEAD / the last good clip as the spoken script.
 
 Armed flags (defaults 1 in `run-poller.sh`): `RR_VOICE_SYSTEM_PERF`, `RR_VOICE_NWS`, `RR_VOICE_REMAINING`, `RR_VOICE_QUAKE` (+ `RR_GEOLOGY`), `RR_VOICE_KILAUEA`, `RR_VOICE_SOLAR`, `RR_VOICE_SECURITY`, `RR_VOICE_BANDWIDTH` (+ `RR_NET_SAMPLES`), `RR_VOICE_CURRENT`. Also armed: roll-ups (`RR_VOICE_ROLLUPS`), late final (`RR_VOICE_LATE_FINAL`), hurricane (`RR_VOICE_HURRICANE`), and desk uptime log (`RR_UPTIME_LOG`). The news `:36` job is on as of the Report Instructor's ~11:53 HST read (`RR_RADIO_NEWS=1`). Soft-on for soak (needs poller restart): `RR_VOICE_KILAUEA_IMAGE` (`voice_kilauea_image_check` every 900 s) — see below.
 
@@ -201,6 +203,8 @@ A bare `degrees` after a number is still spoken as Fahrenheit, because the weath
 ## Energy speech
 
 Readings older than 30 minutes are "out of range." A last reading of 5 percent or less that is older than 30 minutes is "discharged and powered off," and the report does not list that pack's watts. A current channel 1 still is not given an age. An older still is "N minutes old."
+
+2026-10-02 ~13:41 HST intended wording (not live until the merge rebuild finishes): one "Batteries" line with average charge and totaled watts; out-of-range says "The battery reading is out of range"; a spread of pack ages says "oldest reading is N minutes old." Generator and transfer rules below still name Delta and River for supply labeling.
 
 Generator and transfer use watts, and the same rules are in the voice, the BLE charge source, and the load categories:
 

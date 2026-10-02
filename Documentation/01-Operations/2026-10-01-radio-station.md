@@ -1,5 +1,7 @@
 # 2026-10-01 — Radio station
 
+2026-10-02 ~13:44 HST: the hour cycle is the order. Desk `jobs.py` local voice jobs are minute [50], chimes [0, 30], news still one job at :36. Daypart `enabled` lines are broken (`False, "0") == "1"` at `voice_morning_report` and the same shape on midday, late, and late-final), so the file does not parse. Merged battery is ordered and not the spoken script yet. Mainland’s mixer report and the viewer count of 1 are Mainland’s, not a desk measurement.
+
 | Field | Value |
 | --- | --- |
 | **When** | 2026-10-01 evening HST, brought current 2026-10-02 ~02:18 HST |
