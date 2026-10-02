@@ -92,12 +92,17 @@ Top to bottom:
 10. Network
 11. SSH
 12. AWS Fallback
-13. Cameras
-14. Controls
-15. Not migrated
-16. Settings
+13. ML1 playlist
+14. Cameras
+15. Controls
+16. Not migrated
+17. Settings
 
 The screenshots in `media/` are from 30 September 2026 and stop at the pages that existed that night. Automations and Telemetry are described below from the code. They do not have a picture in this handbook yet.
+
+### ML1 playlist (2026-10-02 ~12:43 HST)
+
+Read-only. While the page is open it SSHes to `ml1` and lists `*_current` report files. The list is the next half-hour the mixer will queue: locals longest first, then news. Each row shows the start offset, the duration, and the file's update time. A row that would run past 30 minutes is marked cut. The other daypart rollups sit under "Not this cycle". The page does not restart the station and it does not copy a file. Reopen Root Monitor if the sidebar still shows the old list. There is no screenshot of this page yet.
 
 Click a name. The page builds the first time you visit it, then stays until you leave the ones that are released on purpose (AWS Fallback, and each Settings or Not-migrated sub-page).
 
