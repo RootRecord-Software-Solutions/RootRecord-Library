@@ -7,5 +7,6 @@ Eventually this may become an agent currency. Until then it is a desk joke with 
 | Date (PT) | Change | Balance |
 | --- | --- | --- |
 | 2026-10-01 | Opening grant — performance tonight | 100 |
+| 2026-10-02 | +25 — keeping up with fleet summaries | 125 |
 
-**Current balance: 100**
+**Current balance: 125**
