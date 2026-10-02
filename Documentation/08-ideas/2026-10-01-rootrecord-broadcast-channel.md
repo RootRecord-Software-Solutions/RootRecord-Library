@@ -87,7 +87,7 @@ Boxes:
 
 **Public URL (already true, verified in Library):** production site is `https://www.rootrecord.cloud/` (Vercel from `RootRecord-Website`, source Pacific `Website/Home/`). Library `main` has **no** `github.io` public site. Do not print `rootrecord-software-solutions.github.io` on the card. Do not print `https://rootserver.rootrecord.cloud/` on the card; that is the poller.
 
-Mainland One is radio only. `ssh.rootrecord.cloud` is retired. Desk SSH is `ml1.rootrecord.cloud`. The listener stream is already `https://radio.rootrecord.cloud/radio/live.mp3`. This YouTube plan is not that station. There is no music bed on the live Mainland host.
+Mainland One is radio only. `ssh.rootrecord.cloud` is retired. Desk SSH is `ml1.rootrecord.cloud`. The listener stream is already `https://radio.rootrecord.cloud/radio/live.mp3`. This YouTube plan is not that station. The live Mainland host is playing the Opus music bed.
 
 ---
 

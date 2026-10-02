@@ -1,6 +1,6 @@
 # US-Mainland-One (AWS continuity node) — desk import + current state
 
-> **Current as of 2026-10-01:** Mainland One is radio only. The sections below are the 2026-09-29 import. The locked SSH, tunnel, and radio plan is [2026-10-01 mainland rename and SSH tunnels](../01-operations/2026-10-01-mainland-rename-and-ssh-tunnels.md). `ssh ml1` and `ssh rr-aws` use `ml1.rootrecord.cloud`. `ssh.rootrecord.cloud` is retired. `www.rootrecord.cloud` stays on Vercel. `api.rootrecord.cloud` is aimed at Mainland Two and is not live yet. Earthquake and hurricane voice reports stay Pacific poller jobs.
+> **Current as of 2026-10-02:** Mainland One is the radio tree at `9b7fccf`. The desk folder and `/home/ubuntu/US-Mainland-Server` contain `mirror/`, `rootrecord-radio/`, `station.sh`, `status-api/`, and `.gitignore`. The Opus music bed is on the host and the public stream is playing. The sections below are the 2026-09-29 import. Do not treat that inventory as the live tree. The operator guide is [2026-10-01 radio station](../01-operations/2026-10-01-radio-station.md). `ssh ml1` and `ssh rr-aws` use `ml1.rootrecord.cloud`. `ssh.rootrecord.cloud` is retired. `www.rootrecord.cloud` stays on Vercel. `api.rootrecord.cloud` is aimed at Mainland Two and is not live yet. Earthquake and hurricane voice reports stay Pacific poller jobs.
 
 | Field | Value |
 | --- | --- |

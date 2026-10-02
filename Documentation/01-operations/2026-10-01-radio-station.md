@@ -2,16 +2,16 @@
 
 | Field | Value |
 | --- | --- |
-| **When** | 2026-10-01 evening HST |
+| **When** | 2026-10-01 evening HST, brought current 2026-10-02 08:28 UTC |
 | **Operator** | Alexander |
-| **State** | One station process is up on Mainland One. The public host is not yet playing the Opus music bed |
+| **State** | Mainland One is the clean radio tree at `9b7fccf`. One station is on the air and playing the Opus music bed |
 | **Secrets** | None in this file. No tunnel credential JSON, API tokens, or private keys |
 
 This is how the station works. Listeners join one live mix. They do not pick tracks.
 
 ## What listeners hit
 
-There is one station, one mix, and one encoder. The public page is `https://www.rootrecord.cloud/radio`. That page plays `https://radio.rootrecord.cloud/radio/live.mp3` and reads `https://radio.rootrecord.cloud/radio/now.json`.
+There is one station, one mix, and one encoder. The public page is `https://www.rootrecord.cloud/radio`. That page plays `https://radio.rootrecord.cloud/radio/live.mp3` and reads `https://radio.rootrecord.cloud/radio/now.json`. Browsers often block autoplay. The page shows a Listen button when `audio.play()` is refused. The stream itself is already audible at the mp3 URL. A Listen-button commit is `36ab4a0` on `RootRecord-Software-Solutions/RootRecord-Website`. Vercel may lag that commit.
 
 The listener stream is always `audio/mpeg`, 128 kbps, 44.1 kHz, stereo PCM encoded by ffmpeg `libmp3lame`. Library files are not what the browser plays. The engine decodes each library file to raw samples, mixes them, and encodes one continuous MP3. A new listener receives the bytes the encoder is producing now, plus a short preroll of recent MP3 frames, and stays on that socket. The page does not start a track from the beginning, and it does not offer a skip.
 
@@ -123,15 +123,25 @@ The send is `scp` of a temporary Opus file to a hidden partial name, an `ffprobe
 
 Prune then runs on the remote reports directory. It keeps every `*_current.ogg` and every `*_current.opus`, keeps `.gitkeep`, and keeps `*.partial` files younger than 15 minutes. Anything else in that directory is removed.
 
-`RR_RADIO_PUSH=0` turns the send off. The default is on. `RR_RADIO_SSH` defaults to `rr-aws-ip`. `RR_RADIO_REPORTS` overrides the remote reports directory.
+`RR_RADIO_PUSH=0` turns the send off. The default is on. `RR_RADIO_SSH` defaults to `ml1` (`ml1.rootrecord.cloud`), so an IP change does not break the push. `RR_RADIO_REPORTS` stays `/home/ubuntu/rootrecord-radio/audio/reports`. Reports are not in the git checkout. A pull must not restore an older report.
 
-Music push is a separate one-way `rsync`. It is `radio_push.py --music`. It is not part of each report. It does not delete remote files and it does not download. The default music source is the desk path in `RR_RADIO_MUSIC`. A report push does not wait for that copy.
+Music is not pushed over SSH. The Opus bed, the chimes, and `library.json` are in the Mainland One repo. The host pull copies them into the runtime. `radio_push.py --music` remains a one-way rsync and is not the path that keeps the bed current.
 
 The mainland process never fetches the WAV. A new file on disk is enough. The mixer scans the catalog about every 5 seconds. A changed report waits for the next half-hour cycle. It does not start when the file arrives. The node process stays up.
 
 ### Who is eligible
 
-The scheduled pass plays every `*_current.opus` in the reports directory, longest first. Morning, midday, and late reports are included whenever their files are present. There is no on-air window. An older `*_current.ogg` beside a current Opus file is not played.
+The scheduled pass plays every non-daypart `*_current.opus`, plus only the current daypart rollup, longest first. An older `*_current.ogg` beside a current Opus file is not played.
+
+Dayparts are Pacific/Honolulu. Only one rollup is current:
+
+| Id | Window |
+| --- | --- |
+| `morning_report` | 09:00 until 12:00 |
+| `midday_report` | 12:00 until 21:00 |
+| `late_report` | 21:00 until 09:00 |
+
+At 09:00 the evening file is the previous day. Saving the current rollup removes the other two daypart wav, opus, and ogg files on the desk. `radio_push.py` returns `outside_daypart` and does not upload a rollup outside its window. After a successful upload, and again on the station scan as soon as the current daypart file is present, the runtime deletes the other two daypart `_current.opus` and `_current.ogg` files. Earthquake, weather, and the other desks are not daypart files.
 
 Earthquake and hurricane reports stay in that set. Their jobs keep running on the Pacific desk whether or not the old globe process is up.
 
@@ -182,7 +192,7 @@ Leave these masked. The old watch also started the status API and Caddy:
 
 ## How a code update lands
 
-`aws-git-pull.timer` fast-forwards the checkout at `/home/ubuntu/US-Mainland-Server`. A dirty tracked checkout makes the pull skip. Untracked files do not. The script stages a radio release into `/home/ubuntu/rootrecord-radio/releases/<git-sha>/` when `stream.js` or `radio.js` differs from the staged release, writes that sha to `releases/staged` and to `deploy-pending`, and checks both files with `node --check` before it publishes the sha. It does not start the station and it does not restart the player.
+`aws-git-pull.timer` runs `/home/ubuntu/aws-git-pull.sh`. That script is on the host, outside the checkout, because the clean tree no longer has `references/aws-git-pull.sh`. It fast-forwards `/home/ubuntu/US-Mainland-Server`, copies the music bed and `library.json` with `status-api/install-music.sh`, copies the chimes, and copies `radio-run.sh` and `runtime-path.sh` into the runtime. If `stream.js` or `radio.js` changed, it copies them into `releases/local` and restarts `rr-radio-station.service`. A dirty tracked checkout makes the pull skip. Untracked files do not.
 
 The running engine switches on exit 75 when `deploy-pending` names a release that exists and contains both `stream.js` and `radio.js`. `radio-run.sh` points `active` at `releases/<sha>`, deletes `deploy-pending`, and continues the loop. The listener port comes back inside that same script. Exit 75 with no such release is a failure (`deploy_missing`) and the script stops. Any other exit is a failure. systemd restarts the unit on failure. A clean quiet-boundary switch never leaves the `while` loop, so it is not a restart of the unit.
 
@@ -190,7 +200,7 @@ While a cycle is in progress (the pre-chime duck, a chime, or a report), the eng
 
 ## How to test on the desk
 
-The local player is `station.sh` in `1 - Servers/ML1 REBUILD/2 - RootRecord-US-Mainland-One <<< NEW/`. It is the desk player, not the public host.
+The desk player was stopped. `station.sh` in the rebuild folder can start a local mix on `127.0.0.1:8092`. That is not the public host. Leave it stopped unless a desk test is the point.
 
 That script uses the folder's own `rootrecord-radio` as the runtime. It links `status-api/stream.js` and `status-api/radio.js` into `releases/local`, points `active` at that release, and links `radio-run.sh` into the runtime. It binds `127.0.0.1:8092` unless `HOST` or `PORT` is set. Audio, the engine, and the logs stay in that folder.
 
@@ -202,11 +212,15 @@ Start it from that folder:
 
 Then open the local URLs at the end of this note. A desk process on port 8092 is not the Mainland One process. Do not treat a local `now.json` as the public station.
 
-## The current gap
+## What is on the host
 
-There is no music on the live Mainland host. The new build folder, `1 - Servers/ML1 REBUILD/2 - RootRecord-US-Mainland-One <<< NEW`, is the local copy being converted to Opus. The public station is not playing a music bed. A report's old `*_current.ogg` stays until that report is replaced. The replace then deletes only that report's old ogg.
+Checked 2026-10-02 08:28 UTC. Host `ip-172-31-10-115`. Checkout and GitHub `RootRecord-Software-Solutions/US-Mainland-One` are `9b7fccf` (`auto: 2026-10-02T08:27Z desk sync`). That commit removes the old mainland tree.
 
-The watchdog on that host has one station process up. `now.json` can show an empty music title until the library arrives. Reports already published as `*_current.opus` can still be eligible. `*_current.ogg` files are kept by prune and are not what the current catalog selects.
+The desk folder `1 - Servers/2 - RootRecord-US-Mainland-One` and the host checkout contain only `mirror/`, `rootrecord-radio/`, `station.sh`, `status-api/`, and `.gitignore`. The globe, automations, communications, fallback, rebroadcast, scripts, system monitor, and `references/` are gone. Do not copy a new station on top of those old directories. They are not part of this tree.
+
+The runtime has the 75-track Opus bed. `rr-radio-station.service` is the mixer. `https://radio.rootrecord.cloud/radio/now.json` returns a music title. `https://radio.rootrecord.cloud/radio/live.mp3` is `audio/mpeg` at 128 kbps. The music files were encoded from the old MP3 bed into 96 kbps Opus, and the mix encodes them again, so the bed is not a first-generation master.
+
+The rebuild folder `1 - Servers/ML1 REBUILD/2 - RootRecord-US-Mainland-One <<< NEW` is the working copy that was moved into the live folder. It is not a second production checkout.
 
 ## What not to do
 

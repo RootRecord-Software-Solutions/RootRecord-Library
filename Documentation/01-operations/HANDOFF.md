@@ -39,7 +39,7 @@ Generated files live in `2 - RootRecord-Database/System/status/`. That directory
 - NPU device is the council accelerator. FLM idle between replies is normal.
 - Cloudflare tunnel process is part of the poller stack.
 - GitHub sync is a poller job, not a resident daemon.
-- Mainland One is radio only. `ssh ml1` and `ssh rr-aws` use `ml1.rootrecord.cloud` through cloudflared. Direct fallback `rr-aws-ip` is `3.140.195.32`. `ssh ml2` uses `ml2.rootrecord.cloud`. Direct fallback `ml2-ip` is `3.149.238.83`. `ssh.rootrecord.cloud` is retired. `www` stays on Vercel. The listener stream is `https://radio.rootrecord.cloud/radio/live.mp3`. The 2026-10-01 record is `Documentation/01-operations/2026-10-01-mainland-rename-and-ssh-tunnels.md`. Do not restart cloudflared over `ssh ml1`.
+- Mainland One is radio only. `ssh ml1` and `ssh rr-aws` use `ml1.rootrecord.cloud` through cloudflared. Direct fallback `rr-aws-ip` is `3.140.195.32`. `ssh ml2` uses `ml2.rootrecord.cloud`. Direct fallback `ml2-ip` is `3.149.238.83`. `ssh.rootrecord.cloud` is retired. `www` stays on Vercel. The listener stream is `https://radio.rootrecord.cloud/radio/live.mp3` and the Opus music bed is on the host. The checkout is the radio tree at `9b7fccf`. The operator guide is `Documentation/01-operations/2026-10-01-radio-station.md`. The 2026-10-01 record is `Documentation/01-operations/2026-10-01-mainland-rename-and-ssh-tunnels.md`. Do not restart cloudflared over `ssh ml1`.
 
 ## Broken
 

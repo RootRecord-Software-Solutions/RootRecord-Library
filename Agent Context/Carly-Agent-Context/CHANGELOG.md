@@ -1,7 +1,7 @@
 # Changelog — Carly Mal Agent Context
 
 ## 0.1.5 — 2026-10-01
-- CONTEXT/REPOS.md: Mainland One is radio. `ssh.rootrecord.cloud` is retired. `www` stays on Vercel. `api.rootrecord.cloud` is aimed at Mainland Two and is not live yet.
+- CONTEXT/REPOS.md: Mainland One is the radio tree at `9b7fccf` and the Opus bed is on the air. `ssh.rootrecord.cloud` is retired. `www` stays on Vercel. `api.rootrecord.cloud` is aimed at Mainland Two and is not live yet.
 
 ## 0.1.4 — 2026-10-01
 - CONTEXT/REPOS.md: `api.rootrecord.cloud` is A `18.118.30.226`. Public reports are at `https://www.rootrecord.cloud/reports/`.

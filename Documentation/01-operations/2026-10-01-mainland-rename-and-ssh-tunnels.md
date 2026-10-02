@@ -273,10 +273,10 @@ The station library is one filetype, Opus (`.opus`). Reports are 24 kbps mono. C
 
 Hawaii still renders a WAV. `Media/Voice/scripts/radio_push.py` encodes that one report to Opus and replaces it on the Mainland runtime. Prune keeps both `*_current.ogg` and `*_current.opus` until that report is replaced, then deletes only that report's old ogg.
 
-The runtime on the host is `/home/ubuntu/rootrecord-radio`. Paths inside the rebuild are relative to that folder: `audio/`, `state/`, `plays.log`, `active/`.
+The runtime on the host is `/home/ubuntu/rootrecord-radio`. The checkout and the desk folder `1 - Servers/2 - RootRecord-US-Mainland-One` are the radio tree only, commit `9b7fccf`. The old globe and poller directories are not in that tree.
 
-A watchdog on Mainland One is `rr-radio-watchdog.timer`. It runs once a minute. The script is `/home/ubuntu/radio-watchdog.sh`. It starts one `rr-radio-station.service` when a release is ready, and restarts that service only if the heartbeat is older than 30 seconds. The old `rr-radio-stream` and `rr-radio-watch` units were masked. The watchdog activates `releases/staged` into `active` when `active` is missing. A git pull stages a release. The pull does not itself start the player.
+A watchdog on Mainland One is `rr-radio-watchdog.timer`. It runs once a minute. The script is `/home/ubuntu/radio-watchdog.sh`. It starts one `rr-radio-station.service` when a release is ready, and restarts that service only if the heartbeat is older than 30 seconds. The old `rr-radio-stream` and `rr-radio-watch` units stay masked. The host pull is `/home/ubuntu/aws-git-pull.sh`. It fast-forwards the checkout, copies the Opus music bed and chimes into the runtime, and restarts the station when `stream.js` or `radio.js` changed.
 
-There is no music on the live Mainland host right now. The new build folder on the desk is the local copy being converted. The public station is not playing a music bed.
+The public station is playing that Opus bed. Reports still arrive over `ssh ml1` into `audio/reports`, outside git. Only the current Hawaii daypart rollup is kept. The guide is [2026-10-01 radio station](./2026-10-01-radio-station.md).
 
 The published site requests `https://radio.rootrecord.cloud/radio/live.mp3` and `.../now.json` from `Website/Home/radio/index.html`, `Website/Home/live/index.html`, `assets/radio.js`, `assets/live-radio.js`, and `assets/broadcast-mode.js`. Those pages stay on `www.rootrecord.cloud`.
