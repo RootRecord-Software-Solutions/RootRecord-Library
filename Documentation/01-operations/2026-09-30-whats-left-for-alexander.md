@@ -141,7 +141,7 @@ The build path is documented in `Documentation/02-agents/INTERACTION-MODES.md`. 
 ## Suggested order, when you want to pick
 
 1. Leave Delta 2 and the live stack alone. Root Monitor is the login window as of 02:33 HST. Conky is still off.
-2. The public page stays `Website/Home/`. Mainland sync row stays disabled unless you say otherwise.
+2. The public page stays `Website/Home/`. The mainland sync row is on. The published tree is the radio checkout `9b7fccf`.
 3. After sunrise, accept or reject the timelapse hour and the 5-second camera interval.
 4. Name a River action test only if you want actuation marked PASS.
 5. Enable any data-only gates from section 6 in one list.

@@ -1,4 +1,6 @@
-# Voice desk — current as of 2026-09-30 17:20 HST
+# Voice desk — current as of 2026-10-01
+
+Spoken reports on this desk are unchanged from the 2026-09-30 schedule below. Finished Hawaii reports also go to the Mainland station. The station is on the air at `https://radio.rootrecord.cloud/radio/live.mp3`. The operator page is [2026-10-01 radio station](./2026-10-01-radio-station.md).
 
 This is the living description of the spoken reports. The 2026-09-29 port record is [Voice-Reports-G3](../01-AI-and-Agent-Runtime/Voice-Reports-G3.md). Where that file still says a job is off, has no delivery, or skips a vision line, this file wins.
 
@@ -85,7 +87,7 @@ Morning tilt helps early capture and is not required. Overnight left tilt is the
 
 Forty-eight files, `Database/Media/Audio/Voice/Chimes/hour-00-00.wav` through `hour-23-30.wav`, one for every hour and half hour. Each one starts with `Media/Voice/assets/deep-ui-chime.mp3`, then the voice. Midnight and 12:30 a.m. are Ava, 1:00 and 1:30 a.m. are Bruce, 2:00 and 2:30 a.m. are Carly, then it repeats. Playback copies the file. It does not call Kokoro.
 
-Those desk files are WAV. The Mainland station library is Opus. A chime on the station is `hour-HH-MM.opus` at 48 kbps. A report there is `<report>_current.opus` at 24 kbps mono. Music there is `.opus` at 96 kbps. Hawaii still renders a WAV, then `Media/Voice/scripts/radio_push.py` encodes that one report to Opus and replaces it on `/home/ubuntu/rootrecord-radio`. The public mix stays `https://radio.rootrecord.cloud/radio/live.mp3`. Earthquake and hurricane reports stay Pacific poller jobs.
+Those desk files are WAV. The Mainland station library is Opus, and that bed is playing. A chime on the station is `hour-HH-MM.opus` at 48 kbps. A report there is `<report>_current.opus` at 24 kbps mono. Music there is `.opus` at 96 kbps and arrives with the git pull. Hawaii still renders a WAV, then `Media/Voice/scripts/radio_push.py` encodes that one report to Opus and replaces it on `/home/ubuntu/rootrecord-radio` over `ssh ml1`. Only the current daypart rollup is kept: morning 09:00–12:00, midday 12:00–21:00, late 21:00–09:00. The station deletes the other two daypart files when the current one arrives. The public mix stays `https://radio.rootrecord.cloud/radio/live.mp3`. Earthquake and hurricane reports stay Pacific poller jobs. The Pacific chime job below is separate from the station chime.
 
 The sentence is the Hawaii time, then Mountain Daylight Time (four hours ahead), Eastern time (six hours ahead), and UTC (ten hours ahead). The minute is the same in each zone. Those offsets match daylight time. They are wrong after US standard time begins in November, and the files have to be rendered again.
 
