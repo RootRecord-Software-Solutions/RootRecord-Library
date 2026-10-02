@@ -43,7 +43,7 @@
 | day-board-boot | Review | |
 | desk-data-reader | G3-optional | |
 | earthquakes | G3-optional / Geology | |
-| ecosystem-history | Archive | WO-MIG-06: decisions in Library `Documentation/00-architecture/Governance/`. Full tree archived, then removed from -Old. Not in G3 runtime. |
+| ecosystem-history | Archive | WO-MIG-06: decisions in Library `Documentation/00-Architecture/Governance/`. Full tree archived, then removed from -Old. Not in G3 runtime. |
 | ecosystem-index | Library | |
 | energy | G3-core | ecoflow-* packets; **after G2 energy** |
 | ensure-ava-runtime | Review | Agent runtime |
@@ -53,7 +53,7 @@
 | fs-index | Pacific `System/PathIndex/` | WO-MIG-42 scoped index. Job off |
 | git-auto-push | G3-core | Compare to G2 github/scripts |
 | goals | Product | |
-| governance | Library | WO-MIG-06: decisions in `Documentation/00-architecture/Governance/`. Packet removed from -Old. Not a Pacific job. |
+| governance | Library | WO-MIG-06: decisions in `Documentation/00-Architecture/Governance/`. Packet removed from -Old. Not a Pacific job. |
 | heartbeat | Retire / Review | G3 engine has heartbeat builtin |
 | history | Archive | |
 | holding | Archive | |

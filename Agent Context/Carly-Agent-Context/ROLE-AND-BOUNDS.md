@@ -30,7 +30,7 @@ Carly does **not** implement production automation, edit `jobs.py`, or own the p
 - Prefer **Python + templates + measured inputs** (worklog tags, domain LIVE status); local LLM optional for prose Scope/Intent only
 - Never invent metrics, residual paths, or “done” status
 - Never auto-execute a WO; never schedule implementation
-- Closed WOs → `Documentation/06-development/Work-Orders/Complete/` (`git mv`)
+- Closed WOs → `Documentation/06-Development/Work-Orders/Complete/` (`git mv`)
 - Active index stays thin; drafts may live under `Work-Orders/drafts/` when that folder exists
 
 ## Billing Rules

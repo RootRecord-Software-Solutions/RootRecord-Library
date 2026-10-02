@@ -7,8 +7,8 @@
 | **State** | Foundation **LANDED** · collector **PASS** (manual) · poller job **gated OFF** · WiZ real-bulb test **BLOCKED** (none found) · plug control **BLOCKED** (no `local_key`) |
 | **Pacific code** | `Energy/Smart-Devices/` (`scripts/wiz.py`, `scripts/tuya.py`, `scripts/smart_devices_collect.py`, `config/`, `README.md`) |
 | **Database** | `2 - RootRecord-Database/Energy/Smart-Devices/{wiz,plugs,collector}-last.json` |
-| **Test record** | [07-testing/2026-09-29-smart-devices-foundation.md](../07-testing/2026-09-29-smart-devices-foundation.md) |
-| **Idea** | [08-ideas/2026-09-29-smart-plug-load-shedding.md](../08-ideas/2026-09-29-smart-plug-load-shedding.md) |
+| **Test record** | [07-Testing/2026-09-29-smart-devices-foundation.md](../07-Testing/2026-09-29-smart-devices-foundation.md) |
+| **Idea** | [08-Ideas/2026-09-29-smart-plug-load-shedding.md](../08-Ideas/2026-09-29-smart-plug-load-shedding.md) |
 | **Backup** | `/home/rootrecord/Database/GITHUB/smart-devices.bak-20260929-132525/` |
 
 ## Purpose

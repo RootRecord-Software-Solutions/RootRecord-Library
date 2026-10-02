@@ -4,8 +4,8 @@
 | --- | --- |
 | **Date (HST)** | 2026-09-29 03:55–04:00 HST |
 | **State** | Inference JSONL **LANDED + PASS** · FLM log redaction **LANDED + PASS** · report generator **LANDED + PASS** · hourly job **LANDED, gated OFF** (`RR_AI_REPORT=1`) |
-| **Implements** | `08-ideas/2026-09-29-ai-processing-log-and-report.md` |
-| **Test** | `07-testing/2026-09-29-ai-inference-log-and-report.md` |
+| **Implements** | `08-Ideas/2026-09-29-ai-processing-log-and-report.md` |
+| **Test** | `07-Testing/2026-09-29-ai-inference-log-and-report.md` |
 | **Backup** | `/home/rootrecord/Database/GITHUB/g3-voice-ailog.bak-20260929-035454/` |
 
 ## 1. Per-request log (Pacific `System/scripts/plumbing/run-infer.sh`)
@@ -64,4 +64,4 @@ FastFlowLM 1.0.6 prints each request's full JSON body (system + user prompt) and
 ## 6. Found and fixed along the way
 
 - **rc=1 root cause**: `set -e` is re-enabled after the FLM call, and `kill -KILL` on an already-exited flm pid returned 1, which aborted `flm_stop` (and before this, the EXIT trap). So the earlier `setsid` change was not the fix. `|| true` on both kills fixes it: **exit code is now 0** (test 03:59).
-- **LANDED, PASS 2026-09-29 04:22** (see [single-flight banner/holder test](../07-testing/2026-09-29-single-flight-banner-holder-fix.md)): the RUN banner now goes to **stderr**, and `holder.txt` holds metadata only: `job= caller= pid= ts= cmd=<basename of the command> prompt_chars=<length>` (callers set `RR_CALLER` / `RR_PROMPT_CHARS`; `run-infer.sh` and `run-ollama.sh` pass the length, never the text). Original finding: `single-flight.sh run` printed `[ok] single-flight RUN <job>` on **stdout**, so it ends up in the reply `run-infer.sh` prints. It also writes `cmd=$*` to `Github/plumbing/state/holder.txt`, which includes `RR_PROMPT=<prompt text>` while a request runs (git-ignored and deleted after the run, but it is prompt text on disk). Fix as above.
+- **LANDED, PASS 2026-09-29 04:22** (see [single-flight banner/holder test](../07-Testing/2026-09-29-single-flight-banner-holder-fix.md)): the RUN banner now goes to **stderr**, and `holder.txt` holds metadata only: `job= caller= pid= ts= cmd=<basename of the command> prompt_chars=<length>` (callers set `RR_CALLER` / `RR_PROMPT_CHARS`; `run-infer.sh` and `run-ollama.sh` pass the length, never the text). Original finding: `single-flight.sh run` printed `[ok] single-flight RUN <job>` on **stdout**, so it ends up in the reply `run-infer.sh` prints. It also writes `cmd=$*` to `Github/plumbing/state/holder.txt`, which includes `RR_PROMPT=<prompt text>` while a request runs (git-ignored and deleted after the run, but it is prompt text on disk). Fix as above.

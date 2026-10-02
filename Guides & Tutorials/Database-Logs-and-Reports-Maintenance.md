@@ -150,10 +150,10 @@ Code lives in Pacific `Reports/`. Data lives in Database `Reports/` (and sometim
 
 **Generated vs curated:**
 
-- **Generated** (`Reports/Generated/`, `template_fill.py`) copies Library `Documentation/01-operations/templates/` structure. It **never writes into the Library** (`guard_out()`). A person copies a reviewed file into `01-operations/` or `Work-Orders/drafts/` by hand. The work-order output is a draft, not on the active index.
+- **Generated** (`Reports/Generated/`, `template_fill.py`) copies Library `Documentation/01-Operations/Templates/` structure. It **never writes into the Library** (`guard_out()`). A person copies a reviewed file into `01-Operations/` or `Work-Orders/drafts/` by hand. The work-order output is a draft, not on the active index.
 - **Curated briefs** (Economy-Brief, CloudNarrative, voice roll-ups) are domain products. Voice markdown often lands under Ecosystem `test-reports/Voice/` (`RR_VOICE_REPORT_OUT`), not under `Reports/Generated/`. Late-Final **runs** that same `late_report` template; it does not invent a fifth template.
 - **AI processing report** is a third home: Database `Logs/AI/Reports/` (metadata only: lengths, never prompt text). Architecture: Library `Documentation/../Documentation/10-AI-and-Agent-Runtime/AI-Processing-Logs-and-Reports.md`. Older notes also mention non-git `test-reports/AI-Processing/`; the job description writes the Database Logs path. If both exist on disk, do not merge them without a work order.
-- **Human narrative** stays in Library `Documentation/01-operations/0 - Human Operator Work Logs/`. That is not Database `Reports/`.
+- **Human narrative** stays in Library `Documentation/01-Operations/0 - Human Operator Work Logs/`. That is not Database `Reports/`.
 
 `Logs/Reports/` is **run logs for report jobs**, not the reports themselves.
 
@@ -174,13 +174,13 @@ Scope is **full `/home/rootrecord`**, pruned (models, snap, cache, git blobs). D
 This is **not** the Library session worklog. Job `reports_daily_roll_up` (18:30 HST, enabled) counts today’s Worklog lines into:
 
 ```text
-5 - RootRecord-Library/Documentation/01-operations/0 - Human Operator Work Logs/
+5 - RootRecord-Library/Documentation/01-Operations/0 - Human Operator Work Logs/
 YYYY-MM-DD System Operator Worklog — Session auto.md
 ```
 
 Measured counts only. No invented prose.
 
-Job `reports_weekly_archive` (19:00 HST, enabled) moves **Library** human `YYYY-MM-DD …md` files older than this HST week’s Monday into `Documentation/01-operations/archive/YYYY-Www/` (`TZ=Pacific/Honolulu`). It does not touch Database `Worklog/` and does not touch Work-Orders.
+Job `reports_weekly_archive` (19:00 HST, enabled) moves **Library** human `YYYY-MM-DD …md` files older than this HST week’s Monday into `Documentation/01-Operations/Archive/YYYY-Www/` (`TZ=Pacific/Honolulu`). It does not touch Database `Worklog/` and does not touch Work-Orders.
 
 ---
 
@@ -191,7 +191,7 @@ Job `reports_weekly_archive` (19:00 HST, enabled) moves **Library** human `YYYY-
 | Database `Logs/` | Append-only operational streams + dry-run reports | Pacific source. Do not add `Logs/` under the server tree |
 | Database `Reports/` | Shaped products and ledgers | The poller log. Not Library publication |
 | Database `Worklog/` | File mtime scanner | Human “what we decided.” Not Root Monitor |
-| Library `01-operations/` | People and Session auto | A dump of `automations_current.log` |
+| Library `01-Operations/` | People and Session auto | A dump of `automations_current.log` |
 | Ecosystem `test-reports/` | Non-git smoke / voice / template outputs in some jobs | Canonical Database layout |
 | Domain last-files (`Energy/soc`, `System/last`, …) | Current measurements | Logs. Worklog *notices* them as MOD_FILE |
 | Weather reports under `Weather/Hawai'i/` | County/HFO markdown the weather daemon writes | Database `Reports/` |
@@ -399,9 +399,9 @@ Hand-run `worklog_once.sh` **does** write Worklog. That is a write. Do not loop 
 | [AI processing logs](../Documentation/../Documentation/10-AI-and-Agent-Runtime/AI-Processing-Logs-and-Reports.md) | JSONL fields, redaction, gate |
 | [Template report generation](../Documentation/../Documentation/10-AI-and-Agent-Runtime/Template-Report-Generation.md) | Generated reports, validator, never-write-Library |
 | [Voice reports G3](../Documentation/../Documentation/10-AI-and-Agent-Runtime/Voice-Reports-G3.md) | `_current` + Archive convention for voice |
-| [04-data](../Documentation/04-data/README.md) | Boundary; path row is partly stale (old `/home/rootrecord/Database/`) |
-| [WO-RPT-001](../Documentation/06-development/Work-Orders/WO-RPT-001-Reports-Worklog-Domain-Import.md) | Worklog spine |
-| [WO-MIG-41](../Documentation/06-development/Work-Orders/drafts/Log_retention_apply_Work_Order_WO-MIG-41-2026-09-29.md) | Log retention; apply still unsigned |
+| [04-Data](../Documentation/04-Data/README.md) | Boundary; path row is partly stale (old `/home/rootrecord/Database/`) |
+| [WO-RPT-001](../Documentation/06-Development/Work-Orders/Complete/WO-RPT-001-Reports-Worklog-Domain-Import.md) | Worklog spine |
+| [WO-MIG-41](../Documentation/06-Development/Work-Orders/drafts/Log_retention_apply_Work_Order_WO-MIG-41-2026-09-29.md) | Log retention; apply still unsigned |
 | Database README on GitHub | Layout authority; Logs sketch lagging the tree |
 | Pacific `Reports/README.md` | Worklog + future radio spine; proposed jobs |
 | Pacific `Logs/Automations` README (in Database) | POLLER_LOG, hourly cut |

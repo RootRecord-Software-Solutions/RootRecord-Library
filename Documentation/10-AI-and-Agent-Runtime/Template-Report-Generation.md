@@ -5,7 +5,7 @@
 ## 1. What it does
 
 `Pacific/Reports/template_fill.py` (stdlib only) writes one report per Library operations template in
-[`01-operations/templates/`](../01-operations/templates/), using the same headings, tables, field order, date formats and
+[`01-Operations/Templates/`](../01-Operations/Templates/), using the same headings, tables, field order, date formats and
 status vocabulary. Everything except a few free-text fields comes from measured sources. `template_validate.py`
 checks each output against its template before it is written.
 
@@ -21,17 +21,17 @@ A previous `_current.md` moves to `test-reports/Templates/Archive/<name>_YYYY-MM
 An output that fails validation goes to `<name>_rejected.md` and the `_current` copy stays as it was.
 
 **Never writes into the Library.** `guard_out()` refuses any path under the Library root. The Library copies are for people:
-someone reviews a generated file and copies it into `01-operations/` or `06-development/Work-Orders/drafts/` by hand.
+someone reviews a generated file and copies it into `01-Operations/` or `06-Development/Work-Orders/drafts/` by hand.
 The Work Order output says "generated draft, not on the active index" and must not be auto-promoted.
 
 ## 2. Sources (read-only)
 
 | Source | Used for |
 | --- | --- |
-| Library `07-testing/README.md` index rows for the date | worklog timetable and completed items, work order §2.2 / §2.3 |
-| Library `08-ideas/README.md` | checkpoint "Intentionally deferred" (PROPOSED rows) |
-| Library `01-operations/0 - Human Operator Work Logs/<date> *.md`, the "Needs Alexander sign-off" section | blockers tables, work order tasks, next step |
-| Library `06-development/Work-Orders/*.md` `\| **Status** \|` rows | work order §2.1 |
+| Library `07-Testing/README.md` index rows for the date | worklog timetable and completed items, work order §2.2 / §2.3 |
+| Library `08-Ideas/README.md` | checkpoint "Intentionally deferred" (PROPOSED rows) |
+| Library `01-Operations/0 - Human Operator Work Logs/<date> *.md`, the "Needs Alexander sign-off" section | blockers tables, work order tasks, next step |
+| Library `06-Development/Work-Orders/*.md` `\| **Status** \|` rows | work order §2.1 |
 | Database `Logs/AI/Inference/inference_current.jsonl` (+ `Archive/inference_<date>.jsonl`) | event log timeline/outcomes, worklog counts |
 | Database `Logs/Automations/automations_current.log` (+ hourly `Archive/automations_<date>_HH00.log`) | FAIL lines, `github_sync_all`, tunnel lines |
 | Database `System/last/host-last.json`, `Energy/soc/*-last.json`, newest `Media/Images/*.jpg`, Weather county `*_current.md`, `Worklog/worklog_current.md` | checkpoint subsystem freshness |
@@ -126,7 +126,7 @@ The script uses stdlib only. A run without the model takes about 0.3 s. Each mod
 about 6–9 s including cold start, with a peak FLM RSS of about 2.0 GB. Ollama is only a fallback, with keep_alive 0.
 There are no warmups and nothing stays resident.
 
-Tests: [07-testing/2026-09-29-template-report-samples.md](../07-testing/2026-09-29-template-report-samples.md).
+Tests: [07-Testing/2026-09-29-template-report-samples.md](../07-Testing/2026-09-29-template-report-samples.md).
 
 *Created 2026-09-29 HST (g3-template-reports).*
 *Updated 2026-09-29 ~05:03 HST (specialist hook wired in; output paths belong to the test-reports pass).*

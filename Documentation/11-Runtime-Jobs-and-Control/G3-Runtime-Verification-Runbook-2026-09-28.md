@@ -10,7 +10,7 @@ Related records:
 
 - [G3-Runtime-Verification-Checklist-2026-09-28.md](./G3-Runtime-Verification-Checklist-2026-09-28.md)
 - [Residual-Path-Retirement-Table-2026-09-28.md](../13-Migration-and-Legacy-Recovery/Residual-Path-Retirement-Table-2026-09-28.md)
-- [WO-SRV-2026-09-27](../06-development/Work-Orders/Servers_Cutover_Work_Order_WO-SRV-2026-09-27.md)
+- [WO-SRV-2026-09-27](../06-Development/Work-Orders/Servers_Cutover_Work_Order_WO-SRV-2026-09-27.md)
 
 ## Operator evidence rules
 
@@ -132,7 +132,7 @@ If the documented FastFlowLM binary/runtime or service is absent, record **NPU r
 
 Operator installation evidence on 2026-09-29 shows the AMD NPU prerequisite stack has now been installed: `amdxdna-dkms 7.0.0-rc1+git20260310.6b13cb8f4-resolute1`, `libxrt-npu2 1:2.25.0-4~resolute1`, and `libxrt2`. `/dev/accel/accel0` is present and `modinfo amdxdna` resolves the installed driver and supported NPU firmware entries. The DKMS install emitted a BUILD_EXCLUSIVE warning and did not build the module for the current kernel/config, so this is **prerequisite stack installed, NPU runtime not yet verified**. No `flm` binary or FastFlowLM service has been established by this evidence. A reboot is required before the next validation/install stage. Do not mark the NPU gate PASS until FastFlowLM is installed and `flm validate`, XRT/NPU visibility, and the approved inference gate have actually passed.
 
-> **Current (2026-09-29 ~03:45 HST):** FastFlowLM 1.0.6 is installed at `/usr/bin/flm` (no `ava-flm.service`, no `~/.local/opt/fastflowlm`). FLM runs **on demand** only: an idle desk has no FLM process and :52625 is closed — do not record that as "NPU runtime unavailable". Check with `command -v flm && flm validate`, then one `FLM_MODEL=llama3.2:1b bash System/scripts/plumbing/run-infer.sh ava "Reply with exactly one word: ready"` and confirm afterwards: 0 flm processes, :52625 closed, lock IDLE, `ollama ps` empty. Evidence: `2 - RootRecord-Database/Logs/Migration/g3-npu-flm-evidence-20260929T125429Z.md`; test records in `Documentation/07-testing/`.
+> **Current (2026-09-29 ~03:45 HST):** FastFlowLM 1.0.6 is installed at `/usr/bin/flm` (no `ava-flm.service`, no `~/.local/opt/fastflowlm`). FLM runs **on demand** only: an idle desk has no FLM process and :52625 is closed — do not record that as "NPU runtime unavailable". Check with `command -v flm && flm validate`, then one `FLM_MODEL=llama3.2:1b bash System/scripts/plumbing/run-infer.sh ava "Reply with exactly one word: ready"` and confirm afterwards: 0 flm processes, :52625 closed, lock IDLE, `ollama ps` empty. Evidence: `2 - RootRecord-Database/Logs/Migration/g3-npu-flm-evidence-20260929T125429Z.md`; test records in `Documentation/07-Testing/`.
 
 ```bash
 bash "System/scripts/plumbing/run-infer.sh" <operator-approved-test-arguments>
@@ -400,7 +400,7 @@ After those gates pass, retire that completed legacy executable/function immedia
 
 ## Current-state requirements — 2026-09-29 ~03:45 HST
 
-Apply these before running any section above. Test records (one per run, with resource impact and cleanup): [`Documentation/07-testing/`](../07-testing/README.md). Test-safety policy: light tests only, one test per change, no resident models, clean up every test process.
+Apply these before running any section above. Test records (one per run, with resource impact and cleanup): [`Documentation/07-Testing/`](../07-Testing/README.md). Test-safety policy: light tests only, one test per change, no resident models, clean up every test process.
 
 - **Database root:** `/home/rootrecord/RootRecord-Ecosystem/2 - RootRecord-Database` with Title-case top-level folders `Energy/`, `System/`, `Weather/`, `Github/`, `RootRecord/`, `Worklog/`, `Intake/` (plus `AI/`, `Archive/`, `Logs/`, `Geology/`, `Media/`, `Users/`). Upper-case `ENERGY/`, `SYSTEM/`, `WEATHER/`, `GITHUB/`, `ROOTRECORD/`, `WORKLOG/` and lower-case `intake/` under the new root are historical names (Database `92bd69c`). The old root `/home/rootrecord/Database/` is **not** a data path any more: it holds only `GITHUB/` (backups, flags, worktrees) and `README.md`; the old data is archived in `2 - RootRecord-Database/Archive/Previous-Datasets/G2-old-root-20260929/`.
 - **NPU inference:** `llama3.2:1b` **on demand**. `System/scripts/plumbing/run-infer.sh` starts `flm serve` (via `setsid nice -n 10`, `--pmode balanced`, `--ctx-len ${FLM_CTX_LEN:-4096}`, port 52625) only for a request and stops it on exit; `FLM_ON_DEMAND=0` disables this. An idle desk therefore shows **no** FLM process and a closed :52625 — that is expected, not a failure. `llama3.2:3b` is installed but not the default.
@@ -423,4 +423,4 @@ python3 -c 'import json,sys;d=json.load(open(sys.argv[1]));print(d.get("alert_le
 RR_VOICE_REPORT_OUT=/tmp/eq-test RR_VOICE_QUAKE_DRY=1 nice -n 10 python3 "$PAC/Media/Voice/scripts/voice_reports.py" earthquake_report --no-voice
 ```
 
-After the next poller start with `RR_GEOLOGY=1`: `collector-last.json` `at` advances every ~5 min; the Daily JSONL files gain no duplicate ids. Evidence: `2 - RootRecord-Database/Logs/Migration/migration-geology-evidence-20260929T2319Z.md`; record [geology](../07-testing/2026-09-29-geology-earthquakes-hvo-collector.md).
+After the next poller start with `RR_GEOLOGY=1`: `collector-last.json` `at` advances every ~5 min; the Daily JSONL files gain no duplicate ids. Evidence: `2 - RootRecord-Database/Logs/Migration/migration-geology-evidence-20260929T2319Z.md`; record [geology](../07-Testing/2026-09-29-geology-earthquakes-hvo-collector.md).

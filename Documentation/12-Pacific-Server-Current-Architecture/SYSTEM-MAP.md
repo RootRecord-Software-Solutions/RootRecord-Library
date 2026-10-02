@@ -37,10 +37,10 @@ Inference is `run-infer.sh`. The council relay forces NPU `llama3.2:3b`, context
 
 ## Requests and the broker
 
-A sandbox Telegram message can become an interaction request. The match key for a build is the numeric `from.id`, not the username. Schemas and the operator narrative are in `Documentation/02-agents/`. Decision 0006. The live request files stay in Database `System/status/requests/` and are not committed.
+A sandbox Telegram message can become an interaction request. The match key for a build is the numeric `from.id`, not the username. Schemas and the operator narrative are in `Documentation/02-Agents/`. Decision 0006. The live request files stay in Database `System/status/requests/` and are not committed.
 
 `Automations/execution/execution-broker.py` answers reads. It refuses agent restarts, writes, sends, and `development.execute_work_order`. Cursor runs only when a request is at `CURSOR_HANDOFF` and the `cursor_api` gate is on. That gate ships off. The poller job `service_supervisor` is the only automatic restart for the weather poller and the council relay. A persona file is not permission. Decision 0004 still holds.
 
 ## Verify
 
-`bash verify.sh` at the ecosystem root. Read `Documentation/01-operations/HANDOFF.md` first.
+`bash verify.sh` at the ecosystem root. Read `Documentation/01-Operations/HANDOFF.md` first.

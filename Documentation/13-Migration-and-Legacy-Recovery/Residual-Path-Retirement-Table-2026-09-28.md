@@ -100,7 +100,7 @@ Record any post-check confirmation in WO-SRV notes if useful; do not re-open clo
 - The 27 dormant G2 files that still name old-root paths are **KEPT** unchanged.
 - Runtime states since the ~01:37 refresh: Plumbing NPU/FLM **PASS** (install/validate), on-demand `llama3.2:1b` route **PASS** (own-session fix VERIFY PENDING); Weather **PASS**; post-reboot **PASS**; Database Title-case rename **PASS** (Database `92bd69c`). Paths in the table rows above already use the Title-case forms where they describe the current state (`Energy/ports`, `Github/plumbing/state`); historical capture blocks keep the names observed at the time.
 - Still VERIFY PENDING: Security timelapse (after 05:00 HST), Energy arm/disarm + AC (need approval).
-- Per-test records: [`Documentation/07-testing/`](../07-testing/README.md).
+- Per-test records: [`Documentation/07-Testing/`](../07-Testing/README.md).
 
 ## Old-repo migration pass — 2026-09-29 ~13:40 HST (copy/port only; nothing retired)
 
@@ -134,4 +134,4 @@ All legacy sources stay in place; the **Retired** column changes only with Alexa
 ## Status at pause — 2026-09-29 16:25 HST
 
 - Nothing was RETIRED today. Every G2 / G1 / G0 source in this table stays **KEPT**.
-- AWS (outside this table): `github-poller` and `rr-rootserver-poller` were **disabled, not retired**; their files and units are kept, and the re-enable steps are in the [Phase 2 reclaim record](../07-testing/2026-09-29-aws-fallback-phase2-reclaim-retention.md).
+- AWS (outside this table): `github-poller` and `rr-rootserver-poller` were **disabled, not retired**; their files and units are kept, and the re-enable steps are in the [Phase 2 reclaim record](../07-Testing/2026-09-29-aws-fallback-phase2-reclaim-retention.md).

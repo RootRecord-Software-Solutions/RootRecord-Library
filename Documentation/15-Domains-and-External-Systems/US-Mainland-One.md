@@ -1,6 +1,6 @@
 # US-Mainland-One
 
-Current as of 2026-10-02 08:40 UTC. This page is the live host. The operator guide is [2026-10-01 radio station](../01-operations/2026-10-01-radio-station.md). The 2026-09-29 import, globe, and fallback inventory is [below](#2026-09-29-import-and-pause). That section is that day's continuity node. It is not the live host.
+Current as of 2026-10-02 08:40 UTC. This page is the live host. The operator guide is [2026-10-01 radio station](../01-Operations/2026-10-01-radio-station.md). The 2026-09-29 import, globe, and fallback inventory is [below](#2026-09-29-import-and-pause). That section is that day's continuity node. It is not the live host.
 
 | Field | Value |
 | --- | --- |
@@ -54,8 +54,8 @@ This section is the 2026-09-29 continuity-node inventory. The checkout that day 
 | **Repo** | `rootrecordsoftwaresolutions/US-Mainland-Server` (PUBLIC, user account — not the org; `main`, HEAD `b61d63c` 2026-09-28 18:40 HST) |
 | **Desk checkout** | `/home/rootrecord/RootRecord-Ecosystem/1 - Servers/2 - RootRecord-US-Mainland-Server/` |
 | **AWS checkout** | `/home/ubuntu/US-Mainland-Server/` (same HEAD `b61d63c`) |
-| **Test record** | [07-testing/2026-09-29-us-mainland-import-and-ssh.md](../07-testing/2026-09-29-us-mainland-import-and-ssh.md) |
-| **Plan** | [08-ideas/2026-09-29-aws-mainland-improvement-plan.md](../08-ideas/2026-09-29-aws-mainland-improvement-plan.md) |
+| **Test record** | [07-Testing/2026-09-29-us-mainland-import-and-ssh.md](../07-Testing/2026-09-29-us-mainland-import-and-ssh.md) |
+| **Plan** | [08-Ideas/2026-09-29-aws-mainland-improvement-plan.md](../08-Ideas/2026-09-29-aws-mainland-improvement-plan.md) |
 | **Backup** | `/home/rootrecord/Database/GITHUB/us-mainland-import.bak-20260929-134629/` |
 
 > **At pause (16:25 HST):** the State row above describes 13:45–14:05. The rollup for that pause is [Current AWS state](#current-aws-state-at-pause-2026-09-29-1625-hst). The live host is the radio table at the top of this page.
@@ -130,7 +130,7 @@ Not restructured: AWS pulls this repo every minute and its units/docs reference 
 
 ## Change log — 2026-09-29 14:05–14:35 HST (approved AWS changes)
 
-[Test record](../07-testing/2026-09-29-aws-hawaii-trim-and-cloudflared.md) · plan [P0-1 / P0-4](../08-ideas/2026-09-29-aws-mainland-improvement-plan.md). AWS backups: `/home/ubuntu/rootrecord/bin.bak-hawaii-trim-20260929-140641/` and `/home/ubuntu/rootrecord/bin.bak-cloudflared-20260929-141048/`. Desk backups: `~/.ssh/config.bak-20260929-140612` and `/home/rootrecord/Database/GITHUB/aws-hawaii-trim-cloudflared.bak-20260929-141557/`.
+[Test record](../07-Testing/2026-09-29-aws-hawaii-trim-and-cloudflared.md) · plan [P0-1 / P0-4](../08-Ideas/2026-09-29-aws-mainland-improvement-plan.md). AWS backups: `/home/ubuntu/rootrecord/bin.bak-hawaii-trim-20260929-140641/` and `/home/ubuntu/rootrecord/bin.bak-cloudflared-20260929-141048/`. Desk backups: `~/.ssh/config.bak-20260929-140612` and `/home/rootrecord/Database/GITHUB/aws-hawaii-trim-cloudflared.bak-20260929-141557/`.
 
 | Area | Now on AWS | Mirror in the Mainland checkout (uncommitted) |
 | --- | --- | --- |
@@ -147,14 +147,14 @@ Why the tunnel was down: cloudflared and its unit were purged on AWS on 2026-09-
 ### Change log: 2026-09-29 14:43 HST, globe `server.js` static allowlist
 
 - **Problem:** with the tunnel back up (14:12), AWS `server.js`'s `express.static(__dirname)` made the whole globe folder public on `www`. That included source, scripts, `data/hawaii.ndjson`, the sqlite history, `geo-cache.json` and `node_modules`, and unknown paths returned `index.html` with a 200.
-- **Fix:** an explicit allowlist: `/`, `/index.html`, `/overlay/{overlay.js,overlay.css,overlay-config.json}` (from `./overlay/` when present), `/health`, `/api/state`. Everything else returns 404, and the server binds to `127.0.0.1:8090`. AWS sha256 is now `4ba42236…e0e9fc`. Backup: AWS `~/rootrecord/bin.bak-globe-static-allowlist-20260929-144149/`. Mirror: `mirror/network-globe/network-globe/server.aws-live-2026-09-29-allowlist.js` + `AWS-LIVE-SERVER.md` (the repo `server.js` is untouched). [Test record](../07-testing/2026-09-29-aws-globe-static-allowlist.md).
+- **Fix:** an explicit allowlist: `/`, `/index.html`, `/overlay/{overlay.js,overlay.css,overlay-config.json}` (from `./overlay/` when present), `/health`, `/api/state`. Everything else returns 404, and the server binds to `127.0.0.1:8090`. AWS sha256 is now `4ba42236…e0e9fc`. Backup: AWS `~/rootrecord/bin.bak-globe-static-allowlist-20260929-144149/`. Mirror: `mirror/network-globe/network-globe/server.aws-live-2026-09-29-allowlist.js` + `AWS-LIVE-SERVER.md` (the repo `server.js` is untouched). [Test record](../07-Testing/2026-09-29-aws-globe-static-allowlist.md).
 - **Outside access:** there are no per-request logs. The tunnel counted 55 requests in total during the exposure, mostly desk checks. The web socket-write total was 4.6 MB, so there was no full feed download.
 - **Open finding:** `network-globe-feed-server` listens on `0.0.0.0:8787` and is **publicly reachable** at the EC2 IP (`/hawaii.ndjson`). It has been up since 09-26 and has served only 5.5 KB. Decide between binding it to localhost and closing it in the security group.
 
 
 ### Change log: 2026-09-29 15:00 HST, fallback rebuild Phase 1 (plan only, **no AWS changes**)
 
-- Alexander's direction: the desk is canonical, and AWS is rebuilt as a **small fallback** (comms hold, status, globe, current-only hazards, buffer-to-Data-Relay while the desk is offline, desk catch-up with dedupe), with per-function toggles in Root Monitor. Plan: [08-ideas AWS fallback rebuild](../08-ideas/2026-09-29-aws-fallback-rebuild.md). Read-only inventory: [test record](../07-testing/2026-09-29-aws-fallback-inventory.md).
+- Alexander's direction: the desk is canonical, and AWS is rebuilt as a **small fallback** (comms hold, status, globe, current-only hazards, buffer-to-Data-Relay while the desk is offline, desk catch-up with dedupe), with per-function toggles in Root Monitor. Plan: [08-Ideas AWS fallback rebuild](../08-Ideas/2026-09-29-aws-fallback-rebuild.md). Read-only inventory: [test record](../07-Testing/2026-09-29-aws-fallback-inventory.md).
 - **Correction to the sizing assumption:** the instance is **t3.micro, 908 MB RAM** (not 2 GB). ~445 MB is available now, and the default fallback set would leave ~279 MB, below the 512 MB floor, so a resize to t3.small is proposed (sign-off). `:8787` is still public (unchanged, listed).
 
 ### Change log: 2026-09-29 15:45–16:16 HST, fallback Phase 2 (trimmed-micro, approved)
@@ -164,7 +164,7 @@ Why the tunnel was down: cloudflared and its unit were purged on AWS on 2026-09-
 - **History:** `connection-history.py` batches its commits.
 - **New:** `~/rootrecord/fallback/` (tick timer, root `rr-fallback-apply` + path unit, flags, spool), from the desk `fallback/deploy-aws-fallback.sh`; journald and logrotate caps.
 - **Result:** MemAvailable ≥ 497 MB, iowait 7.4 % → 0.1 %.
-- **Unchanged:** `:8787` is still public. Records: [reclaim](../07-testing/2026-09-29-aws-fallback-phase2-reclaim-retention.md) · [history](../07-testing/2026-09-29-aws-globe-history-batched-commits.md) · [deploy](../07-testing/2026-09-29-aws-fallback-phase2-runtime-deploy.md).
+- **Unchanged:** `:8787` is still public. Records: [reclaim](../07-Testing/2026-09-29-aws-fallback-phase2-reclaim-retention.md) · [history](../07-Testing/2026-09-29-aws-globe-history-batched-commits.md) · [deploy](../07-Testing/2026-09-29-aws-fallback-phase2-runtime-deploy.md).
 
 ## Current AWS state (at pause, 2026-09-29 16:25 HST)
 

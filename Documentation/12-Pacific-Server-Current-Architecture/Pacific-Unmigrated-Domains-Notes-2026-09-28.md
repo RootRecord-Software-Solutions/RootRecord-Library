@@ -7,7 +7,7 @@
 | **Purpose** | Historical note from earlier 2026-09-28; placement decisions later resolved |
 | **Rule** | Documentation only — do not re-open settled folder decisions from this file |
 
-> **Authoritative status:** [Servers_Cutover_Work_Order_WO-SRV-2026-09-27.md](../06-development/Work-Orders/Servers_Cutover_Work_Order_WO-SRV-2026-09-27.md) and [Pacific-Domain-Import-Playbook-2026-09-28.md](./Pacific-Domain-Import-Playbook-2026-09-28.md).  
+> **Authoritative status:** [Servers_Cutover_Work_Order_WO-SRV-2026-09-27.md](../06-Development/Work-Orders/Servers_Cutover_Work_Order_WO-SRV-2026-09-27.md) and [Pacific-Domain-Import-Playbook-2026-09-28.md](./Pacific-Domain-Import-Playbook-2026-09-28.md).  
 > Residual work is **runtime verification / legacy retirement**, not “missing Pacific folders” for the domains below.
 
 ---

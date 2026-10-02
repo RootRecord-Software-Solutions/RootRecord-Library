@@ -5,8 +5,8 @@
 | **Date (HST)** | 2026-09-29 (~04:10–04:25 HST) |
 | **Requested by** | Alexander (operator): isolated modelfiles, one per function (execution, reasoning, topic, specialty), with a keyword/topic router that sends each request to the right specialist, loaded on demand only |
 | **State** | **LANDED / gated.** Models, router (v2 keywords), tests and the `run-infer.sh` hook landed. The hook is **OFF** unless `RR_SPECIALIST_ROUTING=1` (flag-off behaviour verified byte-identical, §4) |
-| **Proposal record** | [08-ideas/2026-09-29-ai-specialist-models-and-routing.md](../08-ideas/2026-09-29-ai-specialist-models-and-routing.md) |
-| **Test records** | [Router unit test](../07-testing/2026-09-29-specialist-router-unit-test.md) · [Live tiny requests](../07-testing/2026-09-29-specialist-live-tiny-requests.md) · [Hook + router v2](../07-testing/2026-09-29-specialist-hook-and-router-v2.md) |
+| **Proposal record** | [08-Ideas/2026-09-29-ai-specialist-models-and-routing.md](../08-Ideas/2026-09-29-ai-specialist-models-and-routing.md) |
+| **Test records** | [Router unit test](../07-Testing/2026-09-29-specialist-router-unit-test.md) · [Live tiny requests](../07-Testing/2026-09-29-specialist-live-tiny-requests.md) · [Hook + router v2](../07-Testing/2026-09-29-specialist-hook-and-router-v2.md) |
 | **Backup** | `/home/rootrecord/Database/GITHUB/g3-specialists.bak-20260929-041126/` |
 
 ---
@@ -38,7 +38,7 @@ Modelfiles: `2 - RootRecord-Database/AI/Ollama/Modelfiles/Specialists/<name>.Mod
 
 | Model | Function | Base (installed) | `ollama list` size | Prefer | temp | num_ctx | num_predict | Grounding |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| `rr-exec` | execution | `qwen2.5:1.5b-instruct-q8_0` | 1.6 GB | flm | **0.1** | 2048 | 320 | Bruce ROLE/PRINCIPLES, 07-testing safety policy |
+| `rr-exec` | execution | `qwen2.5:1.5b-instruct-q8_0` | 1.6 GB | flm | **0.1** | 2048 | 320 | Bruce ROLE/PRINCIPLES, 07-Testing safety policy |
 | `rr-reason` | reasoning | `llama3.2:3b-instruct-q4_K_M` | 2.0 GB | ollama | 0.4 | 4096 | 512 | team constitution, PRINCIPLES |
 | `rr-energy` | topic | `qwen2.5:1.5b-instruct-q8_0` | 1.6 GB | flm | 0.2 | 3072 | 256 | Pacific `Energy/README.md`, `devices.conf` sections, jobs `ecoflow_read_*` |
 | `rr-weather` | topic (weather + hazards) | `qwen2.5:1.5b-instruct-q8_0` | 1.6 GB | flm | 0.2 | 3072 | 256 | Pacific `Weather/README.md`, `Geology/README.md`, PRODUCTS |
@@ -90,7 +90,7 @@ Log: one JSON line per decision → `2 - RootRecord-Database/Logs/AI/Routing/rou
 
 ### 3.1 Router v2 (2026-09-29 ~04:51–04:55 HST)
 
-`specialist-routes.json` `version: 2`. Keywords were expanded from the Library domain docs (not from `~/Desktop/old txt`): WO-ECO-001 / WO-WEB-001 (energy), WO-WXG-001 / Geology / weather-retention (weather), WO-SYS-001 / G3 runbook / WO-GH / WO-CF (system), WO-AEYES (cameras), `03-security` / WO-COM-002 (security), and `05-public-surface` / WO-WEB-002 (Ava). A term was added only if it appears in those docs or is a plain-English synonym of a doc term.
+`specialist-routes.json` `version: 2`. Keywords were expanded from the Library domain docs (not from `~/Desktop/old txt`): WO-ECO-001 / WO-WEB-001 (energy), WO-WXG-001 / Geology / weather-retention (weather), WO-SYS-001 / G3 runbook / WO-GH / WO-CF (system), WO-AEYES (cameras), `03-Security` / WO-COM-002 (security), and `05-Public-Surface` / WO-WEB-002 (Ava). A term was added only if it appears in those docs or is a plain-English synonym of a doc term.
 
 | Specialist | Added (weight) |
 | --- | --- |
@@ -165,7 +165,7 @@ Report: `2 - RootRecord-Database/Logs/AI/Routing/router-test-2026-09-29-v3.md`.
 - **Single-flight.** All inference still runs under `single-flight.sh`. The router adds about 55 ms of CPU and no model load (about 75 ms with `--with-system --verify-model`, measured 2026-09-29).
 - **Light tests only**: at most 2–3 tiny prompts per change, `nice -n 10`, MemAvailable watched, stop below 2 GB. Measured 2026-09-29: Ollama `rr-energy` dropped MemAvailable by about 1.8 GB; FLM `llama3.2:1b` peak RSS was about 2.0 GB (see the live test record).
 - **Small bases.** 1.5B for lookups and execution, 3B for judgement (reason, security, council). No 7B+ specialists.
-- Per 07-testing policy: no secrets in prompts or logs, and hardware-actuating actions stay approval-only (each prompt says so).
+- Per 07-Testing policy: no secrets in prompts or logs, and hardware-actuating actions stay approval-only (each prompt says so).
 
 ## 6. How to add a specialist
 
@@ -173,14 +173,14 @@ Report: `2 - RootRecord-Database/Logs/AI/Routing/router-test-2026-09-29-v3.md`.
 2. `ollama create <name> -f <file>` (disk only). Confirm with `ollama list` and check that `ollama ps` stays empty.
 3. Add an entry under `specialists` in `System/config/specialist-routes.json` (`keywords`, optional `regex`, `ollama_model`, `modelfile`, `prefer`, `fallback`), and add it to `priority`.
 4. Add at least 3 labelled prompts (plus 1 "should stay generic") to `CASES` in `System/scripts/plumbing/test-route-specialist.py`. Run it. It must stay ≥ 90% with privacy PASS. Save the table with `--out 2 - RootRecord-Database/Logs/AI/Routing/router-test-YYYY-MM-DD.md`.
-5. At most one live tiny request (`keep_alive 0`, `nice -n 10`), with a record in `07-testing/`.
+5. At most one live tiny request (`keep_alive 0`, `nice -n 10`), with a record in `07-Testing/`.
 6. Update the table in §2.
 
 ## 7. Open items
 
 - Router generalization: v2 gave no blind gain (17/22). v3's structural fixes gave blind 29c 21/22 and new blind 29d 14/21 → 20/21 (§3.1). The remaining misses are "temperature" (weight 1) and rollback phrasing going to system instead of Bruce.
 - The hook is landed but OFF for the relay and voices. Turning it on for them (`RR_SPECIALIST_ROUTING=1` in their environment) is Alexander's call.
-- With the hook, the NPU gets the specialist SYSTEM (live: `rr-weather` answered "No data — I can't see the desk." for a rain question). But `rr-exec`'s SYSTEM (desk layout plus DATA GATE) does not suit facts-only drafting: its reply printed the desk layout and "No data" ([template record](../07-testing/2026-09-29-specialist-hook-and-router-v2.md)).
+- With the hook, the NPU gets the specialist SYSTEM (live: `rr-weather` answered "No data — I can't see the desk." for a rain question). But `rr-exec`'s SYSTEM (desk layout plus DATA GATE) does not suit facts-only drafting: its reply printed the desk layout and "No data" ([template record](../07-Testing/2026-09-29-specialist-hook-and-router-v2.md)).
 - Replies are only as good as 1B/1.5B/3B models allow.
 - `ava` / `bruce` / `carly` (voices.conf `fallback_model`) are still not built.
 

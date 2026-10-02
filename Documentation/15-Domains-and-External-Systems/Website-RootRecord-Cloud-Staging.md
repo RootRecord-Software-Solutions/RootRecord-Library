@@ -11,7 +11,7 @@
 | **Checkout** | Folder removed 2026-09-30. Do not start it again. |
 | **Leftover snapshot** | Removed 2026-09-30 from `Communications/website/RootRecord-Cloud/`. It had no `.git`. There is no desk checkout. |
 | **Pacific-tracked** | `Communications/website/README.md`, `Communications/website/.env.example` (names only), `.gitignore` entry, `Communications/README.md` row |
-| **Test record** | [07-testing/2026-09-29-website-rootrecord-cloud-staging.md](../07-testing/2026-09-29-website-rootrecord-cloud-staging.md) |
+| **Test record** | [07-Testing/2026-09-29-website-rootrecord-cloud-staging.md](../07-Testing/2026-09-29-website-rootrecord-cloud-staging.md) |
 | **Backup** | `/home/rootrecord/Database/GITHUB/website-staging.bak-20260929-140240/` |
 
 ## What the repo is

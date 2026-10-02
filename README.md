@@ -30,7 +30,7 @@ It gives operators and agents a durable place to find the same architecture, con
 | --- | --- |
 | 🧠 **Agent Context** | Identity, principles, bounds, workflow, infrastructure maps, handoffs |
 | 🏗️ **Architecture** | System design, migration records, decisions, canonical paths |
-| 🛠️ **Operations** | Operator logs, recovery notes, runtime verification, security records. Current remaining-work list: `Documentation/01-operations/2026-09-30-whats-left-for-alexander.md` |
+| 🛠️ **Operations** | Operator logs, recovery notes, runtime verification, security records. Current remaining-work list: `Documentation/01-Operations/2026-09-30-whats-left-for-alexander.md` |
 | 📋 **Work Orders** | Active migration and development work with explicit acceptance criteria |
 | 📚 **Guides** | Standing practices and reusable how-to material |
 
@@ -60,19 +60,20 @@ RootRecord-Library/
 ├─ Agent Context/
 │  ├─ Ava-Agent-Context/
 │  ├─ Bruce-Agent-Context/
-│  └─ Carly-Agent-Context/
+│  ├─ Carly-Agent-Context/
+│  └─ Global-Updater-Agent-Context/
 ├─ Documentation/
-│  ├─ 00-architecture/          Decisions, Governance, Schemas.
-│  ├─ 01-operations/
-│  ├─ 02-agents/
-│  ├─ 03-security/
-│  ├─ 04-data/
-│  ├─ 05-public-surface/
-│  ├─ 06-development/
+│  ├─ 00-Architecture/          Decisions, Governance, Schemas.
+│  ├─ 01-Operations/
+│  ├─ 02-Agents/
+│  ├─ 03-Security/
+│  ├─ 04-Data/
+│  ├─ 05-Public-Surface/
+│  ├─ 06-Development/
 │  │  └─ Work-Orders/
-│  ├─ 07-testing/
-│  ├─ 08-ideas/
-│  ├─ 09-desired-upgrades/
+│  ├─ 07-Testing/
+│  ├─ 08-Ideas/
+│  ├─ 09-Desired-Upgrades/
 │  ├─ 10-AI-and-Agent-Runtime/
 │  ├─ 11-Runtime-Jobs-and-Control/
 │  ├─ 12-Pacific-Server-Current-Architecture/
@@ -80,7 +81,7 @@ RootRecord-Library/
 │  ├─ 14-Products-Repositories-and-Applications/
 │  ├─ 15-Domains-and-External-Systems/
 │  ├─ 16-Communications/
-│  └─ archive/
+│  └─ Archive/                Empty here. Operator weeks are under 01-Operations/Archive/.
 ├─ Guides & Tutorials/        How to read and edit code, teaching desk
 ├─ prompts/                   Pointer only. The how-to lives in Guides.
 └─ README.md
@@ -89,7 +90,7 @@ RootRecord-Library/
 ### 📋 Work orders
 
 **Single work-order home:**
-[Documentation/06-development/Work-Orders/](./Documentation/06-development/Work-Orders/)
+[Documentation/06-Development/Work-Orders/](./Documentation/06-Development/Work-Orders/)
 
 Work orders are the execution spine for active migrations and development. They carry scope, acceptance criteria, verification requirements, and retirement conditions.
 
@@ -107,27 +108,27 @@ Each agent pack follows the same basic spine:
 
 ## Current status — 2026-10-02
 
-Mainland One is the radio tree at `9b7fccf`. The live folders are `mirror/`, `rootrecord-radio/`, `station.sh`, `status-api/`, and `.gitignore`. The Opus music bed is on the host and the public mix is `https://radio.rootrecord.cloud/radio/live.mp3`. Now-playing is `https://radio.rootrecord.cloud/radio/now.json`. Reports go over `ssh ml1`. Music arrives with the git pull. The operator guide is [2026-10-01 radio station](./Documentation/01-operations/2026-10-01-radio-station.md). `www` stays on Vercel. `ssh.rootrecord.cloud` is retired. `api.rootrecord.cloud` is aimed at Mainland Two and is not live. Start at [HANDOFF.md](./Documentation/01-operations/HANDOFF.md).
+Mainland One is the radio tree at `9b7fccf`. The live folders are `mirror/`, `rootrecord-radio/`, `station.sh`, `status-api/`, and `.gitignore`. The Opus music bed is on the host and the public mix is `https://radio.rootrecord.cloud/radio/live.mp3`. Now-playing is `https://radio.rootrecord.cloud/radio/now.json`. Reports go over `ssh ml1`. Music arrives with the git pull. The operator guide is [2026-10-01 radio station](./Documentation/01-Operations/2026-10-01-radio-station.md). `www` stays on Vercel. `ssh.rootrecord.cloud` is retired. `api.rootrecord.cloud` is aimed at Mainland Two and is not live. Start at [HANDOFF.md](./Documentation/01-Operations/HANDOFF.md).
 
 ## Current status — 2026-09-30 afternoon
 
-Council chat on this desk uses NPU `llama3.2:3b`, on demand, context 4096, with no Ollama fallback. The sandbox answers. The live council and private DMs stay quiet. Generated state stays in Database `System/status/` and is not committed. The execution broker can read state and refuses restarts and agent builds. Interaction modes, the principal registry, and the Cursor handoff contract are in [INTERACTION-MODES.md](./Documentation/02-agents/INTERACTION-MODES.md). `cursor_api` ships off. The spoken reports as of this evening are in [2026-09-30 voice desk](./Documentation/01-operations/2026-09-30-voice-desk.md). Start at [HANDOFF.md](./Documentation/01-operations/HANDOFF.md). The 2026-09-29 section below is the record of that day, not the council model in use now.
+Council chat on this desk uses NPU `llama3.2:3b`, on demand, context 4096, with no Ollama fallback. The sandbox answers. The live council and private DMs stay quiet. Generated state stays in Database `System/status/` and is not committed. The execution broker can read state and refuses restarts and agent builds. Interaction modes, the principal registry, and the Cursor handoff contract are in [INTERACTION-MODES.md](./Documentation/02-Agents/INTERACTION-MODES.md). `cursor_api` ships off. The spoken reports as of this evening are in [2026-09-30 voice desk](./Documentation/01-Operations/2026-09-30-voice-desk.md). Start at [HANDOFF.md](./Documentation/01-Operations/HANDOFF.md). The 2026-09-29 section below is the record of that day, not the council model in use now.
 
 ## Current status — 2026-09-29 (HST)
 
 G2 → G3 migration: the Pacific runtime is on the new Database root (`2 - RootRecord-Database`, Title-case folders). Post-reboot checks, Weather, NPU/FastFlowLM (`llama3.2:1b` on demand) and the Title-case rename are **PASS**. G2 legacy files are **KEPT** until Alexander signs off. Open items are tracked as BLOCKED / PROPOSED / VERIFY PENDING in WO-SRV.
 
-- 🧪 **Testing thread:** [Documentation/07-testing/](./Documentation/07-testing/README.md) — one record per test run, plus the test-safety policy
-- 💡 **Ideas & proposals:** [Documentation/08-ideas/](./Documentation/08-ideas/README.md) — every item PROPOSED until Alexander signs off
-- 🔧 **Desired upgrades:** [Documentation/09-desired-upgrades/](./Documentation/09-desired-upgrades/README.md) — hardware to buy or build later; nothing here is an order
-- 📝 **Overnight worklog:** [2026-09-29 System Operator Worklog — Overnight](./Documentation/01-operations/0%20-%20Human%20Operator%20Work%20Logs/2026-09-29%20System%20Operator%20Worklog%20%E2%80%94%20Overnight.md) (includes the "Needs Alexander sign-off" list)
+- 🧪 **Testing thread:** [Documentation/07-Testing/](./Documentation/07-Testing/README.md) — one record per test run, plus the test-safety policy
+- 💡 **Ideas & proposals:** [Documentation/08-Ideas/](./Documentation/08-Ideas/README.md) — every item PROPOSED until Alexander signs off
+- 🔧 **Desired upgrades:** [Documentation/09-Desired-Upgrades/](./Documentation/09-Desired-Upgrades/README.md) — hardware to buy or build later; nothing here is an order
+- 📝 **Overnight worklog:** [2026-09-29 System Operator Worklog — Overnight](./Documentation/01-Operations/0%20-%20Human%20Operator%20Work%20Logs/2026-09-29%20System%20Operator%20Worklog%20%E2%80%94%20Overnight.md) (includes the "Needs Alexander sign-off" list)
 - 🗂️ **Migration index:** [MIGRATION-DOCS-INDEX](./Documentation/13-Migration-and-Legacy-Recovery/MIGRATION-DOCS-INDEX-2026-09-28.md)
 
 ### Where things stand — 16:25 HST (paused)
 
 - **LANDED / PASS today:** AWS feed trim + auto-trim cron; `www.rootrecord.cloud` back (200) with the P0 static-allowlist fix; globe overlay v2 on AWS (spin, click info, AWS Ohio node); AWS fallback Phase 2 on the trimmed t3.micro profile (908 MB RAM) with Root Monitor write mode; Root Monitor toggle buttons + camera button; 9 Android apps imported (80.7 MB); old-repo matrix 35 / 22 / 33.
 - **VERIFY PENDING:** the globe in a real browser, a real fallback on AWS, a relay send.
-- **Waiting on Alexander:** the consolidated list in the worklog's [State at pause, 16:25 HST](./Documentation/01-operations/0%20-%20Human%20Operator%20Work%20Logs/2026-09-29%20System%20Operator%20Worklog%20%E2%80%94%20Overnight.md#state-at-pause-1625-hst-2026-09-29) section.
+- **Waiting on Alexander:** the consolidated list in the worklog's [State at pause, 16:25 HST](./Documentation/01-Operations/0%20-%20Human%20Operator%20Work%20Logs/2026-09-29%20System%20Operator%20Worklog%20%E2%80%94%20Overnight.md#state-at-pause-1625-hst-2026-09-29) section.
 - **New docs:** [Android-Apps-Inventory](./Documentation/14-Products-Repositories-and-Applications/Android-Apps-Inventory.md), [US-Mainland-One](./Documentation/15-Domains-and-External-Systems/US-Mainland-One.md), [Control-Panel-GTK (Root Monitor)](./Documentation/11-Runtime-Jobs-and-Control/Control-Panel-GTK.md); all linked from the migration index.
 
 ---
@@ -175,7 +176,7 @@ GitHub commits therefore act as durable checkpoints between sessions. **A pushed
 | Public umbrella | https://github.com/RootRecord-Software-Solutions/RootRecord-Ecosystem |
 | Pacific runtime | https://github.com/RootRecord-Software-Solutions/RootRecord-Pacific-Solar-Server |
 | Database | https://github.com/RootRecord-Software-Solutions/RootRecord-Database |
-| Work orders | [Documentation/06-development/Work-Orders/](./Documentation/06-development/Work-Orders/) |
+| Work orders | [Documentation/06-Development/Work-Orders/](./Documentation/06-Development/Work-Orders/) |
 | Public site | https://rootrecord.cloud |
 | Contact | rootrecord@outlook.com |
 

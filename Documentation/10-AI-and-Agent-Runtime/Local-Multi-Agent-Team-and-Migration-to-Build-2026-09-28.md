@@ -73,7 +73,7 @@ Unfinished dual paths (G2 skills poller, second getUpdates owner, optimistic doc
 
 ## 5. Migrate mode → build mode
 
-This section is a migration phase. A Telegram `interaction_mode` of `build` is a different thing, defined in `Documentation/02-agents/INTERACTION-MODES.md`. Do not treat a sentence in this table as permission to execute.
+This section is a migration phase. A Telegram `interaction_mode` of `build` is a different thing, defined in `Documentation/02-Agents/INTERACTION-MODES.md`. Do not treat a sentence in this table as permission to execute.
 
 | Migrate mode (current priority) | Build mode (after residual close-out) |
 | --- | --- |
@@ -124,8 +124,8 @@ Standing phrasing: plan for **when** the business supports upgrade — not specu
 | [G3-Runtime-Verification-Checklist-2026-09-28.md](../11-Runtime-Jobs-and-Control/G3-Runtime-Verification-Checklist-2026-09-28.md) | Runtime gate |
 | [Residual-Path-Retirement-Table-2026-09-28.md](../13-Migration-and-Legacy-Recovery/Residual-Path-Retirement-Table-2026-09-28.md) | Retirement tracking |
 | [Agent Context/](../../Agent%20Context/) | Canonical role packs |
-| [Documentation/02-agents/README.md](../02-agents/README.md) | Agent map pointer |
-| [WO-WOGEN-001](../06-development/Work-Orders/WO-WOGEN-001-Work-Order-Generator.md) | Later: measured friction → draft WOs |
+| [Documentation/02-Agents/README.md](../02-Agents/README.md) | Agent map pointer |
+| [WO-WOGEN-001](../06-Development/Work-Orders/WO-WOGEN-001-Work-Order-Generator.md) | Later: measured friction → draft WOs |
 
 ---
 

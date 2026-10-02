@@ -6,9 +6,9 @@ Single entry point for agents and operators working the Pacific server cutover *
 
 **Desk git root (2026-09-29):** this checkout is one repository, [RootRecord-Ecosystem](https://github.com/RootRecord-Software-Solutions/RootRecord-Ecosystem). Library, Pacific, and Database here are directories in that tree. Older notes in this index that assume three nested clones describe the migration as it stood, not the current desk.
 
-**Mainland One (2026-10-02):** radio only, checkout `9b7fccf`. The live page is [US-Mainland-One.md](../15-Domains-and-External-Systems/US-Mainland-One.md). The operator guide is [2026-10-01 radio station](../01-operations/2026-10-01-radio-station.md). The stream is `https://radio.rootrecord.cloud/radio/live.mp3`. The September globe and fallback rows below are the record of that day.
+**Mainland One (2026-10-02):** radio only, checkout `9b7fccf`. The live page is [US-Mainland-One.md](../15-Domains-and-External-Systems/US-Mainland-One.md). The operator guide is [2026-10-01 radio station](../01-Operations/2026-10-01-radio-station.md). The stream is `https://radio.rootrecord.cloud/radio/live.mp3`. The September globe and fallback rows below are the record of that day.
 
-**What Alexander still has to decide (2026-09-30 19:02 HST):** [What's left for Alexander](../01-operations/2026-09-30-whats-left-for-alexander.md). The runtime cutover is live. Root Monitor is the login window. Delta 2 was reading at 18:59 HST (74% SOC). Closed work orders are in `Work-Orders/Complete/`. The open list is Root Monitor `Lib/rr_migration.json` (14 items: 7 BLOCKED, 7 VERIFY PENDING).
+**What Alexander still has to decide (2026-09-30 19:02 HST):** [What's left for Alexander](../01-Operations/2026-09-30-whats-left-for-alexander.md). The runtime cutover is live. Root Monitor is the login window. Delta 2 was reading at 18:59 HST (74% SOC). Closed work orders are in `Work-Orders/Complete/`. The open list is Root Monitor `Lib/rr_migration.json` (14 items: 7 BLOCKED, 7 VERIFY PENDING).
 
 **Team constitution (standing):** [Local-Multi-Agent-Team-and-Migration-to-Build-2026-09-28.md](../10-AI-and-Agent-Runtime/Local-Multi-Agent-Team-and-Migration-to-Build-2026-09-28.md) — Ava → Carly → Bruce; small local models; migrate then build.
 
@@ -20,7 +20,7 @@ Single entry point for agents and operators working the Pacific server cutover *
 | --- | --- |
 | [Local-Multi-Agent-Team-and-Migration-to-Build-2026-09-28.md](../10-AI-and-Agent-Runtime/Local-Multi-Agent-Team-and-Migration-to-Build-2026-09-28.md) | **Team OS** — roles, truth gates, migrate→build, hardware capacity |
 | [Migration-Lineage-Three-Generations-2026-09-28.md](./Migration-Lineage-Three-Generations-2026-09-28.md) | G3 / G2 / G1 / **G0** named; import order rule |
-| [archive/](../00-architecture/archive/README.md) | Session 1 restructuring notes (ChatGPT, Copilot, Grok, Claude). History only, moved 2026-09-30. |
+| [archive/](../00-Architecture/Archive/README.md) | Session 1 restructuring notes (ChatGPT, Copilot, Grok, Claude). History only, moved 2026-09-30. |
 | [Pacific-Domain-Import-Playbook-2026-09-28.md](../12-Pacific-Server-Current-Architecture/Pacific-Domain-Import-Playbook-2026-09-28.md) | Step-by-step Phase 0–4; retirement stub pattern |
 | [Pacific-Jobs-Path-Inventory-2026-09-28.md](../12-Pacific-Server-Current-Architecture/Pacific-Jobs-Path-Inventory-2026-09-28.md) | **Historical** path inventory — live status is WO-SRV |
 | [Pacific-Server-Library-Dependency-Map-2026-09-28.md](../12-Pacific-Server-Current-Architecture/Pacific-Server-Library-Dependency-Map-2026-09-28.md) | Library files touched; domain status |
@@ -33,10 +33,10 @@ Single entry point for agents and operators working the Pacific server cutover *
 | [G3-Runtime-Verification-Checklist-2026-09-28.md](../11-Runtime-Jobs-and-Control/G3-Runtime-Verification-Checklist-2026-09-28.md) | Runtime gate before legacy retirement (supports WO-SRV) |
 | [Residual-Path-Retirement-Table-2026-09-28.md](./Residual-Path-Retirement-Table-2026-09-28.md) | Pre-filled old→new table; Bruce fills Verified/Retired |
 | [Communications-Notify-Policy-Draft-2026-09-28.md](../16-Communications/Communications-Notify-Policy-Draft-2026-09-28.md) | Notify policy draft for WO-COM-001 (Carly conditional seal may land via PR; check main) |
-| **[07-testing/README.md](../07-testing/README.md)** | **Testing thread** (2026-09-29): one record per test run (HST time, method, pass criteria, state, resource impact, evidence, SHAs, cleanup) + test-safety policy + index |
-| **[08-ideas/README.md](../08-ideas/README.md)** | **Ideas & feature proposals** (2026-09-29): all PROPOSED; auto-recovery, `npu-status.sh` Pacific copy, AI processing log, voice reports, relay message hold, weather retention/repo |
+| **[07-Testing/README.md](../07-Testing/README.md)** | **Testing thread** (2026-09-29): one record per test run (HST time, method, pass criteria, state, resource impact, evidence, SHAs, cleanup) + test-safety policy + index |
+| **[08-Ideas/README.md](../08-Ideas/README.md)** | **Ideas & feature proposals** (2026-09-29): all PROPOSED; auto-recovery, `npu-status.sh` Pacific copy, AI processing log, voice reports, relay message hold, weather retention/repo |
 | [AI-Specialist-Models-and-Routing.md](../10-AI-and-Agent-Runtime/AI-Specialist-Models-and-Routing.md) | **AI specialists + router** (2026-09-29): one Modelfile per function/topic, keyword router `route-specialist.py`, FLM system-message route, gated `run-infer.sh` hook (off by default), resource policy, how to add a specialist |
-| [Template-Report-Generation.md](../10-AI-and-Agent-Runtime/Template-Report-Generation.md) | **Template reports** (2026-09-29): `Reports/template_fill.py` fills the 4 `01-operations/templates/` from measured data into Database `Reports/Generated/` (never the Library); `template_validate.py` rejects structure mismatches and flags unsupported numbers; `rr-exec` drafts free text only; job `template_reports_daily` OFF unless `RR_TEMPLATE_REPORTS=1` |
+| [Template-Report-Generation.md](../10-AI-and-Agent-Runtime/Template-Report-Generation.md) | **Template reports** (2026-09-29): `Reports/template_fill.py` fills the 4 `01-Operations/Templates/` from measured data into Database `Reports/Generated/` (never the Library); `template_validate.py` rejects structure mismatches and flags unsupported numbers; `rr-exec` drafts free text only; job `template_reports_daily` OFF unless `RR_TEMPLATE_REPORTS=1` |
 | [Voice-Reports-G3.md](../10-AI-and-Agent-Runtime/Voice-Reports-G3.md) | **Voice (2026-09-29)**: Kokoro-82M G3 port, persona map, phrase-clip cache, G1→G3 report map, gates (delivery OFF), naming standard (PROPOSED) |
 | [AI-Processing-Logs-and-Reports.md](../10-AI-and-Agent-Runtime/AI-Processing-Logs-and-Reports.md) | **AI processing (2026-09-29)**: run-infer JSONL fields, rotation, report, `RR_AI_REPORT` gate, FLM log redaction |
 | Ops worklog `2026-09-29 System Operator Worklog — Overnight.md` | Overnight docs pass steps (HST) + **Needs Alexander sign-off** list |
@@ -46,13 +46,13 @@ Single entry point for agents and operators working the Pacific server cutover *
 | Doc | Purpose |
 | --- | --- |
 | [US-Mainland-One.md](../15-Domains-and-External-Systems/US-Mainland-One.md) | **Radio host as of 2026-10-02.** The 16:25 HST globe table is the section [2026-09-29 import and pause](../15-Domains-and-External-Systems/US-Mainland-One.md#2026-09-29-import-and-pause) on that same page |
-| [07-testing/2026-09-29-aws-hawaii-trim-and-cloudflared.md](../07-testing/2026-09-29-aws-hawaii-trim-and-cloudflared.md) | **AWS Hawaii feed trim + `*/15` auto-trim cron; cloudflared tunnel restored** (`www` 530 → 200): PASS |
-| [07-testing/2026-09-29-aws-globe-static-allowlist.md](../07-testing/2026-09-29-aws-globe-static-allowlist.md) | **AWS static allowlist** (P0: globe `server.js` no longer serves its folder; sensitive paths 404): PASS |
-| [08-ideas/2026-09-29-aws-fallback-rebuild.md](../08-ideas/2026-09-29-aws-fallback-rebuild.md) | **AWS fallback rebuild**: small fallback node with per-function toggles; Phase 2 LANDED on the trimmed t3.micro profile (908 MB RAM); real fallback VERIFY PENDING |
-| [08-ideas/2026-09-29-globe-landing-overlay.md](../08-ideas/2026-09-29-globe-landing-overlay.md) | **Globe landing overlay** for `www.rootrecord.cloud` (glass cards; v2 spin / click info; AWS Ohio node): AWS deploy LANDED 16:10 HST; real-browser check VERIFY PENDING. Records: [preview](../07-testing/2026-09-29-globe-landing-overlay-preview.md), [v2](../07-testing/2026-09-29-globe-overlay-v2-spin-click-info.md), [AWS deploy](../07-testing/2026-09-29-globe-overlay-aws-deploy.md) |
-| [07-testing/2026-09-29-root-monitor-toggle-buttons.md](../07-testing/2026-09-29-root-monitor-toggle-buttons.md) | **Control Panel (Root Monitor) toggle buttons**: switches → labelled buttons, visible camera viewer button: PASS |
+| [07-Testing/2026-09-29-aws-hawaii-trim-and-cloudflared.md](../07-Testing/2026-09-29-aws-hawaii-trim-and-cloudflared.md) | **AWS Hawaii feed trim + `*/15` auto-trim cron; cloudflared tunnel restored** (`www` 530 → 200): PASS |
+| [07-Testing/2026-09-29-aws-globe-static-allowlist.md](../07-Testing/2026-09-29-aws-globe-static-allowlist.md) | **AWS static allowlist** (P0: globe `server.js` no longer serves its folder; sensitive paths 404): PASS |
+| [08-Ideas/2026-09-29-aws-fallback-rebuild.md](../08-Ideas/2026-09-29-aws-fallback-rebuild.md) | **AWS fallback rebuild**: small fallback node with per-function toggles; Phase 2 LANDED on the trimmed t3.micro profile (908 MB RAM); real fallback VERIFY PENDING |
+| [08-Ideas/2026-09-29-globe-landing-overlay.md](../08-Ideas/2026-09-29-globe-landing-overlay.md) | **Globe landing overlay** for `www.rootrecord.cloud` (glass cards; v2 spin / click info; AWS Ohio node): AWS deploy LANDED 16:10 HST; real-browser check VERIFY PENDING. Records: [preview](../07-Testing/2026-09-29-globe-landing-overlay-preview.md), [v2](../07-Testing/2026-09-29-globe-overlay-v2-spin-click-info.md), [AWS deploy](../07-Testing/2026-09-29-globe-overlay-aws-deploy.md) |
+| [07-Testing/2026-09-29-root-monitor-toggle-buttons.md](../07-Testing/2026-09-29-root-monitor-toggle-buttons.md) | **Control Panel (Root Monitor) toggle buttons**: switches → labelled buttons, visible camera viewer button: PASS |
 | [Control-Panel-GTK.md](../11-Runtime-Jobs-and-Control/Control-Panel-GTK.md) | Root Monitor (GTK4 Control Panel): pages, settings, AWS Fallback page, sign-off items |
-| [Android-Apps-Inventory.md](../14-Products-Repositories-and-Applications/Android-Apps-Inventory.md) | **Android apps inventory**: 9 apps imported into `6 - Android Development` (80.7 MB); build VERIFY PENDING. [Test record](../07-testing/2026-09-29-android-apps-import.md) |
+| [Android-Apps-Inventory.md](../14-Products-Repositories-and-Applications/Android-Apps-Inventory.md) | **Android apps inventory**: 9 apps imported into `6 - Android Development` (80.7 MB); build VERIFY PENDING. [Test record](../07-Testing/2026-09-29-android-apps-import.md) |
 
 ## Product & archive inventory (Minecraft, apps, mirrors)
 
@@ -132,7 +132,7 @@ Best use: scavenger pass when redesigning **AI processing**, **weather/reports**
 | WO-AEYES | Capture rate |
 | WO-COM-001 | Communications surface (notify policy draft linked above) |
 
-See [`Documentation/06-development/Work-Orders/README.md`](../06-development/Work-Orders/README.md) (hyphen only — no space-named folder).
+See [`Documentation/06-Development/Work-Orders/README.md`](../06-Development/Work-Orders/README.md) (hyphen only — no space-named folder).
 
 ---
 
@@ -148,7 +148,7 @@ Weather: **enabled and PASS** since 2026-09-29 (Pacific `Weather/`; see WO-SRV).
 
 **Migration evidence 2026-09-29** (`2 - RootRecord-Database/Logs/Migration/`): `g3-poller-realign-evidence-20260929T111731Z.md`, `g3-residual-path-survey-20260929T113523Z.md`, `g3-weather-archive-evidence-20260929T115429Z.md`, `g3-pre-reboot-checkpoint-20260929T120755Z.md` (post-reboot list in WO-SRV "Pre-reboot checkpoint 2026-09-29").
 
-**More evidence 2026-09-29** (same folder): `g3-runtime-evidence-20260929T101550Z.md`, `g3-cutover-evidence-20260929T103720Z.md`, `g3-energy-plumbing-evidence-20260929T104618Z.md`, `g2-retire-aeyes-cam-evidence-20260929T105103Z.md`, `g3-dbroot-realign-evidence-20260929T105845Z.md`, `g3-poller-viewer-evidence-20260929T121959Z.md`, `g3-post-reboot-evidence-20260929T123313Z.md`, `g3-followups-evidence-20260929T124741Z.md`, `g3-npu-flm-evidence-20260929T125429Z.md` (addenda 03:02 and 03:29 HST), `g3-titlecase-rename-evidence-20260929T130752Z.md`. Per-test records: [07-testing](../07-testing/README.md).
+**More evidence 2026-09-29** (same folder): `g3-runtime-evidence-20260929T101550Z.md`, `g3-cutover-evidence-20260929T103720Z.md`, `g3-energy-plumbing-evidence-20260929T104618Z.md`, `g2-retire-aeyes-cam-evidence-20260929T105103Z.md`, `g3-dbroot-realign-evidence-20260929T105845Z.md`, `g3-poller-viewer-evidence-20260929T121959Z.md`, `g3-post-reboot-evidence-20260929T123313Z.md`, `g3-followups-evidence-20260929T124741Z.md`, `g3-npu-flm-evidence-20260929T125429Z.md` (addenda 03:02 and 03:29 HST), `g3-titlecase-rename-evidence-20260929T130752Z.md`. Per-test records: [07-Testing](../07-Testing/README.md).
 
 **Documented without executing product migration:** full product/archive catalog (Paper, Nukkit, apps, mirrors); Automations G1 retirement; G0/G1 READMEs.
 
@@ -158,9 +158,9 @@ Weather: **enabled and PASS** since 2026-09-29 (Pacific `Weather/`; see WO-SRV).
 
 *Index updated 2026-09-28 ~22:16 HST — team constitution doc linked.*
 
-*Index updated 2026-09-29 ~03:45 HST — Testing folder (`Documentation/07-testing/`) and the full 2026-09-29 evidence list added.*
+*Index updated 2026-09-29 ~03:45 HST — Testing folder (`Documentation/07-Testing/`) and the full 2026-09-29 evidence list added.*
 
-*Index updated 2026-09-29 ~13:40 HST — Old-Repo-Migration-Matrix linked; Geology collector + ports batch 1 test records in `07-testing/`. ~14:10 HST — Pending-Job-Registrations linked; breadth batch 4 test record. ~14:40 HST — G1-Scheduler-To-G3-Jobs-Map linked; breadth batch 5 test record (`07-testing/2026-09-29-old-repo-ports-breadth-batch5.md`); matrix now 35 / 22 / 33.*
+*Index updated 2026-09-29 ~13:40 HST — Old-Repo-Migration-Matrix linked; Geology collector + ports batch 1 test records in `07-Testing/`. ~14:10 HST — Pending-Job-Registrations linked; breadth batch 4 test record. ~14:40 HST — G1-Scheduler-To-G3-Jobs-Map linked; breadth batch 5 test record (`07-Testing/2026-09-29-old-repo-ports-breadth-batch5.md`); matrix now 35 / 22 / 33.*
 
 *Index updated 2026-09-29 ~16:30 HST: new section "2026-09-29 afternoon" links US-Mainland-One, the AWS trim + cloudflared and static-allowlist records, the AWS fallback rebuild and globe landing overlay proposals, the Root Monitor toggle-buttons record, Control-Panel-GTK and Android-Apps-Inventory. Current state and sign-offs: worklog section "State at pause, 16:25 HST".*
 

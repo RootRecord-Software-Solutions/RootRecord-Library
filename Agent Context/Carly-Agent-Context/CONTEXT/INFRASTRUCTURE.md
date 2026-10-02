@@ -33,7 +33,7 @@ Treat mirrored files as recovery sources; verify before assuming they are the li
 ## Inference & Council
 - Council replies use the NPU, `llama3.2:3b`, context 4096, on demand, no Ollama fallback.
 - Sandbox chat answers. Live council and private DMs stay quiet.
-- Carly may inspect through the execution broker. She cannot restart, send, push, or build. A council pass with `reject` sets the request to `BLOCKED`. `can_build` is false. See Library `Documentation/02-agents/INTERACTION-MODES.md`.
+- Carly may inspect through the execution broker. She cannot restart, send, push, or build. A council pass with `reject` sets the request to `BLOCKED`. `can_build` is false. See Library `Documentation/02-Agents/INTERACTION-MODES.md`.
 - Single-flight enforcement via plumbing scripts (Bruce's operational responsibility).
 - Carly participates in security review and the honesty seal. She does not own the inference gate.
-- Start here if this chat is new: Library `Documentation/01-operations/HANDOFF.md`.
+- Start here if this chat is new: Library `Documentation/01-Operations/HANDOFF.md`.

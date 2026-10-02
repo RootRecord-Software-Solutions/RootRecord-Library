@@ -155,16 +155,16 @@ Post-reboot list: WO-SRV "Pre-reboot checkpoint 2026-09-29". Snapshot `2 - RootR
 
 ## Status refresh — 2026-09-29 ~03:45 HST
 
-Supersedes open findings 1 (relay 821015 is gone; relay now runs under the poller unit), 8 (FLM/NPU now PASS) and 9 (`store.py` → canonical `RootRecord/`, `abc78b2`; G2 pulls no longer reload, `abc78b2`) in the ~01:37 block. Per-test records: [`Documentation/07-testing/`](../07-testing/README.md).
+Supersedes open findings 1 (relay 821015 is gone; relay now runs under the poller unit), 8 (FLM/NPU now PASS) and 9 (`store.py` → canonical `RootRecord/`, `abc78b2`; G2 pulls no longer reload, `abc78b2`) in the ~01:37 block. Per-test records: [`Documentation/07-Testing/`](../07-Testing/README.md).
 
 | Row | State | Evidence |
 | --- | --- | --- |
 | A. Telegram / council_relay | login/polling PASS; replies BLOCKED (models); quiet mode default (`RR_RELAY_REPLIES=0`) | `ebc32a7`; WO-SRV |
 | B. Security timelapse | VERIFY PENDING (after 05:00 HST) | — |
-| C. Energy actions | read-only PASS; arm/disarm + AC VERIFY PENDING (need approval); data freshness PASS via `Energy/.venv`; B1/B2 low, B1 physical check | [EcoFlow record](../07-testing/2026-09-29-ecoflow-stale-data-energy-venv.md) |
-| D. Poller full cycle | PASS on the new root with Title-case folders; log `2 - RootRecord-Database/Logs/Automations/automations_current.log` | [realign](../07-testing/2026-09-29-poller-database-root-realign.md), [rename](../07-testing/2026-09-29-database-titlecase-rename.md) |
-| Plumbing NPU/FLM | PASS (install/validate); on-demand `llama3.2:1b` route PASS; own-session fix VERIFY PENDING | [NPU](../07-testing/2026-09-29-npu-flm-install-validate.md), [1b on demand](../07-testing/2026-09-29-npu-llama3.2-1b-on-demand.md) |
-| Resident-model safety | OOM FAIL → fixed; fix PASS (non-resident warmup, keepalive 0) | [OOM record](../07-testing/2026-09-29-oom-flm-warmup-resident.md) |
+| C. Energy actions | read-only PASS; arm/disarm + AC VERIFY PENDING (need approval); data freshness PASS via `Energy/.venv`; B1/B2 low, B1 physical check | [EcoFlow record](../07-Testing/2026-09-29-ecoflow-stale-data-energy-venv.md) |
+| D. Poller full cycle | PASS on the new root with Title-case folders; log `2 - RootRecord-Database/Logs/Automations/automations_current.log` | [realign](../07-Testing/2026-09-29-poller-database-root-realign.md), [rename](../07-Testing/2026-09-29-database-titlecase-rename.md) |
+| Plumbing NPU/FLM | PASS (install/validate); on-demand `llama3.2:1b` route PASS; own-session fix VERIFY PENDING | [NPU](../07-Testing/2026-09-29-npu-flm-install-validate.md), [1b on demand](../07-Testing/2026-09-29-npu-llama3.2-1b-on-demand.md) |
+| Resident-model safety | OOM FAIL → fixed; fix PASS (non-resident warmup, keepalive 0) | [OOM record](../07-Testing/2026-09-29-oom-flm-warmup-resident.md) |
 | G2 legacy | KEPT (retire only with Alexander sign-off) | skills `1dcee66` |
 
 **Preconditions for any re-run (current state):**
@@ -187,13 +187,13 @@ Supersedes open findings 1 (relay 821015 is gone; relay now runs under the polle
 | Uptime log | `System/scripts/uptime_log.py` → `System/uptime/` | `system_uptime_log` 60 s, `RR_UPTIME_LOG=1` | tick + gap sim | **PASS** (manual) |
 | MP4 converter | `Media/Video/scripts/mp4_converter.py` | on demand | 2 s synthetic | **PASS** |
 
-Close the "VERIFY PENDING" cells only after the next poller start with the flag set (Alexander's sign-off): check `Geology/collector-last.json` `at` advances every ~5 min and the poller log shows the job rc 0. Records: [geology](../07-testing/2026-09-29-geology-earthquakes-hvo-collector.md), [batch 1](../07-testing/2026-09-29-old-repo-ports-batch1.md); [migration matrix](../13-Migration-and-Legacy-Recovery/Old-Repo-Migration-Matrix.md); evidence `2 - RootRecord-Database/Logs/Migration/migration-geology-evidence-20260929T2319Z.md`.
+Close the "VERIFY PENDING" cells only after the next poller start with the flag set (Alexander's sign-off): check `Geology/collector-last.json` `at` advances every ~5 min and the poller log shows the job rc 0. Records: [geology](../07-Testing/2026-09-29-geology-earthquakes-hvo-collector.md), [batch 1](../07-Testing/2026-09-29-old-repo-ports-batch1.md); [migration matrix](../13-Migration-and-Legacy-Recovery/Old-Repo-Migration-Matrix.md); evidence `2 - RootRecord-Database/Logs/Migration/migration-geology-evidence-20260929T2319Z.md`.
 
-Addendum ~13:46 HST: `voice_reports.py hurricane_desk` (`RR_VOICE_HURRICANE`) and `kilauea_report` (`RR_VOICE_KILAUEA`) — text **PASS**, WAV **VERIFY PENDING** ([record](../07-testing/2026-09-29-voice-reports-batch3-hurricane-kilauea.md)). The jobs.py registrations for all rows in this section are a **sign-off item** (standing rule: jobs.py only on Alexander's request or a WO); blocks in `2 - RootRecord-Database/Logs/Migration/migration-jobs-py-additions-20260929.md`.
+Addendum ~13:46 HST: `voice_reports.py hurricane_desk` (`RR_VOICE_HURRICANE`) and `kilauea_report` (`RR_VOICE_KILAUEA`) — text **PASS**, WAV **VERIFY PENDING** ([record](../07-Testing/2026-09-29-voice-reports-batch3-hurricane-kilauea.md)). The jobs.py registrations for all rows in this section are a **sign-off item** (standing rule: jobs.py only on Alexander's request or a WO); blocks in `2 - RootRecord-Database/Logs/Migration/migration-jobs-py-additions-20260929.md`.
 
-Addendum ~14:10 HST (breadth batch 4, [record](../07-testing/2026-09-29-old-repo-ports-breadth-batch4.md)): `web_facts.py` + `live_wx.py` on demand **PASS**; `host_desks.py` net + security **PASS** (temp root); `voice_reports.py solar_desk` / `security_desk` / `bandwidth_desk` text **PASS**, WAV **VERIFY PENDING**; `hawaii_news.py` rc 0 but **FAIL on content** (0 posts). Their jobs are **PROPOSED only** (not in jobs.py): [Pending-Job-Registrations-2026-09-29.md](./Pending-Job-Registrations-2026-09-29.md). After registration + next poller start: check `System/network/net-last.json` advances every ~5 min and each voice `_current.md` appears at :04 / :11 / :12.
+Addendum ~14:10 HST (breadth batch 4, [record](../07-Testing/2026-09-29-old-repo-ports-breadth-batch4.md)): `web_facts.py` + `live_wx.py` on demand **PASS**; `host_desks.py` net + security **PASS** (temp root); `voice_reports.py solar_desk` / `security_desk` / `bandwidth_desk` text **PASS**, WAV **VERIFY PENDING**; `hawaii_news.py` rc 0 but **FAIL on content** (0 posts). Their jobs are **PROPOSED only** (not in jobs.py): [Pending-Job-Registrations-2026-09-29.md](./Pending-Job-Registrations-2026-09-29.md). After registration + next poller start: check `System/network/net-last.json` advances every ~5 min and each voice `_current.md` appears at :04 / :11 / :12.
 
-Addendum ~14:40 HST (breadth batch 5, [record](../07-testing/2026-09-29-old-repo-ports-breadth-batch5.md)): voice text fixes (clock "oh N", watts words, spoken sun times) **PASS**; `hawaii_news.py` with 16 seed feeds **PASS** (278 posts, temp root); `official_statement.py` (HLS) **PASS** (one real run, git-ignored path); `voice_reports.py official_weather` / `boot_brief` text **PASS**, WAV **VERIFY PENDING**; `report_board.py` **PASS** (temp root); `load_categories.py`, `global_board.py` (temp root), `host_hw.py`, `speech_scrub.py` **PASS**. New jobs **PROPOSED, not in jobs.py**: `weather_official_hls` (`RR_OFFICIAL_HLS`), `voice_official_weather` (`RR_VOICE_OFFICIAL`), `voice_boot_brief` (`RR_VOICE_BOOT`, ON_BOOT), `reports_board_catchup` (`RR_REPORT_BOARD`), `weather_hurricane_global` (`RR_HURRICANE_GLOBAL`). Correction: the weather poller already collects HWO; only HLS was missing.
+Addendum ~14:40 HST (breadth batch 5, [record](../07-Testing/2026-09-29-old-repo-ports-breadth-batch5.md)): voice text fixes (clock "oh N", watts words, spoken sun times) **PASS**; `hawaii_news.py` with 16 seed feeds **PASS** (278 posts, temp root); `official_statement.py` (HLS) **PASS** (one real run, git-ignored path); `voice_reports.py official_weather` / `boot_brief` text **PASS**, WAV **VERIFY PENDING**; `report_board.py` **PASS** (temp root); `load_categories.py`, `global_board.py` (temp root), `host_hw.py`, `speech_scrub.py` **PASS**. New jobs **PROPOSED, not in jobs.py**: `weather_official_hls` (`RR_OFFICIAL_HLS`), `voice_official_weather` (`RR_VOICE_OFFICIAL`), `voice_boot_brief` (`RR_VOICE_BOOT`, ON_BOOT), `reports_board_catchup` (`RR_REPORT_BOARD`), `weather_hurricane_global` (`RR_HURRICANE_GLOBAL`). Correction: the weather poller already collects HWO; only HLS was missing.
 
 ## Status at pause — 2026-09-29 16:25 HST
 
@@ -202,13 +202,13 @@ Rows B–D: no new runtime evidence since the ~03:45 block, so those states stan
 | Row | State | Evidence |
 | --- | --- | --- |
 | A. Telegram / council_relay (desk) | quiet mode default; replies OFF until Alexander opts in (`*-telegram` models rebuilt 04:12, see the worklog g3-specialists pass) | worklog |
-| A2. AWS `telegram_hold` / `basic_replies` | OFF (sign-off) | [fallback proposal](../08-ideas/2026-09-29-aws-fallback-rebuild.md) |
-| AWS Hawaii feed trim + `*/15` cron | **PASS** | [record](../07-testing/2026-09-29-aws-hawaii-trim-and-cloudflared.md) |
+| A2. AWS `telegram_hold` / `basic_replies` | OFF (sign-off) | [fallback proposal](../08-Ideas/2026-09-29-aws-fallback-rebuild.md) |
+| AWS Hawaii feed trim + `*/15` cron | **PASS** | [record](../07-Testing/2026-09-29-aws-hawaii-trim-and-cloudflared.md) |
 | AWS tunnel / `www` 200 | **PASS** | same record |
-| AWS globe static allowlist (P0) | **PASS** | [record](../07-testing/2026-09-29-aws-globe-static-allowlist.md) |
-| Globe overlay v2 + AWS Ohio node | LANDED · real-browser check **VERIFY PENDING** | [record](../07-testing/2026-09-29-globe-overlay-aws-deploy.md) |
-| AWS fallback Phase 2 (trimmed-micro) | **PASS** (deploy, rollback, write round-trip) · real fallback **VERIFY PENDING** · relay send **VERIFY PENDING** | [record](../07-testing/2026-09-29-aws-fallback-phase2-runtime-deploy.md) |
-| Root Monitor toggle buttons + camera button | **PASS** | [record](../07-testing/2026-09-29-root-monitor-toggle-buttons.md) |
+| AWS globe static allowlist (P0) | **PASS** | [record](../07-Testing/2026-09-29-aws-globe-static-allowlist.md) |
+| Globe overlay v2 + AWS Ohio node | LANDED · real-browser check **VERIFY PENDING** | [record](../07-Testing/2026-09-29-globe-overlay-aws-deploy.md) |
+| AWS fallback Phase 2 (trimmed-micro) | **PASS** (deploy, rollback, write round-trip) · real fallback **VERIFY PENDING** · relay send **VERIFY PENDING** | [record](../07-Testing/2026-09-29-aws-fallback-phase2-runtime-deploy.md) |
+| Root Monitor toggle buttons + camera button | **PASS** | [record](../07-Testing/2026-09-29-root-monitor-toggle-buttons.md) |
 | Geology / old-repo port rows above | unchanged: manual PASS; poller cycle VERIFY PENDING (flags + poller restart are sign-off items) | — |
 
 Sign-offs: worklog section "State at pause, 16:25 HST".
@@ -236,7 +236,7 @@ Supersedes the NPU-default and "replies off" bullets in the 2026-09-29 precondit
 | Desk | `Intake/desk-live.txt` refreshed before each reply. | `desk-live.py` |
 | Canonical state | `System/status/rootrecord-state.json` plus agent/public/slice projections. Not auto-committed. | `state-aggregate.py`, Decisions/0005 |
 | Execution | Broker answers reads and refuses restarts and agent builds. `cursor_api` ships off. Poller `service_supervisor` still recovers weather and the relay. | `Automations/execution/`, WO-SRV-RELAY, Decision 0006 |
-| Continuity | `Documentation/01-operations/HANDOFF.md`. Desk check: `bash verify.sh` from the ecosystem root. | HANDOFF |
+| Continuity | `Documentation/01-Operations/HANDOFF.md`. Desk check: `bash verify.sh` from the ecosystem root. | HANDOFF |
 
 ## Status refresh — 2026-09-30 19:02 HST
 

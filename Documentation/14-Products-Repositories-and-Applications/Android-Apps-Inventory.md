@@ -1,6 +1,6 @@
 # Android Apps Inventory (import into `6 - Android Development`)
 
-*Created 2026-09-29 14:45 HST. Android import pass. Test record: [2026-09-29-android-apps-import](../07-testing/2026-09-29-android-apps-import.md).*
+*Created 2026-09-29 14:45 HST. Android import pass. Test record: [2026-09-29-android-apps-import](../07-Testing/2026-09-29-android-apps-import.md).*
 
 From today on, all Android development lives in `/home/rootrecord/RootRecord-Ecosystem/6 - Android Development/`, one Title-case folder per app. This page records where each app came from, which copy was chosen and why, and what was left out.
 

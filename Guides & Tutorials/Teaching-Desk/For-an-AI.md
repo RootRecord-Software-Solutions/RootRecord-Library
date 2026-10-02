@@ -38,7 +38,7 @@ These are facts, not suggestions.
 | What does the window show? | [Root Monitor handbook](../Root-Monitor-Operators-Handbook/Root-Monitor-Operators-Handbook.md) |
 | Where do Database logs and reports live? | [Logs & reports handbook](../Database-Logs-and-Reports-Maintenance.md) |
 | How do Automations and Telemetry write? | [Desk automations and service windows](../../Documentation/11-Runtime-Jobs-and-Control/Desk-Automations-and-Service-Windows.md) |
-| What is still Alexander's decision? | [What's left](../../Documentation/01-operations/2026-09-30-whats-left-for-alexander.md) |
+| What is still Alexander's decision? | [What's left](../../Documentation/01-Operations/2026-09-30-whats-left-for-alexander.md) |
 | How does he want a messy plan cleaned up? | [One clean plan](../HOW-TO-TURN-MESSY-AI-OUTPUT-INTO-ONE-CLEAN-PLAN.md) |
 | What would a new person learn after this? | [For a new person](./For-a-new-person.md) and the [course map](./Course-map.md) |
 

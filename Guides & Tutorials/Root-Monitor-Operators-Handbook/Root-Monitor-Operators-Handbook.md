@@ -445,7 +445,7 @@ timeout 5 ssh -o BatchMode=yes -o ConnectTimeout=5 <alias> uptime
 
 The row subtitle becomes `checking…`, then `PASS` or `FAIL` plus the uptime line and the time. FAIL with rc 124 is the 5-second timeout. This does not open a shell you can type into.
 
-As of 2026-10-01, `ml1` and `rr-aws` use `ml1.rootrecord.cloud` through cloudflared. `rr-aws-ip` is the direct address `3.140.195.32`. `ml2` uses `ml2.rootrecord.cloud`. `ml2-ip` is `3.149.238.83`. Do not restart cloudflared over `ssh ml1`. The record is `Documentation/01-operations/2026-10-01-mainland-rename-and-ssh-tunnels.md`.
+As of 2026-10-01, `ml1` and `rr-aws` use `ml1.rootrecord.cloud` through cloudflared. `rr-aws-ip` is the direct address `3.140.195.32`. `ml2` uses `ml2.rootrecord.cloud`. `ml2-ip` is `3.149.238.83`. Do not restart cloudflared over `ssh ml1`. The record is `Documentation/01-Operations/2026-10-01-mainland-rename-and-ssh-tunnels.md`.
 
 **Mainland.** The desk aliases are `ml1` and `ml2`. Set `ssh_mainland_alias` in Settings → Panel to the alias for that row and save. The buttons appear the next time the SSH page is built (leave the page and come back, or restart the panel).
 
@@ -893,6 +893,6 @@ That walk turns the camera viewer on in memory for one shot and does not save se
 - App README: `Apps/Control-Panel/README.md`
 - Automations and service windows: `5 - RootRecord-Library/Documentation/11-Runtime-Jobs-and-Control/Desk-Automations-and-Service-Windows.md`
 - Test notes from the days this panel landed:
-  - `5 - RootRecord-Library/Documentation/07-testing/2026-09-29-root-monitor-settings-running-network-ssh.md`
-  - `5 - RootRecord-Library/Documentation/07-testing/2026-09-29-root-monitor-aws-fallback-page.md`
-  - `5 - RootRecord-Library/Documentation/07-testing/2026-09-29-root-monitor-toggle-buttons.md`
+  - `5 - RootRecord-Library/Documentation/07-Testing/2026-09-29-root-monitor-settings-running-network-ssh.md`
+  - `5 - RootRecord-Library/Documentation/07-Testing/2026-09-29-root-monitor-aws-fallback-page.md`
+  - `5 - RootRecord-Library/Documentation/07-Testing/2026-09-29-root-monitor-toggle-buttons.md`
