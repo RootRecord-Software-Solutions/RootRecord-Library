@@ -24,6 +24,8 @@ Documentation about RootRecord agents. **Canonical identity packs do not live he
 
 Council pipeline: **Ava → Carly → Bruce**. That pipeline is not the Global Updater, not Wren, and not Cove.
 
+Fleet rule (Alexander via Master, 2026-10-02): any agent that finishes work that produced changes sends Wren a change summary so the Documenter can update the Library. Ecosystem work stays on the local desk checkout only.
+
 ```text
 Ava Ivy
 → Minecraft / RootMC

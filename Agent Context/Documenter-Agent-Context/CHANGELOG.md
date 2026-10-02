@@ -1,5 +1,8 @@
 # Changelog — Root Record Documenter Agent Context
 
+## 0.1.4 — 2026-10-02
+- Fleet rule: agents send Wren a change summary after work that produced changes (Alexander via Master)
+
 ## 0.1.3 — 2026-10-01
 - COOKIES.md private tally; opening balance 100
 

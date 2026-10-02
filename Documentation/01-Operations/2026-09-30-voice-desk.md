@@ -4,15 +4,15 @@ Finished Hawaii reports go to the Mainland station. The station snapshots the pl
 
 This is the living description of the spoken reports. The 2026-09-29 port record is [Voice-Reports-G3](../10-AI-and-Agent-Runtime/Voice-Reports-G3.md). Where that file still says a job is off, has no delivery, or uses an old minute, this file wins. Trust `Automations/scripts/poller/run-poller.sh` and `Automations/scripts/jobs.py` over older “what stays off” lists.
 
-## Current as of 2026-10-02 ~00:50 HST
+## Current as of 2026-10-02 ~01:07 HST
 
-Alexander’s operator copy, checked against live `jobs.py`, `voice-timing.md` (generated 2026-10-02 00:05 HST, 292 finished runs), `radio_push.stage_on_air`, `compare_span.py`, and `status_cue.py`. Nothing in that pass was committed. The poller was restarted earlier for the schedule and local status cues. `radio_push` is imported on each job, so the next successful push stages without another poller restart. The live Mainland mixer is release `stage-notice` (active symlink `/home/ubuntu/rootrecord-radio/releases/stage-notice`). Desk and ML1 REBUILD `status-api/stream.js` match. A quiet switch used `deploy-pending` and exit 75. Do not kill the encoder mid-report.
+Alexander’s operator copy, checked against live `jobs.py`, `voice-timing.md` (generated 2026-10-02 01:07 HST, 303 finished runs), `radio_push.stage_on_air`, `compare_span.py`, and `status_cue.py`. The live Mainland mixer is release `stage-notice` (active symlink `/home/ubuntu/rootrecord-radio/releases/stage-notice`). Desk and ML1 REBUILD `status-api/stream.js` match. A quiet switch used `deploy-pending` and exit 75. Do not kill the encoder mid-report. `radio_push` is imported on each job, so the next successful push stages without another poller restart.
 
 ### Station lock and lead time
 
 The station locks the playlist at `HH:29:59` and `HH:59:59`, then plays the half-hour chime and every current report. A file that arrives after that lock waits for the next cycle. Generation used to start at `:00` and `:30`, which was too late. The ten generating desks share one poller thread and one Kokoro lock, so they run one after another.
 
-From [voice-timing.md](./voice-timing.md) (292 runs): ten-desk sum median **376 s** (6m16s), average **454 s** (7m34s), p90 **891 s** (14m51s). Lead from `:12:00` to the `:29:59` lock is **17 minutes 59 seconds**. `:42` has the same lead before `:59:59`. That p90 fits, with about three minutes spare. `:12` and `:42` stay. News stays at `:36`. Hurricane stays at 05:40, 09:40, 12:40, 16:40, and 20:40. The hourly chime stays at `:00` and `:30` and is a replay of prebuilt files, not a render.
+From [voice-timing.md](./voice-timing.md) (303 runs): ten-desk sum median **376 s** (6m16s), average **459 s** (7m39s), p90 **889 s** (14m49s). Lead from `:12:00` to the `:29:59` lock is **17 minutes 59 seconds**. `:42` has the same lead before `:59:59`. That p90 fits, with about three minutes spare. `:12` and `:42` stay. News stays at `:36`. Hurricane stays at 05:40, 09:40, 12:40, 16:40, and 20:40. The hourly chime stays at `:00` and `:30` and is a replay of prebuilt files, not a render.
 
 Daypart roll-ups cannot be uploaded before their window opens, or the upload deletes the roll-up that is still on the air. Morning **09:02**, midday **12:02**, late **21:02**, late final **23:02**. Those first air on the following half hour. `voice_timing_report` runs at minute **5**. It is not a model. It rewrites [voice-timing.md](./voice-timing.md) from the automations log and `jobs.py`. The poller imports `jobs.py` once at start, so a schedule change needs a restart of `rr-rootserver-poller.service` as user `rootrecord`.
 
@@ -94,8 +94,9 @@ Each of the ten desks has four local status lines, already rendered, played on t
 | Transit | “<Label> report has been generated and is in transit” | when the send starts |
 | Failed | “<Label> report was generated but failed to send” | if the send fails |
 | Sent | “<Label> report was sent successfully” | only after Mainland One has the file (`ffprobe` duration ≥ 0.2 s, then `mv`) |
+| Stack closer | Ava: “All reports have been sent successfully. Heavy work may resume.” | once per `:12` / `:42` cycle after all ten desks have a Mainland receipt |
 
-A skipped send, including a daypart outside its window, is not a failure and does not play the failure line. Code: `Media/Voice/scripts/status_cue.py`.
+After each successful send, `status_cue.note_sent` records the desk in Database `Reports/Voice/stack-send.json` under that cycle key (`YYYY-MM-DDTHH:12` or `:42`; a run past the hour stays on the prior `:42`). When the set of ten is complete and the closer has not yet played this cycle, it plays `Clips/Ava/stack_all_sent.wav` once and marks `announced`. A skipped send, including a daypart outside its window, is not a failure and does not play the failure line. Code: `Media/Voice/scripts/status_cue.py`. Test: `test_status_stack.py`.
 
 ### Staged on-air cues (radio)
 
@@ -149,7 +150,7 @@ Morning tilt helps early capture and is not required. Overnight left tilt is the
 
 ## Spoken clock, change lines, and cues
 
-See **Generation clock**, **Percent change lines**, **Local status clips**, and **Staged on-air cues** under Current as of 2026-10-02 above. This section is kept so older links land somewhere: generation clock (not air slot); `compare_span.py` percent lines; four desk `aplay` status phases; two staged on-air phases with `notify.opus` first.
+See **Generation clock**, **Percent change lines**, **Local status clips**, and **Staged on-air cues** under Current as of 2026-10-02 above. This section is kept so older links land somewhere: generation clock (not air slot); `compare_span.py` percent lines; four desk `aplay` status phases plus Ava stack closer; two staged on-air phases with `notify.opus` first.
 
 ## Hourly chimes
 

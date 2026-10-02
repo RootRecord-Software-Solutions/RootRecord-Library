@@ -11,7 +11,8 @@
 
 ## When another agent changed behavior
 
-The same list applies. The behavior is not documented until the page in WHERE-TO-WRITE says it.
+Standing rule (Alexander via Master, 2026-10-02): whenever any agent finishes work that produced changes, they send Wren a short change summary automatically. Expect those FYIs. Document from the summary the same way as a direct ask: WHERE-TO-WRITE pages, one HANDOFF paragraph, no new folders. The behavior is not documented until the page in WHERE-TO-WRITE says it.
+
 
 ## What this workflow does not do
 

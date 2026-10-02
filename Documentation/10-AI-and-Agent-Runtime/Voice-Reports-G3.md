@@ -8,9 +8,9 @@
 | **Tests** | `07-Testing/2026-09-29-kokoro-voice-port-g3.md` · `07-Testing/2026-09-29-kokoro-phrase-clips-qc.md` · `07-Testing/2026-09-29-hawaiian-pronunciation-sheet.md` |
 
 
-## Current as of 2026-10-02 ~00:50 HST
+## Current as of 2026-10-02 ~01:07 HST
 
-Operator schedule and armed flags live in [2026-09-30 voice desk](../01-Operations/2026-09-30-voice-desk.md). This page is the 2026-09-29 port record. Where the sections below still name an old minute (`system_perf` docstring :06) or say roll-ups / hurricane / late-final are gated off, the voice-desk page and live `jobs.py` / `run-poller.sh` win. As of ~00:50 HST (Alexander operator copy): :12/:42 lead 17m59s into the playlist lock; ten-desk p90 891s fits; generation-clock stamps (not snapped slots); `compare_span.py` percent lines; four desk status clips + staged on-air cues (`notify.opus` ding first); mixer release `stage-notice`. Living detail: [voice desk](../01-Operations/2026-09-30-voice-desk.md).
+Operator schedule and armed flags live in [2026-09-30 voice desk](../01-Operations/2026-09-30-voice-desk.md). This page is the 2026-09-29 port record. Where the sections below still name an old minute (`system_perf` docstring :06) or say roll-ups / hurricane / late-final are gated off, the voice-desk page and live `jobs.py` / `run-poller.sh` win. As of ~01:07 HST: :12/:42 lead 17m59s into the playlist lock; ten-desk p90 889s fits (voice-timing.md 303 runs); generation-clock stamps; `compare_span.py` percent lines; four desk status clips plus Ava stack closer after all ten Mainland receipts; staged on-air cues (`notify.opus` ding first); mixer release `stage-notice`. Living detail: [voice desk](../01-Operations/2026-09-30-voice-desk.md).
 
 **Pipeline (live):** `jobs.py` → `voice_reports.py` / `system_perf.py` → MD (+ Archive under `test-reports/Voice/`) → `voice-render.sh` stitch (Kokoro single-flight) → `voice_deliver` when `RR_VOICE_DELIVER=1` → `radio_push` unless `RR_RADIO_PUSH=0` → Discord `report_relay` (300 s) → `publish_report_pages` → `/reports/<slug>`.
 
@@ -40,7 +40,7 @@ Operator schedule and armed flags live in [2026-09-30 voice desk](../01-Operatio
 
 | What | Where | Git |
 | --- | --- | --- |
-| Code | Pacific `Media/Voice/scripts/` — `voice_generate.py` (engine: render / stitch / clips / asr), `voice-render.sh` (lock wrapper), `speakers.py` (personas, gate, retire), `speakable.py`, `hawaiian_lexicon.py`, `test_hawaiian_lexicon.py`, `clip_catalog.py`, `voice_asr_check.py`, `system_perf.py`, `voice_reports.py` (batch-2 report templates, stdlib), `compare_span.py` + `test_compare_span.py` (percent change vs yesterday/week/month), `status_cue.py`, `radio_push.py` | tracked |
+| Code | Pacific `Media/Voice/scripts/` — `voice_generate.py` (engine: render / stitch / clips / asr), `voice-render.sh` (lock wrapper), `speakers.py` (personas, gate, retire), `speakable.py`, `hawaiian_lexicon.py`, `test_hawaiian_lexicon.py`, `clip_catalog.py`, `voice_asr_check.py`, `system_perf.py`, `voice_reports.py` (batch-2 report templates, stdlib), `compare_span.py` + `test_compare_span.py` (percent change vs yesterday/week/month), `status_cue.py` + `test_status_stack.py` (local status + stack closer), `radio_push.py` | tracked |
 | Venv | Pacific `Media/Voice/.venv` (uv CPython 3.12, 1.3 GB, incl. openai-whisper for QC) | ignored (`.venv/`) |
 | Model | Database `AI/Kokoro/Kokoro-82M/` (weights, config, all 54 voice packs; 340 MB; copied from G1, source untouched) | ignored (`/AI/Kokoro/Kokoro-82M/`, `*.pth`, `*.pt`) |
 | ASR model | Database `AI/Whisper/tiny.pt` (72 MB, on-demand QC only) | ignored (`*.pt`) |
@@ -49,6 +49,7 @@ Operator schedule and armed flags live in [2026-09-30 voice desk](../01-Operatio
 | History | Database `Media/Audio/Voice/Archive/<report>_YYYYMMDDTHHMM.wav`; sidecars in `test-reports/Voice/Archive/` | WAV cache ignored; text sidecars non-git |
 | Phrase clips | Database `Media/Audio/Voice/Clips/<Persona>/<slug>.wav` | ignored (`*.wav`) |
 | Compare ledger | Database `Reports/Comparisons/metrics.jsonl` (`compare_span.py`) | ignored with Database status paths |
+| Stack-send state | Database `Reports/Voice/stack-send.json` (`status_cue.note_sent`) | ignored with Database status paths |
 | Clip manifest | Database `Media/Audio/Voice/Clips/clips_manifest.json` | **tracked** |
 | system_perf text | `test-reports/Voice/system_perf_current.md` → `test-reports/Voice/Archive/system_perf_YYYYMMDDTHHMM.md` (non-git) | non-git |
 | Voice report text (batch 2) | `test-reports/Voice/<report>_current.md` → `test-reports/Voice/Archive/<report>_YYYYMMDDTHHMM.md` (WAV history remains in `Media/Audio/Voice/Archive/` as above) | non-git; Archive retained |

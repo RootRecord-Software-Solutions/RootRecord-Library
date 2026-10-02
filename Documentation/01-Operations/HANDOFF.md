@@ -95,6 +95,10 @@ Non-council callers and `flm-warmup.sh` still default to `llama3.2:1b`. The coun
 
 ## Recent changes
 
+2026-10-02 ~01:19 HST: Alexander (via Master) set a fleet rule: whenever any agent finishes work that produced changes, they automatically send Wren a change summary for Library documentation. Recorded in Documenter `WORKFLOW.md` / `ROLE-AND-BOUNDS.md` and `Documentation/02-Agents/README.md`. Ecosystem stays local-desk only.
+
+2026-10-02 ~01:07 HST: After every successful Mainland receipt, `status_cue.note_sent` tracks the ten :12/:42 desks in Database `Reports/Voice/stack-send.json`. When the set is complete for that cycle, Ava plays local closer `Clips/Ava/stack_all_sent.wav` once (“All reports have been sent successfully. Heavy work may resume.”); still desk-only, gated by `RR_VOICE_STATUS`. `voice_timing_report` rewrote `voice-timing.md` (303 runs; ten-desk median 376s / avg 459s / p90 889s). See `Documentation/01-Operations/2026-09-30-voice-desk.md` and `Documentation/10-AI-and-Agent-Runtime/Voice-Reports-G3.md`.
+
 2026-10-02 ~00:50 HST: Alexander confirmed the voice operator copy (HST). Station locks at HH:29:59 / HH:59:59; ten desks at :12/:42 (median 376s / p90 891s from voice-timing.md 292 runs, 17m59s lead). News :36; hurricane five :40 slots; chime :00/:30 file replay. Roll-ups 09:02/12:02/21:02/late-final 23:02 first air next half hour. Generation clock (not air slot); `compare_span` percent lines; four desk status clips (`RR_VOICE_STATUS`); staged on-air cues with `notify.opus` then spoken line (mixer `stage-notice`). Nothing committed in that pass. See `Documentation/01-Operations/2026-09-30-voice-desk.md` and `voice-timing.md`.
 
 2026-10-02 ~00:51 HST: Cove applied Alexander’s primary nav and sitewide footer on `Website/Home/` (39 pages plus `publish_report_pages.py` chrome). Current page is a span, not a link. Library `SITE.md`, Home README, and `Documentation/05-Public-Surface/README.md` already matched the lists; this note records the live page apply.
