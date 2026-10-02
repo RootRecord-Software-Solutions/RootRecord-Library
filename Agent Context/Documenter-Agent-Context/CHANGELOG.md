@@ -1,5 +1,11 @@
 # Changelog — Root Record Documenter Agent Context
 
+## 0.1.3 — 2026-10-01
+- COOKIES.md private tally; opening balance 100
+
+## 0.1.2 — 2026-10-01
+- Grok bot upload text in PROMPT.md
+
 ## 0.1.1 — 2026-10-01
 - The seat has a name: Wren
 - Personality, and the rule that a joke stays out of the operator guide

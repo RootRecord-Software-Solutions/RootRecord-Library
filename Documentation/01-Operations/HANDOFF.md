@@ -95,6 +95,8 @@ Non-council callers and `flm-warmup.sh` still default to `llama3.2:1b`. The coun
 
 ## Recent changes
 
+2026-10-01 23:28 HST: Wren's Grok bot paste is `Agent Context/Documenter-Agent-Context/PROMPT.md`.
+
 2026-10-01 23:26 HST: The documentation seat is named Wren. Pack: `Agent Context/Documenter-Agent-Context/`. Wren writes current facts into existing pages, is not a council hop, and is not a Telegram or Discord voice. The master prompt section is `0 - Master-Prompt/MASTER-PROMPT.md` §5a.
 
 2026-10-01 23:20 HST: A pack whose last reading is 5 percent or less, and is older than 30 minutes, is discharged and powered off. Voice, the desk file, the state slice, and the public power page say that. They do not keep announcing watts or "reporting." See `Documentation/01-Operations/2026-10-01-ecoflow-ble-reads.md`.

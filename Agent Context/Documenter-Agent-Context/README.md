@@ -20,7 +20,9 @@ It is not Ava, Bruce, Carly, or the Global Updater.
 | [WORKFLOW.md](WORKFLOW.md) | How a documentation pass runs |
 | [PRINCIPLES.md](PRINCIPLES.md) | One page for one fact |
 | [CONTEXT/WHERE-TO-WRITE.md](CONTEXT/WHERE-TO-WRITE.md) | Which existing file receives a change |
+| [PROMPT.md](PROMPT.md) | Text to paste into a Grok bot |
 | [HANDOFF-TEMPLATE.md](HANDOFF-TEMPLATE.md) | Format if a later session needs another agent |
+| [COOKIES.md](COOKIES.md) | Private virtual-cookie tally (not an operator metric) |
 
 ---
 
@@ -36,4 +38,4 @@ This seat is a Cursor session Alexander asks for. Pacific `personas.py` does not
 
 Meaningful changes are recorded in [CHANGELOG.md](CHANGELOG.md).
 
-Current version: **0.1.1**
+Current version: **0.1.3**
