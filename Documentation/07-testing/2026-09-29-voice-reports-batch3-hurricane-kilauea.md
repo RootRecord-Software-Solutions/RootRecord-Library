@@ -4,7 +4,7 @@
 | --- | --- |
 | **Date / time (HST)** | 2026-09-29 13:41–13:44 HST |
 | **Tester** | Grok Bot (desk agent, old-repo migration pass) |
-| **Change under test** | Pacific `Media/Voice/scripts/voice_reports.py`: new builders `hurricane_desk` (G1 `weather/hurricane-desk/scripts/hurricane_desk.py` Hawaiʻi block) and `kilauea_report` (G1 `hourly-clip-reports` Kīlauea desk, `persona._kilauea_line` wording, + cached clip "Here is the latest Hawaiian Volcano Observatory notice, unedited for honesty."). Gated jobs `voice_hurricane_desk` (`RR_VOICE_HURRICANE`) and `voice_kilauea_report` (`RR_VOICE_KILAUEA`). [Matrix](../00-architecture/Old-Repo-Migration-Matrix.md) |
+| **Change under test** | Pacific `Media/Voice/scripts/voice_reports.py`: new builders `hurricane_desk` (G1 `weather/hurricane-desk/scripts/hurricane_desk.py` Hawaiʻi block) and `kilauea_report` (G1 `hourly-clip-reports` Kīlauea desk, `persona._kilauea_line` wording, + cached clip "Here is the latest Hawaiian Volcano Observatory notice, unedited for honesty."). Gated jobs `voice_hurricane_desk` (`RR_VOICE_HURRICANE`) and `voice_kilauea_report` (`RR_VOICE_KILAUEA`). [Matrix](../../04-Migration-and-Legacy-Recovery/Old-Repo-Migration-Matrix.md) |
 | **State** | **PASS** (text, `--no-voice`, temp output) · WAV + by-ear **VERIFY PENDING** (no model load this pass) · jobs **LANDED, gated OFF**; keeping the jobs.py registration is a **sign-off item** |
 | **Evidence** | this record; jobs.py blocks in `2 - RootRecord-Database/Logs/Migration/migration-jobs-py-additions-20260929.md` |
 | **Commits** | see the worklog section (auto-sync) |

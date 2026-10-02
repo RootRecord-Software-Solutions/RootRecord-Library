@@ -50,7 +50,7 @@ Old names that are **not** this channel (already true):
 
 - **WO-MIG-47 DirectoryBrowser** — local listing CLI. Old `operations/broadcast.py` was a file server, not YouTube Live.
 - **WO-MIG-19 HurricaneRadio** — dry-run handoff of `hurricane_desk` to `Media/Playback`. Speakers and AWS radio stay off.
-- **Globe / `www.rootrecord.cloud`** — public site and AWS globe overlay. Not the live stream.
+- **`www.rootrecord.cloud`** — the public site on Vercel. Not the live stream. The stream is `https://radio.rootrecord.cloud/radio/live.mp3`.
 
 ---
 

@@ -1,6 +1,6 @@
 # US-Mainland-One
 
-Current as of 2026-10-02 08:40 UTC. This page is the live host. The operator guide is [2026-10-01 radio station](../01-operations/2026-10-01-radio-station.md). The 2026-09-29 import, globe, and fallback notes are historical. They are in [the archive architecture page](../archive/2026-W40/architecture-pre-reorg/US-Mainland-Server.md) and the 2026-09-29 testing records. Do not treat that inventory as this machine.
+Current as of 2026-10-02 08:40 UTC. This page is the live host. The operator guide is [2026-10-01 radio station](../01-operations/2026-10-01-radio-station.md). The 2026-09-29 import, globe, and fallback notes are the testing records from that day. Do not treat that inventory as this machine.
 
 | Field | Value |
 | --- | --- |

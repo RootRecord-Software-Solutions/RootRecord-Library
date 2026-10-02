@@ -4,7 +4,7 @@
 | --- | --- |
 | **Date / time (HST)** | 2026-09-29 04:16–04:17 HST |
 | **Tester** | agent pass g3-specialists |
-| **Change under test** | New `System/scripts/plumbing/route-specialist.py` + `System/config/specialist-routes.json` ([design](../00-architecture/AI-Specialist-Models-and-Routing.md)) |
+| **Change under test** | New `System/scripts/plumbing/route-specialist.py` + `System/config/specialist-routes.json` ([design](../../01-AI-and-Agent-Runtime/AI-Specialist-Models-and-Routing.md)) |
 | **State** | **PASS** (labelled set 35/35; privacy PASS). Held-out set 5/8, informational only |
 | **Evidence** | `2 - RootRecord-Database/Logs/AI/Routing/router-test-2026-09-29.md` (full table) |
 | **Commits** | see the design doc / final report (auto-sync) |

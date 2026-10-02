@@ -4,7 +4,7 @@
 | --- | --- |
 | **Date / time (HST)** | 2026-09-29 13:45–13:55 HST |
 | **Tester** | Grok (executor, us-mainland-import pass) |
-| **Change under test** | Desk clone of `RootRecord-Software-Solutions/US-Mainland-One` into `1 - Servers/2 - RootRecord-US-Mainland-One`; root `.env.example`, README layout section, `.gitignore` bytecode rule; local `~/.ssh/config` `rr-aws` ProxyCommand path. [Architecture](../00-architecture/US-Mainland-One.md) |
+| **Change under test** | Desk clone of `RootRecord-Software-Solutions/US-Mainland-One` into `1 - Servers/2 - RootRecord-US-Mainland-One`; root `.env.example`, README layout section, `.gitignore` bytecode rule; local `~/.ssh/config` `rr-aws` ProxyCommand path. [Architecture](../../06-Domains-and-External-Systems/US-Mainland-One.md) |
 | **State** | Import **PASS** · setup **LANDED** (uncommitted) · `rr-aws` **FAIL** (remote: no tunnel connector) · `rr-aws-ip` **FAIL** (stale IP) · read-only SSH to current IP **PASS** |
 | **Evidence** | this record (outputs quoted below) |
 | **Commits** | Mainland: none (not in auto-sync, no git writes) · Library: see worklog *us-mainland-import pass* |

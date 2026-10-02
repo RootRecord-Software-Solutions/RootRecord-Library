@@ -4,7 +4,7 @@
 | --- | --- |
 | **Date / time (HST)** | 2026-09-29 11:53–12:16 HST |
 | **Tester** | Grok Bot (executor agent) on Alexander Storey's desk |
-| **Change under test** | New read-only panel at Pacific `Apps/Control-Panel/` ([architecture](../00-architecture/Control-Panel-GTK.md)), plus the Conky config, `.desktop` launcher and systemd --user unit (not enabled) |
+| **Change under test** | New read-only panel at Pacific `Apps/Control-Panel/` ([architecture](../../02-Runtime-Jobs-and-Control/Control-Panel-GTK.md)), plus the Conky config, `.desktop` launcher and systemd --user unit (not enabled) |
 | **State** | **PASS** (`--check` both modes, strace camera-off proof, real-window render of all pages). **VERIFY PENDING**: Conky (not installed) and the autostart unit (not enabled). Window RSS 85 MB is over the 80 MB target (flagged) |
 | **Evidence** | `RootRecord-Ecosystem/test-reports/Control-Panel/` (check output, time -v, strace, screenshots) |
 | **Commits** | auto-sync; see the worklog section (read-only `git log`) |

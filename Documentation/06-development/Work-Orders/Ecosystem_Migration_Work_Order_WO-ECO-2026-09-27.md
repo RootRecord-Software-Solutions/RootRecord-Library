@@ -150,7 +150,7 @@ RootRecord-Ecosystem
 
 ## 5. Sync system (standing)
 
-Catalog: Pacific `Github/scripts/repos.conf`. Pacific, Database, and Library are mirror rows. Their live folders have no `.git`. `skills` and `mainland` stay disabled and point at `Old repos deleted and merged/ollama-skills-g2-2026-09-30`.
+Catalog: Pacific `Github/scripts/repos.conf`. Pacific, Database, Library, website, website-personal, and mainland are mirror rows. Their live folders have no `.git`. `skills` stays disabled and points at `Old repos deleted and merged/ollama-skills-g2-2026-09-30`. `mainland` publishes `1 - Servers/2 - RootRecord-US-Mainland-One`, radio checkout `9b7fccf`.
 
 | id | enabled | mode | local (desk) | github_slug |
 | --- | --- | --- | --- | --- |
@@ -159,7 +159,7 @@ Catalog: Pacific `Github/scripts/repos.conf`. Pacific, Database, and Library are
 | library | 1 | mirror | `…/5 - RootRecord-Library` | `RootRecord-Software-Solutions/RootRecord-Library` |
 | skills | 0 (disabled) | inplace | `…/Old repos deleted and merged/ollama-skills-g2-2026-09-30` | `rootrecordsoftwaresolutions/Solar-Pacific-RootRecord-Server` |
 | website | 1 | mirror | Pacific `Website/Home/` | `RootRecord-Software-Solutions/RootRecord-Website` |
-| mainland | 0 (disabled) | inplace | `…/Old repos deleted and merged/ollama-skills-g2-2026-09-30/us-mainland-one` | `RootRecord-Software-Solutions/US-Mainland-One` |
+| mainland | 1 | mirror | `…/1 - Servers/2 - RootRecord-US-Mainland-One` | `RootRecord-Software-Solutions/US-Mainland-One` |
 
 Deploy standing rule: push → sync merge → `schedule-stack-reload` when runtime code is pulled.
 
@@ -216,5 +216,5 @@ The operator installed the documented AMD XDNA2/XRT prerequisite stack on the Pa
 - **§4.3 Node (US-Mainland / AWS):** no longer only a placeholder. Desk checkout imported (**PASS**). AWS feed trim + cron, tunnel (`www` 200) and the static allowlist: **PASS**. AWS fallback Phase 2 LANDED on the trimmed-micro t3.micro profile (908 MB RAM), with Root Monitor write mode: **PASS**. A real fallback and a relay send are VERIFY PENDING. Details: [US-Mainland-One](../../06-Domains-and-External-Systems/US-Mainland-One.md).
 - **§4.3 Website (as of 16:25 HST that day):** `www.rootrecord.cloud` served the AWS globe. The RootRecord-Cloud staging build had passed and was not deployed. **Superseded 2026-10-01:** production is `https://www.rootrecord.cloud/` on Vercel. `ssh.rootrecord.cloud` is retired. Mainland One is radio. The contract is `Website/HANDOFF-vercel-homepage-2026-09-30.md` and `Documentation/01-operations/2026-10-01-mainland-rename-and-ssh-tunnels.md`.
 - **New ecosystem folder:** `6 - Android Development` (9 apps, 80.7 MB). Not a git repo, not in `repos.conf`. Build VERIFY PENDING. [Inventory](../../05-Products-Repositories-and-Applications/Android-Apps-Inventory.md).
-- **§5 sync table:** `mainland` stays disabled. The live Mainland tree is a directory inside the umbrella and is not its own git checkout. The `website` row in §5 is the 2026-09-30 catalog, not the disabled row that was current at this pause.
+- **§5 sync table:** `mainland` is on and publishes the radio tree at `9b7fccf`. The live Mainland folder is a directory inside the umbrella and is not its own git checkout. `website` publishes `Website/Home/`.
 - Sign-offs: [worklog "State at pause, 16:25 HST"](../../01-operations/0%20-%20Human%20Operator%20Work%20Logs/2026-09-29%20System%20Operator%20Worklog%20%E2%80%94%20Overnight.md#state-at-pause-1625-hst-2026-09-29).

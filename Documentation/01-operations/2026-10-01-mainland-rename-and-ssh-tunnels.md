@@ -192,7 +192,7 @@ Places that now say One and Two include:
 - Mainland One `README.md`, `SKILL.md`, `INDEX.md`, `references/GITHUB-IDENTITY.md` (commit identity label is now `US-MAINLAND-ONE`)
 - Mainland Two `README.md` title and the git-pull unit description
 
-The current architecture stub is `Documentation/00-architecture/US-Mainland-One.md`. The long page is `Documentation/06-Domains-and-External-Systems/US-Mainland-One.md`. The September 29 page is a historical import record. Its names were rewritten with the same script, so it no longer says the old folder name, and it still describes 2026-09-29.
+The current architecture stub is `Documentation/../06-Domains-and-External-Systems/US-Mainland-One.md`. The long page is `Documentation/06-Domains-and-External-Systems/US-Mainland-One.md`. The September 29 page is a historical import record. Its names were rewritten with the same script, so it no longer says the old folder name, and it still describes 2026-09-29.
 
 ### Left unchanged on purpose
 

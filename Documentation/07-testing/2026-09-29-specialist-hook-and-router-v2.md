@@ -4,7 +4,7 @@
 | --- | --- |
 | **Date / time (HST)** | 2026-09-29 04:51–05:00 HST |
 | **Tester** | agent pass g3-specialists (hook + router v2) |
-| **Change under test** | `run-infer.sh` specialist hook (`RR_SPECIALIST_ROUTING`, default off); `route-specialist.py --force`; `specialist-routes.json` v2; `template_fill.py` passing `RR_SPECIALIST=rr-exec` ([design](../00-architecture/AI-Specialist-Models-and-Routing.md) §3.1, §4) |
+| **Change under test** | `run-infer.sh` specialist hook (`RR_SPECIALIST_ROUTING`, default off); `route-specialist.py --force`; `specialist-routes.json` v2; `template_fill.py` passing `RR_SPECIALIST=rr-exec` ([design](../../01-AI-and-Agent-Runtime/AI-Specialist-Models-and-Routing.md) §3.1, §4) |
 | **State** | **PASS** (hook). Flag-off byte-identical 8/8; flag-on 7/7; both live calls routed correctly. Router v2: **no gain on the blind set** (17/22 → 17/22). Template free text still falls back (see below) |
 | **Evidence** | `System/scripts/plumbing/test-run-infer-hook.sh`; `2 - RootRecord-Database/Logs/AI/Routing/router-test-2026-09-29-v2.md`; inference and routing JSONL lines at 04:58:52 and 04:59:57 |
 | **Backup** | `/home/rootrecord/Database/GITHUB/g3-specialists.bak-20260929-041126/` (`*.pre-hook`, `*.pre-router-v2`) |

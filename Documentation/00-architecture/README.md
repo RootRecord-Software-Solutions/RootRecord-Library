@@ -9,4 +9,4 @@ This folder owns decisions, governance, and schemas.
 | [Schemas/](./Schemas/) | State envelope |
 | [archive/](./archive/) | Session 1 restructuring notes. History only |
 
-The loose pages that used to sit here are pointers. The current text is in the topic folder named by each pointer. The earlier full text of those pages is in `Documentation/archive/2026-W40/architecture-pre-reorg/`.
+Each topic page lives in one folder: AI runtime, jobs, Pacific architecture, migration, products, domains, communications, or ideas. This folder does not keep a second copy.

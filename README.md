@@ -62,7 +62,7 @@ RootRecord-Library/
 │  ├─ Bruce-Agent-Context/
 │  └─ Carly-Agent-Context/
 ├─ Documentation/
-│  ├─ 00-architecture/          Decisions, Governance, Schemas. Old page names are pointers.
+│  ├─ 00-architecture/          Decisions, Governance, Schemas. Topic pages live in the numbered folders.
 │  ├─ 01-AI-and-Agent-Runtime/
 │  ├─ 02-Runtime-Jobs-and-Control/
 │  ├─ 03-Pacific-Server-Current-Architecture/

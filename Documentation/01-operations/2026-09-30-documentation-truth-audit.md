@@ -6,6 +6,8 @@
 
 The desk clock and the GitHub sync log use different zones. Sync lines stamped `2026-10-01T03:58Z` are the same evening in HST.
 
+**Correction 2026-10-01:** the second and third copies of these pages were removed. One page remains, in its topic folder. `00-architecture/` keeps decisions, governance, and schemas. This audit's rows that say to keep the duplicate copies describe the desk on 2026-09-30.
+
 **Correction after this audit (same evening):** the `website` catalog row is enabled. It mirrors Pacific `Website/Home/` to `RootRecord-Software-Solutions/RootRecord-Website`. Rows below that say the website row is `enabled=0`, or that the desk has no website folder, describe the desk at about 18:00 HST. They are not the catalog after the public page was published.
 
 Labels in this report are only `VERIFIED`, `STALE`, `UNKNOWN`, `HISTORICAL`, or `CONFLICT`.
@@ -136,7 +138,7 @@ Off because the variable is unset and the default is `0`: `council_quake_telegra
 
 `state-aggregate.py` writes `2 - RootRecord-Database/System/status/rootrecord-state.json` and reads `desk-live.txt` under Database `Intake/`. `desk-live.py` writes the desk file. `ecosystem-skip-autocommit.txt` skips `System/status`, samples, layers, worklogs, and logs for the umbrella auto-commit. Database `.gitignore` also ignores live logs, `Energy/state`, `Weather/`, and control-panel live settings.
 
-`state-aggregate.py` still opens `Documentation/00-architecture/Old-Repo-Migration-Matrix.md`. That path exists because the duplicate copy remains. The canonical page is `Documentation/04-Migration-and-Legacy-Recovery/Old-Repo-Migration-Matrix.md`. The Python path was not changed.
+`state-aggregate.py` still opens `Documentation/../04-Migration-and-Legacy-Recovery/Old-Repo-Migration-Matrix.md`. That path exists because the duplicate copy remains. The canonical page is `Documentation/04-Migration-and-Legacy-Recovery/Old-Repo-Migration-Matrix.md`. The Python path was not changed.
 
 ## Verified Repository Facts
 
@@ -180,7 +182,7 @@ Observed at 2026-09-30 17:58 HST in the automations log: `ecosystem`, `pacific`,
 | `Repository-Ownership-Model.md` (new path and `00-architecture` copy) | Said `skills` stays enabled, `/home/rootrecord/Database/` holds flags, and `Pull.sh` pulls this desk | Rewrote the sync, flag, and history paragraphs to match `repos.conf` and the filesystem | `repos.conf` `skills/website/mainland` are `0`. `/home/rootrecord/Database` is absent. Live folders have no `.git` |
 | `0 - Master-Prompt/prompts/08-repository-and-file-links.md` | Same stale sync and path claims. Said the website desk folder was gone and nothing local exists | Pointed at Pacific `Website/`, the real Mainland directory, disabled sync rows, and the new ownership path | Those directories exist. `3 - RootRecord-Website/` does not |
 | `5 - RootRecord-Library/README.md` | Map omitted the seven new categories and named `adr/` and `schemas/`, which are not directories | Map lists the seven categories and drops the missing names | `ls` of `Documentation/` |
-| `README.md` (umbrella) | System-map link used `00-architecture/SYSTEM-MAP.md` | Link uses `03-Pacific-Server-Current-Architecture/SYSTEM-MAP.md` | File exists there |
+| `README.md` (umbrella) | System-map link used `../03-Pacific-Server-Current-Architecture/SYSTEM-MAP.md` | Link uses `03-Pacific-Server-Current-Architecture/SYSTEM-MAP.md` | File exists there |
 | `Documentation/02-agents/README.md` | Team-constitution link used the old folder. Personal mirror names disagreed with GitHub `full_name` | New folder path. `AvaIvy/AvaIvy-Agent-Context` and `CarlyMal/Carly-Agent-Context` | `gh api` full names. File exists |
 | Agent `CONTEXT/REPOS.md` (Ava, Bruce, Carly) | Called sync "one timer" and called `02-agents` an empty placeholder index | Poller job, not a systemd timer. Index description matches the files on disk | `systemctl --user list-timers` has no RootRecord timer. `02-agents/` contains modes, requests, handoff, capabilities |
 | `IDENTITY.md` (Ava, Bruce, Carly) | "Live Models" listed tags absent from `ollama list` | Installed tags versus absent names | `ollama list` |
@@ -207,7 +209,7 @@ The poller job `github_sync_all` committed some of those edits as `auto:` desk-s
 
 | File(s) | Conflict | Evidence | Decision Needed |
 | ------- | -------- | -------- | --------------- |
-| `Documentation/00-architecture/<31 files>` and `Documentation/01-AI-and-Agent-Runtime` through `07-Communications` | Two live copies. Runtime still reads the old matrix path | SHA-256 matched for 30 files. `state-aggregate.py` sets `MATRIX` to `Documentation/00-architecture/Old-Repo-Migration-Matrix.md`. `Apps/Control-Panel/Lib/rr_migration.json` still names old paths | Keep the duplicates until a runtime change retargets those readers, or accept the duplicates as the compatibility copies. Do not delete them in a docs-only pass |
+| `Documentation/00-architecture/<31 files>` and `Documentation/01-AI-and-Agent-Runtime` through `07-Communications` | Two live copies. Runtime still reads the old matrix path | SHA-256 matched for 30 files. `state-aggregate.py` sets `MATRIX` to `Documentation/../04-Migration-and-Legacy-Recovery/Old-Repo-Migration-Matrix.md`. `Apps/Control-Panel/Lib/rr_migration.json` still names old paths | Keep the duplicates until a runtime change retargets those readers, or accept the duplicates as the compatibility copies. Do not delete them in a docs-only pass |
 | `Work-Orders/Servers_Cutover_Work_Order_WO-SRV-2026-09-27.md` | A log line says the Mainland folder is a clone of `US-Mainland-One` | The directory exists and has no `.git`. The GitHub repository still exists. The sync row is disabled and does not point at this directory | Leave the sentence as a dated log, or add a later note that the desk copy is no longer a nested clone. This audit only retargeted the doc link |
 | Agent IDENTITY vs ROLE-AND-BOUNDS | No character conflict found | IDENTITY holds name, role summary, and personality. ROLE-AND-BOUNDS holds ownership and walls. Carly IDENTITY says "Never Clara". No current pack calls her Clara | None for character. Do not invent a personality winner |
 
@@ -216,7 +218,7 @@ CONFLICT
 Canonical candidate:
   Documentation/04-Migration-and-Legacy-Recovery/Old-Repo-Migration-Matrix.md
 Conflicting files:
-  Documentation/00-architecture/Old-Repo-Migration-Matrix.md
+  Documentation/../04-Migration-and-Legacy-Recovery/Old-Repo-Migration-Matrix.md
   1 - Servers/1 - RootRecord-Pacific-Solar-Server/System/scripts/state-aggregate.py
 Evidence:
   Both markdown copies hashed equal before this audit.

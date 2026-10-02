@@ -4,7 +4,7 @@
 | --- | --- |
 | **Date / time (HST)** | 2026-09-29 04:03–04:05 HST |
 | **Tester** | Grok Bot (executor, overnight build) |
-| **Change under test** | Pacific `Media/Voice/` (uv CPython 3.12 venv; kokoro 0.9.4, misaki[en] 0.9.4, torch 2.14.0+cpu, en_core_web_sm 3.8.0) + Database `AI/Kokoro/Kokoro-82M/`. Doc: `00-architecture/Voice-Reports-G3.md` |
+| **Change under test** | Pacific `Media/Voice/` (uv CPython 3.12 venv; kokoro 0.9.4, misaki[en] 0.9.4, torch 2.14.0+cpu, en_core_web_sm 3.8.0) + Database `AI/Kokoro/Kokoro-82M/`. Doc: `../01-AI-and-Agent-Runtime/Voice-Reports-G3.md` |
 | **State** | **PASS** (format, duration, resources) · by-ear **VERIFY PENDING** (clips not played, by rule) |
 | **Evidence** | Database `Media/Audio/Voice/voice_test_{ava,bruce,carly}_current.wav` (+ sidecars) |
 | **Backup** | `/home/rootrecord/Database/GITHUB/g3-voice-ailog.bak-20260929-035454/` |

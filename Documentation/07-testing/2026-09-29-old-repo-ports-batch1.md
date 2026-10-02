@@ -4,7 +4,7 @@
 | --- | --- |
 | **Date / time (HST)** | 2026-09-29 13:26–13:29 HST |
 | **Tester** | Grok Bot (desk agent, old-repo migration pass) |
-| **Change under test** | Ports of G1 `hourly-solar-weather` sun times → Pacific `Energy/scripts/sun_times.py`; G1 `uptime-log` → `System/scripts/uptime_log.py`; G1 `mp4-converter` → `Media/Video/scripts/mp4_converter.py` (+ `Media/Video/README.md`). Gated jobs `energy_sun_times` (`RR_SUN_TIMES`), `system_uptime_log` (`RR_UPTIME_LOG`). [Matrix](../00-architecture/Old-Repo-Migration-Matrix.md) |
+| **Change under test** | Ports of G1 `hourly-solar-weather` sun times → Pacific `Energy/scripts/sun_times.py`; G1 `uptime-log` → `System/scripts/uptime_log.py`; G1 `mp4-converter` → `Media/Video/scripts/mp4_converter.py` (+ `Media/Video/README.md`). Gated jobs `energy_sun_times` (`RR_SUN_TIMES`), `system_uptime_log` (`RR_UPTIME_LOG`). [Matrix](../../04-Migration-and-Legacy-Recovery/Old-Repo-Migration-Matrix.md) |
 | **State** | **PASS** (one manual run each) · jobs **LANDED, gated OFF** until the next poller start with the flag set |
 | **Evidence** | `2 - RootRecord-Database/Logs/Migration/migration-geology-evidence-20260929T2319Z.md` §5–§8 |
 | **Commits** | Pacific `cd48536` (sun_times, uptime_log, jobs gates); Media/Video + READMEs in later auto-sync (see worklog) · Database `0a2364e` (sun + uptime outputs) |

@@ -61,7 +61,7 @@ Pacific precedent that day: `us-mainland-one/` was excluded from Pacific as its 
 
 ## Live-surface findings (read-only, 2026-09-29)
 
-These four findings are that day's read. The Vercel project was deleted 2026-09-30. `www.rootrecord.cloud` is the AWS globe. The public page is Pacific `Website/Home/`.
+These four findings are that day's read. Production is `https://www.rootrecord.cloud/` on Vercel. `www` stays there. Mainland One is the radio host, not a globe. The public page is Pacific `Website/Home/`.
 
 1. `https://root-record-cloud.vercel.app` → **200** (Vercel site up).
 2. `https://rootrecord.cloud` → **301 → `https://www.rootrecord.cloud`** → **530 (Cloudflare 1033)**. `www.rootrecord.cloud` is routed to the **AWS Network Globe tunnel** (`US-Mainland-One/mirror/.cloudflared/config-globe.yml`), whose connector is down (see [US-Mainland-One](./US-Mainland-One.md)). So the public domain does not reach the Vercel site today, contrary to `AGENTS.md`.
@@ -88,7 +88,7 @@ cloud	0	inplace	…/Communications/website/RootRecord-Cloud	rootrecordsoftwareso
 
 ## Sign-off items (2026-09-29, closed or moved)
 
-1. `www.rootrecord.cloud` stayed on the AWS globe. The Vercel project was deleted. Domains have not moved to the new page.
+1. Closed 2026-10-01. `www.rootrecord.cloud` is on Vercel. The old AWS globe route is not the live site.
 2. Desk origin for the old Next app is closed with that app. Production is `https://www.rootrecord.cloud/`. The data contract is Pacific `Website/HANDOFF-vercel-homepage-2026-09-30.md`.
 3. The `cloud` sync row was not added.
 4. `scripts/auto-push.py` belonged to the deleted checkout.

@@ -4,7 +4,7 @@
 | --- | --- |
 | **Date / time (HST)** | 2026-09-29 04:31:25–04:34:05 HST |
 | **Tester** | agent pass g3-template-reports |
-| **Change under test** | `Reports/template_fill.py` + `Reports/template_validate.py` ([design](../00-architecture/Template-Report-Generation.md)); gated job `template_reports_daily` |
+| **Change under test** | `Reports/template_fill.py` + `Reports/template_validate.py` ([design](../../01-AI-and-Agent-Runtime/Template-Report-Generation.md)); gated job `template_reports_daily` |
 | **State** | **PASS** (4/4 outputs pass the structure validator; 0 unsupported numbers; model free text used for 1 of 2 templates, fallback for the other) |
 | **Evidence** | Database `Reports/Generated/*_current.md`, `Archive/`, `template-fill-validation_current.json`; `Logs/AI/Inference/inference_current.jsonl` (caller `template_fill`) |
 | **Backup** | `/home/rootrecord/Database/GITHUB/g3-specialists.bak-20260929-041126/` (`*.pre-template-reports`) |

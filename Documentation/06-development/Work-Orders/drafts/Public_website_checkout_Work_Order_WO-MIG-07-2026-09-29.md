@@ -6,7 +6,7 @@
 | **Date** | 2026-09-30 (HST) |
 | **Status** | BUILT — checkout landed in folder 3. Not on the active index. |
 | **Owner** | RootRecord |
-| **Related** | Agent 07. Later: 8 Site Cloudflare config and thumbnails; 9 Cloudflare workers; 10 Stripe, Vercel, and live-data pages; 11 US all-states weather dataset; 12 State and global news builders; 13 Country location pollers; 14 Desk product apps not imported; 38 AdSense and AdMob end-of-day. [Website-RootRecord-Cloud-Staging.md](../../../00-architecture/Website-RootRecord-Cloud-Staging.md). [2026-09-29-globe-landing-overlay.md](../../../08-ideas/2026-09-29-globe-landing-overlay.md). |
+| **Related** | Agent 07. Later: 8 Site Cloudflare config and thumbnails; 9 Cloudflare workers; 10 Stripe, Vercel, and live-data pages; 11 US all-states weather dataset; 12 State and global news builders; 13 Country location pollers; 14 Desk product apps not imported; 38 AdSense and AdMob end-of-day. [Website-RootRecord-Cloud-Staging.md](../../../../../../06-Domains-and-External-Systems/Website-RootRecord-Cloud-Staging.md). [2026-09-29-globe-landing-overlay.md](../../../08-ideas/2026-09-29-globe-landing-overlay.md). |
 
 **Scope:** Check the current Vercel app, `rootrecordsoftwaresolutions/RootRecord-Cloud`, into `3 - RootRecord-Website` as the one public site. Do not fill that checkout from the old `RootRecord-Website` skin or from `site-backgrounds`. The checkout landed 2026-09-30. No deploy and no push of `RootRecord-Cloud` `main`.
 

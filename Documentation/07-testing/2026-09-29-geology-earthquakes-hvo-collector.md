@@ -4,7 +4,7 @@
 | --- | --- |
 | **Date / time (HST)** | 2026-09-29 13:18–13:24 HST |
 | **Tester** | Grok Bot (desk agent, migration-geology pass) |
-| **Change under test** | New Pacific `Geology/scripts/{geology_collect,kilauea_cams,earthquakes_backfill}.py`; `voice_reports.py earthquake_report`; gated `jobs.py` entries `geology_collect`, `geology_kilauea_cams`, `voice_earthquake_report`. WO-SRV / WO-ECO; [matrix](../00-architecture/Old-Repo-Migration-Matrix.md) |
+| **Change under test** | New Pacific `Geology/scripts/{geology_collect,kilauea_cams,earthquakes_backfill}.py`; `voice_reports.py earthquake_report`; gated `jobs.py` entries `geology_collect`, `geology_kilauea_cams`, `voice_earthquake_report`. WO-SRV / WO-ECO; [matrix](../../04-Migration-and-Legacy-Recovery/Old-Repo-Migration-Matrix.md) |
 | **State** | **PASS** (one manual run each) · jobs **LANDED, gated OFF** (take effect only at the next poller start with the flag set) · earthquake WAV **VERIFY PENDING** (not rendered: no model load this pass) |
 | **Evidence** | `2 - RootRecord-Database/Logs/Migration/migration-geology-evidence-20260929T2319Z.md` |
 | **Commits** | see "Commits" below (auto-sync; checked with read-only `git log`) |
