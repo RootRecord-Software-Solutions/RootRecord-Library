@@ -7,6 +7,7 @@ Current as of 2026-10-02 ~01:30 HST. This page is the live host. The operator gu
 | **Role** | Radio only |
 | **GitHub** | `RootRecord-Software-Solutions/US-Mainland-One`, `main`, `9b7fccf` |
 | **Desk folder** | `1 - Servers/2 - RootRecord-US-Mainland-One` |
+| **Canonical git** | `Github-worktrees/mainland` — desk sync must flow worktree → Servers, never Servers → worktree |
 | **Host checkout** | `/home/ubuntu/US-Mainland-Server` |
 | **Host** | `ip-172-31-10-115`, public `3.140.195.32` |
 | **Runtime** | `/home/ubuntu/rootrecord-radio` |
