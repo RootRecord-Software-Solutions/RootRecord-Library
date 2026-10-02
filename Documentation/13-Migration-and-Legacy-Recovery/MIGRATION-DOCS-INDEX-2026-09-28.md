@@ -45,7 +45,7 @@ Single entry point for agents and operators working the Pacific server cutover *
 
 | Doc | Purpose |
 | --- | --- |
-| [US-Mainland-One.md](../15-Domains-and-External-Systems/US-Mainland-One.md) | **Radio host as of 2026-10-02.** The 16:25 HST globe table is not this page anymore. That day's record is the archive architecture page |
+| [US-Mainland-One.md](../15-Domains-and-External-Systems/US-Mainland-One.md) | **Radio host as of 2026-10-02.** The 16:25 HST globe table is the section [2026-09-29 import and pause](../15-Domains-and-External-Systems/US-Mainland-One.md#2026-09-29-import-and-pause) on that same page |
 | [07-testing/2026-09-29-aws-hawaii-trim-and-cloudflared.md](../07-testing/2026-09-29-aws-hawaii-trim-and-cloudflared.md) | **AWS Hawaii feed trim + `*/15` auto-trim cron; cloudflared tunnel restored** (`www` 530 → 200): PASS |
 | [07-testing/2026-09-29-aws-globe-static-allowlist.md](../07-testing/2026-09-29-aws-globe-static-allowlist.md) | **AWS static allowlist** (P0: globe `server.js` no longer serves its folder; sensitive paths 404): PASS |
 | [08-ideas/2026-09-29-aws-fallback-rebuild.md](../08-ideas/2026-09-29-aws-fallback-rebuild.md) | **AWS fallback rebuild**: small fallback node with per-function toggles; Phase 2 LANDED on the trimmed t3.micro profile (908 MB RAM); real fallback VERIFY PENDING |

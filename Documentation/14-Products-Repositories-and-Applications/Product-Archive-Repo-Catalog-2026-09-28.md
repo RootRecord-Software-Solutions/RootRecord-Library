@@ -59,6 +59,7 @@ Pacific = solar/ops/agents runtime. **Minecraft and desktop apps are separate pr
 | [Solar-Pacific-RootRecord-Server-Old](https://github.com/rootrecordsoftwaresolutions/Solar-Pacific-RootRecord-Server-Old) | public | **G1** archive + migration README |
 | [old](https://github.com/rootrecordsoftwaresolutions/old) | private | **G0** deepest archive + README |
 | [US-Mainland-One](https://github.com/RootRecord-Software-Solutions/US-Mainland-One) | public | Radio host. Checkout `9b7fccf`. Guide: `Documentation/01-operations/2026-10-01-radio-station.md` |
+| [US-Mainland-Server](https://github.com/rootrecordsoftwaresolutions/US-Mainland-Server) | public | 2026-09-29 continuity node at `b61d63c`. Inventory is on [US-Mainland-One](../15-Domains-and-External-Systems/US-Mainland-One.md#2026-09-29-import-and-pause) |
 | [ollama-skills](https://github.com/rootrecordsoftwaresolutions/ollama-skills) | private | OmniBook `~/.ollama/skills` desk |
 
 ### 4.2 Ava / core stacks (independent of Pacific domain folders)
