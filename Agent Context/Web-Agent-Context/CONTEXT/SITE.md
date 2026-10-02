@@ -24,7 +24,7 @@ Primary navigation (Alexander 2026-10-02): Home, Products, Services, Solutions, 
 | --- | --- |
 | `/` | Entrance. `assets/home.js` draws the globe from the state feed |
 | `/live` | Same globe, with the solar-desk overlay |
-| `/radio` | Plays `https://radio.rootrecord.cloud/radio/live.mp3` and reads `now.json`. The page does not mix audio. A Listen button shows when autoplay is refused |
+| `/radio` | Plays `https://radio.rootrecord.cloud/radio/live.mp3` and reads `now.json`. The page does not mix audio. Listen unlocks once; then auto-resume/reconnect (no TAP LISTEN on stall). 15-min / `/pro/radio` later, not built |
 | `/reports` and `/reports/<slug>` | Written by `Website/scripts/publish_report_pages.py` from the measured voice files. Spoken transcripts and persona names stay off the page |
 | `/operations` | Public readings. `assets/charts.js` draws charge, solar, and AC when the feed has them |
 | `/status` | Public system status |
