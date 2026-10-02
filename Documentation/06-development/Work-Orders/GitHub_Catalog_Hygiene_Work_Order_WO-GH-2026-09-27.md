@@ -85,7 +85,7 @@ Token: `master-key.env` — never commit.
 
 ## State at pause — 2026-09-29 16:25 HST
 
-- **Mainland:** the desk path `1 - Servers/2 - RootRecord-US-Mainland-Server/` is now a real git clone, so the desk side of "Enable mainland when path is a real git clone" is met. The `repos.conf` row still points at the empty G2 folder and stays disabled: **BLOCKED on sign-off** (exact row in [US-Mainland-Server](../../06-Domains-and-External-Systems/US-Mainland-Server.md)). The uncommitted Mainland changes (units, crontab, overlay, `fallback/`) wait on that.
+- **Mainland:** the desk path `1 - Servers/2 - RootRecord-US-Mainland-One/` is now a real git clone, so the desk side of "Enable mainland when path is a real git clone" is met. The `repos.conf` row still points at the empty G2 folder and stays disabled: **BLOCKED on sign-off** (exact row in [US-Mainland-One](../../06-Domains-and-External-Systems/US-Mainland-One.md)). The uncommitted Mainland changes (units, crontab, overlay, `fallback/`) wait on that.
 - **`6 - Android Development`:** not a repo and not in `repos.conf`, `Push.sh` or `Pull.sh`. Its `.gitignore` covers keystores and secrets (24/24 checked). [Inventory](../../05-Products-Repositories-and-Applications/Android-Apps-Inventory.md).
 - **Security (sign-off):** Android signing material sits in GitHub repos that aren't private (details kept out of this public page); PAT rotation; the earlier camera-stills and `CONNECTION.json` items.
 - **Tracking decisions (sign-off):** `Reports/board/daily-reports-due.json` tracked vs ignored; `git rm --cached` of generated reports.

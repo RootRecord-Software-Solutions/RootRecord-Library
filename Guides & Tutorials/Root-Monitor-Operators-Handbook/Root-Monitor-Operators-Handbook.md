@@ -608,7 +608,7 @@ The screenshot is the 02:35 HST capture. The list below is the 19:02 HST refresh
 | Weather retention apply | VERIFY PENDING |
 | Public status / solar board | VERIFY PENDING |
 | Public site foundation + website repo sync | VERIFY PENDING |
-| US-Mainland-Server (continuity node) | BLOCKED |
+| US-Mainland-One (continuity node) | BLOCKED |
 | G1 selective recovery packets | BLOCKED |
 | G2 residual paths (27 dormant files) | VERIFY PENDING |
 | Residual jobs path rewire | BLOCKED |

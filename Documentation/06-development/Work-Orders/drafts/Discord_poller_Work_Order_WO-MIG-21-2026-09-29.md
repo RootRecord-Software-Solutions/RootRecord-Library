@@ -14,7 +14,7 @@
 
 ## 1. Intent
 
-The old helper at `/home/rootrecord/old ollama/old skills/communications/discord/scripts/discord.py` is Discord REST: `get_messages`, `get_me`, and post, pin, forward, and DM. The AWS stub `1 - Servers/2 - RootRecord-US-Mainland-Server/communications/discord/poll.py` checks `DISCORD_BOT_TOKEN` and does nothing. Pacific `Communications/discord/` was a README. The poller now lives at `Communications/Discord/`. `master-key.env` still has no Discord key, and posting has no sign-off (WO-COM-002).
+The old helper at `/home/rootrecord/old ollama/old skills/communications/discord/scripts/discord.py` is Discord REST: `get_messages`, `get_me`, and post, pin, forward, and DM. The AWS stub `1 - Servers/2 - RootRecord-US-Mainland-One/communications/discord/poll.py` checks `DISCORD_BOT_TOKEN` and does nothing. Pacific `Communications/discord/` was a README. The poller now lives at `Communications/Discord/`. `master-key.env` still has no Discord key, and posting has no sign-off (WO-COM-002).
 
 The live system already runs Telegram `council_relay` (one `getUpdates` owner), EcoFlow BLE, the Hawaiʻi weather poller, `geology_collect.py`, the globe collector, camera grabs, and Kokoro. Those stay.
 
@@ -37,7 +37,7 @@ Folder name, used in all three paths: **Discord**. It is a subfolder of Communic
 | Secrets | `/home/rootrecord/master/master-key.env` only. Allowlist key name: `DISCORD_BOT_TOKEN`. That key is not in the file today. No second env file. |
 | Existing shell | Lowercase `Communications/discord/` removed 2026-09-30. README is `Communications/Discord/README.md`. Not LIVE. |
 | Old source read | `/home/rootrecord/old ollama/old skills/communications/discord/scripts/discord.py` |
-| AWS stub, leave it | `1 - Servers/2 - RootRecord-US-Mainland-Server/communications/discord/poll.py` |
+| AWS stub, leave it | `1 - Servers/2 - RootRecord-US-Mainland-One/communications/discord/poll.py` |
 | Skill copies, leave them | `~/.ollama/skills/coms/discord` and `old ollama/old skills/communications/discord`. Do not restore them. Do not delete them in phase 4. |
 | Old GitHub tree | `Solar-Pacific-RootRecord-Server-Old/communications/discord` is not a separate checkout on this machine. The archive folder is inside the Ecosystem repo and has no `communications/` directory. |
 | Live Telegram | `council_relay` stays the one `getUpdates` owner. |
@@ -121,7 +121,7 @@ Tasks 1–5 and 7 are done. Task 6 is paused. The record below is what was built
 | `2 - RootRecord-Database/Logs/Communications/Discord/` | Logs only. |
 | `/home/rootrecord/master/master-key.env` | Unchanged. Key name `DISCORD_BOT_TOKEN` is absent. |
 | `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Automations/scripts/jobs.py` | Disabled `discord_poller` block only. `enabled: False`. |
-| `1 - Servers/2 - RootRecord-US-Mainland-Server/communications/discord/poll.py` | AWS stub. Leave it. |
+| `1 - Servers/2 - RootRecord-US-Mainland-One/communications/discord/poll.py` | AWS stub. Leave it. |
 | `/home/rootrecord/old ollama/old skills/communications/discord/scripts/discord.py` | Old REST helper read for this draft. Not the phase 4 GitHub tree. |
 | `Old repos deleted and merged/Solar-Pacific-RootRecord-Server-Old/communications/discord/` | Phase 4 archive path. Not copied in this draft. |
 | `5 - RootRecord-Library/Documentation/Old-Repo-Migration-Matrix.md` | Row 59 Discord half set to partial. Slack half left missing. |

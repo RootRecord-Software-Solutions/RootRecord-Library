@@ -15,7 +15,8 @@ Automatic git sync is the poller job `github_sync_all` (WO-GH-001 Option B, 2026
 |------------|--------|
 | `RootRecord-Software-Solutions/RootRecord-Ecosystem` | Public umbrella. On this desk it is the git root at `/home/rootrecord/RootRecord-Ecosystem` |
 | `RootRecord-Software-Solutions/RootRecord-Pacific-Solar-Server` | Pacific runtime role. In this checkout that tree is a directory, not its own clone |
-| `RootRecord-Ecosystem/1 - Servers/2 - RootRecord-US-Mainland-Server/` | Secondary / recovery infrastructure node inside the umbrella checkout |
+| `RootRecord-Software-Solutions/US-Mainland-One` | Continuity node. Desk folder `1 - Servers/2 - RootRecord-US-Mainland-One/`, published by the `mainland` row. Not its own git repository |
+| `RootRecord-Software-Solutions/US-Mainland-Two` | YouTube station. Desk folder `1 - Servers/3 - RootRecord-US-Mainland-Two/`. Own repository. The umbrella gitignores it |
 | `RootRecord-Software-Solutions/RootRecord-Website` | Public home page. Mirror of Pacific `Website/Home/` (row `website`). Vercel builds this repository. The same folder also syncs to `rootrecordsoftwaresolutions/RootRecord-Website` (row `website-personal`). AWS is not the site. Production is `https://www.rootrecord.cloud/`. `ssh.rootrecord.cloud` is A `18.118.30.226`. The page requests `https://api.rootrecord.cloud` (A `18.118.30.226`, Caddy to `127.0.0.1:8091`). Reports are at `https://www.rootrecord.cloud/reports/`. Data contract: Pacific `Website/HANDOFF-vercel-homepage-2026-09-30.md`. The page is not a nested git checkout |
 | `RootRecord-Ecosystem/2 - RootRecord-Database/Weather/` | Hawaiʻi weather data & media inside the umbrella checkout |
 | `RootRecord-Software-Solutions/RootRecord-Library` | Knowledge role. In this checkout, `5 - RootRecord-Library/` is a directory of the umbrella |

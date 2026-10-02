@@ -19,7 +19,7 @@
 ## How
 
 ```bash
-G=".../1 - Servers/2 - RootRecord-US-Mainland-Server/mirror/network-globe/network-globe"
+G=".../1 - Servers/2 - RootRecord-US-Mainland-One/mirror/network-globe/network-globe"
 node --check overlay/overlay.js overlay/preview-server.js server.js; python3 -m json.tool overlay/overlay-config.json
 # preview server on 127.0.0.1:8794 (8791 was already taken by another agent's python3), via /tmp/rr-memwatch-run.sh (nice 10, kill < 2 GB)
 PREVIEW_CONFIG=full node overlay/preview-server.js 8794                                   # A: mirror schema, rail + home on

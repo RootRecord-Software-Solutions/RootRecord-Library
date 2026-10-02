@@ -199,7 +199,7 @@ These come from the [AWS fallback rebuild](../08-ideas/2026-09-29-aws-fallback-r
         "description": "Pull + verify + ingest AWS fallback relay packets, then ack (desk catch-up; idempotent).",
         "interval_sec": 600,
         "builtin": "",
-        "command": 'nice -n 10 python3 "/home/rootrecord/RootRecord-Ecosystem/1 - Servers/2 - RootRecord-US-Mainland-Server/fallback/desk/aws_catchup.py"',
+        "command": 'nice -n 10 python3 "/home/rootrecord/RootRecord-Ecosystem/1 - Servers/2 - RootRecord-US-Mainland-One/fallback/desk/aws_catchup.py"',
         "timeout_sec": 300,
         "needs_internet": True,
         "cwd": PACIFIC,

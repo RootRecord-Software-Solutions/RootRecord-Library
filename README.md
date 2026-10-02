@@ -45,7 +45,8 @@ It gives operators and agents a durable place to find the same architecture, con
 | **[RootRecord-Pacific-Solar-Server](https://github.com/RootRecord-Software-Solutions/RootRecord-Pacific-Solar-Server)** | Primary Pacific runtime |
 | **[RootRecord-Database](https://github.com/RootRecord-Software-Solutions/RootRecord-Database)** | Data, media & log layout |
 | **[RootRecord-Website](https://github.com/RootRecord-Software-Solutions/RootRecord-Website)** | Public home page. Desk source is Pacific `Website/Home/`. Vercel builds this repository |
-| **US Mainland Server** | `RootRecord-Ecosystem/1 - Servers/2 - RootRecord-US-Mainland-Server/` continuity node. SSH is `ssh.rootrecord.cloud` A `18.118.30.226`. The public page is `https://www.rootrecord.cloud/` on Vercel |
+| **US Mainland One** | `1 - Servers/2 - RootRecord-US-Mainland-One/`. GitHub `RootRecord-Software-Solutions/US-Mainland-One` |
+| **US Mainland Two** | `1 - Servers/3 - RootRecord-US-Mainland-Two/`. GitHub `RootRecord-Software-Solutions/US-Mainland-Two`. Own repository |
 | **Weather data** | `RootRecord-Ecosystem/2 - RootRecord-Database/Weather/` |
 
 Historical and mirror repositories remain useful for lineage and inventory; active canonical org work belongs in the appropriate current repository.
@@ -123,7 +124,7 @@ G2 → G3 migration: the Pacific runtime is on the new Database root (`2 - RootR
 - **LANDED / PASS today:** AWS feed trim + auto-trim cron; `www.rootrecord.cloud` back (200) with the P0 static-allowlist fix; globe overlay v2 on AWS (spin, click info, AWS Ohio node); AWS fallback Phase 2 on the trimmed t3.micro profile (908 MB RAM) with Root Monitor write mode; Root Monitor toggle buttons + camera button; 9 Android apps imported (80.7 MB); old-repo matrix 35 / 22 / 33.
 - **VERIFY PENDING:** the globe in a real browser, a real fallback on AWS, a relay send.
 - **Waiting on Alexander:** the consolidated list in the worklog's [State at pause, 16:25 HST](./Documentation/01-operations/0%20-%20Human%20Operator%20Work%20Logs/2026-09-29%20System%20Operator%20Worklog%20%E2%80%94%20Overnight.md#state-at-pause-1625-hst-2026-09-29) section.
-- **New docs:** [Android-Apps-Inventory](./Documentation/05-Products-Repositories-and-Applications/Android-Apps-Inventory.md), [US-Mainland-Server](./Documentation/06-Domains-and-External-Systems/US-Mainland-Server.md), [Control-Panel-GTK (Root Monitor)](./Documentation/02-Runtime-Jobs-and-Control/Control-Panel-GTK.md); all linked from the migration index.
+- **New docs:** [Android-Apps-Inventory](./Documentation/05-Products-Repositories-and-Applications/Android-Apps-Inventory.md), [US-Mainland-One](./Documentation/06-Domains-and-External-Systems/US-Mainland-One.md), [Control-Panel-GTK (Root Monitor)](./Documentation/02-Runtime-Jobs-and-Control/Control-Panel-GTK.md); all linked from the migration index.
 
 ---
 

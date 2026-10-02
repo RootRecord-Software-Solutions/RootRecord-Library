@@ -6,11 +6,11 @@
 | **Requested by** | Alexander (design brief, relayed by the parent agent) |
 | **Built by** | Grok (executor, globe-landing pass) |
 | **State** | **v1 + v2 LANDED (desk checkout, uncommitted) / preview PASS / unit tests 16/16 PASS / AWS deploy PROPOSED, needs sign-off.** Real-browser mouse interaction (drag/zoom, click, hover over WebGL) is VERIFY PENDING, because headless Firefox paints no WebGL. **Update 16:10–16:16 HST: AWS deploy LANDED** (3 files + 1 include line, no restart) plus the AWS Ohio node; [deploy record](../07-testing/2026-09-29-globe-overlay-aws-deploy.md). The real-browser check is still VERIFY PENDING |
-| **Code** | Mainland checkout `1 - Servers/2 - RootRecord-US-Mainland-Server/mirror/network-globe/network-globe/overlay/` plus one line in `index.html` and one allowlisted route block in the mirror `server.js` |
+| **Code** | Mainland checkout `1 - Servers/2 - RootRecord-US-Mainland-One/mirror/network-globe/network-globe/overlay/` plus one line in `index.html` and one allowlisted route block in the mirror `server.js` |
 | **Test records** | v1: [2026-09-29-globe-landing-overlay-preview](../07-testing/2026-09-29-globe-landing-overlay-preview.md) · v2: [2026-09-29-globe-overlay-v2-spin-click-info](../07-testing/2026-09-29-globe-overlay-v2-spin-click-info.md) |
 | **Screenshots** | `/home/rootrecord/RootRecord-Ecosystem/test-reports/Globe-Landing/`: 11 v1 PNGs, 8 `v2-*.png`, and `v2-unit-test-run.log` |
 | **Backup** | `/home/rootrecord/Database/GITHUB/globe-landing.bak-20260929-141948/` (`mainland/` originals, `library/` README and worklog copies, `aws-runtime-readonly/` read-only copies of the live AWS `index.html` + `server.js`) · v2: `/home/rootrecord/Database/GITHUB/globe-overlay-v2.bak-20260929-154351/` (`mainland/` overlay + index/server + `AWS-LIVE-SERVER.md`; `library/` these docs + README + worklog; `aws-runtime-readonly/index.public.html` = live page, md5 `f3d03774…`) |
-| **Related** | [US-Mainland-Server](../06-Domains-and-External-Systems/US-Mainland-Server.md) · [AWS Mainland plan](./2026-09-29-aws-mainland-improvement-plan.md) · [website staging record](../07-testing/2026-09-29-website-rootrecord-cloud-staging.md) |
+| **Related** | [US-Mainland-One](../06-Domains-and-External-Systems/US-Mainland-One.md) · [AWS Mainland plan](./2026-09-29-aws-mainland-improvement-plan.md) · [website staging record](../07-testing/2026-09-29-website-rootrecord-cloud-staging.md) |
 
 ## Brief
 

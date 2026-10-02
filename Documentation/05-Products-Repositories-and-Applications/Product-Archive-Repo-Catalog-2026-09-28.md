@@ -58,7 +58,7 @@ Pacific = solar/ops/agents runtime. **Minecraft and desktop apps are separate pr
 | [Solar-Pacific-RootRecord-Server](https://github.com/rootrecordsoftwaresolutions/Solar-Pacific-RootRecord-Server) | public | G2 residual skills desk |
 | [Solar-Pacific-RootRecord-Server-Old](https://github.com/rootrecordsoftwaresolutions/Solar-Pacific-RootRecord-Server-Old) | public | **G1** archive + migration README |
 | [old](https://github.com/rootrecordsoftwaresolutions/old) | private | **G0** deepest archive + README |
-| [US-Mainland-Server](https://github.com/rootrecordsoftwaresolutions/US-Mainland-Server) | public | Continuity node |
+| [US-Mainland-One](https://github.com/RootRecord-Software-Solutions/US-Mainland-One) | public | Continuity node |
 | [ollama-skills](https://github.com/rootrecordsoftwaresolutions/ollama-skills) | private | OmniBook `~/.ollama/skills` desk |
 
 ### 4.2 Ava / core stacks (independent of Pacific domain folders)

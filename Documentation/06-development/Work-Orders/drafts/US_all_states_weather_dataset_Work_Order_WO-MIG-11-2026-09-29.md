@@ -111,7 +111,7 @@ Do not start these until Alexander accepts this draft and says to build.
 | `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Automations/scripts/jobs.py` | Shared. Proposed gated block `weather_us_states` / `RR_US_STATES=1` only, and only if this file is not already being edited. |
 | `/home/rootrecord/master/master-key.env` | Shared secrets file. Do not edit. Allowlist name: `NWS_USER_AGENT`. |
 | `3 - RootRecord-Website` | One Vercel app. One new route after checkout exists. UI only; data stays in Database. |
-| `1 - Servers/2 - RootRecord-US-Mainland-Server/mirror/network-globe/network-globe/overlay/overlay.css` | Visual reference for glass cards. Do not copy the globe app into the site. |
+| `1 - Servers/2 - RootRecord-US-Mainland-One/mirror/network-globe/network-globe/overlay/overlay.css` | Visual reference for glass cards. Do not copy the globe app into the site. |
 | `5 - RootRecord-Library/Documentation/08-ideas/2026-09-29-globe-landing-overlay.md` | Visual direction. Read before any UI. |
 | `operations/weather/fetch_us_weather.py` | Old source. Phase 4 archive, then remove from repo `old`. |
 | `operations/weather/README.md` | Old source note for this function only. Phase 4 archive, then remove from repo `old`. |

@@ -37,7 +37,7 @@ Also on disk, not separate git repositories:
 | Path | What it is |
 | --- | --- |
 | `1 - Servers/1 - RootRecord-Pacific-Solar-Server/` | Directory inside the umbrella. VERIFIED. No `.git` here. |
-| `1 - Servers/2 - RootRecord-US-Mainland-Server/` | Directory inside the umbrella. VERIFIED. No `.git` here. |
+| `1 - Servers/2 - RootRecord-US-Mainland-One/` | Directory inside the umbrella. VERIFIED. No `.git` here. |
 | `1 - Servers/3 - User Nodes/` | Directory inside the umbrella. |
 | `2 - RootRecord-Database/` | Directory inside the umbrella. VERIFIED. No `.git` here. |
 | `5 - RootRecord-Library/` | Directory inside the umbrella. VERIFIED. No `.git` here. |
@@ -150,7 +150,7 @@ Classification uses the filesystem, `git ls-tree`, `repos.conf`, worktree remote
 | `RootRecord-Software-Solutions/RootRecord-Library` | Current GitHub repository. Directory plus `Github-worktrees/library`. Row `library`, `enabled=1`, mode `mirror`. |
 | `rootrecordsoftwaresolutions/Solar-Pacific-RootRecord-Server` | Historical GitHub repository. Still exists. Row `skills`, `enabled=0`, path under `Old repos deleted and merged/ollama-skills-g2-2026-09-30`. |
 | `rootrecordsoftwaresolutions/RootRecord-Website` | GitHub repository. Still exists. Not a directory with `.git` on this desk. Row `website`, `enabled=0`, path inside that old snapshot. Pacific `Website/` is a directory inside the umbrella. |
-| `rootrecordsoftwaresolutions/US-Mainland-Server` | GitHub repository. Still exists. Row `mainland`, `enabled=0`, path inside that old snapshot. The live tree is `1 - Servers/2 - RootRecord-US-Mainland-Server/` and has no `.git`. |
+| `RootRecord-Software-Solutions/US-Mainland-One` | GitHub repository. Still exists. Row `mainland`, `enabled=0`, path inside that old snapshot. The live tree is `1 - Servers/2 - RootRecord-US-Mainland-One/` and has no `.git`. |
 | `rootrecordsoftwaresolutions/RootRecord-Weather-Database` | GitHub repository. Still exists. Not a nested clone. Desk weather bytes are `2 - RootRecord-Database/Weather/`, ignored by the Database `.gitignore`. |
 | `AvaIvy/AvaIvy-Agent-Context` | Personal GitHub repository. `AvaIvy/Agent-Context` resolves to this full name. Not synced by `repos.conf`. |
 | `CarlyMal/Carly-Agent-Context` | Personal GitHub repository. `CarlyMal/Agent-Context` resolves to this full name. Not synced by `repos.conf`. |
@@ -208,7 +208,7 @@ The poller job `github_sync_all` committed some of those edits as `auto:` desk-s
 | File(s) | Conflict | Evidence | Decision Needed |
 | ------- | -------- | -------- | --------------- |
 | `Documentation/00-architecture/<31 files>` and `Documentation/01-AI-and-Agent-Runtime` through `07-Communications` | Two live copies. Runtime still reads the old matrix path | SHA-256 matched for 30 files. `state-aggregate.py` sets `MATRIX` to `Documentation/00-architecture/Old-Repo-Migration-Matrix.md`. `Apps/Control-Panel/Lib/rr_migration.json` still names old paths | Keep the duplicates until a runtime change retargets those readers, or accept the duplicates as the compatibility copies. Do not delete them in a docs-only pass |
-| `Work-Orders/Servers_Cutover_Work_Order_WO-SRV-2026-09-27.md` | A log line says the Mainland folder is a clone of `US-Mainland-Server` | The directory exists and has no `.git`. The GitHub repository still exists. The sync row is disabled and does not point at this directory | Leave the sentence as a dated log, or add a later note that the desk copy is no longer a nested clone. This audit only retargeted the doc link |
+| `Work-Orders/Servers_Cutover_Work_Order_WO-SRV-2026-09-27.md` | A log line says the Mainland folder is a clone of `US-Mainland-One` | The directory exists and has no `.git`. The GitHub repository still exists. The sync row is disabled and does not point at this directory | Leave the sentence as a dated log, or add a later note that the desk copy is no longer a nested clone. This audit only retargeted the doc link |
 | Agent IDENTITY vs ROLE-AND-BOUNDS | No character conflict found | IDENTITY holds name, role summary, and personality. ROLE-AND-BOUNDS holds ownership and walls. Carly IDENTITY says "Never Clara". No current pack calls her Clara | None for character. Do not invent a personality winner |
 
 ```text
@@ -504,10 +504,10 @@ Files:
 5 - RootRecord-Library/Documentation/06-development/Work-Orders/Servers_Cutover_Work_Order_WO-SRV-2026-09-27.md
 
 Question:
-Should the 2026-09-29 log line that calls 1 - Servers/2 - RootRecord-US-Mainland-Server a clone stay as history?
+Should the 2026-09-29 log line that calls 1 - Servers/2 - RootRecord-US-Mainland-One a clone stay as history?
 
 Commands/evidence to inspect:
-find "1 - Servers/2 - RootRecord-US-Mainland-Server" -name .git
+find "1 - Servers/2 - RootRecord-US-Mainland-One" -name .git
 The WO paragraph that cites b61d63c.
 
 If verified:

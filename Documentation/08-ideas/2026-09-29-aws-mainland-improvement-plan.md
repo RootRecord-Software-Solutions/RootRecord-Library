@@ -3,9 +3,9 @@
 | Field | Value |
 | --- | --- |
 | **Date (HST)** | 2026-09-29 |
-| **Proposed by** | Grok (executor, us-mainland-import pass), building on the US-MAINLAND-SERVER lane handoff (2026-09-22 functions/to-dos) |
+| **Proposed by** | Grok (executor, us-mainland-import pass), building on the US-MAINLAND-ONE lane handoff (2026-09-22 functions/to-dos) |
 | **State** | PROPOSED overall. **P0-1 LANDED/PASS** and **P0-4 LANDED/PASS** (cloudflared www) on 2026-09-29 14:07–14:15 HST, see the [test record](../07-testing/2026-09-29-aws-hawaii-trim-and-cloudflared.md). The rest is unchanged |
-| **Grounding** | [US-Mainland-Server architecture](../06-Domains-and-External-Systems/US-Mainland-Server.md) (read-only SSH 13:49 HST); test record [2026-09-29-us-mainland-import-and-ssh](../07-testing/2026-09-29-us-mainland-import-and-ssh.md); G2 `handoff/emergency-2026-09-22/US-MAINLAND-SERVER-FUNCTIONS-TODOS-2026-09-22.md` |
+| **Grounding** | [US-Mainland-One architecture](../06-Domains-and-External-Systems/US-Mainland-One.md) (read-only SSH 13:49 HST); test record [2026-09-29-us-mainland-import-and-ssh](../07-testing/2026-09-29-us-mainland-import-and-ssh.md); G2 `handoff/emergency-2026-09-22/US-MAINLAND-ONE-FUNCTIONS-TODOS-2026-09-22.md` |
 | **Needs sign-off from** | Alexander (every AWS change), plus a working SSH path |
 | **Related WO** | WO-SRV (Servers cutover) |
 
@@ -25,7 +25,7 @@
    ```bash
    H="-o BatchMode=yes -o ConnectTimeout=5 -o HostName=[redacted public IP] rr-aws-ip"
    ssh $H 'mkdir -p /home/ubuntu/network-globe/network-globe/scripts && df -h /'
-   scp -o HostName=[redacted public IP] "/home/rootrecord/RootRecord-Ecosystem/1 - Servers/2 - RootRecord-US-Mainland-Server/network-globe/maintain-hawaii-feed.sh" rr-aws-ip:/home/ubuntu/network-globe/network-globe/scripts/
+   scp -o HostName=[redacted public IP] "/home/rootrecord/RootRecord-Ecosystem/1 - Servers/2 - RootRecord-US-Mainland-One/network-globe/maintain-hawaii-feed.sh" rr-aws-ip:/home/ubuntu/network-globe/network-globe/scripts/
    ssh $H 'chmod 755 /home/ubuntu/network-globe/network-globe/scripts/maintain-hawaii-feed.sh && bash /home/ubuntu/network-globe/network-globe/scripts/maintain-hawaii-feed.sh && df -h /'
    ```
    Expected: `trimmed 18xxxxxxxx -> ~50331648 bytes; offset reset`, ~1.7 GB freed. The desk collector then keeps it ≤ 64 MB every 15 min. (Optional first: copy the last 48 MB aside if the history matters — the design says AWS is a live mirror, not a store.)

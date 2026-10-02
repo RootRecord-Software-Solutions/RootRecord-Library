@@ -39,7 +39,7 @@ Public UI, when built: `3 - RootRecord-Website`. Data and logs stay on the Datab
 | Folder `Advertising` (code, data, logs) | Landed. Jobs `adsense_eod` and `admob_eod` are in `ON_AT`, gated off |
 | Public website checkout | `3 - RootRecord-Website` is in place, including `/data` |
 | Stripe, Vercel, and live-data pages | Pacific `Website/` is in place (`stripe_poll.py`, `vercel_builds.py`, `live_data_pages.py`). Build does not pause for agents 07 or 10 |
-| Visual direction | US-Mainland globe, full-screen dark globe and glass cards. `1 - Servers/2 - RootRecord-US-Mainland-Server/mirror/network-globe/network-globe/` and `Documentation/08-ideas/2026-09-29-globe-landing-overlay.md` |
+| Visual direction | US-Mainland globe, full-screen dark globe and glass cards. `1 - Servers/2 - RootRecord-US-Mainland-One/mirror/network-globe/network-globe/` and `Documentation/08-ideas/2026-09-29-globe-landing-overlay.md` |
 | Old AdSense source | `/home/rootrecord/old ollama/old skills/advertising/adsense-eod/` (`scripts/adsense.py`, `scripts/job.py`, `SKILL.md`, `INDEX.md`, `DAILY.md`, `references/migrate.md`) |
 | Old AdMob source | `/home/rootrecord/old ollama/old skills/advertising/admob-eod/` (`scripts/admob.py`, `scripts/job.py`, `SKILL.md`, `INDEX.md`, `DAILY.md`, `references/migrate.md`) |
 | Old last files | `/home/rootrecord/old ollama/old skills/state/store/adsense-report.json` and `admob-report.json`. `state/store/` has 119 files and is shared |

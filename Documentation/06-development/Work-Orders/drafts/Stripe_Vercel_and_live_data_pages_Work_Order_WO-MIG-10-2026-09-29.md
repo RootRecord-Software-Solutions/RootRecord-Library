@@ -39,7 +39,7 @@ Public pages, after checkout exists: `3 - RootRecord-Website`. Data and logs sta
 | Folder `Website` (code, data, logs) | Landed. Jobs `stripe_poll` and `vercel_builds` are in `EVERY_SECONDS`, gated off |
 | `3 - RootRecord-Website` | Still empty. Public pages are staged under Pacific `Website/staged/`, not deployed |
 | Vercel staging clone | `Communications/website/RootRecord-Cloud`, gitignored. Next.js app. Live-data proxy to `origin.avaivy.cloud` returns 530 |
-| Visual direction | US-Mainland globe, full-screen dark globe and glass cards. `1 - Servers/2 - RootRecord-US-Mainland-Server/mirror/network-globe/network-globe/` and `Documentation/08-ideas/2026-09-29-globe-landing-overlay.md`. `www.rootrecord.cloud` is that globe |
+| Visual direction | US-Mainland globe, full-screen dark globe and glass cards. `1 - Servers/2 - RootRecord-US-Mainland-One/mirror/network-globe/network-globe/` and `Documentation/08-ideas/2026-09-29-globe-landing-overlay.md`. `www.rootrecord.cloud` is that globe |
 | Old `stripe-poll` | `/home/rootrecord/old ollama/old skills/stripe-poll` |
 | Old `vercel-builds` | `/home/rootrecord/old ollama/old skills/vercel-builds` |
 | Old `live-data-pages` | `/home/rootrecord/old ollama/old skills/live-data-pages` |

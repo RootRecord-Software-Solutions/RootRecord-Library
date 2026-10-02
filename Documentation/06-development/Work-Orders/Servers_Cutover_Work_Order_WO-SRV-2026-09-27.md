@@ -457,9 +457,9 @@ Copy/port only; no poller restart (PID 105444 untouched); no delivery, playback 
 - **Matrix:** now **35 migrated / 22 partial / 33 missing**. No clean candidates remain; everything left is BLOCKED or OUT.
 - [Test record with a check-later list per smoke test](../../07-testing/2026-09-29-old-repo-ports-breadth-batch5.md). Backup `/home/rootrecord/Database/GITHUB/migration-breadth2.bak-20260929-141732/`.
 
-## US-Mainland-Server desk checkout — 2026-09-29 ~13:45–14:00 HST
+## US-Mainland-One desk checkout — 2026-09-29 ~13:45–14:00 HST
 
-Second server folder now populated: `1 - Servers/2 - RootRecord-US-Mainland-Server/` = clone of `rootrecordsoftwaresolutions/US-Mainland-Server` at `b61d63c` (placeholder `Communications/` kept). No AWS change, no poller restart, no jobs.py edit. Backup `/home/rootrecord/Database/GITHUB/us-mainland-import.bak-20260929-134629/`. [Architecture](../../06-Domains-and-External-Systems/US-Mainland-Server.md) · [Test record](../../07-testing/2026-09-29-us-mainland-import-and-ssh.md) · [Plan](../../08-ideas/2026-09-29-aws-mainland-improvement-plan.md).
+Second server folder now populated: `1 - Servers/2 - RootRecord-US-Mainland-One/` = clone of `RootRecord-Software-Solutions/US-Mainland-One` at `b61d63c` (placeholder `Communications/` kept). No AWS change, no poller restart, no jobs.py edit. Backup `/home/rootrecord/Database/GITHUB/us-mainland-import.bak-20260929-134629/`. [Architecture](../../06-Domains-and-External-Systems/US-Mainland-One.md) · [Test record](../../07-testing/2026-09-29-us-mainland-import-and-ssh.md) · [Plan](../../08-ideas/2026-09-29-aws-mainland-improvement-plan.md).
 
 | Item | State |
 | --- | --- |
@@ -478,7 +478,7 @@ Note: the Smart-Devices pass earlier today (13:31 HST, before the 13:45 standing
 - `hawaii.ndjson` trimmed 1.83 GB → 50.3 MB, and free disk went 1.5G → 3.2G: **PASS**. Auto-trim runs from the `ubuntu` crontab `*/15` on AWS: **LANDED**, fired 14:15.
 - `www.rootrecord.cloud` 530/1033 → **200**: cloudflared reinstalled and the existing tunnel [redacted tunnel ID] plus a `server.js` :8090 unit brought up, with no DNS change: **PASS**.
 - `rr-aws-ip` HostName → [redacted public IP]: **PASS**. `rr-aws` works through the tunnel with the pinned key, but the desk `known_hosts` is stale (needs OK).
-- Details: [test record](../../07-testing/2026-09-29-aws-hawaii-trim-and-cloudflared.md) and [architecture change log](../../06-Domains-and-External-Systems/US-Mainland-Server.md).
+- Details: [test record](../../07-testing/2026-09-29-aws-hawaii-trim-and-cloudflared.md) and [architecture change log](../../06-Domains-and-External-Systems/US-Mainland-One.md).
 
 
 ## State at pause — 2026-09-29 16:25 HST
@@ -496,5 +496,5 @@ Docs-only refresh (no runtime change). The consolidated sign-off list is in the 
 | Root Monitor toggle buttons + camera viewer button; desktop launcher | **PASS** / LANDED | [toggle buttons](../../07-testing/2026-09-29-root-monitor-toggle-buttons.md) |
 | Android apps import (outside Pacific) | copy **PASS** · build VERIFY PENDING | [Android import](../../07-testing/2026-09-29-android-apps-import.md) |
 | Old-repo matrix | 35 / 22 / 33 (unchanged since 14:40) | [matrix](../../04-Migration-and-Legacy-Recovery/Old-Repo-Migration-Matrix.md) |
-| AWS feed server `:8787` | open finding, public (sign-off) | [US-Mainland-Server](../../06-Domains-and-External-Systems/US-Mainland-Server.md) |
+| AWS feed server `:8787` | open finding, public (sign-off) | [US-Mainland-One](../../06-Domains-and-External-Systems/US-Mainland-One.md) |
 | G2 / G1 / G0 legacy sources | KEPT | — |

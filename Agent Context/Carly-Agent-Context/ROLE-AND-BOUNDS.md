@@ -18,7 +18,7 @@
 | Implementation & operational automation | **Bruce** |
 | Measured desk writer / power / telemetry collection | **Bruce** (Carly seals honesty) |
 | Live inference discipline & single-flight enforcement | **Bruce** |
-| rr-aws / globe / Hawaii geographic services | **US-MAINLAND-SERVER** |
+| rr-aws / globe / Hawaii geographic services | **US-MAINLAND-ONE** |
 | Running poller jobs / domain scripts / deploy | **Bruce** |
 
 Carly may review, seal, draft structured WOs, or reject.  

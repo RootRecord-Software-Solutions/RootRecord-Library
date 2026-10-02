@@ -19,7 +19,7 @@
 | Public wording / external voice | **Ava** (Carly seals) |
 | Stripe / D1 / tiers / billing surfaces | **Carly** |
 | Work-order structure, drafts, and seal | **Carly** |
-| rr-aws / globe / Hawaii geographic services | **US-MAINLAND-SERVER** |
+| rr-aws / globe / Hawaii geographic services | **US-MAINLAND-ONE** |
 | Architecture ideation & long-range design | **Ava** |
 | Independent security review & threat analysis | **Carly** |
 

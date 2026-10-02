@@ -43,7 +43,7 @@ Single entry point for agents and operators working the Pacific server cutover *
 
 | Doc | Purpose |
 | --- | --- |
-| [US-Mainland-Server.md](../06-Domains-and-External-Systems/US-Mainland-Server.md) | **AWS continuity node**: desk checkout, change log, and the current AWS state table (at pause, 16:25 HST) |
+| [US-Mainland-One.md](../06-Domains-and-External-Systems/US-Mainland-One.md) | **AWS continuity node**: desk checkout, change log, and the current AWS state table (at pause, 16:25 HST) |
 | [07-testing/2026-09-29-aws-hawaii-trim-and-cloudflared.md](../07-testing/2026-09-29-aws-hawaii-trim-and-cloudflared.md) | **AWS Hawaii feed trim + `*/15` auto-trim cron; cloudflared tunnel restored** (`www` 530 → 200): PASS |
 | [07-testing/2026-09-29-aws-globe-static-allowlist.md](../07-testing/2026-09-29-aws-globe-static-allowlist.md) | **AWS static allowlist** (P0: globe `server.js` no longer serves its folder; sensitive paths 404): PASS |
 | [08-ideas/2026-09-29-aws-fallback-rebuild.md](../08-ideas/2026-09-29-aws-fallback-rebuild.md) | **AWS fallback rebuild**: small fallback node with per-function toggles; Phase 2 LANDED on the trimmed t3.micro profile (908 MB RAM); real fallback VERIFY PENDING |
@@ -160,6 +160,6 @@ Weather: **enabled and PASS** since 2026-09-29 (Pacific `Weather/`; see WO-SRV).
 
 *Index updated 2026-09-29 ~13:40 HST — Old-Repo-Migration-Matrix linked; Geology collector + ports batch 1 test records in `07-testing/`. ~14:10 HST — Pending-Job-Registrations linked; breadth batch 4 test record. ~14:40 HST — G1-Scheduler-To-G3-Jobs-Map linked; breadth batch 5 test record (`07-testing/2026-09-29-old-repo-ports-breadth-batch5.md`); matrix now 35 / 22 / 33.*
 
-*Index updated 2026-09-29 ~16:30 HST: new section "2026-09-29 afternoon" links US-Mainland-Server, the AWS trim + cloudflared and static-allowlist records, the AWS fallback rebuild and globe landing overlay proposals, the Root Monitor toggle-buttons record, Control-Panel-GTK and Android-Apps-Inventory. Current state and sign-offs: worklog section "State at pause, 16:25 HST".*
+*Index updated 2026-09-29 ~16:30 HST: new section "2026-09-29 afternoon" links US-Mainland-One, the AWS trim + cloudflared and static-allowlist records, the AWS fallback rebuild and globe landing overlay proposals, the Root Monitor toggle-buttons record, Control-Panel-GTK and Android-Apps-Inventory. Current state and sign-offs: worklog section "State at pause, 16:25 HST".*
 
 *Index updated 2026-09-30 01:29 HST: operator remaining-work list linked. Desk check after the 01:09 boot: Pacific stack up, River BLE live, Delta 2 dead and not transmitting.*

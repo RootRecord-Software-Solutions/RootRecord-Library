@@ -6,7 +6,7 @@
 | **Tester** | Grok (executor) for Alexander Storey (AWS changes approved 15:40 HST) |
 | **Change under test** | AWS `~/network-globe/network-globe/connection-history.py` (`network-globe-connection-history.service`). [Proposal Phase 2](../08-ideas/2026-09-29-aws-fallback-rebuild.md) |
 | **State** | **PASS**: copy test, synthetic trim/restart test and live test. Flows and counters still update, and writes are **~27× lower** |
-| **Evidence** | the outputs below; mirror `US-Mainland-Server mirror/network-globe/network-globe/connection-history.py` (new, sha256 `ed1423a3…0d56`) + `connection-history.aws-live-2026-09-26.py` (the old live copy) |
+| **Evidence** | the outputs below; mirror `US-Mainland-One mirror/network-globe/network-globe/connection-history.py` (new, sha256 `ed1423a3…0d56`) + `connection-history.aws-live-2026-09-26.py` (the old live copy) |
 | **Commits** | Library: desk auto-sync (see the worklog). Mainland: none (checkout not in auto-sync) |
 | **Backup** | AWS `~/rootrecord/bin.bak-fallback-phase2-20260929-154333/connection-history.py` (matched live before the swap, `cmp` OK) |
 

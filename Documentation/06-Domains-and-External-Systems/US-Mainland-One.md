@@ -1,12 +1,12 @@
-# US-Mainland-Server (AWS continuity node) — desk import + current state
+# US-Mainland-One (AWS continuity node) — desk import + current state
 
 | Field | Value |
 | --- | --- |
 | **Date (HST)** | 2026-09-29 13:45–14:05 HST |
-| **Author** | Grok (executor, us-mainland-import pass) for Alexander; context from teammate lane **US-MAINLAND-SERVER** (G2 handoff 2026-09-22) |
+| **Author** | Grok (executor, us-mainland-import pass) for Alexander; context from teammate lane **US-MAINLAND-ONE** (G2 handoff 2026-09-22) |
 | **State** | Import **PASS** (clone at `b61d63c`) · layout README + `.env.example` **LANDED** (uncommitted — repo not in auto-sync) · auto-sync **BLOCKED on sign-off** · `rr-aws` SSH **FAIL** (tunnel down on AWS) · direct SSH to current IP **PASS** (read-only) · AWS changes **PROPOSED** |
-| **Repo** | `rootrecordsoftwaresolutions/US-Mainland-Server` (PUBLIC, user account — not the org; `main`, HEAD `b61d63c` 2026-09-28 18:40 HST) |
-| **Desk checkout** | `/home/rootrecord/RootRecord-Ecosystem/1 - Servers/2 - RootRecord-US-Mainland-Server/` |
+| **Repo** | `RootRecord-Software-Solutions/US-Mainland-One` (PUBLIC, user account — not the org; `main`, HEAD `b61d63c` 2026-09-28 18:40 HST) |
+| **Desk checkout** | `/home/rootrecord/RootRecord-Ecosystem/1 - Servers/2 - RootRecord-US-Mainland-One/` |
 | **AWS checkout** | `/home/ubuntu/US-Mainland-Server/` (same HEAD `b61d63c`) |
 | **Test record** | [07-testing/2026-09-29-us-mainland-import-and-ssh.md](../07-testing/2026-09-29-us-mainland-import-and-ssh.md) |
 | **Plan** | [08-ideas/2026-09-29-aws-mainland-improvement-plan.md](../08-ideas/2026-09-29-aws-mainland-improvement-plan.md) |
@@ -28,8 +28,8 @@
 | `mirror/.cloudflared/config-globe.yml` | tunnel `[redacted tunnel ID]…` → `www.rootrecord.cloud` → `127.0.0.1:8090` (credentials file gitignored) | AWS |
 | `mirror/rootrecord/systemd/` | 13 legacy units: `rr-{audio-recv,chat,cloudflared,dropins,earthquake,hurricane,icecast,noaa,packer,radar,radio,weather,youtube}` | **not running** (bins/venv not in repo) |
 | `weather/` | current-only NWS mirror (config/core/fetch/scheduler) | not running |
-| `scripts/` | desk helpers `aws-sysmon-pull.sh`, `ssh-datapack-pull.sh` (target old `Database/NETWORK/…`), G2 `jobs.py` template (cwd `~/.ollama/skills/us-mainland-server`), a **tracked** `__pycache__/jobs.cpython-314.pyc` | desk (G2 paths — stale) |
-| `references/`, `notes/`, `docs/`, `.github/` | `aws-git-pull.{service,timer}`, `GITHUB-IDENTITY.md` (commit as US-MAINLAND-SERVER), packer notes, 2026-09-22 stopping point, avatar | — |
+| `scripts/` | desk helpers `aws-sysmon-pull.sh`, `ssh-datapack-pull.sh` (target old `Database/NETWORK/…`), G2 `jobs.py` template (cwd `~/.ollama/skills/us-mainland-one`), a **tracked** `__pycache__/jobs.cpython-314.pyc` | desk (G2 paths — stale) |
+| `references/`, `notes/`, `docs/`, `.github/` | `aws-git-pull.{service,timer}`, `GITHUB-IDENTITY.md` (commit as US-MAINLAND-ONE), packer notes, 2026-09-22 stopping point, avatar | — |
 
 Env vars used by the code (names only) are in the new root `.env.example`.
 
@@ -42,7 +42,7 @@ Env vars used by the code (names only) are in the new root `.env.example`.
 | Disk `/` | 6.7 G, 5.1 G used, **1.6 G free (77 %)** |
 | Running | `rr-rootserver-poller`, `network-globe-feed-server`, `network-globe-connection-history`, `github-poller` (not in repo). **No cloudflared, no rr-* collectors, no radio** — "basically empty" confirmed |
 | Timers | none matching `aws-git-pull` / `rr-*` (the pull is the poller's `github_pull` job) |
-| `/home/ubuntu` | `US-Mainland-Server` 7.1 M, `automations`, `network-globe` **1.7 G**, `github-poller.sh`, `ip-notify.sh`, `ip-state.json`, stray `index.html`/`server.js`/`package.json` |
+| `/home/ubuntu` | `US-Mainland-One` 7.1 M, `automations`, `network-globe` **1.7 G**, `github-poller.sh`, `ip-notify.sh`, `ip-state.json`, stray `index.html`/`server.js`/`package.json` |
 | **Hawaii feed** | `network-globe/network-globe/data/hawaii.ndjson` = **1,815,325,001 B** and growing ≈ 11 KB/s (≈ 39 MB/h, ≈ 0.95 GB/day: 1,809,246,044 B at 13:40:34 → 1,815,325,001 B at 13:49:49 HST). Intended cap 64 MB. The desk collector runs maintenance every 15 min but the AWS script path `…/network-globe/scripts/maintain-hawaii-feed.sh` **does not exist** (exit 127 in desk journal) |
 | **Projection** | at this rate `/` fills in roughly **40 h (around 2026-10-01 morning HST)** → ENOSPC for the poller, git pull and globe. **Urgent sign-off item** (fix = deploy the repo's `network-globe/maintain-hawaii-feed.sh` to that path; see plan P0-1) |
 
@@ -59,16 +59,16 @@ Env vars used by the code (names only) are in the new root `.env.example`.
 ## Desk auto-sync coverage
 
 - Auto-sync = Pacific poller job `github_sync_all` (every 5 s) → `Github/scripts/sync-all.sh` → `push-repo-once.sh <id>` for each **enabled** row of `Github/scripts/repos.conf`. No systemd user timer; `~/agent-tools` is unrelated.
-- `repos.conf` row today: `mainland 0 inplace /home/rootrecord/.ollama/skills/us-mainland-server rootrecordsoftwaresolutions/US-Mainland-Server origin` → **disabled** and pointing at an **empty G2 folder**. The new checkout is **not covered**; nothing was committed or pushed.
+- `repos.conf` row today: `mainland 0 inplace /home/rootrecord/.ollama/skills/us-mainland-one RootRecord-Software-Solutions/US-Mainland-One origin` → **disabled** and pointing at an **empty G2 folder**. The new checkout is **not covered**; nothing was committed or pushed.
 - Exact change needed (sign-off; Pacific `Github/scripts/repos.conf`, tab-separated):
 
   ```text
-  mainland	1	inplace	/home/rootrecord/RootRecord-Ecosystem/1 - Servers/2 - RootRecord-US-Mainland-Server	rootrecordsoftwaresolutions/US-Mainland-Server	origin
+  mainland	1	inplace	/home/rootrecord/RootRecord-Ecosystem/1 - Servers/2 - RootRecord-US-Mainland-One	RootRecord-Software-Solutions/US-Mainland-One	origin
   ```
 
-  Effects once enabled: `push-repo-once.sh` rewrites `origin` to `git@github.com:rootrecordsoftwaresolutions/US-Mainland-Server.git` (SSH; desk key already pushes to that account for `skills`), `git add -A` commits the 3 pending files (`README.md` layout section, `.gitignore` bytecode rule, root `.env.example`) as `auto: … desk sync`, pushes, and **AWS fast-forwards them within ~60 s** (docs/ignore only — no runtime effect). `is_runtime_code_tree` is false for this path → **no Pacific stack reload**. Commits will use the desk git identity, not `US-MAINLAND-SERVER` as `references/GITHUB-IDENTITY.md` asks.
+  Effects once enabled: `push-repo-once.sh` rewrites `origin` to `git@github.com:RootRecord-Software-Solutions/US-Mainland-One.git` (SSH; desk key already pushes to that account for `skills`), `git add -A` commits the 3 pending files (`README.md` layout section, `.gitignore` bytecode rule, root `.env.example`) as `auto: … desk sync`, pushes, and **AWS fast-forwards them within ~60 s** (docs/ignore only — no runtime effect). `is_runtime_code_tree` is false for this path → **no Pacific stack reload**. Commits will use the desk git identity, not `US-MAINLAND-ONE` as `references/GITHUB-IDENTITY.md` asks.
 
-**Correction, 2026-09-29 evening:** do not enable that `mainland` row as written. `/home/rootrecord/RootRecord-Ecosystem` is now one git repository. `1 - Servers/2 - RootRecord-US-Mainland-Server` has no `.git` of its own, and nested git directories must not be added back into the umbrella. `mainland` stays disabled. The desk publishes the umbrella through the `ecosystem` row. A separate Mainland checkout, outside this snapshot, is required before that repository can sync on its own again.
+**Correction, 2026-09-29 evening:** do not enable that `mainland` row as written. `/home/rootrecord/RootRecord-Ecosystem` is now one git repository. `1 - Servers/2 - RootRecord-US-Mainland-One` has no `.git` of its own, and nested git directories must not be added back into the umbrella. `mainland` stays disabled. The desk publishes the umbrella through the `ecosystem` row. A separate Mainland checkout, outside this snapshot, is required before that repository can sync on its own again.
 
 ## Title-case / G3 layout
 

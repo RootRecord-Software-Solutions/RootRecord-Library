@@ -14,7 +14,7 @@
 
 ## 1. Intent
 
-The old function is the mainland stub `1 - Servers/2 - RootRecord-US-Mainland-Server/communications/slack/poll.py`. If `SLACK_BOT_TOKEN` is unset it does nothing. If the token is set it still does nothing (`pass`). It never calls the Slack API and never posts. The mainland job `communications_slack` in `automations/scripts/jobs.py` is enabled, interval 1 second, and points at that stub. `communications/.env.example` has `SLACK=notsetupyet`. The root `.env.example` lists the name `SLACK_BOT_TOKEN` with no value.
+The old function is the mainland stub `1 - Servers/2 - RootRecord-US-Mainland-One/communications/slack/poll.py`. If `SLACK_BOT_TOKEN` is unset it does nothing. If the token is set it still does nothing (`pass`). It never calls the Slack API and never posts. The mainland job `communications_slack` in `automations/scripts/jobs.py` is enabled, interval 1 second, and points at that stub. `communications/.env.example` has `SLACK=notsetupyet`. The root `.env.example` lists the name `SLACK_BOT_TOKEN` with no value.
 
 Pacific keeps a live quiet Telegram council relay (`RR_RELAY_REPLIES` stays `0`, one `getUpdates` owner). The notify-policy draft stays unsealed. EcoFlow BLE, the Hawaiʻi weather poller, the globe collector, camera grabs, Kokoro, and `geology_collect.py` stay as they are. Slack is not a second live relay.
 
@@ -36,8 +36,8 @@ Folder name, used in all three paths: **Slack**. It is a subfolder of Communicat
 | Logs | `2 - RootRecord-Database/Logs/Communications/Slack/` |
 | Secrets | `/home/rootrecord/master/master-key.env` only. Allowlist key name: `SLACK_BOT_TOKEN`. That key is not in the file today. No second env file. `SLACK` in the old example is a placeholder status, not a secret, and is not copied in. |
 | Existing shell | Lowercase `Communications/slack/` removed. Text now lives in `Communications/Slack/README.md`. |
-| Old source | Removed locally after archive. Was `1 - Servers/2 - RootRecord-US-Mainland-Server/communications/slack/poll.py`. |
-| Old job line, shared file | `communications_slack` in `1 - Servers/2 - RootRecord-US-Mainland-Server/automations/scripts/jobs.py`. Leave it. That file also runs Telegram and Discord. |
+| Old source | Removed locally after archive. Was `1 - Servers/2 - RootRecord-US-Mainland-One/communications/slack/poll.py`. |
+| Old job line, shared file | `communications_slack` in `1 - Servers/2 - RootRecord-US-Mainland-One/automations/scripts/jobs.py`. Leave it. That file also runs Telegram and Discord. |
 | Shared examples, leave them | `communications/README.md`, `communications/.env.example`, and the mainland root `.env.example`. |
 | Dependency | Discord poller (agent 21). `Communications/Discord/` was absent when this draft was first written, then present (`scripts/poll.py` and `lib/envload.py`) before the Slack build. |
 | Live Telegram | `council_relay` stays the one `getUpdates` owner. Sandbox replies on. Live council stays quiet. |
@@ -90,7 +90,7 @@ Do these only after Alexander accepts this draft and says to build. Until then, 
 
 5. Smoke test: run `poll.py` once with no `SLACK_BOT_TOKEN`. Expect exit 0, `not_configured` in `slack-last.json`, a log under `2 - RootRecord-Database/Logs/Communications/Slack/`, and no network.
 6. If `jobs.py` or `master-key.env` is already being edited, pause.
-7. After the script works: copy `communications/slack/poll.py` into `/home/rootrecord/RootRecord-Ecosystem/Old repos deleted and merged/US-Mainland-Server/communications/slack/poll.py`, keeping that path. Old repo: `rootrecordsoftwaresolutions/US-Mainland-Server`. If the archive copy fails, do not delete. If it succeeds, delete that file from the mainland checkout on this machine and on GitHub. Commit that deletion and push it. Do not force-push. Do not delete the GitHub repository. Leave mainland `automations/scripts/jobs.py`, `communications/README.md`, `communications/.env.example`, and the root `.env.example`.
+7. After the script works: copy `communications/slack/poll.py` into `/home/rootrecord/RootRecord-Ecosystem/Old repos deleted and merged/US-Mainland-One/communications/slack/poll.py`, keeping that path. Old repo: `RootRecord-Software-Solutions/US-Mainland-One`. If the archive copy fails, do not delete. If it succeeds, delete that file from the mainland checkout on this machine and on GitHub. Commit that deletion and push it. Do not force-push. Do not delete the GitHub repository. Leave mainland `automations/scripts/jobs.py`, `communications/README.md`, `communications/.env.example`, and the root `.env.example`.
 8. Update this work order with the result note (what landed, the archive path, what was removed on GitHub) and set the new status. Correct Pacific `Communications/README.md` so slack is no longer described as only a shell, and correct the absorbed `Communications/Slack/README.md`. Do not rewrite unrelated work orders. Do not edit the Discord half of matrix row 59.
 
 ---
@@ -126,13 +126,13 @@ Do these only after Alexander accepts this draft and says to build. Until then, 
 | `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Energy/lib/envload.py` | Pattern for the allowlist loader. Not edited. |
 | `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Automations/scripts/jobs.py` | Gated-off `communications_slack` block only. `RR_SLACK` unset. |
 | `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Communications/README.md` | Slack row updated. Email stays a shell. |
-| `1 - Servers/2 - RootRecord-US-Mainland-Server/communications/slack/poll.py` | Old stub. Archived in phase 4, then removed locally and on GitHub. |
-| `1 - Servers/2 - RootRecord-US-Mainland-Server/automations/scripts/jobs.py` | Shared. `communications_slack` line left in place. |
-| `1 - Servers/2 - RootRecord-US-Mainland-Server/communications/README.md` | Shared. Left in place. |
-| `1 - Servers/2 - RootRecord-US-Mainland-Server/communications/.env.example` | Shared. Left in place. `SLACK=notsetupyet` is not copied. |
-| `1 - Servers/2 - RootRecord-US-Mainland-Server/.env.example` | Shared. Left in place. Name `SLACK_BOT_TOKEN` only. |
+| `1 - Servers/2 - RootRecord-US-Mainland-One/communications/slack/poll.py` | Old stub. Archived in phase 4, then removed locally and on GitHub. |
+| `1 - Servers/2 - RootRecord-US-Mainland-One/automations/scripts/jobs.py` | Shared. `communications_slack` line left in place. |
+| `1 - Servers/2 - RootRecord-US-Mainland-One/communications/README.md` | Shared. Left in place. |
+| `1 - Servers/2 - RootRecord-US-Mainland-One/communications/.env.example` | Shared. Left in place. `SLACK=notsetupyet` is not copied. |
+| `1 - Servers/2 - RootRecord-US-Mainland-One/.env.example` | Shared. Left in place. Name `SLACK_BOT_TOKEN` only. |
 | `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Communications/Discord/` | Dependency folder. Present before the Slack build. |
-| `Old repos deleted and merged/US-Mainland-Server/communications/slack/poll.py` | Archive of the stub. On disk. |
+| `Old repos deleted and merged/US-Mainland-One/communications/slack/poll.py` | Archive of the stub. On disk. |
 | `5 - RootRecord-Library/Documentation/Old-Repo-Migration-Matrix.md` | Row 59 Slack half, after phase 4 only, and only that half. |
 
 ---
@@ -152,7 +152,7 @@ Do these only after Alexander accepts this draft and says to build. Until then, 
 - No force-push.
 - Secrets stay out of git. The allowlist name is `SLACK_BOT_TOKEN`. Do not print the value.
 - Prefer small reversible steps.
-- Sign-off before any send (`chat.postMessage` included), speaker playback, OBS, hardware switch, deletion of live Ecosystem files, or cloud spend. The lowercase README move is this function's own shell, done in the same change as `Communications/Slack/`. Phase 4 deletion is limited to `communications/slack/poll.py`, and only after it is in `Old repos deleted and merged`. Do not delete the GitHub repository `rootrecordsoftwaresolutions/US-Mainland-Server`.
+- Sign-off before any send (`chat.postMessage` included), speaker playback, OBS, hardware switch, deletion of live Ecosystem files, or cloud spend. The lowercase README move is this function's own shell, done in the same change as `Communications/Slack/`. Phase 4 deletion is limited to `communications/slack/poll.py`, and only after it is in `Old repos deleted and merged`. Do not delete the GitHub repository `RootRecord-Software-Solutions/US-Mainland-One`.
 - Small test, run 2026-09-30 00:35 HST: `python3 Communications/Slack/scripts/poll.py` with no `SLACK_BOT_TOKEN`. Exit 0. `slack-last.json` status `not_configured`, token `absent`, `http_calls` 0, `posted` false. Log line in `2 - RootRecord-Database/Logs/Communications/Slack/poll.log`. The script has no HTTP client.
 - `RR_SLACK` was unset, so the `communications_slack` job stays off. The poller was not restarted.
 
@@ -160,11 +160,11 @@ Do these only after Alexander accepts this draft and says to build. Until then, 
 
 Landed `Communications/Slack/` (`scripts/poll.py`, `lib/envload.py` allowlist `SLACK_BOT_TOKEN` only, package `Slack`). No token writes `not_configured` and does not call Slack. A present token still does not call Slack and does not post. Pacific `jobs.py` has one gated block, id `communications_slack`, enabled only when `RR_SLACK=1`. That flag is unset.
 
-Archived to `Old repos deleted and merged/US-Mainland-Server/communications/slack/poll.py` (141 bytes, matched the stub before delete).
+Archived to `Old repos deleted and merged/US-Mainland-One/communications/slack/poll.py` (141 bytes, matched the stub before delete).
 
 Removed `communications/slack/poll.py` from the mainland checkout. Ecosystem `HEAD` `3d04da9` (desk sync, already on `origin/main`) records that local deletion. Shared mainland files left in place: `automations/scripts/jobs.py` (enabled `communications_slack` line), `communications/README.md`, `communications/.env.example`, and the root `.env.example`.
 
-Removed the same file on GitHub repo `rootrecordsoftwaresolutions/US-Mainland-Server`, branch `main`, commit `7d63359934a92a3872b390735a691ea984fd4871`. The contents API then returns 404. The repository was not deleted. No force-push.
+Removed the same file on GitHub repo `RootRecord-Software-Solutions/US-Mainland-One`, branch `main`, commit `7d63359934a92a3872b390735a691ea984fd4871`. The contents API then returns 404. The repository was not deleted. No force-push.
 
 Matrix row 59 is one shared Discord/Slack line. It was left unchanged so the Discord half is not rewritten.
 

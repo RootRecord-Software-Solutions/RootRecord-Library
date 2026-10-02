@@ -26,7 +26,7 @@ crontab -l; sudo crontab -l; ls /etc/cron.d
 sudo ss -ltnup
 vmstat 1 5; sudo iotop -b -o -n 3 (or /proc/<pid>/io deltas)
 awk -F= '{print $1}' ~/.env        # key NAMES only, values never printed
-git -C ~/US-Mainland-Server log -1 --oneline; git -C ~/US-Mainland-Server status --short
+git -C ~/US-Mainland-One log -1 --oneline; git -C ~/US-Mainland-One status --short
 ```
 
 ## Results
@@ -41,7 +41,7 @@ git -C ~/US-Mainland-Server log -1 --oneline; git -C ~/US-Mainland-Server status
 | Cron | `ubuntu`: `*/15` feed trim only. root: none. `/etc/cron.d`: `e2scrub_all` |
 | Ports | 22 public · **8787 public (feed-server; Alexander's decision still pending, left open)** · 8090 / 20241 / 53 on localhost only · cloudflared UDP out |
 | Secrets | `~/.env` 0600 with 23 key names (EcoFlow ×6, A-EYES ×2, GitHub, Cloudflare ×3, Telegram/Discord/Slack bots). Recommendation: cut this down to the relay keys only |
-| Repo | `~/US-Mainland-Server` at `b61d63c`, `network-globe/server.js` modified; live `~/network-globe` differs from the repo |
+| Repo | `~/US-Mainland-One` at `b61d63c`, `network-globe/server.js` modified; live `~/network-globe` differs from the repo |
 
 ## Verdict
 

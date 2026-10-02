@@ -53,7 +53,7 @@ Listed in Pacific `Communications/website/.env.example`. Real values belong only
 | Auto-sync risk | Every site edit churns Pacific commits | Nested `.git` excluded **before** clone (else `git add -A` would record an embedded gitlink) |
 | Existing folder | `Communications/website/` was **empty** (created 13:28 HST today) | Nothing to move or delete; README + `.env.example` tracked beside the clone |
 
-Pacific precedent that day: `us-mainland-server/` was excluded from Pacific as its own repo, and `repos.conf` then had a disabled `website` row. That row is enabled now and publishes `Website/Home/`. Order used: `.gitignore` entry → `git check-ignore` verified → `git clone`.
+Pacific precedent that day: `us-mainland-one/` was excluded from Pacific as its own repo, and `repos.conf` then had a disabled `website` row. That row is enabled now and publishes `Website/Home/`. Order used: `.gitignore` entry → `git check-ignore` verified → `git clone`.
 
 ## Build / smoke (details in the test record)
 
@@ -64,7 +64,7 @@ Pacific precedent that day: `us-mainland-server/` was excluded from Pacific as i
 These four findings are that day's read. The Vercel project was deleted 2026-09-30. `www.rootrecord.cloud` is the AWS globe. The public page is Pacific `Website/Home/`.
 
 1. `https://root-record-cloud.vercel.app` → **200** (Vercel site up).
-2. `https://rootrecord.cloud` → **301 → `https://www.rootrecord.cloud`** → **530 (Cloudflare 1033)**. `www.rootrecord.cloud` is routed to the **AWS Network Globe tunnel** (`US-Mainland-Server/mirror/.cloudflared/config-globe.yml`), whose connector is down (see [US-Mainland-Server](./US-Mainland-Server.md)). So the public domain does not reach the Vercel site today, contrary to `AGENTS.md`.
+2. `https://rootrecord.cloud` → **301 → `https://www.rootrecord.cloud`** → **530 (Cloudflare 1033)**. `www.rootrecord.cloud` is routed to the **AWS Network Globe tunnel** (`US-Mainland-One/mirror/.cloudflared/config-globe.yml`), whose connector is down (see [US-Mainland-One](./US-Mainland-One.md)). So the public domain does not reach the Vercel site today, contrary to `AGENTS.md`.
 3. `origin.avaivy.cloud` → **530**: no connector; every desk-data panel on the live site shows `OFFLINE` (by design, no invented numbers).
 4. The desk tunnel (`cloudflared` PID 105450) serves `rootserver.rootrecord.cloud` → poller `:8799`: `/health` 200 (plain-text ENERGY line, includes a Database filesystem path), `/api/health` and `/api/status` 404 — it does **not** implement the `/api/*` JSON contract the site expects, so `AVA_ORIGIN_URL` cannot simply be repointed there.
 

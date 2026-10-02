@@ -19,7 +19,7 @@ The old GitHub repo `rootrecordsoftwaresolutions/old` (`web/` and `Thumbnails/`)
 The live system already does the following, and this work must keep it:
 
 - Desk tunnel: Pacific `Communications/network/cloudflare/` (`cloudflared` binary, `cf-status.json`, `cf-blocker.json`). Token name `ROOTSERVER_TUNNEL_TOKEN`.
-- Globe: `www.rootrecord.cloud` → `127.0.0.1:8090` in `1 - Servers/2 - RootRecord-US-Mainland-Server/mirror/.cloudflared/config-globe.yml`, plus `ssh.rootrecord.cloud`. Visual direction is that full-screen dark globe and glass overlay. The Home card target is `https://rootrecord.cloud/home` and stays off until routing exists.
+- Globe: `www.rootrecord.cloud` → `127.0.0.1:8090` in `1 - Servers/2 - RootRecord-US-Mainland-One/mirror/.cloudflared/config-globe.yml`, plus `ssh.rootrecord.cloud`. Visual direction is that full-screen dark globe and glass overlay. The Home card target is `https://rootrecord.cloud/home` and stays off until routing exists.
 - Vercel app: `rootrecordsoftwaresolutions/RootRecord-Cloud`, staging clone under `Communications/website/RootRecord-Cloud` (gitignored by Pacific). `3 - RootRecord-Website` is empty. Apex `rootrecord.cloud` redirects to `www`, which is the globe, so the public domain does not reach Vercel today.
 
 When building is allowed: a local route manifest and a checker for the one Vercel site. `www` stays the globe. The Vercel app is the only public site. Old avaivy ingress is reference, not applied. Old CSS skins are archived, not imported.
@@ -109,7 +109,7 @@ Build order, after Alexander accepts this draft and says to build. Do not start 
 | `2 - RootRecord-Database/Communications/Site/` | Last file from the checker. Runtime output only. |
 | `2 - RootRecord-Database/Logs/Communications/Site/` | Checker log line only. |
 | `5 - RootRecord-Library/Archive/Website-Themes/avaivy.cloud/` | Unchanged old skin. Out of the Vercel build. |
-| `1 - Servers/2 - RootRecord-US-Mainland-Server/mirror/.cloudflared/config-globe.yml` | Live globe ingress. Read-only. |
+| `1 - Servers/2 - RootRecord-US-Mainland-One/mirror/.cloudflared/config-globe.yml` | Live globe ingress. Read-only. |
 | `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Communications/network/cloudflare/` | Live desk tunnel. Read-only. |
 | `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Communications/website/` | Vercel staging clone. Read-only. |
 | `3 - RootRecord-Website` | One Vercel app, owned by agent 07. Empty today. Do not edit. |

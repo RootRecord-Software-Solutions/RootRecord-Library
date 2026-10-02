@@ -50,7 +50,7 @@ RootRecord-Ecosystem
 | **RootRecord-Library** | `RootRecord-Software-Solutions` | Durable knowledge, agent context, architecture sessions, ops logs, work orders |
 | **RootRecord-Pacific-Solar-Server** | `RootRecord-Software-Solutions` | **Primary desk runtime** (Automations domain live; other domains importing) |
 | **RootRecord-Database** | `RootRecord-Software-Solutions` | Generated data, telemetry & media — local `/home/rootrecord/RootRecord-Ecosystem/2 - RootRecord-Database` |
-| **US-Mainland-Server** | `rootrecordsoftwaresolutions` | Continuity node |
+| **US-Mainland-One** | `rootrecordsoftwaresolutions` | Continuity node |
 | **RootRecord-Website** | `rootrecordsoftwaresolutions` | Public Next.js surface |
 | **RootRecord-Weather-Database** | `rootrecordsoftwaresolutions` | Generated weather data & media |
 
@@ -90,8 +90,8 @@ RootRecord-Ecosystem
 
 ### US Mainland Server
 
-- **GitHub:** https://github.com/rootrecordsoftwaresolutions/US-Mainland-Server
-- **Local (target):** `1 - Servers/2 - RootRecord-US-Mainland-Server`
+- **GitHub:** https://github.com/RootRecord-Software-Solutions/US-Mainland-One
+- **Local (target):** `1 - Servers/2 - RootRecord-US-Mainland-One`
 
 ### RootRecord-Website
 
@@ -159,7 +159,7 @@ Catalog: Pacific `Github/scripts/repos.conf`. Pacific, Database, and Library are
 | library | 1 | mirror | `…/5 - RootRecord-Library` | `RootRecord-Software-Solutions/RootRecord-Library` |
 | skills | 0 (disabled) | inplace | `…/Old repos deleted and merged/ollama-skills-g2-2026-09-30` | `rootrecordsoftwaresolutions/Solar-Pacific-RootRecord-Server` |
 | website | 1 | mirror | Pacific `Website/Home/` | `RootRecord-Software-Solutions/RootRecord-Website` |
-| mainland | 0 (disabled) | inplace | `…/Old repos deleted and merged/ollama-skills-g2-2026-09-30/us-mainland-server` | `rootrecordsoftwaresolutions/US-Mainland-Server` |
+| mainland | 0 (disabled) | inplace | `…/Old repos deleted and merged/ollama-skills-g2-2026-09-30/us-mainland-one` | `RootRecord-Software-Solutions/US-Mainland-One` |
 
 Deploy standing rule: push → sync merge → `schedule-stack-reload` when runtime code is pulled.
 
@@ -213,7 +213,7 @@ The operator installed the documented AMD XDNA2/XRT prerequisite stack on the Pa
 ## State at pause — 2026-09-29 16:25 HST
 
 - **§4.2 Runtime:** the old-repo matrix is now **35 migrated / 22 partial / 33 missing** (supersedes the 27 / 27 / 36 note in §4.2). All ports are gated OFF; their jobs are PROPOSED in [Pending-Job-Registrations](../../02-Runtime-Jobs-and-Control/Pending-Job-Registrations-2026-09-29.md).
-- **§4.3 Node (US-Mainland / AWS):** no longer only a placeholder. Desk checkout imported (**PASS**). AWS feed trim + cron, tunnel (`www` 200) and the static allowlist: **PASS**. AWS fallback Phase 2 LANDED on the trimmed-micro t3.micro profile (908 MB RAM), with Root Monitor write mode: **PASS**. A real fallback and a relay send are VERIFY PENDING. Details: [US-Mainland-Server](../../06-Domains-and-External-Systems/US-Mainland-Server.md).
+- **§4.3 Node (US-Mainland / AWS):** no longer only a placeholder. Desk checkout imported (**PASS**). AWS feed trim + cron, tunnel (`www` 200) and the static allowlist: **PASS**. AWS fallback Phase 2 LANDED on the trimmed-micro t3.micro profile (908 MB RAM), with Root Monitor write mode: **PASS**. A real fallback and a relay send are VERIFY PENDING. Details: [US-Mainland-One](../../06-Domains-and-External-Systems/US-Mainland-One.md).
 - **§4.3 Website (as of 16:25 HST that day):** `www.rootrecord.cloud` served the AWS globe. The RootRecord-Cloud staging build had passed and was not deployed. **Superseded 2026-09-30 21:00 HST:** production is `https://www.rootrecord.cloud/` on Vercel. `ssh.rootrecord.cloud` is A `18.118.30.226`. The contract is `Website/HANDOFF-vercel-homepage-2026-09-30.md`.
 - **New ecosystem folder:** `6 - Android Development` (9 apps, 80.7 MB). Not a git repo, not in `repos.conf`. Build VERIFY PENDING. [Inventory](../../05-Products-Repositories-and-Applications/Android-Apps-Inventory.md).
 - **§5 sync table:** `mainland` stays disabled. The live Mainland tree is a directory inside the umbrella and is not its own git checkout. The `website` row in §5 is the 2026-09-30 catalog, not the disabled row that was current at this pause.

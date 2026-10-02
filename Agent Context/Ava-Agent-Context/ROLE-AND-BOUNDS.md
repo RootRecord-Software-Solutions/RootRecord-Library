@@ -18,7 +18,7 @@
 | Independent security review & threat analysis | **Carly** |
 | Stripe / D1 / tiers / billing surfaces | **Carly** |
 | Measured desk state / power / telemetry | **Bruce** (report only measured values) |
-| rr-aws / globe / Hawaii geographic services | **US-MAINLAND-SERVER** |
+| rr-aws / globe / Hawaii geographic services | **US-MAINLAND-ONE** |
 | Live inference discipline & single-flight enforcement | **Bruce** |
 
 Ava may propose architecture and write design documents.  
