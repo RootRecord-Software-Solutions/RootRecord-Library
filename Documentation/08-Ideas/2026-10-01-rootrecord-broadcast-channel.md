@@ -1,5 +1,9 @@
 # FUTURE PLAN — RootRecord 24/7 broadcast channel
 
+**Status note 2026-10-02:** A YouTube / rr-streaming experiment on Mainland Two was tried and **scrapped** the same day. ML2 is not a live YouTube station. This idea page stays a later plan only; it is not the live host. See [US-Mainland-Two](../15-Domains-and-External-Systems/US-Mainland-Two.md).
+
+**Status note 2026-10-02:** A YouTube / rr-streaming experiment on Mainland Two was tried and **scrapped** the same day. ML2 is not a live YouTube station. This idea page stays a later plan only; it is not the live host. See [US-Mainland-Two](../15-Domains-and-External-Systems/US-Mainland-Two.md).
+
 | Field | Value |
 | --- | --- |
 | **Date (HST)** | 1 October 2026 |

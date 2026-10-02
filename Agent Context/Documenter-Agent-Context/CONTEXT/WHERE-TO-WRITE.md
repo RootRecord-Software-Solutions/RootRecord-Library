@@ -11,6 +11,7 @@ Update the row that matches the change. Do not add a folder because the old page
 | EcoFlow Bluetooth or a quiet pack | `Documentation/01-Operations/2026-10-01-ecoflow-ble-reads.md` and Pacific `Energy/README.md` |
 | Spoken report wording | `Documentation/01-Operations/2026-09-30-voice-desk.md` and `Documentation/10-AI-and-Agent-Runtime/Voice-Reports-G3.md` |
 | Mainland One radio | `Documentation/01-Operations/2026-10-01-radio-station.md` and the top of `Documentation/15-Domains-and-External-Systems/US-Mainland-One.md` |
+| Mainland Two role | `Documentation/15-Domains-and-External-Systems/US-Mainland-Two.md` and HANDOFF |
 | Repository ownership | Ava, Bruce, and Carly `CONTEXT/REPOS.md`, plus `Documentation/12-Pacific-Server-Current-Architecture/Repository-Ownership-Model.md` |
 | Operator panel claim | `Guides & Tutorials/Root-Monitor-Operators-Handbook/Root-Monitor-Operators-Handbook.md` |
 | A test of a rule | `Documentation/07-Testing/` one dated record, and the index row in `Documentation/07-Testing/README.md` |

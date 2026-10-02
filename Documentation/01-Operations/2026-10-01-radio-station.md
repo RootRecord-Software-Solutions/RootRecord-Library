@@ -55,7 +55,7 @@ The connector ignores a local config file. The dashboard ingress wins. The live 
 
 `ssh.rootrecord.cloud` is retired. `www.rootrecord.cloud` stays on Vercel. Leave `www` off this tunnel.
 
-Mainland Two is a different machine and a different tunnel.
+Mainland Two is a different machine and a different tunnel. It is **not** the radio station and **not** a YouTube station (YouTube experiment ended 2026-10-02; [US-Mainland-Two](../15-Domains-and-External-Systems/US-Mainland-Two.md)). Live role: Cloudflare tunnel + github-ops pull scaffolding only. Polling later, not live.
 
 | What | Value |
 | --- | --- |

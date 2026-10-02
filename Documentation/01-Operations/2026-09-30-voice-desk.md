@@ -4,9 +4,9 @@ Finished Hawaii reports go to the Mainland station. The station snapshots the pl
 
 This is the living description of the spoken reports. The 2026-09-29 port record is [Voice-Reports-G3](../10-AI-and-Agent-Runtime/Voice-Reports-G3.md). Where that file still says a job is off, has no delivery, or uses an old minute, this file wins. Trust `Automations/scripts/poller/run-poller.sh` and `Automations/scripts/jobs.py` over older “what stays off” lists.
 
-## Current as of 2026-10-02 00:09 HST
+## Current as of 2026-10-02 00:39 HST
 
-Verified against live Pacific `Automations/scripts/jobs.py` and `Automations/scripts/poller/run-poller.sh` after the poller start at 00:09 HST. Database root is `2 - RootRecord-Database`. Voice MD default is ecosystem `test-reports/Voice/` (`RR_VOICE_REPORT_OUT`).
+Verified against live Pacific `Automations/scripts/jobs.py` and `Automations/scripts/poller/run-poller.sh` after the poller start at 00:09 HST. Spoken change lines and staged on-air cues checked against `Media/Voice/scripts/` as of 00:34 HST. Database root is `2 - RootRecord-Database`. Voice MD default is ecosystem `test-reports/Voice/` (`RR_VOICE_REPORT_OUT`).
 
 ### Shared pipeline
 
@@ -78,7 +78,7 @@ Scripts proposed only (README gates; not in `jobs.py`): News (hawaii/state/globa
 2. `official_weather` / `boot_brief`: Discord `report-channels.json` routes yes; `jobs.py` entries no.
 3. `current_report`: generated at :12/:42; missing from `Communications/Discord/config/report-channels.json` (site `publish_report_pages.py` still lists it in AREAS and has a separate CURRENT_MD path).
 4. CloudNarrative README claims a `jobs.py` entry — absent.
-5. `system_perf.py` docstring still says `only_at_minutes=[6]`; jobs schedule is `[12, 42]`. `voice_reports.py` docstring still says `current_report` at :00/:30; jobs schedule is `[12, 42]`.
+5. `system_perf.py` docstring still says `only_at_minutes=[6]`; jobs schedule is `[12, 42]`. `voice_reports.py` module doc now matches generation-clock stamping and the 09:02 / 12:02 / 21:02 roll-ups (no longer claims `current_report` at :00/:30).
 6. `ai_processing_report.py` file header says out under Database `Logs/AI/Reports/`; live `OUT_DIR` default is ecosystem `test-reports/AI-Processing/`. `template_fill.py` header and jobs description say Database `Reports/Generated/`; live `OUT_DIR` default is ecosystem `test-reports/Templates/`.
 7. Older ops “what stays off” lists that still name roll-ups, late-final, or hurricane as off are history. `run-poller.sh` arms them.
 
@@ -124,9 +124,15 @@ An infrared still is grayscale. The color span of that frame sits near 2, and a 
 
 Morning tilt helps early capture and is not required. Overnight left tilt is the correct prep. The warning says a person is needed. Nothing moves the panels. Four corner actuators for this tilt are a desired upgrade, not a build: [four corner actuators](../09-Desired-Upgrades/2026-09-30-four-corner-sun-tilt-actuators.md).
 
+## Spoken clock and change lines
+
+Spoken time and report headings use the Hawaii clock when the text is built, not a snapped :00 or :30 slot. Daypart roll-ups still run at 09:02, 12:02, and 21:02, and they say that clock.
+
+After a measured number, desks may add a short percent-change line against yesterday, last week, and last month when an earlier reading exists. A missing period, or a zero baseline, is omitted. Example shape: `CPU up 50 percent from yesterday, down 25 percent from last week.` The helper is `Media/Voice/scripts/compare_span.py` (ledger `Database/Reports/Comparisons/metrics.jsonl`; energy keys can also read `Energy/samples`). `voice_reports.py` calls it through `say_change`; `system_perf.py` calls it directly. Unit checks: `test_compare_span.py`.
+
 ## Status clips
 
-Forty lines, one clip at a time, for the ten desks that render. The chime stays a file replay and does not get these lines. News, the hurricane desk, and the daypart roll-ups are not in this set.
+Sixty lines, one clip at a time, for the ten desks that render (six phases each). The Pacific hourly chime job stays a file replay and does not get these lines. News, the hurricane desk, and the daypart roll-ups are not in this set.
 
 Bruce speaks system, solar, and remaining tasks. Ava speaks NWS and the current report. Carly speaks energy, earthquakes, Kīlauea, security, and bandwidth. The type word in the clip is System, NWS, Energy, Remaining tasks, Earthquake, Kilauea, Solar, Security, Bandwidth, or Current.
 
@@ -136,10 +142,14 @@ Bruce speaks system, solar, and remaining tasks. Ava speaks NWS and the current 
 | Transit | "<Type> report has been generated and is in transit." | As the send to Mainland One starts |
 | Failed | "<Type> report was generated but failed to send." | If that send does not land |
 | Sent | "<Type> report was sent successfully." | After Mainland One has the file |
+| Staged hour | "<Type> report has been staged for the hour." | On-air cue for the next :00 slot |
+| Staged half | "<Type> report has been staged for the half hour." | On-air cue for the next :30 slot |
 
 The sent line is the receipt. It plays only after the remote file checks out and is moved into place. A skipped send does not play the failure line.
 
-The clips are Database `Media/Audio/Voice/Clips/<Persona>/<report>_<phase>.wav`. Local playback uses `aplay`. `RR_VOICE_STATUS` defaults on. Set `RR_VOICE_STATUS=0` before the poller starts to keep them quiet. The code is `Media/Voice/scripts/status_cue.py`.
+`radio_push.stage_on_air` uploads the staged cue for the next Hawaii :00 or :30. On the station, the short notification sound plays first; the full spoken clock chime does not. Local desk playback of starting/transit/failed/sent still uses `aplay`.
+
+The clips are Database `Media/Audio/Voice/Clips/<Persona>/<report>_<phase>.wav`. `RR_VOICE_STATUS` defaults on. Set `RR_VOICE_STATUS=0` before the poller starts to keep them quiet. The code is `Media/Voice/scripts/status_cue.py` and `radio_push.py`.
 
 ## Hourly chimes
 

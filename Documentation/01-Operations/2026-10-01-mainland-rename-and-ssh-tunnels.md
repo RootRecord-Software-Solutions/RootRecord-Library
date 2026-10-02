@@ -1,5 +1,7 @@
 # 2026-10-01 — Mainland rename, SSH, and tunnels
 
+**Current as of 2026-10-02:** Mainland Two is **not** a YouTube station. The YouTube / rr-streaming experiment was wiped 2026-10-02; see [US-Mainland-Two](../15-Domains-and-External-Systems/US-Mainland-Two.md). This file remains the 2026-10-01 SSH/rename record. Sections below that describe creating the ML2 tunnel are history of that sitting; the live tunnel id is `bd8e68a4-8a97-4b20-afd9-b058473a0a22`.
+
 | Field | Value |
 | --- | --- |
 | **When** | 2026-10-01 19:23–19:41 HST (UTC 2026-10-02 05:23–05:41) |
