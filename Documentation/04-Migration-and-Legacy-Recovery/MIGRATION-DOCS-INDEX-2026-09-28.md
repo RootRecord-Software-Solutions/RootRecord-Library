@@ -6,6 +6,8 @@ Single entry point for agents and operators working the Pacific server cutover *
 
 **Desk git root (2026-09-29):** this checkout is one repository, [RootRecord-Ecosystem](https://github.com/RootRecord-Software-Solutions/RootRecord-Ecosystem). Library, Pacific, and Database here are directories in that tree. Older notes in this index that assume three nested clones describe the migration as it stood, not the current desk.
 
+**Mainland One (2026-10-02):** radio only, checkout `9b7fccf`. The live page is [US-Mainland-One.md](../06-Domains-and-External-Systems/US-Mainland-One.md). The operator guide is [2026-10-01 radio station](../01-operations/2026-10-01-radio-station.md). The stream is `https://radio.rootrecord.cloud/radio/live.mp3`. The September globe and fallback rows below are the record of that day.
+
 **What Alexander still has to decide (2026-09-30 19:02 HST):** [What's left for Alexander](../01-operations/2026-09-30-whats-left-for-alexander.md). The runtime cutover is live. Root Monitor is the login window. Delta 2 was reading at 18:59 HST (74% SOC). Closed work orders are in `Work-Orders/Complete/`. The open list is Root Monitor `Lib/rr_migration.json` (14 items: 7 BLOCKED, 7 VERIFY PENDING).
 
 **Team constitution (standing):** [Local-Multi-Agent-Team-and-Migration-to-Build-2026-09-28.md](../01-AI-and-Agent-Runtime/Local-Multi-Agent-Team-and-Migration-to-Build-2026-09-28.md) — Ava → Carly → Bruce; small local models; migrate then build.
@@ -43,7 +45,7 @@ Single entry point for agents and operators working the Pacific server cutover *
 
 | Doc | Purpose |
 | --- | --- |
-| [US-Mainland-One.md](../06-Domains-and-External-Systems/US-Mainland-One.md) | **AWS continuity node**: desk checkout, change log, and the current AWS state table (at pause, 16:25 HST) |
+| [US-Mainland-One.md](../06-Domains-and-External-Systems/US-Mainland-One.md) | **Radio host as of 2026-10-02.** The 16:25 HST globe table is not this page anymore. That day's record is the archive architecture page |
 | [07-testing/2026-09-29-aws-hawaii-trim-and-cloudflared.md](../07-testing/2026-09-29-aws-hawaii-trim-and-cloudflared.md) | **AWS Hawaii feed trim + `*/15` auto-trim cron; cloudflared tunnel restored** (`www` 530 → 200): PASS |
 | [07-testing/2026-09-29-aws-globe-static-allowlist.md](../07-testing/2026-09-29-aws-globe-static-allowlist.md) | **AWS static allowlist** (P0: globe `server.js` no longer serves its folder; sensitive paths 404): PASS |
 | [08-ideas/2026-09-29-aws-fallback-rebuild.md](../08-ideas/2026-09-29-aws-fallback-rebuild.md) | **AWS fallback rebuild**: small fallback node with per-function toggles; Phase 2 LANDED on the trimmed t3.micro profile (908 MB RAM); real fallback VERIFY PENDING |
