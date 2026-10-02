@@ -31,6 +31,7 @@ Each test gets one file, `YYYY-MM-DD-<slug>.md`, created from [TEMPLATE.md](./TE
 
 | Date | Record | State |
 | --- | --- | --- |
+| 2026-10-01 19:23 | [Mainland One tunnel SSH; Mainland Two direct SSH; ml2 tunnel blocked on Cloudflare login](./2026-10-01-mainland-ssh-tunnels.md) | PASS `ssh ml1`; FAIL `ml1.rootrecord.cloud`; PASS `ssh ml2` direct; BLOCKED `ml2.rootrecord.cloud` |
 | 2026-09-29 01:11 | [Poller realigned to new Database root](./2026-09-29-poller-database-root-realign.md) | PASS |
 | 2026-09-29 01:49 | [Weather hook from Pacific with Weather/.venv](./2026-09-29-weather-pacific-venv-hook.md) | PASS |
 | 2026-09-29 02:15 | [Status viewer: poller-dashboard single-window launcher; docs-only pulls don't reload](./2026-09-29-poller-dashboard-single-window.md) | PASS |

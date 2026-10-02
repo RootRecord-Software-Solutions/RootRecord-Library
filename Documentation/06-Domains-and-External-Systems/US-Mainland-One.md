@@ -1,5 +1,7 @@
 # US-Mainland-One (AWS continuity node) — desk import + current state
 
+> **Current as of 2026-10-01 19:41 HST:** the sections below are the 2026-09-29 import. Tonight's SSH, DNS, rename, and Mainland Two notes are in [2026-10-01 mainland rename and SSH tunnels](../01-operations/2026-10-01-mainland-rename-and-ssh-tunnels.md). `ssh ml1` uses `ssh.rootrecord.cloud` through the existing tunnel. `ml1.rootrecord.cloud` does not route yet. `api.rootrecord.cloud` is still the old A record.
+
 | Field | Value |
 | --- | --- |
 | **Date (HST)** | 2026-09-29 13:45–14:05 HST |

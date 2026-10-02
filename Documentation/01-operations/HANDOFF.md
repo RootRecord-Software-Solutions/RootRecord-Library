@@ -39,6 +39,7 @@ Generated files live in `2 - RootRecord-Database/System/status/`. That directory
 - NPU device is the council accelerator. FLM idle between replies is normal.
 - Cloudflare tunnel process is part of the poller stack.
 - GitHub sync is a poller job, not a resident daemon.
+- Mainland One SSH is `ssh ml1` through `ssh.rootrecord.cloud`. Mainland Two SSH is direct `ssh ml2`. The 2026-10-01 record is `Documentation/01-operations/2026-10-01-mainland-rename-and-ssh-tunnels.md`.
 
 ## Broken
 
