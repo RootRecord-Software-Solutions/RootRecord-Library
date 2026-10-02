@@ -4,7 +4,7 @@ Written 1 October 2026, 01:40 HST, from the Pacific files named below. Clocks ar
 
 Nothing in this page starts the poller, sends a message, spends money, or turns a job on.
 
-The Root Monitor **Automations** page and **Telemetry** page write two kinds of files. The poller reads them. The public site reads the service-window file.
+The Root Monitor **Automations** page and **Telemetry** page write job overrides, power schedules, optional data-poll intent, and service-window files. The poller reads the first three families. The public site reads the service-window file.
 
 ## 1. Who writes, who runs
 
@@ -12,7 +12,8 @@ The Root Monitor **Automations** page and **Telemetry** page write two kinds of 
 | --- | --- | --- | --- |
 | Job on/off | `Automations/scripts/automation_control.py` | `2 - RootRecord-Database/System/control-panel/automation-overrides.json` | The poller, on its next cycle after the file mtime changes |
 | Power schedules | same module | `2 - RootRecord-Database/System/control-panel/power-automations.json` | The poller, on the minute the clock is due |
-| Automations page | `Apps/Control-Panel/rr_automations_page.py` | Those two JSON files, after confirm | The page does not run a radio command and does not restart the poller |
+| Automations page | `Apps/Control-Panel/rr_automations_page.py` (+ `Lib/rr_data_poll.py`) | Those two JSON files, and (write mode) panel intent / optional `data_poll_mode.yaml`, after confirm | The page does not run a radio command and does not restart the poller |
+| Data-poll toggle | `Apps/Control-Panel/Lib/rr_data_poll.py` | Panel settings keys + optional Database `System/control-panel/data_poll_mode.yaml`; optional drop-in `rr-data-poll.conf` only if `data_poll_apply_dropin` | Poller honors env `RR_LOCAL_DATA_POLL` only until a file reader exists; defaults dry-run / desired=local / apply_dropin=false |
 | Service windows | `Automations/scripts/service_notice.py` | `Website/Home/service-notice.json` | The poller takes one network snapshot when a window becomes active |
 | Telemetry page | `Apps/Control-Panel/rr_telemetry_page.py` | That website file, after confirm | The page does not restart the poller |
 | Public banner | `Website/Home/assets/service-banner.js` | Session dismiss only (`sessionStorage` key `rr-service-dismissed`) | Reads `/service-notice.json` |
@@ -22,7 +23,22 @@ Database `.gitignore` ignores the whole `/System/control-panel/` directory. Thos
 
 Tests point at copies with `RR_AUTOMATION_OVERRIDES`, `RR_POWER_AUTOMATIONS`, `RR_ECOFLOW_ACTIONS`, `RR_SERVICE_NOTICE`, `RR_DATABASE_ROOT`, and `RR_PACIFIC_ROOT`. The test files are `Automations/scripts/test_automation_control.py` and `Automations/scripts/test_service_notice.py`.
 
-## 2. Job on/off
+## 2. Data poll — Local Pacific vs ML2 (GTK, 2026-10-02)
+
+Toggle, not replacement. Home collectors stay in `jobs.py`. Pacific env `RR_LOCAL_DATA_POLL` (in `automation_control.py`) gates the internet data-poll job set: unset/`1` = Local Pacific ON (fail-safe default); `0` = gate those jobs off while ML2 collectors + stream are healthy. Policy essay: [US-Mainland-Two.md](../15-Domains-and-External-Systems/US-Mainland-Two.md).
+
+Root Monitor **Automations** (desk `Apps/Control-Panel/`) shows Local Pacific vs ML2 at the top of the page. Behavior mirrors AWS Fallback safety:
+
+| Setting (Panel `settings.json`) | Default | Meaning |
+| --- | --- | --- |
+| `data_poll_toggle_mode` | `dry-run` | Confirm shows the change; writes nothing that affects the live poller |
+| `data_poll_desired` | `local` | Panel intent (`local` → env 1, `ml2` → 0). Intent YAML is documentation until a file reader exists |
+| `data_poll_apply_dropin` | `false` | When true *and* mode is `write`, also writes `~/.config/systemd/user/rr-rootserver-poller.service.d/rr-data-poll.conf` |
+
+Confirm before any write. The panel **never** restarts the poller. Live collectors were **not** flipped in the 2026-10-02 landing session. Example config: Pacific `Automations/config/data_poll_mode.example.yaml`. Alexander must **restart Root Monitor** to see the GTK control.
+
+## 3. Job on/off
+
 
 `jobs.py` still holds the code default (`enabled` true or false). A boolean under `automation-overrides.json` → `jobs` → `<job id>` wins over that default. `set_job_override` drops the key when the saved value matches the code default, so the file only stores differences.
 
@@ -48,7 +64,7 @@ The page status line is `poller_control_state()`:
 
 Root Monitor does not restart the poller from this page.
 
-## 3. Power schedules
+## 4. Power schedules
 
 A schedule is one catalog function at one clock time, HST. Repeat is `daily` or `once`. A once-row needs a date `YYYY-MM-DD` that is still in the future. Names are at most 80 characters. A blank name becomes the device, the function, and the clock time.
 
@@ -78,7 +94,7 @@ The master button pauses every schedule. It does not delete them and it does not
 
 Log lines look like `power:delta2.ac-off OK …` or `power:… FAIL …`, prefixed with the poller timestamp.
 
-## 4. Public service windows
+## 5. Public service windows
 
 `service-notice.json` is `{ "windows": [ … ] }`. Each window:
 
@@ -112,7 +128,7 @@ During phase `down`, `live.js` labels the network panel planned-down and shows t
 
 The Telemetry page in Root Monitor lists the windows, adds one after confirm, deletes one after confirm, and can refresh one window's last-known snapshot. Refresh does not change the clock times.
 
-## 5. What the public reports page does in the same pass
+## 6. What the public reports page does in the same pass
 
 `Website/scripts/publish_report_pages.py` writes `Website/Home/reports/` from `test-reports/Voice/<key>_current.md` and the Discord route list `Communications/Discord/config/report-channels.json`. The address is `https://www.rootrecord.cloud/reports/<slug>`.
 
@@ -120,9 +136,10 @@ The page keeps measured sections. It drops the `## Spoken` block, persona names,
 
 `Communications/Discord/scripts/report_relay.py` calls that script before it posts. `lib/public_report.py` posts the report title, the measured lines, and the page link. Spoken transcripts stay out of the Discord message. The 8-hour and 24-hour consolidations use the same measured text and the same link.
 
-## 6. What this does not change
+## 7. What this does not change
 
 - Controls-page risky actions stay unwired until a command is signed off.
 - The Not migrated row "Energy actuating actions" stays VERIFY PENDING. The scheduled catalog above is the path that exists. Immediate arm or disarm from Controls is still unwired.
 - Delta 2 transmit behavior is unchanged. A quiet Delta 2 read is still normal.
 - These modules do not send mail, spend money, or push git by themselves. The website mirror publishes `service-notice.json` when that folder syncs.
+- The Automations **data-poll** control does not delete home collectors, does not auto-restart the poller, and does not flip live collectors until Alexander applies env and restarts after ML2 banks are verified.

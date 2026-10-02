@@ -45,6 +45,8 @@ The hostname is aimed at Mainland Two, tunnel `bd8e68a4-8a97-4b20-afd9-b058473a0
 
 `rootserver.rootrecord.cloud` is the Pacific poller on `127.0.0.1:8799`. It is not this API. Pollers have not moved to Mainland Two.
 
+Visitor/session signal for reports comes from Mainland Two server/access logs once Mainland exposes aggregates; no client/page analytics JS on Website/Home (Cove / Report Instructor). ML2 now exposes `/api/analytics/daily`, `/api/analytics/period`, and `/api/analytics/current` on `api.rootrecord.cloud` (`:8091`); operator notes in ML2 `ANALYTICS.md`; desk aggregates under `Logs/Website/analytics/`.
+
 The operations bundle the future API is meant to serve is written on the desk by `Website/scripts/live_data_pages.py` to `2 - RootRecord-Database/Website/operations.json`. The page does not read that file directly.
 
 `Website/Cloudflare-Workers/` is not deployed. Its default origin is still the deleted `root-record-cloud.vercel.app` project. Leave it.

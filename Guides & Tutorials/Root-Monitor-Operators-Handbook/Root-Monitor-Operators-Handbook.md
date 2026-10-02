@@ -8,7 +8,7 @@ Pacific Solar Server desk panel. Written for someone sitting at the machine who 
 
 This handbook is a picture of one night. Battery percentages, log ages, and "PASS" dots will be different when you open it tomorrow. The layout, the buttons, and the rules will not.
 
-**Current enhance (2026-10-02 ~00:15–00:20 HST, Master, desk-local):** Energy header and page mark **LOW** / **CRITICAL** / **STALE**; Energy shows a refresh stamp (`Energy page refreshed … · interval Ns`). AWS Fallback copy is mode-aware (WRITE vs DRY-RUN) and Status-first. Settings → Panel: `aws_fallback_mode` / `aws_fallback_alias` editable; `start_page` help lists every sidebar id. `Lib/rr_migration.json` **as_of 2026-10-02 00:20 HST** — **6 BLOCKED / 8 VERIFY PENDING**; energy-actions note says scheduled Automations landed, Controls arm/disarm still unwired. Safety unchanged: `risky_actions_enabled` false; no SSH writes from a glance; agents must not click Restart everything. **Needs Alexander:** restart Root Monitor to load the GTK changes; B2 ~1% operational check; migration closes still his (tokens, retention, Controls arm/disarm, WO).
+**Current enhance (2026-10-02 ~02:30 HST, Master, desk-local):** Automations **data-poll toggle** (Local Pacific vs ML2 / `RR_LOCAL_DATA_POLL`) dry-run by default. Prior:  Energy header and page mark **LOW** / **CRITICAL** / **STALE**; Energy shows a refresh stamp (`Energy page refreshed … · interval Ns`). AWS Fallback copy is mode-aware (WRITE vs DRY-RUN) and Status-first. Settings → Panel: `aws_fallback_mode` / `aws_fallback_alias` editable; `start_page` help lists every sidebar id. `Lib/rr_migration.json` **as_of 2026-10-02 00:20 HST** — **6 BLOCKED / 8 VERIFY PENDING**; energy-actions note says scheduled Automations landed, Controls arm/disarm still unwired. Safety unchanged: `risky_actions_enabled` false; no SSH writes from a glance; agents must not click Restart everything. **Needs Alexander:** restart Root Monitor to load the GTK changes; B2 ~1% operational check; migration closes still his (tokens, retention, Controls arm/disarm, WO).
 
 ---
 
@@ -309,6 +309,15 @@ How many lines: `log_lines` in Settings → Panel, default 40.
 ---
 
 ## Automations
+
+### Data poll — Local Pacific vs ML2 (2026-10-02)
+
+Top of the Automations page. Shows the live poller `RR_LOCAL_DATA_POLL` state (unset = Local Pacific ON), panel desired mode, and an AWS Fallback-style toggle (`Data poll: Local Pacific` / `Data poll: ML2`).
+
+- **DRY-RUN** (default, `data_poll_toggle_mode`): confirm shows the exact change, then writes nothing. Toast: `dry-run: data poll → … not written`.
+- **WRITE** (Settings → Panel sign-off): confirm → saves `data_poll_desired` + Database `System/control-panel/data_poll_mode.yaml`. Live collectors stay running. Optional `data_poll_apply_dropin` also writes `rr-data-poll.conf`; you still restart the poller yourself after ML2 stream banks are verified.
+- Fail-safe: prefer Local Pacific if AWS/ML2 is down. Never delete home collectors. EcoFlow/Energy stay Pacific-only.
+- Gated job ids are labelled `RR_LOCAL_DATA_POLL gate` in the job list.
 
 Added 1 October 2026. The full contract is Library `Documentation/11-Runtime-Jobs-and-Control/Desk-Automations-and-Service-Windows.md`.
 
