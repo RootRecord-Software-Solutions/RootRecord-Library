@@ -35,7 +35,7 @@ The Automations page shows one button per job, grouped as on boot, once at start
 | `self_terminal` | Next poller start skips its own process record. |
 | `cloudflare_tunnel` | Next poller start skips the Cloudflare tunnel. |
 | `heartbeat` | The ENERGY status line stops after the poller reloads this flag. |
-| `ecoflow_read_cycle` | EcoFlow battery reads stop after the poller reloads this flag. |
+| `ecoflow_read_cycle` | Off in `jobs.py`. Repeating EcoFlow reads are user timer `rr-ecoflow-read.timer`, not this job. See `Documentation/01-Operations/2026-10-01-ecoflow-ble-reads.md`. |
 | `service_supervisor` | Service checks stop after the poller reloads this flag. |
 
 The page status line is `poller_control_state()`:

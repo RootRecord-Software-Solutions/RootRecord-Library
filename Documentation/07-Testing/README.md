@@ -31,6 +31,7 @@ Each test gets one file, `YYYY-MM-DD-<slug>.md`, created from [TEMPLATE.md](./TE
 
 | Date | Record | State |
 | --- | --- | --- |
+| 2026-10-01 23:12 | [EcoFlow BLE hold and adapter reset](./2026-10-01-ecoflow-ble-hold-and-adapter-reset.md) | PASS (logic). Live power-cycle VERIFY PENDING |
 | 2026-10-02 | [Radio station](../01-Operations/2026-10-01-radio-station.md) | On the air. Checkout `9b7fccf`. Opus bed playing at `https://radio.rootrecord.cloud/radio/live.mp3` |
 | 2026-10-01 19:23 | [Mainland One tunnel SSH; Mainland Two direct SSH; ml2 tunnel blocked on Cloudflare login](./2026-10-01-mainland-ssh-tunnels.md) | Evening gate: PASS `ssh ml1`; FAIL `ml1.rootrecord.cloud`; PASS `ssh ml2` direct; BLOCKED `ml2.rootrecord.cloud`. Locked later that day: `ml1.rootrecord.cloud` and `ml2.rootrecord.cloud` are the SSH hostnames |
 | 2026-09-29 01:11 | [Poller realigned to new Database root](./2026-09-29-poller-database-root-realign.md) | PASS |

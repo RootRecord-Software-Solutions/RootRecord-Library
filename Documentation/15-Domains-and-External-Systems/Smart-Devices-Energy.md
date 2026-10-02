@@ -124,7 +124,7 @@ Verified with `git check-ignore`. No secrets file exists yet.
 
 ## Relation to the BLE battery owner
 
-- `Energy/scripts/ble/ble-owner.py` (PID 3195 at 13:32 HST) is the single owner of the Bluetooth adapter; EcoFlow reads take short BLE sessions under `flock /tmp/ecoflow-ble.lock`.
+- EcoFlow pack reads run from user timer `rr-ecoflow-read.timer` under `flock /tmp/ecoflow-ble.lock`. `Energy/scripts/ble/ble-owner.py` is the heartbeat owner and does not poll the packs. The read rule is `Documentation/01-Operations/2026-10-01-ecoflow-ble-reads.md`.
 - WiZ and BSD01 are **Wi-Fi** devices. Smart-Devices code never imports `bleak`/eflib, never scans BLE, never takes the BLE lock. No BLE scan was run in this pass.
 - The two meet only in data: the future load-shedding idea reads `Energy/soc/*-last.json` (BLE-fed) and would act on plugs (Wi-Fi). See the idea doc.
 
