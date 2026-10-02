@@ -32,7 +32,7 @@ Generated files live in `2 - RootRecord-Database/System/status/`. That directory
 
 ## Working
 
-- **Working — River AC recovery ~03:44 HST:** the live ~90s timer stays enabled persistently 24/7 under Master's Pacific EcoFlow/BLE ownership; current logic is fresh SOC≥5% (≤5 min) plus `ac_ports=false` → `river2pro-ac-on.sh` (120s cooldown). Alexander's SOC≥5% **or** input≥50W whichever first is WIP until Master wires it; ML stays clear.
+- **Verified — River AC recovery ~03:48 HST:** the persistent 24/7 `rr-river2pro-ac-recover.timer` has `OnBootSec=45`, `Persistent=true`, and runs with `rootrecord` linger enabled. While AC is off, fresh SOC≥5% (≤5 min) **or** `ac_input_power`≥50W, whichever arrives first, triggers recovery; AC already on is a no-op. Master owns the EcoFlow/BLE path; ML stays clear.
 
 - Sandbox chat answers. Read receipt is eyes, then inference, then typing, then text.
 - Desk readings (Delta 2, River 2 Pro, host CPU/memory/load) refresh before a reply.
@@ -110,7 +110,7 @@ Non-council callers and `flm-warmup.sh` still default to `llama3.2:1b`. The coun
 
 ## Recent changes
 
-2026-10-02 ~03:44 HST: Master verified River 2 Pro AC auto-recover **LIVE** on desk: `rr-river2pro-ac-recover.timer` is enabled persistently 24/7 at ~90s; fresh SOC≥5% (≤5 min) plus `ac_ports=false` calls `river2pro-ac-on.sh` with a 120s cooldown, and AC already on is a no-op (verified at ~28.6% SOC). Alexander's standing order is persistent 24/7, not overnight-only; his SOC≥5% **or** input≥50W whichever first preference is WIP until Master wires it. Master owns the EcoFlow/BLE path; ML stays clear. Overnight, 10:00–12:00, and noon-final station routines remain armed. No commit/push.
+2026-10-02 ~03:48 HST: Master verified River 2 Pro AC auto-recover **LIVE** on desk: `rr-river2pro-ac-recover.timer` is persistent 24/7 with `OnBootSec=45` and `Persistent=true`; `rootrecord` linger is enabled (`linger=yes`). While AC is off, fresh SOC≥5% (≤5 min) **or** `ac_input_power`≥50W, whichever arrives first, calls `river2pro-ac-on.sh` with a 120-second cooldown. Verified at ~27.7% SOC, 0 W input, and AC on: no-op. Master owns the EcoFlow/BLE path; ML stays clear. Overnight, 10:00–12:00, and noon-final station routines remain armed. No commit/push.
 
 2026-10-02 ~03:43 HST: Alexander → Wren — second station-check window is **10:00–12:00 HST**; Mainland arms ML1/ML2 at **:13/:43** from **10:13–11:43 HST**, then self-clears. Overnight rounds still run through ~06:40 HST. AC-on if River dies remains Master/EcoFlow. No commit/push.
 

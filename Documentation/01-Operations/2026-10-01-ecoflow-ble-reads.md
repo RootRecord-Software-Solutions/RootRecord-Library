@@ -13,7 +13,7 @@ Written 1 October 2026, 23:11 HST, from the Pacific files named below. This is t
 | Owner | `ava-ecoflow-ble.service` | Heartbeat process `Energy/scripts/ble/ble-owner.py`. It does not poll the packs. |
 | Poller job | `ecoflow_read_cycle` in `jobs.py` | **Off.** `enabled` is false. The timer owns the repeating read. `ecoflow_read_boot` still runs once when a poller process starts. |
 
-The timer is a user unit and linger is off. It runs when the `rootrecord` session is up. A reboot that reaches the desktop starts it. Editing `jobs.py` does not start it, and the poller loads `jobs.py` once at process start.
+The timer is a user unit with `rootrecord` linger enabled (`linger=yes`). It is persistent and runs 24/7; `OnBootSec=45` starts it after boot. Editing `jobs.py` does not start it, and the poller loads `jobs.py` once at process start.
 
 `prefer_api` stays `0` for Delta 2 and River 2 Pro in `Energy/config/devices.conf`.
 
@@ -41,11 +41,11 @@ The minute `ENERGY` log uses `B2=off` or `B1=off` for that case. The poller proc
 
 ## River 2 Pro AC auto-recover
 
-The desk watchdog is `Energy/scripts/watchdog/river2pro-ac-recover.sh`. Its units, `Communications/network/systemd/rr-river2pro-ac-recover.service` and `.timer`, are installed under `~/.config/systemd/user/`; the timer is enabled at about 90 seconds and is a persistent 24/7 rule, not an overnight window. It logs to `Database/Logs/Energy/river2pro-ac-recover.log`.
+The desk watchdog is `Energy/scripts/watchdog/river2pro-ac-recover.sh`. Its units, `Communications/network/systemd/rr-river2pro-ac-recover.service` and `.timer`, are installed under `~/.config/systemd/user/`; the timer is enabled persistently 24/7 with `OnBootSec=45` and `Persistent=true`, not as an overnight window. `rootrecord` linger is enabled (`linger=yes`). It logs to `Database/Logs/Energy/river2pro-ac-recover.log`.
 
-Current live logic is fresh River SOC≥5% (≤5 minutes) and `ac_ports=false` → `river2pro-ac-on.sh`, with a 120-second cooldown; already-on is a no-op. That no-op was verified with AC already on at about 28.6% SOC. To disable it: `systemctl --user disable --now rr-river2pro-ac-recover.timer`.
+Current live logic is fresh River SOC≥5% (≤5 minutes) **or** `ac_input_power`≥50W, whichever arrives first, and only when AC is off (`ac_ports=false`) → `river2pro-ac-on.sh`, with a 120-second cooldown; AC already on is a no-op. That no-op was verified with AC already on at about 27.7% SOC and 0 W input. To disable it: `systemctl --user disable --now rr-river2pro-ac-recover.timer`.
 
-Alexander's standing preference is SOC≥5% **or** input≥50W, whichever arrives first, like the BLE poller IDEA. The 50W OR is WIP until Master wires it; Master owns the EcoFlow/BLE path and the ML lane stays clear.
+The standing rule is fresh SOC≥5% (≤5 minutes) **or** `ac_input_power`≥50W, whichever arrives first, and only while AC is off. Master owns the EcoFlow/BLE path and the ML lane stays clear.
 
 ## What not to do
 
