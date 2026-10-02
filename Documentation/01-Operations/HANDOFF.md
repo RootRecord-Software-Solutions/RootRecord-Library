@@ -32,6 +32,8 @@ Generated files live in `2 - RootRecord-Database/System/status/`. That directory
 
 ## Working
 
+- **Working — River AC recovery ~03:44 HST:** the live ~90s timer stays enabled persistently 24/7 under Master's Pacific EcoFlow/BLE ownership; current logic is fresh SOC≥5% (≤5 min) plus `ac_ports=false` → `river2pro-ac-on.sh` (120s cooldown). Alexander's SOC≥5% **or** input≥50W whichever first is WIP until Master wires it; ML stays clear.
+
 - Sandbox chat answers. Read receipt is eyes, then inference, then typing, then text.
 - Desk readings (Delta 2, River 2 Pro, host CPU/memory/load) refresh before a reply.
 - State snapshot refreshes on the same path. Scope questions get the short slice, including configuration drift.
@@ -48,7 +50,11 @@ Generated files live in `2 - RootRecord-Database/System/status/`. That directory
 - **Verified ~03:33 HST:** Report Instructor confirmed the Kīlauea report blend: spoken/written output states whether a still was viewed (Y/N) and, when viewed, what conditions looked like. Bank paths, archive-on-replace, Pacific-only looking, and report blend are verified.
 
 - **Working — RI next lane:** News freshness/rotate for RadioRss and the news hour, using the ML2-streamed bank while Pacific local polling is gated.
-- **Working — Alexander ~03:35 HST:** Solar reboot pending. After return, verify `RR_LOCAL_DATA_POLL=0` (ML2-on exclusive gate), receive tunnel up, and services clean. ML2 keeps polling; if the stream drops, Mainland uses the Telegram handoff buffer. News rotate stays RI.
+- **Measured PASS — post-reboot ~03:41 HST:** `RR_LOCAL_DATA_POLL=0`; intent `remote`; poller up; `:8799` HTTP 200; tunnels `rr-aws-fetch-tunnel` + `rr-ml2-db-tunnel` up; Internet OK. River B1 is ~29% and AC-on; Delta B2 is ~1% and dead. **ATTENTION / Working OPEN:** Mainland `radio_rss` and handoff drain still need verification; do not clear reboot Working until both are verified. If ML2 dies, use the temporary Pacific poller soft flip `RR_LOCAL_DATA_POLL=1`. News rotate stays RI.
+- **Working — Alexander ~03:40–03:43 HST:** Overnight `overnight-station-check-till-7am` runs on cron `7,37 3-7`; ML1/ML2 rounds continue through about **06:40 HST** and self-clear after 07:00. A second station-check window is **10:00–12:00 HST**: Mainland arms ML1/ML2 at **:13/:43** from **10:13–11:43 HST**, then self-clears. AC-on if River dies remains a Master/EcoFlow decision.
+- **Verified — Report Instructor ~03:42 HST:** Big Island weather map/report path is **live/verified** with **Mountain View, Volcano, and Kailua-Kona**. Formal change summary: `Media/Voice/scripts/voice_reports.py` (`zfp_temps`), `Weather/config/resources.yaml` (NDFD points), `Weather/reports/generator.py` (RWR Kona→Kailua-Kona PHKO), `Weather/config/report_counties.yaml`, and `Media/Voice/scripts/hawaiian_lexicon.py`. Smoke: `b_nws_weather` and `current_report` include all three; previously noted gaps are unchanged.
+- **Verified — desk drift ~03:43 HST:** `zfp_temps` bands — Hilo shore, Mountain View range, Volcano elev; Honolulu/Lihue/Kahului/Kailua-Kona shore. See voice-desk.
+- **Working — Mainland ~03:41 HST:** **PASS:** `ml2-db-stream` last OK **03:22** (**28 ACKed**); `RR_LOCAL_DATA_POLL=0`; reverse tunnel since **03:36**; weather bank fresh ~03:35–03:38. **ATTENTION / Working OPEN:** `radio_rss` ImportError (`cannot import name fetch_url from fetch`; `ml2-collectors` stuck activating); handoff queue ~656 files / 13 MB; cams `*_current` last **03:30 pre-reboot**; radio bank last **03:22**. Do not clear reboot Working until `radio_rss` + handoff drain verify. Overnight rounds continue through ~06:40 HST; the second 10:00–12:00 HST station-check window arms ML1/ML2 at :13/:43 through 11:43, then self-clears.
 
 ## Broken
 
@@ -103,6 +109,18 @@ Non-council callers and `flm-warmup.sh` still default to `llama3.2:1b`. The coun
 - Whether root monitor is a daemon that should be running or a desktop app. It is the GTK panel today.
 
 ## Recent changes
+
+2026-10-02 ~03:44 HST: Master verified River 2 Pro AC auto-recover **LIVE** on desk: `rr-river2pro-ac-recover.timer` is enabled persistently 24/7 at ~90s; fresh SOC≥5% (≤5 min) plus `ac_ports=false` calls `river2pro-ac-on.sh` with a 120s cooldown, and AC already on is a no-op (verified at ~28.6% SOC). Alexander's standing order is persistent 24/7, not overnight-only; his SOC≥5% **or** input≥50W whichever first preference is WIP until Master wires it. Master owns the EcoFlow/BLE path; ML stays clear. Overnight, 10:00–12:00, and noon-final station routines remain armed. No commit/push.
+
+2026-10-02 ~03:43 HST: Alexander → Wren — second station-check window is **10:00–12:00 HST**; Mainland arms ML1/ML2 at **:13/:43** from **10:13–11:43 HST**, then self-clears. Overnight rounds still run through ~06:40 HST. AC-on if River dies remains Master/EcoFlow. No commit/push.
+
+2026-10-02 ~03:41 HST: Master + Mainland → Wren — measured post-reboot **PASS**: `RR_LOCAL_DATA_POLL=0`, intent `remote`, poller up, `:8799` HTTP 200; `rr-aws-fetch-tunnel` + `rr-ml2-db-tunnel` up; Internet OK; River B1 ~29% AC-on; Delta B2 ~1% dead. Mainland stream/bank **PASS**: `ml2-db-stream` last OK 03:22 (28 ACKed), reverse tunnel since 03:36, weather bank ~03:35–03:38. **ATTENTION / Working OPEN:** `radio_rss` ImportError (`cannot import name fetch_url from fetch`; `ml2-collectors` stuck activating), handoff queue ~656 files / 13 MB, cams `*_current` last 03:30 pre-reboot, radio bank last 03:22. Do not clear reboot Working until `radio_rss` + drain verify. Temporary Pacific poller if ML2 dies is soft flip `RR_LOCAL_DATA_POLL=1`. Overnight routine is cron `7,37 3-7` through 07:00 HST. No commit/push.
+
+2026-10-02 ~03:43 HST: Wren desk drift — verified live `zfp_temps` bands after RI Big Island town promotion: Hilo shore, Mountain View range, Volcano elev (~4000 ft); other report towns shore. NDFD points and lexicon match. Folded into voice-desk + Voice-Reports-G3. No commit/push.
+
+2026-10-02 ~03:42 HST: Report Instructor → Wren — Big Island weather sites promoted to **live/verified**: Mountain View, Volcano, and Kailua-Kona. Formal change paths: `Media/Voice/scripts/voice_reports.py` (`zfp_temps`), `Weather/config/resources.yaml` (NDFD points), `Weather/reports/generator.py` (RWR Kona→Kailua-Kona PHKO), `Weather/config/report_counties.yaml`, and `Media/Voice/scripts/hawaiian_lexicon.py`. Smoke: `b_nws_weather` / `current_report` include all three; previously noted gaps unchanged. No commit/push.
+
+2026-10-02 ~03:40 HST: Alexander → Wren — overnight watch through 07:00 HST: Master owns 30-minute station checks; river/AC/temporary-Pacific-poller contingency applies. Report Instructor was wiring Mountain View, Volcano, and Kailua-Kona into Big Island weather reports (WIP at ~03:40 HST; superseded ~03:42 HST by live/verified promotion). Mainland self-checks ML1 radio plus ML2 collectors/stream every 30 minutes through ~06:40 HST; posts only off/all-clear, with the exclusive gate and Master coordination when the link returns. Alexander said solar reboot **done ~03:37 HST**; **superseded ~03:41 HST by measured post-reboot PASS, with `radio_rss` and handoff-drain ATTENTION still open**. No commit/push.
 
 2026-10-02 ~03:31 HST: Mainland verified the first `*_current` bank. ML2 `geology_kilauea_cams` takes USGS stills only (no vision), runs under exclusive `RR_LOCAL_DATA_POLL=0`, streams to Pacific, and wipes scratch after stream. Live paths: `Geology/Volcanoes/Cams/v1cam_current.jpg`, `v2cam_current.jpg`, `v3cam_current.jpg`, and `cams_current.json` (`photo_viewed` plus per-camera `fetched_at`/`bytes`/`sha`/`ok`/`error`). Pacific archive-on-replace is verified for any filename containing `_current`; example `Geology/Volcanoes/Cams/archive/20261002/v3cam_current_033046.jpg`; `kilauea_look` prefers `*_current` and verified `source_kind=current`. SHAs (no push): ML2 `5f3d5c841a10145a33cb1723ee17e1097637f4a2`, Pacific `5bc07464631aa429c0d5813c55fe5db9455315bf`, Ecosystem `0bd1ecbd292863f8e39dea1696959a8bcf31ba70`. RI confirmed the report blend at ~03:33; EcoFlow stays Pacific and ML2 never runs vision.
 

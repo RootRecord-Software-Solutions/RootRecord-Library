@@ -39,6 +39,14 @@ A last reading of 5 percent or less that is older than 30 minutes is not a live 
 
 The minute `ENERGY` log uses `B2=off` or `B1=off` for that case. The poller process reads that code when it starts.
 
+## River 2 Pro AC auto-recover
+
+The desk watchdog is `Energy/scripts/watchdog/river2pro-ac-recover.sh`. Its units, `Communications/network/systemd/rr-river2pro-ac-recover.service` and `.timer`, are installed under `~/.config/systemd/user/`; the timer is enabled at about 90 seconds and is a persistent 24/7 rule, not an overnight window. It logs to `Database/Logs/Energy/river2pro-ac-recover.log`.
+
+Current live logic is fresh River SOC≥5% (≤5 minutes) and `ac_ports=false` → `river2pro-ac-on.sh`, with a 120-second cooldown; already-on is a no-op. That no-op was verified with AC already on at about 28.6% SOC. To disable it: `systemctl --user disable --now rr-river2pro-ac-recover.timer`.
+
+Alexander's standing preference is SOC≥5% **or** input≥50W, whichever arrives first, like the BLE poller IDEA. The 50W OR is WIP until Master wires it; Master owns the EcoFlow/BLE path and the ML lane stays clear.
+
 ## What not to do
 
 - Do not turn `ecoflow_read_cycle` back on in the poller. Voice and GitHub jobs in that queue were freezing the read. The timer is outside that queue.

@@ -8,6 +8,12 @@ This is the living description of the spoken reports. The 2026-09-29 port record
 
 Alexander’s operator copy, checked against live `jobs.py`, `run-poller.sh`, `voice_reports.py`, `status_cue.py`, `voice_deliver.py`, Discord `public_report.py` / `report-channels.json`, and `publish_report_pages.py`. As of ~01:41 HST the separate `energy_report` voice job is retired: pack watts, newest ch1 still, and the hourly camera look live inside Bruce’s `solar_desk` (title “Energy and solar”). `status_cue.TYPES` lists **nine** generating desks. As of ~01:57 HST those nine desks and the stack-closer cycle key moved from `:12` / `:42` to `:22` / `:52` in `jobs.py` and `status_cue.cycle_key` (tests updated). Live timing is [voice-timing.md](./voice-timing.md) (generated 2026-10-02 03:10 HST, 284 runs, nine-desk stack at `:22` / `:52`). The live Mainland mixer is release `stage-notice`. Do not kill the encoder mid-report. A `jobs.py` / `run-poller.sh` change needs a poller restart before the running process adopts the new minutes; script edits are picked up on the next job run.
 
+### Big Island weather report sites (LIVE/VERIFIED ~03:42 HST)
+
+Report Instructor promoted **Mountain View, Volcano, and Kailua-Kona** onto the Big Island weather map/report path. Formal change summary paths: `Media/Voice/scripts/voice_reports.py` (`zfp_temps`); `Weather/config/resources.yaml` (NDFD points); `Weather/reports/generator.py` (RWR Kona→Kailua-Kona PHKO); `Weather/config/report_counties.yaml`; and `Media/Voice/scripts/hawaiian_lexicon.py`. Smoke passed: `b_nws_weather` and `current_report` include all three. Previously documented gaps are unchanged.
+
+**ZFP bands (desk-verified ~03:43 HST):** `zfp_temps` still reads Big Island East once, then speaks three places with different bands — Hilo **shore**, Mountain View **range** (shore-to-elevation span), Volcano **elev** (~4000 ft). Honolulu, Lihue, Kahului, and Kailua-Kona stay **shore**. Helpers `_shore` / `_elev` / `_zone_range` / `_band_temp` implement that. NDFD points add Mountain View, Volcano, and Kailua-Kona beside HNL/LIH/OGG/ITO; lexicon adds Volcano + Kailua-Kona diagnose names.
+
 ### Station lock and lead time
 
 The station locks the playlist at `HH:29:59` and `HH:59:59`, then plays the half-hour chime and every current report. A file that arrives after that lock waits for the next cycle. Generation used to start at `:00` and `:30`, which was too late. The nine generating desks share one poller thread and one Kokoro lock, so they run one after another.
