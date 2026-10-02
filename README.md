@@ -105,6 +105,10 @@ Each agent pack follows the same basic spine:
 
 ---
 
+## Current status — 2026-10-02
+
+Mainland One is the radio tree at `9b7fccf`. The live folders are `mirror/`, `rootrecord-radio/`, `station.sh`, `status-api/`, and `.gitignore`. The Opus music bed is on the host and the public mix is `https://radio.rootrecord.cloud/radio/live.mp3`. Now-playing is `https://radio.rootrecord.cloud/radio/now.json`. Reports go over `ssh ml1`. Music arrives with the git pull. The operator guide is [2026-10-01 radio station](./Documentation/01-operations/2026-10-01-radio-station.md). `www` stays on Vercel. `ssh.rootrecord.cloud` is retired. `api.rootrecord.cloud` is aimed at Mainland Two and is not live. Start at [HANDOFF.md](./Documentation/01-operations/HANDOFF.md).
+
 ## Current status — 2026-09-30 afternoon
 
 Council chat on this desk uses NPU `llama3.2:3b`, on demand, context 4096, with no Ollama fallback. The sandbox answers. The live council and private DMs stay quiet. Generated state stays in Database `System/status/` and is not committed. The execution broker can read state and refuses restarts and agent builds. Interaction modes, the principal registry, and the Cursor handoff contract are in [INTERACTION-MODES.md](./Documentation/02-agents/INTERACTION-MODES.md). `cursor_api` ships off. The spoken reports as of this evening are in [2026-09-30 voice desk](./Documentation/01-operations/2026-09-30-voice-desk.md). Start at [HANDOFF.md](./Documentation/01-operations/HANDOFF.md). The 2026-09-29 section below is the record of that day, not the council model in use now.

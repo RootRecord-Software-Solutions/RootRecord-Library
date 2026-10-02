@@ -50,7 +50,7 @@ Still on disk at the 02:35 check:
 
 The public page is `Website/Home/`, live at `https://www.rootrecord.cloud/` on Vercel. The `website` catalog row publishes that folder to `RootRecord-Software-Solutions/RootRecord-Website`. `ssh.rootrecord.cloud` is retired. `ml1` and `rr-aws` use `ml1.rootrecord.cloud`. Direct fallback `rr-aws-ip` is `3.140.195.32`. Mainland One is radio. The listener stream is `https://radio.rootrecord.cloud/radio/live.mp3`. `api.rootrecord.cloud` is aimed at Mainland Two and is not live yet. Reports are at `https://www.rootrecord.cloud/reports/`. The contract is `Website/HANDOFF-vercel-homepage-2026-09-30.md`. The radio plan is `Documentation/01-operations/2026-10-01-mainland-rename-and-ssh-tunnels.md`. Do not recreate `3 - RootRecord-Website`. Do not bind port 3001. Do not call port 8787.
 
-`https://rootserver.rootrecord.cloud/` is the poller, not a site. The mainland desk copy is `1 - Servers/2 - RootRecord-US-Mainland-One`, and that sync row stays disabled.
+`https://rootserver.rootrecord.cloud/` is the poller, not a site. The mainland desk copy is `1 - Servers/2 - RootRecord-US-Mainland-One`. That sync row is on. The published tree is the radio checkout `9b7fccf`. The guide is `Documentation/01-operations/2026-10-01-radio-station.md`.
 
 ### 3. Daylight cameras
 
