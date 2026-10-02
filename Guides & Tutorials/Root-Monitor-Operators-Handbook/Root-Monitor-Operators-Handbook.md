@@ -308,7 +308,7 @@ How many lines: `log_lines` in Settings → Panel, default 40.
 
 ## Automations
 
-Added 1 October 2026. The full contract is Library `Documentation/02-Runtime-Jobs-and-Control/Desk-Automations-and-Service-Windows.md`.
+Added 1 October 2026. The full contract is Library `Documentation/11-Runtime-Jobs-and-Control/Desk-Automations-and-Service-Windows.md`.
 
 The status line at the top of the page tells you whether the running poller will honor what you save:
 
@@ -891,7 +891,7 @@ That walk turns the camera viewer on in memory for one shot and does not save se
 ## Related notes
 
 - App README: `Apps/Control-Panel/README.md`
-- Automations and service windows: `5 - RootRecord-Library/Documentation/02-Runtime-Jobs-and-Control/Desk-Automations-and-Service-Windows.md`
+- Automations and service windows: `5 - RootRecord-Library/Documentation/11-Runtime-Jobs-and-Control/Desk-Automations-and-Service-Windows.md`
 - Test notes from the days this panel landed:
   - `5 - RootRecord-Library/Documentation/07-testing/2026-09-29-root-monitor-settings-running-network-ssh.md`
   - `5 - RootRecord-Library/Documentation/07-testing/2026-09-29-root-monitor-aws-fallback-page.md`

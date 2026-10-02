@@ -16,7 +16,7 @@
 
 Standing constitution (committed tonight):
 
-**[Local-Multi-Agent-Team-and-Migration-to-Build-2026-09-28.md](../../01-AI-and-Agent-Runtime/Local-Multi-Agent-Team-and-Migration-to-Build-2026-09-28.md)**
+**[Local-Multi-Agent-Team-and-Migration-to-Build-2026-09-28.md](../../10-AI-and-Agent-Runtime/Local-Multi-Agent-Team-and-Migration-to-Build-2026-09-28.md)**
 
 ```text
 Ava (architect + public voice)
@@ -59,7 +59,7 @@ Canonical packs: `Agent Context/{Ava,Bruce,Carly}-Agent-Context/` in **RootRecor
 
 **Authoritative cutover WO:** `Documentation/06-development/Work-Orders/Servers_Cutover_Work_Order_WO-SRV-2026-09-27.md`
 
-**Entry index:** `Documentation/04-Migration-and-Legacy-Recovery/MIGRATION-DOCS-INDEX-2026-09-28.md`
+**Entry index:** `Documentation/13-Migration-and-Legacy-Recovery/MIGRATION-DOCS-INDEX-2026-09-28.md`
 
 | Surface | Source on Pacific | Runtime verified | Legacy retired |
 | --- | --- | --- | --- |
@@ -150,8 +150,8 @@ Operator paused central session until Bruce finishes desk session or reports.
 
 | Need | Path |
 | --- | --- |
-| Team constitution | `Documentation/01-AI-and-Agent-Runtime/Local-Multi-Agent-Team-and-Migration-to-Build-2026-09-28.md` |
-| Migration index | `Documentation/04-Migration-and-Legacy-Recovery/MIGRATION-DOCS-INDEX-2026-09-28.md` |
+| Team constitution | `Documentation/10-AI-and-Agent-Runtime/Local-Multi-Agent-Team-and-Migration-to-Build-2026-09-28.md` |
+| Migration index | `Documentation/13-Migration-and-Legacy-Recovery/MIGRATION-DOCS-INDEX-2026-09-28.md` |
 | WO index | `Documentation/06-development/Work-Orders/README.md` |
 | WO-SRV | `.../Servers_Cutover_Work_Order_WO-SRV-2026-09-27.md` |
 | WO-WOGEN-001 | `.../WO-WOGEN-001-Work-Order-Generator.md` |

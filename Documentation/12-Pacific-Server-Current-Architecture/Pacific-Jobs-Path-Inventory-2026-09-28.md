@@ -10,8 +10,8 @@
 
 > **Do not treat tables below as current LIVE status.**  
 > **Authoritative cutover status:** [Servers_Cutover_Work_Order_WO-SRV-2026-09-27.md](../06-development/Work-Orders/Servers_Cutover_Work_Order_WO-SRV-2026-09-27.md)  
-> **Runtime gate:** [G3-Runtime-Verification-Checklist-2026-09-28.md](../02-Runtime-Jobs-and-Control/G3-Runtime-Verification-Checklist-2026-09-28.md)  
-> **Retirement tracking:** [Residual-Path-Retirement-Table-2026-09-28.md](../04-Migration-and-Legacy-Recovery/Residual-Path-Retirement-Table-2026-09-28.md)  
+> **Runtime gate:** [G3-Runtime-Verification-Checklist-2026-09-28.md](../11-Runtime-Jobs-and-Control/G3-Runtime-Verification-Checklist-2026-09-28.md)  
+> **Retirement tracking:** [Residual-Path-Retirement-Table-2026-09-28.md](../13-Migration-and-Legacy-Recovery/Residual-Path-Retirement-Table-2026-09-28.md)  
 > Later 2026-09-28 WO-SRV audits report Pacific **source paths landed** for Energy, System/Plumbing, Reports, Github, Telegram, A-Eyes; residual is **runtime verification**, not “unimported folder.”
 
 ---
@@ -90,10 +90,10 @@ Energy/
 | Doc | Role |
 | --- | --- |
 | [WO-SRV](../06-development/Work-Orders/Servers_Cutover_Work_Order_WO-SRV-2026-09-27.md) | **Authoritative** cutover + static audits |
-| [G3-Runtime-Verification-Checklist-2026-09-28.md](../02-Runtime-Jobs-and-Control/G3-Runtime-Verification-Checklist-2026-09-28.md) | Runtime gate |
-| [Residual-Path-Retirement-Table-2026-09-28.md](../04-Migration-and-Legacy-Recovery/Residual-Path-Retirement-Table-2026-09-28.md) | Retirement tracking |
+| [G3-Runtime-Verification-Checklist-2026-09-28.md](../11-Runtime-Jobs-and-Control/G3-Runtime-Verification-Checklist-2026-09-28.md) | Runtime gate |
+| [Residual-Path-Retirement-Table-2026-09-28.md](../13-Migration-and-Legacy-Recovery/Residual-Path-Retirement-Table-2026-09-28.md) | Retirement tracking |
 | [Pacific-Domain-Import-Playbook-2026-09-28.md](./Pacific-Domain-Import-Playbook-2026-09-28.md) | Import rules |
-| [MIGRATION-DOCS-INDEX-2026-09-28.md](../04-Migration-and-Legacy-Recovery/MIGRATION-DOCS-INDEX-2026-09-28.md) | Entry point |
+| [MIGRATION-DOCS-INDEX-2026-09-28.md](../13-Migration-and-Legacy-Recovery/MIGRATION-DOCS-INDEX-2026-09-28.md) | Entry point |
 
 ---
 

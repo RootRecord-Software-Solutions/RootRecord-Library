@@ -6,7 +6,7 @@
 | **Status** | Draft — sandbox replies on as of 2026-09-30 afternoon. Live council and private DMs stay quiet. Discord and the notify-policy seal are still open, so this draft is not promoted. |
 | **Target** | Pacific `Communications/` (incl. `network/cloudflare`, `discord/`, `telegram/`) |
 | **Depends on** | Live tunnel already working; operator policy on Telegram/Discord/alerts |
-| **Related** | WO-WEB-001; WO-COM-002; poller stack lifecycle scripts; [Communications-Notify-Policy-Draft-2026-09-28.md](../../07-Communications/Communications-Notify-Policy-Draft-2026-09-28.md) (Ava draft — pending Carly seal) |
+| **Related** | WO-WEB-001; WO-COM-002; poller stack lifecycle scripts; [Communications-Notify-Policy-Draft-2026-09-28.md](../../16-Communications/Communications-Notify-Policy-Draft-2026-09-28.md) (Ava draft — pending Carly seal) |
 
 ## Goal
 
@@ -40,7 +40,7 @@ Treat Communications as the single home for outbound/inbound edges: Cloudflare t
 
 1. Snapshot current cloudflared invoke path from poller lifecycle scripts
 2. Write Communications README + secret placement note
-3. Operator / Carly seals or returns [Communications-Notify-Policy-Draft](../../07-Communications/Communications-Notify-Policy-Draft-2026-09-28.md)
+3. Operator / Carly seals or returns [Communications-Notify-Policy-Draft](../../16-Communications/Communications-Notify-Policy-Draft-2026-09-28.md)
 4. Operator decides Telegram / Discord: enable / defer / disable residuals
 5. If Discord enable: complete **WO-COM-002** token rotation gate first
 6. If enable: one job template + rate limit note; then WO-SRV-001 wire

@@ -81,7 +81,7 @@ Pacific `Github/scripts/ecosystem-skip-autocommit.txt` extra-blocks the **umbrel
 
 plus Energy samples/soc/watts and System sample/sqlite trees. Intentional commits of other Database paths can still sync. Live telemetry is meant to stay on the desk.
 
-Database `.gitignore` also ignores `/System/control-panel/`. That is where Root Monitor writes `automation-overrides.json` and `power-automations.json` (1 October 2026). They are desk state, not a published log. The public service-window file is Pacific `Website/Home/service-notice.json`, which the website mirror does publish. Contract: [Desk automations and service windows](../Documentation/02-Runtime-Jobs-and-Control/Desk-Automations-and-Service-Windows.md).
+Database `.gitignore` also ignores `/System/control-panel/`. That is where Root Monitor writes `automation-overrides.json` and `power-automations.json` (1 October 2026). They are desk state, not a published log. The public service-window file is Pacific `Website/Home/service-notice.json`, which the website mirror does publish. Contract: [Desk automations and service windows](../Documentation/11-Runtime-Jobs-and-Control/Desk-Automations-and-Service-Windows.md).
 
 ---
 
@@ -152,7 +152,7 @@ Code lives in Pacific `Reports/`. Data lives in Database `Reports/` (and sometim
 
 - **Generated** (`Reports/Generated/`, `template_fill.py`) copies Library `Documentation/01-operations/templates/` structure. It **never writes into the Library** (`guard_out()`). A person copies a reviewed file into `01-operations/` or `Work-Orders/drafts/` by hand. The work-order output is a draft, not on the active index.
 - **Curated briefs** (Economy-Brief, CloudNarrative, voice roll-ups) are domain products. Voice markdown often lands under Ecosystem `test-reports/Voice/` (`RR_VOICE_REPORT_OUT`), not under `Reports/Generated/`. Late-Final **runs** that same `late_report` template; it does not invent a fifth template.
-- **AI processing report** is a third home: Database `Logs/AI/Reports/` (metadata only: lengths, never prompt text). Architecture: Library `Documentation/../Documentation/01-AI-and-Agent-Runtime/AI-Processing-Logs-and-Reports.md`. Older notes also mention non-git `test-reports/AI-Processing/`; the job description writes the Database Logs path. If both exist on disk, do not merge them without a work order.
+- **AI processing report** is a third home: Database `Logs/AI/Reports/` (metadata only: lengths, never prompt text). Architecture: Library `Documentation/../Documentation/10-AI-and-Agent-Runtime/AI-Processing-Logs-and-Reports.md`. Older notes also mention non-git `test-reports/AI-Processing/`; the job description writes the Database Logs path. If both exist on disk, do not merge them without a work order.
 - **Human narrative** stays in Library `Documentation/01-operations/0 - Human Operator Work Logs/`. That is not Database `Reports/`.
 
 `Logs/Reports/` is **run logs for report jobs**, not the reports themselves.
@@ -395,10 +395,10 @@ Hand-run `worklog_once.sh` **does** write Worklog. That is a write. Do not loop 
 | --- | --- |
 | [For an AI](./Teaching-Desk/For-an-AI.md) | Edit rules, what you leave alone |
 | [Root Monitor handbook](./Root-Monitor-Operators-Handbook/Root-Monitor-Operators-Handbook.md) | What the window shows vs the poller |
-| [Desk automations and service windows](../Documentation/02-Runtime-Jobs-and-Control/Desk-Automations-and-Service-Windows.md) | Job overrides, power schedules, and the public service-window file |
-| [AI processing logs](../Documentation/../Documentation/01-AI-and-Agent-Runtime/AI-Processing-Logs-and-Reports.md) | JSONL fields, redaction, gate |
-| [Template report generation](../Documentation/../Documentation/01-AI-and-Agent-Runtime/Template-Report-Generation.md) | Generated reports, validator, never-write-Library |
-| [Voice reports G3](../Documentation/../Documentation/01-AI-and-Agent-Runtime/Voice-Reports-G3.md) | `_current` + Archive convention for voice |
+| [Desk automations and service windows](../Documentation/11-Runtime-Jobs-and-Control/Desk-Automations-and-Service-Windows.md) | Job overrides, power schedules, and the public service-window file |
+| [AI processing logs](../Documentation/../Documentation/10-AI-and-Agent-Runtime/AI-Processing-Logs-and-Reports.md) | JSONL fields, redaction, gate |
+| [Template report generation](../Documentation/../Documentation/10-AI-and-Agent-Runtime/Template-Report-Generation.md) | Generated reports, validator, never-write-Library |
+| [Voice reports G3](../Documentation/../Documentation/10-AI-and-Agent-Runtime/Voice-Reports-G3.md) | `_current` + Archive convention for voice |
 | [04-data](../Documentation/04-data/README.md) | Boundary; path row is partly stale (old `/home/rootrecord/Database/`) |
 | [WO-RPT-001](../Documentation/06-development/Work-Orders/WO-RPT-001-Reports-Worklog-Domain-Import.md) | Worklog spine |
 | [WO-MIG-41](../Documentation/06-development/Work-Orders/drafts/Log_retention_apply_Work_Order_WO-MIG-41-2026-09-29.md) | Log retention; apply still unsigned |

@@ -4,7 +4,7 @@
 | --- | --- |
 | **Date / time (HST)** | 2026-09-29 14:02–14:08 HST |
 | **Tester** | Grok (executor, website-staging pass) |
-| **Change under test** | Pacific `.gitignore` entry `Communications/website/RootRecord-Cloud/` + nested clone of `rootrecordsoftwaresolutions/RootRecord-Cloud` @ `84dec4a`. [Architecture](../../06-Domains-and-External-Systems/Website-RootRecord-Cloud-Staging.md) |
+| **Change under test** | Pacific `.gitignore` entry `Communications/website/RootRecord-Cloud/` + nested clone of `rootrecordsoftwaresolutions/RootRecord-Cloud` @ `84dec4a`. [Architecture](../../15-Domains-and-External-Systems/Website-RootRecord-Cloud-Staging.md) |
 | **State** | Clone + ignore **PASS** · `npm ci` **PASS** · `npm run build` **PASS** · `next start` smoke **PASS** · origin data **FAIL** (530, external) |
 | **Evidence** | this record (outputs quoted); logs were in `/tmp/rr-website-*.log` (not kept) |
 | **Commits** | see worklog *website-staging pass* |

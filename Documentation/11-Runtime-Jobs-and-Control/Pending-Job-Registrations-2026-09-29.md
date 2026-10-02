@@ -4,7 +4,7 @@
 | --- | --- |
 | **Standing rule** | `Pacific Automations/scripts/jobs.py` is edited only when Alexander asks or a work order requires it (received 13:45 HST). New gated jobs are listed here with the exact block to add. **Every row is a sign-off item.** |
 | **Poller** | PID 105444 (started 03:13:28 HST) was not restarted; `jobs.py` is read only at poller start, so nothing here is active. |
-| **Matrix** | [Old-Repo-Migration-Matrix](../04-Migration-and-Legacy-Recovery/Old-Repo-Migration-Matrix.md) |
+| **Matrix** | [Old-Repo-Migration-Matrix](../13-Migration-and-Legacy-Recovery/Old-Repo-Migration-Matrix.md) |
 
 ## A. Already in jobs.py (added 13:21–13:44 HST, before the rule; left in place, all OFF)
 

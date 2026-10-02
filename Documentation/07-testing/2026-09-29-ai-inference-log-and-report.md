@@ -4,7 +4,7 @@
 | --- | --- |
 | **Date / time (HST)** | 2026-09-29 03:58–04:00 HST |
 | **Tester** | Grok Bot (executor, overnight build) |
-| **Change under test** | `run-infer.sh` JSONL append + FLM redaction + `flm_stop` kill fix; `ai-log-rotate.sh`; `Reports/ai_processing_report.py`. Doc: `../01-AI-and-Agent-Runtime/AI-Processing-Logs-and-Reports.md` |
+| **Change under test** | `run-infer.sh` JSONL append + FLM redaction + `flm_stop` kill fix; `ai-log-rotate.sh`; `Reports/ai_processing_report.py`. Doc: `../10-AI-and-Agent-Runtime/AI-Processing-Logs-and-Reports.md` |
 | **State** | **PASS** (JSONL line, redaction, report, rotation). Own-session exit-code question resolved: **rc = 0** after the kill fix |
 | **Evidence** | Database `Logs/AI/Inference/inference_current.jsonl` (1 line, git-ignored), `Logs/AI/Reports/ai-processing-report_current.md` + `Archive/ai-processing-report_2026-09-29T0358.md`, `Logs/AI/FLM/flm.log` tail |
 | **Commits** | see overnight log entry (auto-sync) |

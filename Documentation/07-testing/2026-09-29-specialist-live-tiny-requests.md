@@ -4,7 +4,7 @@
 | --- | --- |
 | **Date / time (HST)** | 2026-09-29 04:18:13 and 04:18:32 HST |
 | **Tester** | agent pass g3-specialists |
-| **Change under test** | Specialist models (`rr-energy` via Ollama) and the FLM system-message route (`rr-weather` SYSTEM block → `llama3.2:1b` on the NPU), each routed by `route-specialist.py` ([design](../../01-AI-and-Agent-Runtime/AI-Specialist-Models-and-Routing.md)) |
+| **Change under test** | Specialist models (`rr-energy` via Ollama) and the FLM system-message route (`rr-weather` SYSTEM block → `llama3.2:1b` on the NPU), each routed by `route-specialist.py` ([design](../../10-AI-and-Agent-Runtime/AI-Specialist-Models-and-Routing.md)) |
 | **State** | **PASS** (both answered through the DATA GATE; no resident model after) |
 | **Evidence** | this record (numbers captured by the test harness, a throwaway script outside the repos) |
 | **Commits** | see the design doc / final report (auto-sync) |

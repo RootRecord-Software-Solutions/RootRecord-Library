@@ -175,7 +175,7 @@ The Library handbook for those Database folders lives on the desk at `Guides & T
 
 ### 5.2 Voice reports — possible **audio** sources later
 
-Living schedule: [2026-09-30 voice desk](../01-operations/2026-09-30-voice-desk.md). Engine: [Voice-Reports-G3](../01-AI-and-Agent-Runtime/Voice-Reports-G3.md).
+Living schedule: [2026-09-30 voice desk](../01-operations/2026-09-30-voice-desk.md). Engine: [Voice-Reports-G3](../10-AI-and-Agent-Runtime/Voice-Reports-G3.md).
 
 **Already true:** Kokoro-82M, on demand, not a resident server. Output 24 kHz 16-bit mono WAV under Database `Media/Audio/Voice/<name>_current.wav`. Sandbox Telegram delivery can be on. **Speakers stay off.** **AWS radio is not wired.** Alexander-only to enable more voice jobs or speakers.
 

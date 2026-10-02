@@ -51,7 +51,7 @@ Samples, ENERGY stores, frames, **and logs** → `/home/rootrecord/Database/…`
 
 ### 6. Geology owns Kīlauea + all earthquake functions
 
-See [Geology-Domain-Ownership-Kilauea-Earthquakes-2026-09-28.md](../06-Domains-and-External-Systems/Geology-Domain-Ownership-Kilauea-Earthquakes-2026-09-28.md).
+See [Geology-Domain-Ownership-Kilauea-Earthquakes-2026-09-28.md](../15-Domains-and-External-Systems/Geology-Domain-Ownership-Kilauea-Earthquakes-2026-09-28.md).
 
 ### 7. Retirement stubs (preferred over silent delete)
 
@@ -81,7 +81,7 @@ When a G1/G2 packet is fully superseded:
 
 Unchanged import template: copy into existing **code** domain folder → rewire jobs → Database for bytes → verify → optional `MIGRATED.md` on old packet.
 
-Current residuals: **runtime verification / legacy retirement** for Telegram, A-Eyes, Energy actions, and Pacific poller ([G3 checklist](../02-Runtime-Jobs-and-Control/G3-Runtime-Verification-Checklist-2026-09-28.md)). Weather remains disabled and outside the active cutover scope. Geology import remains a separate open work order. Skills were functional packets, not a long-term AI design; redesign planned separately.
+Current residuals: **runtime verification / legacy retirement** for Telegram, A-Eyes, Energy actions, and Pacific poller ([G3 checklist](../11-Runtime-Jobs-and-Control/G3-Runtime-Verification-Checklist-2026-09-28.md)). Weather remains disabled and outside the active cutover scope. Geology import remains a separate open work order. Skills were functional packets, not a long-term AI design; redesign planned separately.
 
 ---
 

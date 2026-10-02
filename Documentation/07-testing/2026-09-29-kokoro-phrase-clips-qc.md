@@ -4,7 +4,7 @@
 | --- | --- |
 | **Date / time (HST)** | 2026-09-29 04:06–04:12 HST |
 | **Tester** | Grok Bot (executor, overnight build) |
-| **Change under test** | `clip_catalog.py`, `voice_generate.py` clips/stitch/asr modes, `voice_asr_check.py`, `system_perf.py` (Pacific `Media/Voice/scripts/`). Approved exception to "no stitching" (Alexander, ~04:00 HST). Doc: `../01-AI-and-Agent-Runtime/Voice-Reports-G3.md` §4 |
+| **Change under test** | `clip_catalog.py`, `voice_generate.py` clips/stitch/asr modes, `voice_asr_check.py`, `system_perf.py` (Pacific `Media/Voice/scripts/`). Approved exception to "no stitching" (Alexander, ~04:00 HST). Doc: `../10-AI-and-Agent-Runtime/Voice-Reports-G3.md` §4 |
 | **State** | QC gate **PASS** 68/68 · ASR round trip 59/68 match, 9 on the listen list (**VERIFY PENDING**, Alexander by ear) · stitch **PASS** · system_perf **PASS** (job gated OFF) |
 | **Evidence** | Database `Media/Audio/Voice/Clips/clips_manifest.json` (tracked), `Clips/<Persona>/*.wav` (ignored), `system_perf_current.wav`, `System/Reports/system_perf_current.md`, `hourly_chime_current.wav` |
 | **Backup** | `/home/rootrecord/Database/GITHUB/g3-voice-ailog.bak-20260929-035454/` |

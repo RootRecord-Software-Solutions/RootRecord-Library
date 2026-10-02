@@ -49,7 +49,7 @@ Key operational paths (desk):
 | **G1** archive | `rootrecordsoftwaresolutions/Solar-Pacific-RootRecord-Server-Old` |
 
 **Entry point for all migration docs:**  
-`Documentation/04-Migration-and-Legacy-Recovery/MIGRATION-DOCS-INDEX-2026-09-28.md`
+`Documentation/13-Migration-and-Legacy-Recovery/MIGRATION-DOCS-INDEX-2026-09-28.md`
 
 **Authoritative cutover status:** Work order WO-SRV-2026-09-27 (runtime verification still required before legacy retirement).
 

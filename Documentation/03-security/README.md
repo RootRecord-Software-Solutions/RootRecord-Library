@@ -31,7 +31,7 @@ Security review, credential hygiene, honesty seals, and billing-wall posture for
 | --- | --- |
 | [WO-COM-002](../06-development/Work-Orders/WO-COM-002-Discord-Bot-Credential-Rotation.md) | Discord fresh-token gate |
 | [WO-CF-2026-09-27](../06-development/Work-Orders/Complete/Cloudflare_Tunnel_Recovery_Work_Order_WO-CF-2026-09-27.md) | Tunnel credential recovery (local only) |
-| [Communications-Notify-Policy-Draft](../07-Communications/Communications-Notify-Policy-Draft-2026-09-28.md) | Notify vs log-only (pending Carly seal) |
+| [Communications-Notify-Policy-Draft](../16-Communications/Communications-Notify-Policy-Draft-2026-09-28.md) | Notify vs log-only (pending Carly seal) |
 | [WO-COM-001](../06-development/Work-Orders/WO-COM-001-Communications-Surface.md) | Communications surface organization |
 | [WO-DATA-2026-09-27](../06-development/Work-Orders/Database_Boundary_Work_Order_WO-DATA-2026-09-27.md) | Database boundary (no secret dumps) |
 | [INTERACTION-MODES](../02-agents/INTERACTION-MODES.md) | Build match key is numeric Telegram id. Username is a label. Agents cannot build. Carly reject blocks. |

@@ -18,7 +18,7 @@ Nothing in this folder starts a service, sends a message, spends money, or turns
 | --- | --- |
 | [Root Monitor operator's handbook](./Root-Monitor-Operators-Handbook/Root-Monitor-Operators-Handbook.md) | The live window, page by page, with screenshots from 30 September 2026. |
 | [Database logs and reports — operator handbook](./Database-Logs-and-Reports-Maintenance.md) | How Logs/, Reports/, and Worklog live on disk, what git publishes, and what stays off. |
-| [Desk automations and service windows](../Documentation/02-Runtime-Jobs-and-Control/Desk-Automations-and-Service-Windows.md) | Job on/off files, EcoFlow clock schedules, and the public service-window file. Written 1 October 2026. |
+| [Desk automations and service windows](../Documentation/11-Runtime-Jobs-and-Control/Desk-Automations-and-Service-Windows.md) | Job on/off files, EcoFlow clock schedules, and the public service-window file. Written 1 October 2026. |
 | [Radio station](../Documentation/01-operations/2026-10-01-radio-station.md) | Mainland One operator guide. Opus library, half-hour cycle, daypart reports, git music, SSH reports. Written 1 October 2026. |
 | [Turn a messy AI dump into one plan](./HOW-TO-TURN-MESSY-AI-OUTPUT-INTO-ONE-CLEAN-PLAN.md) | How Alexander steers a planning session until one document is actually right. |
 

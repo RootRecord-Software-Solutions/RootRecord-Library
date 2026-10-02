@@ -5,7 +5,7 @@
 | **Date** | 2026-09-28 (HST) |
 | **Scope** | Private `rootrecordsoftwaresolutions/*` repos with ops/infra value **not** fully represented in public G1–G3 maps |
 | **Rule** | Documentation only — do not bulk-merge private trees into G3 |
-| **Prerequisite** | Public G1–G3 docs complete ([MIGRATION-DOCS-INDEX](../04-Migration-and-Legacy-Recovery/MIGRATION-DOCS-INDEX-2026-09-28.md)) |
+| **Prerequisite** | Public G1–G3 docs complete ([MIGRATION-DOCS-INDEX](../13-Migration-and-Legacy-Recovery/MIGRATION-DOCS-INDEX-2026-09-28.md)) |
 
 ---
 
@@ -130,10 +130,10 @@ These are **product/ops roadmap items**, not automatically G3 Pacific domains �
 
 ## 6. Related public docs
 
-- [Migration-Lineage-Three-Generations](../04-Migration-and-Legacy-Recovery/Migration-Lineage-Three-Generations-2026-09-28.md)  
-- [Solar-Pacific-Old-Full-TopLevel-Catalog](../04-Migration-and-Legacy-Recovery/Solar-Pacific-Old-Full-TopLevel-Catalog-2026-09-28.md)  
-- [Pacific-Jobs-Path-Inventory](../03-Pacific-Server-Current-Architecture/Pacific-Jobs-Path-Inventory-2026-09-28.md)  
-- [MIGRATION-DOCS-INDEX](../04-Migration-and-Legacy-Recovery/MIGRATION-DOCS-INDEX-2026-09-28.md)  
+- [Migration-Lineage-Three-Generations](../13-Migration-and-Legacy-Recovery/Migration-Lineage-Three-Generations-2026-09-28.md)  
+- [Solar-Pacific-Old-Full-TopLevel-Catalog](../13-Migration-and-Legacy-Recovery/Solar-Pacific-Old-Full-TopLevel-Catalog-2026-09-28.md)  
+- [Pacific-Jobs-Path-Inventory](../12-Pacific-Server-Current-Architecture/Pacific-Jobs-Path-Inventory-2026-09-28.md)  
+- [MIGRATION-DOCS-INDEX](../13-Migration-and-Legacy-Recovery/MIGRATION-DOCS-INDEX-2026-09-28.md)  
 
 ---
 

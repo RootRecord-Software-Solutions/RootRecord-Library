@@ -94,6 +94,6 @@ Each test gets one file, `YYYY-MM-DD-<slug>.md`, created from [TEMPLATE.md](./TE
 | 2026-09-29 16:17 | [Globe overlay: AWS deploy + AWS Ohio node/link](./2026-09-29-globe-overlay-aws-deploy.md) | PASS: deploy LANDED 16:10 HST (3 files + 1 line, no restart, allowlist 404s hold); AWS Ohio point and desk↔AWS link LANDED 16:16 (jsdom 18/18); real-browser visual VERIFY PENDING; AWS-side collector PROPOSED |
 | 2026-09-30 14:46 | [Interaction modes: identity, council cap, handoff, gated Cursor, recovery draft](./2026-09-30-interaction-modes.md) | PASS script + `verify.sh` + `WO-SRV-RELAY`; live relay seed VERIFY PENDING (process not restarted); Root Monitor clicks not exercised |
 
-Related: [MIGRATION-DOCS-INDEX](../04-Migration-and-Legacy-Recovery/MIGRATION-DOCS-INDEX-2026-09-28.md) · [WO-SRV](../06-development/Work-Orders/Servers_Cutover_Work_Order_WO-SRV-2026-09-27.md) · [G3 Runtime Verification Checklist](../02-Runtime-Jobs-and-Control/G3-Runtime-Verification-Checklist-2026-09-28.md)
+Related: [MIGRATION-DOCS-INDEX](../13-Migration-and-Legacy-Recovery/MIGRATION-DOCS-INDEX-2026-09-28.md) · [WO-SRV](../06-development/Work-Orders/Servers_Cutover_Work_Order_WO-SRV-2026-09-27.md) · [G3 Runtime Verification Checklist](../11-Runtime-Jobs-and-Control/G3-Runtime-Verification-Checklist-2026-09-28.md)
 
 *Folder created 2026-09-29 ~03:40 HST (docs only).*

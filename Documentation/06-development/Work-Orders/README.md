@@ -87,10 +87,10 @@ Folder + `SKILL.md` retained. Skills were functional packets (poor original desi
 
 Architecture maps (Library):
 
-- `Documentation/04-Migration-and-Legacy-Recovery/Migration-Lineage-Three-Generations-2026-09-28.md`
-- `Documentation/04-Migration-and-Legacy-Recovery/Solar-Pacific-Old-Inventory-Map-2026-09-28.md`
-- `Documentation/03-Pacific-Server-Current-Architecture/Pacific-Domain-Import-Playbook-2026-09-28.md`
-- `Documentation/04-Migration-and-Legacy-Recovery/MIGRATION-DOCS-INDEX-2026-09-28.md`
+- `Documentation/13-Migration-and-Legacy-Recovery/Migration-Lineage-Three-Generations-2026-09-28.md`
+- `Documentation/13-Migration-and-Legacy-Recovery/Solar-Pacific-Old-Inventory-Map-2026-09-28.md`
+- `Documentation/12-Pacific-Server-Current-Architecture/Pacific-Domain-Import-Playbook-2026-09-28.md`
+- `Documentation/13-Migration-and-Legacy-Recovery/MIGRATION-DOCS-INDEX-2026-09-28.md`
 
 ---
 

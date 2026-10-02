@@ -4,9 +4,9 @@
 | --- | --- |
 | **Date / time (HST)** | 2026-09-29 14:19–14:50 HST |
 | **Tester** | Grok Bot (executor subagent) for Alexander |
-| **Change under test** | Copy the latest source, signing files and newest release artifact of every RootRecord Android app into `6 - Android Development/<App>/`, with the fragile 2 TB drive read-only. [Inventory](../../05-Products-Repositories-and-Applications/Android-Apps-Inventory.md) |
+| **Change under test** | Copy the latest source, signing files and newest release artifact of every RootRecord Android app into `6 - Android Development/<App>/`, with the fragile 2 TB drive read-only. [Inventory](../../14-Products-Repositories-and-Applications/Android-Apps-Inventory.md) |
 | **State** | **PASS** (copy integrity, secrets 0600 + ignored, drive clean) · build **VERIFY PENDING** (not attempted: no SDK/Java on the desk) |
-| **Evidence** | This record + [Android-Apps-Inventory](../../05-Products-Repositories-and-Applications/Android-Apps-Inventory.md). Scratch listings in `/tmp/android-inv/` (tmpfs, not kept) |
+| **Evidence** | This record + [Android-Apps-Inventory](../../14-Products-Repositories-and-Applications/Android-Apps-Inventory.md). Scratch listings in `/tmp/android-inv/` (tmpfs, not kept) |
 | **Commits** | Library `1e85c1e` (inventory, this record, 07 README row; auto `desk sync` 14:41 HST) · Library `7ab947f` (worklog section; auto `desk sync` 14:45 HST). Both checked with `git log`. No manual git writes. Target folder has no repo |
 | **Backup** | `/home/rootrecord/Database/GITHUB/android-import.bak-20260929-143931/` (07 README + overnight worklog before edit). Target was empty before the copy (created 14:12, 0 entries) |
 

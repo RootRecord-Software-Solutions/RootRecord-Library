@@ -7,7 +7,7 @@
 | **Date (HST)** | 2026-09-29 (Phase 1: plan + read-only inventory, 14:57–15:20 HST) |
 | **Proposed by** | Grok (executor) for Alexander Storey |
 | **State** | **Phase 2 LANDED (trimmed-micro profile, 16:03 HST)**: Alexander kept the t3.micro and chose the trimmed 7-function profile at 15:40 HST, and AWS changes are approved. Phase 1 inventory PASS. Root Monitor page in **write mode**. Items still pending sign-off are listed in [Phase 2](#phase-2-trimmed-micro-deployed-2026-09-29-15401625-hst) |
-| **Grounding** | [Phase 2 reclaim + retention](../07-testing/2026-09-29-aws-fallback-phase2-reclaim-retention.md) · [Phase 2 history batching](../07-testing/2026-09-29-aws-globe-history-batched-commits.md) · [Phase 2 runtime deploy + Root Monitor write](../07-testing/2026-09-29-aws-fallback-phase2-runtime-deploy.md) · [inventory test record](../07-testing/2026-09-29-aws-fallback-inventory.md) · [Root Monitor page test record](../07-testing/2026-09-29-root-monitor-aws-fallback-page.md) · [US-Mainland-One](../06-Domains-and-External-Systems/US-Mainland-One.md) · [AWS plan](./2026-09-29-aws-mainland-improvement-plan.md) · catalog `Pacific Apps/Control-Panel/Lib/rr_aws_fallback.json` |
+| **Grounding** | [Phase 2 reclaim + retention](../07-testing/2026-09-29-aws-fallback-phase2-reclaim-retention.md) · [Phase 2 history batching](../07-testing/2026-09-29-aws-globe-history-batched-commits.md) · [Phase 2 runtime deploy + Root Monitor write](../07-testing/2026-09-29-aws-fallback-phase2-runtime-deploy.md) · [inventory test record](../07-testing/2026-09-29-aws-fallback-inventory.md) · [Root Monitor page test record](../07-testing/2026-09-29-root-monitor-aws-fallback-page.md) · [US-Mainland-One](../15-Domains-and-External-Systems/US-Mainland-One.md) · [AWS plan](./2026-09-29-aws-mainland-improvement-plan.md) · catalog `Pacific Apps/Control-Panel/Lib/rr_aws_fallback.json` |
 | **Needs sign-off from** | Alexander (instance size, each AWS change, desk jobs, Telegram ownership, write mode) |
 | **Related WO** | WO-SRV (Servers cutover) |
 
@@ -226,5 +226,5 @@ units: rr-fallback-runner.service (ubuntu, stdlib python, ~15 MB, MemoryMax=300M
 2. `telegram_hold` + `basic_replies` (OFF)
 3. `relay_send` (the first real Data Relay send needs one approved test send)
 4. AWS `.env` trim (23 keys)
-5. The desk jobs `aws_heartbeat_push` + `aws_catchup`: proposed blocks only, in [Pending-Job-Registrations §C](../02-Runtime-Jobs-and-Control/Pending-Job-Registrations-2026-09-29.md)
+5. The desk jobs `aws_heartbeat_push` + `aws_catchup`: proposed blocks only, in [Pending-Job-Registrations §C](../11-Runtime-Jobs-and-Control/Pending-Job-Registrations-2026-09-29.md)
 6. Globe `/api/state` poll at 5 s + gzip

@@ -39,7 +39,7 @@ Master-Prompt is the first thing agents load. Library holds deep *why* and histo
 - [x] Working draft boundaries in WO-ECO
 - [x] Pacific server name + org + live path confirmed (WO-SRV)
 - [x] Expand `08-repository-and-file-links.md` (ownership contract, 2026-09-29)
-- [x] Optional deep doc: `Documentation/03-Pacific-Server-Current-Architecture/Repository-Ownership-Model.md`
+- [x] Optional deep doc: `Documentation/12-Pacific-Server-Current-Architecture/Repository-Ownership-Model.md`
 - [x] `prompts.yaml` already loads `08-repository-and-file-links.md` as required
 - [x] One-line link added from Ava, Bruce, and Carly `CONTEXT/REPOS.md`
 

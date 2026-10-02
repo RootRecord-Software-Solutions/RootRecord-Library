@@ -6,7 +6,7 @@
 | **Date** | 2026-09-29 (HST) |
 | **Status** | COMPLETE |
 | **Owner** | RootRecord |
-| **Related** | [Old-Repo-Migration-Matrix](../../../../../../04-Migration-and-Legacy-Recovery/Old-Repo-Migration-Matrix.md) row 78; [G1-Scheduler-To-G3-Jobs-Map](../../../../../../02-Runtime-Jobs-and-Control/G1-Scheduler-To-G3-Jobs-Map-2026-09-29.md) (`governance-daily` OUT); [Solar-Pacific-Old-Full-TopLevel-Catalog](../../../../../../04-Migration-and-Legacy-Recovery/Solar-Pacific-Old-Full-TopLevel-Catalog-2026-09-28.md); [Solar-Pacific-Old-Inventory-Map](../../../../../../04-Migration-and-Legacy-Recovery/Solar-Pacific-Old-Inventory-Map-2026-09-28.md); [WO-OLD](../Old_Server_Selective_Recovery_Work_Order_WO-OLD-2026-09-28.md) |
+| **Related** | [Old-Repo-Migration-Matrix](../../../../../../13-Migration-and-Legacy-Recovery/Old-Repo-Migration-Matrix.md) row 78; [G1-Scheduler-To-G3-Jobs-Map](../../../../../../11-Runtime-Jobs-and-Control/G1-Scheduler-To-G3-Jobs-Map-2026-09-29.md) (`governance-daily` OUT); [Solar-Pacific-Old-Full-TopLevel-Catalog](../../../../../../13-Migration-and-Legacy-Recovery/Solar-Pacific-Old-Full-TopLevel-Catalog-2026-09-28.md); [Solar-Pacific-Old-Inventory-Map](../../../../../../13-Migration-and-Legacy-Recovery/Solar-Pacific-Old-Inventory-Map-2026-09-28.md); [WO-OLD](../Old_Server_Selective_Recovery_Work_Order_WO-OLD-2026-09-28.md) |
 
 **Scope:** Copy the decisions from the old `governance` packet, `origin-session`, and `ecosystem-history` into the Library. Do not install a Pacific package, do not schedule the old jobs, and do not bulk-import `origin/` or the ecosystem-history dump. Closed 2026-09-30. It is not on the active work-order index.
 

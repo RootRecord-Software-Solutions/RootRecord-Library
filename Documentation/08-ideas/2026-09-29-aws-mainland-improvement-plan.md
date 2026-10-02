@@ -7,7 +7,7 @@
 | **Date (HST)** | 2026-09-29 |
 | **Proposed by** | Grok (executor, us-mainland-import pass), building on the US-MAINLAND-ONE lane handoff (2026-09-22 functions/to-dos) |
 | **State** | PROPOSED overall. **P0-1 LANDED/PASS** and **P0-4 LANDED/PASS** (cloudflared www) on 2026-09-29 14:07–14:15 HST, see the [test record](../07-testing/2026-09-29-aws-hawaii-trim-and-cloudflared.md). The rest is unchanged |
-| **Grounding** | [US-Mainland-One architecture](../06-Domains-and-External-Systems/US-Mainland-One.md) (read-only SSH 13:49 HST); test record [2026-09-29-us-mainland-import-and-ssh](../07-testing/2026-09-29-us-mainland-import-and-ssh.md); G2 `handoff/emergency-2026-09-22/US-MAINLAND-ONE-FUNCTIONS-TODOS-2026-09-22.md` |
+| **Grounding** | [US-Mainland-One architecture](../15-Domains-and-External-Systems/US-Mainland-One.md) (read-only SSH 13:49 HST); test record [2026-09-29-us-mainland-import-and-ssh](../07-testing/2026-09-29-us-mainland-import-and-ssh.md); G2 `handoff/emergency-2026-09-22/US-MAINLAND-ONE-FUNCTIONS-TODOS-2026-09-22.md` |
 | **Needs sign-off from** | Alexander (every AWS change), plus a working SSH path |
 | **Related WO** | WO-SRV (Servers cutover) |
 

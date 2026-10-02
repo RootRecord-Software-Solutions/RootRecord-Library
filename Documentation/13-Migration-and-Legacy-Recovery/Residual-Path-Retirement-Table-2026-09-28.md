@@ -10,11 +10,11 @@
 
 ## Operator runbook
 
-Use the companion [G3 Runtime Verification Runbook](../02-Runtime-Jobs-and-Control/G3-Runtime-Verification-Runbook-2026-09-28.md) for exact desk commands and evidence requirements. This table remains the retirement record.
+Use the companion [G3 Runtime Verification Runbook](../11-Runtime-Jobs-and-Control/G3-Runtime-Verification-Runbook-2026-09-28.md) for exact desk commands and evidence requirements. This table remains the retirement record.
 
 ## How to use
 
-1. Run [G3 Runtime Verification Checklist](../02-Runtime-Jobs-and-Control/G3-Runtime-Verification-Checklist-2026-09-28.md)  
+1. Run [G3 Runtime Verification Checklist](../11-Runtime-Jobs-and-Control/G3-Runtime-Verification-Checklist-2026-09-28.md)  
 2. Mark **Verified** only with evidence (cycle OK + path on Pacific)  
 3. Mark **Retired** only after Alexander's explicit sign-off, then legacy **executable** removed or `MIGRATED.md` placed  
 4. Keep legacy `SKILL.md` files  

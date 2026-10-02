@@ -4,7 +4,7 @@
 | --- | --- |
 | **Date / time (HST)** | 2026-09-29 04:27–04:35 HST |
 | **Tester** | Grok Bot (executor, overnight build, pass 2) |
-| **Change under test** | New Pacific `Media/Voice/scripts/voice_reports.py` (stdlib; text + stitched WAV via `voice-render.sh stitch`); `clip_catalog.py` +13 entries; `voice_generate.py` (catalog `spoken` override + `proposed` flag, stitcher skips proposed); 7 jobs in `Automations/scripts/jobs.py` (all OFF); Database `.gitignore` `/Media/Audio/Voice/Reports/Archive/`. Doc: `../01-AI-and-Agent-Runtime/Voice-Reports-G3.md` §5–6 |
+| **Change under test** | New Pacific `Media/Voice/scripts/voice_reports.py` (stdlib; text + stitched WAV via `voice-render.sh stitch`); `clip_catalog.py` +13 entries; `voice_generate.py` (catalog `spoken` override + `proposed` flag, stitcher skips proposed); 7 jobs in `Automations/scripts/jobs.py` (all OFF); Database `.gitignore` `/Media/Audio/Voice/Reports/Archive/`. Doc: `../10-AI-and-Agent-Runtime/Voice-Reports-G3.md` §5–6 |
 | **State** | **PASS** (7/7 reports rc 0, WAV QC PASS, text written, rotation works) · jobs **LANDED, gated OFF** (take effect only at the next poller start with a flag set) · by-ear **VERIFY PENDING** · earthquake **BLOCKED** (no data) |
 | **Evidence** | Database `Media/Audio/Voice/<report>_current.wav` (+ `.read.txt` / `.speak.txt`) and `Media/Audio/Voice/Reports/<report>_current.md` |
 | **Backup** | `/home/rootrecord/Database/GITHUB/g3-voice-reports2.bak-20260929-042153/` |

@@ -8,7 +8,7 @@
 
 **Policy:** Do not run the old desk as the poller host.
 
-**Domain naming SOP (standing):** One Pacific folder per domain (the capitalized name already in the tree). Python package name **matches that folder**. Never add a lowercase sibling symlink (e.g. no `energy` → `Energy`) to satisfy G2 imports — rewrite imports instead. Full text: [Pacific-Domain-Import-Playbook-2026-09-28.md](../../03-Pacific-Server-Current-Architecture/Pacific-Domain-Import-Playbook-2026-09-28.md) § Standing rules.
+**Domain naming SOP (standing):** One Pacific folder per domain (the capitalized name already in the tree). Python package name **matches that folder**. Never add a lowercase sibling symlink (e.g. no `energy` → `Energy`) to satisfy G2 imports — rewrite imports instead. Full text: [Pacific-Domain-Import-Playbook-2026-09-28.md](../../12-Pacific-Server-Current-Architecture/Pacific-Domain-Import-Playbook-2026-09-28.md) § Standing rules.
 
 ---
 
@@ -407,7 +407,7 @@ Canonical camera path: Pacific `Security/Cameras/` (no A-Eyes compatibility laye
 
 ## Geology + old-repo migration pass — 2026-09-29 ~13:12–13:45 HST
 
-Copy/port only; no poller restart (PID 105444 untouched); no delivery, playback or model load; G1/G0 sources **KEPT**. Backups: `/home/rootrecord/Database/GITHUB/migration-geology.bak-20260929-131652/`, `/home/rootrecord/Database/GITHUB/migration-old-repos.bak-20260929-133118/`. Evidence: `2 - RootRecord-Database/Logs/Migration/migration-geology-evidence-20260929T2319Z.md`. Matrix: [Old-Repo-Migration-Matrix](../../04-Migration-and-Legacy-Recovery/Old-Repo-Migration-Matrix.md).
+Copy/port only; no poller restart (PID 105444 untouched); no delivery, playback or model load; G1/G0 sources **KEPT**. Backups: `/home/rootrecord/Database/GITHUB/migration-geology.bak-20260929-131652/`, `/home/rootrecord/Database/GITHUB/migration-old-repos.bak-20260929-133118/`. Evidence: `2 - RootRecord-Database/Logs/Migration/migration-geology-evidence-20260929T2319Z.md`. Matrix: [Old-Repo-Migration-Matrix](../../13-Migration-and-Legacy-Recovery/Old-Repo-Migration-Matrix.md).
 
 | Item | Pacific path | Gate | State |
 | --- | --- | --- | --- |
@@ -430,7 +430,7 @@ Copy/port only; no poller restart (PID 105444 untouched); no delivery, playback 
 ### Addendum ~14:10 HST — breadth batch 4 (steering 13:53: breadth over depth, gated off, light smoke each)
 
 - LANDED + smoke: `Communications/web-facts/scripts/web_facts.py` (on demand, **PASS**); `Communications/live-wx/scripts/live_wx.py` (on demand, **PASS**); `System/scripts/host_desks.py net-sample|net-usage|security` (**PASS**, temp root); `Media/Voice/scripts/voice_reports.py solar_desk|security_desk|bandwidth_desk` (text **PASS**, WAV VERIFY PENDING); `Reports/News/scripts/{_collector,hawaii_news}.py` (rc 0, **FAIL on content** — 0 posts, 25 × HTTP 404).
-- **No jobs.py edit** (standing rule). Their jobs are PROPOSED with exact blocks in [Pending-Job-Registrations-2026-09-29](../../02-Runtime-Jobs-and-Control/Pending-Job-Registrations-2026-09-29.md): `system_net_sample` (`RR_NET_SAMPLES`), `voice_solar_desk` (`RR_VOICE_SOLAR`), `voice_security_desk` (`RR_VOICE_SECURITY`), `voice_bandwidth_desk` (`RR_VOICE_BANDWIDTH`), `reports_hawaii_news` (`RR_HAWAII_NEWS`).
+- **No jobs.py edit** (standing rule). Their jobs are PROPOSED with exact blocks in [Pending-Job-Registrations-2026-09-29](../../11-Runtime-Jobs-and-Control/Pending-Job-Registrations-2026-09-29.md): `system_net_sample` (`RR_NET_SAMPLES`), `voice_solar_desk` (`RR_VOICE_SOLAR`), `voice_security_desk` (`RR_VOICE_SECURITY`), `voice_bandwidth_desk` (`RR_VOICE_BANDWIDTH`), `reports_hawaii_news` (`RR_HAWAII_NEWS`).
 - BLOCKED / not ported: official-weather-media (HLS/HWO not collected, OBS), report ledger / catch-up / readiness (playback + report_generation), sunrise-restore (playback), economy brief (MySQL + Discord), council health / Bruce stats (bot tokens + chat-probe model load + alert sends), load categories (field map).
 - [Test record with check-later list](../../07-testing/2026-09-29-old-repo-ports-breadth-batch4.md). Backup `/home/rootrecord/Database/GITHUB/migration-breadth.bak-20260929-135720/`.
 
@@ -451,15 +451,15 @@ Copy/port only; no poller restart (PID 105444 untouched); no delivery, playback 
   - `Weather/hurricanes/scripts/global_board.py`
   - `System/scripts/host_hw.py`
   - `Media/Voice/scripts/speech_scrub.py`
-  - Verification doc [G1-Scheduler-To-G3-Jobs-Map](../../02-Runtime-Jobs-and-Control/G1-Scheduler-To-G3-Jobs-Map-2026-09-29.md)
-- **No jobs.py edit.** PROPOSED blocks are in [Pending-Job-Registrations-2026-09-29](../../02-Runtime-Jobs-and-Control/Pending-Job-Registrations-2026-09-29.md): `weather_official_hls` (`RR_OFFICIAL_HLS`), `voice_official_weather` (`RR_VOICE_OFFICIAL`), `voice_boot_brief` (`RR_VOICE_BOOT`, ON_BOOT), `reports_board_catchup` (`RR_REPORT_BOARD`), `weather_hurricane_global` (`RR_HURRICANE_GLOBAL`).
+  - Verification doc [G1-Scheduler-To-G3-Jobs-Map](../../11-Runtime-Jobs-and-Control/G1-Scheduler-To-G3-Jobs-Map-2026-09-29.md)
+- **No jobs.py edit.** PROPOSED blocks are in [Pending-Job-Registrations-2026-09-29](../../11-Runtime-Jobs-and-Control/Pending-Job-Registrations-2026-09-29.md): `weather_official_hls` (`RR_OFFICIAL_HLS`), `voice_official_weather` (`RR_VOICE_OFFICIAL`), `voice_boot_brief` (`RR_VOICE_BOOT`, ON_BOOT), `reports_board_catchup` (`RR_REPORT_BOARD`), `weather_hurricane_global` (`RR_HURRICANE_GLOBAL`).
 - **Correction:** the weather poller already collects HWO; only HLS was missing.
 - **Matrix:** now **35 migrated / 22 partial / 33 missing**. No clean candidates remain; everything left is BLOCKED or OUT.
 - [Test record with a check-later list per smoke test](../../07-testing/2026-09-29-old-repo-ports-breadth-batch5.md). Backup `/home/rootrecord/Database/GITHUB/migration-breadth2.bak-20260929-141732/`.
 
 ## US-Mainland-One desk checkout — 2026-09-29 ~13:45–14:00 HST
 
-Second server folder now populated: `1 - Servers/2 - RootRecord-US-Mainland-One/` = clone of `RootRecord-Software-Solutions/US-Mainland-One` at `b61d63c` (placeholder `Communications/` kept). No AWS change, no poller restart, no jobs.py edit. Backup `/home/rootrecord/Database/GITHUB/us-mainland-import.bak-20260929-134629/`. [Architecture](../../06-Domains-and-External-Systems/US-Mainland-One.md) · [Test record](../../07-testing/2026-09-29-us-mainland-import-and-ssh.md) · [Plan](../../08-ideas/2026-09-29-aws-mainland-improvement-plan.md).
+Second server folder now populated: `1 - Servers/2 - RootRecord-US-Mainland-One/` = clone of `RootRecord-Software-Solutions/US-Mainland-One` at `b61d63c` (placeholder `Communications/` kept). No AWS change, no poller restart, no jobs.py edit. Backup `/home/rootrecord/Database/GITHUB/us-mainland-import.bak-20260929-134629/`. [Architecture](../../15-Domains-and-External-Systems/US-Mainland-One.md) · [Test record](../../07-testing/2026-09-29-us-mainland-import-and-ssh.md) · [Plan](../../08-ideas/2026-09-29-aws-mainland-improvement-plan.md).
 
 | Item | State |
 | --- | --- |
@@ -478,7 +478,7 @@ Note: the Smart-Devices pass earlier today (13:31 HST, before the 13:45 standing
 - `hawaii.ndjson` trimmed 1.83 GB → 50.3 MB, and free disk went 1.5G → 3.2G: **PASS**. Auto-trim runs from the `ubuntu` crontab `*/15` on AWS: **LANDED**, fired 14:15.
 - `www.rootrecord.cloud` 530/1033 → **200**: cloudflared reinstalled and the existing tunnel [redacted tunnel ID] plus a `server.js` :8090 unit brought up, with no DNS change: **PASS**.
 - `rr-aws-ip` HostName → [redacted public IP]: **PASS**. `rr-aws` works through the tunnel with the pinned key, but the desk `known_hosts` is stale (needs OK).
-- Details: [test record](../../07-testing/2026-09-29-aws-hawaii-trim-and-cloudflared.md) and [architecture change log](../../06-Domains-and-External-Systems/US-Mainland-One.md).
+- Details: [test record](../../07-testing/2026-09-29-aws-hawaii-trim-and-cloudflared.md) and [architecture change log](../../15-Domains-and-External-Systems/US-Mainland-One.md).
 
 
 ## State at pause — 2026-09-29 16:25 HST
@@ -495,6 +495,6 @@ Docs-only refresh (no runtime change). The consolidated sign-off list is in the 
 | AWS fallback Phase 2 (trimmed-micro, t3.micro 908 MB), Root Monitor write mode | **PASS** · real fallback VERIFY PENDING · relay send VERIFY PENDING | [deploy](../../07-testing/2026-09-29-aws-fallback-phase2-runtime-deploy.md) · [reclaim](../../07-testing/2026-09-29-aws-fallback-phase2-reclaim-retention.md) · [history](../../07-testing/2026-09-29-aws-globe-history-batched-commits.md) |
 | Root Monitor toggle buttons + camera viewer button; desktop launcher | **PASS** / LANDED | [toggle buttons](../../07-testing/2026-09-29-root-monitor-toggle-buttons.md) |
 | Android apps import (outside Pacific) | copy **PASS** · build VERIFY PENDING | [Android import](../../07-testing/2026-09-29-android-apps-import.md) |
-| Old-repo matrix | 35 / 22 / 33 (unchanged since 14:40) | [matrix](../../04-Migration-and-Legacy-Recovery/Old-Repo-Migration-Matrix.md) |
-| AWS feed server `:8787` | open finding, public (sign-off) | [US-Mainland-One](../../06-Domains-and-External-Systems/US-Mainland-One.md) |
+| Old-repo matrix | 35 / 22 / 33 (unchanged since 14:40) | [matrix](../../13-Migration-and-Legacy-Recovery/Old-Repo-Migration-Matrix.md) |
+| AWS feed server `:8787` | open finding, public (sign-off) | [US-Mainland-One](../../15-Domains-and-External-Systems/US-Mainland-One.md) |
 | G2 / G1 / G0 legacy sources | KEPT | — |

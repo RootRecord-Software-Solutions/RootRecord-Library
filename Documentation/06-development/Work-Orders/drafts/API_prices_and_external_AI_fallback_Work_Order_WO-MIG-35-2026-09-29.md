@@ -6,7 +6,7 @@
 | **Date** | 2026-09-30 (HST) |
 | **Status** | BUILT — spend off, jobs enabled False. Not on the active index. |
 | **Owner** | RootRecord |
-| **Related** | [Old-Repo-Migration-Matrix.md](../../../../../../04-Migration-and-Legacy-Recovery/Old-Repo-Migration-Matrix.md) row 72; [Solar-Pacific-Old-Full-TopLevel-Catalog-2026-09-28.md](../../../../../../04-Migration-and-Legacy-Recovery/Solar-Pacific-Old-Full-TopLevel-Catalog-2026-09-28.md) `api`; [G1-Scheduler-To-G3-Jobs-Map-2026-09-29.md](../../../../../../02-Runtime-Jobs-and-Control/G1-Scheduler-To-G3-Jobs-Map-2026-09-29.md) `api-prices` / `cursor-fallback` |
+| **Related** | [Old-Repo-Migration-Matrix.md](../../../../../../13-Migration-and-Legacy-Recovery/Old-Repo-Migration-Matrix.md) row 72; [Solar-Pacific-Old-Full-TopLevel-Catalog-2026-09-28.md](../../../../../../13-Migration-and-Legacy-Recovery/Solar-Pacific-Old-Full-TopLevel-Catalog-2026-09-28.md) `api`; [G1-Scheduler-To-G3-Jobs-Map-2026-09-29.md](../../../../../../11-Runtime-Jobs-and-Control/G1-Scheduler-To-G3-Jobs-Map-2026-09-29.md) `api-prices` / `cursor-fallback` |
 
 **Scope:** One function: a local public-price catalog and a fail-closed xAI / Cursor client under System `ApiPrices`. In scope after acceptance: source, an offline seed test, two disabled job blocks if `jobs.py` is free, then archive and delete only the old `api/` tree. Out of scope: BLE reads, Kokoro, template reports, model-pick, other vendors' clients, enabled jobs, secret values, sends, playback, and any cloud call before sign-off.
 

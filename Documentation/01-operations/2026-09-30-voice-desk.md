@@ -2,7 +2,7 @@
 
 Spoken reports on this desk are unchanged from the 2026-09-30 schedule below. Finished Hawaii reports also go to the Mainland station. The station is on the air at `https://radio.rootrecord.cloud/radio/live.mp3`. The operator page is [2026-10-01 radio station](./2026-10-01-radio-station.md).
 
-This is the living description of the spoken reports. The 2026-09-29 port record is [Voice-Reports-G3](../01-AI-and-Agent-Runtime/Voice-Reports-G3.md). Where that file still says a job is off, has no delivery, or skips a vision line, this file wins.
+This is the living description of the spoken reports. The 2026-09-29 port record is [Voice-Reports-G3](../10-AI-and-Agent-Runtime/Voice-Reports-G3.md). Where that file still says a job is off, has no delivery, or skips a vision line, this file wins.
 
 Sandbox chat is `-1004406495175`. `RR_VOICE_DELIVER=1` and `RR_TELEGRAM_DEST=sandbox` are the defaults in `Automations/scripts/poller/run-poller.sh`. A sandbox post is a voice note, a transcript, and the measured report. A live chat would be voice and report only. The same spoken words are not sent again. Hourly chimes also remember the date and the slot (`HH:MM`), so the same sentence can send on the next day.
 

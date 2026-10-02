@@ -52,13 +52,13 @@ Also on disk, not separate git repositories:
 The seven architecture categories exist and hold the 31 reorganized pages:
 
 ```text
-Documentation/01-AI-and-Agent-Runtime/          5 files
-Documentation/02-Runtime-Jobs-and-Control/      5 files
-Documentation/03-Pacific-Server-Current-Architecture/  6 files
-Documentation/04-Migration-and-Legacy-Recovery/ 6 files
-Documentation/05-Products-Repositories-and-Applications/  3 files
-Documentation/06-Domains-and-External-Systems/  5 files
-Documentation/07-Communications/                1 file
+Documentation/10-AI-and-Agent-Runtime/          5 files
+Documentation/11-Runtime-Jobs-and-Control/      5 files
+Documentation/12-Pacific-Server-Current-Architecture/  6 files
+Documentation/13-Migration-and-Legacy-Recovery/ 6 files
+Documentation/14-Products-Repositories-and-Applications/  3 files
+Documentation/15-Domains-and-External-Systems/  5 files
+Documentation/16-Communications/                1 file
 ```
 
 The same 31 filenames also exist under `Documentation/00-architecture/` and under `Documentation/archive/2026-W40/architecture-pre-reorg/`. SHA-256 matched across all three copies except `Repository-Ownership-Model.md`, which had diverged. The new-path copy and the `00-architecture` copy were then rewritten to the same verified text. The archive copy was not edited.
@@ -138,7 +138,7 @@ Off because the variable is unset and the default is `0`: `council_quake_telegra
 
 `state-aggregate.py` writes `2 - RootRecord-Database/System/status/rootrecord-state.json` and reads `desk-live.txt` under Database `Intake/`. `desk-live.py` writes the desk file. `ecosystem-skip-autocommit.txt` skips `System/status`, samples, layers, worklogs, and logs for the umbrella auto-commit. Database `.gitignore` also ignores live logs, `Energy/state`, `Weather/`, and control-panel live settings.
 
-`state-aggregate.py` still opens `Documentation/../04-Migration-and-Legacy-Recovery/Old-Repo-Migration-Matrix.md`. That path exists because the duplicate copy remains. The canonical page is `Documentation/04-Migration-and-Legacy-Recovery/Old-Repo-Migration-Matrix.md`. The Python path was not changed.
+`state-aggregate.py` still opens `Documentation/../13-Migration-and-Legacy-Recovery/Old-Repo-Migration-Matrix.md`. That path exists because the duplicate copy remains. The canonical page is `Documentation/13-Migration-and-Legacy-Recovery/Old-Repo-Migration-Matrix.md`. The Python path was not changed.
 
 ## Verified Repository Facts
 
@@ -182,7 +182,7 @@ Observed at 2026-09-30 17:58 HST in the automations log: `ecosystem`, `pacific`,
 | `Repository-Ownership-Model.md` (new path and `00-architecture` copy) | Said `skills` stays enabled, `/home/rootrecord/Database/` holds flags, and `Pull.sh` pulls this desk | Rewrote the sync, flag, and history paragraphs to match `repos.conf` and the filesystem | `repos.conf` `skills/website/mainland` are `0`. `/home/rootrecord/Database` is absent. Live folders have no `.git` |
 | `0 - Master-Prompt/prompts/08-repository-and-file-links.md` | Same stale sync and path claims. Said the website desk folder was gone and nothing local exists | Pointed at Pacific `Website/`, the real Mainland directory, disabled sync rows, and the new ownership path | Those directories exist. `3 - RootRecord-Website/` does not |
 | `5 - RootRecord-Library/README.md` | Map omitted the seven new categories and named `adr/` and `schemas/`, which are not directories | Map lists the seven categories and drops the missing names | `ls` of `Documentation/` |
-| `README.md` (umbrella) | System-map link used `../03-Pacific-Server-Current-Architecture/SYSTEM-MAP.md` | Link uses `03-Pacific-Server-Current-Architecture/SYSTEM-MAP.md` | File exists there |
+| `README.md` (umbrella) | System-map link used `../12-Pacific-Server-Current-Architecture/SYSTEM-MAP.md` | Link uses `12-Pacific-Server-Current-Architecture/SYSTEM-MAP.md` | File exists there |
 | `Documentation/02-agents/README.md` | Team-constitution link used the old folder. Personal mirror names disagreed with GitHub `full_name` | New folder path. `AvaIvy/AvaIvy-Agent-Context` and `CarlyMal/Carly-Agent-Context` | `gh api` full names. File exists |
 | Agent `CONTEXT/REPOS.md` (Ava, Bruce, Carly) | Called sync "one timer" and called `02-agents` an empty placeholder index | Poller job, not a systemd timer. Index description matches the files on disk | `systemctl --user list-timers` has no RootRecord timer. `02-agents/` contains modes, requests, handoff, capabilities |
 | `IDENTITY.md` (Ava, Bruce, Carly) | "Live Models" listed tags absent from `ollama list` | Installed tags versus absent names | `ollama list` |
@@ -202,23 +202,23 @@ The poller job `github_sync_all` committed some of those edits as `auto:` desk-s
 | `7 - Client Projects/` | A client-project home | Empty. Not in `HEAD` | `ls -la "7 - Client Projects"` and ask Alexander whether to keep the directory |
 | `ollama.service` warning | Loaded unit differs from the on-disk fragment | `systemctl cat` warned. `systemctl show` matched the fragment that was read. No reload was performed | `systemctl show ollama -p FragmentPath,DropInPaths,ExecStart,Environment` compared with `systemctl cat ollama` after a human decides whether `daemon-reload` is allowed |
 | Personal GitHub packs | Library packs match `AvaIvy/AvaIvy-Agent-Context`, `CarlyMal/Carly-Agent-Context`, and `BruceMonitor/Agent-Context` | The repositories exist. This desk does not sync them. Their trees were not diffed | `gh repo clone` into a temp directory and `diff -rq` against `Agent Context/`. Do not point `repos.conf` at them |
-| `Documentation/02-Runtime-Jobs-and-Control/G3-Runtime-Verification-Checklist-2026-09-28.md` "PASS" rows dated 2026-09-28 and 2026-09-29 | Each PASS row is still true tonight | The file is a dated checklist. This audit verified the council model, poller, Ollama, and FLM version. It did not re-run the checklist | `bash verify.sh` and the checklist commands, read-only |
+| `Documentation/11-Runtime-Jobs-and-Control/G3-Runtime-Verification-Checklist-2026-09-28.md` "PASS" rows dated 2026-09-28 and 2026-09-29 | Each PASS row is still true tonight | The file is a dated checklist. This audit verified the council model, poller, Ollama, and FLM version. It did not re-run the checklist | `bash verify.sh` and the checklist commands, read-only |
 | Master prompt sentence that geology `*-last.json` publication is not signed off | Sign-off state | `hawaii-last.json` is tracked. No sign-off document was opened in this pass | Read the sign-off list in `2026-09-30-whats-left-for-alexander.md` and compare with `git ls-files '2 - RootRecord-Database/Geology/**/*-last.json'` |
 
 ## Contradictions Requiring Human Decision
 
 | File(s) | Conflict | Evidence | Decision Needed |
 | ------- | -------- | -------- | --------------- |
-| `Documentation/00-architecture/<31 files>` and `Documentation/01-AI-and-Agent-Runtime` through `07-Communications` | Two live copies. Runtime still reads the old matrix path | SHA-256 matched for 30 files. `state-aggregate.py` sets `MATRIX` to `Documentation/../04-Migration-and-Legacy-Recovery/Old-Repo-Migration-Matrix.md`. `Apps/Control-Panel/Lib/rr_migration.json` still names old paths | Keep the duplicates until a runtime change retargets those readers, or accept the duplicates as the compatibility copies. Do not delete them in a docs-only pass |
+| `Documentation/00-architecture/<31 files>` and `Documentation/10-AI-and-Agent-Runtime` through `16-Communications` | Two live copies. Runtime still reads the old matrix path | SHA-256 matched for 30 files. `state-aggregate.py` sets `MATRIX` to `Documentation/../13-Migration-and-Legacy-Recovery/Old-Repo-Migration-Matrix.md`. `Apps/Control-Panel/Lib/rr_migration.json` still names old paths | Keep the duplicates until a runtime change retargets those readers, or accept the duplicates as the compatibility copies. Do not delete them in a docs-only pass |
 | `Work-Orders/Servers_Cutover_Work_Order_WO-SRV-2026-09-27.md` | A log line says the Mainland folder is a clone of `US-Mainland-One` | The directory exists and has no `.git`. The GitHub repository still exists. The sync row is disabled and does not point at this directory | Leave the sentence as a dated log, or add a later note that the desk copy is no longer a nested clone. This audit only retargeted the doc link |
 | Agent IDENTITY vs ROLE-AND-BOUNDS | No character conflict found | IDENTITY holds name, role summary, and personality. ROLE-AND-BOUNDS holds ownership and walls. Carly IDENTITY says "Never Clara". No current pack calls her Clara | None for character. Do not invent a personality winner |
 
 ```text
 CONFLICT
 Canonical candidate:
-  Documentation/04-Migration-and-Legacy-Recovery/Old-Repo-Migration-Matrix.md
+  Documentation/13-Migration-and-Legacy-Recovery/Old-Repo-Migration-Matrix.md
 Conflicting files:
-  Documentation/../04-Migration-and-Legacy-Recovery/Old-Repo-Migration-Matrix.md
+  Documentation/../13-Migration-and-Legacy-Recovery/Old-Repo-Migration-Matrix.md
   1 - Servers/1 - RootRecord-Pacific-Solar-Server/System/scripts/state-aggregate.py
 Evidence:
   Both markdown copies hashed equal before this audit.
@@ -255,7 +255,7 @@ You are updating one specific RootRecord documentation fact.
 DO NOT change runtime behavior.
 
 Files:
-5 - RootRecord-Library/Documentation/03-Pacific-Server-Current-Architecture/SYSTEM-MAP.md
+5 - RootRecord-Library/Documentation/12-Pacific-Server-Current-Architecture/SYSTEM-MAP.md
 5 - RootRecord-Library/Documentation/01-operations/2026-09-30-documentation-truth-audit.md
 
 Question:
@@ -411,7 +411,7 @@ You are updating one specific RootRecord documentation fact.
 DO NOT change runtime behavior.
 
 Files:
-5 - RootRecord-Library/Documentation/02-Runtime-Jobs-and-Control/G3-Runtime-Verification-Checklist-2026-09-28.md
+5 - RootRecord-Library/Documentation/11-Runtime-Jobs-and-Control/G3-Runtime-Verification-Checklist-2026-09-28.md
 
 Question:
 Which PASS rows from 2026-09-28 and 2026-09-29 are still true on 2026-09-30?
@@ -474,7 +474,7 @@ Files:
 1 - Servers/1 - RootRecord-Pacific-Solar-Server/System/scripts/state-aggregate.py
 1 - Servers/1 - RootRecord-Pacific-Solar-Server/Apps/Control-Panel/Lib/rr_migration.json
 5 - RootRecord-Library/Documentation/00-architecture/
-5 - RootRecord-Library/Documentation/04-Migration-and-Legacy-Recovery/Old-Repo-Migration-Matrix.md
+5 - RootRecord-Library/Documentation/13-Migration-and-Legacy-Recovery/Old-Repo-Migration-Matrix.md
 
 Question:
 After a later runtime change, should Documentation/00-architecture/ keep duplicate copies of the 31 moved pages?

@@ -39,8 +39,8 @@ Standing inference note (updated 2026-09-29): prefer FLM `llama3.2:1b` **on dema
 
 | Topic | Where to look |
 | --- | --- |
-| Telegram / A-Eyes verification | WO-SRV + [G3-Runtime-Verification-Checklist-2026-09-28.md](../02-Runtime-Jobs-and-Control/G3-Runtime-Verification-Checklist-2026-09-28.md) |
-| Path retirement tracking | [Residual-Path-Retirement-Table-2026-09-28.md](../04-Migration-and-Legacy-Recovery/Residual-Path-Retirement-Table-2026-09-28.md) |
+| Telegram / A-Eyes verification | WO-SRV + [G3-Runtime-Verification-Checklist-2026-09-28.md](../11-Runtime-Jobs-and-Control/G3-Runtime-Verification-Checklist-2026-09-28.md) |
+| Path retirement tracking | [Residual-Path-Retirement-Table-2026-09-28.md](../13-Migration-and-Legacy-Recovery/Residual-Path-Retirement-Table-2026-09-28.md) |
 | Weather (disabled) | WO-WXG-001 / jobs.py disabled entry |
 | Full historical path table | [Pacific-Jobs-Path-Inventory-2026-09-28.md](./Pacific-Jobs-Path-Inventory-2026-09-28.md) (historical — see its banner) |
 

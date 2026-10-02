@@ -116,7 +116,7 @@ bash verify.sh
 | Need | File |
 | --- | --- |
 | How a Telegram request becomes work | `5 - RootRecord-Library/Documentation/02-agents/INTERACTION-MODES.md` |
-| How the layers connect | `5 - RootRecord-Library/Documentation/03-Pacific-Server-Current-Architecture/SYSTEM-MAP.md` |
+| How the layers connect | `5 - RootRecord-Library/Documentation/12-Pacific-Server-Current-Architecture/SYSTEM-MAP.md` |
 | Why a gate exists | `5 - RootRecord-Library/Documentation/00-architecture/Decisions/` |
 | Relay promise | `1 - Servers/1 - RootRecord-Pacific-Solar-Server/Communications/telegram/CONTRACT.md` |
 | State promise | `1 - Servers/1 - RootRecord-Pacific-Solar-Server/System/CONTRACT.md` |
@@ -124,4 +124,4 @@ bash verify.sh
 | Personas and bounds | `5 - RootRecord-Library/Agent Context/` |
 | Operator decisions still open | `5 - RootRecord-Library/Documentation/01-operations/2026-09-30-whats-left-for-alexander.md` |
 | Voice desk, current | `5 - RootRecord-Library/Documentation/01-operations/2026-09-30-voice-desk.md` |
-| Migration counts | `5 - RootRecord-Library/Documentation/04-Migration-and-Legacy-Recovery/Old-Repo-Migration-Matrix.md` |
+| Migration counts | `5 - RootRecord-Library/Documentation/13-Migration-and-Legacy-Recovery/Old-Repo-Migration-Matrix.md` |

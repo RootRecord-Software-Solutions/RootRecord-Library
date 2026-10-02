@@ -36,7 +36,7 @@ Never surface tokens, keys, or the contents of the master env file.
 Prefer the design that future agents (and humans) can understand in one reading.
 
 ## 8. Team constitution & mode
-- Full standing strategy: [Local-Multi-Agent-Team-and-Migration-to-Build-2026-09-28.md](../../Documentation/01-AI-and-Agent-Runtime/Local-Multi-Agent-Team-and-Migration-to-Build-2026-09-28.md)
+- Full standing strategy: [Local-Multi-Agent-Team-and-Migration-to-Build-2026-09-28.md](../../Documentation/10-AI-and-Agent-Runtime/Local-Multi-Agent-Team-and-Migration-to-Build-2026-09-28.md)
 - Same Ava → Carly → Bruce system on small local models or future larger hardware
 - **Migrate & stabilize before build-mode expansion** — do not skip residual verification to start product sprawl
 - Hardware upgrades multiply capacity; they should not rewrite role contracts or truth gates

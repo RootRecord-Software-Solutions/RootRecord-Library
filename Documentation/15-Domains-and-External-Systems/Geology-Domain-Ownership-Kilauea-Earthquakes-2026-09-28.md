@@ -19,7 +19,7 @@
 
 No separate top-level Pacific folders for `Kilauea/` or `Earthquakes/` as runtime homes. Subfolders **inside** `Geology/` are encouraged for clarity.
 
-This follows the standing domain naming SOP (one capitalized domain folder; no parallel lowercase symlink; package name matches folder when Python is used). See [Pacific-Domain-Import-Playbook-2026-09-28.md](../03-Pacific-Server-Current-Architecture/Pacific-Domain-Import-Playbook-2026-09-28.md).
+This follows the standing domain naming SOP (one capitalized domain folder; no parallel lowercase symlink; package name matches folder when Python is used). See [Pacific-Domain-Import-Playbook-2026-09-28.md](../12-Pacific-Server-Current-Architecture/Pacific-Domain-Import-Playbook-2026-09-28.md).
 
 ---
 
@@ -81,4 +81,4 @@ Geology/
 - **Council quake notices:** dry-run landed as Pacific `Communications/CouncilQuake/` (WO-MIG-25). Reads `hawaii-last.json`. Telegram send and Carly WAV stay off until sign-off.
 - **Public draft queue:** landed 2026-09-30 as Pacific `Geology/PublicDraftQueue/` (WO-MIG-24). Reads `kilauea-last.json`. Job `geology_kilauea_public_draft` gated `RR_KILAUEA_DRAFT`. No send.
 - **Not imported (BLOCKED / sign-off):** Discord posts, Grok drafts, OBS cam push, YouTube scraping, G0 nearest-location enrichment (needs a dataset).
-- Records: [geology test](../07-testing/2026-09-29-geology-earthquakes-hvo-collector.md), [migration matrix](../04-Migration-and-Legacy-Recovery/Old-Repo-Migration-Matrix.md).
+- Records: [geology test](../07-testing/2026-09-29-geology-earthquakes-hvo-collector.md), [migration matrix](../13-Migration-and-Legacy-Recovery/Old-Repo-Migration-Matrix.md).

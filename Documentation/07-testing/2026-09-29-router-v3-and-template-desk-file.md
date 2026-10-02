@@ -4,7 +4,7 @@
 | --- | --- |
 | **Date / time (HST)** | 2026-09-29 05:08–05:12 HST |
 | **Tester** | agent pass g3-router-v3 |
-| **Change under test** | `route-specialist.py` 3.0 (separator-insensitive keywords); `specialist-routes.json` v3 (energy units, `comparison_frame`); `Reports/template_fill.py` passing the facts as a temporary `DESK_LIVE_FILE` ([design](../../01-AI-and-Agent-Runtime/AI-Specialist-Models-and-Routing.md) §3.1, [templates](../../01-AI-and-Agent-Runtime/Template-Report-Generation.md) §3) |
+| **Change under test** | `route-specialist.py` 3.0 (separator-insensitive keywords); `specialist-routes.json` v3 (energy units, `comparison_frame`); `Reports/template_fill.py` passing the facts as a temporary `DESK_LIVE_FILE` ([design](../../10-AI-and-Agent-Runtime/AI-Specialist-Models-and-Routing.md) §3.1, [templates](../../10-AI-and-Agent-Runtime/Template-Report-Generation.md) §3) |
 | **State** | **PASS (router)**: labelled 35/35 kept; new blind 14/21 → 20/21. **PARTIAL (drafting)**: 1 of 2 free-text fields accepted on the second call, and that field contains a claim the facts don't support |
 | **Evidence** | `2 - RootRecord-Database/Logs/AI/Routing/router-test-2026-09-29-v3.md`; inference JSONL 05:11:08 and 05:12:00 (caller `template_fill`); `test-reports/Templates/template-fill-validation_current.json` |
 | **Backup** | `/home/rootrecord/Database/GITHUB/g3-specialists.bak-20260929-041126/` (`*.pre-v3`, `template_fill.py.pre-deskfile`, `template_fill.py.pre-deskfile-2`) |
