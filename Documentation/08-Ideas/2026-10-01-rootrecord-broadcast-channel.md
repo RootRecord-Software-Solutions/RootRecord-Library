@@ -1,6 +1,6 @@
 # FUTURE PLAN — RootRecord 24/7 broadcast channel
 
-**Status note 2026-10-02 ~12:54 HST:** Alexander ordered listeners off the radio mix onto YouTube because the mix is causing trouble for other users. Video is not allowed. Mainland reads that as stills only, is not touching the live station, and will not restore the wiped ML2 video stack. This page’s FFmpeg-video plan is not that order. The stills path is not built. The radio mix is still on the air. See [US-Mainland-Two](../15-Domains-and-External-Systems/US-Mainland-Two.md).
+**Status note 2026-10-02 ~12:54 HST:** Alexander ordered listeners off the radio mix onto YouTube because the mix is causing trouble for other users. Video is not allowed. Mainland reads that as stills only, is not touching the live station, and will not restore the wiped ML2 video stack. This page’s FFmpeg-video plan is not that order. The stills path is not built. The radio mix is still on the air. Superseded ~13:27 HST: Alexander reopened YouTube on ML1. Picture is `1 - Servers/ML1 REBUILD/youtube-thumb.png`, not the live website. Radio page is to embed the active livestream at https://www.youtube.com/@rootmcnews. ML1 renders the local mix and YouTube in parallel. Mainland is wiring it. The public Radio page embed landed ~13:31 HST. The ML1 broadcast is not verified on the air. The wiped ML2 tree stays wiped. See [US-Mainland-Two](../15-Domains-and-External-Systems/US-Mainland-Two.md).
 
 | Field | Value |
 | --- | --- |

@@ -1,6 +1,6 @@
 # 2026-10-01 — Mainland rename, SSH, and tunnels
 
-**Current as of 2026-10-02 ~12:54 HST:** Alexander ordered listeners onto YouTube with no video (stills only). That path is not built. The wiped video experiment stays wiped, and the live radio station was not touched. See [US-Mainland-Two](../15-Domains-and-External-Systems/US-Mainland-Two.md). This file remains the 2026-10-01 SSH/rename record. Sections below that describe creating the ML2 tunnel are history of that sitting; the live tunnel id is `bd8e68a4-8a97-4b20-afd9-b058473a0a22`.
+**Current as of 2026-10-02 ~13:27 HST:** the ~12:54 stills-only hold is superseded. Alexander ordered ML1 to broadcast YouTube from `1 - Servers/ML1 REBUILD`, picture `youtube-thumb.png` (not the live page), and the Radio page to embed the active livestream at https://www.youtube.com/@rootmcnews. Mainland is wiring the parallel local mix. The public Radio page embed landed ~13:31 HST. The ML1 broadcast is not verified on the air. The wiped ML2 video tree stays wiped. The live radio station was not stopped. See [US-Mainland-Two](../15-Domains-and-External-Systems/US-Mainland-Two.md). This file remains the 2026-10-01 SSH/rename record. Sections below that describe creating the ML2 tunnel are history of that sitting; the live tunnel id is `bd8e68a4-8a97-4b20-afd9-b058473a0a22`.
 
 | Field | Value |
 | --- | --- |

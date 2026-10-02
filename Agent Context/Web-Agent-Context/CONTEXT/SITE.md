@@ -24,7 +24,7 @@ Primary navigation (Alexander 2026-10-02): Home, Products, Services, Solutions, 
 | --- | --- |
 | `/` | Entrance. `assets/home.js` draws the globe from the state feed |
 | `/live` | Same globe, with the solar-desk overlay |
-| `/radio` | Plays `https://radio.rootrecord.cloud/radio/live.mp3` and reads `now.json`. The page does not mix audio. Listen unlocks once; then auto-resume/reconnect (no TAP LISTEN on stall). 15-min / `/pro/radio` later, not built |
+| `/radio` | Embeds the active livestream at `https://www.youtube.com/embed/live_stream?channel=UC6M7U4fXAWuVYhgm_veKecA` for https://www.youtube.com/@rootmcnews. Landed ~13:31 HST in `Website/Home/radio/index.html`. Does not play `live.mp3` or load `radio.js`. `shell.js` stays. 15-min / `/pro/radio` later, not built |
 | `/reports` and `/reports/<slug>` | Written by `Website/scripts/publish_report_pages.py` from the measured voice files. Spoken transcripts and persona names stay off the page |
 | `/operations` | Public readings. `assets/charts.js` draws charge, solar, and AC when the feed has them |
 | `/status` | Public system status |
@@ -57,7 +57,7 @@ The operations bundle the future API is meant to serve is written on the desk by
 
 ## Radio on the page
 
-One mix. `https://radio.rootrecord.cloud/radio/live.mp3` is `audio/mpeg` at 128 kbps. Now-playing is `https://radio.rootrecord.cloud/radio/now.json`. The station library is Opus and is not what the browser plays. `www` stays on Vercel. `radio.rootrecord.cloud` is the Mainland One tunnel to `127.0.0.1:8092`. Do not put the radio on the API tunnel, and do not put the API on the radio tunnel.
+2026-10-02 ~13:31 HST the page embeds the active livestream on https://www.youtube.com/@rootmcnews (`live_stream?channel=UC6M7U4fXAWuVYhgm_veKecA`). It does not play the mix. The station mix is still `https://radio.rootrecord.cloud/radio/live.mp3`, `audio/mpeg` at 128 kbps, and that stream was not touched. Now-playing is `https://radio.rootrecord.cloud/radio/now.json`. The station library is Opus and is not what the browser plays. `www` stays on Vercel. `radio.rootrecord.cloud` is the Mainland One tunnel to `127.0.0.1:8092`. Do not put the radio on the API tunnel, and do not put the API on the radio tunnel.
 
 ## Service windows
 

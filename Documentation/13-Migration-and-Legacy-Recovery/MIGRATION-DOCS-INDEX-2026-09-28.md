@@ -6,7 +6,7 @@ Single entry point for agents and operators working the Pacific server cutover *
 
 **Desk git root (2026-09-29):** this checkout is one repository, [RootRecord-Ecosystem](https://github.com/RootRecord-Software-Solutions/RootRecord-Ecosystem). Library, Pacific, and Database here are directories in that tree. Older notes in this index that assume three nested clones describe the migration as it stood, not the current desk.
 
-**Mainland One (2026-10-02):** radio only, checkout `9b7fccf`. The live page is [US-Mainland-One.md](../15-Domains-and-External-Systems/US-Mainland-One.md). The operator guide is [2026-10-01 radio station](../01-Operations/2026-10-01-radio-station.md). The stream is `https://radio.rootrecord.cloud/radio/live.mp3`. The September globe and fallback rows below are the record of that day.
+**Mainland One (2026-10-02):** radio tree, checkout `9b7fccf`. As of ~13:27 HST Alexander also ordered it as the YouTube broadcaster (not live yet). The live page is [US-Mainland-One.md](../15-Domains-and-External-Systems/US-Mainland-One.md). The operator guide is [2026-10-01 radio station](../01-Operations/2026-10-01-radio-station.md). The stream is `https://radio.rootrecord.cloud/radio/live.mp3`. The September globe and fallback rows below are the record of that day.
 
 **What Alexander still has to decide (2026-09-30 19:02 HST):** [What's left for Alexander](../01-Operations/2026-09-30-whats-left-for-alexander.md). The runtime cutover is live. Root Monitor is the login window. Delta 2 was reading at 18:59 HST (74% SOC). Closed work orders are in `Work-Orders/Complete/`. The open list is Root Monitor `Lib/rr_migration.json` (14 items: 7 BLOCKED, 7 VERIFY PENDING).
 

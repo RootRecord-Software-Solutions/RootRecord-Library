@@ -9,7 +9,7 @@
 
 This is how the station works. Listeners join one live mix. They do not pick tracks.
 
-2026-10-02 ~12:54 HST: Alexander said this mix is causing trouble for other users, so listeners move to YouTube, and video is not allowed. Mainland is not touching this station. The YouTube path is stills only and is not built. The wiped ML2 video stack stays wiped. `rr-radio-station` and `live.mp3` stay as they are until that path exists. ~12:56 HST: Report Instructor keeps reports as audio and will not make a video version or touch the station. Cove keeps the public Radio page on the live mp3 until a stills target exists, and will not embed video.
+2026-10-02 ~12:54 HST: Alexander said this mix is causing trouble for other users, so listeners move to YouTube, and video is not allowed. Mainland is not touching this station. The YouTube path is stills only and is not built. The wiped ML2 video stack stays wiped. `rr-radio-station` and `live.mp3` stay as they are until that path exists. Superseded ~13:27 HST: Alexander reopened YouTube on ML1. Picture is `1 - Servers/ML1 REBUILD/youtube-thumb.png`, not the live website. Radio page is to embed the active livestream at https://www.youtube.com/@rootmcnews. ML1 renders the local mix and YouTube in parallel. Mainland is wiring it. Not live yet. The wiped ML2 tree stays wiped. ~12:56 HST: Report Instructor keeps reports as audio and will not make a video version or touch the station. Cove’s ~12:56 hold (keep the Radio page on the live mp3 and do not embed) is superseded by this ~13:27 order. Cove landed the embed ~13:31 HST in `Website/Home/radio/index.html` (channel UC6M7U4fXAWuVYhgm_veKecA, `https://www.youtube.com/embed/live_stream?channel=UC6M7U4fXAWuVYhgm_veKecA`). The page no longer plays `live.mp3` or loads `radio.js`. `Website/Home/assets/site.css` styles `.radio-frame`. The ML1 broadcast itself is not verified on the air. Reports stay audio.
 
 ## What listeners hit
 
@@ -37,7 +37,7 @@ The encoder listens on `127.0.0.1:8092`. Cloudflare publishes that port as `radi
 
 ## Where the files live
 
-Mainland One is radio only.
+Mainland One is the radio tree. As of ~13:27 HST it is also the ordered YouTube broadcaster (public page embed landed ~13:31 HST; the broadcast is not verified on the air).
 
 | What | Value |
 | --- | --- |
@@ -57,7 +57,7 @@ The connector ignores a local config file. The dashboard ingress wins. The live 
 
 `ssh.rootrecord.cloud` is retired. `www.rootrecord.cloud` stays on Vercel. Leave `www` off this tunnel.
 
-Mainland Two is a different machine and a different tunnel. It is **not** the radio station. The video experiment stays wiped ([US-Mainland-Two](../15-Domains-and-External-Systems/US-Mainland-Two.md)). Alexander ~12:54 HST ordered a stills-only YouTube listen path; that path is not built, and this station was not stopped. Live role: Cloudflare tunnel + github-ops pull scaffolding only. Polling later, not live.
+Mainland Two is a different machine and a different tunnel. It is **not** the radio station. The video experiment stays wiped ([US-Mainland-Two](../15-Domains-and-External-Systems/US-Mainland-Two.md)). The ~12:54 stills-only path is superseded by the ~13:27 ML1 order. This station was not stopped. Live role: Cloudflare tunnel + github-ops pull scaffolding only. Polling later, not live.
 
 | What | Value |
 | --- | --- |
