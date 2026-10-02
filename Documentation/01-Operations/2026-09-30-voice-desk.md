@@ -1,6 +1,6 @@
 # Voice desk — current as of 2026-10-01
 
-Spoken reports on this desk are unchanged from the 2026-09-30 schedule below. Finished Hawaii reports also go to the Mainland station. The station is on the air at `https://radio.rootrecord.cloud/radio/live.mp3`. The operator page is [2026-10-01 radio station](./2026-10-01-radio-station.md).
+Finished Hawaii reports go to the Mainland station. The station snapshots the playlist at `HH:29:59` and `HH:59:59`, then chimes on the hour and the half hour. Voice jobs render before that snapshot. The station is on the air at `https://radio.rootrecord.cloud/radio/live.mp3`. The operator page is [2026-10-01 radio station](./2026-10-01-radio-station.md).
 
 This is the living description of the spoken reports. The 2026-09-29 port record is [Voice-Reports-G3](../10-AI-and-Agent-Runtime/Voice-Reports-G3.md). Where that file still says a job is off, has no delivery, or skips a vision line, this file wins.
 
@@ -16,15 +16,19 @@ These flags default to 1 in `run-poller.sh`. The schedule is HST.
 
 | Minute | Who | Report | What it says |
 | --- | --- | --- | --- |
-| :03 | Carly | Kīlauea | HVO alert and notice. Place names are respelled. She does not read raw JSON, and she does not say Hawaii after every line. |
-| :04 | Bruce | Solar desk | Pack state of charge, solar, AC, USB-C, generator or transfer, sun times, the channel 1 still, and the last stored camera look. |
-| :06 | Bruce | System | CPU, memory, disk, host battery, uptime, integrated graphics, NPU. Host temperature is degrees Celsius. |
-| :07 :22 :37 :52 | Ava | NWS | Hawaii alerts and the forecast period on file. |
-| :08 | Carly | Earthquakes | Hawaii first, then global. A stale file is named as stale. |
-| :11 | Carly | Security | Firewall, ssh, listeners, failed sign-ins. No raw JSON. |
-| :12 | Carly | Bandwidth | Byte samples. If there is no sample window yet, the note is not sent. |
-| :15 :45 | — | Energy look | Refreshes the hourly camera look. It does not send a voice note. Bruce speaks that sentence on the next solar desk. |
-| :32 | Bruce | Remaining tasks | Open report-board slots in the next hour. Morning 09:02, midday 12:02, late 21:02. |
+| :12 and :42 | Bruce | System | CPU, memory, disk, host battery, uptime, integrated graphics, NPU. Host temperature is degrees Celsius. |
+| :12 and :42 | Ava | NWS | Hawaii alerts and the forecast period on file. |
+| :12 and :42 | — | Energy look | Refreshes the camera look before the solar desk. It does not send a voice note. Bruce speaks that sentence on the solar desk in the same pass. |
+| :12 and :42 | Bruce | Remaining tasks | Open report-board slots. |
+| :12 and :42 | Carly | Earthquakes | Hawaii first, then global. A stale file is named as stale. |
+| :12 and :42 | Carly | Kīlauea | HVO alert and notice. Place names are respelled. She does not read raw JSON, and she does not say Hawaii after every line. |
+| :12 and :42 | Bruce | Solar desk | Pack state of charge, solar, AC, USB-C, generator or transfer, sun times, the channel 1 still, and the last stored camera look. |
+| :12 and :42 | Carly | Security | Firewall, ssh, listeners, failed sign-ins. No raw JSON. |
+| :12 and :42 | Carly | Bandwidth | Byte samples. If there is no sample window yet, the note is not sent. |
+| :12 and :42 | Ava | Current | Full current report after the other desks. |
+| :36 | rotating | News | Hourly news update, before the :42 stack. |
+| 09:02, 12:02, 21:02 | Ava | Daypart roll-up | Morning, midday, and late. Rendered inside the window so the next half-hour snapshot can play it. |
+| 05:40, 09:40, 12:40, 16:40, 20:40 | Carly | Hurricane | Before the following hour snapshot. Off unless `RR_VOICE_HURRICANE=1`. |
 
 Geology collection (`RR_GEOLOGY`) and network samples (`RR_NET_SAMPLES`) also default to 1, because the quake and bandwidth notes read those files.
 
@@ -37,7 +41,7 @@ Not exported in `run-poller.sh`, so a normal poller start leaves them off:
 | `RR_VOICE_HOURLY_CHIME` | The :00 and :30 chimes. The 48 files exist. The job does not play them until this flag is 1 at poller start. |
 | `RR_VOICE_HURRICANE` | Hurricane desk. |
 | `RR_VOICE_ROLLUPS` | Morning 09:02, midday 12:02, late 21:02. |
-| `RR_VOICE_LATE_FINAL` | 23:30 second chance for the late roll-up. |
+| `RR_VOICE_LATE_FINAL` | 23:02 second chance for the late roll-up. |
 | `RR_VOICE_OFFICIAL` | Official weather. The job is still not in `jobs.py`. |
 | `RR_VOICE_BOOT` | Boot brief. The job is still not in `jobs.py`. |
 | `RR_PUBLIC_HEALTH` | Origin radio and port 8787 check. Send needs a second flag. |
