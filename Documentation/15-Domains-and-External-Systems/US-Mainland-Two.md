@@ -1,6 +1,6 @@
 # US-Mainland-Two
 
-Current as of 2026-10-02 ~03:12 HST. This page is the live host role. The 2026-10-01 SSH and rename sitting is [2026-10-01 mainland rename and SSH tunnels](../01-Operations/2026-10-01-mainland-rename-and-ssh-tunnels.md). Do not treat OLD FILES or continuity plans as live ML1/ML2 truth.
+Current as of 2026-10-02 ~03:14 HST. This page is the live host role. The 2026-10-01 SSH and rename sitting is [2026-10-01 mainland rename and SSH tunnels](../01-Operations/2026-10-01-mainland-rename-and-ssh-tunnels.md). Do not treat OLD FILES or continuity plans as live ML1/ML2 truth.
 
 | Field | Value |
 | --- | --- |
@@ -27,7 +27,7 @@ Alexander (~03:00–03:02 HST; fallback restore ~03:04): **ML2 is the API.** Pub
 
 | State | What |
 | --- | --- |
-| **Working** | Radio on ML1; public API on ML2 (`/health`, `/api/state` arcs, `/api/operations`, analytics); ML2→Pacific bank **geology + US-states** ~5m (acks ~02:57 / ~03:02 HST); `RR_LOCAL_DATA_POLL=0` survived reboot; EcoFlow / cams / LAN globe **capture** still Pacific by design; ML1 AWS Fallback runtime **restored** (~03:04; Status bindable; globe units stay masked) |
+| **Working** | Radio on ML1; public API on ML2 (`/health`, `/api/state` arcs, `/api/operations`, analytics); ML2→Pacific bank **geology + US-states** ~5m (acks ~02:57 / ~03:02 HST); `RR_LOCAL_DATA_POLL=0` survived reboot **and left overnight ML2-on** (~03:14; kill-switch both-ways verified); EcoFlow / cams / LAN globe **capture** still Pacific by design; ML1 AWS Fallback runtime **restored** (~03:04; Status bindable / `deployed=1`; globe units stay masked) |
 | **Not working / incomplete** | Full Home pageviews (Vercel, no client trackers — option C / ML2 logs only); most gated Pacific jobs have **no** verified-live ML2 collector yet (**only 2** stream-verified live; `weather_hawaii` + `radio_rss` desk-enabled / host deploy not verified) |
 | **ML2 live collectors** | `geology` + `weather_us_states` **only** |
 | **Pacific gated off** while `RR_LOCAL_DATA_POLL=0` | `geology_collect`, `geology_kilauea_cams`, `weather_poller` (Hawaiʻi), `weather_us_states`, `weather_radar_zip`, `weather_retention`, `country_location_pollers`, `radio_rss_poll` |
@@ -102,7 +102,7 @@ Alexander (2026-10-02 ~02:26 HST; SHAs attached ~02:29; schema FAIL ~02:34 clear
 
 **Near-term** (now live): collectors (geology + weather_us_states), stream (verified), and API/analytics are live with Pacific local data-poll gated **off** (`RR_LOCAL_DATA_POLL=0`) while ML2 is healthy under the exclusive gate. Pacific remains the **sole long-term bank**. EcoFlow/energy, smart cams, LAN globe, voice, local devices, tunnel, and durable Database stay Pacific-owned forever (outside the exclusive gate).
 
-**GTK Automations UI (desk, landed ~02:32; live flip ~02:50 HST):** Root Monitor Automations Local Pacific vs ML2 **data-poll** control under Pacific `Apps/Control-Panel/` (`Lib/rr_data_poll.py`). Panel code defaults remain dry-run / desired=local / apply_dropin=false; **current live** after write-mode apply: `desired=ml2`, drop-in applied, intent `mode=remote`, poller restarted and verified. Confirm before write; panel does not auto-restart the poller (human restarted). Operator detail: `Guides & Tutorials/Root-Monitor-Operators-Handbook/Root-Monitor-Operators-Handbook.md` · contract: [Desk-Automations-and-Service-Windows.md](../11-Runtime-Jobs-and-Control/Desk-Automations-and-Service-Windows.md). Do not treat that UI as a cutover that deletes collectors.
+**GTK Automations UI (desk, landed ~02:32; live flip ~02:50; kill-switch fix ~03:14 HST):** Root Monitor Automations Local Pacific vs ML2 **data-poll** control under Pacific `Apps/Control-Panel/` (`Lib/rr_data_poll.py`, `rr_settings.py`, `rr_automations_page.py`, `rr_control_panel.py`) + `Automations/scripts/automation_control.py` (`job_enabled` Live-binds). Panel code defaults remain dry-run / desired=local / apply_dropin=false. **Overnight left ML2-on (~03:14):** `desired=ml2`, drop-in `RR_LOCAL_DATA_POLL=0`, intent `mode=remote`, ML2 timers active, poller `:8799` live; **kill-switch verified both ways** (drop-in + restart + sync-ml2; Live=ML2 offload; gated jobs Off + “ML2 owns”). Soft only — EcoFlow/cams ungated. Intent YAML: no inline `#` on `mode:` line. Settings keys `data_poll_restart_poller` + `data_poll_sync_ml2` enabled on desk (Alexander can confirm later). Operator detail: `Guides & Tutorials/Root-Monitor-Operators-Handbook/Root-Monitor-Operators-Handbook.md` · contract: [Desk-Automations-and-Service-Windows.md](../11-Runtime-Jobs-and-Control/Desk-Automations-and-Service-Windows.md). Do not treat that UI as a cutover that deletes collectors.
 
 **Later** (document now, implement later — not building yet): move/mirror functions into the two mainland desk repos (`US-Mainland-One`, `US-Mainland-Two`) so work can run from those trees locally with no behavioral difference if mainland servers go down — local desk as failover parity.
 

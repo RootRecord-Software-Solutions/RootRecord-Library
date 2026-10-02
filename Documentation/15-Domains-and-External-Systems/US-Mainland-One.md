@@ -1,6 +1,6 @@
 # US-Mainland-One
 
-Current as of 2026-10-02 ~03:04 HST. This page is the live host. The operator guide is [2026-10-01 radio station](../01-Operations/2026-10-01-radio-station.md). The 2026-09-29 import, globe, and fallback inventory is [below](#2026-09-29-import-and-pause). That section is that day's continuity node. It is not the live host.
+Current as of 2026-10-02 ~03:14 HST. This page is the live host. The operator guide is [2026-10-01 radio station](../01-Operations/2026-10-01-radio-station.md). The 2026-09-29 import, globe, and fallback inventory is [below](#2026-09-29-import-and-pause). That section is that day's continuity node. It is not the live host.
 
 | Field | Value |
 | --- | --- |
@@ -23,7 +23,7 @@ Master recreated ML1 AWS Fallback. Path `/home/ubuntu/rootrecord/fallback` **res
 
 **Activate path:** first activate **ROLLED BACK** — `globe_web` / history flags=1 but `network-globe-web` + `connection-history` are **masked** on radio-only ML1 (health wants `:8090`). Then: flags `globe_web` / history / ingest / `feed_8787` = **0**; failed release restored as `app` symlink; `rr-fallback-apply --dry-run` = in sync; runner timer active. **No unmask** of globe units.
 
-**Desk Status SSH:** `deployed=1`, MemAvailable ~1319 MB, disk free ~2280 MB, `cloudflared-network-globe` active. Root Monitor AWS Fallback **Status bindable again** (Master: ON/OFF after recreate); panel alias still **`rr-aws-ip` (ML1)** — leave it; don’t confuse with ML2 API. Classic activate expecting `:8090` **won’t pass by design** (globe units masked / flags forced off). Public API remains **ML2** — **do not retarget** without Alexander ask. Distinct from Automations data-poll (`RR_LOCAL_DATA_POLL=0` unchanged). See [US-Mainland-Two](./US-Mainland-Two.md) First-test scope · [Control-Panel-GTK](../11-Runtime-Jobs-and-Control/Control-Panel-GTK.md).
+**Desk Status SSH:** `deployed=1`, MemAvailable ~1319 MB, disk free ~2280 MB, `cloudflared-network-globe` active. Root Monitor AWS Fallback **Status bindable again** (Master: ON/OFF after recreate); panel alias still **`rr-aws-ip` (ML1)** — leave it; don’t confuse with ML2 API. Classic activate expecting `:8090` **won’t pass by design** (globe units masked / flags forced off). Public API remains **ML2** — **do not retarget** without Alexander ask. Distinct from Automations data-poll (`RR_LOCAL_DATA_POLL=0` unchanged). **~03:14 secondary:** earlier Status “unavailable” was the missing tree (~03:00–03:02); after restore, press **Status** once — still `deployed=1` / bindable (not part of the Automations kill-switch fix). See [US-Mainland-Two](./US-Mainland-Two.md) First-test scope · [Control-Panel-GTK](../11-Runtime-Jobs-and-Control/Control-Panel-GTK.md).
 
 **Brief history (~03:00–03:02):** after radio-only/wipe the fallback tree was missing; Status could not read flags and toggles showed unavailable. That gap is closed by this restore.
 

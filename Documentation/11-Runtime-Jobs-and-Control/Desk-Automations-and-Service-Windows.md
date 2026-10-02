@@ -13,7 +13,7 @@ The Root Monitor **Automations** page and **Telemetry** page write job overrides
 | Job on/off | `Automations/scripts/automation_control.py` | `2 - RootRecord-Database/System/control-panel/automation-overrides.json` | The poller, on its next cycle after the file mtime changes |
 | Power schedules | same module | `2 - RootRecord-Database/System/control-panel/power-automations.json` | The poller, on the minute the clock is due |
 | Automations page | `Apps/Control-Panel/rr_automations_page.py` (+ `Lib/rr_data_poll.py`) | Those two JSON files, and (write mode) panel intent / optional `data_poll_mode.yaml`, after confirm | The page does not run a radio command and does not restart the poller |
-| Data-poll toggle | `Apps/Control-Panel/Lib/rr_data_poll.py` | Panel settings keys + optional Database `System/control-panel/data_poll_mode.yaml`; optional drop-in `rr-data-poll.conf` only if `data_poll_apply_dropin` | Poller honors env `RR_LOCAL_DATA_POLL` only until a file reader exists; defaults dry-run / desired=local / apply_dropin=false |
+| Data-poll toggle | `Apps/Control-Panel/Lib/rr_data_poll.py` (+ `rr_settings.py`, `rr_automations_page.py`) | Panel settings keys + optional Database `System/control-panel/data_poll_mode.yaml`; optional drop-in `rr-data-poll.conf` if `data_poll_apply_dropin`; optional poller restart / ML2 sync if `data_poll_restart_poller` / `data_poll_sync_ml2` | Poller honors env `RR_LOCAL_DATA_POLL`; Live label binds to poller env (not panel env) after ~03:14; defaults dry-run / desired=local / apply_dropin=false |
 | Service windows | `Automations/scripts/service_notice.py` | `Website/Home/service-notice.json` | The poller takes one network snapshot when a window becomes active |
 | Telemetry page | `Apps/Control-Panel/rr_telemetry_page.py` | That website file, after confirm | The page does not restart the poller |
 | Public banner | `Website/Home/assets/service-banner.js` | Session dismiss only (`sessionStorage` key `rr-service-dismissed`) | Reads `/service-notice.json` |
@@ -32,14 +32,18 @@ Root Monitor **Automations** (desk `Apps/Control-Panel/`) shows Local Pacific vs
 | Setting (Panel `settings.json`) | Code default | Meaning |
 | --- | --- | --- |
 | `data_poll_toggle_mode` | `dry-run` | Confirm shows the change; writes nothing that affects the live poller |
-| `data_poll_desired` | `local` | Panel intent (`local` → env 1, `ml2` → 0). Intent YAML is documentation until a file reader exists |
+| `data_poll_desired` | `local` | Panel intent (`local` → env 1, `ml2` → 0). Intent YAML must not use inline `#` comments on the `mode:` line (broke `mode: remote` parse before ~03:14) |
 | `data_poll_apply_dropin` | `false` | When true *and* mode is `write`, also writes `~/.config/systemd/user/rr-rootserver-poller.service.d/rr-data-poll.conf` |
+| `data_poll_restart_poller` | (desk On after ~03:14) | When true *and* write mode, apply restarts the poller so DESIRED=LIVE |
+| `data_poll_sync_ml2` | (desk On after ~03:14) | When true *and* write mode, sync ML2 side of the exclusive gate both ways |
 
-Confirm before any write. The panel **never** restarts the poller (human restarts after apply). Example config: Pacific `Automations/config/data_poll_mode.example.yaml`.
+Confirm before any write. Example config: Pacific `Automations/config/data_poll_mode.example.yaml`.
 
-**Current live (2026-10-02 ~02:50 HST; reboot-survived; first-test ~03:04):** write mode applied — `data_poll_desired=ml2`; drop-in `rr-data-poll.conf` `Environment=RR_LOCAL_DATA_POLL=0`; intent `data_poll_mode.yaml` `mode=remote`; poller restarted. Verified `live_raw=0` / `live_label=ML2 offload`; `:8799` HTTP 200. Collectors remain installed; gate flipped only. First test real for geology + US weather + API only — not a full poller move ([US-Mainland-Two](../15-Domains-and-External-Systems/US-Mainland-Two.md)).
+**Kill-switch fix (2026-10-02 ~03:14 HST):** `job_enabled()` in `Automations/scripts/automation_control.py` was reading panel env, so gated jobs looked On while poller already had `RR_LOCAL_DATA_POLL=0` (`live_raw=0`); apply without restart left DESIRED≠LIVE; intent YAML inline `#` comments broke `mode: remote`. Fixed in `automation_control.py`, `Apps/Control-Panel/Lib/rr_data_poll.py`, `rr_settings.py`, `rr_automations_page.py`, `rr_control_panel.py`, and Database `System/control-panel/settings.json`. UI: Automations → Data poll **Live=ML2 offload**; gated jobs Off with “ML2 owns”. Drop-in + restart + sync-ml2 apply **both directions**. Soft only — EcoFlow/cams ungated. Backups `/tmp/root-monitor-toggle-fix-bak/`; report `/tmp/root-monitor-toggle-fix/REPORT.md`. Optional later: Alexander confirm Settings keep `data_poll_restart_poller` + `data_poll_sync_ml2` On.
 
-**AWS Fallback page vs Automations data-poll (~03:04 HST):** AWS Fallback stays on ML1 (`rr-aws-ip`); `/home/ubuntu/rootrecord/fallback` **restored**, Status bindable again. Do not confuse with ML2 public API. Automations Local Pacific vs ML2 is the data-poll gate. Globe units on ML1 stay masked / flags forced off.
+**Current overnight (2026-10-02 ~03:14 HST; left ML2-on):** `data_poll_desired=ml2`; drop-in `RR_LOCAL_DATA_POLL=0`; intent `mode=remote`; ML2 timers active; poller `:8799` live; verified both ways. Collectors remain installed; gate flipped only. First test real for geology + US weather + API only — not a full poller move ([US-Mainland-Two](../15-Domains-and-External-Systems/US-Mainland-Two.md)). Prior live flip ~02:50 / reboot-survived still the base.
+
+**AWS Fallback page vs Automations data-poll (~03:04 / ~03:14 HST):** AWS Fallback stays on ML1 (`rr-aws-ip`); `/home/ubuntu/rootrecord/fallback` **restored**, Status bindable (`deployed=1`; press Status once). Earlier “unavailable” was secondary (tree restored earlier). Do not confuse with ML2 public API. Automations Local Pacific vs ML2 is the data-poll gate. Globe units on ML1 stay masked / flags forced off.
 
 ## 3. Job on/off
 
