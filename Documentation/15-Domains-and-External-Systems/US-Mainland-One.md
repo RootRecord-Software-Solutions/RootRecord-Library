@@ -34,7 +34,7 @@ The library is Opus. Music is 75 tracks at 96 kbps. Reports are 24 kbps mono. Ch
 
 The mixer is `rr-radio-station.service`. The watchdog is `rr-radio-watchdog.timer`. Leave `rr-radio-stream.service` and `rr-radio-watch.timer` masked.
 
-At Hawaii `HH:59:59` and `HH:29:59` the bed ducks to 25 percent, the chime plays, then every current report plays longest first, then the bed returns to full. Only the Hawaii daypart that contains now is kept: morning 09:00–12:00, midday 12:00–21:00, late 21:00–09:00. The other two daypart files are deleted when the current one is present.
+At Hawaii `HH:59:59` and `HH:29:59` the bed ducks to 10 percent, the chime plays, then every current report plays longest first, then the bed returns to full. Only the Hawaii daypart that contains now is kept: morning 09:00–12:00, midday 12:00–21:00, late 21:00–09:00. The other two daypart files are deleted when the current one is present.
 
 ## What stays elsewhere
 

@@ -23,7 +23,7 @@ The listener stream is always `audio/mpeg`, 128 kbps, 44.1 kHz, stereo PCM encod
 | `description` | Description from `audio/library.json` for that file, or empty |
 | `report` | Spoken title of the report on air. The string `Time` while a chime is playing |
 | `chime` | True while a Hawaii chime is the voice |
-| `duck` | `0.25` from the second before a chime through the last report in that cycle. `1` when the cycle is idle |
+| `duck` | `0.1` from the second before a chime through the last report in that cycle. `1` when the cycle is idle |
 | `phase` | `NORMAL`, `DUCK`, `CHIME`, or `REPORTS` |
 | `reportState` | `NONE` or `ACTIVE` |
 | `musicPid` | Process id of the open music decoder. `0` when none is open |
@@ -151,7 +151,7 @@ Earthquake and hurricane reports stay in that set. Their jobs keep running on th
 
 Music stays open under the whole cycle. One encoder, one station process, and the public mix stays `/radio/live.mp3`. The music decoder reads the next file in a shuffled order and opens the following file when that one ends. The same track is not placed first again when the library has more than one file. If the music directory is empty, `music` in `now.json` stays empty and the encoder continues with silence under the voice.
 
-Reports run twice an hour on Pacific/Honolulu. At `HH:59:59` the music bed ducks to `0.25`, one second before the chime, so the drop is already in place. At `HH:00:00` the hour chime plays (`hour-HH-00.opus`, about 11 seconds). Music stays at `0.25` through the chime. Then every current report plays, longest first, at full voice level. Music stays at `0.25` under the reports and is not ducked again. When the last report ends, music returns to `1`.
+Reports run twice an hour on Pacific/Honolulu. At `HH:59:59` the music bed ducks to `0.1`, one second before the chime, so the drop is already in place. At `HH:00:00` the hour chime plays (`hour-HH-00.opus`, about 11 seconds). Music stays at `0.1` through the chime. Then every current report plays, longest first, at full voice level. Music stays at `0.1` under the reports and is not ducked again. When the last report ends, music returns to `1`.
 
 At `HH:29:59` the same cycle starts for the half hour: duck, then `hour-HH-30.opus`, then every current report longest first, then restore. If a cycle is still running, that boundary cuts it. The voice stops, the new chime starts clean, and a second report pass is not stacked on one already playing. The slot key is the Hawaii date plus the chime `HH:MM`, so that half hour plays once and can play again the next day. A missing chime file is logged once for that slot, and the report pass still runs.
 
