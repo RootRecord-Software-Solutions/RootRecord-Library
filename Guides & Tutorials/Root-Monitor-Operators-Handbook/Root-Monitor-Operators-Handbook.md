@@ -103,7 +103,7 @@ Click a name. The page builds the first time you visit it, then stays until you 
 
 Batteries and the host do not share a color scale.
 
-**Charge** (B1, B2, the laptop): low is bad.
+**Charge** (B1, B2, the laptop): low is bad. The percent label shows **LOW** at 20% or below and **CRITICAL** at 10% or below (red). A page banner and the header line use the same words, and mark **STALE** when the sample is older than `stale_after_sec` (default 15 minutes).
 
 | Fill | Color |
 | --- | --- |
@@ -132,7 +132,7 @@ There are no switches. A button reads `Name: On` in green or `Name: Off` with a 
 Do this in order. You are only reading.
 
 1. **Header.** Poller PASS, and the log age is a small number of seconds. If the log age is climbing through minutes, go to Poller / services before anywhere else.
-2. **Energy.** B1 and B2 ages. The word **STALE** means that pack's last sample is older than 15 minutes (`stale_after_sec`, default 900). Watts tell you whether anything is actually moving.
+2. **Energy.** B1 and B2 ages. **LOW** / **CRITICAL** on the percent (and header) mean the pack is empty enough to notice; **STALE** means that pack's last sample is older than 15 minutes (`stale_after_sec`, default 900). Watts tell you whether anything is actually moving.
 3. **Poller / services.** Eight rows. You want green. Open the log only if a row is not green.
 4. **Running.** The poller pid should be there, with children under it. Ollama is listed further down.
 5. **Cameras** only if you need eyes on the array. The viewer starts off. Turning it on does not start or stop the cameras. It only shows stills this window already has on disk.
@@ -518,7 +518,7 @@ Service flags are applied on AWS by `rr-fallback-apply`. Root Monitor does not r
 
 `relay_send`, `telegram_hold`, and `basic_replies` are marked NEEDS SIGN-OFF in the dialog. Treat that line as a stop for anyone who is not Alexander.
 
-If `aws_fallback_mode` is ever set back to `dry-run`, the same dialog appears and then writes nothing. A toast says `dry-run: <id> not written`.
+Change mode under **Settings → Panel** (`aws_fallback_mode` = `dry-run` or `write`, and `aws_fallback_alias`). Save, then leave and reopen AWS Fallback so the page rebuilds. If mode is `dry-run`, the same dialog appears and then writes nothing. A toast says `dry-run: <id> not written`.
 
 ---
 
@@ -597,7 +597,7 @@ To change one, go to **Settings → Feature Flags**. Saving writes `~/.config/sy
 
 The screenshot is the 02:35 HST capture. The list below is the 19:02 HST refresh. Placeholders only. No start buttons, no flags, no "migrate" action.
 
-**6 BLOCKED, 8 VERIFY PENDING.** Fourteen items. Public site foundation moved from BLOCKED to VERIFY PENDING when `Website/Home/` began syncing to `RootRecord-Website`. Closed work orders are not listed. FLM own-session (passed 29 September, 22:16 HST) and Geology collect (poller cycle ok at 19:01 HST) left the list.
+**6 BLOCKED, 8 VERIFY PENDING** (as of 2026-10-02 00:20 HST). Fourteen items. Public site foundation moved from BLOCKED to VERIFY PENDING when `Website/Home/` began syncing to `RootRecord-Website`. Closed work orders are not listed. FLM own-session (passed 29 September, 22:16 HST) and Geology collect (poller cycle ok at 19:01 HST) left the list.
 
 | Item | State |
 | --- | --- |
@@ -605,7 +605,7 @@ The screenshot is the 02:35 HST capture. The list below is the 19:02 HST refresh
 | Discord bot | BLOCKED |
 | Slack / communications surface | VERIFY PENDING |
 | Security timelapse compile | VERIFY PENDING |
-| Energy actuating actions (arm/disarm, AC) | VERIFY PENDING |
+| Energy actuating actions (arm/disarm immediate; AC schedules landed) | VERIFY PENDING |
 | Weather retention apply | VERIFY PENDING |
 | Public status / solar board | VERIFY PENDING |
 | Public site foundation + website repo sync | VERIFY PENDING |

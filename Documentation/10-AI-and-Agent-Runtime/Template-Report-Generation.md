@@ -1,5 +1,7 @@
 # Template report generation (Library templates, filled from measured data)
 
+**Current as of 2026-10-02:** Job `template_reports_daily` stays **OFF**. `RR_TEMPLATE_REPORTS` is not exported by `Automations/scripts/poller/run-poller.sh`. When armed it runs at 18:40 HST. Live default output is ecosystem `test-reports/Templates/` (`RR_TEMPLATE_OUT`). The script header and the `jobs.py` description still say Database `Reports/Generated/`; the code path wins. Never writes the Library.
+
 **Date:** 2026-09-29 HST · **Pass:** g3-template-reports · **State:** LANDED / gated (job OFF by default)
 
 ## 1. What it does
@@ -113,8 +115,8 @@ python3 "$R/template_fill.py" --template checkpoint --date 2026-09-29 --draft no
 ```
 
 **Job:** `jobs.py` ON_AT `template_reports_daily` at 18:40 HST. It runs `nice -n 10 python3 …/template_fill.py --all --draft auto`
-with a timeout of 900 s. It is **OFF** unless `RR_TEMPLATE_REPORTS=1` is set in the poller's environment at poller start.
-Enabling it needs a poller restart, which needs Alexander's sign-off. With the default `--draft auto`, that is up to 4 light model calls a day.
+with a timeout of 900 s. It is **OFF** unless `RR_TEMPLATE_REPORTS=1` is set in the poller's environment at poller start (`run-poller.sh` does not export that flag as of 2026-10-02).
+Enabling it needs a poller restart, which needs Alexander's sign-off. Default out dir is `test-reports/Templates/` (not Database `Reports/Generated/`). With the default `--draft auto`, that is up to 4 light model calls a day.
 Use `--model-templates worklog` to cut it to 1.
 
 **Adding a template:** write `render_<key>()`, mirroring the template line by line. Copy static sections with

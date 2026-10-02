@@ -1,68 +1,92 @@
-# Voice desk — current as of 2026-10-01
+# Voice desk — current as of 2026-10-02
 
 Finished Hawaii reports go to the Mainland station. The station snapshots the playlist at `HH:29:59` and `HH:59:59`, then chimes on the hour and the half hour. Voice jobs render before that snapshot. The station is on the air at `https://radio.rootrecord.cloud/radio/live.mp3`. The operator page is [2026-10-01 radio station](./2026-10-01-radio-station.md).
 
-This is the living description of the spoken reports. The 2026-09-29 port record is [Voice-Reports-G3](../10-AI-and-Agent-Runtime/Voice-Reports-G3.md). Where that file still says a job is off, has no delivery, or skips a vision line, this file wins.
+This is the living description of the spoken reports. The 2026-09-29 port record is [Voice-Reports-G3](../10-AI-and-Agent-Runtime/Voice-Reports-G3.md). Where that file still says a job is off, has no delivery, or uses an old minute, this file wins. Trust `Automations/scripts/poller/run-poller.sh` and `Automations/scripts/jobs.py` over older “what stays off” lists.
 
-Sandbox chat is `-1004406495175`. `RR_VOICE_DELIVER=1` and `RR_TELEGRAM_DEST=sandbox` are the defaults in `Automations/scripts/poller/run-poller.sh`. A sandbox post is a voice note, a transcript, and the measured report. A live chat would be voice and report only. The same spoken words are not sent again. Hourly chimes also remember the date and the slot (`HH:MM`), so the same sentence can send on the next day.
+## Current as of 2026-10-02 00:09 HST
 
-Flags are read when the poller starts. A script edit is picked up on the next run of that job. A new `jobs.py` entry is not, until the poller is started again.
+Verified against live Pacific `Automations/scripts/jobs.py` and `Automations/scripts/poller/run-poller.sh` after the poller start at 00:09 HST. Database root is `2 - RootRecord-Database`. Voice MD default is ecosystem `test-reports/Voice/` (`RR_VOICE_REPORT_OUT`).
 
-Kokoro loads for one report and exits. Ava is `af_heart`, Bruce is `am_echo`, Carly is `af_nova`. All three speeds are 1.0. Output is 24 kHz, 16-bit, mono WAV under Database `Media/Audio/Voice/`.
+### Shared pipeline
 
-## What is on
+`jobs.py` → `voice_reports.py` / `system_perf.py` → build MD → `write_md` (+ Archive) → `voice-render.sh` / `voice_generate` mode_stitch (Kokoro, single-flight) → `voice_deliver` (Telegram when `RR_VOICE_DELIVER=1`) → `radio_push` (default on; set `RR_RADIO_PUSH=0` to skip) → Discord `report_relay` every 300 s → `publish_report_pages` → site `/reports/<slug>`.
 
-These flags default to 1 in `run-poller.sh`. The schedule is HST.
+Personas (Kokoro): Ava `af_heart`, Bruce `am_echo`, Carly `af_nova`. All speeds 1.0. Output is 24 kHz, 16-bit, mono WAV under Database `Media/Audio/Voice/`.
 
-| Minute | Who | Report | What it says |
+`RR_VOICE_DELIVER=1` and `RR_TELEGRAM_DEST=council` are the defaults in `run-poller.sh`. A council post is a voice note and the measured report. Unchanged spoken text is not sent again. Flags are read when the poller starts. A script edit is picked up on the next run of that job. A new `jobs.py` entry is not, until the poller is started again.
+
+### Always on (hard-enabled in jobs.py)
+
+| Job | Schedule (HST) |
+| --- | --- |
+| `worklog_scan` | every 90 s |
+| `discord_report_relay` | every 300 s |
+| `voice_timing_report` | :05 |
+| `reports_daily_roll_up` | 18:30 |
+| `reports_weekly_archive` | 19:00 |
+| `discord_report_8h` | 00:00, 08:00, 16:00 |
+| `discord_report_24h` | 12:00 |
+
+### Armed voice desks (`run-poller.sh` defaults these flags to 1)
+
+| Minute / time | Who | Report | Flag |
 | --- | --- | --- | --- |
-| :12 and :42 | Bruce | System | CPU, memory, disk, host battery, uptime, integrated graphics, NPU. Host temperature is degrees Celsius. |
-| :12 and :42 | Ava | NWS | Hawaii alerts and the forecast period on file. |
-| :12 and :42 | — | Energy look | Refreshes the camera look before the solar desk. It does not send a voice note. Bruce speaks that sentence on the solar desk in the same pass. |
-| :12 and :42 | Bruce | Remaining tasks | Open report-board slots. |
-| :12 and :42 | Carly | Earthquakes | Hawaii first, then global. A stale file is named as stale. |
-| :12 and :42 | Carly | Kīlauea | HVO alert and notice. Place names are respelled. She does not read raw JSON, and she does not say Hawaii after every line. |
-| :12 and :42 | Bruce | Solar desk | Pack state of charge, solar, AC, USB-C, generator or transfer, sun times, the channel 1 still, and the last stored camera look. |
-| :12 and :42 | Carly | Security | Firewall, ssh, listeners, failed sign-ins. No raw JSON. |
-| :12 and :42 | Carly | Bandwidth | Byte samples. If there is no sample window yet, the note is not sent. |
-| :12 and :42 | Ava | Current | Full current report after the other desks. |
-| :36 | rotating | News | Hourly news update, before the :42 stack. |
-| 09:02, 12:02, 21:02 | Ava | Daypart roll-up | Morning, midday, and late. Rendered inside the window so the next half-hour snapshot can play it. |
-| 05:40, 09:40, 12:40, 16:40, 20:40 | Carly | Hurricane | Before the following hour snapshot. Off unless `RR_VOICE_HURRICANE=1`. |
-| :00 and :30 | rotating | Chime | Prebuilt file. The job stays off until `RR_VOICE_HOURLY_CHIME=1`. The station chime is separate and stays on the hour and the half hour. |
+| :12 and :42 | Bruce | System | `RR_VOICE_SYSTEM_PERF` |
+| :12 and :42 | Ava | NWS | `RR_VOICE_NWS` |
+| :12 and :42 | — | Energy look | `RR_VOICE_ENERGY` (refreshes camera look; no separate voice note; Bruce speaks it on solar) |
+| :12 and :42 | Bruce | Remaining tasks | `RR_VOICE_REMAINING` |
+| :12 and :42 | Carly | Earthquakes | `RR_VOICE_QUAKE` (+ `RR_GEOLOGY`) |
+| :12 and :42 | Carly | Kīlauea | `RR_VOICE_KILAUEA` |
+| :12 and :42 | Bruce | Solar desk | `RR_VOICE_SOLAR` |
+| :12 and :42 | Carly | Security | `RR_VOICE_SECURITY` |
+| :12 and :42 | Carly | Bandwidth | `RR_VOICE_BANDWIDTH` (+ `RR_NET_SAMPLES`) |
+| :12 and :42 | Ava | Current | `RR_VOICE_CURRENT` |
+| :36 | rotating | News update | `RR_RADIO_NEWS` |
+| 09:02, 12:02, 21:02 | Ava | Daypart roll-ups | `RR_VOICE_ROLLUPS` |
+| 23:02 | Ava | Late final (text) | `RR_VOICE_LATE_FINAL` |
+| 05:40, 09:40, 12:40, 16:40, 20:40 | Carly | Hurricane | `RR_VOICE_HURRICANE` |
 
-The desks share one poller thread and one voice lock, so they run one after another. Energy runs before the solar desk. The current report runs last. `:12` and `:42` start 18 minutes before the station locks the playlist at `:29:59` and `:59:59`. A file that arrives after the snapshot waits for the next cycle. Starting on the hour or the half hour was too late.
+The desks share one poller thread and one voice lock, so they run one after another. Energy runs before the solar desk. The current report runs last. `:12` and `:42` start 18 minutes before the station locks the playlist at `:29:59` and `:59:59`. A file that arrives after the snapshot waits for the next cycle.
+
+Morning, midday, and late roll-ups stay at 09:02, 12:02, and 21:02. The 09:00 snapshot is taken at 08:59:59, while the late roll-up is still the one on the air, so the new morning file first plays at 09:30. Noon first plays at 12:30. Nine at night first plays at 21:30.
 
 News at `:36` and the hurricane desk at `:40` finish before the top-of-hour stack.
 
-Morning, midday, and late roll-ups cannot be written before their window opens, so they stay at 09:02, 12:02, and 21:02. The 09:00 snapshot is taken at 08:59:59, while the late roll-up is still the one on the air, so the new morning file first plays at 09:30. Noon first plays at 12:30. Nine at night first plays at 21:30.
+### OFF / gated (not exported in run-poller.sh, or hard-off)
 
-The poller was started again at 00:09 HST on 2 October 2026. The next desk run speaks the status clips below.
+| Flag / job | Report |
+| --- | --- |
+| `RR_VOICE_HOURLY_CHIME` | :00 and :30 chimes. Job exists in `jobs.py`. Flag is **not** in `run-poller.sh`, so a normal start leaves it off. Station chime is separate. |
+| `RR_AI_REPORT` | `ai_processing_report_hourly` |
+| `RR_AI_USAGE` | `ai_usage_report` |
+| `RR_TEMPLATE_REPORTS` | `template_reports_daily` (18:40) |
+| `RR_HURRICANE_RADIO` | `media_hurricane_radio` |
+| `RR_REPORT_BOARD` | `reports_board_catchup` |
+| `RR_NOTE_DRAFT` | `note_work_draft` |
+| `RR_BRUCE_STATS` | `bruce_stats_posts` |
+| (no job) | `official_weather` — Discord route exists; **not** in `jobs.py` |
+| (no job) | `boot_brief` — Discord route exists; **not** in `jobs.py` |
 
-## How long a desk takes
+Speakers stay off. `Media/Playback` is dry-run unless `RR_PLAYBACK=1` and `--play`.
+
+Scripts proposed only (README gates; not in `jobs.py`): News (hawaii/state/global), economy_brief, cloud_narrative. CloudNarrative README names a `cloud_narrative_dry_run` jobs.py entry; that id is absent.
+
+### Known gaps (code wins)
+
+1. Hourly chime gate is not in `run-poller.sh`.
+2. `official_weather` / `boot_brief`: Discord `report-channels.json` routes yes; `jobs.py` entries no.
+3. `current_report`: generated at :12/:42; missing from `Communications/Discord/config/report-channels.json` (site `publish_report_pages.py` still lists it in AREAS and has a separate CURRENT_MD path).
+4. CloudNarrative README claims a `jobs.py` entry — absent.
+5. `system_perf.py` docstring still says `only_at_minutes=[6]`; jobs schedule is `[12, 42]`. `voice_reports.py` docstring still says `current_report` at :00/:30; jobs schedule is `[12, 42]`.
+6. `ai_processing_report.py` file header says out under Database `Logs/AI/Reports/`; live `OUT_DIR` default is ecosystem `test-reports/AI-Processing/`. `template_fill.py` header and jobs description say Database `Reports/Generated/`; live `OUT_DIR` default is ecosystem `test-reports/Templates/`.
+7. Older ops “what stays off” lists that still name roll-ups, late-final, or hurricane as off are history. `run-poller.sh` arms them.
+
+### How long a desk takes
 
 The current measurement is [voice timing](./voice-timing.md). `voice_timing_report` rewrites that page from the automations log at :05. It follows the Documenter handoff template and does not call a model.
 
 Geology collection (`RR_GEOLOGY`) and network samples (`RR_NET_SAMPLES`) also default to 1, because the quake and bandwidth notes read those files.
-
-## What stays off
-
-Not exported in `run-poller.sh`, so a normal poller start leaves them off:
-
-| Flag | Report |
-| --- | --- |
-| `RR_VOICE_HOURLY_CHIME` | The :00 and :30 chimes. The 48 files exist. The job does not play them until this flag is 1 at poller start. |
-| `RR_VOICE_HURRICANE` | Hurricane desk. |
-| `RR_VOICE_ROLLUPS` | Morning 09:02, midday 12:02, late 21:02. |
-| `RR_VOICE_LATE_FINAL` | 23:02 second chance for the late roll-up. |
-| `RR_VOICE_OFFICIAL` | Official weather. The job is still not in `jobs.py`. |
-| `RR_VOICE_BOOT` | Boot brief. The job is still not in `jobs.py`. |
-| `RR_PUBLIC_HEALTH` | Origin radio and port 8787 check. Send needs a second flag. |
-| `RR_KILAUEA_DRAFT_ANNOUNCE` | Draft count. Send needs a second flag. |
-| `RR_NOTE_DRAFT` | A note turned into a work-order draft. It does not build. |
-| `RR_SUN_TIMES` | The sunrise job. The tilt check uses the sun file already on disk. |
-
-Speakers stay off. `Media/Playback` is dry-run unless `RR_PLAYBACK=1` and `--play`.
 
 ## Hawaii, and host temperature
 
@@ -99,6 +123,23 @@ An infrared still is grayscale. The color span of that frame sits near 2, and a 
 | Overnight | The rest of the night | Left side up, or flat. Right side up asks for a person. |
 
 Morning tilt helps early capture and is not required. Overnight left tilt is the correct prep. The warning says a person is needed. Nothing moves the panels. Four corner actuators for this tilt are a desired upgrade, not a build: [four corner actuators](../09-Desired-Upgrades/2026-09-30-four-corner-sun-tilt-actuators.md).
+
+## Status clips
+
+Forty lines, one clip at a time, for the ten desks that render. The chime stays a file replay and does not get these lines. News, the hurricane desk, and the daypart roll-ups are not in this set.
+
+Bruce speaks system, solar, and remaining tasks. Ava speaks NWS and the current report. Carly speaks energy, earthquakes, Kīlauea, security, and bandwidth. The type word in the clip is System, NWS, Energy, Remaining tasks, Earthquake, Kilauea, Solar, Security, Bandwidth, or Current.
+
+| Moment | Line | When it plays |
+| --- | --- | --- |
+| Starting | "<Type> report is about to generate." | Before the voice render |
+| Transit | "<Type> report has been generated and is in transit." | As the send to Mainland One starts |
+| Failed | "<Type> report was generated but failed to send." | If that send does not land |
+| Sent | "<Type> report was sent successfully." | After Mainland One has the file |
+
+The sent line is the receipt. It plays only after the remote file checks out and is moved into place. A skipped send does not play the failure line.
+
+The clips are Database `Media/Audio/Voice/Clips/<Persona>/<report>_<phase>.wav`. Local playback uses `aplay`. `RR_VOICE_STATUS` defaults on. Set `RR_VOICE_STATUS=0` before the poller starts to keep them quiet. The code is `Media/Voice/scripts/status_cue.py`.
 
 ## Hourly chimes
 

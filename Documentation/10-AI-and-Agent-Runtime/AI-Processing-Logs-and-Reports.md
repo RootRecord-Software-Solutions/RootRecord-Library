@@ -1,9 +1,11 @@
 # AI Processing Logs and Reports (G3)
 
+**Current as of 2026-10-02:** Hourly job `ai_processing_report_hourly` stays **OFF**. `RR_AI_REPORT` is not exported by `run-poller.sh`. `ai_usage_report` (`RR_AI_USAGE`) is also off the same way. Live report out default is ecosystem `test-reports/AI-Processing/ai-processing-report_current.md` (`RR_AI_REPORT_OUT`). The script file header still names Database `Logs/AI/Reports/`; the `OUT_DIR` code wins.
+
 | Field | Value |
 | --- | --- |
 | **Date (HST)** | 2026-09-29 03:55–04:00 HST |
-| **State** | Inference JSONL **LANDED + PASS** · FLM log redaction **LANDED + PASS** · report generator **LANDED + PASS** · hourly job **LANDED, gated OFF** (`RR_AI_REPORT=1`) |
+| **State** | Inference JSONL **LANDED + PASS** · FLM log redaction **LANDED + PASS** · report generator **LANDED + PASS** · hourly job **LANDED, gated OFF** (needs `RR_AI_REPORT=1`; not in `run-poller.sh` as of 2026-10-02) |
 | **Implements** | `08-Ideas/2026-09-29-ai-processing-log-and-report.md` |
 | **Test** | `07-Testing/2026-09-29-ai-inference-log-and-report.md` |
 | **Backup** | `/home/rootrecord/Database/GITHUB/g3-voice-ailog.bak-20260929-035454/` |
@@ -39,7 +41,7 @@ Git: `inference_current.jsonl` is ignored (high churn, like `automations_current
 
 ## 3. Report (`Pacific Reports/ai_processing_report.py`, stdlib only)
 
-Reads the current JSONL plus the archive days inside the window (`RR_AI_REPORT_HOURS`, default 24). Writes non-git `test-reports/AI-Processing/ai-processing-report_current.md`. If the content changed (the Generated/Window lines are ignored), the previous copy is first moved to `test-reports/AI-Processing/Archive/ai-processing-report_YYYY-MM-DDTHHMM.md`.
+Reads the current JSONL plus the archive days inside the window (`RR_AI_REPORT_HOURS`, default 24). Writes non-git `test-reports/AI-Processing/ai-processing-report_current.md` (default `OUT_DIR`; not Database `Logs/AI/Reports/`). If the content changed (the Generated/Window lines are ignored), the previous copy is first moved to `test-reports/AI-Processing/Archive/ai-processing-report_YYYY-MM-DDTHHMM.md`.
 
 Contents: time window, request count, requests by route and by route/model, NPU share, fallback count, FLM cold starts, errors (exit_code ≠ 0) with the last 20 listed, empty replies, unparsable lines, latency p50/p95/max, max FLM peak RSS, and the lowest MemAvailable seen.
 
@@ -49,7 +51,7 @@ A Grok spend section (WO-MIG-37) reads Database `Reports/AI-Usage/last-summary.j
 
 Pacific `Automations/scripts/jobs.py` → `EVERY_HOUR` id `ai_processing_report_hourly` (runs at :00):
 `enabled = os.environ.get("RR_AI_REPORT", "0") == "1"`. The command is `ai-log-rotate.sh && nice -n 10 python3 Reports/ai_processing_report.py`.
-`jobs.py` is imported once, so the flag **only takes effect at the next poller start**, and only if `RR_AI_REPORT=1` is in the poller's environment (for example the `rr-rootserver-poller` user unit's `Environment=`). Until then, run it by hand with the same command.
+`jobs.py` is imported once, so the flag **only takes effect at the next poller start**, and only if `RR_AI_REPORT=1` is in the poller's environment. `run-poller.sh` does not export that flag as of 2026-10-02. Until then, run it by hand with the same command.
 
 ## 5. FLM server log privacy
 
