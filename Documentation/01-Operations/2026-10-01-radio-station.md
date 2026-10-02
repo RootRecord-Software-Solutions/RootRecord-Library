@@ -2,9 +2,9 @@
 
 | Field | Value |
 | --- | --- |
-| **When** | 2026-10-01 evening HST, brought current 2026-10-02 08:28 UTC |
+| **When** | 2026-10-01 evening HST, brought current 2026-10-02 ~01:58 HST |
 | **Operator** | Alexander |
-| **State** | Mainland One is the clean radio tree at `9b7fccf`. One station is on the air and playing the Opus music bed |
+| **State** | Mainland One is the clean radio tree at `9b7fccf`. One station is on the air and playing the Opus music bed. Read-only check ~01:56–01:58 HST: `rr-radio-station` up since 01:39 HST (one clean restart); `live.mp3` 200; air healthy; encoding + watchdog `watch_ok`; public stream OK; light `ffmpeg` + `stream.js` |
 | **Secrets** | None in this file. No tunnel credential JSON, API tokens, or private keys |
 
 This is how the station works. Listeners join one live mix. They do not pick tracks.
@@ -218,7 +218,7 @@ Then open the local URLs at the end of this note. A desk process on port 8092 is
 
 ## What is on the host
 
-Checked 2026-10-02 08:28 UTC. Host `ip-172-31-10-115`. Checkout and GitHub `RootRecord-Software-Solutions/US-Mainland-One` are `9b7fccf` (`auto: 2026-10-02T08:27Z desk sync`). That commit removes the old mainland tree.
+Checked 2026-10-02 ~01:56–01:58 HST (Alexander read-only). Host `ip-172-31-10-115`. Uptime ~6h 33m; load 0.00/0.07/0.09; mem 555Mi/1.9Gi (~28%), no swap; disk `/` 67% (2.3G free). `rr-radio-station` up since 01:39 HST after one clean restart; `live.mp3` 200; air healthy; encoding + watchdog `watch_ok`; public stream OK. Checkout and GitHub `RootRecord-Software-Solutions/US-Mainland-One` were last noted at `9b7fccf`; host `aws-git-pull` is aborting on dirty `status-api/stream.js` (behind origin by 6), so the live mixer is not being replaced by pulls — left alone. `cloudflared` active with ~38 EOF/cancel from listener churn. Failed units also include `aws-readme-status`.
 
 The desk folder `1 - Servers/2 - RootRecord-US-Mainland-One` and the host checkout contain only `mirror/`, `rootrecord-radio/`, `station.sh`, `status-api/`, and `.gitignore`. The globe, automations, communications, fallback, rebroadcast, scripts, system monitor, and `references/` are gone. Do not copy a new station on top of those old directories. They are not part of this tree.
 

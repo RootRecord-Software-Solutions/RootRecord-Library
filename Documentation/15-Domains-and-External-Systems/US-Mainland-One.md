@@ -1,6 +1,6 @@
 # US-Mainland-One
 
-Current as of 2026-10-02 ~01:30 HST. This page is the live host. The operator guide is [2026-10-01 radio station](../01-Operations/2026-10-01-radio-station.md). The 2026-09-29 import, globe, and fallback inventory is [below](#2026-09-29-import-and-pause). That section is that day's continuity node. It is not the live host.
+Current as of 2026-10-02 ~01:58 HST. This page is the live host. The operator guide is [2026-10-01 radio station](../01-Operations/2026-10-01-radio-station.md). The 2026-09-29 import, globe, and fallback inventory is [below](#2026-09-29-import-and-pause). That section is that day's continuity node. It is not the live host.
 
 | Field | Value |
 | --- | --- |
@@ -16,6 +16,10 @@ Current as of 2026-10-02 ~01:30 HST. This page is the live host. The operator gu
 | **Page** | `https://www.rootrecord.cloud/radio` |
 | **SSH** | `ssh ml1` and `ssh rr-aws` use `ml1.rootrecord.cloud`. Direct fallback is `rr-aws-ip` |
 | **Tunnel** | Mainland-One `939b16f7-7d13-4776-bd4d-80fe8021fc72`. Routes: `ml1.rootrecord.cloud` SSH, `radio.rootrecord.cloud` to `127.0.0.1:8092` |
+
+## Live host check (2026-10-02 ~01:56–01:58 HST, read-only)
+
+Alexander read-only check. Uptime ~6h 33m; load 0.00/0.07/0.09; mem 555Mi/1.9Gi (~28%), no swap; disk `/` 67% (2.3G free). Workload is light (`ffmpeg` + `stream.js`). `rr-radio-station` up since 01:39 HST after one clean restart; `live.mp3` 200; air healthy; encoding + watchdog `watch_ok`; public stream OK. `cloudflared` active (~38 EOF/cancel from listener churn). Failed units: `aws-git-pull` (every minute) and `aws-readme-status`. `aws-git-pull` aborts on dirty `status-api/stream.js` (checkout behind origin by 6) — host deploy path stays blocked so the live mixer is not replaced; left alone. Desk sysmon empty (staging only; not installed).
 
 ## What is in the tree
 

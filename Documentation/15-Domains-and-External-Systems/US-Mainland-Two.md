@@ -1,6 +1,6 @@
 # US-Mainland-Two
 
-Current as of 2026-10-02 ~01:30 HST. This page is the live host role. The 2026-10-01 SSH and rename sitting is [2026-10-01 mainland rename and SSH tunnels](../01-Operations/2026-10-01-mainland-rename-and-ssh-tunnels.md). Do not treat OLD FILES or continuity plans as live ML1/ML2 truth.
+Current as of 2026-10-02 ~01:58 HST. This page is the live host role. The 2026-10-01 SSH and rename sitting is [2026-10-01 mainland rename and SSH tunnels](../01-Operations/2026-10-01-mainland-rename-and-ssh-tunnels.md). Do not treat OLD FILES or continuity plans as live ML1/ML2 truth.
 
 | Field | Value |
 | --- | --- |
@@ -12,6 +12,10 @@ Current as of 2026-10-02 ~01:30 HST. This page is the live host role. The 2026-1
 | **SSH** | `ssh ml2` → `ml2.rootrecord.cloud`. Direct fallback `ml2-ip` |
 | **Tunnel** | `bd8e68a4-8a97-4b20-afd9-b058473a0a22`. Routes include `ml2.rootrecord.cloud` (SSH). `api.rootrecord.cloud` → ML2 `:8091` is **route only** (no API process). |
 | **Desk branch** | `main`, local `7065795`; four commits ahead of `origin/main` at this check |
+
+## Live host check (2026-10-02 ~01:56–01:58 HST, read-only)
+
+Alexander read-only check. Uptime ~6h 24m; load 0.12/0.03/0.01; mem ~519Mi/1.9Gi (~27%), swap 123Mi used. Disk `/` **96%** (**314M free**) — risk of filling root soon. Not app data (~176M under `/home`); main consumers are snapd cache (~1.7G) and apt (~546M). Idle post–YouTube wipe. `cloudflared` active; origin `:8091` refused — tunnel still points `api.rootrecord.cloud` at the dead API port, which produces connection-refused spam. No failed units. Desk sysmon empty (staging only; not installed). No host config, restart, disk clean, or git fix from this documentation seat.
 
 ## What is in the tree
 
