@@ -32,7 +32,7 @@ Generated files live in `2 - RootRecord-Database/System/status/`. That directory
 
 ## Working
 
-- **Ordered ~11:59 HST — River AC recovery, not landed:** Alexander told the room to fix the overnight miss. The script still turns AC back on only at fresh SOC≥5% (≤5 min) or `ac_input_power`≥50W. The order is to drop that floor, keep trying whenever AC is off, and refresh `ac_ports` plus the BLE bind (`NeedBindInstallFirst` at ~11:49). The 04:30 keep-retry (`COOLDOWN_SEC=0`, `OnUnitActiveSec=45`) stays. Master owns the change. Not verified until the script says so.
+- **Landed ~12:06 HST — River AC recovery, no SOC floor:** Alexander’s overnight-miss order is on the desk. `river2pro-ac-recover.sh` keeps trying whenever AC is off (no SOC≥5% floor); fresh `ac_input_power`≥50W still triggers when the switch is unknown; a stale `ac_ports=false` no longer blocks forever unless fresh AC output shows the outlet delivering. Cloud quota maps `cfgAcEnabled` into `ac_ports`. BLE auth failures name `NeedBindInstallFirst` (re-pair in the EcoFlow app; no credential invented). Live log ~12:06: `ac_already_on_fresh_output` then `ac_already_on` (`ac_out=46`). The 04:30 keep-retry (`COOLDOWN_SEC=0`, `OnUnitActiveSec=45`) stays. Soft gate untouched. See `2026-10-01-ecoflow-ble-reads.md` and Pacific `Energy/README.md`.
 
 - Sandbox chat answers. Read receipt is eyes, then inference, then typing, then text.
 - Desk readings (Delta 2, River 2 Pro, host CPU/memory/load) refresh before a reply.
@@ -107,6 +107,8 @@ Non-council callers and `flm-warmup.sh` still default to `llama3.2:1b`. The coun
 - Whether root monitor is a daemon that should be running or a desktop app. It is the GTK panel today.
 
 ## Recent changes
+
+2026-10-02 ~12:06 HST: Master landed Alexander’s River AC recover order on the Pacific desk. `Energy/scripts/watchdog/river2pro-ac-recover.sh` drops the SOC≥5% floor and keeps calling `river2pro-ac-on.sh` while AC is off; fresh `ac_input_power`≥50W still triggers when the switch is unknown; a stale `ac_ports=false` no longer blocks forever unless fresh AC output (≥10 W) shows the outlet already delivering. `Energy/lib/ecoflow_api.py` maps cloud `mppt.cfgAcEnabled` (and related keys) into `ac_ports`; `Energy/lib/ble_client.py` and `Energy/lib/read_runner.py` name BLE auth exception classes (`NeedBindInstallFirst` still means re-pair in the EcoFlow app; no credential invented). Live recover log ~12:06: `ac_already_on_fresh_output` then `ac_already_on` from `cloud-fallback-river2pro.json` with `ac_out=46`. Timer still active; soft gate untouched; no poller/BLE/cloudflared restart from this note. See `2026-10-01-ecoflow-ble-reads.md` and Pacific `Energy/README.md`. Master did not commit or push; desk auto-sync commit `929baf3a` is confirmed in read-only git log and includes the `*.bak-20261002-ac-recover-nofloor` files.
 
 2026-10-02 ~12:03 HST: Alexander's standing radio rule is that each cycle is 30 minutes: all local reports must play first, with locals ordered longest first, and news uses only whatever time remains; a boundary cuts news before an unplayed local report. Mainland corrected this at ~12:05 HST: the live `/home/ubuntu/rootrecord-radio/active/stream.js` already has locals first, and `rr-radio-station` restarted at 12:02 HST. On the air as of that restart. No commit/push/sync.
 
