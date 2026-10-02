@@ -8,7 +8,7 @@ Items Alexander approved show their current state in the index. Four were approv
 - Each proposal must name its grounding: the evidence file, test record or open item it comes from.
 - Standing rules still apply: no resident models, light tests, G2/legacy files are KEPT unless Alexander signs off, and no secrets.
 
-**Status vocabulary:** LANDED · VERIFY PENDING · PASS · FAIL · BLOCKED · RETIRED · PROPOSED · KEPT.
+**Status vocabulary:** LANDED · LIVE · VERIFY PENDING · PASS · FAIL · BLOCKED · RETIRED · PROPOSED · KEPT.
 
 ## Index
 
@@ -26,6 +26,6 @@ Items Alexander approved show their current state in the index. Four were approv
 | 2026-09-29 | [Globe landing overlay for www.rootrecord.cloud (sign-up / home / status glass cards, rail)](./2026-09-29-globe-landing-overlay.md) | LANDED in Mainland checkout (uncommitted) · preview PASS · AWS deploy PROPOSED (sign-off) → **AWS deploy LANDED 16:10 HST** (v2 + AWS Ohio node 16:16, [record](../07-Testing/2026-09-29-globe-overlay-aws-deploy.md)); real-browser check VERIFY PENDING | design brief from Alexander; [test record](../07-Testing/2026-09-29-globe-landing-overlay-preview.md) |
 | 2026-09-29 | [AWS as a small fallback node: rebuild, per-function toggles, buffer-to-relay catch-up](./2026-09-29-aws-fallback-rebuild.md) | **Phase 2 LANDED** (trimmed-micro on t3.micro, 16:03 HST) · Root Monitor write mode · pending: :8787, telegram_hold/basic_replies, relay_send, .env trim, 2 desk jobs, globe poll | Alexander's direction 14:57 HST; [inventory](../07-Testing/2026-09-29-aws-fallback-inventory.md) (908 MB RAM, not 2 GB) |
 | 2026-10-01 | [RootRecord 24/7 broadcast channel (FFmpeg + playlist → YouTube Live)](./2026-10-01-rootrecord-broadcast-channel.md) | PROPOSED | Alexander concept; WO-RPT-001 Phase F deferred; voice desk LANDED (public still off) |
-| 2026-10-02 | [Kīlauea checker (live frame + fountaining)](./2026-10-02-kilauea-checker-live-frame.md) | PROPOSED | Alexander idea ~03:15 HST; Report Instructor owns build |
+| 2026-10-02 | [Kīlauea checker (live frame + fountaining)](./2026-10-02-kilauea-checker-live-frame.md) | **LIVE** (~03:21 HST; soft gate; needs poller restart) | RI ~03:21 — Geology/scripts/kilauea_look.py + voice_kilauea_image_check / RR_VOICE_KILAUEA_IMAGE |
 
 *Folder created 2026-09-29 ~03:48 HST (docs only).*

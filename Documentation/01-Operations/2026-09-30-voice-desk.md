@@ -4,7 +4,7 @@ Finished Hawaii reports go to the Mainland station. The station snapshots the pl
 
 This is the living description of the spoken reports. The 2026-09-29 port record is [Voice-Reports-G3](../10-AI-and-Agent-Runtime/Voice-Reports-G3.md). Where that file still says a job is off, has no delivery, or uses an old minute, this file wins. Trust `Automations/scripts/poller/run-poller.sh` and `Automations/scripts/jobs.py` over older “what stays off” lists.
 
-## Current as of 2026-10-02 ~03:10 HST
+## Current as of 2026-10-02 ~03:21 HST
 
 Alexander’s operator copy, checked against live `jobs.py`, `run-poller.sh`, `voice_reports.py`, `status_cue.py`, `voice_deliver.py`, Discord `public_report.py` / `report-channels.json`, and `publish_report_pages.py`. As of ~01:41 HST the separate `energy_report` voice job is retired: pack watts, newest ch1 still, and the hourly camera look live inside Bruce’s `solar_desk` (title “Energy and solar”). `status_cue.TYPES` lists **nine** generating desks. As of ~01:57 HST those nine desks and the stack-closer cycle key moved from `:12` / `:42` to `:22` / `:52` in `jobs.py` and `status_cue.cycle_key` (tests updated). Live timing is [voice-timing.md](./voice-timing.md) (generated 2026-10-02 03:10 HST, 284 runs, nine-desk stack at `:22` / `:52`). The live Mainland mixer is release `stage-notice`. Do not kill the encoder mid-report. A `jobs.py` / `run-poller.sh` change needs a poller restart before the running process adopts the new minutes; script edits are picked up on the next job run.
 
@@ -42,7 +42,7 @@ Kokoro is single-flight through `voice-render.sh`. A busy render returns **75**.
 
 `solar_desk` is the combined energy + solar product: EcoFlow packs, sun times, newest channel-1 still, and this hour’s camera look (`panel_look.observe` when the hour has no reading). The old `energy_report` job and `RR_VOICE_ENERGY` flag are gone from `jobs.py` / `run-poller.sh`; `b_energy_report` remains a one-release alias that forwards to `b_solar_desk`. Discord and the public Energy area keep only `solar-desk`.
 
-Armed flags (defaults 1 in `run-poller.sh`): `RR_VOICE_SYSTEM_PERF`, `RR_VOICE_NWS`, `RR_VOICE_REMAINING`, `RR_VOICE_QUAKE` (+ `RR_GEOLOGY`), `RR_VOICE_KILAUEA`, `RR_VOICE_SOLAR`, `RR_VOICE_SECURITY`, `RR_VOICE_BANDWIDTH` (+ `RR_NET_SAMPLES`), `RR_VOICE_CURRENT`. Also armed: news `:36` (`RR_RADIO_NEWS`), roll-ups (`RR_VOICE_ROLLUPS`), late final (`RR_VOICE_LATE_FINAL`), hurricane (`RR_VOICE_HURRICANE`), desk uptime log (`RR_UPTIME_LOG`).
+Armed flags (defaults 1 in `run-poller.sh`): `RR_VOICE_SYSTEM_PERF`, `RR_VOICE_NWS`, `RR_VOICE_REMAINING`, `RR_VOICE_QUAKE` (+ `RR_GEOLOGY`), `RR_VOICE_KILAUEA`, `RR_VOICE_SOLAR`, `RR_VOICE_SECURITY`, `RR_VOICE_BANDWIDTH` (+ `RR_NET_SAMPLES`), `RR_VOICE_CURRENT`. Also armed: news `:36` (`RR_RADIO_NEWS`), roll-ups (`RR_VOICE_ROLLUPS`), late final (`RR_VOICE_LATE_FINAL`), hurricane (`RR_VOICE_HURRICANE`), desk uptime log (`RR_UPTIME_LOG`). Soft-on for soak (needs poller restart): `RR_VOICE_KILAUEA_IMAGE` (`voice_kilauea_image_check` every 900 s) — see below.
 
 ### System perf connectivity and host power mode (2026-10-02 ~02:15–02:33 HST)
 
@@ -53,6 +53,27 @@ Host power mode is logged read-only by new `System/scripts/power_profile.py` (pe
 ### Site traffic in bandwidth / current (2026-10-02 ~02:33 HST)
 
 Mainland Home/Radio analytics are folded into Pacific spoken reports (schema **1.0.0**, no page JS). Pacific `Website/scripts/analytics_pull.py` mirrors ML2 `GET /api/analytics/daily` into Database `Logs/Website/analytics/daily/` (plus `analytics-last.json`; sample `daily/2026-10-02.json`). Voice `bandwidth_desk` and `current_report` speak measured site traffic: **api** / **home_proxy** / **radio**, with honest partial Home (`home_proxy` is telemetry Referer www only; full `home.pageviews` stay null until edge analytics). Job `analytics_pull` is gated `RR_ANALYTICS_PULL=1` at 900 s; **not** exported in `run-poller.sh`, so a normal start leaves it off until armed. Desks can still refresh a stale day file themselves when speaking. READMEs: Database `Logs/Website/analytics/README.md` and Pacific `Website/README.md` Analytics section.
+
+
+### Kīlauea 15-min image check (2026-10-02 ~03:21 HST)
+
+**LIVE on Pacific** (local; no commit). Report-side only — **not** in `LOCAL_DATA_POLL_JOBS` (forever-Pacific / ungated by exclusive ML2 data-poll, EcoFlow/cams-style).
+
+| Piece | Detail |
+| --- | --- |
+| Job | `voice_kilauea_image_check` every **900 s** in `jobs.py` |
+| Gate | `RR_VOICE_KILAUEA_IMAGE` — soft default `:-1` (on for soak) in `run-poller.sh` |
+| Look | Pacific `Geology/scripts/kilauea_look.py` (Gemma; same stack as `panel_look`) |
+| Voice | `voice_reports` `kilauea_image_check` (Carly) + `voice_deliver` title |
+| Bank | Database `Cams/kilauea-look-last.json` + `lava-fountain-ref.jpg` |
+
+Flow: USGS HVO still (prefer fresh Cams v3/v1/v2; else live GET) → Gemma look vs optional fountain ref → Carly: “Kilauea observation image was checked” + measured finding. Smoke (glow on V3 Halemaʻumaʻu): *Kilauea observation image was checked. Measured finding: glow at the vent…*
+
+**WIP looker path (~03:25 HST, not verified):** prefer `_current` when available; fallback to `-last`. The live path for every `*_current` product stays `_current` for LLM reads; dated `archive/` is history only. When a second `*_current` arrives, Pacific solar renames the previous one into `archive/`. Kīlauea USGS HVO stills are the first consumer of this general pattern. EcoFlow and cams stay forever-Pacific; this is not a move to ML2. Await Mainland verify / Alexander ping.
+
+**WIP report blend (~03:28 HST; not verified):** When the Kīlauea checker runs, the spoken/written report should say whether a still was viewed (**Y/N**) and, when viewed, what conditions looked like. Mainland keeps `*_current`, `cams_current.json`, and `look-last` when Report Instructor writes it; the looker prefers Cams `*_current`, then `-last`, then live USGS. Report Instructor owns the report text. Keep this WIP until Mainland verifies the first bank; do not claim it is live.
+
+**Poller restart required** before the gate/job takes effect in the running process. Soft default is on for soak in `run-poller.sh`; until restart, treat as not yet adopted by the live poller.
 
 ### Post-boot voice / analytics check (Report Instructor, ~02:58 HST)
 
@@ -69,19 +90,19 @@ Measured after desk reboot into ML2 mode (poller active; `RR_LOCAL_DATA_POLL=0` 
 
 **No new voice cycle since boot yet.** Live desk schedule remains **`:22` / `:52`** (nine desks; was `:12` / `:42` before ~01:57). Expect the next `:22` / `:52` stack to refresh spoken files from Database. Do not treat pre-reboot WAVs as post-boot proof.
 
-### ML2 first-test — stale-desk risk (~03:02–03:12 HST)
+### ML2 live banks — stale-desk notes cleared (~03:23 HST)
 
-`RR_LOCAL_DATA_POLL=0` (survived reboot; exclusive gate). ML2 **live / stream-verified** collectors remain **geology + `weather_us_states` only** — not a full poller move ([US-Mainland-Two](../15-Domains-and-External-Systems/US-Mainland-Two.md) First-test scope). Desk now has `weather_hawaii` + `radio_rss` **enabled** and host deploy/bank is in progress, but **NOT stream-verified yet** — keep these stale notes until Mainland stream-verify ping; **do not claim voice unstuck**.
+`RR_LOCAL_DATA_POLL=0` (exclusive gate; overnight ML2-on). ML2 **LIVE / stream-verified** collectors: **geology + `weather_us_states` + `weather_hawaii` + `radio_rss`** (hurricanes via `weather_hawaii`). SSH stream lands in the same Pacific Database `path_rel` tree desks/LLMs read. Prior “awaiting stream-verify / NWS HI / hurricane / news hour go stale” notes are **cleared**. Not a full poller move — Discord/Telegram pollers still scaffold. Detail: [US-Mainland-Two](../15-Domains-and-External-Systems/US-Mainland-Two.md).
 
-| Desk / product | Bank path under first-test | Risk |
+| Desk / product | Bank path | Status |
 | --- | --- | --- |
-| Earthquake / Kīlauea | ML2→Pacific geology banks | Can refresh |
-| NWS Hawaiʻi (`nws_weather`) | Pacific `weather_poller` gated off; ML2 `weather_hawaii` desk-enabled / host deploy **awaiting stream-verify** | Still **stale** until host stream-verify ping (or local poll flips back) |
-| Hurricane | Pacific collector gated | Goes **stale** same way (not in weather_hawaii/radio_rss desk enable) |
-| Radio news hour | Pacific `radio_rss_poll` gated off; ML2 `radio_rss` desk-enabled / host deploy **awaiting stream-verify** | Still **stale** until host stream-verify ping |
+| Earthquake / Kīlauea | ML2→Pacific geology banks | Refresh OK |
+| NWS Hawaiʻi (`nws_weather`) | ML2 `weather_hawaii` → Pacific `Weather/Hawai'i/` (sample `ml2-collector-status.json` ok) | **Unstuck** — stream verified |
+| Hurricane | via `weather_hawaii` → Pacific reports/hurricane tracks | **Unstuck** — tracks fresh |
+| Radio news hour | ML2 `radio_rss` → Pacific `Media/RadioRss/` (health/queue ok) | **Unstuck** — stream verified |
 | Bandwidth / current analytics | ML2 `/api/analytics/*` | Pull still fine |
 
-Report Instructor: do not treat gated Pacific collectors as still filling Hawaiʻi / hurricane / news banks while the flag is 0. Desk-enabled ML2 weather_hawaii / radio_rss do **not** clear stale risk until Mainland confirms stream-verify.
+Report Instructor: Pacific local collectors stay gated while `RR_LOCAL_DATA_POLL=0`; banks fill from ML2→Pacific path_rel. Do not treat gated Pacific jobs as the live fill path.
 
 ### Always on (hard-enabled in jobs.py)
 
