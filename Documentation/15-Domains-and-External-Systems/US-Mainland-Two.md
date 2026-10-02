@@ -1,6 +1,6 @@
 # US-Mainland-Two
 
-Current as of 2026-10-02 ~04:58 HST. This page is the live host role. The 2026-10-01 SSH and rename sitting is [2026-10-01 mainland rename and SSH tunnels](../01-Operations/2026-10-01-mainland-rename-and-ssh-tunnels.md). Do not treat OLD FILES or continuity plans as live ML1/ML2 truth. Mainland local commits only — **no push**.
+Current as of 2026-10-02 ~11:49 HST. This page is the live host role. The 2026-10-01 SSH and rename sitting is [2026-10-01 mainland rename and SSH tunnels](../01-Operations/2026-10-01-mainland-rename-and-ssh-tunnels.md). Do not treat OLD FILES or continuity plans as live ML1/ML2 truth. Mainland local commits only — **no push**.
 
 | Field | Value |
 | --- | --- |
@@ -17,6 +17,8 @@ Current as of 2026-10-02 ~04:58 HST. This page is the live host role. The 2026-1
 | **Library SHA** | RootRecord-Library; Wren desk-only this sitting |
 | **Test-mode toggle** | Host `docs/TOGGLE.md` test-mode § (Library does not edit that file) |
 
+**Current return (~11:45–11:49 HST):** Desk Cursor was offline from about 05:44–05:51 HST through about 11:45 HST. While down, `rootserver.rootrecord.cloud` returned HTTP 530 / Cloudflare 1033 (origin unreachable), ML2 `status_held` / Live `as_of` stayed frozen at about 05:44 HST, ML1 `live.mp3` stayed up, and the soft gate stayed ML2-on (`RR_LOCAL_DATA_POLL=0`); nobody flipped it. `:17022` was unmeasurable from Master during that window. On return, `rr-ml2-db-tunnel` has been active since about 11:45, rootserver is HTTP 200, ML2 `status_held` is about 11:47, handoffs are 0/0/0 (weather/media/geology), and `RR_LOCAL_DATA_POLL` is still 0. That tunnel and those handoffs are not an open attention item. The finite `overnight-station-check-till-7am` routine was deleted about 07:08 HST; its last fire still saw the desk offline, so Master has no final gate / `:17022` / River metrics from that pass. Morning checks took over from about 10:13 HST through noon. River and Delta readings for this window are on the EcoFlow pages. The ~04:58 paragraphs below, including River ~7.5% SOC and “overnight checks remain armed,” are that earlier sitting.
+
 **Baseline post-reboot verification (~03:51 HST) — PASS:** Master Pacific remains live with the ML2-on gate (`RR_LOCAL_DATA_POLL=0`, intent `remote`), poller + `:8799` returning 200, Pacific `rr-ml2-db-tunnel` active on `:17022`, and Internet OK. The overnight ML2 stream stall and `:17022` tunnel conflict are cleared (~04:58 HST): `ml2-db-stream` now waits only on `network-online`, `scripts/run-stream.sh` uses `flock`, and handoffs drained 856→0. The desk `rr-aws-fetch-tunnel` unit is stopped/disabled; its remote-listen template is `:17023` if revived, leaving `:17022` to `ml2-db`. Collectors are OK; ML1 radio is OK; River is ~7.5% SOC with AC on; overnight checks remain armed. This is not a desk/net outage. If ML2 dies, the temporary Pacific poller remains the soft `RR_LOCAL_DATA_POLL=1` flip. AC-on if River dies remains a Master/EcoFlow decision.
 
 ## Public API origin (ML2) — not the AWS Fallback panel
@@ -29,7 +31,7 @@ Alexander (~03:00–03:02 HST; fallback restore ~03:04): **ML2 is the API.** Pub
 
 | State | What |
 | --- | --- |
-| **Working / status** | Radio on ML1; public API on ML2 (`/health`, `/api/state` arcs, `/api/operations`, analytics); collectors themselves OK; Pacific `rr-ml2-db-tunnel` active on `:17022`; `rr-aws-fetch-tunnel` stopped/disabled with `:17023` as the revive template; `RR_LOCAL_DATA_POLL=0` ML2-on intent; EcoFlow / cams / LAN globe **capture** Pacific; ML1 AWS Fallback restored. The ML2 stream stall and `:17022` conflict are cleared; handoffs are 0. |
+| **Working / status** | Radio on ML1; public API on ML2 (`/health`, `/api/state` arcs, `/api/operations`, analytics); collectors themselves OK; Pacific `rr-ml2-db-tunnel` active on `:17022` since about 11:45 HST (unmeasurable during the ~05:44–11:45 desk outage); `rr-aws-fetch-tunnel` stopped/disabled with `:17023` as the revive template; `RR_LOCAL_DATA_POLL=0` ML2-on intent, not flipped while the desk was blind; EcoFlow / cams / LAN globe **capture** Pacific; ML1 AWS Fallback restored. Handoffs at the ~11:47 `status_held` are 0/0/0 (weather/media/geology). Not an open attention item. The earlier ML2 stream stall and `:17022` conflict stay cleared. |
 | **Not working / incomplete** | Full Home pageviews (Vercel, no client trackers — option C / ML2 logs only); Discord poller **blocked on token**; Telegram/Discord poller scaffolds not live (council-relay stays Pacific) |
 | **ML2 LIVE collectors** | `geology` + `geology_kilauea_cams` (USGS still intake only; no vision) + `weather_us_states` + `weather_hawaii` (600s oneshot) + `radio_rss` — runner exclusive `RR_LOCAL_DATA_POLL=0` only; `radio_rss` is live again after the `fetch` shadow fix (SHA `67e675c`) |
 | **Hurricanes** | Covered by `weather_hawaii` (not a separate live collector) |

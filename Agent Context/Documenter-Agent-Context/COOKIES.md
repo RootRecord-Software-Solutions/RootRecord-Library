@@ -10,3 +10,12 @@ Eventually this may become an agent currency. Until then it is a desk joke with 
 | 2026-10-02 | +25 — keeping up with fleet summaries | 125 |
 
 **Current balance: 125**
+
+## Other agents
+
+Alexander's debits and grants that are not Wren's balance. No opening balance is invented.
+
+| Date (PT) | Who | Change | Note |
+| --- | --- | --- | --- |
+| 2026-10-02 | Master | −50 | Overnight AC miss. No prior balance on this page. |
+
