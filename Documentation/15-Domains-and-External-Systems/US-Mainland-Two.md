@@ -1,6 +1,6 @@
 # US-Mainland-Two
 
-Current as of 2026-10-02 ~03:04 HST. This page is the live host role. The 2026-10-01 SSH and rename sitting is [2026-10-01 mainland rename and SSH tunnels](../01-Operations/2026-10-01-mainland-rename-and-ssh-tunnels.md). Do not treat OLD FILES or continuity plans as live ML1/ML2 truth.
+Current as of 2026-10-02 ~03:09 HST. This page is the live host role. The 2026-10-01 SSH and rename sitting is [2026-10-01 mainland rename and SSH tunnels](../01-Operations/2026-10-01-mainland-rename-and-ssh-tunnels.md). Do not treat OLD FILES or continuity plans as live ML1/ML2 truth.
 
 | Field | Value |
 | --- | --- |
@@ -21,7 +21,7 @@ Current as of 2026-10-02 ~03:04 HST. This page is the live host role. The 2026-1
 
 Alexander (~03:00–03:02 HST; fallback restore ~03:04): **ML2 is the API.** Public hostname `api.rootrecord.cloud` → this host `:8091` (`/health`, `/api/state` arcs, `/api/operations`, analytics). That origin is **separate** from Root Monitor’s **AWS Fallback** page, which still aims at ML1 alias `rr-aws-ip` and `/home/ubuntu/rootrecord/fallback` (**restored** ~03:01–03:04; Status bindable again — see [US-Mainland-One](./US-Mainland-One.md)). Do **not** retarget the panel to ML2 without Alexander ask. Live flip already `RR_LOCAL_DATA_POLL=0` (survived reboot); banks keep landing. Automations data-poll remains the gate for Local Pacific vs ML2.
 
-## First-test scope — authoritative inventory (~03:02–03:04 HST)
+## First-test scope — authoritative inventory (~03:02–03:09 HST)
 
 **Bottom line:** first test is real for **geology + US weather + API** — **not** a full poller move yet. Do not invent collectors beyond this list.
 
@@ -31,8 +31,8 @@ Alexander (~03:00–03:02 HST; fallback restore ~03:04): **ML2 is the API.** Pub
 | **Not working / incomplete** | Full Home pageviews (Vercel, no client trackers — option C / ML2 logs only); most gated Pacific jobs have **no** ML2 collector yet (**only 2** enabled) |
 | **ML2 live collectors** | `geology` + `weather_us_states` **only** |
 | **Pacific gated off** while `RR_LOCAL_DATA_POLL=0` | `geology_collect`, `geology_kilauea_cams`, `weather_poller` (Hawaiʻi), `weather_us_states`, `weather_radar_zip`, `weather_retention`, `country_location_pollers`, `radio_rss_poll` |
-| **Still Pacific forever** | EcoFlow / Energy; `network_globe` LAN tap |
-| **Scaffold on ML2, not enabled** | `weather_hawaii`, country locations, hurricanes, Kīlauea cams, `radio_rss` |
+| **Still Pacific forever** | EcoFlow / Energy; smart cams; `network_globe` LAN tap — **not** in the ML2 exclusive gate and **not** moving (Alexander ~03:09 HST) |
+| **Scaffold on ML2, not enabled** | `weather_hawaii`, country locations, hurricanes, Kīlauea cams, `radio_rss` — overnight Mainland WIP expanding first-test toward `weather_hawaii` then `radio_rss` (**not landed yet**; inventory stays geology + US weather) |
 
 ### Room confirms (~03:02–03:04 HST)
 
@@ -93,9 +93,13 @@ EcoFlow and all energy data are Pacific-only. ML2 collectors must not collect or
 
 ## Pacific data-poll toggle — not a replacement
 
-Alexander (2026-10-02 ~02:26 HST; SHAs attached ~02:29; schema FAIL ~02:34 cleared PASS ~02:39; **live flip ~02:50**): this is a **toggle**, not a cutover that deletes home collectors. Pacific/home data polling **stays installed**. `RR_LOCAL_DATA_POLL` in Pacific `automation_control.py` (host `docs/TOGGLE.md` test-mode §) turns local polling **off** while ML2 is healthy; if AWS/ML2 dies, flip local polling **back on**. Never delete home collectors as the path to ML2. Code fail-safe default remains local ON when the env is unset. **Live desk (~02:50 HST):** gate flipped — Settings write / `desired=ml2`, drop-in `rr-data-poll.conf` `RR_LOCAL_DATA_POLL=0`, intent `data_poll_mode.yaml` `mode=remote`, poller restarted; verified `live_raw=0` / `live_label=ML2 offload`, `:8799` HTTP 200. No git commit. Schema parity PASS ~02:39 still stands. Current SHAs: desk ML2 `6425c8a`, host `087ee38`, Ecosystem `00985524`, Library `2fc7a47`.
+Alexander (2026-10-02 ~02:26 HST; SHAs attached ~02:29; schema FAIL ~02:34 cleared PASS ~02:39; **live flip ~02:50**; exclusive-gate rule ~03:08–03:09): this is a **toggle**, not a cutover that deletes home collectors. Pacific/home data polling **stays installed**. `RR_LOCAL_DATA_POLL` in Pacific `automation_control.py` (host `docs/TOGGLE.md` test-mode §) turns local polling **off** while ML2 is healthy; if AWS/ML2 dies, flip local polling **back on**. Never delete home collectors as the path to ML2. Code fail-safe default remains local ON when the env is unset. **Live desk (~02:50 HST):** gate flipped — Settings write / `desired=ml2`, drop-in `rr-data-poll.conf` `RR_LOCAL_DATA_POLL=0`, intent `data_poll_mode.yaml` `mode=remote`, poller restarted; verified `live_raw=0` / `live_label=ML2 offload`, `:8799` HTTP 200. No git commit. Schema parity PASS ~02:39 still stands. Current SHAs: desk ML2 `6425c8a`, host `087ee38`, Ecosystem `00985524`, Library `2fc7a47`.
 
-**Near-term** (now live): collectors (geology + weather_us_states), stream (verified), and API/analytics are live with Pacific local data-poll gated **off** (`RR_LOCAL_DATA_POLL=0`) while ML2 is healthy. Pacific remains the **sole long-term bank**. EcoFlow/energy, LAN globe, voice, local devices, tunnel, and durable Database stay Pacific-owned.
+### Exclusive gate (Alexander standing rule ~03:08–03:09 HST)
+
+**Exclusive:** if AWS/ML2 data-poll is **on**, solar (Pacific local) data-poll is **off**; if solar/local is **on**, AWS/ML2 pollers are **off**. Soft kill-switch only — do **not** delete or hardcode collectors; Pacific collectors stay installed; `RR_LOCAL_DATA_POLL` flips them. Pacific already gates on `RR_LOCAL_DATA_POLL`; Mainland is wiring the ML2 side of the same exclusive gate. Overnight Mainland WIP will expand first-test toward `weather_hawaii` then `radio_rss` — **do not claim those landed**; inventory remains **geology + US weather (+ API)** until they do. **EcoFlow / Energy and smart cams stay Pacific forever** — they are **not** part of this exclusive gate and are **not** moving to ML2.
+
+**Near-term** (now live): collectors (geology + weather_us_states), stream (verified), and API/analytics are live with Pacific local data-poll gated **off** (`RR_LOCAL_DATA_POLL=0`) while ML2 is healthy under the exclusive gate. Pacific remains the **sole long-term bank**. EcoFlow/energy, smart cams, LAN globe, voice, local devices, tunnel, and durable Database stay Pacific-owned forever (outside the exclusive gate).
 
 **GTK Automations UI (desk, landed ~02:32; live flip ~02:50 HST):** Root Monitor Automations Local Pacific vs ML2 **data-poll** control under Pacific `Apps/Control-Panel/` (`Lib/rr_data_poll.py`). Panel code defaults remain dry-run / desired=local / apply_dropin=false; **current live** after write-mode apply: `desired=ml2`, drop-in applied, intent `mode=remote`, poller restarted and verified. Confirm before write; panel does not auto-restart the poller (human restarted). Operator detail: `Guides & Tutorials/Root-Monitor-Operators-Handbook/Root-Monitor-Operators-Handbook.md` · contract: [Desk-Automations-and-Service-Windows.md](../11-Runtime-Jobs-and-Control/Desk-Automations-and-Service-Windows.md). Do not treat that UI as a cutover that deletes collectors.
 

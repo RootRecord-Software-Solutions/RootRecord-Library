@@ -25,7 +25,7 @@ Tests point at copies with `RR_AUTOMATION_OVERRIDES`, `RR_POWER_AUTOMATIONS`, `R
 
 ## 2. Data poll — Local Pacific vs ML2 (GTK, 2026-10-02)
 
-Toggle, not replacement. Home collectors stay in `jobs.py`. Pacific env `RR_LOCAL_DATA_POLL` (in `automation_control.py`) gates the internet data-poll job set: unset/`1` = Local Pacific ON (fail-safe default when unset); `0` = gate those jobs off while ML2 collectors + stream are healthy. Policy essay: [US-Mainland-Two.md](../15-Domains-and-External-Systems/US-Mainland-Two.md).
+Toggle, not replacement. Home collectors stay in `jobs.py`. Pacific env `RR_LOCAL_DATA_POLL` (in `automation_control.py`) gates the internet data-poll job set: unset/`1` = Local Pacific ON (fail-safe default when unset); `0` = gate those jobs off while ML2 collectors + stream are healthy. **Exclusive (~03:08 HST):** ML2 on ⇒ Pacific local off; Pacific local on ⇒ ML2 pollers off. Soft kill-switch only (`RR_LOCAL_DATA_POLL`); never delete collectors. Mainland wiring ML2 side of the gate. EcoFlow/cams stay Pacific forever (outside this gate). Policy essay: [US-Mainland-Two.md](../15-Domains-and-External-Systems/US-Mainland-Two.md).
 
 Root Monitor **Automations** (desk `Apps/Control-Panel/`) shows Local Pacific vs ML2 at the top of the page. Behavior mirrors AWS Fallback safety:
 
@@ -146,4 +146,4 @@ The page keeps measured sections. It drops the `## Spoken` block, persona names,
 - The Not migrated row "Energy actuating actions" stays VERIFY PENDING. The scheduled catalog above is the path that exists. Immediate arm or disarm from Controls is still unwired.
 - Delta 2 transmit behavior is unchanged. A quiet Delta 2 read is still normal.
 - These modules do not send mail, spend money, or push git by themselves. The website mirror publishes `service-notice.json` when that folder syncs.
-- The Automations **data-poll** control does not delete home collectors and does not auto-restart the poller. Live flip (~02:50 HST) applied env + human poller restart after ML2 banks/schema were verified; gate only — collectors stay installed. Distinct from AWS Fallback (ML1; Status bindable again after ~03:04 restore).
+- The Automations **data-poll** control does not delete home collectors and does not auto-restart the poller. Live flip (~02:50 HST) applied env + human poller restart after ML2 banks/schema were verified; gate only — collectors stay installed. Exclusive (~03:08): only one side on at a time; EcoFlow/cams forever Pacific. Distinct from AWS Fallback (ML1; Status bindable again after ~03:04 restore).

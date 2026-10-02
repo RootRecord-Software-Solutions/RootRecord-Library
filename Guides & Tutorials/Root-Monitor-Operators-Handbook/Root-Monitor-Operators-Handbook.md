@@ -316,9 +316,10 @@ Top of the Automations page. Shows the live poller `RR_LOCAL_DATA_POLL` state (u
 
 **Current live (~02:50 HST; reboot-survived):** `desired=ml2` / intent `mode=remote` / drop-in `RR_LOCAL_DATA_POLL=0`; verified `live_raw=0` / `live_label=ML2 offload`, `:8799` HTTP 200. Collectors stay installed; gate flipped only. First-test: ML2 live collectors are geology + weather_us_states only — NWS Hawaiʻi / hurricane / radio news hour can go stale while those Pacific jobs stay gated (see voice-desk).
 
+- **Exclusive (~03:08 HST):** ML2 on ⇒ Pacific local off; Pacific local on ⇒ ML2 pollers off. Soft kill-switch (`RR_LOCAL_DATA_POLL`) only — never delete collectors. Mainland wiring ML2 side. EcoFlow and cams stay Pacific forever (not in this gate).
 - **DRY-RUN** (code default, `data_poll_toggle_mode`): confirm shows the exact change, then writes nothing. Toast: `dry-run: data poll → … not written`.
 - **WRITE** (Settings → Panel sign-off): confirm → saves `data_poll_desired` + Database `System/control-panel/data_poll_mode.yaml`. Home collectors stay installed (toggle not replacement). Optional `data_poll_apply_dropin` also writes `rr-data-poll.conf`; you still restart the poller yourself after ML2 stream banks are verified.
-- Fail-safe: prefer Local Pacific if AWS/ML2 is down. Never delete home collectors. EcoFlow/Energy stay Pacific-only.
+- Fail-safe: prefer Local Pacific if AWS/ML2 is down. Never delete home collectors. EcoFlow/Energy and smart cams stay Pacific-only forever.
 - Gated job ids are labelled `RR_LOCAL_DATA_POLL gate` in the job list.
 
 Added 1 October 2026. The full contract is Library `Documentation/11-Runtime-Jobs-and-Control/Desk-Automations-and-Service-Windows.md`.

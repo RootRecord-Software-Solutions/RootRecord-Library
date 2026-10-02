@@ -1,19 +1,19 @@
 # Voice timing
 
-**Generated:** 2026-10-02 03:08 HST  
+**Generated:** 2026-10-02 03:10 HST  
 **Source:** automations log, job wall time from RUN to the result line  
 **Model:** none  
 **Template:** `5 - RootRecord-Library/Agent Context/Documenter-Agent-Context/HANDOFF-TEMPLATE.md`  
 
-## Handoff — 2026-10-02 03:08 HST — voice_timing_report → Library
+## Handoff — 2026-10-02 03:10 HST — voice_timing_report → Library
 
 ### Confirmed facts
 - The station locks the playlist at HH:29:59 and HH:59:59, then chimes on the hour and the half hour.
 - A file that arrives after that lock waits for the next cycle.
 - The measured desks share one poller thread and one voice lock, so a set runs one after another.
-- The lead from :12:00 to the :29:59 lock is 17 minutes 59 seconds. :42 has the same lead before :59:59.
-- The ten-desk set sums to median 314s, average 386s, and p90 698s.
-- That p90 sum fits inside the lead.
+- The lead from :22:00 to the :29:59 lock is 7 minutes 59 seconds. :52 has the same lead before :59:59.
+- The 9-desk set sums to median 314s, average 386s, and p90 698s.
+- That p90 sum is longer than the lead.
 - The schedule table is copied from jobs.py.
 
 ### Pages updated
@@ -75,4 +75,4 @@ p90 is the nearest rank in that desk's own runs. The stack p90 is the sum of tho
 
 ### Next recommended action
 
-- Keep the :12 and :42 start while the summed p90 still fits the lead.
+- Move the :22 and :52 start earlier. The summed p90 no longer fits the lead.
