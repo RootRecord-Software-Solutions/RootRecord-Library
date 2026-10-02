@@ -37,7 +37,7 @@ News at `:36` and the hurricane desk at `:40` finish before the top-of-hour stac
 
 Morning, midday, and late roll-ups cannot be written before their window opens, so they stay at 09:02, 12:02, and 21:02. The 09:00 snapshot is taken at 08:59:59, while the late roll-up is still the one on the air, so the new morning file first plays at 09:30. Noon first plays at 12:30. Nine at night first plays at 21:30.
 
-The poller was started again at 23:46 HST on 1 October 2026 and is on this schedule. The next render after that start is 00:12, for the 00:30 announcement.
+The poller was started again at 00:09 HST on 2 October 2026. The next desk run speaks the status clips below.
 
 ## How long a desk takes
 
