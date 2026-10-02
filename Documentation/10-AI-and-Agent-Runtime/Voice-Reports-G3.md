@@ -8,7 +8,7 @@
 | **Tests** | `07-Testing/2026-09-29-kokoro-voice-port-g3.md` · `07-Testing/2026-09-29-kokoro-phrase-clips-qc.md` · `07-Testing/2026-09-29-hawaiian-pronunciation-sheet.md` |
 
 
-## Current as of 2026-10-02 ~02:09 HST
+## Current as of 2026-10-02 ~02:18 HST
 
 Operator schedule and armed flags live in [2026-09-30 voice desk](../01-Operations/2026-09-30-voice-desk.md). This page is the 2026-09-29 port record. Where the sections below still name an old minute (`system_perf` docstring :06), list a separate `energy_report`, or say roll-ups / hurricane / late-final are gated off, the voice-desk page and live `jobs.py` / `run-poller.sh` win. As of ~01:41 HST: nine desks (`energy_report` folded into `solar_desk`); as of ~01:57 HST those desks run at `:22` / `:52` (was `:12` / `:42`); generation-clock stamps; `compare_span.py` percent lines; four desk status clips plus Ava stack closer after all nine Mainland receipts; staged on-air cues (`notify.opus` ding first). Living detail: [voice desk](../01-Operations/2026-09-30-voice-desk.md).
 
@@ -18,7 +18,7 @@ Operator schedule and armed flags live in [2026-09-30 voice desk](../01-Operatio
 
 **Armed from `run-poller.sh` (default 1):** system_perf, nws, remaining, quake, kilauea, solar (combined energy+solar), security, bandwidth, current (all :22/:52); radio news :36; roll-ups 09:02/12:02/21:02; late_final 23:02; hurricane five slots; geology + net samples; Telegram deliver; radio RSS/news. `RR_VOICE_ENERGY` removed.
 
-**RadioRss / news_update:** sports is dropped from every feed before desks (`policy.yaml` `sports_patterns`, normalize, compose, `news_hour`). Alexander rule: no sports in reports. Living detail: [voice desk](../01-Operations/2026-09-30-voice-desk.md).
+**RadioRss / news_update:** sports is dropped from every feed before desks (`policy.yaml` `sports_patterns`, normalize, compose, `news_hour`). Alexander rule: no sports in reports. As of ~02:18 HST the spoken hour targets ~20–25 min (`target_words: 3500`); Ava/Bruce/Carly share airtime via `balance_personas`. Mix: chips/NVIDIA/Microsoft/big tech, world news every continent, mainland weather, centrist mainland politics (partisan patterns drop), universities, science breakthroughs — plus markets, security, SpaceX, Hawaii. Living detail: [voice desk](../01-Operations/2026-09-30-voice-desk.md).
 
 **Always on:** worklog_scan 90 s, discord_report_relay 300 s, voice_timing_report :05, reports_daily_roll_up 18:30, reports_weekly_archive 19:00, Discord 8 h (00/08/16) + 24 h (12:00).
 

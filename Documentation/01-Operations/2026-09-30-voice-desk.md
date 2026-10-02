@@ -4,7 +4,7 @@ Finished Hawaii reports go to the Mainland station. The station snapshots the pl
 
 This is the living description of the spoken reports. The 2026-09-29 port record is [Voice-Reports-G3](../10-AI-and-Agent-Runtime/Voice-Reports-G3.md). Where that file still says a job is off, has no delivery, or uses an old minute, this file wins. Trust `Automations/scripts/poller/run-poller.sh` and `Automations/scripts/jobs.py` over older “what stays off” lists.
 
-## Current as of 2026-10-02 ~02:09 HST
+## Current as of 2026-10-02 ~02:18 HST
 
 Alexander’s operator copy, checked against live `jobs.py`, `run-poller.sh`, `voice_reports.py`, `status_cue.py`, `voice_deliver.py`, Discord `public_report.py` / `report-channels.json`, and `publish_report_pages.py`. As of ~01:41 HST the separate `energy_report` voice job is retired: pack watts, newest ch1 still, and the hourly camera look live inside Bruce’s `solar_desk` (title “Energy and solar”). `status_cue.TYPES` lists **nine** generating desks. As of ~01:57 HST those nine desks and the stack-closer cycle key moved from `:12` / `:42` to `:22` / `:52` in `jobs.py` and `status_cue.cycle_key` (tests updated). Historical timing numbers below still come from `voice-timing.md` (generated 2026-10-02 01:07 HST, 303 runs, when Energy was still a tenth job and starts were still `:12` / `:42`). The live Mainland mixer is release `stage-notice`. Do not kill the encoder mid-report. A `jobs.py` / `run-poller.sh` change needs a poller restart before the running process adopts the new minutes; script edits are picked up on the next job run.
 
@@ -119,6 +119,10 @@ Numbers in the reports get a percent change when an earlier reading exists. Aver
 
 Alexander rule: **no sports in reports.** Sports was entering `news_update` through RadioRss general feeds (Star-Advertiser / Al Jazeera / BBC sports URLs, NFL, and similar). Pacific `Media/RadioRss` now drops sports from **every** feed: global `sports_patterns` in `config/policy.yaml`, `stories.sports()` drop on normalize, compose skip in `pipeline.py`, and a filter in `news_hour.py` before desks. `test_rss_radio.py` covers sports drop and transportation keep (passed). Voice desks, Discord report channels, and Website report pages have no dedicated sports sections — the filter is at ingest, not a desk layout change.
 
+### News hour shape (as of 2026-10-02 ~02:18 HST)
+
+After the sports cut, `news_update` was refilled to about **twenty to twenty-five spoken minutes** (`target_words: 3500` in `config/policy.yaml` `news_update`). Ava, Bruce, and Carly share that airtime roughly evenly through `balance_personas` in `Media/RadioRss/scripts/news_hour.py` (Hawaii hour still picks the first preference). Mix weighting: tech/chips (NVIDIA, Microsoft, big tech), world news on every continent (Asia, Australia, Africa, Europe, Latin America, Middle East, US/Canada), U.S. mainland weather, centrist mainland politics, universities, and science breakthroughs — plus the existing markets, national security, SpaceX, and Hawaii desks. Centrist politics feeds also drop partisan phrasing (`partisan_patterns` on feeds marked `centrist: true`). Sports filter stays. Touched under Pacific `Media/RadioRss/` (code, not this Library page): `categories.yaml`, `policy.yaml`, `feeds.yaml`, `news_hour.py`, `stories.py`, `pipeline.py`, `test_rss_radio.py` (passed), `README.md`. Schedule stays news `:36` (`RR_RADIO_NEWS`). Living on-air note: [radio station](./2026-10-01-radio-station.md). Spoken-report wording twin: [Voice-Reports-G3](../10-AI-and-Agent-Runtime/Voice-Reports-G3.md).
+
 A bare `degrees` after a number is still spoken as Fahrenheit, because the weather numbers are Fahrenheit. The system report says `degrees Celsius` on purpose. The sensor is `acpitz`, in Celsius. The written row is `°C`.
 
 ## Energy speech
@@ -153,7 +157,7 @@ Morning tilt helps early capture and is not required. Overnight left tilt is the
 
 ## Spoken clock, change lines, and cues
 
-See **Generation clock**, **Percent change lines**, **Local status clips**, and **Staged on-air cues** under Current as of 2026-10-02 above. This section is kept so older links land somewhere: generation clock (not air slot); `compare_span.py` percent lines; four desk `aplay` status phases plus Ava stack closer; two staged on-air phases with `notify.opus` first.
+See **Generation clock**, **Percent change lines**, **Local status clips**, and **Staged on-air cues** under Current as of 2026-10-02 ~02:18 HST above. This section is kept so older links land somewhere: generation clock (not air slot); `compare_span.py` percent lines; four desk `aplay` status phases plus Ava stack closer; two staged on-air phases with `notify.opus` first.
 
 ## Hourly chimes
 
