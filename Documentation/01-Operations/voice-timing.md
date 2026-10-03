@@ -1,19 +1,19 @@
 # Voice timing
 
-**Generated:** 2026-10-02 13:17 HST  
+**Generated:** 2026-10-02 15:07 HST  
 **Source:** automations log, job wall time from RUN to the result line  
 **Model:** none  
 **Template:** `5 - RootRecord-Library/Agent Context/Documenter-Agent-Context/HANDOFF-TEMPLATE.md`  
 
-## Handoff — 2026-10-02 13:17 HST — voice_timing_report → Library
+## Handoff — 2026-10-02 15:07 HST — voice_timing_report → Library
 
 ### Confirmed facts
 - The station locks the playlist at HH:29:59 and HH:59:59, then chimes on the hour and the half hour.
 - A file that arrives after that lock waits for the next cycle.
 - The measured desks share one poller thread and one voice lock, so a set runs one after another.
-- The lead from :22:00 to the :29:59 lock is 7 minutes 59 seconds. :52 has the same lead before :59:59.
-- The 9-desk set sums to median 322s, average 396s, and p90 674s.
-- That p90 sum is longer than the lead.
+- The lead from :45:00 to the :29:59 lock is 14 minutes 59 seconds. :45 has the same lead before :59:59.
+- The 9-desk set sums to median 328s, average 410s, and p90 705s.
+- That p90 sum fits inside the lead.
 - The schedule table is copied from jobs.py.
 
 ### Pages updated
@@ -22,44 +22,44 @@
 
 ### Evidence
 
-472 finished runs in 54 log files.
+499 finished runs in 55 log files.
 
 | Job | Scheduled |
 | --- | --- |
-| `voice_system_perf` | [22, 52] |
-| `voice_nws_weather` | [22, 52] |
-| `voice_remaining_tasks` | [22, 52] |
-| `voice_earthquake_report` | [22, 52] |
-| `voice_kilauea_report` | [22, 52] |
-| `voice_solar_desk` | [22, 52] |
-| `voice_security_desk` | [22, 52] |
-| `voice_bandwidth_desk` | [22, 52] |
-| `voice_current_report` | [22, 52] |
-| `voice_hurricane_desk` | ["05:40", "09:40", "12:40", "16:40", "20:40"] |
+| `voice_system_perf` | [45] |
+| `voice_nws_weather` | [45] |
+| `voice_remaining_tasks` | [45] |
+| `voice_earthquake_report` | [45] |
+| `voice_kilauea_report` | [45] |
+| `voice_solar_desk` | [45] |
+| `voice_security_desk` | [45] |
+| `voice_bandwidth_desk` | [45] |
+| `voice_current_report` | [45] |
+| `voice_hurricane_desk` | ["05:45", "09:45", "12:45", "16:45", "20:45"] |
 | `voice_morning_report` | ["09:02"] |
 | `voice_midday_report` | ["12:02"] |
 | `voice_late_report` | ["21:02"] |
 | `voice_late_final_report` | ["23:02"] |
-| `radio_news_update` | [36] |
+| `radio_news_update` | [8] |
 | `voice_hourly_chime` | [0, 30] |
 
 | Report | Job | Runs | Median | Average | p90 |
 | --- | --- | ---: | ---: | ---: | ---: |
-| System | `voice_system_perf` | 47 | 29s | 38s | 51s |
-| NWS | `voice_nws_weather` | 100 | 38s | 39s | 75s |
-| Remaining tasks | `voice_remaining_tasks` | 44 | 21s | 27s | 41s |
-| Earthquakes | `voice_earthquake_report` | 43 | 32s | 41s | 68s |
-| Kīlauea | `voice_kilauea_report` | 45 | 30s | 38s | 53s |
-| Solar | `voice_solar_desk` | 41 | 50s | 59s | 112s |
-| Security | `voice_security_desk` | 44 | 24s | 37s | 89s |
-| Bandwidth | `voice_bandwidth_desk` | 42 | 27s | 37s | 59s |
-| Current | `voice_current_report` | 47 | 70s | 80s | 126s |
+| System | `voice_system_perf` | 50 | 30s | 39s | 56s |
+| NWS | `voice_nws_weather` | 103 | 38s | 41s | 81s |
+| Remaining tasks | `voice_remaining_tasks` | 47 | 21s | 27s | 41s |
+| Earthquakes | `voice_earthquake_report` | 46 | 32s | 42s | 68s |
+| Kīlauea | `voice_kilauea_report` | 48 | 32s | 41s | 53s |
+| Solar | `voice_solar_desk` | 44 | 50s | 62s | 118s |
+| Security | `voice_security_desk` | 47 | 25s | 38s | 89s |
+| Bandwidth | `voice_bandwidth_desk` | 45 | 28s | 38s | 73s |
+| Current | `voice_current_report` | 49 | 72s | 81s | 126s |
 | Hurricane | `voice_hurricane_desk` | 7 | 34s | 34s | 44s |
 | Morning roll-up | `voice_morning_report` | 2 | 48s | 48s | 82s |
 | Midday roll-up | `voice_midday_report` | 1 | 32s | 32s | 32s |
 | Late roll-up | `voice_late_report` | 2 | 23s | 23s | 26s |
 | Late final | `voice_late_final_report` | 1 | 0s | 0s | 0s |
-| News | `radio_news_update` | 6 | 442s | 428s | 705s |
+| News | `radio_news_update` | 7 | 674s | 468s | 708s |
 | Chime | `voice_hourly_chime` | 0 | — | — | — |
 
 p90 is the nearest rank in that desk's own runs. The stack p90 is the sum of those ranks, not one measured batch.
@@ -75,4 +75,4 @@ p90 is the nearest rank in that desk's own runs. The stack p90 is the sum of tho
 
 ### Next recommended action
 
-- Move the :22 and :52 start earlier. The summed p90 no longer fits the lead.
+- Keep the :45 and :45 start while the summed p90 still fits the lead.
