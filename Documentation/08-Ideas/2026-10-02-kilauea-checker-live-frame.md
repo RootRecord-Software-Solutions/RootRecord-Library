@@ -21,10 +21,10 @@ The first `*_current` bank is verified. ML2 `geology_kilauea_cams` takes **USGS 
 | Piece | Verified behavior |
 | --- | --- |
 | **ML2 intake** | `geology_kilauea_cams`: USGS still intake only → handoff → Pacific Cams; enabled under exclusive `RR_LOCAL_DATA_POLL=0` and kept in `LOCAL_DATA_POLL_JOBS` as a soft toggle; no mainland vision; scratch wiped after stream |
-| **Live Cams bank** | `Geology/Volcanoes/Cams/v1cam_current.jpg`, `v2cam_current.jpg`, `v3cam_current.jpg`, and `cams_current.json` |
+| **Live Cams bank** | `Geology/Volcanoes/Hawaii/Cams/v1cam_current.jpg`, `v2cam_current.jpg`, `v3cam_current.jpg`, and `cams_current.json` |
 | **Manifest** | `cams_current.json` records `photo_viewed` plus per-camera `fetched_at`, `bytes`, `sha`, `ok`, and `error` |
 | **Pacific receiver** | Any filename containing `_current` is archived on replacement as `archive/YYYYMMDD/<stem>_<HHMMSS><ext>`; the live `_current` path is always newest for LLM reads |
-| **Archive example** | `Geology/Volcanoes/Cams/archive/20261002/v3cam_current_033046.jpg` |
+| **Archive example** | `Geology/Volcanoes/Hawaii/Cams/archive/20261002/v3cam_current_033046.jpg` |
 | **Looker** | Prefers `*_current` over `*-last`; `v3cam_current.jpg` smoke-verified with `source_kind=current` |
 | **EcoFlow / cams** | EcoFlow stays Pacific forever; Cams are Pacific’s durable/LLM-readable bank, not a mainland vision move |
 
