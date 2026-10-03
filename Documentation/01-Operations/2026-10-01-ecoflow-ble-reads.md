@@ -23,11 +23,11 @@ Measured ~04:41 HST 2026-10-03 with packet logging:
 4. **Zero** PD / EMS / inverter heartbeat packets arrive.
 5. After about 8 seconds the pack disconnects GATT on its own.
 
-So `NeedBindInstallFirst` is **not** harmless “encrypted-session labeling.” Older notes that said that (HANDOFF / Energy README ~2026-10-02) are superseded. Soft-keeping the link is necessary so we do not drop ourselves, but it does **not** produce `src=ble` by itself.
+So `NeedBindInstallFirst` is **not** harmless “encrypted-session labeling.” Older notes that said that (HANDOFF / Energy README ~2026-10-02) are superseded. Soft-keeping GATT and latching `AUTHENTICATED` on `04` was a lie — measured zero PD packets, pack drops ~8s later. Cloud quota is also not a substitute for `src=ble`.
 
-**Unblock:** bind River over Bluetooth in the EcoFlow app on the same account as `ECOFLOW_ACCOUNT_ID` in `master-key.env` (19-digit user id). If bind is sticky, unbind and re-bind (same pattern as ha-ef-ble / NeedBind discussions). Then **force-close** the phone app — EcoFlow allows only one BLE client. Master hold: user unit `rr-ecoflow-ble-hold.service` (`ble-hold.py`, lock `/tmp/ecoflow-ble.lock`).
+**Unblock:** bind River over Bluetooth in the EcoFlow app on the same account as `ECOFLOW_ACCOUNT_ID` in `master-key.env` (19-digit user id). If sticky, unbind and re-bind. Then **force-close** the phone app — EcoFlow allows only one BLE client. Master hold: user unit `rr-ecoflow-ble-hold.service`.
 
-Vendor change: `Energy/lib/vendor/eflib/connection.py` `_check_auth` — on `NeedBindInstallFirst`, log a warning and return instead of disconnecting, so the caller can latch `AUTHENTICATED` and wait for fields. Other auth failures still disconnect and raise.
+Vendor (2026-10-03 ~05:05 HST): `eflib/connection.py` treats `NeedBindInstallFirst` as auth failure again (no fake `AUTHENTICATED`). IoT/auth cmd_set `0x35` packets (including late `0x89`) must not count as “first data packet” auth success. `ble_client.await_session` no longer proceeds on NeedBind. ML1 energy push timer stays disabled until a real `src=ble` sample lands.
 
 ### Live pieces (2026-10-03 morning)
 
