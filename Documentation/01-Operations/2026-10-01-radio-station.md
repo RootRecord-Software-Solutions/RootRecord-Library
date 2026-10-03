@@ -1,5 +1,7 @@
 # 2026-10-01 — Radio station
 
+2026-10-02 ~14:54–14:56 HST: RadioRss news policy tightened on the desk, no new audio, no station restart. `Media/RadioRss/config/policy.yaml` `overlap_patterns` and `violence_patterns` apply to every feed (native-desk and nonviolent Hawaii flags are no longer required). Violence list gained death, died, dead, fatality, gang, and related terms; `stories._violence_hit` uses word edges so deadline and deadlock stay. `pipeline.speak_body` keeps the summary and drops a sentence that repeats the headline. `news_hour.py` selects only `status='new'`, archives blocked violence/sports rows before build, and after a successful speak archives the aired story ids so the next hour does not re-read them. Tests in `test_rss_radio.py` cover world-feed violence, deadline false positives, and headline de-dupe. No commit.
+
 2026-10-02 ~14:30 HST: Cove pinned the public Radio iframe to `https://www.youtube.com/embed/2STpx2YzOQA` in `Website/Home/radio/index.html`. The channel-wide `live_stream` embed showed unavailable. This id does not follow the next broadcast. Page copy: This page plays the Root Record livestream that is on now, from the Root Record channel. Meta: The Root Record livestream that is on now. No `live.mp3`, no `radio.js`. No commit.
 
 2026-10-02 ~14:22 HST: the ~14:09 freeze is closed. Mainland restarted the poller; it loaded locals at minute [45], news at [8] (part1+part2 only), `current_report` off. Tunnel back on `rootserver.rootrecord.cloud`. No commit.
