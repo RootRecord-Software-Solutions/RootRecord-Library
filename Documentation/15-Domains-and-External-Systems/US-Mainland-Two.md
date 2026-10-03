@@ -1,5 +1,7 @@
 # US-Mainland-Two
 
+2026-10-02 ~21:52 HST: Pacific removed hourly `geology_collect` and `energy_sun_times`. ML2 `geology` already owns that fetch. Sun times is a catalog row with no clock and no collector script. The ML2 schedule was not armed. EcoFlow stays Pacific.
+
 Current as of 2026-10-02 ~11:49 HST. This page is the live host role. The 2026-10-01 SSH and rename sitting is [2026-10-01 mainland rename and SSH tunnels](../01-Operations/2026-10-01-mainland-rename-and-ssh-tunnels.md). Do not treat OLD FILES or continuity plans as live ML1/ML2 truth. Mainland local commits only — **no push**.
 
 | Field | Value |

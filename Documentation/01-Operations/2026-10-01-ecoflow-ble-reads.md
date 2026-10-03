@@ -17,7 +17,7 @@ Written 1 October 2026, 23:11 HST, from the Pacific files named below. This is t
 | Pick | `leapfrog-read.sh` | When River’s last watt `source` is not `ble` or `ble+cloud`, reads Delta first then tries River. Otherwise prefers the older watt file and falls back once. Then rewrites the agent desk via `desk-live.py`. Lock: `/tmp/ecoflow-ble.lock`. |
 | Reader | `Energy/lib/read_runner.py` | One pack per run. Writes Database `Energy/watts/<alias>-last.json` and `Energy/soc/<alias>-last.json`. On an auth-flag miss it waits 2.5 s and keeps the sample when `soc` is present. |
 | Owner | `ava-ecoflow-ble.service` | Heartbeat process `Energy/scripts/ble/ble-owner.py`. It does not poll GATT. As of ~15:16 HST it may run `leapfrog-read.sh` once when a watt sample is older than 30 minutes and `/tmp/ecoflow-owner-wake` is past cooldown. |
-| Poller job | `ecoflow_read_cycle` in `jobs.py` | **Off.** `enabled` is false. The timer owns the repeating read. `ecoflow_read_boot` still runs once when a poller process starts. |
+| Poller job | `ecoflow_read_cycle` | **Deleted 2026-10-02.** Repeating read is `rr-ecoflow-read.timer` / ENERGY `delta2_read` + `river2pro_read`. `leapfrog-read.sh` stays for the timer. |
 
 The timer is a user unit with `rootrecord` linger enabled (`linger=yes`). It is persistent and runs 24/7; `OnBootSec=45` starts it after boot. Editing `jobs.py` does not start it, and the poller loads `jobs.py` once at process start.
 

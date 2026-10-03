@@ -1,5 +1,7 @@
 # Voice timing
 
+The schedule column below is the 17:07 HST measurement. The live clock is [2026-10-02 hourly sequence](2026-10-02-hourly-sequence.md). Voice desks now generate after the text block and finish by :55. They do not SSH. `:55` sends the set.
+
 **Generated:** 2026-10-02 17:07 HST  
 **Source:** automations log, job wall time from RUN to the result line  
 **Model:** none  
