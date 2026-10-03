@@ -56,6 +56,8 @@ Pacific pushes the current Energy soc/watts snapshot straight to ML1 over SSH �
 
 Disable thumb refresh with `RR_ENERGY_ML1_THUMB=0`. Soft gate untouched.
 
+**2026-10-03 ~04:50 HST:** First pushes showed River **93% / 41 W** from a stale `source: cloud` file — incorrect. Push and `live_picture` energy mode are now **BLE-only**: cloud → `WAITING`, BLE older than 180 s → blank/stale, discharged quiet pack → `off`. Soft gate untouched. No commit.
+
 ## Changelog
 
 2026-10-03 ~04:44 HST: Armed `rr-ml1-energy-stats.timer` — every-minute SSH push of energy_current + energy-mode YouTube thumb to ML1. Soft gate untouched. No commit.
