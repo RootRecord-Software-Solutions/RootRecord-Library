@@ -1,5 +1,7 @@
 # Test record — EcoFlow BLE hold and adapter reset
 
+**Correction 2026-10-02 16:58 HST:** The power-off half of this test is no longer the rule. `leapfrog-read.sh` only runs `bluetoothctl power on` when both watt files are stale. It does not power `hci0` off. The 3-minute BLE hold still stands. See `Documentation/01-Operations/2026-10-01-ecoflow-ble-reads.md`.
+
 | Field | Value |
 | --- | --- |
 | **Date / time (HST)** | 2026-10-01 23:08–23:12 HST |

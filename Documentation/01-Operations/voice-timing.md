@@ -1,5 +1,7 @@
 # Voice timing
 
+2026-10-02 ~16:58 HST: the measurements below are still the half-hour lock. Alexander ordered a one-hour playlist at 13:44 HST. `jobs.py` was not moved to :50, and `stream.js` still locks at HH:29:59 and HH:59:59. Do not treat the ordered hour as these timings. Chimes remain every 30 minutes.
+
 **Generated:** 2026-10-02 16:05 HST  
 **Source:** automations log, job wall time from RUN to the result line  
 **Model:** none  

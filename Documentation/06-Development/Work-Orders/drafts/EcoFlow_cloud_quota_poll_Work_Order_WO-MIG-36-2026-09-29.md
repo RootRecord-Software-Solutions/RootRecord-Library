@@ -8,7 +8,9 @@
 | **Owner** | RootRecord |
 | **Related** | Agent 36. Wave E. Cloud and keys, after the local path. No earlier function has to exist before the build. No later function in this list depends on this one. Matrix row 31. |
 
-**Correction 2026-10-01 23:11 HST:** The live reader does not use the `RR_ECOFLOW_CLOUD` gate described below. Current rule: Bluetooth stays the reading for 3 minutes after the last BLE file, and `hci0` power-cycles when both packs are stale. See `Documentation/01-Operations/2026-10-01-ecoflow-ble-reads.md`. Do not re-apply this draft's cloud fallback over that note.
+**Correction 2026-10-02 16:58 HST:** A stale pair no longer power-cycles `hci0`. The script only runs `bluetoothctl power on`. See `Documentation/01-Operations/2026-10-01-ecoflow-ble-reads.md`.
+
+**Correction 2026-10-01 23:11 HST:** The live reader does not use the `RR_ECOFLOW_CLOUD` gate described below. Bluetooth stays the reading for 3 minutes after the last BLE file. See `Documentation/01-Operations/2026-10-01-ecoflow-ble-reads.md`. Do not re-apply this draft's cloud fallback over that note.
 
 **Scope:** EcoFlow cloud quota poll is one Energy subfolder. BLE stays the live read. The cloud path is a labeled fallback and does not call the EcoFlow Open Platform unless `RR_ECOFLOW_CLOUD=1`. That flag stays unset. The job was not inserted because `jobs.py` already had other edits. Exclusive old files are archived, and that deletion is on GitHub.
 
