@@ -1,5 +1,9 @@
 # 2026-10-01 — Radio station
 
+2026-10-02 ~14:30 HST: Cove pinned the public Radio iframe to `https://www.youtube.com/embed/2STpx2YzOQA` in `Website/Home/radio/index.html`. The channel-wide `live_stream` embed showed unavailable. This id does not follow the next broadcast. Page copy: This page plays the Root Record livestream that is on now, from the Root Record channel. Meta: The Root Record livestream that is on now. No `live.mp3`, no `radio.js`. No commit.
+
+2026-10-02 ~14:22 HST: the ~14:09 freeze is closed. Mainland restarted the poller; it loaded locals at minute [45], news at [8] (part1+part2 only), `current_report` off. Tunnel back on `rootserver.rootrecord.cloud`. No commit.
+
 2026-10-02 ~14:12 HST: locals are minute [45] in `jobs.py`, news is [8] and pushes only part 1 and part 2, and the current report is off. The poller is still frozen, so this does not run until a clean start.
 
 2026-10-02 ~14:09 HST hold: Alexander stopped rootserver ops. The poller is frozen and the current report render is dropped. The hour cycle is still in `jobs.py`, and it does not run until he says ops are back on.
