@@ -1,4 +1,6 @@
-# Voice desk — current as of 2026-10-02
+# Voice desk — current as of 2026-10-03
+
+2026-10-03 ~08:22 HST: one hour process, not a desk per minute. `news_cycle` at :35 banks `news_update_current.wav` and does not push. `voice_hour_batch` at :36 runs `generate_hour_reports.py` (priority 0, start minute fixed at 36). It waits for news to release the Kokoro lock, speaks the desks, folds a fresh news WAV after them into `report_current`, pushes that file, then deletes local WAV/txt and zips the ogg files. `:55` `radio_push_hour` is catch-up only. Chimes at :00 and :30 stay prebuilt and do not render. The separate `voice_*` minute list and `radio_news_update` are not the live clock. Detail is [2026-10-02 hourly sequence](./2026-10-02-hourly-sequence.md). No new audio from this documentation pass. No commit.
 
 2026-10-02 ~16:58 HST: news speech rules, no new audio, no station restart. `Media/RadioRss` drops The Guardian, all BBC feeds, MarketWatch, Honolulu Civil Beat, Honolulu Star-Advertiser, Hawaii News Now, NPR National, NPR Politics, and Department of Justice, including rows already stored. NPR News and NPR World stay. A publisher is capped at two items on a desk. Hurricane Center raw products and coordinates are not spoken; a public advisory is one sentence. The universities clip already on the air still has five MIT items. The next `radio_news_update` at minute [8] uses the new rules. The one-hour playlist Alexander ordered at 13:44 is not in `jobs.py` or `stream.js`. Locals are still [45]. Chimes stay [0, 30]. Detail is [2026-10-01 radio station](./2026-10-01-radio-station.md). No commit.
 
@@ -20,9 +22,9 @@ Mainland ~13:58 HST: 2:00 and 2:30 chimes are on the station, and the solar file
 
 Finished Hawaii reports go to the Mainland station. The station snapshots the playlist at `HH:29:59` and `HH:59:59`, then chimes on the hour and the half hour. Voice jobs render before that snapshot. The station is on the air at `https://radio.rootrecord.cloud/radio/live.mp3`. The operator page is [2026-10-01 radio station](./2026-10-01-radio-station.md).
 
-This is the living description of the spoken reports. The 2026-09-29 port record is [Voice-Reports-G3](../10-AI-and-Agent-Runtime/Voice-Reports-G3.md). Where that file still says a job is off, has no delivery, or uses an old minute, this file wins. Trust `Automations/scripts/poller/run-poller.sh` and `Automations/scripts/jobs.py` over older “what stays off” lists.
+The living clock is the 2026-10-03 paragraph at the top of this file and [2026-10-02 hourly sequence](./2026-10-02-hourly-sequence.md). Everything below that paragraph is an older sitting. The 2026-09-29 port record is [Voice-Reports-G3](../10-AI-and-Agent-Runtime/Voice-Reports-G3.md). Trust `Automations/scripts/jobs.py` and `Automations/scripts/poller/run-poller.sh` over any minute named below.
 
-## Current as of 2026-10-02 ~03:21 HST
+## Historical — 2026-10-02 ~03:21 HST operator copy
 
 Alexander’s operator copy, checked against live `jobs.py`, `run-poller.sh`, `voice_reports.py`, `status_cue.py`, `voice_deliver.py`, Discord `public_report.py` / `report-channels.json`, and `publish_report_pages.py`. As of ~01:41 HST the separate `energy_report` voice job is retired: pack watts, newest ch1 still, and the hourly camera look live inside Bruce’s `solar_desk` (title “Energy and solar”). `status_cue.TYPES` lists **nine** generating desks. As of ~01:57 HST those nine desks and the stack-closer cycle key moved from `:12` / `:42` to `:22` / `:52` in `jobs.py` and `status_cue.cycle_key` (tests updated). Live timing is [voice-timing.md](./voice-timing.md) (generated 2026-10-02 11:05 HST, 433 finished runs, nine-desk stack at `:22` / `:52`). The live Mainland mixer is release `stage-notice`. Do not kill the encoder mid-report. A `jobs.py` / `run-poller.sh` change needs a poller restart before the running process adopts the new minutes; script edits are picked up on the next job run.
 

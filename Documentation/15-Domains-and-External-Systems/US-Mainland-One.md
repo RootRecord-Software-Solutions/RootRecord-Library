@@ -1,5 +1,7 @@
 # US-Mainland-One
 
+2026-10-03 ~08:27 HST: Pacific’s hour push is one `report_current` file from `generate_hour_reports.py` at :36, after :35 news is folded in. `:55` is catch-up if that push missed. This host’s mixer was not edited in that pass. Operator detail: [radio station](../01-Operations/2026-10-01-radio-station.md) and [hourly sequence](../01-Operations/2026-10-02-hourly-sequence.md).
+
 2026-10-02 ~16:58 HST: this host’s mixer still starts a full report pass at both half-hour locks. Alexander’s one-hour playlist, locals once and news split across the :30 chime, is not in `stream.js`. Chimes stay at :00 and :30. The YouTube clock is `clock.txt`, rewritten each Hawaii minute from Pacific `rr-live-clock`. The still is not replaced. At 16:15 HST `rr-radio-station` was stopped and came back at 16:15:09 HST. Operator detail: [radio station](../01-Operations/2026-10-01-radio-station.md).
 
 2026-10-02 ~16:05 HST: Pacific `live_picture` still writes the overlaid desk still locally (`Media/Video/live-frame.png`); it no longer pushes that still to this host’s YouTube thumb path. Replacing the thumb restarted the encoder and dropped the station. Operator detail: [radio station](../01-Operations/2026-10-01-radio-station.md).

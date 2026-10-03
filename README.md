@@ -108,6 +108,10 @@ Each agent pack follows the same basic spine:
 
 ---
 
+## Current status — 2026-10-03 morning
+
+The Pacific hour lane is `news_cycle` at :35, `voice_hour_batch` (`generate_hour_reports.py`) at :36, and `radio_push_hour` at :55 as catch-up. The start minute stays 36. Kokoro is one lock. The poller has been up since 08:18 HST on `jobs.py` timing. The 2026-10-02 per-desk minute list is historical. Detail is [hourly sequence](./Documentation/01-Operations/2026-10-02-hourly-sequence.md) and [HANDOFF.md](./Documentation/01-Operations/HANDOFF.md).
+
 ## Current status — 2026-10-02 evening
 
 At 16:58 HST the news list and the Bluetooth rule changed. Off the news hour: The Guardian, the BBC, MarketWatch, Honolulu Civil Beat, the Honolulu Star-Advertiser, Hawaii News Now, NPR National, NPR Politics, and the Department of Justice feed. The one-hour YouTube playlist is still the order and is not what `jobs.py` or the mixer does. Chimes stay at :00 and :30. Pack files were still the 15:54 Delta Bluetooth sample and the 12:25 River cloud sample. A stale-pack read powers the Bluetooth adapter on. It does not power it off. Detail is [HANDOFF.md](./Documentation/01-Operations/HANDOFF.md), [radio station](./Documentation/01-Operations/2026-10-01-radio-station.md), and [EcoFlow BLE reads](./Documentation/01-Operations/2026-10-01-ecoflow-ble-reads.md).

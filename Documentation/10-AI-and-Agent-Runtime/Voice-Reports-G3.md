@@ -1,5 +1,7 @@
 # Voice Reports — G3 (Kokoro-82M port + phrase-clip cache)
 
+2026-10-03 ~08:22 HST: this file is the port record. The live hour is `news_cycle` at :35 and `generate_hour_reports.py` at :36. Living page: [voice desk](../01-Operations/2026-09-30-voice-desk.md). Clock: [hourly sequence](../01-Operations/2026-10-02-hourly-sequence.md).
+
 2026-10-02 ~16:58 HST: the news hour no longer reads The Guardian, the BBC, MarketWatch, Honolulu Civil Beat, the Honolulu Star-Advertiser, Hawaii News Now, NPR National, NPR Politics, or the Department of Justice feed. A publisher is limited to two items on one desk. National Hurricane Center coordinate tables and forecast discussions are not spoken. The one-hour air order is still not the mixer. Living page: [voice desk](../01-Operations/2026-09-30-voice-desk.md). No new audio, no commit.
 
 2026-10-02 ~15:14–15:42 HST: earthquake speech now includes M2.5 day/week change; remaining-tasks speaks open work orders; morning/midday/late roll-up builders and their `jobs.py` rows are removed; `run-poller.sh` soft-defaults `RR_VOICE_ROLLUPS` and `RR_VOICE_LATE_FINAL` to 0 (was 1). `solar_desk` wakes a stagnant pack via `leapfrog-read.sh` before speaking. Living schedule detail: [voice desk](../01-Operations/2026-09-30-voice-desk.md). No new audio, no poller restart from this seat.

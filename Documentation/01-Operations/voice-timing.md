@@ -1,6 +1,6 @@
 # Voice timing
 
-The schedule column below is the 17:07 HST measurement. The live clock is [2026-10-02 hourly sequence](2026-10-02-hourly-sequence.md). Voice desks now generate after the text block and finish by :55. They do not SSH. `:55` sends the set.
+The table below is the 2026-10-02 17:07 HST measurement of the old per-desk jobs. It is not the live clock. The live hour is one `generate_hour_reports.py` at :36, news banked at :35, catch-up push at :55. That page is [2026-10-02 hourly sequence](2026-10-02-hourly-sequence.md). A full batch measured 2026-10-03 07:51 HST took 470.6s for 13 desks and did not include news.
 
 **Generated:** 2026-10-02 17:07 HST  
 **Source:** automations log, job wall time from RUN to the result line  

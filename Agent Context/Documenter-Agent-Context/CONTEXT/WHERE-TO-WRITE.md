@@ -5,7 +5,7 @@ Update the row that matches the change. Do not add a folder because the old page
 | Change | Write here |
 | --- | --- |
 | Any current fact | `Documentation/01-Operations/HANDOFF.md` recent changes, one paragraph |
-| Pacific hour / poller clock | `Documentation/01-Operations/2026-10-02-hourly-sequence.md` and HANDOFF |
+| Pacific hour / poller clock | `Documentation/01-Operations/2026-10-02-hourly-sequence.md` (current section is 2026-10-03: :35 news, :36 batch, :55 catch-up) and HANDOFF |
 | Library front door | `5 - RootRecord-Library/README.md` current status |
 | Who the agents are | `Documentation/02-Agents/README.md` and this pack |
 | Cross-project rule | `0 - Master-Prompt/MASTER-PROMPT.md` and `0 - Master-Prompt/prompts/02-agents.md` |
