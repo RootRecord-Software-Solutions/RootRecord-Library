@@ -1,5 +1,7 @@
 # G1 scheduler → G3 jobs map (scheduler-clock verification)
 
+2026-10-03: this table is the 2026-09-29 migration check. It is not the live hour. Voice desks are not separate gated jobs at :02, :06, :07, :08, or :32. The live lane is `news_cycle` at :35, `voice_hour_batch` (`generate_hour_reports.py`) at :36, and `radio_push_hour` at :55. Chimes at :00 and :30 are on. See [2026-10-02 hourly sequence](../01-Operations/2026-10-02-hourly-sequence.md).
+
 | Field | Value |
 | --- | --- |
 | **Source** | G1 `Solar-Pacific-RootRecord-Server-Old/scheduler-clock/scripts/scheduler.py` (APScheduler). 73 `add_job` calls, 64 unique job ids (parsed 2026-09-29 ~14:33 HST from a read-only shallow clone). G1 KEPT, unchanged |
