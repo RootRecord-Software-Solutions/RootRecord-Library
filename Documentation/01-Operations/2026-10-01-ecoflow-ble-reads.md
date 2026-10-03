@@ -1,6 +1,8 @@
 # EcoFlow BLE reads
 
-2026-10-03 ~04:29 HST: Root cause for River BLE drops — pack LCD timeout. When the screen sleeps, BLE dies even though the pack is still discharging. `ble-hold.py` now sets `lcdOffSec=0` (never off) on connect and re-asserts it. Tap/wake the River LCD once if the hold is still empty. Soft gate untouched. No commit.
+2026-10-03 ~04:38 HST: Alexander set River LCD never-off on the pack. Hold was still empty because eflib disconnected on `NeedBindInstallFirst` before heartbeats. Soft-keep that auth reply in vendor `eflib/connection.py` so GATT stays up; hold restarts and waits for `src=ble`. Soft gate untouched. No commit.
+
+2026-10-03 ~04:29 HST: Root cause for River BLE drops — pack LCD timeout. When the screen sleeps, BLE dies even though the pack is still discharging. `ble-hold.py` now sets `lcdOffSec=0` (never off) after the first live sample and re-asserts it. Soft gate untouched. No commit.
 
 2026-10-03 ~04:26 HST: Alexander ordered EcoFlow cloud fallback off. `Energy/lib/read_runner.py` is BLE only. A miss keeps a fresh last BLE file or prints `WAITING` with `cloud not used`. No `source: cloud`, no `ble+cloud` inverter fill, no `prefer_api` cloud path. `rr-ecoflow-ble-hold.service` holds River GATT. Delta at ≤5% quiet >30 min stays discharged/powered off. Soft gate untouched. No commit.
 
