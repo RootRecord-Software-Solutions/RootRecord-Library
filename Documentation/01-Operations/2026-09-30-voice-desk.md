@@ -1,6 +1,10 @@
 # Voice desk — current as of 2026-10-02
 
-2026-10-02 ~13:44 HST: the hour cycle is the order. Desk `jobs.py` local voice jobs are minute [50], chimes [0, 30], news still one job at :36. Daypart `enabled` lines are broken (`False, "0") == "1"` at `voice_morning_report` and the same shape on midday, late, and late-final), so the file does not parse. Merged battery is ordered and not the spoken script yet. Mainland’s mixer report and the viewer count of 1 are Mainland’s, not a desk measurement.
+2026-10-02 ~14:09 HST hold: Alexander stopped rootserver ops. The poller is frozen and the current report render is dropped. The hour cycle is still in `jobs.py`, and it does not run until he says ops are back on.
+
+Mainland ~13:58 HST: 2:00 and 2:30 chimes are on the station, and the solar file landed as one battery at 40 percent across two live packs. That figure is Mainland’s read.
+
+2026-10-02 ~13:44 HST: the hour cycle is the order. Desk `jobs.py` local voice jobs are minute [50], chimes [0, 30], news still one job at :36. Daypart `enabled` lines are broken (`False, "0") == "1"` at `voice_morning_report` and the same shape on midday, late, and late-final), That break was closed ~13:57 HST. The file parses, and those four jobs are `enabled` False. Merged battery is ordered and not the spoken script yet. Mainland’s mixer report and the viewer count of 1 are Mainland’s, not a desk measurement.
 
 Finished Hawaii reports go to the Mainland station. The station snapshots the playlist at `HH:29:59` and `HH:59:59`, then chimes on the hour and the half hour. Voice jobs render before that snapshot. The station is on the air at `https://radio.rootrecord.cloud/radio/live.mp3`. The operator page is [2026-10-01 radio station](./2026-10-01-radio-station.md).
 
