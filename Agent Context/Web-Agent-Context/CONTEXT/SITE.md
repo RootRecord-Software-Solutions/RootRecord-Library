@@ -38,7 +38,7 @@ Primary navigation (Alexander 2026-10-02): Home, Products, Services, Solutions, 
 | Request | Used for | Ready when |
 | --- | --- | --- |
 | `GET /api/state` | Globe: flows, Hawaii, Mainland, endpoints. Needs `stats` and `ok` not false | The process exists |
-| `GET /api/operations` | Power, weather, Kīlauea, moon. Needs `ok: true` | The process exists |
+| `GET /api/operations` | Power (Energy), weather+moon (Weather), Kīlauea (Geology). Needs `ok: true` | The process exists |
 | `GET /service-notice.json` | Homepage banner and the planned-down label. This file ships with the site. It does not use the API host | Now |
 
 The hostname is aimed at Mainland Two, tunnel `bd8e68a4-8a97-4b20-afd9-b058473a0a22`, toward `127.0.0.1:8091`. **API is live** on `:8091` (health / operations / state / analytics). Home ping lines / globe arcs come from `GET /api/state` (Pacific LAN rebroadcast → ML2 `var/cache/api/state.json`, desk timer `rr-ml2-globe-state-push`; see US-Mainland-Two). If a hard refresh still blanks after the feed push, Cove checks `assets/home.js` on desk. Do not point the page at port 8787. Do not point it at `www`. Do not treat the old AWS host `18.118.30.226` as the live API. That address was the 2026-09-30 evening record.
@@ -47,7 +47,7 @@ The hostname is aimed at Mainland Two, tunnel `bd8e68a4-8a97-4b20-afd9-b058473a0
 
 Visitor/session signal for reports comes from Mainland Two server/access logs (**option C** — ML2 logs only); **no client/page analytics JS / network trackers on `www` Vercel** (Cove / Report Instructor). ML2 exposes `/api/analytics/daily`, `/api/analytics/period`, and `/api/analytics/current` on `api.rootrecord.cloud` (`:8091`); operator notes in ML2 `ANALYTICS.md`; desk aggregates under `Logs/Website/analytics/`. Pacific `Website/scripts/analytics_pull.py` mirrors daily JSON (schema 1.0.0) into Database `Logs/Website/analytics/` (sample `daily/2026-10-02.json`); voice `bandwidth_desk` and `current_report` speak api / home_proxy / radio (honest partial Home). Job `analytics_pull` gated `RR_ANALYTICS_PULL=1` (900 s), off until armed in `run-poller.sh`. Still no page JS. Report Instructor post-boot (~02:58): analytics as_of 02:28:35 daily present; voice WAVs/current_report md still pre-reboot (no new `:22`/`:52` cycle yet). Detail: voice-desk.
 
-The operations bundle the future API is meant to serve is written on the desk by `Website/scripts/live_data_pages.py` to `2 - RootRecord-Database/Website/operations.json`. The page does not read that file directly.
+The operations bundle ML2 serves is built on the desk by `Website/scripts/live_data_pages.py` from domain Database dirs (`Energy/`, `Weather/` including `Weather/moon/moon_current.json`, `Geology/`) into `2 - RootRecord-Database/Website/operations.json` and the globe `status-current.json`. There is no `Website/pages/` copy. The Vercel page reads ML2 only.
 
 `Website/Cloudflare-Workers/` is not deployed. Its default origin is still the deleted `root-record-cloud.vercel.app` project. Leave it.
 
