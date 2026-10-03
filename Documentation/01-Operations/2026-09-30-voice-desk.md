@@ -1,5 +1,7 @@
 # Voice desk — current as of 2026-10-02
 
+2026-10-02 ~14:12 HST: locals are minute [45] in `jobs.py`, news is [8] and pushes only part 1 and part 2, and the current report is off. The poller is still frozen, so this does not run until a clean start.
+
 2026-10-02 ~14:09 HST hold: Alexander stopped rootserver ops. The poller is frozen and the current report render is dropped. The hour cycle is still in `jobs.py`, and it does not run until he says ops are back on.
 
 Mainland ~13:58 HST: 2:00 and 2:30 chimes are on the station, and the solar file landed as one battery at 40 percent across two live packs. That figure is Mainland’s read.
