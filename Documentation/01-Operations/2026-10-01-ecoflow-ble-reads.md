@@ -51,7 +51,7 @@ Pacific pushes the current Energy soc/watts snapshot straight to ML1 over SSH �
 | Timer | user unit `rr-ml1-energy-stats.timer` (`OnUnitActiveSec=1min`) |
 | ML1 JSON | `/home/ubuntu/youtube-stills/energy_current.json` |
 | ML1 line | `/home/ubuntu/youtube-stills/energy_current.txt` |
-| ML1 radio | `/home/ubuntu/rootrecord-radio/state/stage/energy_current.json` |
+| ML1 home copy | `/home/ubuntu/energy_current.json` (not `radio/state/stage` — mixer deletes `*.json` there) |
 | Thumb | `live_picture.py energy` — BLE gauges only, atomic `thumb.png` + `clock.txt` |
 
 Disable thumb refresh with `RR_ENERGY_ML1_THUMB=0`. Soft gate untouched.
