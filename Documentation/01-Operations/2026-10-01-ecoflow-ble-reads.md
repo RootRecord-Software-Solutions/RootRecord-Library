@@ -29,7 +29,7 @@ A successful read is `source: ble`. If the AC outlet is on and the inverter watt
 
 A Bluetooth miss while that pack's watt file is still a `ble` or `ble+cloud` read younger than 3 minutes (`BLE_HOLD_SEC`) does **not** call the EcoFlow API and does **not** rewrite the last files. The process prints `WAITING` and exits 2. One `No discovery started` after a good Bluetooth streak is that case. On 1 October 2026 at 23:09 HST a miss of that kind published Delta 2 as `source: cloud` at 23.86% while Bluetooth had just read about 2%. The next Bluetooth read put 1.73% back. That publish is what this hold stops.
 
-Quota runs only after that 3-minute Bluetooth file is gone. It is labeled `source: cloud`. It is not a success that replaces a live Bluetooth sample.
+Quota runs only after that 3-minute Bluetooth file is gone. It is labeled `source: cloud`. It is not a success that replaces a live Bluetooth sample. As of 2026-10-02 ~17:09 HST, out-of-range BLE misses again fall through to that quota path (`read_runner.py`); the temporary “cloud not used” short-circuit is gone. Fresh cloud writes: Delta ~81% SOC, River ~24% SOC with solar and AC out.
 
 ## Both packs stale
 
