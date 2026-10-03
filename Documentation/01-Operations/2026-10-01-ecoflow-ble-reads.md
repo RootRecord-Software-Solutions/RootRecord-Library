@@ -1,5 +1,7 @@
 # EcoFlow BLE reads
 
+2026-10-02 ~15:16 HST: `Energy/scripts/ble/ble-owner.py` still does not poll GATT. When either `delta2-last.json` or `river2pro-last.json` under Database `Energy/watts/` is older than 30 minutes and `/tmp/ecoflow-owner-wake` is past the same cooldown, the owner runs `Energy/scripts/read/leapfrog-read.sh` once and stamps the wake file. Soft gate and live timers were not touched. No commit.
+
 Written 1 October 2026, 23:11 HST, from the Pacific files named below. This is the current rule. A work order or Energy README sentence that disagrees with this page is stale.
 
 ## Who reads
@@ -10,7 +12,7 @@ Written 1 October 2026, 23:11 HST, from the Pacific files named below. This is t
 | Read | user unit `rr-ecoflow-read.service` | Oneshot. Runs `Energy/scripts/read/leapfrog-read.sh`. Timeout 90 seconds. |
 | Pick | `leapfrog-read.sh` | Prefers the pack with the older watt file. If that read fails, tries the other pack. Then rewrites the agent desk via `desk-live.py`. Lock: `/tmp/ecoflow-ble.lock`. |
 | Reader | `Energy/lib/read_runner.py` | One pack per run. Writes Database `Energy/watts/<alias>-last.json` and `Energy/soc/<alias>-last.json`. |
-| Owner | `ava-ecoflow-ble.service` | Heartbeat process `Energy/scripts/ble/ble-owner.py`. It does not poll the packs. |
+| Owner | `ava-ecoflow-ble.service` | Heartbeat process `Energy/scripts/ble/ble-owner.py`. It does not poll GATT. As of ~15:16 HST it may run `leapfrog-read.sh` once when a watt sample is older than 30 minutes and `/tmp/ecoflow-owner-wake` is past cooldown. |
 | Poller job | `ecoflow_read_cycle` in `jobs.py` | **Off.** `enabled` is false. The timer owns the repeating read. `ecoflow_read_boot` still runs once when a poller process starts. |
 
 The timer is a user unit with `rootrecord` linger enabled (`linger=yes`). It is persistent and runs 24/7; `OnBootSec=45` starts it after boot. Editing `jobs.py` does not start it, and the poller loads `jobs.py` once at process start.
