@@ -1,11 +1,11 @@
 # Voice timing
 
-**Generated:** 2026-10-03 09:10 HST  
+**Generated:** 2026-10-03 10:10 HST  
 **Source:** automations log, job wall time from RUN to the result line  
 **Model:** none  
 **Template:** `5 - RootRecord-Library/Agent Context/Documenter-Agent-Context/HANDOFF-TEMPLATE.md`  
 
-## Handoff — 2026-10-03 09:10 HST — voice_timing_report → Library
+## Handoff — 2026-10-03 10:10 HST — voice_timing_report → Library
 
 ### Confirmed facts
 - The station locks the playlist at HH:29:59 and HH:59:59, then chimes on the hour and the half hour.
@@ -21,7 +21,7 @@
 
 ### Evidence
 
-5 finished runs in 4 log files.
+6 finished runs in 5 log files.
 
 | Job | Scheduled |
 | --- | --- |
@@ -59,7 +59,7 @@
 | Late roll-up | `voice_late_report` | 0 | — | — | — |
 | Late final | `voice_late_final_report` | 0 | — | — | — |
 | News | `radio_news_update` | 0 | — | — | — |
-| Chime | `voice_hourly_chime` | 1 | 0s | 0s | 0s |
+| Chime | `voice_hourly_chime` | 2 | 0s | 0s | 1s |
 
 p90 is the nearest rank in that desk's own runs. The stack p90 is the sum of those ranks, not one measured batch.
 
