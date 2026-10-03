@@ -2,6 +2,8 @@
 
 **Correction 2026-10-02 16:58 HST:** The power-off half of this test is no longer the rule. `leapfrog-read.sh` only runs `bluetoothctl power on` when both watt files are stale. It does not power `hci0` off. The 3-minute BLE hold still stands. See `Documentation/01-Operations/2026-10-01-ecoflow-ble-reads.md`.
 
+**Standing rule 2026-10-03 ~04:42 HST:** River live BLE also needs pack LCD never-off and EcoFlow-app Bluetooth bind. `NeedBindInstallFirst` (auth `04`) yields zero heartbeats even with soft-keep GATT. Full rule in that same ops note; this test record does not re-validate bind.
+
 | Field | Value |
 | --- | --- |
 | **Date / time (HST)** | 2026-10-01 23:08–23:12 HST |

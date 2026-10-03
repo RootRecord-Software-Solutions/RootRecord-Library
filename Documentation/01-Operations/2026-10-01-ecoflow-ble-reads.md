@@ -1,8 +1,53 @@
 # EcoFlow BLE reads
 
-2026-10-03 ~04:38 HST: Alexander set River LCD never-off on the pack. Hold was still empty because eflib disconnected on `NeedBindInstallFirst` before heartbeats. Soft-keep that auth reply in vendor `eflib/connection.py` so GATT stays up; hold restarts and waits for `src=ble`. Soft gate untouched. No commit.
+Written 1 October 2026, 23:11 HST; standing rule updated 3 October 2026 ~04:42 HST. A work order or Energy README sentence that disagrees with this page is stale.
 
-2026-10-03 ~04:29 HST: Root cause for River BLE drops — pack LCD timeout. When the screen sleeps, BLE dies even though the pack is still discharging. `ble-hold.py` now sets `lcdOffSec=0` (never off) after the first live sample and re-asserts it. Soft gate untouched. No commit.
+## Standing rule (2026-10-03)
+
+Two separate failures blocked live River BLE. Both must be clear for `source: ble`.
+
+### 1) Pack LCD sleep kills BLE
+
+When the River LCD times out and the screen goes dark, the pack drops Bluetooth even while it is still discharging. That looks like a radio or auth bug; it is the screen timeout.
+
+- Set the pack LCD to **never off** (Alexander did this on the unit ~04:31 HST 2026-10-03).
+- After the first live BLE sample, `Energy/scripts/ble/ble-hold.py` also writes `lcdOffSec=0` via `set_screen_timeout(0)` and re-asserts about every 5 minutes. Do **not** send that write while the session is empty — a config write against a sleeping screen tears the link (`NotConnectedError`).
+
+### 2) `NeedBindInstallFirst` (auth reply `04`) blocks heartbeats
+
+Measured ~04:41 HST 2026-10-03 with packet logging:
+
+1. ECDH public-key exchange and session key succeed.
+2. User-id auth (`cmd_id=0x86`, MD5 of `ECOFLOW_ACCOUNT_ID` + River SN) returns payload `04` → `AuthErrors.NeedBindInstallFirst`.
+3. Soft-keep (below) latches `authenticated` and keeps GATT open.
+4. **Zero** PD / EMS / inverter heartbeat packets arrive.
+5. After about 8 seconds the pack disconnects GATT on its own.
+
+So `NeedBindInstallFirst` is **not** harmless “encrypted-session labeling.” Older notes that said that (HANDOFF / Energy README ~2026-10-02) are superseded. Soft-keeping the link is necessary so we do not drop ourselves, but it does **not** produce `src=ble` by itself.
+
+**Unblock:** bind River over Bluetooth in the EcoFlow app on the same account as `ECOFLOW_ACCOUNT_ID` in `master-key.env` (19-digit user id). If bind is sticky, unbind and re-bind (same pattern as ha-ef-ble / NeedBind discussions). Then **force-close** the phone app — EcoFlow allows only one BLE client. Master hold: user unit `rr-ecoflow-ble-hold.service` (`ble-hold.py`, lock `/tmp/ecoflow-ble.lock`).
+
+Vendor change: `Energy/lib/vendor/eflib/connection.py` `_check_auth` — on `NeedBindInstallFirst`, log a warning and return instead of disconnecting, so the caller can latch `AUTHENTICATED` and wait for fields. Other auth failures still disconnect and raise.
+
+### Live pieces (2026-10-03 morning)
+
+| Piece | Role |
+| --- | --- |
+| `rr-ecoflow-ble-hold.service` | Holds River GATT; samples into layers + watts/soc when fields land |
+| `read_runner.py` | BLE only — miss → keep last BLE or `WAITING` / `cloud not used` (no cloud, no `ble+cloud`) |
+| `leapfrog-read.sh` | Skips discharged packs (SOC ≤5% and age >30 min); Delta currently treated discharged/powered off |
+| `rr-ecoflow-read.timer` | Stopped while hold owns the radio (do not dual-start against the lock) |
+| Soft gate | Untouched (`RR_LOCAL_DATA_POLL` left as found) |
+
+Success signal: hold log `sample soc=… src=ble`, and Database `Energy/watts/river2pro_current.json` / `soc/river2pro_current.json` show `source: ble` with a fresh `at`.
+
+## Changelog
+
+2026-10-03 ~04:42 HST: Packet-logged NeedBind path; documented LCD + bind standing rule above. Soft gate untouched. No commit.
+
+2026-10-03 ~04:38 HST: Soft-keep NeedBind in vendor `eflib/connection.py`. Soft gate untouched. No commit.
+
+2026-10-03 ~04:29 HST: Identified LCD timeout as BLE drop while discharging; hold sets never-off after first live sample. Soft gate untouched. No commit.
 
 2026-10-03 ~04:26 HST: Alexander ordered EcoFlow cloud fallback off. `Energy/lib/read_runner.py` is BLE only. A miss keeps a fresh last BLE file or prints `WAITING` with `cloud not used`. No `source: cloud`, no `ble+cloud` inverter fill, no `prefer_api` cloud path. `rr-ecoflow-ble-hold.service` holds River GATT. Delta at ≤5% quiet >30 min stays discharged/powered off. Soft gate untouched. No commit.
 
@@ -12,16 +57,15 @@
 
 2026-10-02 ~15:16 HST: `Energy/scripts/ble/ble-owner.py` still does not poll GATT. When either `delta2-last.json` or `river2pro-last.json` under Database `Energy/watts/` is older than 30 minutes and `/tmp/ecoflow-owner-wake` is past the same cooldown, the owner runs `Energy/scripts/read/leapfrog-read.sh` once and stamps the wake file. Soft gate and live timers were not touched. No commit.
 
-Written 1 October 2026, 23:11 HST, from the Pacific files named below. This is the current rule. A work order or Energy README sentence that disagrees with this page is stale.
-
 ## Who reads
 
 | Piece | Path | Role |
 | --- | --- | --- |
-| Timer | user unit `rr-ecoflow-read.timer` | Starts a read 20 seconds after the previous start. `OnBootSec=20`. Enabled. |
+| Timer | user unit `rr-ecoflow-read.timer` | Leapfrog oneshot cadence. **Stopped** while `rr-ecoflow-ble-hold.service` owns `/tmp/ecoflow-ble.lock` (2026-10-03 morning). |
+| Hold | user unit `rr-ecoflow-ble-hold.service` | Persistent River GATT + sample loop (`ble-hold.py`). Soft-keeps NeedBind; writes LCD never-off after first live sample. |
 | Read | user unit `rr-ecoflow-read.service` | Oneshot. Runs `Energy/scripts/read/leapfrog-read.sh`. Timeout 90 seconds. |
-| Pick | `leapfrog-read.sh` | When River’s last watt `source` is not `ble` or `ble+cloud`, reads Delta first then tries River. Otherwise prefers the older watt file and falls back once. Then rewrites the agent desk via `desk-live.py`. Lock: `/tmp/ecoflow-ble.lock`. |
-| Reader | `Energy/lib/read_runner.py` | One pack per run. Writes Database `Energy/watts/<alias>-last.json` and `Energy/soc/<alias>-last.json`. On an auth-flag miss it waits 2.5 s and keeps the sample when `soc` is present. |
+| Pick | `leapfrog-read.sh` | Skips discharged packs. When River’s last watt `source` is not `ble` or `ble+cloud`, reads Delta first then tries River. Otherwise prefers the older watt file and falls back once. Then rewrites the agent desk via `desk-live.py`. Lock: `/tmp/ecoflow-ble.lock`. |
+| Reader | `Energy/lib/read_runner.py` | One pack per run. BLE only as of 2026-10-03 ~04:26. Writes Database watts/soc current files. On an auth-flag miss it waits and keeps the sample when `soc` is present. |
 | Owner | `ava-ecoflow-ble.service` | Heartbeat process `Energy/scripts/ble/ble-owner.py`. It does not poll GATT. As of ~15:16 HST it may run `leapfrog-read.sh` once when a watt sample is older than 30 minutes and `/tmp/ecoflow-owner-wake` is past cooldown. |
 | Poller job | `ecoflow_read_cycle` | **Deleted 2026-10-02.** Repeating read is `rr-ecoflow-read.timer` / ENERGY `delta2_read` + `river2pro_read`. `leapfrog-read.sh` stays for the timer. |
 
@@ -59,11 +103,14 @@ Current live logic (landed ~12:06 HST 2026-10-02): no SOC floor. When AC is off,
 
 The standing rule is keep trying whenever AC is off, with no SOC floor; retries are every 45-second timer tick with no cooldown. Master owns the EcoFlow/BLE path and the ML lane stays clear.
 
-Measured 2026-10-02, not a new policy. Pre-dawn, River SOC fell to about 0–1.1%. The old recover gate (on only if SOC ≥5% or AC-in ≥50 W) blocked re-enable, and cloudflared and the desk died with power. Last-known before the drop (overnight, not a live read at 11:45): River about 1.1% SOC, Delta 2 about 2.7%. Desk Cursor was offline from about 05:44–05:51 HST through about 11:45 HST; River SOC and AC were unmeasurable from Master in that window. At reconnect (~11:45–11:49 HST) River was about 16% SOC (cloud), AC out about 46 W, USB-C about 20 W (AC appears on); Delta 2 was about 11% with about 71 W solar in. A `river2pro-ac-on` attempt over BLE returned NeedBindInstallFirst / auth failed and did not change the outlet. Recover no-op reason was then `ac_unknown_or_stale` because the `ac_ports` sample was stale from about 05:45. The soft gate was not touched and the poller was not flipped. Alexander ordered ~11:59 HST that the floor be dropped and `ac_ports` plus the BLE bind be refreshed. Landed ~12:06 HST on the desk: `Energy/scripts/watchdog/river2pro-ac-recover.sh`, `Energy/lib/ecoflow_api.py` (cloud `ac_ports`), `Energy/lib/ble_client.py` and `Energy/lib/read_runner.py` (auth failures name the exception class; NeedBindInstallFirst was River encrypted-session labeling, not a re-pair order for both packs). Live log at ~12:06: `ac_already_on_fresh_output` then `ac_already_on` from `cloud-fallback-river2pro.json` with `ac_out=46`. The 04:30 keep-retry stays. Master landed the BLE/read-side and force-AC portions for `prefer_api=0`; `read_runner` no longer falls through to cloud, and `ac-force.sh` turns AC on only from in-range BLE sight/samples, treats fresh `ac_ports=true` as a no-op, never forces AC off, and is used by River recover. `rr-delta2-ac-force.timer` is active at ~45s; `ble-owner.py` watches both MACs, rescans when sight is older than 90s, and holds no GATT session so the reader can connect. Delta BLE authenticates and reads: 12:23 HST, ~16.5% SOC, ~166W solar, AC on; the force timer is already-on/no-op. River’s last field BLE remains ~05:45; sighting flickers (`seen=1`) but the session ends `error_not_found`, so there is no new field sample; AC-on fired at 12:27 with null readback, not confirmed. `NeedBindInstallFirst` was River encrypted-session labeling, not a re-pair order or dead radio. Cloud is no longer the recover source for BLE packs. **Paused ~12:32 HST:** River BLE chase is paused until Alexander says go; no more edits from Master. Soft gate and live timers were left as they were. **Still open, not fixed:** River still has no field sample since ~05:45. `RR_LOCAL_DATA_POLL=0` remains. Backups are `*.bak-20261002-dual-ac-force`; no commit/push or invented SHA.
+Measured 2026-10-02, not a new policy. Pre-dawn, River SOC fell to about 0–1.1%. The old recover gate (on only if SOC ≥5% or AC-in ≥50 W) blocked re-enable, and cloudflared and the desk died with power. Last-known before the drop (overnight, not a live read at 11:45): River about 1.1% SOC, Delta 2 about 2.7%. Desk Cursor was offline from about 05:44–05:51 HST through about 11:45 HST; River SOC and AC were unmeasurable from Master in that window. At reconnect (~11:45–11:49 HST) River was about 16% SOC (cloud), AC out about 46 W, USB-C about 20 W (AC appears on); Delta 2 was about 11% with about 71 W solar in. A `river2pro-ac-on` attempt over BLE returned NeedBindInstallFirst / auth failed and did not change the outlet. Recover no-op reason was then `ac_unknown_or_stale` because the `ac_ports` sample was stale from about 05:45. The soft gate was not touched and the poller was not flipped. Alexander ordered ~11:59 HST that the floor be dropped and `ac_ports` plus the BLE bind be refreshed. Landed ~12:06 HST on the desk: `Energy/scripts/watchdog/river2pro-ac-recover.sh`, `Energy/lib/ecoflow_api.py` (cloud `ac_ports`), `Energy/lib/ble_client.py` and `Energy/lib/read_runner.py` (auth failures name the exception class). Live log at ~12:06: `ac_already_on_fresh_output` then `ac_already_on` from `cloud-fallback-river2pro.json` with `ac_out=46`. The 04:30 keep-retry stays. Master landed the BLE/read-side and force-AC portions for `prefer_api=0`. **Paused ~12:32 HST (superseded 2026-10-03):** earlier notes called `NeedBindInstallFirst` “labeling only”; that is wrong — see Standing rule above. Soft gate and live timers were left as they were. Backups are `*.bak-20261002-dual-ac-force`; no commit/push or invented SHA.
 
 ## What not to do
 
 - Do not turn `ecoflow_read_cycle` back on in the poller. Voice and GitHub jobs in that queue were freezing the read. The timer is outside that queue.
 - Do not treat `src=cloud` and `STATUS=OK` as a repaired Bluetooth read.
+- Do not treat `NeedBindInstallFirst` as a successful session. Soft-keep keeps GATT; it does not invent heartbeats.
+- Do not leave the EcoFlow phone app on BLE while the hold is supposed to own River (one client).
+- Do not write LCD never-off over BLE before the first live sample (sleeping screen + write = link tear).
 - Do not restart the poller to pick up a `jobs.py` edit unless Alexander asks. Say that the running process still has the old list.
-- Do not document this rule only in a chat. The pages that have to match this note are listed in the test record `Documentation/07-Testing/2026-10-01-ecoflow-ble-hold-and-adapter-reset.md`.
+- Do not document this rule only in a chat. Matching pages: Pacific `Energy/README.md`, this ops note, and the test record `Documentation/07-Testing/2026-10-01-ecoflow-ble-hold-and-adapter-reset.md`.
