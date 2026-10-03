@@ -1,11 +1,11 @@
 # Voice timing
 
-**Generated:** 2026-10-02 15:07 HST  
+**Generated:** 2026-10-02 16:05 HST  
 **Source:** automations log, job wall time from RUN to the result line  
 **Model:** none  
 **Template:** `5 - RootRecord-Library/Agent Context/Documenter-Agent-Context/HANDOFF-TEMPLATE.md`  
 
-## Handoff — 2026-10-02 15:07 HST — voice_timing_report → Library
+## Handoff — 2026-10-02 16:05 HST — voice_timing_report → Library
 
 ### Confirmed facts
 - The station locks the playlist at HH:29:59 and HH:59:59, then chimes on the hour and the half hour.
@@ -22,7 +22,7 @@
 
 ### Evidence
 
-499 finished runs in 55 log files.
+499 finished runs in 56 log files.
 
 | Job | Scheduled |
 | --- | --- |
@@ -36,10 +36,10 @@
 | `voice_bandwidth_desk` | [45] |
 | `voice_current_report` | [45] |
 | `voice_hurricane_desk` | ["05:45", "09:45", "12:45", "16:45", "20:45"] |
-| `voice_morning_report` | ["09:02"] |
-| `voice_midday_report` | ["12:02"] |
-| `voice_late_report` | ["21:02"] |
-| `voice_late_final_report` | ["23:02"] |
+| `voice_morning_report` | — |
+| `voice_midday_report` | — |
+| `voice_late_report` | — |
+| `voice_late_final_report` | — |
 | `radio_news_update` | [8] |
 | `voice_hourly_chime` | [0, 30] |
 
