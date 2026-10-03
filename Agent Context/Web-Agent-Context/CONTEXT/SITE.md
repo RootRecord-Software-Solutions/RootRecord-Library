@@ -24,7 +24,7 @@ Primary navigation (Alexander 2026-10-02): Home, Products, Services, Solutions, 
 | --- | --- |
 | `/` | Entrance. `assets/home.js` draws the globe from the state feed |
 | `/live` | Same globe, with the solar-desk overlay |
-| `/radio` | Embeds the active livestream at `https://www.youtube.com/embed/live_stream?channel=UC6M7U4fXAWuVYhgm_veKecA` for https://www.youtube.com/@rootmcnews. Landed ~13:31 HST in `Website/Home/radio/index.html`. Does not play `live.mp3` or load `radio.js`. `shell.js` stays. 15-min / `/pro/radio` later, not built |
+| `/radio` | Embeds `https://www.youtube.com/embed/2STpx2YzOQA` (RootRecord Live, 2026-10-02). The channel-wide `live_stream?channel=UC6M7U4fXAWuVYhgm_veKecA` showed unavailable and is no longer the iframe. This id does not follow the next broadcast. The sentence above the frame is: This page plays the Root Record livestream that is on now, from the Root Record channel. The meta description is: The Root Record livestream that is on now. Desk `Website/Home/radio/index.html` ~14:30 HST. Does not play `live.mp3` or load `radio.js`. `shell.js` stays. 15-min / `/pro/radio` later, not built |
 | `/reports` and `/reports/<slug>` | Written by `Website/scripts/publish_report_pages.py` from the measured voice files. Spoken transcripts and persona names stay off the page |
 | `/operations` | Public readings. `assets/charts.js` draws charge, solar, and AC when the feed has them |
 | `/status` | Public system status |
@@ -56,6 +56,8 @@ The operations bundle the future API is meant to serve is written on the desk by
 `assets/live.js` marks a pack **POWERED OFF** when the last state of charge is 5 percent or less and the reading is older than 30 minutes. A quiet pack above 5 percent is **STALE** after 20 minutes, not powered off. Charts skip a powered-off pack. Do not draw its last watts as live.
 
 ## Radio on the page
+
+2026-10-02 ~14:30 HST Cove replaced the iframe. The channel-wide embed showed unavailable. The page now embeds `https://www.youtube.com/embed/2STpx2YzOQA` and will not follow the next broadcast on its own. No commit. The sentence above the frame is: This page plays the Root Record livestream that is on now, from the Root Record channel. The meta description is: The Root Record livestream that is on now.
 
 2026-10-02 ~13:31 HST the page embeds the active livestream on https://www.youtube.com/@rootmcnews (`live_stream?channel=UC6M7U4fXAWuVYhgm_veKecA`). It does not play the mix. The station mix is still `https://radio.rootrecord.cloud/radio/live.mp3`, `audio/mpeg` at 128 kbps, and that stream was not touched. Now-playing is `https://radio.rootrecord.cloud/radio/now.json`. The station library is Opus and is not what the browser plays. `www` stays on Vercel. `radio.rootrecord.cloud` is the Mainland One tunnel to `127.0.0.1:8092`. Do not put the radio on the API tunnel, and do not put the API on the radio tunnel.
 

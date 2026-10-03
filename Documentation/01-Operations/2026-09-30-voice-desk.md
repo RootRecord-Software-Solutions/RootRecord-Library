@@ -1,5 +1,7 @@
 # Voice desk — current as of 2026-10-02
 
+2026-10-02 ~14:33 HST: Report Instructor changed the hurricane desk speech, no new audio, no commit. `Media/Voice/scripts/voice_reports.py` `b_hurricane_desk` speaks sentences: the storm, distance from the nearest island, movement, winds, and whether Honolulu has a watch. It does not speak coordinates, bearings, or the nearest-hurricane dump. The markdown table still has the raw track, including position and bearing. `2 - RootRecord-Database/Media/Audio/Voice/hurricane_desk_current.wav` is stamped 12:52 HST, so that clip is the old wording. The next `voice_hurricane_desk` time in `jobs.py` is 16:45, and the job stays off unless `RR_VOICE_HURRICANE=1`. No commit.
+
 2026-10-02 ~14:22 HST: short weekdays speak in full. `Media/Voice/scripts/speakable.py` turns mon through sat into Monday through Saturday. Sun stays sun so a solar line does not become Sunday. The poller was restarted at 14:22 HST and loaded the :45 list. `run-poller.sh` still defaults `RR_VOICE_DELIVER` to 1. No commit.
 
 2026-10-02 ~14:12 HST: locals are minute [45] in `jobs.py`, news is [8] and pushes only part 1 and part 2, and the current report is off. The poller is still frozen, so this does not run until a clean start.
