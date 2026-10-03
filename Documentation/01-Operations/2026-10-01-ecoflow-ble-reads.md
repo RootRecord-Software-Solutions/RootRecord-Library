@@ -1,5 +1,7 @@
 # EcoFlow BLE reads
 
+2026-10-02 ~16:07–16:10 HST: `Energy/lib/read_runner.py` waits 2.5 s after an auth-flag miss and keeps the sample when `soc` is set. `Energy/scripts/read/leapfrog-read.sh` reads Delta before River when River’s last watt `source` is not `ble` or `ble+cloud`; otherwise it still prefers the older watt file and falls back once. Soft gate and live timers were not touched. No commit.
+
 2026-10-02 ~15:16 HST: `Energy/scripts/ble/ble-owner.py` still does not poll GATT. When either `delta2-last.json` or `river2pro-last.json` under Database `Energy/watts/` is older than 30 minutes and `/tmp/ecoflow-owner-wake` is past the same cooldown, the owner runs `Energy/scripts/read/leapfrog-read.sh` once and stamps the wake file. Soft gate and live timers were not touched. No commit.
 
 Written 1 October 2026, 23:11 HST, from the Pacific files named below. This is the current rule. A work order or Energy README sentence that disagrees with this page is stale.
@@ -10,8 +12,8 @@ Written 1 October 2026, 23:11 HST, from the Pacific files named below. This is t
 | --- | --- | --- |
 | Timer | user unit `rr-ecoflow-read.timer` | Starts a read 20 seconds after the previous start. `OnBootSec=20`. Enabled. |
 | Read | user unit `rr-ecoflow-read.service` | Oneshot. Runs `Energy/scripts/read/leapfrog-read.sh`. Timeout 90 seconds. |
-| Pick | `leapfrog-read.sh` | Prefers the pack with the older watt file. If that read fails, tries the other pack. Then rewrites the agent desk via `desk-live.py`. Lock: `/tmp/ecoflow-ble.lock`. |
-| Reader | `Energy/lib/read_runner.py` | One pack per run. Writes Database `Energy/watts/<alias>-last.json` and `Energy/soc/<alias>-last.json`. |
+| Pick | `leapfrog-read.sh` | When River’s last watt `source` is not `ble` or `ble+cloud`, reads Delta first then tries River. Otherwise prefers the older watt file and falls back once. Then rewrites the agent desk via `desk-live.py`. Lock: `/tmp/ecoflow-ble.lock`. |
+| Reader | `Energy/lib/read_runner.py` | One pack per run. Writes Database `Energy/watts/<alias>-last.json` and `Energy/soc/<alias>-last.json`. On an auth-flag miss it waits 2.5 s and keeps the sample when `soc` is present. |
 | Owner | `ava-ecoflow-ble.service` | Heartbeat process `Energy/scripts/ble/ble-owner.py`. It does not poll GATT. As of ~15:16 HST it may run `leapfrog-read.sh` once when a watt sample is older than 30 minutes and `/tmp/ecoflow-owner-wake` is past cooldown. |
 | Poller job | `ecoflow_read_cycle` in `jobs.py` | **Off.** `enabled` is false. The timer owns the repeating read. `ecoflow_read_boot` still runs once when a poller process starts. |
 
@@ -33,7 +35,7 @@ If both `delta2-last.json` and `river2pro-last.json` under Database `Energy/watt
 
 This account cannot restart `bluetooth.service` without a password. A power cycle clears the BlueZ device cache. A firmware wedge on the Realtek RTL8922AU (`hci0`) still needs a reboot or a `bluetoothd` restart. The kernel line `ACL packet for unknown connection handle` means the controller is already dropping the link.
 
-Leapfrog still prefers the older watt file first. As of 2026-10-02 ~01:11 HST, if that preferred read exits non-zero it falls back to the other pack once, then always rewrites the agent desk with `Communications/telegram/scripts/desk-live.py` from the last files. After one pack disappears from the scan, that file stays older, so most retries still hit the same pack until the other file is also stale. The adapter reset remains the recovery for a wedged radio. Do not "fix" it by publishing quota for the pack that failed the scan.
+As of 2026-10-02 ~16:10 HST, when River’s last watt `source` is not `ble` or `ble+cloud`, leapfrog reads Delta first then tries River. When River already has a live BLE sample it still prefers the older watt file first; if that preferred read exits non-zero it falls back to the other pack once, then always rewrites the agent desk with `Communications/telegram/scripts/desk-live.py` from the last files. After one pack disappears from the scan, that file stays older, so most retries still hit the same pack until the other file is also stale. The adapter reset remains the recovery for a wedged radio. Do not "fix" it by publishing quota for the pack that failed the scan.
 
 ## A pack at 5 percent or less that goes quiet
 

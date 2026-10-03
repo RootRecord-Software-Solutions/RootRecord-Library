@@ -1,5 +1,7 @@
 # US-Mainland-One
 
+2026-10-02 ~16:05 HST: Pacific `live_picture` still writes the overlaid desk still locally (`Media/Video/live-frame.png`); it no longer pushes that still to this host’s YouTube thumb path. Replacing the thumb restarted the encoder and dropped the station. Operator detail: [radio station](../01-Operations/2026-10-01-radio-station.md).
+
 2026-10-02 ~15:16–15:42 HST: Pacific `live_picture` (gate `RR_LIVE_PICTURE`) pushes the overlaid desk still to this host’s YouTube thumb path (`RR_YT_THUMB`, default `/home/ubuntu/youtube-stills/thumb.png`) over `RR_RADIO_SSH` (default `ml1`). Still image only; no second encoder. Operator detail: [radio station](../01-Operations/2026-10-01-radio-station.md).
 
 Current as of 2026-10-02 ~03:14 HST. This page is the live host. The operator guide is [2026-10-01 radio station](../01-Operations/2026-10-01-radio-station.md). The 2026-09-29 import, globe, and fallback inventory is [below](#2026-09-29-import-and-pause). That section is that day's continuity node. It is not the live host.
