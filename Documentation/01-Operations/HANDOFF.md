@@ -32,7 +32,7 @@ Generated files live in `2 - RootRecord-Database/System/status/`. That directory
 
 ## Working
 
-- **HOLD ~14:09 HST:** Rootserver ops are stopped. Mainland froze the poller and dropped the current report render. Nothing else plays or posts. The tunnel stays up. ML1 playback was not stopped. Leave it until Alexander says ops are back on.
+- **Closed ~14:22 HST:** The ~14:09 hold is over. Alexander said clean up all sides and reboot if needed. Mainland restarted the poller at 14:22 HST. The tunnel came back on `rootserver.rootrecord.cloud`. This process loaded the :45 schedule. Short weekdays now speak in full, except sun. No commit.
 
 - **PARTIAL ~12:27 HST — persistent BLE / force-AC:** Master landed the BLE/read-side changes for packs with `prefer_api=0`: `read_runner` no longer falls through to cloud; `ac-force.sh` turns AC on only from in-range BLE sight/samples, treats fresh `ac_ports=true` as a no-op, never forces AC off, and River recover uses it; `rr-delta2-ac-force.timer` is active at ~45s. `ble-owner.py` watches both MACs, rescans when sight is older than 90s, and holds no GATT session so the reader can connect. Delta BLE works: 12:23 HST, ~16.5% SOC, ~166W solar, AC on; the force timer is already-on/no-op. River’s last field BLE remains ~05:45; sighting flickers (`seen=1`) but the session ends `error_not_found`, so there is no new field sample; AC-on fired at 12:27 with null readback, not confirmed. `NeedBindInstallFirst` was River encrypted-session labeling, not a re-pair order or dead radio; Delta BLE reads authenticate. Cloud is no longer the recover source for BLE packs. **Paused ~12:32 HST:** River BLE chase is paused until Alexander says go; no more edits from Master. Soft gate and live timers were left as they were. **Still open, not fixed:** River still has no field sample since ~05:45. `RR_LOCAL_DATA_POLL=0` remains. Backups are `*.bak-20261002-dual-ac-force`; no commit, push, or invented SHA. See `2026-10-01-ecoflow-ble-reads.md` and Pacific `Energy/README.md`.
 
@@ -109,6 +109,10 @@ Non-council callers and `flm-warmup.sh` still default to `llama3.2:1b`. The coun
 - Whether root monitor is a daemon that should be running or a desktop app. It is the GTK panel today.
 
 ## Recent changes
+
+2026-10-02 ~14:24 HST: Master’s post-restart read. Pacific looks clean. Soft gate is still `RR_LOCAL_DATA_POLL=0`. The tunnel is up. EcoFlow timers are running. Nothing new has rendered since 14:08. Next desk batch is 2:45. That is Master’s read. No commit.
+
+2026-10-02 ~14:22 HST: Alexander said "fri" should say Friday, then clean up and reboot if needed. Desk-only, not committed. `Media/Voice/scripts/speakable.py` expands mon, tue, wed, thu, fri, and sat to the full weekday. Sun is left alone so solar lines stay sun. `Automations/scripts/poller/poller-dashboard.py` and `Apps/Control-Panel/rr_control_panel.py` clocks use `%A`. Mainland restarted the poller at 14:22 HST. The tunnel came back on rootserver.rootrecord.cloud. This process loaded the :45 schedule. Mainland says the next news is at 3:08 and the next desk reports are at 2:45. Those times are his read. `Automations/scripts/poller/run-poller.sh` still defaults `RR_VOICE_DELIVER` to 1, so the hourly notes can still Telegram. The ~14:09 freeze is closed. No commit.
 
 2026-10-02 ~14:16 HST: Alexander said the 8-hour and 24-hour posts are not needed. Hourly updates stay. `discord_report_8h` and `discord_report_24h` are `enabled` False in `Automations/scripts/jobs.py`. The poller is still frozen, so this loads on a clean start. `RR_VOICE_DELIVER=1` is still set, so the hourly notes would still Telegram. No commit.
 
