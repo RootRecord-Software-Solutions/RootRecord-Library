@@ -41,7 +41,24 @@ Vendor change: `Energy/lib/vendor/eflib/connection.py` `_check_auth` — on `Nee
 
 Success signal: hold log `sample soc=… src=ble`, and Database `Energy/watts/river2pro_current.json` / `soc/river2pro_current.json` show `source: ble` with a fresh `at`.
 
+### ML1 push every minute (2026-10-03 ~04:44 HST)
+
+Pacific pushes the current Energy soc/watts snapshot straight to ML1 over SSH — not through the poller, not through EcoFlow cloud.
+
+| Piece | Role |
+| --- | --- |
+| Script | `Energy/scripts/push/ml1-energy-stats.py` |
+| Timer | user unit `rr-ml1-energy-stats.timer` (`OnUnitActiveSec=1min`) |
+| ML1 JSON | `/home/ubuntu/youtube-stills/energy_current.json` |
+| ML1 line | `/home/ubuntu/youtube-stills/energy_current.txt` |
+| ML1 radio | `/home/ubuntu/rootrecord-radio/state/stage/energy_current.json` |
+| Thumb | `live_picture.py energy` — BLE gauges only, atomic `thumb.png` + `clock.txt` |
+
+Disable thumb refresh with `RR_ENERGY_ML1_THUMB=0`. Soft gate untouched.
+
 ## Changelog
+
+2026-10-03 ~04:44 HST: Armed `rr-ml1-energy-stats.timer` — every-minute SSH push of energy_current + energy-mode YouTube thumb to ML1. Soft gate untouched. No commit.
 
 2026-10-03 ~04:42 HST: Packet-logged NeedBind path; documented LCD + bind standing rule above. Soft gate untouched. No commit.
 
